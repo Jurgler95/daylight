@@ -99,6 +99,12 @@ jobs:
         working-directory: android
         run: ./gradlew assembleRelease -PreactNativeArchitectures=arm64-v8a
 
+      # Das App Bundle für den Play Store. Anders als die APK mit 32- und 64-Bit-ARM, weil Play
+      # daraus je Gerät eine passende APK schneidet und sonst ältere Geräte ausschlösse.
+      - name: App Bundle bauen
+        working-directory: android
+        run: ./gradlew bundleRelease -PreactNativeArchitectures=arm64-v8a,armeabi-v7a
+
       # Der Fingerabdruck ist öffentlich und steht auch im README. Weicht er ab, wurde mit einem
       # anderen Schlüssel signiert, und das Update ließe sich nicht über die installierte App spielen.
       - name: Signatur prüfen
@@ -113,6 +119,13 @@ jobs:
             echo "::error::Die APK ist nicht mit dem Daylight-Schlüssel signiert"
             exit 1
           fi
+          BUNDLE=$(keytool -printcert -jarfile android/app/build/outputs/bundle/release/app-release.aab \
+            | sed -n 's/^[[:space:]]*SHA256: //p' | sort -u)
+          echo "Signatur Bundle: $BUNDLE"
+          if [ "$BUNDLE" != "$EXPECTED" ]; then
+            echo "::error::Das App Bundle ist nicht mit dem Daylight-Schlüssel signiert"
+            exit 1
+          fi
           rm -f "$RUNNER_TEMP/daylight-release.jks"
 
       # Kein INTERNET, keine Cloud-Sicherung, Health Connect nur lesend. Schlägt das fehl, wird
@@ -120,11 +133,12 @@ jobs:
       - name: Manifest prüfen
         run: |
           cp android/app/build/outputs/apk/release/app-release.apk "daylight-$VERSION.apk"
+          cp android/app/build/outputs/bundle/release/app-release.aab "daylight-$VERSION.aab"
           node .github/scripts/check-manifest.mjs "daylight-$VERSION.apk"
 
       # Erst als Entwurf anlegen oder einen Entwurf aus einem abgebrochenen Lauf weiterverwenden,
-      # dann die APK hochladen und zuletzt veröffentlichen. So ist ein Release erst sichtbar, wenn
-      # die APK dranhängt, und ein Rerun landet im selben Zustand.
+      # dann APK und App Bundle hochladen und zuletzt veröffentlichen. So ist ein Release erst
+      # sichtbar, wenn beide dranhängen, und ein Rerun landet im selben Zustand.
       - name: Release veröffentlichen
         run: |
           if gh release view "$TAG" >/dev/null 2>&1; then
@@ -133,5 +147,5 @@ jobs:
             gh release create "$TAG" --draft --target "$GITHUB_SHA" \
               --title "Daylight $VERSION" --notes-file release-notes.md
           fi
-          gh release upload "$TAG" "daylight-$VERSION.apk" --clobber
+          gh release upload "$TAG" "daylight-$VERSION.apk" "daylight-$VERSION.aab" --clobber
           gh release edit "$TAG" --draft=false

@@ -7,7 +7,8 @@ description: Neue Daylight-Version veröffentlichen: hebt die Versionsnummer, sc
 
 Ein Durchlauf bringt eine neue sideloadbare Version heraus: Versionsnummer hoch, Updatehistorie
 ergänzt, Commit gepusht, dann `.github/workflows/release.yml` auf dem Branch gestartet. Die
-Pipeline baut die APK, prüft ihr Manifest, legt sie mit den Stichpunkten als GitHub-Release ab und
+Pipeline baut die APK und das App Bundle für den Play Store, prüft Manifest und Signatur, legt
+beides mit den Stichpunkten als GitHub-Release ab und
 setzt dabei den Tag `vX.Y.Z`. Gebaut wird nicht mehr lokal. Den Tag nie selbst setzen oder pushen:
 der Workflow bricht ab, wenn er schon existiert. Die Schritte laufen in dieser Reihenfolge, nichts
 überspringen. Übernommen aus der Zyklus-App (`../menstruation-cycle/.claude/skills/deploy/`),
@@ -188,8 +189,9 @@ GH_TOKEN=$(gh auth token --user Jurgler95) gh release view "v$VERSION" --repo Ju
 git fetch --tags origin
 ```
 
-Das Release muss genau eine `daylight-$VERSION.apk` tragen, der Fetch holt den Tag, den der
-Workflow gesetzt hat. Aufs Handy kommt sie direkt aus dem GitHub-Release, der Link reicht. Lehnt
+Das Release muss genau eine `daylight-$VERSION.apk` und eine `daylight-$VERSION.aab` tragen, der
+Fetch holt den Tag, den der Workflow gesetzt hat. Die `.aab` lädt Paul selbst in der Play Console
+hoch. Aufs Handy kommt die APK direkt aus dem GitHub-Release, der Link reicht. Lehnt
 das Handy die Installation ab: unter Android muss dem Browser einmalig erlaubt werden, Apps aus
 unbekannten Quellen zu installieren. Meldet es einen Signaturkonflikt, stammt die installierte
 Version aus einem Build mit anderem Schlüssel und muss einmal deinstalliert werden (vorher unter
@@ -198,8 +200,10 @@ Version aus einem Build mit anderem Schlüssel und muss einmal deinstalliert wer
 ## 9. Melden
 
 Kurz zusammenfassen: neue Versionsnummer und `versionCode`, die Stichpunkte, die in der App
-stehen, Link zum GitHub-Release, Größe der APK und dass Manifest- und Signaturprüfung
-durchliefen. Die APK ist mit dem eigenen Release-Schlüssel signiert (Fingerabdruck im README).
+stehen, Link zum GitHub-Release, Größe von APK und App Bundle und dass Manifest- und
+Signaturprüfung durchliefen. Beide sind mit dem eigenen Release-Schlüssel signiert (Fingerabdruck
+im README), der zugleich der App-Signaturschlüssel in der Play Console ist. Erinnern, dass die
+`.aab` für den Play Store von Hand in der Play Console hochgeladen wird.
 
 ## Notfall: lokal bauen
 

@@ -29,7 +29,7 @@ Daylight ist nach dem Vorbild von [Daylio](https://daylio.net/) entstanden. Mit 
 
 ## Installieren
 
-Daylight gibt es nicht im Play Store. Die APK liegt bei jedem [Release](https://github.com/Jurgler95/daylight/releases/latest). Auf dem Handy herunterladen und öffnen; Android fragt einmalig, ob der Browser Apps installieren darf.
+Die APK liegt bei jedem [Release](https://github.com/Jurgler95/daylight/releases/latest). Auf dem Handy herunterladen und öffnen; Android fragt einmalig, ob der Browser Apps installieren darf.
 
 Jede APK ist mit demselben Schlüssel signiert. Wer das prüfen will, vergleicht den SHA-256-Fingerabdruck des Zertifikats (`apksigner verify --print-certs daylight-X.Y.Z.apk`):
 
