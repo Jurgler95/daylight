@@ -61,11 +61,16 @@ Regeln für die Stichpunkte, die in der App und im GitHub-Release landen:
   Build-Änderungen und interne Umbauten kommen nicht vor.
 - Höchstens fünf Punkte. Weniger ist besser, verwandte Punkte zusammenfassen.
 - Ein kurzer Satz pro Punkt, aktiv formuliert, kein Punkt am Ende, keine Gedankenstriche.
-- Deutsch, in der Sprache der App. Keine Dateinamen, keine Funktionsnamen, keine Commit-Hashes.
+- Auf Deutsch und auf Englisch, mit gleich vielen Punkten in derselben Reihenfolge. Das Englische
+  ist eine natürliche Übersetzung mit den Begriffen der englischen Oberfläche (`lib/i18n/locales/en.json`,
+  etwa „Today“, „More“, „Insights“), keine wörtliche. Keine Dateinamen, keine Funktionsnamen, keine
+  Commit-Hashes.
 - Wenn sich in der App nichts geändert hat: das sagen und nachfragen, ob das Release trotzdem raus
-  soll. Dann reicht ein Punkt wie „Kleinere Korrekturen im Hintergrund".
+  soll. Dann reicht ein Punkt wie „Kleinere Korrekturen im Hintergrund" bzw. „Minor fixes in the
+  background".
 
-Gut: „Der Kalender zeigt geplante Aktivitäten an künftigen Tagen"
+Gut: „Der Kalender zeigt geplante Aktivitäten an künftigen Tagen" / „The calendar shows planned
+activities on future days"
 Schlecht: „AheadMarker in useCalendarMarkers eingeführt"
 
 ## 3. Version heben
@@ -99,14 +104,15 @@ VERSION=$(node -p "require('./app.json').expo.version")
 ## 4. Updatehistorie ergänzen
 
 Neuen Eintrag als erstes Element in `RELEASES` in `lib/changelog/index.ts` einfügen: `version` wie
-eben gesetzt, `date` das heutige Datum als `YYYY-MM-DD`, `changes` die Stichpunkte aus Schritt 2.
+eben gesetzt, `date` das heutige Datum als `YYYY-MM-DD`, `changes` die Stichpunkte aus Schritt 2 als
+`{ de: [...], en: [...] }`.
 Bestehende Einträge bleiben unverändert stehen. Ausnahme: Ist die vorige Version nie erschienen,
 weil ihr Lauf an einem Codefehler oder an der Manifestprüfung scheiterte (kein Tag `v<vorige>` auf
 GitHub), wird ihr Eintrag auf die neue Version umbenannt und ergänzt statt ein zweiter angelegt.
 
 Die App zeigt die Liste unter „Mehr" → „Updatehistorie" ([app/more/changelog.tsx](app/more/changelog.tsx)),
-der Eintrag zur laufenden Version ist dort hervorgehoben. Dieselben Stichpunkte landen in der
-Beschreibung des GitHub-Releases.
+der Eintrag zur laufenden Version ist dort hervorgehoben, in der eingestellten Sprache. Dieselben
+Stichpunkte landen in der Beschreibung des GitHub-Releases, erst Deutsch, darunter Englisch.
 
 ## 5. Lokal prüfen
 
@@ -118,7 +124,7 @@ node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON .github/scripts/release-note
 Die Pipeline prüft dasselbe noch einmal, aber lokal fällt ein Fehler in Sekunden auf statt nach
 Minuten. Das Skript gibt die Release-Notes aus und bricht ab, wenn `app.json`, `package.json`,
 `package-lock.json` und der oberste Eintrag der Updatehistorie nicht dieselbe Version tragen, wenn
-der Eintrag leer ist oder wenn `versionCode` nicht über dem des letzten Versions-Tags liegt. Für
+eine der beiden Sprachen leer ist, wenn Deutsch und Englisch verschieden viele Punkte haben oder wenn `versionCode` nicht über dem des letzten Versions-Tags liegt. Für
 den letzten Vergleich vorher `git fetch --tags origin`. Schlägt etwas fehl:
 abbrechen, melden, nichts committen.
 
