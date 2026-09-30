@@ -41,7 +41,7 @@ Daylight ist kein Medizinprodukt und ersetzt keine Beratung oder Behandlung. Wem
 
 ## Entwicklung
 
-Setup, Architektur und Release-Ablauf stehen in [`docs/development.md`](docs/development.md).
+Setup, Architektur und Release-Ablauf stehen in [`docs/development.md`](docs/development.md). Pull Requests nehme ich in der Regel nicht an, Fehlermeldungen als Issue sind willkommen, siehe [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## Lizenz
 
