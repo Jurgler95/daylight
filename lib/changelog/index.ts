@@ -19,6 +19,20 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.17',
+    date: '2026-09-30',
+    changes: {
+      de: [
+        '„Beispieldaten laden“ erzeugt ein Jahr auf Englisch, wenn die App auf Englisch eingestellt ist',
+        'Englische Daylio-Dateien ordnen weitere Aktivitäten den passenden Standardaktivitäten zu',
+      ],
+      en: [
+        '“Load sample data” creates a year in English when the app is set to English',
+        'English Daylio files match more activities to the built-in ones',
+      ],
+    },
+  },
+  {
     version: '1.0.16',
     date: '2026-09-30',
     changes: {
