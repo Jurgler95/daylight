@@ -16,6 +16,16 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.14',
+    date: '2026-09-30',
+    changes: [
+      'Daylight gibt es jetzt auch auf Englisch, umschalten lässt sich unter „Mehr“ bei „Sprache“',
+      'Datum und Zahlen erscheinen passend zur gewählten Sprache',
+      'Englische Daylio-Dateien landen beim Import in den passenden Gruppen',
+      'Neue Tagebücher starten mit eigenen Stimmungsnamen, die schwächste Stufe heißt jetzt „Mies“',
+    ],
+  },
+  {
     version: '1.0.13',
     date: '2026-09-30',
     changes: [
