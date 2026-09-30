@@ -19,6 +19,14 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.15',
+    date: '2026-09-30',
+    changes: {
+      de: ['Die Updatehistorie gibt es jetzt auch auf Englisch'],
+      en: ['The update history is now also available in English'],
+    },
+  },
+  {
     version: '1.0.14',
     date: '2026-09-30',
     changes: {
