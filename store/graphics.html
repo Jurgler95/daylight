@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Daylight Store-Grafiken</title>
+<!--
+  Vorlage für alle Play-Store-Grafiken. Gerendert wird mit `node scripts/store-graphics.mjs`,
+  das diese Seite je Grafik mit `?asset=<name>` in headless Chrome öffnet.
+  Zum Anschauen im Browser: store/graphics.html?asset=shot-1&lang=en (ohne lang: Deutsch)
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=block" rel="stylesheet">
+<style>
+  :root {
+    --teal: #11786A;
+    --teal-deep: #0A4F47;
+    --blue: #1A5FC2;
+    --night: #0B2250;
+    --cream: #FBF7F0;
+    --sun: #F2A43A;
+    --sun-light: #FFD27A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #000; overflow: hidden; }
+  body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: var(--cream); }
+  .canvas { position: relative; overflow: hidden; }
+
+  /* Himmel: tiefes Blau oben, Petrol unten, warmer Horizont um die Sonne */
+  .sky {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(120% 70% at 50% 110%, rgba(17,120,106,.95) 0%, rgba(17,120,106,0) 70%),
+      linear-gradient(170deg, var(--night) 0%, #123A86 38%, var(--blue) 62%, #0F6F74 100%);
+  }
+  .glow { position: absolute; border-radius: 50%; pointer-events: none; }
+  /* Sonne: weißglühender Kern, weicher Rand ohne Kante, Korona, feine Strahlen und ein Hauch Linsenreflex */
+  .sun-part { position: absolute; border-radius: 50%; pointer-events: none; mix-blend-mode: screen; }
+  .sun-disc {
+    position: absolute; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(circle at 50% 50%, #FFFFFF 0%, #FFFFFF 38%, #FFF6D8 56%, rgba(255,226,150,.9) 70%, rgba(255,196,100,.45) 84%, rgba(255,180,90,0) 100%);
+    filter: blur(4px);
+  }
+  .sun-rays {
+    position: absolute; border-radius: 50%; pointer-events: none; mix-blend-mode: screen; filter: blur(7px);
+    background: repeating-conic-gradient(from 7deg, rgba(255,214,150,.30) 0deg 1.4deg, rgba(255,214,150,0) 3deg 13deg);
+    -webkit-mask-image: radial-gradient(circle, #000 10%, rgba(0,0,0,.35) 26%, transparent 55%);
+            mask-image: radial-gradient(circle, #000 10%, rgba(0,0,0,.35) 26%, transparent 55%);
+  }
+  .sun-streak {
+    position: absolute; pointer-events: none; mix-blend-mode: screen; border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(255,240,205,.75), rgba(255,210,140,.25) 45%, rgba(255,200,120,0));
+  }
+  .grain {
+    position: absolute; inset: 0; opacity: .09; mix-blend-mode: overlay; pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  svg.deco { position: absolute; overflow: visible; pointer-events: none; }
+
+  /* Überschrift */
+  .head { position: absolute; left: 84px; right: 84px; }
+  .kicker {
+    display: inline-flex; align-items: center; gap: 14px;
+    font-weight: 700; font-size: 30px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--sun-light);
+  }
+  .kicker::before { content: ''; width: 44px; height: 4px; border-radius: 2px; background: var(--sun-light); }
+  h1 {
+    margin-top: 22px; font-weight: 800; font-size: 96px; line-height: 1.02; letter-spacing: -.035em;
+    text-shadow: 0 6px 40px rgba(5,20,50,.35);
+  }
+  h1 em {
+    font-style: normal;
+    background: linear-gradient(100deg, #FFE9A8 0%, var(--sun-light) 45%, #FFB45C 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .sub { margin-top: 26px; font-weight: 500; font-size: 38px; line-height: 1.35; color: rgba(251,247,240,.86); max-width: 860px; }
+
+  /* Handy */
+  .phone {
+    position: absolute; border-radius: 76px; padding: 16px;
+    background: linear-gradient(145deg, #3A3F4A 0%, #16181D 30%, #0B0C0F 70%, #2B2F37 100%);
+    box-shadow:
+      inset 0 0 0 2px rgba(255,255,255,.14),
+      inset 0 0 0 5px #050608,
+      0 60px 120px -20px rgba(3,12,35,.75),
+      0 30px 60px -30px rgba(0,0,0,.6);
+  }
+  .phone .screen { width: 100%; height: 100%; border-radius: 62px; overflow: hidden; position: relative; background: #F3F8FF; }
+  .phone .screen img { width: 100%; display: block; }
+  .phone .cam { position: absolute; top: 34px; left: 50%; width: 30px; height: 30px; margin-left: -15px; border-radius: 50%; background: #07080A; box-shadow: inset 0 0 0 4px #1b1e24; z-index: 2; }
+  .phone::after { /* Glanz auf dem Glas */
+    content: ''; position: absolute; inset: 16px; border-radius: 62px; pointer-events: none;
+    background: linear-gradient(115deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,0) 28%);
+  }
+
+  /* Herausgezoomter Ausschnitt aus dem echten Screenshot */
+  .pop {
+    position: absolute; background-repeat: no-repeat; border-radius: 44px;
+    box-shadow: 0 50px 90px -20px rgba(3,12,35,.65), 0 0 0 1px rgba(255,255,255,.6), 0 0 0 10px rgba(255,255,255,.18);
+  }
+
+  /* Merkmale ohne Handy */
+  .badges { position: absolute; left: 84px; right: 84px; display: flex; gap: 22px; flex-wrap: wrap; }
+  .badge {
+    display: flex; align-items: center; gap: 16px; padding: 18px 28px 18px 20px; border-radius: 999px;
+    background: rgba(255,255,255,.12); border: 1.5px solid rgba(255,255,255,.28);
+    backdrop-filter: blur(12px); font-weight: 700; font-size: 32px;
+  }
+  .badge svg { width: 44px; height: 44px; }
+
+  .bubble { position: absolute; border-radius: 50%; display: grid; place-items: center; box-shadow: 0 30px 60px -18px rgba(3,12,35,.6), inset 0 -8px 20px rgba(0,0,0,.08); }
+  .bubble svg { width: 58%; height: 58%; }
+
+  /* Feature Graphic */
+  .wordmark { position: absolute; display: flex; align-items: center; gap: 26px; }
+  .wordmark .name { font-weight: 800; font-size: 84px; letter-spacing: -.04em; line-height: 1; }
+  .tagline { position: absolute; font-weight: 500; font-size: 30px; line-height: 1.35; color: rgba(251,247,240,.9); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const RAW = { w: 1080, h: 2424 };
+const params = new URLSearchParams(location.search);
+const LANG = params.get('lang') === 'en' ? 'en' : 'de';
+const SHOTS = `screens/${LANG}/`;
+
+// Texte je Sprache: [Kicker, Überschrift, Unterzeile]
+const TEXT = {
+  de: {
+    1: ['Stimmungstagebuch', 'Wie war<br>dein <em>Tag?</em>', 'Ein Tipp genügt. Notiz, Foto und Aktivitäten, wenn du magst.'],
+    2: ['Schnell eingetragen', 'Antippen.<br>Auswählen. <em>Fertig.</em>', 'Stimmung und Aktivitäten in Sekunden, sortiert in deinen eigenen Gruppen.'],
+    3: ['Kalender', 'Jeder Tag<br>in <em>seiner Farbe</em>', 'Dein Monat auf einen Blick. Geplantes für die nächsten Tage gleich dabei.'],
+    4: ['Einblicke', 'Erkenne deine<br><em>Muster</em>', 'Verlauf, Wochentage und was mit guten Tagen zusammenfällt. Beschreibend, nie als Diagnose.'],
+    5: ['Jahr in Pixeln', 'Dein Jahr<br>auf <em>einen Blick</em>', 'Jeder Tag ein Pixel. Tippen öffnet den Tag.'],
+    6: ['Ausblick', 'Ein <em>ehrlicher</em><br>Blick nach vorn', 'Nur wo die Schätzung auf deinen Daten besser ist als Raten. Sonst sagt Daylight das auch.'],
+    7: ['Privat', 'Bleibt auf<br><em>deinem Handy</em>', 'Deine Einträge liegen nur auf dem Gerät. Sicherungen teilst du selbst, wenn du willst.'],
+    badges: ['Kein Internet', 'Kein Konto', 'Keine Werbung', 'App-Sperre'],
+    tagline: 'Dein Stimmungstagebuch.<br>Privat, offline, auf deinem Gerät.',
+  },
+  en: {
+    1: ['Mood journal', 'How was<br>your <em>day?</em>', 'One tap is enough. Notes, a photo and activities if you like.'],
+    2: ['Quick entry', 'Tap.<br>Pick. <em>Done.</em>', 'Mood and activities in seconds, sorted into your own groups.'],
+    3: ['Calendar', 'Every day<br>in <em>its color</em>', 'Your month at a glance, with plans for the days ahead.'],
+    4: ['Insights', 'Spot your<br><em>patterns</em>', 'Trends, weekdays and what comes with good days. Descriptive, never a diagnosis.'],
+    5: ['Year in pixels', 'Your year<br>at <em>a glance</em>', 'Every day a pixel. Tap one to open the day.'],
+    6: ['Outlook', 'An <em>honest</em><br>look ahead', 'Only where the estimate beats guessing on your own data. Otherwise Daylight says so.'],
+    7: ['Private', 'Stays on<br><em>your phone</em>', 'Your entries live only on your device. You share backups yourself, if you want to.'],
+    badges: ['No internet', 'No account', 'No ads', 'App lock'],
+    tagline: 'Your mood journal.<br>Private, offline, on your device.',
+  },
+}[LANG];
+const MOOD = {
+  5: { strong: '#007060', soft: '#C8F3E3' },
+  4: { strong: '#336E08', soft: '#DDF4C2' },
+  3: { strong: '#876200', soft: '#FFEC9E' },
+  2: { strong: '#B03512', soft: '#FFDCC0' },
+  1: { strong: '#9C1C7A', soft: '#F8D8F0' },
+};
+
+const el = (tag, attrs = {}, html = '') => {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === 'style' && typeof v === 'object') Object.assign(n.style, v); else n.setAttribute(k, v);
+  }
+  n.innerHTML = html;
+  return n;
+};
+const px = (v) => `${v}px`;
+
+// Wellenring und Spirale aus dem Logo, als Formel statt Pfad nachgebaut.
+function ringPath(cx, cy, r, amp, waves, steps = 360) {
+  let d = '';
+  for (let i = 0; i <= steps; i++) {
+    const a = (i / steps) * Math.PI * 2 - Math.PI / 2;
+    const rr = r + amp * Math.cos(a * waves + Math.PI / 2 * waves + Math.PI);
+    d += `${i ? 'L' : 'M'}${(cx + rr * Math.cos(a)).toFixed(1)} ${(cy + rr * Math.sin(a)).toFixed(1)} `;
+  }
+  return d + 'Z';
+}
+function spiralPath(cx, cy, turns, grow, steps = 600) {
+  let d = '';
+  for (let i = 0; i <= steps; i++) {
+    const t = i / steps, a = t * turns * Math.PI * 2, r = 6 + grow * t * turns;
+    d += `${i ? 'L' : 'M'}${(cx + r * Math.cos(a)).toFixed(1)} ${(cy + r * Math.sin(a)).toFixed(1)} `;
+  }
+  return d;
+}
+function deco(canvas, { cx, cy, r, opacity = .16, spiral = true, width = 10 }) {
+  const svg = el('svg', { class: 'deco', width: canvas.w, height: canvas.h, viewBox: `0 0 ${canvas.w} ${canvas.h}`, style: { left: 0, top: 0 } });
+  const dots = Array.from({ length: 12 }, (_, i) => {
+    const a = i / 12 * Math.PI * 2 - Math.PI / 2, big = i % 3 === 0;
+    return `<circle cx="${cx + r * .82 * Math.cos(a)}" cy="${cy + r * .82 * Math.sin(a)}" r="${big ? width * .9 : width * .6}" fill="#FBF7F0" opacity="${big ? 1 : .7}"/>`;
+  }).join('');
+  svg.innerHTML = `<g opacity="${opacity}">
+    <path d="${ringPath(cx, cy, r, r * .085, 8)}" fill="none" stroke="#FBF7F0" stroke-width="${width}" stroke-linejoin="round"/>
+    ${dots}
+    ${spiral ? `<path d="${spiralPath(cx, cy, 3.2, r * .17)}" fill="none" stroke="#FBF7F0" stroke-width="${width * 1.2}" stroke-linecap="round"/>` : ''}
+  </g>`;
+  return svg;
+}
+
+function sky(canvas, { sunX, sunY, sunR = 120 }) {
+  const frag = document.createDocumentFragment();
+  const part = (cls, x, y, w, h, style = {}) =>
+    frag.append(el('div', { class: cls, style: { left: px(x - w / 2), top: px(y - h / 2), width: px(w), height: px(h), ...style } }));
+  frag.append(el('div', { class: 'sky' }));
+  // Warmer Dunst weit um die Sonne, dann die Korona dicht am Rand
+  part('glow', sunX, sunY, sunR * 15, sunR * 15, { background: 'radial-gradient(circle, rgba(255,190,105,.40) 0%, rgba(242,150,60,.16) 30%, rgba(242,150,60,0) 62%)' });
+  part('sun-rays', sunX, sunY, sunR * 9, sunR * 9);
+  part('glow', sunX, sunY, sunR * 5.4, sunR * 5.4, { background: 'radial-gradient(circle, rgba(255,250,232,1) 0%, rgba(255,236,185,.85) 20%, rgba(255,205,120,.45) 34%, rgba(255,175,80,.16) 52%, rgba(255,170,80,0) 72%)' });
+  part('sun-disc', sunX, sunY, sunR * 2, sunR * 2);
+  part('sun-streak', sunX, sunY, sunR * 11, sunR * .34);
+  return frag;
+}
+
+function phone(src, { x, y, w, rot = 0, persp = '' }) {
+  const h = Math.round((w - 32) * RAW.h / RAW.w) + 32;
+  const p = el('div', { class: 'phone', style: { left: px(x), top: px(y), width: px(w), height: px(h), transform: `${persp} rotate(${rot}deg)` } });
+  const s = el('div', { class: 'screen' });
+  s.append(el('img', { src: SHOTS + src }));
+  p.append(el('div', { class: 'cam' }), s);
+  return p;
+}
+
+/** Ausschnitt [sx, sy, sw, sh] des Screenshots, auf Breite w vergrößert, bei x/y. */
+function pop(src, [sx, sy, sw, sh], { x, y, w, rot = 0, radius = 44 }) {
+  const k = w / sw;
+  return el('div', { class: 'pop', style: {
+    left: px(x), top: px(y), width: px(w), height: px(sh * k), borderRadius: px(radius),
+    backgroundImage: `url(${SHOTS + src})`, backgroundSize: `${RAW.w * k}px ${RAW.h * k}px`,
+    backgroundPosition: `${-sx * k}px ${-sy * k}px`, transform: `rotate(${rot}deg)`,
+  } });
+}
+
+function head(top, kicker, title, sub) {
+  const h = el('div', { class: 'head', style: { top: px(top) } });
+  h.append(el('div', { class: 'kicker' }, kicker), el('h1', {}, title));
+  if (sub) h.append(el('div', { class: 'sub' }, sub));
+  return h;
+}
+
+const FACES = {
+  5: '<circle cx="12" cy="12" r="9.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7.6 10.2q1.4-1.6 2.8 0M13.6 10.2q1.4-1.6 2.8 0" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M7.5 13.2h9q-.6 4-4.5 4t-4.5-4z" fill="currentColor"/>',
+  4: '<circle cx="12" cy="12" r="9.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="10" r="1.3" fill="currentColor"/><circle cx="15" cy="10" r="1.3" fill="currentColor"/><path d="M8 14q4 3.6 8 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
+  3: '<circle cx="12" cy="12" r="9.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="10" r="1.3" fill="currentColor"/><circle cx="15" cy="10" r="1.3" fill="currentColor"/><path d="M8.5 15h7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
+};
+function bubble(level, { x, y, size, rot = 0, blur = 0 }) {
+  const b = el('div', { class: 'bubble', style: {
+    left: px(x), top: px(y), width: px(size), height: px(size), background: MOOD[level].soft, color: MOOD[level].strong,
+    transform: `rotate(${rot}deg)`, filter: blur ? `blur(${blur}px)` : 'none',
+  } }, `<svg viewBox="0 0 24 24">${FACES[level]}</svg>`);
+  return b;
+}
+
+const ICON = {
+  wifi: '<path d="M2 8.5a15 15 0 0 1 20 0M5 12a10 10 0 0 1 14 0M8.5 15.5a5 5 0 0 1 7 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="19" r="1.4" fill="currentColor"/><path d="M3 3l18 18" stroke="#FFD27A" stroke-width="2.4" stroke-linecap="round"/>',
+  user: '<circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21a8 8 0 0 1 16 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M3 3l18 18" stroke="#FFD27A" stroke-width="2.4" stroke-linecap="round"/>',
+  ad: '<rect x="3" y="5" width="18" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><text x="12" y="15.5" text-anchor="middle" font-size="8" font-weight="800" fill="currentColor" font-family="sans-serif">AD</text><path d="M3 3l18 18" stroke="#FFD27A" stroke-width="2.4" stroke-linecap="round"/>',
+  lock: '<rect x="5" y="10" width="14" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="15.5" r="1.6" fill="currentColor"/>',
+};
+function badge(icon, text) {
+  return el('div', { class: 'badge' }, `<svg viewBox="0 0 24 24">${ICON[icon]}</svg>${text}`);
+}
+
+// ---------------------------------------------------------------------------------------------
+// Die Grafiken. Screenshots: 1080 × 1920 (9:16). Die Sonne steigt von Bild zu Bild, im Store
+// liegen die Screenshots nebeneinander und ergeben so einen Sonnenaufgang.
+
+const W = 1080, H = 1920;
+const ASSETS = {
+  'shot-1': () => {
+    const c = { w: W, h: H };
+    return [
+      sky(c, { sunX: 900, sunY: 1780, sunR: 150 }),
+      deco(c, { cx: 900, cy: 1780, r: 520, opacity: .13 }),
+      head(150, ...TEXT[1]),
+      phone('heute.png', { x: 200, y: 760, w: 680, rot: -4 }),
+      pop('heute.png', [44, 672, 992, 414], { x: 40, y: 1130, w: 1000, rot: 2.5 }),
+      bubble(5, { x: 860, y: 640, size: 150, rot: 10 }),
+      bubble(4, { x: 60, y: 820, size: 110, rot: -12 }),
+      bubble(3, { x: 930, y: 900, size: 80, rot: 8, blur: 2 }),
+    ];
+  },
+  'shot-2': () => {
+    const c = { w: W, h: H };
+    return [
+      sky(c, { sunX: 120, sunY: 1560, sunR: 140 }),
+      deco(c, { cx: 120, cy: 1560, r: 480, opacity: .12 }),
+      head(150, ...TEXT[2]),
+      phone('editor.png', { x: 330, y: 700, w: 680, rot: 4 }),
+      pop('editor.png', [44, 380, 992, 305], { x: 36, y: 830, w: 760, rot: -3 }),
+      LANG === 'en'
+        ? pop('editor.png', [90, 1070, 880, 540], { x: 40, y: 1220, w: 660, rot: -5, radius: 40 })
+        : pop('editor.png', [100, 1070, 640, 680], { x: 60, y: 1200, w: 520, rot: -5, radius: 40 }),
+    ];
+  },
+  'shot-3': () => {
+    const c = { w: W, h: H };
+    return [
+      sky(c, { sunX: 960, sunY: 1320, sunR: 130 }),
+      deco(c, { cx: 960, cy: 1320, r: 460, opacity: .12 }),
+      head(150, ...TEXT[3]),
+      phone('kalender.png', { x: 200, y: 700, w: 680, persp: 'perspective(2200px) rotateY(-16deg) rotateX(6deg)' }),
+      pop('kalender.png', [80, 1060, 920, 300], { x: 470, y: 1300, w: 580, rot: 3, radius: 36 }),
+    ];
+  },
+  'shot-4': () => {
+    const c = { w: W, h: H };
+    return [
+      sky(c, { sunX: 140, sunY: 1080, sunR: 120 }),
+      deco(c, { cx: 140, cy: 1080, r: 420, opacity: .12 }),
+      head(150, ...TEXT[4]),
+      phone('einblicke.png', { x: 330, y: 820, w: 680, rot: 3 }),
+      pop('einblicke.png', [44, 1000, 992, 720], { x: 30, y: 1180, w: 640, rot: -4, radius: 38 }),
+      pop('einblicke.png', [42, 668, 482, 285], { x: 40, y: 900, w: 360, rot: -6, radius: 34 }),
+    ];
+  },
+  'shot-5': () => {
+    const c = { w: W, h: H };
+    return [
+      sky(c, { sunX: 940, sunY: 820, sunR: 115 }),
+      deco(c, { cx: 940, cy: 820, r: 400, opacity: .12 }),
+      head(150, ...TEXT[5]),
+      phone('pixel.png', { x: 200, y: 700, w: 680, rot: -3 }),
+      pop('pixel.png', [100, 1520, 880, 410], { x: 20, y: 1150, w: 1040, rot: 2, radius: 40 }),
+    ];
+  },
+  'shot-6': () => {
+    const c = { w: W, h: H };
+    return [
+      sky(c, { sunX: 985, sunY: 640, sunR: 95 }),
+      deco(c, { cx: 985, cy: 640, r: 380, opacity: .12 }),
+      head(150, ...TEXT[6]),
+      phone('ausblick.png', { x: 330, y: 760, w: 680, rot: 3 }),
+      pop('ausblick.png', [0, 150, 1080, 300], { x: 20, y: 930, w: 820, rot: -3, radius: 36 }),
+      pop('ausblick.png', [44, 672, 992, 496], { x: 30, y: 1260, w: 700, rot: -2, radius: 40 }),
+    ];
+  },
+  'shot-7': () => {
+    const c = { w: W, h: H };
+    return [
+      sky(c, { sunX: 975, sunY: 115, sunR: 90 }),
+      deco(c, { cx: 975, cy: 115, r: 360, opacity: .12 }),
+      head(150, ...TEXT[7]),
+      (() => { const b = el('div', { class: 'badges', style: { top: px(720) } }); b.append(...['wifi', 'user', 'ad', 'lock'].map((icon, i) => badge(icon, TEXT.badges[i]))); return b; })(),
+      phone('verlauf.png', { x: 200, y: 1010, w: 680, rot: -3 }),
+    ];
+  },
+
+  // App-Icon 512 × 512: sichtbarer Bereich des Adaptive Icons, vollflächig (Google rundet selbst ab).
+  icon: () => [el('img', { src: '../assets/logo.svg', style: { position: 'absolute', left: px(-512 * 18 / 72), top: px(-512 * 18 / 72), width: px(512 * 108 / 72), height: px(512 * 108 / 72) } })],
+
+  // Feature Graphic 1024 × 500. Wichtiges bleibt mittig, Ränder dürfen beschnitten werden.
+  feature: () => {
+    const c = { w: 1024, h: 500 };
+    const icon = el('div', { style: { width: '120px', height: '120px', borderRadius: '30px', overflow: 'hidden', position: 'relative', boxShadow: '0 20px 40px -10px rgba(3,12,35,.6)' } });
+    icon.append(el('img', { src: '../assets/logo.svg', style: { position: 'absolute', left: px(-120 * 18 / 72), top: px(-120 * 18 / 72), width: px(120 * 108 / 72) } }));
+    const wm = el('div', { class: 'wordmark', style: { left: '80px', top: '130px' } });
+    wm.append(icon, el('div', { class: 'name' }, 'Daylight'));
+    const small = (src, o) => {
+      const p = phone(src, o);
+      p.style.borderRadius = '40px'; p.style.padding = '8px';
+      p.querySelector('.screen').style.borderRadius = '33px';
+      p.querySelector('.cam').style.cssText += 'top:16px;width:14px;height:14px;margin-left:-7px;box-shadow:inset 0 0 0 2px #1b1e24';
+      return p;
+    };
+    return [
+      sky(c, { sunX: 590, sunY: 70, sunR: 42 }),
+      deco(c, { cx: 820, cy: 470, r: 330, opacity: .14, width: 7 }),
+      wm,
+      el('div', { class: 'tagline', style: { left: '82px', top: '285px', width: '470px' } }, TEXT.tagline),
+      small('kalender.png', { x: 600, y: 70, w: 230, rot: -8 }),
+      small('heute.png', { x: 770, y: 40, w: 240, rot: 6 }),
+      bubble(5, { x: 560, y: 330, size: 78, rot: -10 }),
+    ];
+  },
+};
+
+const SIZE = { icon: [512, 512], feature: [1024, 500] };
+const name = params.get('asset') || 'shot-1';
+document.documentElement.lang = LANG;
+const [w, h] = SIZE[name] || [W, H];
+const canvas = el('div', { class: 'canvas', style: { width: px(w), height: px(h) } });
+for (const part of ASSETS[name]()) canvas.append(part);
+if (name !== 'icon') canvas.append(el('div', { class: 'grain' }));
+document.getElementById('root').append(canvas);
+</script>
+</body>
+</html>

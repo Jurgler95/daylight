@@ -1,3 +1,5 @@
+import { listActivities } from '@/db/repositories/activities';
+import { listGroups } from '@/db/repositories/groups';
 import { countRows } from '@/db/repositories/maintenance';
 import { createTestDb } from '@/db/testDb';
 import type { DateString } from '@/lib/dates';
@@ -5,6 +7,7 @@ import { parseDaylioCsv } from '@/lib/daylio/parse';
 import { readDaylioRows } from '@/lib/daylio/rows';
 import { writeDaylioCsv } from '@/lib/daylio/write';
 
+import { sampleInEnglish } from '../english';
 import { generateSample } from '../generateSample';
 import { applySample } from '../sample';
 
@@ -52,5 +55,19 @@ describe('sample data', () => {
     const again = createTestDb();
     applySample(again, { entries: parsed.entries, plans: [] });
     expect(writeDaylioCsv(readDaylioRows(again))).toBe(csv);
+  });
+
+  it('has an English version with every name and note translated', () => {
+    const english = sampleInEnglish(data);
+    expect(english.entries).toHaveLength(data.entries.length);
+    expect(english.entries.every((entry) => ['Great', 'Good', 'Okay', 'Bad', 'Awful'].includes(entry.mood))).toBe(true);
+    const text = english.entries.flatMap((entry) => [entry.note ?? '', entry.noteTitle ?? '', ...entry.activities]).join(' ');
+    expect(text).not.toMatch(/[äöüß]|Tag\b|Arbeit|Gut\b/);
+
+    const db = createTestDb();
+    applySample(db, english, 'en');
+    const imported = listGroups(db).find((group) => group.name === 'Importiert' || group.name === 'Imported');
+    expect(listActivities(db).filter((activity) => activity.group_id === imported?.id)).toEqual([]);
+    expect(countRows(db).planned).toBe(english.plans.length);
   });
 });

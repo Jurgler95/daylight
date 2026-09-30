@@ -41,7 +41,7 @@ Nach neuen Dateien unter `app/` einmal `npx expo customize tsconfig.json` ausfü
 | `lib/dev/` | Synthetische Beispieldaten (ein Jahr), geladen über den Import-Pfad. |
 | `lib/` sonst | `dates` (einziger Ort für date-fns, `useToday` für den Tageswechsel), `theme` (Palette "Tageslicht", Stimmungsfarben), `i18n`, `haptics`, `store` (`useQuery`/`mutate`, Einstellungen, gewählter Tag), `icons` (Typ und Symbolauswahl), `manage`, `changelog`. |
 | `components/` | `ui/` Bausteine aus Zyklus (AppText, Card, Button, Chip, ListRow, Screen, Segmented, SelectRow usw., dazu `Logo` und der blasse `LogoBackdrop` mit der generierten Geometrie aus `logoPaths.ts`), `calendar/` Monatsliste und `DayGlyph` (künftige Tage mit Ausblick-Ring und Plänen), `today/` Tagesleiste, Sicherungs- und Tief-Hinweis, `outlook/` Tagesdetail künftiger Tage und Plan-Chips, `lock/` Sperrbildschirm, `settings/` Uhrzeitwahl, `entry/` Editor und Lesekarte, `history/` Verlauf und Suche, `manage/` Verwaltung (Sortieren per Ziehen, Symbolauswahl), `mood/`, `import/`, `insights/` Karten der Einblicke (Verlauf als eigenes SVG, Pixel, Wochentage, Monatsbalken mit gifted-charts, Aktivitätszeilen). |
-| `scripts/` | `logo.mjs`: Icons, Splash und Logo-Geometrie aus `assets/logo.svg` (siehe Logo). |
+| `scripts/` | `logo.mjs`: Icons, Splash und Logo-Geometrie aus `assets/logo.svg` (siehe Logo). `store-graphics.mjs`: Play-Store-Grafiken aus `store/graphics.html` (siehe Store-Grafiken). |
 | `docs/decisions/` | Handover-Dokumente pro Phase. Vor jeder neuen Phase alle lesen. |
 
 Grundsätze (wie in Zyklus):
@@ -70,6 +70,18 @@ node scripts/logo.mjs --paths-only  # nur logoPaths.ts
 ```
 
 Das Skript rastert mit `npx @resvg/resvg-js-cli` in fester Version; npx lädt es beim ersten Lauf in seinen Cache, es ist keine Abhängigkeit des Projekts. Ein Test (`components/ui/__tests__/logo.test.tsx`) schlägt an, wenn `logoPaths.ts` nicht mehr zur Quelle passt. Details in `docs/decisions/phase-6-logo-hintergrund.md`.
+
+## Store-Grafiken
+
+App-Icon (512 × 512), Feature Graphic (1024 × 500) und sieben Screenshots (1080 × 1920) für Google Play liegen auf Deutsch und Englisch in `fastlane/metadata/android/de-DE/images/` und `en-US/images/`, der Ordnerstruktur von fastlane supply, die auch F-Droid liest. Quelle ist die Vorlage `store/graphics.html` mit den App-Screenshots aus `store/screens/de/` und `store/screens/en/`. Neu rendern mit headless Chrome:
+
+```bash
+node scripts/store-graphics.mjs
+```
+
+Einzelne Grafik im Browser ansehen: `store/graphics.html?asset=shot-3&lang=en` (oder `icon`, `feature`; ohne `lang` Deutsch).
+
+Die App-Screenshots stammen aus dem Pixel-9-Emulator mit den Beispieldaten, die in der Sprache der App geladen werden. Vorher die App-Sprache setzen (`adb shell cmd locale set-app-locales de.behla.daylight --locales en-US`), dann erst die Daten zurücksetzen und „Beispieldaten laden“, sonst tragen Stimmungen und Gruppen die Namen der anderen Sprache. Uhr und Statusleiste über den Demo-Modus der System-UI auf 20:30 festsetzen.
 
 ## Release
 

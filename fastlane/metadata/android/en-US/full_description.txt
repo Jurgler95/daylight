@@ -1,0 +1,36 @@
+Daylight is a mood journal that doesn't know your data. No accounts, no servers, no analytics, no ads and no internet permission. Everything stays on your device.
+
+How was your day? Tap a mood, pick what you did, done. A note, your own scales and a photo per day are optional.
+
+WHAT DAYLIGHT DOES
+
+🔒 Completely offline
+Daylight has no internet permission at all. Your entries live in a database on your phone and only leave it when you share a backup yourself.
+
+⚡ Logged in seconds
+Five moods, activities sorted into groups like emotions, sleep, weather, social and work. Rename, reorder, archive or add your own, with icons.
+
+📅 Calendar
+Every day in its color, so good and hard stretches stand out at a glance. Days with more than one entry are marked, planned activities show up on the days ahead.
+
+📊 Insights into your patterns
+Trend and 7-day average, distribution, weekdays and months, your year in pixels, calm and restless weeks, streaks, which activities go along with better or worse days, what tends to follow the next day, and frequent words in your notes. Always a description of your entries, never a diagnosis.
+
+🔭 An honest outlook
+Daylight estimates the next seven days, but only where that measurably works better on your own data than simple guessing. Otherwise the outlook steps back and says so.
+
+❤️ Health data, if you want
+Steps, sleep, resting heart rate and exercise from Health Connect, for example from a smartwatch, next to your mood. Read only, and only after you agree.
+
+🛡️ Protected
+App lock with your device's screen lock, no screenshots while the lock is on, no Android cloud backup. The optional evening reminder reveals nothing from your journal.
+
+📦 Your data, your files
+Share or save a full backup with photos, restore it any time, and export in the Daylio CSV format. Coming from Daylio? Daylight imports an existing journal completely, as a CSV export or as a Daylio backup with photos, and shows a preview before anything changes.
+
+Available in English and German.
+
+FREE AND OPEN SOURCE
+Daylight is free software under the GNU GPL, version 3 or later. No ads, no in-app purchases, no tracking.
+
+Daylight is not a medical device and does not replace advice or treatment. If you have been feeling low for a while, please reach out to someone you trust or a local support line.
