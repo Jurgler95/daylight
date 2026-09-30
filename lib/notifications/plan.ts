@@ -1,7 +1,7 @@
 import { addDaysToDateString, type DateString } from '@/lib/dates';
 
 /**
- * Pure planning of the daily reminder. No expo-notifications import, no database: the same plan is
+ * Pure planning of the daily reminder. No native module, no database: the same plan is
  * produced in tests and on the device.
  *
  * A repeating daily trigger cannot skip a single day, but the reminder has to stay away on days that

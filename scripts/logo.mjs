@@ -12,7 +12,7 @@
 import { execFileSync } from 'node:child_process';
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { dirname, join } from 'node:path';
+import { basename, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -139,21 +139,28 @@ const VARIANTS = [
   },
   // Favicon: only the visible part, so the ring stays legible at 48 px.
   { file: 'favicon.png', size: 48, svg: document('18 18 72 72', ground + mark()) },
-  // Notification icon (expo-notifications): all white on transparent, 96 px, the ring filling the
-  // 20 of 24 dp that Android's guidelines allow, strokes a little heavier for the status bar.
-  { file: 'notification-icon.png', size: 96, svg: document('16 16 76 76', mark('#FFFFFF', 1.5)) },
+  // Notification icon (modules/daylight-reminders): all white on transparent, 24 dp per density,
+  // the ring filling the 20 of 24 dp that Android's guidelines allow, strokes a little heavier for
+  // the status bar.
+  ...Object.entries({ mdpi: 24, hdpi: 36, xhdpi: 48, xxhdpi: 72, xxxhdpi: 96 }).map(([density, size]) => ({
+    file: `modules/daylight-reminders/android/src/main/res/drawable-${density}/daylight_reminder_icon.png`,
+    size,
+    svg: document('16 16 76 76', mark('#FFFFFF', 1.5)),
+  })),
 ];
 
 function rasterize() {
   const dir = mkdtempSync(join(tmpdir(), 'daylight-logo-'));
   try {
     for (const variant of VARIANTS) {
-      const input = join(dir, variant.file.replace(/\.png$/, '.svg'));
+      // Plain names go to assets/, the notification icons carry their own path.
+      const target = variant.file.includes('/') ? variant.file : `assets/${variant.file}`;
+      const input = join(dir, `${variant.size}-${basename(variant.file).replace(/\.png$/, '.svg')}`);
       writeFileSync(input, variant.svg);
-      execFileSync('npx', ['-y', RESVG, '--fit-width', String(variant.size), input, join(ROOT, 'assets', variant.file)], {
+      execFileSync('npx', ['-y', RESVG, '--fit-width', String(variant.size), input, join(ROOT, target)], {
         stdio: ['ignore', 'ignore', 'inherit'],
       });
-      console.log(`assets/${variant.file} (${variant.size} px)`);
+      console.log(`${target} (${variant.size} px)`);
     }
   } finally {
     rmSync(dir, { recursive: true, force: true });

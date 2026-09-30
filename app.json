@@ -77,13 +77,6 @@
         }
       ],
       "expo-sharing",
-      [
-        "expo-notifications",
-        {
-          "icon": "./assets/notification-icon.png",
-          "color": "#11786A"
-        }
-      ],
       "@react-native-community/datetimepicker",
       "expo-image",
       [

@@ -6,7 +6,10 @@
  * Bricht ab, wenn `versionName` oder `versionCode` nicht zu `app.json` passen, wenn INTERNET, c2dm
  * oder Launcher-Badges auftauchen, wenn `android:allowBackup` nicht aus ist oder wenn von Health
  * Connect etwas anderes als genau die fünf lesenden Berechtigungen dasteht
- * (`docs/decisions/gesundheitsdaten-health-connect.md`).
+ * (`docs/decisions/gesundheitsdaten-health-connect.md`). Bricht auch ab, wenn der Code der APK
+ * Klassen von Firebase oder den Google Play Services enthält: Erinnerungen laufen über das eigene
+ * Modul `modules/daylight-reminders`, und eine neue Abhängigkeit soll Google nicht unbemerkt
+ * zurückbringen.
  *
  *   node .github/scripts/check-manifest.mjs builds/daylight-1.0.11.apk
  *
@@ -54,6 +57,11 @@ for (const p of permissions) {
 if (health.join() !== HEALTH_PERMISSIONS.join()) {
   problems.push(`Health Connect: erwartet ${HEALTH_PERMISSIONS.join(', ')}, gefunden ${health.join(', ') || 'nichts'}`);
 }
+// Typnamen stehen im Klartext in der String-Tabelle jeder .dex-Datei.
+const dex = execFileSync('unzip', ['-p', apk, 'classes*.dex'], { maxBuffer: 512 * 1024 * 1024 });
+for (const prefix of ['Lcom/google/firebase/', 'Lcom/google/android/gms/']) {
+  if (dex.includes(prefix)) problems.push(`Google-Bibliothek im Code: ${prefix.slice(1, -1).replaceAll('/', '.')}`);
+}
 if (!/allowBackup\([^)]*\)=(false|\(type 0x12\)0x0)\b/.test(manifest)) problems.push('android:allowBackup ist nicht false');
 
 console.log(pkg);
@@ -63,4 +71,4 @@ if (problems.length > 0) {
   for (const problem of problems) console.error(`::error::${problem}`);
   process.exit(1);
 }
-console.log('Manifest in Ordnung: kein INTERNET, keine Cloud-Sicherung, Health Connect nur lesend.');
+console.log('Manifest in Ordnung: kein INTERNET, keine Cloud-Sicherung, Health Connect nur lesend, kein Firebase.');

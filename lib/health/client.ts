@@ -8,8 +8,8 @@ import { addDaysToDateString, toLocalDate, type DateString } from '@/lib/dates';
 import { bucketValues, mergeReadings, sleepMinutesByDay, type DayBucket, type SleepSessionLike } from './days';
 
 /**
- * Health Connect, read only. The library is required lazily like expo-notifications: it is a native
- * module that Expo Go and Jest do not have, and every entry point degrades to "not available".
+ * Health Connect, read only. The library is required lazily: it is a native module that Expo Go and
+ * Jest do not have, and every entry point degrades to "not available".
  */
 
 type HealthConnectModule = typeof HealthConnectTypes;

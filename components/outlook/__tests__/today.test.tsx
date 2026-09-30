@@ -36,7 +36,7 @@ jest.mock('@expo/vector-icons', () => ({ Ionicons: () => null }));
 jest.mock('@expo/vector-icons/MaterialCommunityIcons', () => () => null);
 jest.mock('expo-router', () => ({ router: { push: jest.fn(), navigate: jest.fn(), back: jest.fn() }, useLocalSearchParams: () => ({}) }));
 jest.mock('expo-local-authentication', () => ({ getEnrolledLevelAsync: async () => 1, SecurityLevel: { NONE: 0 }, authenticateAsync: async () => ({ success: true }) }));
-jest.mock('expo-notifications', () => ({ setNotificationHandler: jest.fn(), getPermissionsAsync: async () => ({ granted: false }) }));
+jest.mock('@/modules/daylight-reminders', () => ({ __esModule: true, default: { hasPermission: async () => false, createChannel: jest.fn(), cancelAll: jest.fn(), schedule: jest.fn() } }));
 let mockDb: Database | null = null;
 jest.mock('@/db/client', () => ({ getDb: () => mockDb, DATABASE_NAME: 'test.db' }));
 jest.mock('@/lib/dates/useToday', () => ({ useToday: () => '2026-09-26' }));
