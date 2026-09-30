@@ -19,6 +19,14 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.16',
+    date: '2026-09-30',
+    changes: {
+      de: ['Erinnerungen kommen ohne Google-Dienste aus, die App enthält kein Firebase mehr'],
+      en: ['Reminders work without Google services, the app no longer contains Firebase'],
+    },
+  },
+  {
     version: '1.0.15',
     date: '2026-09-30',
     changes: {
