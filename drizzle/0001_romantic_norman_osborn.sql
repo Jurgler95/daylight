@@ -1,0 +1,1 @@
+ALTER TABLE `settings` ADD `low_mood_dismissed_on` text;

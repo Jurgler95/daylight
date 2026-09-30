@@ -1,0 +1,38 @@
+Daylight, a local mood diary for Android
+Copyright (C) 2026 Paul Behla <https://paul-behla.de>
+
+This program is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option)
+any later version, together with the additional term below.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+more details. You should have received a copy of the GNU General Public
+License along with this program (see LICENSE). If not, see
+<https://www.gnu.org/licenses/>.
+
+
+Additional term under section 7(b) of the GNU GPL version 3
+------------------------------------------------------------
+
+Any work based on this program, in source or object form, must preserve
+the following author attribution:
+
+    Based on Daylight by Paul Behla (paul-behla.de)
+
+If the work has an interactive user interface, the attribution must appear
+in its Appropriate Legal Notices, for example on an "About" screen, in a
+way that is reasonably visible to the user. A translation of the sentence
+into the language of the user interface is permitted (German:
+"Basiert auf Daylight von Paul Behla (paul-behla.de)"). The attribution
+must also be kept in this NOTICE file or an equivalent file distributed
+with the source code.
+
+
+Third-party components
+----------------------
+
+Daylight depends on third-party packages (see package.json) that are
+distributed under their own licenses, mostly MIT, Apache-2.0, BSD and ISC.

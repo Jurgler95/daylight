@@ -1,0 +1,706 @@
+{
+  "app": {
+    "name": "Daylight"
+  },
+  "tabs": {
+    "today": "Heute",
+    "calendar": "Kalender",
+    "insights": "Einblicke",
+    "history": "Verlauf",
+    "settings": "Mehr"
+  },
+  "lookback": {
+    "title": "Rückblick",
+    "week": "Vor einer Woche",
+    "month": "Vor einem Monat",
+    "halfYear": "Vor 6 Monaten",
+    "year": "Vor einem Jahr",
+    "none": "Kein Eintrag",
+    "hint": "Öffnet diesen Tag"
+  },
+  "today": {
+    "empty": "Noch keine Einträge",
+    "ask": "Na, wie war dein Tag? ☀️",
+    "future": "Dieser Tag kommt noch. Freu dich drauf! ✨",
+    "yesterday": "Gestern",
+    "tomorrow": "Morgen",
+    "relPast_one": "Vor {{count}} Tag",
+    "relPast_other": "Vor {{count}} Tagen",
+    "relFuture_one": "In {{count}} Tag",
+    "relFuture_other": "In {{count}} Tagen",
+    "editHint": "Öffnet den Eintrag",
+    "planned": "Geplant",
+    "plannedHint": "Aktivitäten für diesen Tag"
+  },
+  "settings": {
+    "title": "Mehr",
+    "data": "Daten",
+    "import": "Importieren",
+    "exportJson": "Sicherung teilen",
+    "saveJson": "Sicherung in Ordner speichern",
+    "exportCsv": "Als Daylio-CSV exportieren",
+    "deleteAll": "Alle Daten löschen",
+    "backupHint": "Nur die Sicherung stellt alles wieder her. Mit Fotos ist sie eine ZIP-Datei. Die CSV enthält keine Gruppen, Symbole, Pläne und Fotos.",
+    "backupNever": "Nie",
+    "backupToday": "Heute",
+    "backupAgo_one": "Vor {{count}} Tag",
+    "backupAgo_other": "Vor {{count}} Tagen",
+    "saved": "Gespeichert",
+    "changelog": "Updatehistorie",
+    "unknownFile": "Diese Datei ist weder eine Daylight-Sicherung noch ein Daylio-Export oder eine Daylio-Sicherung.",
+    "invalidFile": "Datei nicht lesbar",
+    "deleteWord": "LÖSCHEN",
+    "deleteBody": "Alle Einträge, Fotos, Stimmungen, Aktivitäten, Pläne, Gesundheitsdaten und Einstellungen werden von diesem Gerät gelöscht.",
+    "deleteBackupHint": "Wer die Daten behalten will, teilt vorher eine Sicherung.",
+    "deleteConfirm": "Zum Bestätigen {{word}} eintippen",
+    "deleted": "Alle Daten gelöscht",
+    "outlookSection": "Ausblick",
+    "calendarSection": "Kalender",
+    "weekStart": "Woche beginnt am",
+    "monday": "Montag",
+    "sunday": "Sonntag",
+    "outlook": "Ausblick",
+    "privacyLabel": "Datenschutz",
+    "reminders": "Erinnerung",
+    "lock": "App-Sperre",
+    "about": "Über",
+    "protection": "Schutz",
+    "info": "Info",
+    "healthSection": "Gesundheit",
+    "health": "Gesundheitsdaten"
+  },
+  "import": {
+    "title": "Import",
+    "noFile": "Keine Datei ausgewählt",
+    "entries_one": "{{count}} Eintrag",
+    "entries_other": "{{count}} Einträge",
+    "moods_one": "{{count}} Stimmung",
+    "moods_other": "{{count}} Stimmungen",
+    "activities_one": "{{count}} Aktivität",
+    "activities_other": "{{count}} Aktivitäten",
+    "summary": "{{entries}} vom {{from}} bis {{to}}, {{moods}}, {{activities}} (davon {{fresh}} neu).",
+    "summaryEmpty": "Die Datei enthält keine Einträge.",
+    "mergeInfo_one": "Zusammenführen fügt {{count}} Eintrag hinzu, {{duplicates}}.",
+    "mergeInfo_other": "Zusammenführen fügt {{count}} Einträge hinzu, {{duplicates}}.",
+    "duplicates_one": "{{count}} ist schon vorhanden",
+    "duplicates_other": "{{count}} sind schon vorhanden",
+    "photoInfo_one": "Dazu {{count}} Foto, davon {{fresh}} neu.",
+    "photoInfo_other": "Dazu {{count}} Fotos, davon {{fresh}} neu.",
+    "newMoods": "Neue Stimmungen",
+    "newActivities": "Neue Aktivitäten",
+    "level": "{{name}} ({{level}})",
+    "mode": "Modus",
+    "merge": "Zusammenführen",
+    "replace": "Ersetzen",
+    "replaceWarningCsv": "Ersetzen löscht alle Einträge, Stimmungen, Gruppen und Aktivitäten. Einstellungen bleiben.",
+    "replaceWarningJson": "Ersetzen löscht alle Daten und stellt die Sicherung genau wieder her.",
+    "replaceConfirm": "Wirklich alles ersetzen?",
+    "errorsTitle_one": "{{count}} fehlerhafte Zeile",
+    "errorsTitle_other": "{{count}} fehlerhafte Zeilen",
+    "skipErrors": "Fehlerhafte Zeilen überspringen",
+    "warningsTitle_one": "{{count}} Hinweis",
+    "warningsTitle_other": "{{count}} Hinweise",
+    "more": "und {{count}} weitere",
+    "error": {
+      "columns": "Zeile {{line}}: {{value}} statt 9 Spalten",
+      "date": "Zeile {{line}}: Datum „{{value}}“ ungültig",
+      "time": "Zeile {{line}}: Uhrzeit „{{value}}“ ungültig",
+      "mood": "Zeile {{line}}: Stimmung fehlt",
+      "entry": "Eintrag {{line}}: nicht lesbar"
+    },
+    "warning": {
+      "scales": "Zeile {{line}}: Skalen „{{value}}“ nicht lesbar, übersprungen",
+      "duplicateActivity": "Zeile {{line}}: „{{value}}“ doppelt, einmal übernommen",
+      "photoMissing": "Eintrag vom {{value}}: Foto fehlt in der Datei"
+    },
+    "run": "Importieren",
+    "done_one": "{{count}} Eintrag importiert",
+    "done_other": "{{count}} Einträge importiert",
+    "failed": "Import fehlgeschlagen"
+  },
+  "changelog": {
+    "title": "Updatehistorie",
+    "version": "Version {{version}}"
+  },
+  "dev": {
+    "title": "Entwicklung",
+    "seed": "Beispieldaten laden",
+    "wipe": "Datenbank leeren",
+    "sampleHint": "Ein erfundenes Jahr zum Ausprobieren. Verschwindet mit dem ersten eigenen Eintrag aus dieser Liste."
+  },
+  "calendar": {
+    "today": "Heute",
+    "entries_one": "{{count}} Eintrag",
+    "entries_other": "{{count}} Einträge",
+    "noEntry": "kein Eintrag",
+    "legendSeveral": "mehrere Einträge",
+    "outlook": "Ausblick {{mood}}",
+    "planned": "geplant: {{names}}",
+    "legendOutlook": "Ausblick"
+  },
+  "entry": {
+    "newTitle": "Neuer Eintrag",
+    "editTitle": "Eintrag",
+    "save": "Speichern",
+    "delete": "Eintrag löschen",
+    "deleteTitle": "Eintrag löschen?",
+    "deleteBody": "Der Eintrag verschwindet mit Notiz und Aktivitäten.",
+    "unsavedTitle": "Änderungen speichern?",
+    "keepEditing": "Weiter bearbeiten",
+    "discard": "Verwerfen",
+    "gone": "Diesen Eintrag gibt es nicht mehr",
+    "selected_one": "{{count}} gewählt",
+    "selected_other": "{{count}} gewählt",
+    "noActivities": "Noch keine Aktivitäten",
+    "note": "Notiz",
+    "date": "Tag",
+    "time": "Uhrzeit",
+    "scaleValue": "{{value}} von {{max}}",
+    "scaleLine": "{{name}} {{value}} von {{max}}",
+    "scaleEmpty": "Keine Angabe",
+    "dayTaken": "Für diesen Tag gibt es schon einen Eintrag. Pro Tag ist ein Eintrag möglich."
+  },
+  "photo": {
+    "title": "Foto",
+    "add": "Foto hinzufügen",
+    "remove": "Foto entfernen",
+    "open": "Foto groß ansehen",
+    "label": "Foto des Eintrags",
+    "failed": "Foto konnte nicht übernommen werden"
+  },
+  "history": {
+    "search": "Einträge durchsuchen",
+    "placeholder": "Suchen",
+    "clear": "Suche leeren",
+    "filters": "Filter",
+    "filtersActive_one": "Filter, {{count}} aktiv",
+    "filtersActive_other": "Filter, {{count}} aktiv",
+    "activitiesAll": "Alle gewählten Aktivitäten",
+    "period": {
+      "all": "Alles",
+      "30": "30 Tage",
+      "90": "90 Tage",
+      "365": "Jahr"
+    },
+    "results_one": "{{count}} Eintrag gefunden",
+    "results_other": "{{count}} Einträge gefunden",
+    "reset": "Zurücksetzen",
+    "empty": "Noch keine Einträge",
+    "noResults": "Nichts gefunden",
+    "count_one": "{{count}} Eintrag",
+    "count_other": "{{count}} Einträge"
+  },
+  "manage": {
+    "title": "Verwaltung",
+    "moods": "Stimmungen",
+    "activities": "Aktivitäten und Gruppen",
+    "groups": "Gruppen sortieren",
+    "sortGroups": "Gruppen sortieren",
+    "scales": "Skalen",
+    "group": "Gruppe",
+    "name": "Name",
+    "icon": "Symbol",
+    "level": "Stufe",
+    "add": "Hinzufügen",
+    "newMood": "Neue Stimmung",
+    "newActivity": "Neue Aktivität",
+    "newGroup": "Neue Gruppe",
+    "newScale": "Neue Skala",
+    "newScaleRange": "Bereich der neuen Skala",
+    "range": "{{min}} bis {{max}}",
+    "archived": "Archiviert",
+    "archive": "Archivieren",
+    "archiveMoodHint": "Nicht mehr zur Auswahl, alte Einträge behalten sie.",
+    "archiveActivityHint": "Nicht mehr zur Auswahl, alte Einträge behalten sie.",
+    "archiveGroupHint": "Die Gruppe und ihre Aktivitäten sind nicht mehr zur Auswahl.",
+    "archiveScaleHint": "Nicht mehr im Eintrag, alte Werte bleiben.",
+    "usage_one": "{{count}} Eintrag",
+    "usage_other": "{{count}} Einträge",
+    "levelUsage_one": "Stufe {{level}}, {{count}} Eintrag",
+    "levelUsage_other": "Stufe {{level}}, {{count}} Einträge",
+    "activityCount_one": "{{count}} Aktivität",
+    "activityCount_other": "{{count}} Aktivitäten",
+    "editGroup": "Gruppe {{name}} bearbeiten",
+    "moveHandle": "{{name}} verschieben",
+    "moveUp": "Nach oben",
+    "moveDown": "Nach unten",
+    "mergeWith": "Zusammenführen mit",
+    "mergeChoose": "Auswählen",
+    "mergeSheet": "{{name}} zusammenführen mit",
+    "mergeTitle": "„{{from}}“ in „{{into}}“ zusammenführen?",
+    "mergeBody_one": "{{count}} Eintrag bekommt „{{into}}“. „{{from}}“ wird danach gelöscht.",
+    "mergeBody_other": "{{count}} Einträge bekommen „{{into}}“. „{{from}}“ wird danach gelöscht.",
+    "merge": "Zusammenführen",
+    "nameTaken": "„{{name}}“ gibt es hier schon",
+    "nameTakenHint": "Zwei gleiche Aktivitäten lassen sich zusammenführen.",
+    "lastMood": "Mindestens eine Stimmung muss bleiben",
+    "gone": "Nicht mehr vorhanden"
+  },
+  "icons": {
+    "moods": "Stimmung",
+    "feelings": "Gefühle",
+    "sleep": "Schlaf",
+    "weather": "Wetter",
+    "people": "Menschen",
+    "work": "Arbeit",
+    "leisure": "Freizeit",
+    "health": "Gesundheit",
+    "other": "Sonstiges"
+  },
+  "common": {
+    "error": "Etwas ist schiefgelaufen",
+    "retry": "Erneut versuchen",
+    "back": "Zurück",
+    "close": "Schließen",
+    "cancel": "Abbrechen",
+    "on": "An",
+    "off": "Aus"
+  },
+  "insights": {
+    "empty": "Einblicke folgen, sobald Einträge da sind",
+    "emptyRange": "In diesem Zeitraum gibt es keine Einträge",
+    "range": {
+      "label": "Zeitraum",
+      "30": "30 Tage",
+      "90": "90 Tage",
+      "365": "Jahr",
+      "all": "Alles"
+    },
+    "tabs": {
+      "mood": "Stimmung",
+      "patterns": "Muster",
+      "activities": "Aktivitäten",
+      "health": "Gesundheit",
+      "links": "Zusammenhänge",
+      "notes": "Notizen"
+    },
+    "days_one": "{{count}} Tag",
+    "days_other": "{{count}} Tage",
+    "tiles": {
+      "mean": "Schnitt",
+      "coverage": "Abdeckung",
+      "coverageHint": "{{days}} von {{span}} Tagen"
+    },
+    "trend": {
+      "title": "Verlauf",
+      "day": "Tag",
+      "week": "7-Tage-Mittel",
+      "a11y": "Stimmung vom {{from}} bis {{to}}, {{count}} Tage, Schnitt {{mean}}, zuletzt im 7-Tage-Mittel {{last}}"
+    },
+    "distribution": {
+      "title": "Verteilung",
+      "before": "vorher {{share}}",
+      "a11y": "{{mood}}: {{share}}, {{count}} Tage",
+      "a11yBefore": "{{mood}}: {{share}}, {{count}} Tage, vorher {{before}}"
+    },
+    "pixels": {
+      "title": "Jahr in Pixeln",
+      "year": "Jahr",
+      "a11yMonth": "{{month}}: {{summary}}",
+      "a11yEmpty": "{{month}}: keine Einträge",
+      "a11yHint": "Öffnet den angetippten Tag"
+    },
+    "weekdays": {
+      "title": "Wochentage",
+      "overall": "Schnitt über alle Tage: {{mean}}",
+      "a11y": "{{day}}: {{mean}}, {{count}} Tage, {{diff}} gegenüber dem Schnitt",
+      "none": "{{day}}: keine Einträge"
+    },
+    "months": {
+      "title": "Monate",
+      "empty": "Noch keine Monate"
+    },
+    "swings": {
+      "title": "Schwankung",
+      "typical": "Innerhalb einer Woche schwankt die Stimmung meist um {{value}} Stufen.",
+      "calm": "Ruhigste Wochen",
+      "rough": "Unruhigste Wochen",
+      "week": "Woche ab {{date}}",
+      "row": "Schnitt {{mean}}, Schwankung {{spread}}",
+      "empty": "Noch keine Woche mit mindestens vier Einträgen"
+    },
+    "streaks": {
+      "title": "Serien",
+      "longest": "Längste Folge ab {{mood}}",
+      "current": "Aktuelle Folge",
+      "none": "keine",
+      "range": "{{from}} bis {{to}}"
+    },
+    "frequency": {
+      "title": "Häufigkeit",
+      "before": "vorher {{count}}",
+      "empty": "Keine Aktivitäten in diesem Zeitraum"
+    },
+    "effects": {
+      "title": "Stimmung mit und ohne",
+      "nextTitle": "Am Folgetag",
+      "higher": "Höherer Schnitt",
+      "lower": "Niedrigerer Schnitt",
+      "sentence": "An Tagen mit {{name}} im Schnitt {{with}} statt {{without}} ({{count}} Tage)",
+      "nextSentence": "Am Tag nach {{name}} im Schnitt {{with}} statt {{without}} ({{count}} Tage)",
+      "empty": "Noch keine Aktivität mit deutlichem Unterschied",
+      "more": "Alle zeigen",
+      "less": "Weniger zeigen"
+    },
+    "pairs": {
+      "title": "Oft zusammen",
+      "pair": "{{a}} und {{b}}",
+      "detail": "{{count}} Tage, {{lift}}-mal so oft wie zufällig, Schnitt {{mean}}",
+      "empty": "Noch keine Aktivitäten, die auffällig oft zusammen vorkommen"
+    },
+    "beforeHard": {
+      "title": "Vor schwierigen Tagen",
+      "row": "In den zwei Tagen vor {{count}} von {{total}} schwierigen Tagen ({{share}}), sonst vor {{base}} aller Tage",
+      "few": "Zu wenige schwierige Tage für einen Vergleich",
+      "nothing": "Vor schwierigen Tagen kam keine Aktivität auffällig oft vor"
+    },
+    "groups": {
+      "title": "Gruppenblick",
+      "none": "Ohne Eintrag in der Gruppe",
+      "row": "{{mean}}, {{count}} Tage",
+      "few": "{{count}} Tage",
+      "empty": "In dieser Gruppe gibt es im Zeitraum keine Einträge",
+      "pick": "Gruppe"
+    },
+    "words": {
+      "title": "Wörter",
+      "good": "Häufiger an Tagen ab {{mood}}",
+      "low": "Häufiger an den übrigen Tagen",
+      "empty": "Noch zu wenige Notizen",
+      "none": "Keine Wörter mit deutlichem Unterschied",
+      "a11y": "{{word}}, an {{count}} Tagen"
+    },
+    "coverage": {
+      "title": "Umfang",
+      "entries": "Einträge",
+      "days": "Tage mit Eintrag",
+      "share": "Abdeckung",
+      "time": "Meist um",
+      "hours": "Einträge nach Uhrzeit",
+      "a11yHours": "Die meisten Einträge zwischen {{from}} und {{to}} Uhr"
+    },
+    "activity": {
+      "days": "An {{count}} von {{total}} Tagen ({{share}})",
+      "levels": "Stimmung mit und ohne",
+      "with": "Mit",
+      "without": "Ohne",
+      "meanWith": "Schnitt {{with}} statt {{without}}",
+      "weekdays": "Wochentage",
+      "companions": "Begleiter",
+      "companion": "an {{count}} dieser Tage ({{share}})",
+      "months": "Häufigkeit je Monat",
+      "allDays": "Alle Tage",
+      "showAll": "Alle {{count}} Tage zeigen",
+      "edit": "Aktivität bearbeiten",
+      "insights": "Einblicke",
+      "noDays": "Noch an keinem Tag eingetragen",
+      "few": "Noch zu wenige Tage für einen Vergleich"
+    },
+    "level": {
+      "days": "An {{count}} von {{total}} Tagen ({{share}})",
+      "typical": "Häufiger an diesen Tagen",
+      "rare": "Seltener an diesen Tagen",
+      "row": "{{share}} der Tage statt {{other}}",
+      "none": "Keine Aktivität mit deutlichem Unterschied",
+      "noDays": "Noch kein Tag mit dieser Stimmung"
+    },
+    "health": {
+      "title": "Stimmung nach Schlaf und Bewegung",
+      "empty": "In diesem Zeitraum gibt es keine Tage mit Eintrag und Gesundheitsdaten",
+      "sleep": "Schlaf in der Nacht davor",
+      "steps": "Schritte",
+      "exercise": "Training",
+      "bands": {
+        "sleepUnder6": "unter 6 h",
+        "sleep6to7": "6 bis 7 h",
+        "sleep7to8": "7 bis 8 h",
+        "sleepOver8": "ab 8 h",
+        "stepsUnder5k": "unter 5.000",
+        "steps5to10k": "5.000 bis 10.000",
+        "stepsOver10k": "ab 10.000",
+        "exerciseWith": "mit Training",
+        "exerciseWithout": "ohne Training",
+        "hrLow": "unter {{low}} bpm",
+        "hrUsual": "{{low}} bis {{high}} bpm",
+        "hrHigh": "über {{high}} bpm"
+      },
+      "a11y": "{{band}}: Schnitt {{mean}}, {{count}} Tage",
+      "a11yFew": "{{band}}: {{count}} Tage, zu wenige für einen Schnitt",
+      "hint_one": "Aus {{count}} Tag mit Eintrag und Daten aus Health Connect. Das beschreibt dein Tagebuch, nicht Ursache und Wirkung.",
+      "hint_other": "Aus {{count}} Tagen mit Eintrag und Daten aus Health Connect. Das beschreibt dein Tagebuch, nicht Ursache und Wirkung.",
+      "restingHr": "Ruhepuls"
+    },
+    "healthStats": {
+      "empty": "In diesem Zeitraum gibt es keine Gesundheitsdaten",
+      "emptyRange": "In diesem Zeitraum gibt es keine Gesundheitsdaten",
+      "metric": {
+        "sleep": "Schlaf",
+        "steps": "Schritte",
+        "restingHr": "Puls",
+        "exercise": "Training"
+      },
+      "tiles": {
+        "sleep": "Schlaf",
+        "steps": "Schritte",
+        "restingHr": "Ruhepuls",
+        "exercise": "Training pro Woche",
+        "before": "vorher {{value}}",
+        "days_one": "an {{count}} Tag",
+        "days_other": "an {{count}} Tagen",
+        "exerciseDays_one": "an {{count}} Tag",
+        "exerciseDays_other": "an {{count}} Tagen"
+      },
+      "trend": {
+        "title": "Verlauf der Werte",
+        "goal": "Ziel",
+        "mean": "Schnitt",
+        "median": "Median",
+        "min": "Niedrigster",
+        "max": "Höchster",
+        "days_one": "Aus {{count}} Tag",
+        "days_other": "Aus {{count}} Tagen",
+        "before_one": "Aus {{count}} Tag, im Zeitraum davor im Schnitt {{value}}",
+        "before_other": "Aus {{count}} Tagen, im Zeitraum davor im Schnitt {{value}}",
+        "a11y": "{{metric}} vom {{from}} bis {{to}}, {{count}} Tage, zuletzt im 7-Tage-Mittel {{last}}"
+      },
+      "goals": {
+        "title": "Ziele und Serien",
+        "sleep": "Nächte ab 7 Stunden",
+        "steps": "Tage ab 10.000 Schritten",
+        "exercise": "Tage mit Training",
+        "share": "{{hit}} von {{count}} Tagen mit Daten",
+        "perWeek": "Im Schnitt {{value}} pro Woche",
+        "longest": "Längste Folge",
+        "current": "Aktuelle Folge"
+      },
+      "weekdays": {
+        "title": "Werte nach Wochentag",
+        "a11y": "{{day}}: {{value}}, {{count}} Tage"
+      },
+      "records": {
+        "title": "Bestwerte",
+        "mostSteps": "Meiste Schritte",
+        "fewestSteps": "Wenigste Schritte",
+        "longestSleep": "Längster Schlaf",
+        "shortestSleep": "Kürzester Schlaf",
+        "longestExercise": "Längstes Training",
+        "lowestHr": "Niedrigster Ruhepuls",
+        "highestHr": "Höchster Ruhepuls",
+        "mood": "Stimmung {{mood}} ({{mean}})",
+        "noEntry": "ohne Eintrag"
+      },
+      "split": {
+        "title": "Gute und schwierige Tage",
+        "good": "ab {{mood}}",
+        "hard": "bis {{mood}}",
+        "diff": "An guten Tagen {{diff}}",
+        "few": "zu wenige Tage",
+        "a11y": "{{metric}}: an guten Tagen {{good}}, an schwierigen {{hard}}",
+        "empty": "Noch zu wenige gute oder schwierige Tage mit Gesundheitsdaten",
+        "hint": "Schnitt an Tagen ab {{good}} gegen Tage bis {{hard}}. Schlaf ist die Nacht davor."
+      },
+      "links": {
+        "title": "Stimmung und Körper",
+        "empty": "Für einen Zusammenhang braucht es mindestens {{count}} Tage mit Eintrag und Gesundheitsdaten",
+        "pairing": {
+          "sleep": {
+            "same": "Schlaf der Nacht davor und Stimmung",
+            "nightAfter": "Stimmung und Schlaf der Nacht danach"
+          },
+          "steps": {
+            "same": "Schritte und Stimmung am selben Tag",
+            "next": "Schritte und Stimmung am Folgetag"
+          },
+          "restingHr": {
+            "same": "Ruhepuls und Stimmung am selben Tag",
+            "next": "Ruhepuls und Stimmung am Folgetag"
+          },
+          "exercise": {
+            "same": "Training und Stimmung am selben Tag",
+            "next": "Training und Stimmung am Folgetag"
+          }
+        },
+        "sleep": {
+          "up": "Mehr Schlaf, bessere Stimmung ({{strength}})",
+          "down": "Mehr Schlaf, schlechtere Stimmung ({{strength}})"
+        },
+        "steps": {
+          "up": "Mehr Schritte, bessere Stimmung ({{strength}})",
+          "down": "Mehr Schritte, schlechtere Stimmung ({{strength}})"
+        },
+        "restingHr": {
+          "up": "Höherer Ruhepuls, bessere Stimmung ({{strength}})",
+          "down": "Höherer Ruhepuls, schlechtere Stimmung ({{strength}})"
+        },
+        "exercise": {
+          "up": "Mehr Training, bessere Stimmung ({{strength}})",
+          "down": "Mehr Training, schlechtere Stimmung ({{strength}})"
+        },
+        "nightAfter": {
+          "up": "Bessere Stimmung, mehr Schlaf danach ({{strength}})",
+          "down": "Bessere Stimmung, weniger Schlaf danach ({{strength}})"
+        },
+        "none": "Kaum ein Zusammenhang",
+        "strength": {
+          "weak": "schwach",
+          "medium": "mittel",
+          "strong": "deutlich"
+        },
+        "detail": "r = {{r}}, {{count}} Tage",
+        "hint": "Korrelation von -1 bis 1: wie sehr beide gemeinsam steigen oder fallen. Sie beschreibt dein Tagebuch, nicht Ursache und Wirkung."
+      },
+      "activities": {
+        "title": "Aktivitäten und Körper",
+        "sentence": "An diesen Tagen im Schnitt {{with}} statt {{without}} ({{count}} Tage)",
+        "nightSentence": "In der Nacht danach im Schnitt {{with}} statt {{without}} ({{count}} Nächte)",
+        "higher": {
+          "sleep": "Mehr Schlaf",
+          "steps": "Mehr Schritte",
+          "restingHr": "Höherer Ruhepuls",
+          "exercise": "Mehr Training"
+        },
+        "lower": {
+          "sleep": "Weniger Schlaf",
+          "steps": "Weniger Schritte",
+          "restingHr": "Niedrigerer Ruhepuls",
+          "exercise": "Weniger Training"
+        },
+        "empty": "Noch keine Aktivität mit deutlichem Unterschied"
+      }
+    }
+  },
+  "outlook": {
+    "show": "Ausblick zeigen",
+    "showHint": "Auf Heute und im Kalender",
+    "computing": "Wird berechnet",
+    "between": "zwischen {{low}} und {{high}}",
+    "hardChance": "Schwieriger Tag möglich ({{percent}})",
+    "weekdayMean": "{{weekday}} bisher im Schnitt {{mean}} ({{count}} Tage)",
+    "weekdayNone": "Noch kein {{weekday}} erfasst",
+    "usual": "Oft an diesem Wochentag: {{names}}",
+    "reasons": "Warum",
+    "reasonWeekdayUp": "{{weekday}} meist besser",
+    "reasonWeekdayDown": "{{weekday}} meist schlechter",
+    "reasonCarryUp": "Letzte Tage eher gut",
+    "reasonCarryDown": "Letzte Tage eher schwer",
+    "reasonPlannedUp": "{{name}} geplant, an solchen Tagen meist besser",
+    "reasonPlannedDown": "{{name}} geplant, an solchen Tagen meist schlechter",
+    "reasonRecurringUp": "Meist {{name}}, an solchen Tagen eher besser",
+    "reasonRecurringDown": "Meist {{name}}, an solchen Tagen eher schlechter",
+    "reasonSkippedUp": "Diesmal ohne {{name}}, sonst eher schlechter",
+    "reasonSkippedDown": "Diesmal ohne {{name}}, sonst eher besser",
+    "accuracy": "Bisherige Treffsicherheit",
+    "accuracyHint": "Für jeden Tag der Vergangenheit ab dem 30. Eintrag: Ausblick nur mit den Daten bis dahin, verglichen mit dem, was kam. Mittlere Abweichung in Stufen, kleiner ist besser.",
+    "accuracyEmpty": "Braucht 30 Tage mit Eintrag.",
+    "horizon_one": "In {{count}} Tag",
+    "horizon_other": "In {{count}} Tagen",
+    "colModel": "Ausblick",
+    "colLongMean": "Langzeitmittel",
+    "colMode": "Immer {{mood}}",
+    "shown": "gezeigt",
+    "notShown": "nicht gezeigt",
+    "cases": "{{count}} Vergleiche je Abstand",
+    "about": "Der Ausblick beschreibt, was in deinen bisherigen Einträgen oft so war. Er weiß nichts über dich, was nicht in den Einträgen steht."
+  },
+  "lowMood": {
+    "title": "Reden hilft",
+    "body": "Die letzten Tage waren oft schwer. Manchmal hilft es, mit jemandem zu sprechen. Die Telefonseelsorge ist rund um die Uhr erreichbar, anonym und kostenlos.",
+    "call": "0800 111 0 111 anrufen",
+    "callLabel": "Telefonseelsorge anrufen, 0800 111 0 111",
+    "later": "Ausblenden",
+    "laterHint": "Blendet den Hinweis für 14 Tage aus"
+  },
+  "backup": {
+    "title": "Zeit für eine Sicherung",
+    "bodyNever": "Deine Einträge liegen nur auf diesem Gerät. Eine Sicherung als Datei schützt sie bei Verlust oder Gerätewechsel.",
+    "bodyAgo_one": "Die letzte Sicherung ist {{count}} Tag her.",
+    "bodyAgo_other": "Die letzte Sicherung ist {{count}} Tage her.",
+    "now": "Jetzt sichern"
+  },
+  "reminders": {
+    "title": "Erinnerung",
+    "daily": "Tägliche Erinnerung",
+    "dailyHint": "Entfällt, wenn der Tag schon einen Eintrag hat",
+    "time": "Uhrzeit",
+    "permissionDenied": "Ohne Systemberechtigung stellt die App keine Erinnerung. Du kannst sie in den Android-Einstellungen erlauben.",
+    "unavailable": "In Expo Go stellt Android keine Erinnerungen. Die Einstellung wird gespeichert und greift in der installierten App.",
+    "discreet": "Der Text lautet nur „Wie war dein Tag?“ und verrät nichts aus dem Tagebuch."
+  },
+  "notify": {
+    "title": "Erinnerung",
+    "channel": "Erinnerung",
+    "body": "Wie war dein Tag?"
+  },
+  "lock": {
+    "title": "App-Sperre",
+    "prompt": "Zum Entsperren bestätigen",
+    "unlock": "Entsperren",
+    "failed": "Nicht entsperrt.",
+    "enable": "App-Sperre",
+    "enableHint": "Beim Öffnen Entsperrung verlangen",
+    "unavailable": "Keine Bildschirmsperre eingerichtet. Richte auf dem Gerät PIN, Muster oder Biometrie ein.",
+    "delay": "Sperren nach",
+    "delayImmediate": "Sofort",
+    "delayMinutes_one": "1 Minute",
+    "delayMinutes_other": "{{count}} Minuten",
+    "secure": "Solange die Sperre aktiv ist, bleibt die Vorschau in der App-Übersicht leer und Bildschirmfotos sind gesperrt."
+  },
+  "privacy": {
+    "title": "Datenschutz",
+    "intro": "Daylight speichert alles ausschließlich auf diesem Gerät.",
+    "stored": "Gespeichert werden: Einträge mit Stimmung, Aktivitäten, Skalen, Notizen und Fotos, deine Stimmungen, Aktivitäten, Gruppen und Skalen, geplante Aktivitäten und deine Einstellungen.",
+    "network": "Keine Konten, keine Server, keine Analyse, keine Werbung. Die App fordert keine Internet-Berechtigung an und kann nichts senden.",
+    "leave": "Daten verlassen das Gerät nur, wenn du selbst eine Sicherung oder einen CSV-Export teilst oder speicherst.",
+    "noCloudBackup": "Die App ist von der automatischen Android-Sicherung ausgenommen. Deine Einträge landen also auch nicht in deinem Google-Konto. Der Preis dafür: Bei Deinstallation oder Gerätewechsel sind sie weg, wenn du keine eigene Sicherung hast. Nach 60 Tagen ohne Sicherung erinnert Heute daran.",
+    "backup": "Eine Sicherung ist eine unverschlüsselte Datei mit allen Einträgen, Notizen und Fotos. Lege sie an einem Ort ab, dem du vertraust.",
+    "computed": "Einblicke und Ausblick werden auf dem Gerät aus deinen Einträgen berechnet. Sie beschreiben deine Daten und sind keine medizinische Aussage.",
+    "reminders": "Die Erinnerung ist eine lokale Benachrichtigung des Geräts. Ihr Text verrät nichts aus dem Tagebuch.",
+    "lockNote": "Die optionale App-Sperre nutzt die Entsperrung des Geräts. Solange sie aktiv ist, sind Bildschirmfotos gesperrt.",
+    "deleteNote": "Alle Daten löschen entfernt Einträge, Fotos, Aktivitäten, Pläne, Gesundheitsdaten und Einstellungen vom Gerät und gibt den Zugriff auf Health Connect zurück.",
+    "photos": "Fotos wählst du über die Fotoauswahl von Android aus. Daylight bekommt dabei nur das eine Bild, keinen Zugriff auf deine Galerie und keine Kamera. Eine verkleinerte Kopie liegt im privaten Speicher der App, nicht in der Galerie.",
+    "health": "Wenn du Gesundheitsdaten einschaltest, liest Daylight aus Health Connect Schritte, Schlaf, Ruhepuls und Training als Tageswerte. Das passiert auf dem Gerät, ohne Internet. Daylight schreibt nichts nach Health Connect, und die Werte sind nicht Teil der Sicherung. Den Zugriff verwaltest du in Health Connect, „Trennen und Daten löschen“ entfernt alles Übernommene."
+  },
+  "about": {
+    "title": "Über",
+    "tagline": "Stimmungstagebuch, lokal, offline, ohne Konto.",
+    "version": "Version {{version}}",
+    "copyright": "© 2026 Paul Behla, paul-behla.de",
+    "license": "Daylight ist freie Software unter der GNU General Public License, Version 3 oder später, mit einem Zusatz zur Namensnennung. Ohne jede Gewährleistung. Lizenz und Quellcode: github.com/Jurgler95/daylight",
+    "disclaimer": "Daylight ist kein Medizinprodukt und ersetzt keine Beratung oder Behandlung. Einblicke und Ausblick beschreiben nur deine eigenen Einträge."
+  },
+  "health": {
+    "title": "Gesundheitsdaten",
+    "enable": "Aus Health Connect übernehmen",
+    "enableHint": "Schritte, Schlaf, Ruhepuls und Training, zum Beispiel von Samsung Health und der Galaxy Watch. Nur lesend.",
+    "state": "Stand",
+    "running": "Wird gerade abgeglichen",
+    "never": "Noch nicht abgeglichen",
+    "lastSyncAt": "Zuletzt abgeglichen am {{date}} um {{time}}",
+    "coverage_one": "{{count}} Tag mit Daten, ältester am {{date}}",
+    "coverage_other": "{{count}} Tage mit Daten, ältester am {{date}}",
+    "noDays": "Noch keine Tage mit Daten",
+    "lastError": "Letzter Fehler: {{message}}",
+    "syncNow": "Jetzt abgleichen",
+    "reread": "Alles neu einlesen",
+    "manage": "In Health Connect verwalten",
+    "disconnect": "Trennen und Daten löschen",
+    "disconnectBody": "Daylight gibt den Zugriff auf Health Connect zurück und löscht die übernommenen Gesundheitsdaten von diesem Gerät. In Health Connect selbst bleibt alles, wie es ist.",
+    "disconnectConfirm": "Trennen",
+    "denied": "Ohne Freigabe in Health Connect kann Daylight nichts übernehmen. Du kannst sie jederzeit unter „In Health Connect verwalten“ erteilen.",
+    "missing": "Health Connect ist auf diesem Gerät nicht installiert. Ab Android 14 ist es eingebaut, davor gibt es die App Health Connect im Play Store.",
+    "needsUpdate": "Health Connect muss erst aktualisiert werden.",
+    "unsupported": "Gesundheitsdaten gibt es nur in der installierten App auf Android, nicht in Expo Go.",
+    "historyHint": "Für Tage, die älter als 30 Tage sind, im Dialog von Health Connect auch den Zugriff auf vergangene Daten erlauben. Wurde das erst später erlaubt, holt „Alles neu einlesen“ die älteren Tage nach. Übernommen wird nur, was Samsung Health an Health Connect weitergegeben hat.",
+    "readOnly": "Daylight liest nur und schreibt nie etwas nach Health Connect. Abgeglichen wird beim Öffnen der App, höchstens alle 15 Minuten. Die Gesundheitsdaten sind nicht Teil der Sicherung, ein neuer Abgleich holt sie zurück.",
+    "syncing": "Gesundheitsdaten werden abgeglichen",
+    "syncingMonth": "Gesundheitsdaten werden abgeglichen, {{month}}",
+    "day": {
+      "title": "Gesundheit",
+      "sleep": "Schlaf",
+      "steps": "Schritte",
+      "exercise": "Training",
+      "restingHr": "Ruhepuls",
+      "bpm": "{{value}} bpm"
+    }
+  }
+}

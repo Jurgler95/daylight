@@ -1,0 +1,137 @@
+# Baut die sideloadbare APK, prüft ihr Manifest und stellt sie als GitHub-Release bereit. Angestoßen
+# vom Deploy-Skill (.claude/skills/deploy) per `gh workflow run release.yml --ref main -f
+# version=1.0.11`, nachdem Version, Updatehistorie und Commit auf main liegen. Übernommen aus der
+# Zyklus-App, ergänzt um die Manifestprüfung.
+#
+# Gestartet wird auf main statt über einen gepushten Tag, weil GitHub Caches nach Ref trennt: ein
+# Lauf für einen neuen Tag sähe weder den npm- noch den Gradle-Cache. Den Tag `vX.Y.Z` setzt erst
+# die Veröffentlichung am Ende, es gibt also nie einen Tag ohne Release.
+name: Release
+run-name: Daylight ${{ inputs.version }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version wie in app.json, ohne v
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      VERSION: ${{ inputs.version }}
+      TAG: v${{ inputs.version }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      # Alle Tags, damit das Release-Notes-Skript den versionCode der Vorversion findet
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Noch nicht veröffentlicht
+        run: |
+          if git rev-parse -q --verify "refs/tags/$TAG" >/dev/null; then
+            echo "::error::$TAG ist schon veröffentlicht, bitte eine neue Version heben"
+            exit 1
+          fi
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+
+      # JDK 17, nicht neuer, sonst scheitert Gradle
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+
+      # Schreibt den Cache nur auf dem Default-Branch, deshalb der Start auf main
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Versionen und Updatehistorie abgleichen
+        run: node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON .github/scripts/release-notes.mjs "$VERSION" > release-notes.md
+
+      - run: npm ci
+
+      - name: Typecheck und Tests
+        run: npm run typecheck && npm test
+
+      # Das Plugin plugins/withReleaseSigning.js trägt die Release-Signatur ein, sie greift nur mit
+      # DAYLIGHT_KEYSTORE (nächster Schritt).
+      - name: Android-Projekt erzeugen
+        run: npx expo prebuild --platform android --clean --no-install
+
+      # Build-Cache an, und mehr Speicher für den Gradle-Daemon, als das Template vorsieht. Die
+      # Datei im Gradle-Home hat Vorrang vor android/gradle.properties.
+      - name: Gradle einstellen
+        run: mkdir -p ~/.gradle && printf 'org.gradle.caching=true\norg.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=1g\n' >> ~/.gradle/gradle.properties
+
+      # Der Keystore liegt Base64-kodiert im Secret und nur für diesen Lauf auf der Platte. Fehlt
+      # ein Secret, bricht der Lauf ab, statt still mit dem Debug-Schlüssel zu signieren.
+      - name: Signaturschlüssel bereitstellen
+        env:
+          KEYSTORE_BASE64: ${{ secrets.DAYLIGHT_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.DAYLIGHT_KEYSTORE_PASSWORD }}
+        run: |
+          if [ -z "$KEYSTORE_BASE64" ] || [ -z "$KEYSTORE_PASSWORD" ]; then
+            echo "::error::Secrets DAYLIGHT_KEYSTORE_BASE64 und DAYLIGHT_KEYSTORE_PASSWORD fehlen"
+            exit 1
+          fi
+          echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/daylight-release.jks"
+          {
+            echo "DAYLIGHT_KEYSTORE=$RUNNER_TEMP/daylight-release.jks"
+            echo "DAYLIGHT_KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD"
+            echo "DAYLIGHT_KEY_ALIAS=daylight"
+            echo "DAYLIGHT_KEY_PASSWORD=$KEYSTORE_PASSWORD"
+          } >> "$GITHUB_ENV"
+
+      # arm64 reicht für jedes aktuelle Gerät und spart mehr als die Hälfte der Größe
+      - name: APK bauen
+        working-directory: android
+        run: ./gradlew assembleRelease -PreactNativeArchitectures=arm64-v8a
+
+      # Der Fingerabdruck ist öffentlich und steht auch im README. Weicht er ab, wurde mit einem
+      # anderen Schlüssel signiert, und das Update ließe sich nicht über die installierte App spielen.
+      - name: Signatur prüfen
+        env:
+          EXPECTED: 9D:5E:FF:54:19:70:F6:09:85:7F:B6:F8:43:1C:E8:62:74:B4:6E:FB:2E:1B:56:A5:9B:63:CC:87:04:1F:C9:8A
+        run: |
+          APKSIGNER=$(ls "$ANDROID_HOME"/build-tools/*/apksigner | sort -V | tail -1)
+          ACTUAL=$("$APKSIGNER" verify --print-certs android/app/build/outputs/apk/release/app-release.apk \
+            | sed -n 's/.*certificate SHA-256 digest: //p' | sort -u | tr 'a-f' 'A-F' | sed 's/../&:/g; s/:$//')
+          echo "Signatur: $ACTUAL"
+          if [ "$ACTUAL" != "$EXPECTED" ]; then
+            echo "::error::Die APK ist nicht mit dem Daylight-Schlüssel signiert"
+            exit 1
+          fi
+          rm -f "$RUNNER_TEMP/daylight-release.jks"
+
+      # Kein INTERNET, keine Cloud-Sicherung, Health Connect nur lesend. Schlägt das fehl, wird
+      # nichts veröffentlicht.
+      - name: Manifest prüfen
+        run: |
+          cp android/app/build/outputs/apk/release/app-release.apk "daylight-$VERSION.apk"
+          node .github/scripts/check-manifest.mjs "daylight-$VERSION.apk"
+
+      # Erst als Entwurf anlegen oder einen Entwurf aus einem abgebrochenen Lauf weiterverwenden,
+      # dann die APK hochladen und zuletzt veröffentlichen. So ist ein Release erst sichtbar, wenn
+      # die APK dranhängt, und ein Rerun landet im selben Zustand.
+      - name: Release veröffentlichen
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release edit "$TAG" --title "Daylight $VERSION" --notes-file release-notes.md --target "$GITHUB_SHA"
+          else
+            gh release create "$TAG" --draft --target "$GITHUB_SHA" \
+              --title "Daylight $VERSION" --notes-file release-notes.md
+          fi
+          gh release upload "$TAG" "daylight-$VERSION.apk" --clobber
+          gh release edit "$TAG" --draft=false
