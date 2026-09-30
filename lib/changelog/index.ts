@@ -16,6 +16,14 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.13',
+    date: '2026-09-30',
+    changes: [
+      'Daylight ist jetzt freie Software, Lizenz und Quellcode stehen unter „Über“',
+      'Neuer Signaturschlüssel: vor dem Update eine Sicherung teilen, die alte App deinstallieren und die Sicherung danach wieder einspielen',
+    ],
+  },
+  {
     version: '1.0.12',
     date: '2026-09-28',
     changes: ['Fotos in der Vollansicht lassen sich mit zwei Fingern oder per Doppeltipp vergrößern und im Zoom verschieben'],

@@ -63,4 +63,4 @@ if (problems.length > 0) {
 
 console.log(release.changes.map((change) => `- ${change}`).join('\n'));
 console.log(`\nversionCode ${app.expo.android.versionCode}, erschienen am ${release.date}.`);
-console.log('Mit dem Debug-Schlüssel signiert, nur zum Sideloaden auf eigenen Geräten.');
+console.log('Signiert mit dem Daylight-Schlüssel, SHA-256 des Zertifikats: 9D:5E:FF:54:19:70:F6:09:85:7F:B6:F8:43:1C:E8:62:74:B4:6E:FB:2E:1B:56:A5:9B:63:CC:87:04:1F:C9:8A');
