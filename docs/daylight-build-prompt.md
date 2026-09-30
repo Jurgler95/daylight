@@ -32,7 +32,7 @@ sind das Gedächtnis.
    - **Entscheidungen**: nummerierte Liste jeder nicht offensichtlichen Entscheidung mit Grund,
      auch alles, was ohne Rückfrage entschieden wurde.
    - **Offene Punkte für spätere Phasen**: Provisorien, Stubs, bekannte Lücken.
-3. `README.md` nachziehen, wenn sich Setup oder Architektur geändert haben.
+3. `docs/development.md` nachziehen, wenn sich Setup oder Architektur geändert haben, `README.md`, wenn sich sichtbare Funktionen geändert haben.
 4. Alles committen mit der Nachricht `Phase N: <slug>`.
 5. Anhalten und für Paul zusammenfassen. Die nächste Phase nicht in derselben Session beginnen,
    außer es wird ausdrücklich verlangt.
@@ -496,7 +496,7 @@ Dark Mode. Kandidaten für spätere Phasen, falls sie im Alltag fehlen:
   respektieren.
 - Keine Gamification, keine Serien-Belohnungen, keine Schuld für fehlende Einträge.
 - Echte Tagebuchdaten kommen nie ins Repository, auch nicht als Test-Fixture.
-- `README.md` aktuell halten.
+- `README.md` und `docs/development.md` aktuell halten.
 
 Mit der nächsten offenen Phase weitermachen und das Übergabeprotokoll befolgen. Unklares vorher
 fragen statt annehmen; ist die Session nicht interaktiv, entscheiden und die Entscheidung in der

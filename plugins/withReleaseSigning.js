@@ -1,7 +1,7 @@
 // Signiert Release-Builds mit dem eigenen Schlüssel, sobald DAYLIGHT_KEYSTORE gesetzt ist. Ohne die
 // Variable bleibt es beim Debug-Keystore der Vorlage, damit lokale Probebuilds weiter laufen. Die
 // Pipeline setzt die Variable immer und prüft den Fingerabdruck der fertigen APK. Keystore und
-// Passwörter liegen nie im Repo, siehe README unter "Signatur".
+// Passwörter liegen nie im Repo, siehe docs/development.md unter "Signatur".
 const { withAppBuildGradle } = require('expo/config-plugins');
 
 const RELEASE_CONFIG = `

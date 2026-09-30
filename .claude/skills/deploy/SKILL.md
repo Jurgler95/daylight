@@ -167,7 +167,7 @@ Patch-Version veröffentlicht, siehe die Ausnahme in Schritt 4.
 Scheitert der Schritt „Signaturschlüssel bereitstellen" oder „Signatur prüfen": nicht ausliefern.
 Fehlen die Secrets `DAYLIGHT_KEYSTORE_BASE64` und `DAYLIGHT_KEYSTORE_PASSWORD` im Repo, das
 melden; sie kommen aus `~/.keystores/daylight-release.jks` und dem Schlüsselbund-Eintrag
-`daylight-keystore` (siehe README, Signatur). Nie einen neuen Schlüssel erzeugen: Updates über
+`daylight-keystore` (siehe `docs/development.md`, Signatur). Nie einen neuen Schlüssel erzeugen: Updates über
 die installierte App gehen nur mit demselben.
 
 Scheitert der Schritt „Manifest prüfen": nicht ausliefern, nicht wiederholen. Das Log nennt die
