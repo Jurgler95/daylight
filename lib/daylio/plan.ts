@@ -3,7 +3,7 @@ import type { DateString } from '@/lib/dates';
 import { FALLBACK_ACTIVITY_ICON, type IconName } from '@/lib/icons';
 import { fold } from '@/lib/search/fold';
 
-import { IMPORTED_GROUP, knownActivity, knownMoodLevel } from './known';
+import { knownActivity, knownMoodLevel, resolveGroupName } from './known';
 import type { RawEntry } from './parse';
 
 /**
@@ -128,14 +128,17 @@ function resolveMood(label: string, catalog: Catalog, choices: ImportChoices): O
 
 function resolveActivity(name: string, catalog: Catalog, choices: ImportChoices): Omit<PlannedActivity, 'count' | 'rank'> {
   const key = fold(name);
+  const groupNames = catalog.groups.map((group) => group.name);
   const existing = catalog.activities.find((activity) => fold(activity.name) === key);
   if (existing) {
-    const group = catalog.groups.find((g) => g.id === existing.group_id)?.name ?? IMPORTED_GROUP;
+    const group = catalog.groups.find((g) => g.id === existing.group_id)?.name ?? resolveGroupName('imported', groupNames);
     return { key, name, existingId: existing.id, group, icon: FALLBACK_ACTIVITY_ICON };
   }
   const known = knownActivity(name);
   const chosen = choices.activityGroups?.[key];
-  return { key, name, existingId: null, group: chosen ?? known?.group ?? IMPORTED_GROUP, icon: known?.icon ?? FALLBACK_ACTIVITY_ICON };
+  // "happy" goes to "Gefühle" or "Emotions", whichever of the two this journal has.
+  const group = chosen ?? resolveGroupName(known?.group ?? 'imported', groupNames);
+  return { key, name, existingId: null, group, icon: known?.icon ?? FALLBACK_ACTIVITY_ICON };
 }
 
 export function buildImportPlan(records: readonly RawEntry[], catalog: Catalog, choices: ImportChoices = {}): ImportPlan {

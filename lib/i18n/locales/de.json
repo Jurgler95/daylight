@@ -67,7 +67,9 @@
     "protection": "Schutz",
     "info": "Info",
     "healthSection": "Gesundheit",
-    "health": "Gesundheitsdaten"
+    "health": "Gesundheitsdaten",
+    "languageSection": "Sprache",
+    "language": "Sprache der App"
   },
   "import": {
     "title": "Import",
@@ -254,7 +256,9 @@
     "close": "Schließen",
     "cancel": "Abbrechen",
     "on": "An",
-    "off": "Aus"
+    "off": "Aus",
+    "increase": "{{label}} erhöhen",
+    "decrease": "{{label}} verringern"
   },
   "insights": {
     "empty": "Einblicke folgen, sobald Einträge da sind",

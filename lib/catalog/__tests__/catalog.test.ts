@@ -16,7 +16,7 @@ describe('catalog', () => {
   it('orders moods by level, custom ones after the standard mood of their level', () => {
     const db = createTestDb();
     createMood(db, { label: 'Erschöpft', level: 2 });
-    expect(load(db).moods.map((mood) => mood.label)).toEqual(['Super', 'Gut', 'Ok', 'Schlecht', 'Erschöpft', 'Lausig']);
+    expect(load(db).moods.map((mood) => mood.label)).toEqual(['Super', 'Gut', 'Ok', 'Schlecht', 'Erschöpft', 'Mies']);
   });
 
   it('names a level after its first active mood, or the standard name', () => {

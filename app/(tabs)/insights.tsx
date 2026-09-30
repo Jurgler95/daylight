@@ -57,7 +57,7 @@ type Section = (typeof SECTIONS)[number]['value'];
 const HEALTH_SECTIONS: readonly Section[] = ['health', 'links'];
 
 export default function InsightsScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const now = useToday();
   const [range, setRange] = useState<InsightRange>('90');
   const insights = useInsights(range, now);
@@ -86,7 +86,7 @@ export default function InsightsScreen() {
     [catalog],
   );
   // Sunday first, like `weekdayOf`.
-  const weekdayNames = useMemo(() => weekdayLabels(0), []);
+  const weekdayNames = useMemo(() => weekdayLabels(0), [i18n.language]); // eslint-disable-line react-hooks/exhaustive-deps
   const good = levelMood(catalog, 4).label;
   const hard = levelMood(catalog, 2).label;
 

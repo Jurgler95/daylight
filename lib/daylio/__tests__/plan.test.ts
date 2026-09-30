@@ -1,8 +1,12 @@
 import type { DateString } from '@/lib/dates';
 
-import { DEFAULT_GROUPS, DEFAULT_MOODS, IMPORTED_GROUP } from '../known';
+import { applyLanguage } from '@/lib/i18n';
+
+import { DEFAULT_GROUPS, DEFAULT_MOODS, defaultGroups, defaultMoods } from '../known';
 import type { RawEntry } from '../parse';
 import { buildImportPlan, entryKey, fileOrder, type Catalog } from '../plan';
+
+const IMPORTED_GROUP = 'Importiert';
 
 let line = 1;
 const raw = (date: string, mood: string, activities: string[] = [], note: string | null = null, time = '20:00'): RawEntry => ({
@@ -63,6 +67,35 @@ describe('buildImportPlan', () => {
       ['rad', 5, 1],
       ['awful', 1, 5],
     ]);
+  });
+
+  it('puts an English export into the German groups', () => {
+    applyLanguage('en');
+    try {
+      const plan = buildImportPlan([raw('2026-03-01', 'good', ['happy', 'sunny', 'pottery'])], fresh());
+      expect(plan.activities.map((a) => [a.name, a.group])).toEqual([
+        ['happy', 'Gefühle'],
+        ['sunny', 'Wetter'],
+        ['pottery', 'Imported'],
+      ]);
+    } finally {
+      applyLanguage('de');
+    }
+  });
+
+  it('uses the English groups of an English journal, also for a German export', () => {
+    const english: Catalog = {
+      ...fresh(),
+      moods: defaultMoods('en').map((mood, i) => ({ id: i + 1, label: mood.label, level: mood.level, sort_order: i, archived: false })),
+      groups: defaultGroups('en').map((name, i) => ({ id: i + 1, name })),
+    };
+    const plan = buildImportPlan([raw('2026-03-01', 'Gut', ['Müde', 'happy'])], english);
+    expect(plan.moods[0]).toMatchObject({ existingId: 2, level: 4 });
+    expect(plan.activities.map((a) => [a.name, a.group])).toEqual([
+      ['Müde', 'Emotions'],
+      ['happy', 'Emotions'],
+    ]);
+    expect(plan.newGroups).toEqual([]);
   });
 
   it('applies the choices from the preview', () => {

@@ -12,7 +12,7 @@ import { noteFor } from './notes';
  */
 
 export const SAMPLE_SCALE = { name: 'Energie', min: 1, max: 5 } as const;
-const MOOD_BY_LEVEL = ['', 'Lausig', 'Schlecht', 'Ok', 'Gut', 'Super'] as const;
+const MOOD_BY_LEVEL = ['', 'Mies', 'Schlecht', 'Ok', 'Gut', 'Super'] as const;
 
 export interface SampleData {
   entries: RawEntry[];

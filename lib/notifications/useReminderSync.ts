@@ -24,7 +24,7 @@ function minutesNow(): number {
  * Mounted once in the root layout. Never asks for permission by itself.
  */
 export function useReminderSync(): void {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const enabled = useSettingsStore((s) => s.settings?.reminder_enabled ?? false);
   const time = useSettingsStore((s) => s.settings?.reminder_time ?? '20:30');
   const [tick, setTick] = useState(0);
@@ -63,6 +63,7 @@ export function useReminderSync(): void {
     return () => {
       cancelled = true;
     };
+    // The language too: a switch reschedules the reminders with the new text.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [signature]);
+  }, [signature, i18n.language]);
 }

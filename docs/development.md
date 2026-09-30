@@ -116,4 +116,10 @@ Wer einen Fork baut, erzeugt einen eigenen Schlüssel; ohne die Variablen entste
 
 ## Sprache
 
-Die App-Oberfläche ist Deutsch. Alle Texte liegen in `lib/i18n/locales/de.json`.
+Die App gibt es auf Deutsch und Englisch. Die Texte liegen in `lib/i18n/locales/de.json` und `en.json`, beide mit denselben Schlüsseln. Gewechselt wird unter „Mehr“ › „Sprache“. Solange dort nichts gewählt ist, folgt die App dem Gerät: Deutsch auf deutschen Geräten, sonst Englisch.
+
+- Die Sprache steht in `settings.language` und gehört wie der Health-Connect-Stand zum Gerät, nicht in die Sicherung.
+- Datumsangaben und Zahlen (`lib/dates`, `lib/insights/format`, `lib/health/format`) lesen die Sprache über `currentLanguage()`, auch die Spalten `date` und `weekday` im Daylio-CSV-Export.
+- Standardstimmungen und -gruppen entstehen beim ersten Start in der Sprache der App, mit eigenen Namen (Super, Gut, Ok, Schlecht, Mies und Great, Good, Okay, Bad, Awful). Daylios Namen wie „rad“, „meh“ oder „Lausig“ erkennt der Import weiter über die Stufe. „Alle Daten löschen“ behält die gewählte Sprache.
+- Daylio gibt es auf Deutsch und Englisch, der Import versteht beides. Gruppen haben in `lib/daylio/known.ts` einen festen Schlüssel mit Namen in beiden Sprachen; eine bekannte Aktivität landet in der vorhandenen Gruppe, egal in welcher Sprache sie heißt („happy“ in „Gefühle“ oder „Emotions“).
+- Die Tests prüfen deutsche Texte; `jest.setup.ts` hält die Gerätesprache dafür auf Deutsch.

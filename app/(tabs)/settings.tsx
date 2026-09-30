@@ -7,6 +7,7 @@ import { AppText, Card, ListRow, Screen, Segmented } from '@/components/ui';
 import { getDb } from '@/db';
 import { countRows, deleteAllData } from '@/db/repositories/maintenance';
 import { loadSampleData } from '@/lib/dev/sample';
+import { deviceLanguage, type Language } from '@/lib/i18n/language';
 import { useBackupStatus } from '@/lib/export/useBackupStatus';
 import { useDataTransfer } from '@/lib/export/useDataTransfer';
 import { filePhotoStore } from '@/lib/photos/fileStore';
@@ -28,6 +29,7 @@ export default function MoreScreen() {
 
   const updateSettings = useSettingsStore((s) => s.update);
   const firstDayOfWeek = useSettingsStore((s) => s.settings?.first_day_of_week ?? 1);
+  const language = useSettingsStore((s) => s.settings?.language ?? deviceLanguage());
   const outlookEnabled = useSettingsStore((s) => s.settings?.outlook_enabled ?? true);
   const lockEnabled = useSettingsStore((s) => s.settings?.app_lock_enabled ?? false);
   const reminderEnabled = useSettingsStore((s) => s.settings?.reminder_enabled ?? false);
@@ -61,6 +63,21 @@ export default function MoreScreen() {
         <AppText variant="caption" muted>
           {t('settings.backupHint')}
         </AppText>
+      </Card>
+      <Card>
+        <AppText variant="caption" muted>
+          {t('settings.languageSection').toUpperCase()}
+        </AppText>
+        {/* Each language under its own name, so the way back is readable from either side. */}
+        <Segmented<Language>
+          label={t('settings.language')}
+          options={[
+            { value: 'de', label: 'Deutsch' },
+            { value: 'en', label: 'English' },
+          ]}
+          value={language}
+          onChange={(next) => updateSettings({ language: next })}
+        />
       </Card>
       <Card>
         <AppText variant="caption" muted>

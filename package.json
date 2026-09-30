@@ -72,6 +72,9 @@
   "private": true,
   "jest": {
     "preset": "jest-expo",
+    "setupFiles": [
+      "<rootDir>/jest.setup.ts"
+    ],
     "testTimeout": 15000,
     "testMatch": [
       "**/__tests__/**/*.test.ts?(x)"

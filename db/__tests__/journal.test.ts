@@ -35,10 +35,19 @@ describe('defaults', () => {
       ['Gut', 4],
       ['Ok', 3],
       ['Schlecht', 2],
-      ['Lausig', 1],
+      ['Mies', 1],
     ]);
     expect(listGroups(db).map((g) => g.name)).toEqual(['Gefühle', 'Schlaf', 'Wetter', 'Soziales', 'Arbeit', 'Orte und Freizeit']);
     expect(getSettings(db)).toMatchObject({ reminder_time: '20:30', reminder_enabled: false, outlook_enabled: true, first_day_of_week: 1 });
+  });
+
+  it('names the defaults in English for an English first start', () => {
+    const db = createTestDb();
+    updateSettings(db, { language: 'en' });
+    deleteAllData(db, 'en');
+    expect(getSettings(db).language).toBe('en');
+    expect(listMoods(db).map((m) => m.label)).toEqual(['Great', 'Good', 'Okay', 'Bad', 'Awful']);
+    expect(listGroups(db).map((g) => g.name)).toEqual(['Emotions', 'Sleep', 'Weather', 'Social', 'Work', 'Places and hobbies']);
   });
 
   it('delete all restores the first start', () => {

@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { getDb } from '@/db';
 import { listGroups } from '@/db/repositories/groups';
 import { readCatalog } from '@/lib/daylio/apply';
-import { IMPORTED_GROUP } from '@/lib/daylio/known';
+import { resolveGroupName } from '@/lib/daylio/known';
 import type { RowError, RowWarning } from '@/lib/daylio/parse';
 import { buildImportPlan, type ImportChoices, type PlannedActivity, type PlannedMood } from '@/lib/daylio/plan';
 import { useQuery } from '@/lib/store/dataVersion';
@@ -31,7 +31,8 @@ export function useImportPreview(file: PendingImport | null, choices: ImportChoi
 
   return useMemo(() => {
     if (!file) return null;
-    const groupNames = groups.includes(IMPORTED_GROUP) ? groups : [...groups, IMPORTED_GROUP];
+    const imported = resolveGroupName('imported', groups);
+    const groupNames = groups.includes(imported) ? groups : [...groups, imported];
     if (file.kind === 'json') {
       return json ? { summary: json, newMoods: [], newActivities: [], groupNames, errors: [], warnings: [] } : null;
     }

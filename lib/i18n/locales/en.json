@@ -1,0 +1,710 @@
+{
+  "app": {
+    "name": "Daylight"
+  },
+  "tabs": {
+    "today": "Today",
+    "calendar": "Calendar",
+    "insights": "Insights",
+    "history": "History",
+    "settings": "More"
+  },
+  "lookback": {
+    "title": "Looking back",
+    "week": "A week ago",
+    "month": "A month ago",
+    "halfYear": "6 months ago",
+    "year": "A year ago",
+    "none": "No entry",
+    "hint": "Opens this day"
+  },
+  "today": {
+    "empty": "No entries yet",
+    "ask": "So, how was your day? ☀️",
+    "future": "This day is still to come. Look forward to it! ✨",
+    "yesterday": "Yesterday",
+    "tomorrow": "Tomorrow",
+    "relPast_one": "{{count}} day ago",
+    "relPast_other": "{{count}} days ago",
+    "relFuture_one": "In {{count}} day",
+    "relFuture_other": "In {{count}} days",
+    "editHint": "Opens the entry",
+    "planned": "Planned",
+    "plannedHint": "Activities for this day"
+  },
+  "settings": {
+    "title": "More",
+    "data": "Data",
+    "import": "Import",
+    "exportJson": "Share backup",
+    "saveJson": "Save backup to folder",
+    "exportCsv": "Export as Daylio CSV",
+    "deleteAll": "Delete all data",
+    "backupHint": "Only the backup restores everything. With photos it is a ZIP file. The CSV has no groups, icons, plans or photos.",
+    "backupNever": "Never",
+    "backupToday": "Today",
+    "backupAgo_one": "{{count}} day ago",
+    "backupAgo_other": "{{count}} days ago",
+    "saved": "Saved",
+    "changelog": "Update history",
+    "unknownFile": "This file is neither a Daylight backup nor a Daylio export or Daylio backup.",
+    "invalidFile": "File not readable",
+    "deleteWord": "DELETE",
+    "deleteBody": "All entries, photos, moods, activities, plans, health data and settings will be deleted from this device.",
+    "deleteBackupHint": "To keep your data, share a backup first.",
+    "deleteConfirm": "Type {{word}} to confirm",
+    "deleted": "All data deleted",
+    "outlookSection": "Outlook",
+    "calendarSection": "Calendar",
+    "weekStart": "Week starts on",
+    "monday": "Monday",
+    "sunday": "Sunday",
+    "outlook": "Outlook",
+    "privacyLabel": "Privacy",
+    "reminders": "Reminder",
+    "lock": "App lock",
+    "about": "About",
+    "protection": "Protection",
+    "info": "Info",
+    "healthSection": "Health",
+    "health": "Health data",
+    "languageSection": "Language",
+    "language": "App language"
+  },
+  "import": {
+    "title": "Import",
+    "noFile": "No file selected",
+    "entries_one": "{{count}} entry",
+    "entries_other": "{{count}} entries",
+    "moods_one": "{{count}} mood",
+    "moods_other": "{{count}} moods",
+    "activities_one": "{{count}} activity",
+    "activities_other": "{{count}} activities",
+    "summary": "{{entries}} from {{from}} to {{to}}, {{moods}}, {{activities}} ({{fresh}} of them new).",
+    "summaryEmpty": "The file contains no entries.",
+    "mergeInfo_one": "Merging adds {{count}} entry, {{duplicates}}.",
+    "mergeInfo_other": "Merging adds {{count}} entries, {{duplicates}}.",
+    "duplicates_one": "{{count}} already exists",
+    "duplicates_other": "{{count}} already exist",
+    "photoInfo_one": "Plus {{count}} photo, {{fresh}} of them new.",
+    "photoInfo_other": "Plus {{count}} photos, {{fresh}} of them new.",
+    "newMoods": "New moods",
+    "newActivities": "New activities",
+    "level": "{{name}} ({{level}})",
+    "mode": "Mode",
+    "merge": "Merge",
+    "replace": "Replace",
+    "replaceWarningCsv": "Replacing deletes all entries, moods, groups and activities. Settings stay.",
+    "replaceWarningJson": "Replacing deletes all data and restores the backup exactly.",
+    "replaceConfirm": "Really replace everything?",
+    "errorsTitle_one": "{{count}} faulty row",
+    "errorsTitle_other": "{{count}} faulty rows",
+    "skipErrors": "Skip faulty rows",
+    "warningsTitle_one": "{{count}} note",
+    "warningsTitle_other": "{{count}} notes",
+    "more": "and {{count}} more",
+    "error": {
+      "columns": "Row {{line}}: {{value}} instead of 9 columns",
+      "date": "Row {{line}}: date “{{value}}” invalid",
+      "time": "Row {{line}}: time “{{value}}” invalid",
+      "mood": "Row {{line}}: mood missing",
+      "entry": "Entry {{line}}: not readable"
+    },
+    "warning": {
+      "scales": "Row {{line}}: scales “{{value}}” not readable, skipped",
+      "duplicateActivity": "Row {{line}}: “{{value}}” twice, taken once",
+      "photoMissing": "Entry from {{value}}: photo missing in the file"
+    },
+    "run": "Import",
+    "done_one": "{{count}} entry imported",
+    "done_other": "{{count}} entries imported",
+    "failed": "Import failed"
+  },
+  "changelog": {
+    "title": "Update history",
+    "version": "Version {{version}}"
+  },
+  "dev": {
+    "title": "Development",
+    "seed": "Load sample data",
+    "wipe": "Empty database",
+    "sampleHint": "A made-up year to try things out. Disappears from this list with your first own entry."
+  },
+  "calendar": {
+    "today": "Today",
+    "entries_one": "{{count}} entry",
+    "entries_other": "{{count}} entries",
+    "noEntry": "no entry",
+    "legendSeveral": "several entries",
+    "outlook": "Outlook {{mood}}",
+    "planned": "planned: {{names}}",
+    "legendOutlook": "Outlook"
+  },
+  "entry": {
+    "newTitle": "New entry",
+    "editTitle": "Entry",
+    "save": "Save",
+    "delete": "Delete entry",
+    "deleteTitle": "Delete entry?",
+    "deleteBody": "The entry disappears along with its note and activities.",
+    "unsavedTitle": "Save changes?",
+    "keepEditing": "Keep editing",
+    "discard": "Discard",
+    "gone": "This entry no longer exists",
+    "selected_one": "{{count}} selected",
+    "selected_other": "{{count}} selected",
+    "noActivities": "No activities yet",
+    "note": "Note",
+    "date": "Day",
+    "time": "Time",
+    "scaleValue": "{{value}} of {{max}}",
+    "scaleLine": "{{name}} {{value}} of {{max}}",
+    "scaleEmpty": "Not set",
+    "dayTaken": "There is already an entry for this day. One entry per day is possible."
+  },
+  "photo": {
+    "title": "Photo",
+    "add": "Add photo",
+    "remove": "Remove photo",
+    "open": "View photo full size",
+    "label": "Photo of the entry",
+    "failed": "Photo could not be added"
+  },
+  "history": {
+    "search": "Search entries",
+    "placeholder": "Search",
+    "clear": "Clear search",
+    "filters": "Filters",
+    "filtersActive_one": "Filters, {{count}} active",
+    "filtersActive_other": "Filters, {{count}} active",
+    "activitiesAll": "All selected activities",
+    "period": {
+      "all": "All",
+      "30": "30 days",
+      "90": "90 days",
+      "365": "Year"
+    },
+    "results_one": "{{count}} entry found",
+    "results_other": "{{count}} entries found",
+    "reset": "Reset",
+    "empty": "No entries yet",
+    "noResults": "Nothing found",
+    "count_one": "{{count}} entry",
+    "count_other": "{{count}} entries"
+  },
+  "manage": {
+    "title": "Manage",
+    "moods": "Moods",
+    "activities": "Activities and groups",
+    "groups": "Sort groups",
+    "sortGroups": "Sort groups",
+    "scales": "Scales",
+    "group": "Group",
+    "name": "Name",
+    "icon": "Icon",
+    "level": "Level",
+    "add": "Add",
+    "newMood": "New mood",
+    "newActivity": "New activity",
+    "newGroup": "New group",
+    "newScale": "New scale",
+    "newScaleRange": "Range of the new scale",
+    "range": "{{min}} to {{max}}",
+    "archived": "Archived",
+    "archive": "Archive",
+    "archiveMoodHint": "No longer selectable, old entries keep it.",
+    "archiveActivityHint": "No longer selectable, old entries keep it.",
+    "archiveGroupHint": "The group and its activities are no longer selectable.",
+    "archiveScaleHint": "No longer in the entry, old values stay.",
+    "usage_one": "{{count}} entry",
+    "usage_other": "{{count}} entries",
+    "levelUsage_one": "Level {{level}}, {{count}} entry",
+    "levelUsage_other": "Level {{level}}, {{count}} entries",
+    "activityCount_one": "{{count}} activity",
+    "activityCount_other": "{{count}} activities",
+    "editGroup": "Edit group {{name}}",
+    "moveHandle": "Move {{name}}",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "mergeWith": "Merge with",
+    "mergeChoose": "Choose",
+    "mergeSheet": "Merge {{name}} with",
+    "mergeTitle": "Merge “{{from}}” into “{{into}}”?",
+    "mergeBody_one": "{{count}} entry gets “{{into}}”. “{{from}}” is deleted afterwards.",
+    "mergeBody_other": "{{count}} entries get “{{into}}”. “{{from}}” is deleted afterwards.",
+    "merge": "Merge",
+    "nameTaken": "“{{name}}” already exists here",
+    "nameTakenHint": "Two identical activities can be merged.",
+    "lastMood": "At least one mood has to stay",
+    "gone": "No longer exists"
+  },
+  "icons": {
+    "moods": "Mood",
+    "feelings": "Feelings",
+    "sleep": "Sleep",
+    "weather": "Weather",
+    "people": "People",
+    "work": "Work",
+    "leisure": "Leisure",
+    "health": "Health",
+    "other": "Other"
+  },
+  "common": {
+    "error": "Something went wrong",
+    "retry": "Try again",
+    "back": "Back",
+    "close": "Close",
+    "cancel": "Cancel",
+    "on": "On",
+    "off": "Off",
+    "increase": "Increase {{label}}",
+    "decrease": "Decrease {{label}}"
+  },
+  "insights": {
+    "empty": "Insights appear once there are entries",
+    "emptyRange": "There are no entries in this period",
+    "range": {
+      "label": "Period",
+      "30": "30 days",
+      "90": "90 days",
+      "365": "Year",
+      "all": "All"
+    },
+    "tabs": {
+      "mood": "Mood",
+      "patterns": "Patterns",
+      "activities": "Activities",
+      "health": "Health",
+      "links": "Connections",
+      "notes": "Notes"
+    },
+    "days_one": "{{count}} day",
+    "days_other": "{{count}} days",
+    "tiles": {
+      "mean": "Average",
+      "coverage": "Coverage",
+      "coverageHint": "{{days}} of {{span}} days"
+    },
+    "trend": {
+      "title": "Trend",
+      "day": "Day",
+      "week": "7-day average",
+      "a11y": "Mood from {{from}} to {{to}}, {{count}} days, average {{mean}}, latest 7-day average {{last}}"
+    },
+    "distribution": {
+      "title": "Distribution",
+      "before": "before {{share}}",
+      "a11y": "{{mood}}: {{share}}, {{count}} days",
+      "a11yBefore": "{{mood}}: {{share}}, {{count}} days, before {{before}}"
+    },
+    "pixels": {
+      "title": "Year in pixels",
+      "year": "Year",
+      "a11yMonth": "{{month}}: {{summary}}",
+      "a11yEmpty": "{{month}}: no entries",
+      "a11yHint": "Opens the tapped day"
+    },
+    "weekdays": {
+      "title": "Weekdays",
+      "overall": "Average across all days: {{mean}}",
+      "a11y": "{{day}}: {{mean}}, {{count}} days, {{diff}} compared to the average",
+      "none": "{{day}}: no entries"
+    },
+    "months": {
+      "title": "Months",
+      "empty": "No months yet"
+    },
+    "swings": {
+      "title": "Swings",
+      "typical": "Within a week, your mood usually varies by {{value}} levels.",
+      "calm": "Calmest weeks",
+      "rough": "Most unsettled weeks",
+      "week": "Week of {{date}}",
+      "row": "Average {{mean}}, swing {{spread}}",
+      "empty": "No week with at least four entries yet"
+    },
+    "streaks": {
+      "title": "Streaks",
+      "longest": "Longest streak of {{mood}} or better",
+      "current": "Current streak",
+      "none": "none",
+      "range": "{{from}} to {{to}}"
+    },
+    "frequency": {
+      "title": "Frequency",
+      "before": "before {{count}}",
+      "empty": "No activities in this period"
+    },
+    "effects": {
+      "title": "Mood with and without",
+      "nextTitle": "On the next day",
+      "higher": "Higher average",
+      "lower": "Lower average",
+      "sentence": "On days with {{name}}, average {{with}} instead of {{without}} ({{count}} days)",
+      "nextSentence": "On the day after {{name}}, average {{with}} instead of {{without}} ({{count}} days)",
+      "empty": "No activity with a clear difference yet",
+      "more": "Show all",
+      "less": "Show less"
+    },
+    "pairs": {
+      "title": "Often together",
+      "pair": "{{a}} and {{b}}",
+      "detail": "{{count}} days, {{lift}} times as often as by chance, average {{mean}}",
+      "empty": "No activities that occur together noticeably often yet"
+    },
+    "beforeHard": {
+      "title": "Before hard days",
+      "row": "In the two days before {{count}} of {{total}} hard days ({{share}}), otherwise before {{base}} of all days",
+      "few": "Too few hard days for a comparison",
+      "nothing": "No activity occurred noticeably often before hard days"
+    },
+    "groups": {
+      "title": "Group view",
+      "none": "Nothing from this group",
+      "row": "{{mean}}, {{count}} days",
+      "few": "{{count}} days",
+      "empty": "There are no entries in this group in this period",
+      "pick": "Group"
+    },
+    "words": {
+      "title": "Words",
+      "good": "More frequent on days of {{mood}} or better",
+      "low": "More frequent on the other days",
+      "empty": "Not enough notes yet",
+      "none": "No words with a clear difference",
+      "a11y": "{{word}}, on {{count}} days"
+    },
+    "coverage": {
+      "title": "Scope",
+      "entries": "Entries",
+      "days": "Days with entry",
+      "share": "Coverage",
+      "time": "Usually at",
+      "hours": "Entries by time of day",
+      "a11yHours": "Most entries between {{from}} and {{to}}"
+    },
+    "activity": {
+      "days": "On {{count}} of {{total}} days ({{share}})",
+      "levels": "Mood with and without",
+      "with": "With",
+      "without": "Without",
+      "meanWith": "Average {{with}} instead of {{without}}",
+      "weekdays": "Weekdays",
+      "companions": "Companions",
+      "companion": "on {{count}} of these days ({{share}})",
+      "months": "Frequency per month",
+      "allDays": "All days",
+      "showAll": "Show all {{count}} days",
+      "edit": "Edit activity",
+      "insights": "Insights",
+      "noDays": "Not logged on any day yet",
+      "few": "Too few days for a comparison yet"
+    },
+    "level": {
+      "days": "On {{count}} of {{total}} days ({{share}})",
+      "typical": "More frequent on these days",
+      "rare": "Less frequent on these days",
+      "row": "{{share}} of the days instead of {{other}}",
+      "none": "No activity with a clear difference",
+      "noDays": "No day with this mood yet"
+    },
+    "health": {
+      "title": "Mood by sleep and exercise",
+      "empty": "There are no days with an entry and health data in this period",
+      "sleep": "Sleep the night before",
+      "steps": "Steps",
+      "exercise": "Exercise",
+      "bands": {
+        "sleepUnder6": "under 6 h",
+        "sleep6to7": "6 to 7 h",
+        "sleep7to8": "7 to 8 h",
+        "sleepOver8": "8 h or more",
+        "stepsUnder5k": "under 5,000",
+        "steps5to10k": "5,000 to 10,000",
+        "stepsOver10k": "10,000 or more",
+        "exerciseWith": "with exercise",
+        "exerciseWithout": "without exercise",
+        "hrLow": "under {{low}} bpm",
+        "hrUsual": "{{low}} to {{high}} bpm",
+        "hrHigh": "over {{high}} bpm"
+      },
+      "a11y": "{{band}}: average {{mean}}, {{count}} days",
+      "a11yFew": "{{band}}: {{count}} days, too few for an average",
+      "hint_one": "From {{count}} day with an entry and data from Health Connect. This describes your journal, not cause and effect.",
+      "hint_other": "From {{count}} days with an entry and data from Health Connect. This describes your journal, not cause and effect.",
+      "restingHr": "Resting heart rate"
+    },
+    "healthStats": {
+      "empty": "There is no health data in this period",
+      "emptyRange": "There is no health data in this period",
+      "metric": {
+        "sleep": "Sleep",
+        "steps": "Steps",
+        "restingHr": "Pulse",
+        "exercise": "Exercise"
+      },
+      "tiles": {
+        "sleep": "Sleep",
+        "steps": "Steps",
+        "restingHr": "Resting heart rate",
+        "exercise": "Exercise per week",
+        "before": "before {{value}}",
+        "days_one": "on {{count}} day",
+        "days_other": "on {{count}} days",
+        "exerciseDays_one": "on {{count}} day",
+        "exerciseDays_other": "on {{count}} days"
+      },
+      "trend": {
+        "title": "Values over time",
+        "goal": "Goal",
+        "mean": "Average",
+        "median": "Median",
+        "min": "Lowest",
+        "max": "Highest",
+        "days_one": "From {{count}} day",
+        "days_other": "From {{count}} days",
+        "before_one": "From {{count}} day, average {{value}} in the period before",
+        "before_other": "From {{count}} days, average {{value}} in the period before",
+        "a11y": "{{metric}} from {{from}} to {{to}}, {{count}} days, latest 7-day average {{last}}"
+      },
+      "goals": {
+        "title": "Goals and streaks",
+        "sleep": "Nights of 7 hours or more",
+        "steps": "Days with 10,000 steps or more",
+        "exercise": "Days with exercise",
+        "share": "{{hit}} of {{count}} days with data",
+        "perWeek": "On average {{value}} per week",
+        "longest": "Longest streak",
+        "current": "Current streak"
+      },
+      "weekdays": {
+        "title": "Values by weekday",
+        "a11y": "{{day}}: {{value}}, {{count}} days"
+      },
+      "records": {
+        "title": "Records",
+        "mostSteps": "Most steps",
+        "fewestSteps": "Fewest steps",
+        "longestSleep": "Longest sleep",
+        "shortestSleep": "Shortest sleep",
+        "longestExercise": "Longest exercise",
+        "lowestHr": "Lowest resting heart rate",
+        "highestHr": "Highest resting heart rate",
+        "mood": "Mood {{mood}} ({{mean}})",
+        "noEntry": "no entry"
+      },
+      "split": {
+        "title": "Good and hard days",
+        "good": "{{mood}} or better",
+        "hard": "{{mood}} or worse",
+        "diff": "On good days {{diff}}",
+        "few": "too few days",
+        "a11y": "{{metric}}: on good days {{good}}, on hard days {{hard}}",
+        "empty": "Not enough good or hard days with health data yet",
+        "hint": "Average on days of {{good}} or better against days of {{hard}} or worse. Sleep is the night before."
+      },
+      "links": {
+        "title": "Mood and body",
+        "empty": "A connection needs at least {{count}} days with an entry and health data",
+        "pairing": {
+          "sleep": {
+            "same": "Sleep the night before and mood",
+            "nightAfter": "Mood and sleep the night after"
+          },
+          "steps": {
+            "same": "Steps and mood on the same day",
+            "next": "Steps and mood on the next day"
+          },
+          "restingHr": {
+            "same": "Resting heart rate and mood on the same day",
+            "next": "Resting heart rate and mood on the next day"
+          },
+          "exercise": {
+            "same": "Exercise and mood on the same day",
+            "next": "Exercise and mood on the next day"
+          }
+        },
+        "sleep": {
+          "up": "More sleep, better mood ({{strength}})",
+          "down": "More sleep, worse mood ({{strength}})"
+        },
+        "steps": {
+          "up": "More steps, better mood ({{strength}})",
+          "down": "More steps, worse mood ({{strength}})"
+        },
+        "restingHr": {
+          "up": "Higher resting heart rate, better mood ({{strength}})",
+          "down": "Higher resting heart rate, worse mood ({{strength}})"
+        },
+        "exercise": {
+          "up": "More exercise, better mood ({{strength}})",
+          "down": "More exercise, worse mood ({{strength}})"
+        },
+        "nightAfter": {
+          "up": "Better mood, more sleep afterwards ({{strength}})",
+          "down": "Better mood, less sleep afterwards ({{strength}})"
+        },
+        "none": "Hardly any connection",
+        "strength": {
+          "weak": "weak",
+          "medium": "moderate",
+          "strong": "clear"
+        },
+        "detail": "r = {{r}}, {{count}} days",
+        "hint": "Correlation from -1 to 1: how much both rise or fall together. It describes your journal, not cause and effect."
+      },
+      "activities": {
+        "title": "Activities and body",
+        "sentence": "On these days, average {{with}} instead of {{without}} ({{count}} days)",
+        "nightSentence": "In the night after, average {{with}} instead of {{without}} ({{count}} nights)",
+        "higher": {
+          "sleep": "More sleep",
+          "steps": "More steps",
+          "restingHr": "Higher resting heart rate",
+          "exercise": "More exercise"
+        },
+        "lower": {
+          "sleep": "Less sleep",
+          "steps": "Fewer steps",
+          "restingHr": "Lower resting heart rate",
+          "exercise": "Less exercise"
+        },
+        "empty": "No activity with a clear difference yet"
+      }
+    }
+  },
+  "outlook": {
+    "show": "Show outlook",
+    "showHint": "On Today and in the calendar",
+    "computing": "Calculating",
+    "between": "between {{low}} and {{high}}",
+    "hardChance": "Hard day possible ({{percent}})",
+    "weekdayMean": "{{weekday}} so far averages {{mean}} ({{count}} days)",
+    "weekdayNone": "No {{weekday}} logged yet",
+    "usual": "Often on this weekday: {{names}}",
+    "reasons": "Why",
+    "reasonWeekdayUp": "{{weekday}} usually better",
+    "reasonWeekdayDown": "{{weekday}} usually worse",
+    "reasonCarryUp": "Recent days rather good",
+    "reasonCarryDown": "Recent days rather hard",
+    "reasonPlannedUp": "{{name}} planned, such days are usually better",
+    "reasonPlannedDown": "{{name}} planned, such days are usually worse",
+    "reasonRecurringUp": "Usually {{name}}, such days tend to be better",
+    "reasonRecurringDown": "Usually {{name}}, such days tend to be worse",
+    "reasonSkippedUp": "Without {{name}} this time, otherwise rather worse",
+    "reasonSkippedDown": "Without {{name}} this time, otherwise rather better",
+    "accuracy": "Accuracy so far",
+    "accuracyHint": "For every past day from the 30th entry on: the outlook using only the data up to then, compared with what happened. Mean deviation in levels, smaller is better.",
+    "accuracyEmpty": "Needs 30 days with an entry.",
+    "horizon_one": "In {{count}} day",
+    "horizon_other": "In {{count}} days",
+    "colModel": "Outlook",
+    "colLongMean": "Long-term average",
+    "colMode": "Always {{mood}}",
+    "shown": "shown",
+    "notShown": "not shown",
+    "cases": "{{count}} comparisons per distance",
+    "about": "The outlook describes what was often the case in your entries so far. It knows nothing about you that is not in the entries."
+  },
+  "lowMood": {
+    "title": "Talking helps",
+    "body": "The last few days were often hard. Sometimes it helps to talk to someone. In Germany, the TelefonSeelsorge is available around the clock, anonymous and free of charge.",
+    "call": "Call 0800 111 0 111",
+    "callLabel": "Call TelefonSeelsorge, 0800 111 0 111",
+    "later": "Hide",
+    "laterHint": "Hides this note for 14 days"
+  },
+  "backup": {
+    "title": "Time for a backup",
+    "bodyNever": "Your entries are only on this device. A backup file protects them if the device is lost or replaced.",
+    "bodyAgo_one": "The last backup was {{count}} day ago.",
+    "bodyAgo_other": "The last backup was {{count}} days ago.",
+    "now": "Back up now"
+  },
+  "reminders": {
+    "title": "Reminder",
+    "daily": "Daily reminder",
+    "dailyHint": "Skipped when the day already has an entry",
+    "time": "Time",
+    "permissionDenied": "Without system permission the app sets no reminder. You can allow it in the Android settings.",
+    "unavailable": "In Expo Go, Android sets no reminders. The setting is saved and takes effect in the installed app.",
+    "discreet": "The text only says “How was your day?” and reveals nothing from the journal."
+  },
+  "notify": {
+    "title": "Reminder",
+    "channel": "Reminder",
+    "body": "How was your day?"
+  },
+  "lock": {
+    "title": "App lock",
+    "prompt": "Confirm to unlock",
+    "unlock": "Unlock",
+    "failed": "Not unlocked.",
+    "enable": "App lock",
+    "enableHint": "Require unlocking when opening",
+    "unavailable": "No screen lock set up. Set up a PIN, pattern or biometrics on the device.",
+    "delay": "Lock after",
+    "delayImmediate": "Immediately",
+    "delayMinutes_one": "1 minute",
+    "delayMinutes_other": "{{count}} minutes",
+    "secure": "While the lock is on, the preview in the app overview stays empty and screenshots are blocked."
+  },
+  "privacy": {
+    "title": "Privacy",
+    "intro": "Daylight stores everything only on this device.",
+    "stored": "Stored are: entries with mood, activities, scales, notes and photos, your moods, activities, groups and scales, planned activities and your settings.",
+    "network": "No accounts, no servers, no analytics, no ads. The app requests no internet permission and cannot send anything.",
+    "leave": "Data only leaves the device when you share or save a backup or a CSV export yourself.",
+    "noCloudBackup": "The app is excluded from the automatic Android backup. So your entries do not end up in your Google account either. The price: if you uninstall or switch devices, they are gone unless you have your own backup. After 60 days without a backup, Today reminds you.",
+    "backup": "A backup is an unencrypted file with all entries, notes and photos. Keep it in a place you trust.",
+    "computed": "Insights and outlook are calculated on the device from your entries. They describe your data and are not a medical statement.",
+    "reminders": "The reminder is a local notification of the device. Its text reveals nothing from the journal.",
+    "lockNote": "The optional app lock uses the device's unlock. While it is on, screenshots are blocked.",
+    "deleteNote": "Delete all data removes entries, photos, activities, plans, health data and settings from the device and gives back access to Health Connect.",
+    "photos": "You pick photos with the Android photo picker. Daylight only gets that one image, no access to your gallery and no camera. A reduced copy is kept in the app's private storage, not in the gallery.",
+    "health": "When you turn on health data, Daylight reads steps, sleep, resting heart rate and exercise from Health Connect as daily values. This happens on the device, without internet. Daylight writes nothing to Health Connect, and the values are not part of the backup. You manage access in Health Connect, “Disconnect and delete data” removes everything taken over."
+  },
+  "about": {
+    "title": "About",
+    "tagline": "Mood journal, local, offline, no account.",
+    "version": "Version {{version}}",
+    "copyright": "© 2026 Paul Behla, paul-behla.de",
+    "license": "Daylight is free software under the GNU General Public License, version 3 or later, with an additional attribution term. Without any warranty. License and source code: github.com/Jurgler95/daylight",
+    "disclaimer": "Daylight is not a medical device and does not replace advice or treatment. Insights and outlook only describe your own entries."
+  },
+  "health": {
+    "title": "Health data",
+    "enable": "Take from Health Connect",
+    "enableHint": "Steps, sleep, resting heart rate and exercise, for example from Samsung Health and the Galaxy Watch. Read only.",
+    "state": "Status",
+    "running": "Syncing now",
+    "never": "Not synced yet",
+    "lastSyncAt": "Last synced on {{date}} at {{time}}",
+    "coverage_one": "{{count}} day with data, oldest on {{date}}",
+    "coverage_other": "{{count}} days with data, oldest on {{date}}",
+    "noDays": "No days with data yet",
+    "lastError": "Last error: {{message}}",
+    "syncNow": "Sync now",
+    "reread": "Read everything again",
+    "manage": "Manage in Health Connect",
+    "disconnect": "Disconnect and delete data",
+    "disconnectBody": "Daylight gives back its access to Health Connect and deletes the health data taken over from this device. Everything in Health Connect itself stays as it is.",
+    "disconnectConfirm": "Disconnect",
+    "denied": "Without permission in Health Connect, Daylight cannot take anything over. You can grant it at any time under “Manage in Health Connect”.",
+    "missing": "Health Connect is not installed on this device. It is built in from Android 14, before that there is the Health Connect app in the Play Store.",
+    "needsUpdate": "Health Connect needs to be updated first.",
+    "unsupported": "Health data is only available in the installed app on Android, not in Expo Go.",
+    "historyHint": "For days older than 30 days, also allow access to past data in the Health Connect dialog. If that was only allowed later, “Read everything again” fetches the older days. Only what Samsung Health passed on to Health Connect is taken over.",
+    "readOnly": "Daylight only reads and never writes anything to Health Connect. Syncing happens when the app opens, at most every 15 minutes. Health data is not part of the backup, a new sync brings it back.",
+    "syncing": "Syncing health data",
+    "syncingMonth": "Syncing health data, {{month}}",
+    "day": {
+      "title": "Health",
+      "sleep": "Sleep",
+      "steps": "Steps",
+      "exercise": "Exercise",
+      "restingHr": "Resting heart rate",
+      "bpm": "{{value}} bpm"
+    }
+  }
+}

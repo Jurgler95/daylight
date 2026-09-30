@@ -3,7 +3,7 @@ import type { DateString } from '@/lib/dates';
 
 import { dayAccessibilityLabel, type DayMarker } from '../dayLabel';
 
-const NAMES: Record<MoodLevel, string> = { 5: 'Super', 4: 'Gut', 3: 'Ok', 2: 'Schlecht', 1: 'Lausig' };
+const NAMES: Record<MoodLevel, string> = { 5: 'Super', 4: 'Gut', 3: 'Ok', 2: 'Schlecht', 1: 'Mies' };
 
 const texts = {
   today: 'Heute',

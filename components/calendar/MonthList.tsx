@@ -1,4 +1,5 @@
 import { useCallback, useImperativeHandle, useMemo, useRef, type Ref } from 'react';
+import { useTranslation } from 'react-i18next';
 import { SectionList, StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/ui';
@@ -51,7 +52,9 @@ export function MonthList({
 }: Props) {
   const { colors } = useTheme();
   const list = useRef<SectionList<Cell[], Section>>(null);
-  const labels = useMemo(() => weekdayLabels(weekStartsOn), [weekStartsOn]);
+  const { i18n } = useTranslation();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const labels = useMemo(() => weekdayLabels(weekStartsOn), [weekStartsOn, i18n.language]);
 
   const sections = useMemo<Section[]>(
     () => months.map((month) => ({ month, data: buildMonthGrid(month, weekStartsOn) })),

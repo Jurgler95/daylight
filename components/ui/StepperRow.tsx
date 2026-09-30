@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, View } from 'react-native';
 
 import { TOUCH_TARGET, radius, spacing, useTheme } from '@/lib/theme';
@@ -19,6 +20,7 @@ interface Props {
 /** Plus/minus row. Stepping below `min` clears the value when an empty label is given. */
 export function StepperRow({ label, value, emptyLabel, unit, min, max, onChange }: Props) {
   const { colors } = useTheme();
+  const { t } = useTranslation();
   const clamp = (next: number) => Math.min(max, Math.max(min, next));
   const step = (delta: number) => {
     if (value === null) return onChange(clamp(delta > 0 ? min : max));
@@ -32,13 +34,13 @@ export function StepperRow({ label, value, emptyLabel, unit, min, max, onChange 
     <View style={styles.row} accessibilityLabel={`${label}, ${display}`}>
       <AppText style={styles.label}>{label}</AppText>
       <View style={[styles.controls, { backgroundColor: colors.surfaceMuted }]}>
-        <Pressable onPress={() => step(-1)} accessibilityRole="button" accessibilityLabel={`${label} verringern`} style={styles.button}>
+        <Pressable onPress={() => step(-1)} accessibilityRole="button" accessibilityLabel={t('common.decrease', { label })} style={styles.button}>
           <Ionicons name="remove" size={20} color={colors.text} />
         </Pressable>
         <AppText variant="label" style={styles.value}>
           {display}
         </AppText>
-        <Pressable onPress={() => step(1)} accessibilityRole="button" accessibilityLabel={`${label} erhöhen`} style={styles.button}>
+        <Pressable onPress={() => step(1)} accessibilityRole="button" accessibilityLabel={t('common.increase', { label })} style={styles.button}>
           <Ionicons name="add" size={20} color={colors.text} />
         </Pressable>
       </View>

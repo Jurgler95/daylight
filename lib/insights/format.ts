@@ -1,3 +1,5 @@
+import { currentLanguage } from '@/lib/i18n/language';
+
 /**
  * Rounds half away from zero on the decimal value, not on its binary approximation: `toFixed` turns
  * 4.35 into "4.3" and 1.005 into "1.00". Twelve significant digits drop the binary noise first.
@@ -10,21 +12,22 @@ function roundDecimal(value: number, digits: number): number {
   return Object.is(rounded, -0) ? 0 : rounded;
 }
 
-/** "4,3": German decimal comma, fixed digits. */
+/** "4,3" in German, "4.3" in English, fixed digits. */
 export function formatDecimal(value: number, digits = 1): string {
-  return roundDecimal(value, digits).toFixed(digits).replace('.', ',');
+  const text = roundDecimal(value, digits).toFixed(digits);
+  return currentLanguage() === 'en' ? text : text.replace('.', ',');
 }
 
 /** "+0,4" or "-0,2"; zero without a sign. */
 export function formatSigned(value: number, digits = 1): string {
+  if (roundDecimal(Math.abs(value), digits) === 0) return formatDecimal(0, digits);
   const text = formatDecimal(Math.abs(value), digits);
-  if (Number(text.replace(',', '.')) === 0) return formatDecimal(0, digits);
   return `${value > 0 ? '+' : '-'}${text}`;
 }
 
-/** "74 %" for a share 0..1, whole percent. */
+/** "74 %" in German, "74%" in English, for a share 0..1, whole percent. */
 export function formatPercent(share: number): string {
-  return `${roundDecimal(share * 100, 0)} %`;
+  return `${roundDecimal(share * 100, 0)}${currentLanguage() === 'en' ? '' : ' '}%`;
 }
 
 /** "1,8" for a ratio, one decimal. */

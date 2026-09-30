@@ -1,8 +1,11 @@
 import { count } from 'drizzle-orm';
 
+import { currentLanguage, type Language } from '@/lib/i18n/language';
+
 import { activities, activityGroups, entries, entryActivities, entryPhotos, entryScales, healthDays, moods, plannedActivities, scales, settings } from '../schema';
 import type { Database } from '../types';
 import { ensureDefaults } from './defaults';
+import { getSettings, updateSettings } from './settings';
 
 /**
  * Removes every journal row (entries, moods, groups, activities, scales, plans) but keeps the
@@ -26,12 +29,15 @@ export function clearJournal(db: Database): void {
  * days go too, and with the settings row the sync is off again. Permissions granted in Health
  * Connect stay until they are taken back there.
  */
-export function deleteAllData(db: Database): void {
+export function deleteAllData(db: Database, language: Language = currentLanguage()): void {
   db.transaction((tx) => {
+    // The chosen language survives: the app should not switch languages under the user's hands.
+    const chosen = getSettings(tx).language;
     clearJournal(tx);
     tx.delete(healthDays).run();
     tx.delete(settings).run();
-    ensureDefaults(tx);
+    ensureDefaults(tx, language);
+    if (chosen) updateSettings(tx, { language: chosen });
   });
 }
 

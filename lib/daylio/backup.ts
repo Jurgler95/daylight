@@ -6,7 +6,7 @@ import { isDateString, type DateString } from '@/lib/dates';
 import { daylioPhotoName } from '@/lib/photos/store';
 import { fold } from '@/lib/search/fold';
 
-import { DEFAULT_MOODS } from './known';
+import { defaultMoods } from './known';
 import { decodeNote, type ParsedDaylio, type RawEntry } from './parse';
 
 /**
@@ -92,7 +92,7 @@ function decodeBase64(text: string): string {
 function moodName(mood: z.infer<typeof moodSchema>): { name: string; level: MoodLevel } {
   const level = (6 - mood.mood_group_id) as MoodLevel;
   const custom = mood.custom_name?.trim();
-  return { name: custom || (DEFAULT_MOODS.find((m) => m.level === level)?.label ?? String(level)), level };
+  return { name: custom || (defaultMoods().find((m) => m.level === level)?.label ?? String(level)), level };
 }
 
 /** Parses a whole `.daylio` file. Throws `DaylioBackupError` when it is no Daylio backup at all. */

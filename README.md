@@ -25,7 +25,7 @@ Ein Stimmungstagebuch für Android, das deine Daten nicht kennt. Keine Konten, k
 - ❤️ **Gesundheitsdaten, wenn du willst.** Schritte, Schlaf, Ruhepuls und Training aus Health Connect, etwa von einer Smartwatch. Nur lesend und nur nach deiner Zustimmung.
 - 🛡️ **Geschützt.** App-Sperre über die Displaysperre des Geräts, keine Screenshots bei aktiver Sperre, kein Android-Cloud-Backup. Eine Erinnerung am Abend verrät im Text nichts aus dem Tagebuch.
 
-Daylight ist nach dem Vorbild von [Daylio](https://daylio.net/) entstanden. Mit Daylio oder dessen Hersteller hat das Projekt nichts zu tun. Die Oberfläche ist Deutsch.
+Daylight ist nach dem Vorbild von [Daylio](https://daylio.net/) entstanden. Mit Daylio oder dessen Hersteller hat das Projekt nichts zu tun. Die Oberfläche gibt es auf Deutsch und Englisch.
 
 ## Installieren
 

@@ -1,5 +1,5 @@
 import type { Activity, ActivityGroup, Mood, MoodLevel, Scale } from '@/db/schema';
-import { DEFAULT_MOODS, moodIconForLevel } from '@/lib/daylio/known';
+import { defaultMoods, moodIconForLevel } from '@/lib/daylio/known';
 import type { IconName } from '@/lib/icons';
 import { fold } from '@/lib/search/fold';
 
@@ -35,7 +35,7 @@ export function buildCatalog(input: { moods: Mood[]; groups: ActivityGroup[]; ac
 export function levelMood(catalog: Catalog, level: MoodLevel): { label: string; icon: IconName } {
   const mood = catalog.moods.find((candidate) => candidate.level === level);
   if (mood) return { label: mood.label, icon: mood.icon as IconName };
-  const fallback = DEFAULT_MOODS.find((candidate) => candidate.level === level);
+  const fallback = defaultMoods().find((candidate) => candidate.level === level);
   return { label: fallback?.label ?? String(level), icon: moodIconForLevel(level) };
 }
 

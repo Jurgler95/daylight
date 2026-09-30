@@ -5,7 +5,7 @@ import type { Database } from '@/db/types';
 import { EXPORT_APP, EXPORT_SCHEMA_VERSION, type ExportPayload, type ExportSettings } from './schema';
 
 /**
- * last_export_at, low_mood_dismissed_on and the Health Connect state describe this device, not the
+ * last_export_at, low_mood_dismissed_on, the language and the Health Connect state describe this device, not the
  * data, so they stay out of the snapshot. So do the health days themselves: a sync brings them back.
  */
 export function settingsForExport(row: ReturnType<typeof getSettings>): ExportSettings {
@@ -15,6 +15,7 @@ export function settingsForExport(row: ReturnType<typeof getSettings>): ExportSe
     updated_at: _u,
     last_export_at: _l,
     low_mood_dismissed_on: _d,
+    language: _lang,
     health_enabled: _he,
     health_synced_from: _hf,
     health_last_sync_at: _hs,

@@ -20,7 +20,7 @@ import { useSettingsStore } from '@/lib/store/settingsStore';
 
 /** Everything on record about one activity, over the whole diary. Reached from every insight card and from the management. */
 export default function ActivityInsightScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const activityId = Number(id);
   const catalog = useCatalog();
@@ -28,7 +28,7 @@ export default function ActivityInsightScreen() {
   const total = useQuery(() => readInsightDays().length, []);
   const firstDay = useSettingsStore((s) => s.settings?.first_day_of_week) ?? 1;
   const pick = useSelectedDayStore((s) => s.pick);
-  const names = useMemo(() => weekdayLabels(0), []);
+  const names = useMemo(() => weekdayLabels(0), [i18n.language]); // eslint-disable-line react-hooks/exhaustive-deps
   const activity = catalog.activityById.get(activityId);
 
   if (!activity) {

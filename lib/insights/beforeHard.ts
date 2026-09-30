@@ -3,7 +3,7 @@ import { addDaysToDateString } from '@/lib/dates';
 import { byDate, type InsightDay } from './days';
 import { shrinkFactor } from './stats';
 
-/** A day counts as difficult at this rounded level or below ("Schlecht", "Lausig"). */
+/** A day counts as difficult at this rounded level or below ("Schlecht", "Mies"). */
 export const HARD_LEVEL = 2;
 /** Days before a difficult day that are looked at. */
 export const LOOKBACK_DAYS = 2;

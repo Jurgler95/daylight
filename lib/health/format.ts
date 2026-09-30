@@ -1,10 +1,11 @@
-/** German display of the health values; pure, so Heute, Verlauf and tests agree. */
+/** Display of the health values; pure, so Heute, Verlauf and tests agree. */
 
+import { currentLanguage } from '@/lib/i18n/language';
 import type { HealthMetric } from '@/lib/insights/healthStats';
 
-/** "8.412": dot as thousands separator, independent of the device's Intl data. */
+/** "8.412" in German, "8,412" in English, independent of the device's Intl data. */
 export function formatSteps(steps: number): string {
-  return String(Math.round(steps)).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  return String(Math.round(steps)).replace(/\B(?=(\d{3})+(?!\d))/g, currentLanguage() === 'en' ? ',' : '.');
 }
 
 /** "7 h 20 min", "45 min", "8 h". */
