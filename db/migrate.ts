@@ -5,7 +5,7 @@ import { deviceLanguage } from '@/lib/i18n/language';
 
 import { getDb } from './client';
 import { ensureDefaults } from './repositories/defaults';
-import { ensureSettings } from './repositories/settings';
+import { ensureSettings, updateSettings } from './repositories/settings';
 
 /**
  * Runs all pending Drizzle migrations, then guarantees the settings singleton and the default
@@ -15,5 +15,11 @@ export async function runMigrations(): Promise<void> {
   const db = getDb();
   await migrate(db, migrations);
   // Before the settings store loads, so the first start names moods and groups in the device's language.
-  ensureDefaults(db, ensureSettings(db).language ?? deviceLanguage());
+  // Stored right away, so the choice stays put when the device language changes later.
+  let language = ensureSettings(db).language;
+  if (!language) {
+    language = deviceLanguage();
+    updateSettings(db, { language });
+  }
+  ensureDefaults(db, language);
 }

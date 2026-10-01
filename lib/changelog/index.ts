@@ -19,6 +19,14 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.18',
+    date: '2026-10-01',
+    changes: {
+      de: ['Beim ersten Start wählt die App Deutsch, wenn das Gerät auf Deutsch steht, sonst Englisch'],
+      en: ['On first launch the app picks German if the device is set to German, otherwise English'],
+    },
+  },
+  {
     version: '1.0.17',
     date: '2026-09-30',
     changes: {

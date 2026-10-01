@@ -20,15 +20,16 @@ export function isLanguage(value: unknown): value is Language {
   return value === 'de' || value === 'en';
 }
 
-/**
- * German on a German device, English everywhere else. Hermes reads the locale from Android; when
- * Intl is missing, German stays, since that is what the app was written in.
- */
+/** German for any German locale (`de`, `de-DE`, `de-LU`, ...), English for everything else. */
+export function languageForLocale(locale: string): Language {
+  return locale.toLowerCase().split(/[-_]/)[0] === 'de' ? 'de' : 'en';
+}
+
+/** The language the device asks for. Hermes reads the locale from Android; without Intl, English. */
 export function deviceLanguage(): Language {
   try {
-    const locale = Intl.DateTimeFormat().resolvedOptions().locale;
-    return locale.toLowerCase().startsWith('de') ? 'de' : 'en';
+    return languageForLocale(Intl.DateTimeFormat().resolvedOptions().locale);
   } catch {
-    return 'de';
+    return 'en';
   }
 }

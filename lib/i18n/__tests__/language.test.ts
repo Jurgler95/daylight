@@ -3,6 +3,7 @@ import { formatSteps } from '@/lib/health/format';
 import { formatDecimal, formatPercent, formatSigned } from '@/lib/insights/format';
 
 import i18n, { applyLanguage } from '..';
+import { languageForLocale } from '../language';
 
 const d = (value: string) => value as DateString;
 
@@ -36,5 +37,16 @@ describe('language switch', () => {
     expect(formatWeekdayLong(d('2026-03-01'))).toBe('Sunday');
     applyLanguage('de');
     expect(formatDayMonth(d('2026-03-01'))).toBe('1. März');
+  });
+});
+
+describe('languageForLocale', () => {
+  it('picks German for every German locale and English otherwise', () => {
+    for (const locale of ['de-DE', 'de-AT', 'de-CH', 'de_CH', 'de', 'de-LU', 'de-BE', 'DE-de']) {
+      expect(languageForLocale(locale)).toBe('de');
+    }
+    for (const locale of ['en-US', 'en-DE', 'fr-CH', 'it-IT', 'dev', '']) {
+      expect(languageForLocale(locale)).toBe('en');
+    }
   });
 });
