@@ -1,11 +1,12 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { useState } from 'react';
+import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 
 import { AppText, Card, Chip } from '@/components/ui';
 import type { GroupWithActivities } from '@/lib/catalog/catalog';
 import { haptics } from '@/lib/haptics';
 import type { IconName } from '@/lib/icons';
-import { TOUCH_TARGET, spacing, useTheme } from '@/lib/theme';
+import { TOUCH_TARGET, radius, spacing, useTheme } from '@/lib/theme';
 
 interface Props {
   item: GroupWithActivities;
@@ -15,11 +16,29 @@ interface Props {
   selectedLabel: (count: number) => string;
   onToggleCollapsed: () => void;
   onToggle: (activityId: number) => void;
+  /** Placeholder of the name field behind the plus chip, also its accessibility label. */
+  addLabel?: string;
+  /** Creates an activity in this group; returns whether it worked, the field closes only then. Without it, no plus chip. */
+  onAdd?: (name: string) => boolean;
 }
 
-/** One activity group in the editor: a header that folds it, then its activities as chips. */
-export function ActivityGroupCard({ item, selected, collapsed, selectedLabel, onToggleCollapsed, onToggle }: Props) {
+/**
+ * One activity group in the editor: a header that folds it, then its activities as chips and a plus
+ * chip that turns into a name field, so a missing activity is added without leaving the entry.
+ */
+export function ActivityGroupCard({ item, selected, collapsed, selectedLabel, onToggleCollapsed, onToggle, addLabel, onAdd }: Props) {
   const { colors } = useTheme();
+  const [adding, setAdding] = useState(false);
+  const [text, setText] = useState('');
+  const close = () => {
+    setAdding(false);
+    setText('');
+  };
+  const add = () => {
+    const name = text.trim();
+    if (!name) return close();
+    if (onAdd?.(name)) close();
+  };
   const count = item.activities.filter((activity) => selected.includes(activity.id)).length;
   return (
     <Card>
@@ -54,6 +73,34 @@ export function ActivityGroupCard({ item, selected, collapsed, selectedLabel, on
               onPress={() => onToggle(activity.id)}
             />
           ))}
+          {!onAdd ? null : adding ? (
+            <TextInput
+              value={text}
+              onChangeText={setText}
+              onSubmitEditing={add}
+              onBlur={() => {
+                if (!text.trim()) close();
+              }}
+              autoFocus
+              placeholder={addLabel}
+              placeholderTextColor={colors.textMuted}
+              accessibilityLabel={addLabel}
+              returnKeyType="done"
+              style={[styles.input, { borderColor: colors.accent, color: colors.text }]}
+            />
+          ) : (
+            <Pressable
+              onPress={() => {
+                haptics.tick();
+                setAdding(true);
+              }}
+              accessibilityRole="button"
+              accessibilityLabel={addLabel}
+              style={({ pressed }) => [styles.add, { borderColor: colors.border, opacity: pressed ? 0.6 : 1 }]}
+            >
+              <Ionicons name="add" size={20} color={colors.textMuted} />
+            </Pressable>
+          )}
         </View>
       )}
     </Card>
@@ -64,4 +111,6 @@ const styles = StyleSheet.create({
   header: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, minHeight: TOUCH_TARGET },
   title: { flex: 1 },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
+  add: { minWidth: TOUCH_TARGET, height: TOUCH_TARGET, borderRadius: radius.pill, borderWidth: 1, borderStyle: 'dashed', alignItems: 'center', justifyContent: 'center' },
+  input: { minWidth: 160, height: TOUCH_TARGET, borderRadius: radius.pill, borderWidth: 1, paddingHorizontal: spacing.lg, fontSize: 16 },
 });

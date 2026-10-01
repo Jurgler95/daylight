@@ -154,6 +154,7 @@
     "selected_one": "{{count}} selected",
     "selected_other": "{{count}} selected",
     "noActivities": "No activities yet",
+    "addActivity": "New activity in {{group}}",
     "note": "Note",
     "date": "Day",
     "time": "Time",

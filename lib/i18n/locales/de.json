@@ -154,6 +154,7 @@
     "selected_one": "{{count}} gewählt",
     "selected_other": "{{count}} gewählt",
     "noActivities": "Noch keine Aktivitäten",
+    "addActivity": "Neue Aktivität in {{group}}",
     "note": "Notiz",
     "date": "Tag",
     "time": "Uhrzeit",

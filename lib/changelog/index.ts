@@ -19,6 +19,14 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.19',
+    date: '2026-10-01',
+    changes: {
+      de: ['Beim Bearbeiten eines Tages legt das Plus in jeder Gruppe direkt eine neue Aktivität an', 'Viele neue Icons für Aktivitäten und Stimmungen zur Auswahl'],
+      en: ['When editing a day, the plus in each group adds a new activity right away', 'Many new icons to choose from for activities and moods'],
+    },
+  },
+  {
     version: '1.0.18',
     date: '2026-10-01',
     changes: {

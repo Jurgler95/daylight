@@ -9,12 +9,16 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { MoodPicker } from '@/components/mood/MoodPicker';
 import { AppText, Button, Card, CardMotion, EmptyState, LogoBackdrop, TextField } from '@/components/ui';
+import { getDb } from '@/db';
+import { createActivity } from '@/db/repositories/activities';
+import type { Activity } from '@/db/schema';
 import { editorGroups } from '@/lib/catalog/catalog';
 import { useCatalog } from '@/lib/catalog/useCatalog';
 import { useToday } from '@/lib/dates/useToday';
 import { useCollapsedGroups } from '@/lib/entry/collapsedGroups';
 import { setScale, toggleId } from '@/lib/entry/draft';
 import { useEntryEditor, type EditorTarget } from '@/lib/entry/useEntryEditor';
+import { useManageWrite } from '@/lib/manage/useManageWrite';
 import { TOUCH_TARGET, spacing, useTheme } from '@/lib/theme';
 
 import { ActivityGroupCard } from './ActivityGroupCard';
@@ -35,6 +39,7 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
   const today = useToday();
   const catalog = useCatalog();
   const editor = useEntryEditor(target);
+  const write = useManageWrite();
   const collapsed = useCollapsedGroups((s) => s.collapsed);
   const toggleCollapsed = useCollapsedGroups((s) => s.toggle);
   // Set right before a deliberate exit (saved or deleted), so the guard below lets it through.
@@ -111,7 +116,15 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
   }
 
   const groups = editorGroups(catalog, draft.activity_ids);
-  const hasActivities = groups.some((item) => item.activities.length > 0);
+  // Created right away (it belongs to the catalog, not to this entry) and picked for this entry.
+  // A name the group already has picks that activity instead of making a second one.
+  const addActivity = (groupId: number, name: string) => {
+    let created: Activity | undefined;
+    if (!write(() => (created = createActivity(getDb(), { group_id: groupId, name })))) return false;
+    const id = created?.id;
+    if (id !== undefined && !draft.activity_ids.includes(id)) editor.update({ activity_ids: [...draft.activity_ids, id] });
+    return true;
+  };
 
   return (
     <View style={[styles.flex, { backgroundColor: colors.background }]}>
@@ -128,20 +141,20 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
             <MoodPicker moods={catalog.moods} selected={draft.mood_id} onPick={(mood_id) => editor.update({ mood_id })} size={48} />
           </Card>
 
-          {hasActivities ? (
-            groups
-              .filter((item) => item.activities.length > 0)
-              .map((item) => (
-                <ActivityGroupCard
-                  key={item.group.id}
-                  item={item}
-                  selected={draft.activity_ids}
-                  collapsed={collapsed.includes(item.group.id)}
-                  selectedLabel={(count) => t('entry.selected', { count })}
-                  onToggleCollapsed={() => toggleCollapsed(item.group.id)}
-                  onToggle={(id) => editor.update({ activity_ids: toggleId(draft.activity_ids, id) })}
-                />
-              ))
+          {groups.length > 0 ? (
+            groups.map((item) => (
+              <ActivityGroupCard
+                key={item.group.id}
+                item={item}
+                selected={draft.activity_ids}
+                collapsed={collapsed.includes(item.group.id)}
+                selectedLabel={(count) => t('entry.selected', { count })}
+                onToggleCollapsed={() => toggleCollapsed(item.group.id)}
+                onToggle={(id) => editor.update({ activity_ids: toggleId(draft.activity_ids, id) })}
+                addLabel={t('entry.addActivity', { group: item.group.name })}
+                onAdd={(name) => addActivity(item.group.id, name)}
+              />
+            ))
           ) : (
             <Card tone="muted">
               <AppText muted>{t('entry.noActivities')}</AppText>
