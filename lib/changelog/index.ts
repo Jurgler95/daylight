@@ -19,11 +19,19 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.21',
+    date: '2026-10-03',
+    changes: {
+      de: ['Überarbeitete Texte in der Updatehistorie'],
+      en: ['Revised wording in the update history'],
+    },
+  },
+  {
     version: '1.0.20',
     date: '2026-10-03',
     changes: {
-      de: ['Beim ersten Start bringt jede Gruppe schon ein paar Aktivitäten aus Daylio mit, auf Deutsch oder Englisch'],
-      en: ['On first start, every group already comes with a few activities from Daylio, in English or German'],
+      de: ['Beim ersten Start bringt jede Gruppe schon ein paar Aktivitäten mit, auf Deutsch oder Englisch'],
+      en: ['On first start, every group already comes with a few activities, in English or German'],
     },
   },
   {
@@ -48,11 +56,11 @@ export const RELEASES: Release[] = [
     changes: {
       de: [
         '„Beispieldaten laden“ erzeugt ein Jahr auf Englisch, wenn die App auf Englisch eingestellt ist',
-        'Englische Daylio-Dateien ordnen weitere Aktivitäten den passenden Standardaktivitäten zu',
+        'Beim Import englischer Dateien landen weitere Aktivitäten bei den passenden Standardaktivitäten',
       ],
       en: [
         '“Load sample data” creates a year in English when the app is set to English',
-        'English Daylio files match more activities to the built-in ones',
+        'Importing English files matches more activities to the built-in ones',
       ],
     },
   },
@@ -79,13 +87,13 @@ export const RELEASES: Release[] = [
       de: [
         'Daylight gibt es jetzt auch auf Englisch, umschalten lässt sich unter „Mehr“ bei „Sprache“',
         'Datum und Zahlen erscheinen passend zur gewählten Sprache',
-        'Englische Daylio-Dateien landen beim Import in den passenden Gruppen',
+        'Englische Dateien landen beim Import in den passenden Gruppen',
         'Neue Tagebücher starten mit eigenen Stimmungsnamen, die schwächste Stufe heißt jetzt „Mies“',
       ],
       en: [
         'Daylight is now also available in English, switch under “More” at “Language”',
         'Dates and numbers follow the chosen language',
-        'English Daylio files land in the matching groups when imported',
+        'English files land in the matching groups when imported',
         'New journals start with Daylight\'s own mood names: Great, Good, Okay, Bad and Awful',
       ],
     },
@@ -222,13 +230,13 @@ export const RELEASES: Release[] = [
     changes: {
       de: [
         'Jeder Eintrag kann ein Foto haben, zu sehen in Heute, im Verlauf und groß per Tipp',
-        'Die Daylio-Sicherung lässt sich importieren und bringt die Fotos zu vorhandenen Einträgen mit',
+        'Sicherungen aus anderen Stimmungstagebüchern lassen sich importieren und bringen die Fotos zu vorhandenen Einträgen mit',
         'Mit Fotos ist die Sicherung eine ZIP-Datei, die alles wiederherstellt',
         'Kräftigere Farben mit blauem Akzent, der Kalender liegt auf einer weißen Fläche',
       ],
       en: [
         'Every entry can have a photo, shown on Today, in History and full size with a tap',
-        'The Daylio backup can be imported and brings the photos to existing entries',
+        'Backups from other mood journals can be imported and bring the photos to existing entries',
         'With photos, the backup is a ZIP file that restores everything',
         'Stronger colours with a blue accent, the calendar sits on a white surface',
       ],
@@ -295,7 +303,7 @@ export const RELEASES: Release[] = [
     date: '2026-09-26',
     changes: {
       de: [
-        'Erste Version: der Daylio-Export lässt sich vollständig importieren',
+        'Erste Version: Exporte aus anderen Stimmungstagebüchern lassen sich vollständig importieren',
         'Einträge mit Stimmung, Aktivitäten, Skalen und Notiz erfassen, auf Heute durch die Tage wischen',
         'Kalender mit Stimmungsfarbe und Symbol je Tag, Verlauf mit Suche und Filtern',
         'Stimmungen, Aktivitäten, Gruppen und Skalen verwalten, sortieren und zusammenführen',
@@ -308,11 +316,11 @@ export const RELEASES: Release[] = [
         'Tägliche Erinnerung zur gewählten Uhrzeit, die an Tagen mit Eintrag entfällt',
         'App-Sperre mit der Entsperrung des Geräts, Bildschirmfotos und Vorschau gesperrt',
         'Hinweis auf eine Sicherung nach 60 Tagen, ruhiger Hinweis auf die Telefonseelsorge nach vielen schweren Tagen',
-        'Sicherung als JSON und Export als Daylio-CSV',
+        'Sicherung als JSON und Export als CSV',
         'Beispieldaten zum Ausprobieren',
       ],
       en: [
-        'First version: the Daylio export can be imported completely',
+        'First version: exports from other mood journals can be imported completely',
         'Record entries with mood, activities, scales and note, swipe through the days on Today',
         'Calendar with mood colour and icon per day, History with search and filters',
         'Manage, sort and merge moods, activities, groups and scales',
@@ -325,7 +333,7 @@ export const RELEASES: Release[] = [
         'Daily reminder at the chosen time, skipped on days with an entry',
         'App lock using the device unlock, screenshots and preview blocked',
         'Note about a backup after 60 days, quiet note about the TelefonSeelsorge after many hard days',
-        'Backup as JSON and export as Daylio CSV',
+        'Backup as JSON and export as CSV',
         'Sample data to try things out',
       ],
     },
