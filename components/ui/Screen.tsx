@@ -15,7 +15,7 @@ interface Props extends PropsWithChildren {
   title?: string;
   eyebrow?: string;
   scroll?: boolean;
-  /** Shows a back button above the title. Used by every screen pushed on top of the tabs. */
+  /** Shows a back button above the title, or above `sticky` when there is one. Used by every screen pushed on top of the tabs. */
   back?: boolean;
   backLabel?: string;
   /** Pinned above the scroll area, so it stays put while the content below moves. */
@@ -29,6 +29,16 @@ export function Screen({ title, eyebrow, scroll = true, back, backLabel, sticky,
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   const Container = scroll ? ScrollView : View;
+  const backButton = (
+    <Pressable
+      onPress={() => router.back()}
+      accessibilityRole="button"
+      accessibilityLabel={backLabel ?? t('common.back')}
+      style={({ pressed }) => [styles.back, { backgroundColor: colors.accentSoft, opacity: pressed ? 0.6 : 1 }]}
+    >
+      <Ionicons name="chevron-back" size={22} color={colors.accent} />
+    </Pressable>
+  );
 
   return (
     <View style={[styles.root, { backgroundColor: colors.background }]}>
@@ -39,7 +49,12 @@ export function Screen({ title, eyebrow, scroll = true, back, backLabel, sticky,
         style={[styles.glow, { height: insets.top + 320 }]}
       />
       <LogoBackdrop />
-      {sticky ? <View style={[styles.sticky, { paddingTop: insets.top + spacing.lg }]}>{sticky}</View> : null}
+      {sticky ? (
+        <View style={[styles.sticky, { paddingTop: insets.top + spacing.lg }]}>
+          {back ? backButton : null}
+          {sticky}
+        </View>
+      ) : null}
       <Container
         key={contentKey}
         // Without the scroll view the padding moves onto the container itself, so a child list
@@ -55,16 +70,7 @@ export function Screen({ title, eyebrow, scroll = true, back, backLabel, sticky,
         }
         contentInsetAdjustmentBehavior={sticky ? 'never' : 'automatic'}
       >
-        {back ? (
-          <Pressable
-            onPress={() => router.back()}
-            accessibilityRole="button"
-            accessibilityLabel={backLabel ?? t('common.back')}
-            style={({ pressed }) => [styles.back, { backgroundColor: colors.accentSoft, opacity: pressed ? 0.6 : 1 }]}
-          >
-            <Ionicons name="chevron-back" size={22} color={colors.accent} />
-          </Pressable>
-        ) : null}
+        {back && !sticky ? backButton : null}
         {(eyebrow || title) && (
           <View style={styles.header}>
             {eyebrow ? (

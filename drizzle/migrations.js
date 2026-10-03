@@ -6,6 +6,8 @@ import m0001 from './0001_romantic_norman_osborn.sql';
 import m0002 from './0002_curvy_ulik.sql';
 import m0003 from './0003_sad_rocket_raccoon.sql';
 import m0004 from './0004_useful_random.sql';
+import m0005 from './0005_married_tattoo.sql';
+import m0006 from './0006_stale_kabuki.sql';
 
   export default {
     journal,
@@ -14,7 +16,9 @@ import m0004 from './0004_useful_random.sql';
 m0001,
 m0002,
 m0003,
-m0004
+m0004,
+m0005,
+m0006
     }
   }
   

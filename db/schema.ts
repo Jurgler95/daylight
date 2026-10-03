@@ -161,13 +161,20 @@ export const settings = sqliteTable('settings', {
   health_last_sync_at: text('health_last_sync_at'),
   /** Message of the last failed sync, cleared by the next one that works. Device-local. */
   health_last_error: text('health_last_error'),
+  /** Stars per achievement already announced, as JSON; null before the first check. Device-local, never exported. */
+  achievements_seen: text('achievements_seen'),
+  /** How often the app was opened (`lib/achievements/opens.ts`). Device-local, never exported. */
+  app_opens: integer('app_opens').notNull().default(0),
+  /** Opt-in: the health days go into the JSON backup. Device-local; an import that brings health days turns it on. */
+  health_in_backup: integer('health_in_backup', { mode: 'boolean' }).notNull().default(false),
   ...timestamps,
 });
 
 /**
  * One row per day with data from Health Connect, only ever overwritten by a sync. A value is null
- * when Health Connect had nothing for it that day. Device-local: never part of an export, since a
- * new sync brings it back.
+ * when Health Connect had nothing for it that day. Part of the JSON backup only when the user opts
+ * in (`settings.health_in_backup`); days restored from a backup are marked, so a sync that finds
+ * nothing for them leaves them alone.
  */
 export const healthDays = sqliteTable('health_days', {
   date: text('date').primaryKey(),
@@ -178,6 +185,8 @@ export const healthDays = sqliteTable('health_days', {
   resting_hr: integer('resting_hr'),
   exercise_minutes: integer('exercise_minutes'),
   synced_at: text('synced_at').notNull(),
+  /** Came from a backup, not from a sync on this device. A sync with values for the day takes it over. */
+  restored: integer('restored', { mode: 'boolean' }).notNull().default(false),
 });
 
 export type Mood = typeof moods.$inferSelect;

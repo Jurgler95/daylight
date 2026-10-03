@@ -6,7 +6,7 @@
     "today": "Heute",
     "calendar": "Kalender",
     "insights": "Einblicke",
-    "history": "Verlauf",
+    "achievements": "Erfolge",
     "settings": "Mehr"
   },
   "lookback": {
@@ -69,7 +69,9 @@
     "healthSection": "Gesundheit",
     "health": "Gesundheitsdaten",
     "languageSection": "Sprache",
-    "language": "Sprache der App"
+    "language": "Sprache der App",
+    "diarySection": "Tagebuch",
+    "history": "Verlauf"
   },
   "import": {
     "title": "Import",
@@ -88,6 +90,8 @@
     "duplicates_other": "{{count}} sind schon vorhanden",
     "photoInfo_one": "Dazu {{count}} Foto, davon {{fresh}} neu.",
     "photoInfo_other": "Dazu {{count}} Fotos, davon {{fresh}} neu.",
+    "healthInfo_one": "Dazu Gesundheitsdaten für {{count}} Tag.",
+    "healthInfo_other": "Dazu Gesundheitsdaten für {{count}} Tage.",
     "newMoods": "Neue Stimmungen",
     "newActivities": "Neue Aktivitäten",
     "level": "{{name}} ({{level}})",
@@ -172,6 +176,7 @@
     "failed": "Foto konnte nicht übernommen werden"
   },
   "history": {
+    "title": "Verlauf",
     "search": "Einträge durchsuchen",
     "placeholder": "Suchen",
     "clear": "Suche leeren",
@@ -663,7 +668,7 @@
     "lockNote": "Die optionale App-Sperre nutzt die Entsperrung des Geräts. Solange sie aktiv ist, sind Bildschirmfotos gesperrt.",
     "deleteNote": "Alle Daten löschen entfernt Einträge, Fotos, Aktivitäten, Pläne, Gesundheitsdaten und Einstellungen vom Gerät und gibt den Zugriff auf Health Connect zurück.",
     "photos": "Fotos wählst du über die Fotoauswahl von Android aus. Daylight bekommt dabei nur das eine Bild, keinen Zugriff auf deine Galerie und keine Kamera. Eine verkleinerte Kopie liegt im privaten Speicher der App, nicht in der Galerie.",
-    "health": "Wenn du Gesundheitsdaten einschaltest, liest Daylight aus Health Connect Schritte, Schlaf, Ruhepuls und Training als Tageswerte. Das passiert auf dem Gerät, ohne Internet. Daylight schreibt nichts nach Health Connect, und die Werte sind nicht Teil der Sicherung. Den Zugriff verwaltest du in Health Connect, „Trennen und Daten löschen“ entfernt alles Übernommene."
+    "health": "Wenn du Gesundheitsdaten einschaltest, liest Daylight aus Health Connect Schritte, Schlaf, Ruhepuls und Training als Tageswerte. Das passiert auf dem Gerät, ohne Internet. Daylight schreibt nichts nach Health Connect. In die Sicherung kommen die Werte nur, wenn du das unter Gesundheitsdaten einschaltest. Den Zugriff verwaltest du in Health Connect, „Trennen und Daten löschen“ entfernt alles Übernommene."
   },
   "about": {
     "title": "Über",
@@ -696,7 +701,9 @@
     "needsUpdate": "Health Connect muss erst aktualisiert werden.",
     "unsupported": "Gesundheitsdaten gibt es nur in der installierten App auf Android, nicht in Expo Go.",
     "historyHint": "Für Tage, die älter als 30 Tage sind, im Dialog von Health Connect auch den Zugriff auf vergangene Daten erlauben. Wurde das erst später erlaubt, holt „Alles neu einlesen“ die älteren Tage nach. Übernommen wird nur, was Samsung Health an Health Connect weitergegeben hat.",
-    "readOnly": "Daylight liest nur und schreibt nie etwas nach Health Connect. Abgeglichen wird beim Öffnen der App, höchstens alle 15 Minuten. Die Gesundheitsdaten sind nicht Teil der Sicherung, ein neuer Abgleich holt sie zurück.",
+    "readOnly": "Daylight liest nur und schreibt nie etwas nach Health Connect. Abgeglichen wird beim Öffnen der App, höchstens alle 15 Minuten. In die Sicherung kommen die Gesundheitsdaten nur, wenn du das oben einschaltest. Sonst holt nach einer Neuinstallation ein neuer Abgleich zurück, was Health Connect noch hat.",
+    "inBackup": "In die Sicherung aufnehmen",
+    "inBackupHint": "Die Gesundheitstage kommen mit in die Sicherung. So sind Schlaf und Schritte nach einer Neuinstallation wieder da, auch wenn Health Connect die alten Tage nicht mehr hat.",
     "syncing": "Gesundheitsdaten werden abgeglichen",
     "syncingMonth": "Gesundheitsdaten werden abgeglichen, {{month}}",
     "day": {
@@ -706,6 +713,123 @@
       "exercise": "Training",
       "restingHr": "Ruhepuls",
       "bpm": "{{value}} bpm"
+    }
+  },
+  "achievements": {
+    "title": "Erfolge",
+    "intro": "Sterne gibt es fürs Dranbleiben und Festhalten, nie dafür, wie ein Tag war.",
+    "stars": "{{stars}} von {{max}} Sternen",
+    "starsShort": "{{stars}}/{{max}}",
+    "complete": "{{count}} von {{total}} vollständig",
+    "groups": {
+      "streaks": "Am Stück",
+      "volume": "Umfang"
+    },
+    "best": "Bestwert {{value}}",
+    "current": "Aktuell {{value}}",
+    "lastWeek": "Letzte 7 Tage {{value}}",
+    "total": "Bisher {{value}}",
+    "next": "Nächster Stern: {{value}}",
+    "done": "Alle fünf Sterne erreicht",
+    "needsHealth": "Braucht Gesundheitsdaten aus Health Connect",
+    "percent": "{{value}} %",
+    "overallLabel": "Insgesamt {{value}} Prozent geschafft",
+    "progressLabel": "{{value}} Prozent bis zum fünften Stern",
+    "starLabel": "{{stars}} von 5 Sternen",
+    "tiers": "Stufen: {{tiers}}",
+    "units": {
+      "days_one": "{{value}} Tag",
+      "days_other": "{{value}} Tage",
+      "weeks_one": "{{value}} Woche",
+      "weeks_other": "{{value}} Wochen",
+      "words_one": "{{value}} Wort",
+      "words_other": "{{value}} Wörter",
+      "activities_one": "{{value}} Aktivität",
+      "activities_other": "{{value}} Aktivitäten",
+      "photos_one": "{{value}} Foto",
+      "photos_other": "{{value}} Fotos",
+      "opens_one": "{{value}} Mal",
+      "opens_other": "{{value}} Mal"
+    },
+    "items": {
+      "days": {
+        "title": "Am Ball",
+        "text": "Tage in Folge mit Eintrag"
+      },
+      "weeks": {
+        "title": "Dranbleiben",
+        "text": "Wochen in Folge mit Einträgen an mindestens 5 Tagen"
+      },
+      "activityDays": {
+        "title": "Aktiv dabei",
+        "text": "Tage in Folge mit Aktivitäten"
+      },
+      "noteDays": {
+        "title": "Schreibfluss",
+        "text": "Tage in Folge mit Notiz"
+      },
+      "photoDays": {
+        "title": "Bildtagebuch",
+        "text": "Tage in Folge mit Foto"
+      },
+      "sleepDays": {
+        "title": "Schlafprotokoll",
+        "text": "Tage in Folge mit Schlafdaten"
+      },
+      "stepDays": {
+        "title": "Schritt für Schritt",
+        "text": "Tage in Folge mit Schritten"
+      },
+      "totalDays": {
+        "title": "Tagebuchtage",
+        "text": "Tage mit Eintrag insgesamt"
+      },
+      "weekWords": {
+        "title": "Wortreich",
+        "text": "Wörter innerhalb von 7 Tagen"
+      },
+      "chips": {
+        "title": "Sammlung",
+        "text": "Eingetragene Aktivitäten insgesamt"
+      },
+      "weekChips": {
+        "title": "Volle Woche",
+        "text": "Eingetragene Aktivitäten innerhalb von 7 Tagen"
+      },
+      "variety": {
+        "title": "Vielseitig",
+        "text": "Verschiedene Aktivitäten eingetragen"
+      },
+      "custom": {
+        "title": "Eigene Handschrift",
+        "text": "Selbst angelegte Aktivitäten"
+      },
+      "photos": {
+        "title": "Fotoalbum",
+        "text": "Fotos in Einträgen insgesamt"
+      },
+      "scaleDays": {
+        "title": "Messbar",
+        "text": "Tage mit Werten auf einer Skala"
+      },
+      "opens": {
+        "title": "Stammgast",
+        "text": "Mal die App geöffnet"
+      }
+    },
+    "toast": {
+      "welcomeEyebrow": "Neu in Daylight",
+      "welcome": "Du hast schon {{stars}} Sterne fürs Dranbleiben gesammelt. Schau sie dir an.",
+      "newStars_one": "Neuer Stern",
+      "newStars_other": "{{count}} neue Sterne",
+      "allFive": "Alle fünf Sterne",
+      "reached": "{{value}} geschafft",
+      "more_one": "und {{count}} weiterer",
+      "more_other": "und {{count}} weitere",
+      "open": "Ansehen",
+      "close": "Schließen",
+      "across_one": "Fortschritt in {{count}} Erfolg",
+      "across_other": "Fortschritt in {{count}} Erfolgen"
     }
   }
 }

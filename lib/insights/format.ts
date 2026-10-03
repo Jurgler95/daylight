@@ -34,3 +34,9 @@ export function formatPercent(share: number): string {
 export function formatRatio(ratio: number): string {
   return formatDecimal(ratio, 1);
 }
+
+/** "10.000" in German, "10,000" in English, whole numbers. */
+export function formatCount(value: number): string {
+  const text = String(Math.round(Math.abs(value))).replace(/\B(?=(\d{3})+(?!\d))/g, currentLanguage() === 'en' ? ',' : '.');
+  return value < 0 ? `-${text}` : text;
+}

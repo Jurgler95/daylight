@@ -21,7 +21,7 @@ export { beforeHardDays, HARD_LEVEL, LOOKBACK_DAYS, MIN_HARD_DAYS, type BeforeHa
 export { GOOD_LEVEL, MIN_WORD_DAYS, noteWords, words, type NoteWords, type WordStat } from './words';
 export { coverage, type Coverage } from './coverage';
 export { activityDetail, DETAIL_ROWS, levelDetail, type ActivityDetail, type LevelActivity, type LevelCount, type LevelDetail } from './detail';
-export { formatDecimal, formatPercent, formatRatio, formatSigned } from './format';
+export { formatCount, formatDecimal, formatPercent, formatRatio, formatSigned } from './format';
 export { buildInsights, type Insights, type InsightsInput } from './overview';
 export { healthMood, HR_USUAL_BPM, MIN_BAND_DAYS, type HealthBand, type HealthMood } from './health';
 export {

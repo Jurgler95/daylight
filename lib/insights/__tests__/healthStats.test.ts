@@ -4,7 +4,7 @@ import { correlation, healthStats, type HealthStats } from '../healthStats';
 import { d, days, run } from './fixtures';
 
 function health(date: string, values: Partial<HealthDay>): HealthDay {
-  return { date, steps: null, sleep_minutes: null, resting_hr: null, exercise_minutes: null, synced_at: '2026-09-27T10:00:00.000Z', ...values };
+  return { date, steps: null, sleep_minutes: null, resting_hr: null, exercise_minutes: null, synced_at: '2026-09-27T10:00:00.000Z', restored: false, ...values };
 }
 
 function dateAt(start: string, offset: number): string {

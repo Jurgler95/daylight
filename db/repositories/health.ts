@@ -1,4 +1,4 @@
-import { and, asc, count, gte, lte, min } from 'drizzle-orm';
+import { and, asc, count, eq, gte, lte, min } from 'drizzle-orm';
 
 import type { DateString } from '@/lib/dates';
 
@@ -6,7 +6,7 @@ import { healthDays, type HealthDay } from '../schema';
 import type { Database } from '../types';
 import { assertDate, now } from '../validate';
 
-export type HealthValues = Omit<HealthDay, 'date' | 'synced_at'>;
+export type HealthValues = Omit<HealthDay, 'date' | 'synced_at' | 'restored'>;
 
 export interface HealthDayInput extends HealthValues {
   date: string;
@@ -19,16 +19,19 @@ function hasAnyValue(day: HealthValues): boolean {
 /**
  * Writes what one sync read for the days `from`..`to`: every day in the range is replaced, and a day
  * Health Connect has nothing for any more is removed. So a sync can be repeated as often as needed.
+ * Days restored from a backup are the exception: Health Connect often no longer has them after a
+ * reinstall, so they stay unless the sync brings values for that day.
  */
 export function replaceHealthDays(db: Database, from: string, to: string, days: readonly HealthDayInput[]): void {
   const start = assertDate(from, 'from');
   const end = assertDate(to, 'to');
   const syncedAt = now();
   db.transaction((tx) => {
-    tx.delete(healthDays).where(and(gte(healthDays.date, start), lte(healthDays.date, end))).run();
+    tx.delete(healthDays).where(and(gte(healthDays.date, start), lte(healthDays.date, end), eq(healthDays.restored, false))).run();
     const rows = days
       .filter((day) => day.date >= start && day.date <= end && hasAnyValue(day))
-      .map((day) => ({ ...day, date: assertDate(day.date, 'date'), synced_at: syncedAt }));
+      .map((day) => ({ ...day, date: assertDate(day.date, 'date'), synced_at: syncedAt, restored: false }));
+    for (const row of rows) tx.delete(healthDays).where(and(eq(healthDays.date, row.date), eq(healthDays.restored, true))).run();
     // SQLite caps the variables of one statement, and a backfill writes a month at a time.
     for (let i = 0; i < rows.length; i += 100) tx.insert(healthDays).values(rows.slice(i, i + 100)).run();
   });
@@ -54,4 +57,15 @@ export function countHealthDays(db: Database): number {
 
 export function clearHealthDays(db: Database): void {
   db.delete(healthDays).run();
+}
+
+/**
+ * Days from a backup, marked as restored. Only fills days this device has nothing for: what a sync
+ * read here is at least as fresh as the backup. Returns how many days were added.
+ */
+export function restoreHealthDays(db: Database, days: readonly Omit<HealthDay, 'restored'>[]): number {
+  const stored = new Set(db.select({ date: healthDays.date }).from(healthDays).all().map((row) => row.date));
+  const rows = days.filter((day) => !stored.has(day.date)).map((day) => ({ ...day, date: assertDate(day.date, 'date'), restored: true }));
+  for (let i = 0; i < rows.length; i += 100) db.insert(healthDays).values(rows.slice(i, i + 100)).run();
+  return rows.length;
 }

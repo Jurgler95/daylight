@@ -8,9 +8,11 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { StarToast } from '@/components/achievements/StarToast';
 import { HealthSyncIndicator } from '@/components/health/HealthSyncIndicator';
 import { LockScreen } from '@/components/lock/LockScreen';
 import { AppText, Button, LogoBackdrop } from '@/components/ui';
+import { useOpenCounter } from '@/lib/achievements/useOpenCounter';
 import { useHealthSync } from '@/lib/health/useHealthSync';
 import { useAppLock } from '@/lib/lock';
 import { useReminderSync } from '@/lib/notifications';
@@ -77,6 +79,7 @@ function AppShell() {
   return (
     <>
       <ReminderSync />
+      <OpenCounter />
       <HealthSync />
       <View style={styles.flex} importantForAccessibility={locked ? 'no-hide-descendants' : 'auto'} accessibilityElementsHidden={locked}>
         <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.background } }}>
@@ -91,7 +94,10 @@ function AppShell() {
           <LockScreen />
         </View>
       ) : (
-        <HealthSyncIndicator />
+        <>
+          <HealthSyncIndicator />
+          <StarToast />
+        </>
       )}
     </>
   );
@@ -103,6 +109,12 @@ function AppShell() {
  */
 function ReminderSync() {
   useReminderSync();
+  return null;
+}
+
+/** Counts openings for the achievements; its own component so the count never re-renders the navigator. */
+function OpenCounter() {
+  useOpenCounter();
   return null;
 }
 

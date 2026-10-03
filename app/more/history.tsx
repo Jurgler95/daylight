@@ -43,7 +43,7 @@ export default function HistoryScreen() {
   const pinned = (
     <>
       <AppText variant="title" accessibilityRole="header">
-        {t('tabs.history')}
+        {t('history.title')}
       </AppText>
       <View style={styles.searchRow}>
         <View style={styles.flex}>
@@ -89,7 +89,7 @@ export default function HistoryScreen() {
   );
 
   return (
-    <Screen scroll={false} sticky={pinned}>
+    <Screen back backLabel={t('common.back')} scroll={false} sticky={pinned}>
       {total === 0 ? (
         <EmptyState icon="list-outline" label={t('history.empty')} />
       ) : hits.length === 0 ? (

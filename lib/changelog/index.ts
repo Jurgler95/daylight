@@ -19,6 +19,24 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.23',
+    date: '2026-10-03',
+    changes: {
+      de: [
+        'Neuer Tab Erfolge mit Sternen fürs Dranbleiben, von Bronze bis zum schimmernden fünften Stern',
+        'Neue Sterne meldet eine kurze Nachricht oben, ein Tipp öffnet die Erfolge',
+        'Der Verlauf ist jetzt unter Mehr zu finden',
+        'Gesundheitsdaten können auf Wunsch mit in die Sicherung',
+      ],
+      en: [
+        'New Awards tab with stars for keeping at it, from bronze to a shimmering fifth star',
+        'A short message at the top announces new stars, a tap opens Awards',
+        'History now lives under More',
+        'Health data can go into the backup if you want',
+      ],
+    },
+  },
+  {
     version: '1.0.22',
     date: '2026-10-03',
     changes: {

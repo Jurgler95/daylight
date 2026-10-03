@@ -6,7 +6,7 @@
     "today": "Today",
     "calendar": "Calendar",
     "insights": "Insights",
-    "history": "History",
+    "achievements": "Awards",
     "settings": "More"
   },
   "lookback": {
@@ -69,7 +69,9 @@
     "healthSection": "Health",
     "health": "Health data",
     "languageSection": "Language",
-    "language": "App language"
+    "language": "App language",
+    "diarySection": "Diary",
+    "history": "History"
   },
   "import": {
     "title": "Import",
@@ -88,6 +90,8 @@
     "duplicates_other": "{{count}} already exist",
     "photoInfo_one": "Plus {{count}} photo, {{fresh}} of them new.",
     "photoInfo_other": "Plus {{count}} photos, {{fresh}} of them new.",
+    "healthInfo_one": "Plus health data for {{count}} day.",
+    "healthInfo_other": "Plus health data for {{count}} days.",
     "newMoods": "New moods",
     "newActivities": "New activities",
     "level": "{{name}} ({{level}})",
@@ -172,6 +176,7 @@
     "failed": "Photo could not be added"
   },
   "history": {
+    "title": "History",
     "search": "Search entries",
     "placeholder": "Search",
     "clear": "Clear search",
@@ -663,7 +668,7 @@
     "lockNote": "The optional app lock uses the device's unlock. While it is on, screenshots are blocked.",
     "deleteNote": "Delete all data removes entries, photos, activities, plans, health data and settings from the device and gives back access to Health Connect.",
     "photos": "You pick photos with the Android photo picker. Daylight only gets that one image, no access to your gallery and no camera. A reduced copy is kept in the app's private storage, not in the gallery.",
-    "health": "When you turn on health data, Daylight reads steps, sleep, resting heart rate and exercise from Health Connect as daily values. This happens on the device, without internet. Daylight writes nothing to Health Connect, and the values are not part of the backup. You manage access in Health Connect, “Disconnect and delete data” removes everything taken over."
+    "health": "When you turn on health data, Daylight reads steps, sleep, resting heart rate and exercise from Health Connect as daily values. This happens on the device, without internet. Daylight writes nothing to Health Connect. The values only go into the backup if you turn that on under Health data. You manage access in Health Connect, “Disconnect and delete data” removes everything taken over."
   },
   "about": {
     "title": "About",
@@ -696,7 +701,9 @@
     "needsUpdate": "Health Connect needs to be updated first.",
     "unsupported": "Health data is only available in the installed app on Android, not in Expo Go.",
     "historyHint": "For days older than 30 days, also allow access to past data in the Health Connect dialog. If that was only allowed later, “Read everything again” fetches the older days. Only what Samsung Health passed on to Health Connect is taken over.",
-    "readOnly": "Daylight only reads and never writes anything to Health Connect. Syncing happens when the app opens, at most every 15 minutes. Health data is not part of the backup, a new sync brings it back.",
+    "readOnly": "Daylight only reads and never writes anything to Health Connect. Syncing happens when the app opens, at most every 15 minutes. Health data only goes into the backup if you turn that on above. Otherwise, after a reinstall, a new sync brings back what Health Connect still has.",
+    "inBackup": "Include in backup",
+    "inBackupHint": "The health days go into the backup too. That way sleep and steps come back after a reinstall, even when Health Connect no longer has the old days.",
     "syncing": "Syncing health data",
     "syncingMonth": "Syncing health data, {{month}}",
     "day": {
@@ -706,6 +713,123 @@
       "exercise": "Exercise",
       "restingHr": "Resting heart rate",
       "bpm": "{{value}} bpm"
+    }
+  },
+  "achievements": {
+    "title": "Awards",
+    "intro": "Stars come from keeping at it and writing things down, never from how a day went.",
+    "stars": "{{stars}} of {{max}} stars",
+    "starsShort": "{{stars}}/{{max}}",
+    "complete": "{{count}} of {{total}} complete",
+    "groups": {
+      "streaks": "In a row",
+      "volume": "Volume"
+    },
+    "best": "Best {{value}}",
+    "current": "Now {{value}}",
+    "lastWeek": "Last 7 days {{value}}",
+    "total": "So far {{value}}",
+    "next": "Next star: {{value}}",
+    "done": "All five stars reached",
+    "needsHealth": "Needs health data from Health Connect",
+    "percent": "{{value}}%",
+    "overallLabel": "{{value}} percent done overall",
+    "progressLabel": "{{value}} percent of the way to the fifth star",
+    "starLabel": "{{stars}} of 5 stars",
+    "tiers": "Levels: {{tiers}}",
+    "units": {
+      "days_one": "{{value}} day",
+      "days_other": "{{value}} days",
+      "weeks_one": "{{value}} week",
+      "weeks_other": "{{value}} weeks",
+      "words_one": "{{value}} word",
+      "words_other": "{{value}} words",
+      "activities_one": "{{value}} activity",
+      "activities_other": "{{value}} activities",
+      "photos_one": "{{value}} photo",
+      "photos_other": "{{value}} photos",
+      "opens_one": "{{value}} time",
+      "opens_other": "{{value}} times"
+    },
+    "items": {
+      "days": {
+        "title": "On a roll",
+        "text": "Days in a row with an entry"
+      },
+      "weeks": {
+        "title": "Keeping at it",
+        "text": "Weeks in a row with entries on at least 5 days"
+      },
+      "activityDays": {
+        "title": "Active logger",
+        "text": "Days in a row with activities"
+      },
+      "noteDays": {
+        "title": "Writing streak",
+        "text": "Days in a row with a note"
+      },
+      "photoDays": {
+        "title": "Photo diary",
+        "text": "Days in a row with a photo"
+      },
+      "sleepDays": {
+        "title": "Sleep log",
+        "text": "Days in a row with sleep data"
+      },
+      "stepDays": {
+        "title": "Step by step",
+        "text": "Days in a row with steps"
+      },
+      "totalDays": {
+        "title": "Diary days",
+        "text": "Days with an entry in total"
+      },
+      "weekWords": {
+        "title": "Wordsmith",
+        "text": "Words written within 7 days"
+      },
+      "chips": {
+        "title": "Collection",
+        "text": "Activities logged in total"
+      },
+      "weekChips": {
+        "title": "Busy week",
+        "text": "Activities logged within 7 days"
+      },
+      "variety": {
+        "title": "Variety",
+        "text": "Different activities logged"
+      },
+      "custom": {
+        "title": "Your own",
+        "text": "Activities you created yourself"
+      },
+      "photos": {
+        "title": "Photo album",
+        "text": "Photos in entries in total"
+      },
+      "scaleDays": {
+        "title": "Measured",
+        "text": "Days with values on a scale"
+      },
+      "opens": {
+        "title": "Regular",
+        "text": "Times you opened the app"
+      }
+    },
+    "toast": {
+      "welcomeEyebrow": "New in Daylight",
+      "welcome": "You have already collected {{stars}} stars for keeping at it. Take a look.",
+      "newStars_one": "New star",
+      "newStars_other": "{{count}} new stars",
+      "allFive": "All five stars",
+      "reached": "Reached {{value}}",
+      "more_one": "and {{count}} more",
+      "more_other": "and {{count}} more",
+      "open": "View",
+      "close": "Close",
+      "across_one": "Progress in {{count}} award",
+      "across_other": "Progress in {{count}} awards"
     }
   }
 }

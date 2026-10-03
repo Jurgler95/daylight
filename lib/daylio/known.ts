@@ -203,6 +203,14 @@ export function starterActivities(language: Language = currentLanguage()): { nam
   );
 }
 
+/** Starter names in both languages, folded, so a renamed or self-made activity is told apart from one the app brought. */
+const STARTER_NAMES = new Set((['de', 'en'] as const).flatMap((language) => starterActivities(language).flat().map((activity) => fold(activity.name))));
+
+/** Whether `name` is one of the activities the app sets up on first start, in either language. */
+export function isStarterActivity(name: string): boolean {
+  return STARTER_NAMES.has(fold(name.trim()));
+}
+
 /** Group and icon for a standard Daylio activity name, or null when it is unknown. */
 export function knownActivity(name: string): KnownActivity | null {
   return ACTIVITY_BY_NAME.get(fold(name.trim())) ?? null;

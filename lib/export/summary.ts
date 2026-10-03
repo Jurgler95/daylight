@@ -19,6 +19,7 @@ export function summarizePlan(plan: ImportPlan): ImportSummary {
     duplicates: plan.duplicates,
     photos: plan.photos,
     newPhotos: plan.newPhotos,
+    healthDays: 0,
   };
 }
 
@@ -38,5 +39,6 @@ export function summaryText(t: TFunction, summary: ImportSummary): string {
   });
   const merge = t('import.mergeInfo', { count: summary.toAdd, duplicates: t('import.duplicates', { count: summary.duplicates }) });
   const photos = summary.photos > 0 ? ` ${t('import.photoInfo', { count: summary.photos, fresh: summary.newPhotos })}` : '';
-  return `${contents} ${merge}${photos}`;
+  const health = summary.healthDays > 0 ? ` ${t('import.healthInfo', { count: summary.healthDays })}` : '';
+  return `${contents} ${merge}${photos}${health}`;
 }

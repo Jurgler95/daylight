@@ -1,5 +1,7 @@
 import { chunked } from '@/db/chunks';
 import { ensureDefaults } from '@/db/repositories/defaults';
+import { restoreHealthDays } from '@/db/repositories/health';
+import { updateSettings } from '@/db/repositories/settings';
 import { clearJournal } from '@/db/repositories/maintenance';
 import { allPhotoFileNames } from '@/db/repositories/photos';
 import { activities, activityGroups, entries, entryActivities, entryPhotos, entryScales, moods, plannedActivities, scales, settings } from '@/db/schema';
@@ -27,6 +29,8 @@ export interface ImportSummary {
   /** Photos the file brings, and how many of them are not stored yet. */
   photos: number;
   newPhotos: number;
+  /** Days with health data in the file (only when it was saved with them). */
+  healthDays: number;
 }
 
 /** Photo files that came with a backup (ZIP), and where they go. */
@@ -63,6 +67,7 @@ export function previewImport(db: Database, payload: ExportPayload, photos: Phot
     duplicates: matches.duplicates,
     photos: usable.length,
     newPhotos: usable.filter((photo) => !stored.has(photo.file_name)).length,
+    healthDays: payload.health_days?.length ?? 0,
   };
 }
 
@@ -75,10 +80,25 @@ export function applyImport(db: Database, payload: ExportPayload, mode: ImportMo
   const { store, files } = photos;
   if (store && files) writePhotos(store, files, usable.entry_photos.map((photo) => photo.file_name));
   try {
-    return db.transaction((tx) => (mode === 'replace' ? replaceAll(tx, usable) : mergeImport(tx, usable)));
+    return db.transaction((tx) => {
+      const result = mode === 'replace' ? replaceAll(tx, usable) : mergeImport(tx, usable);
+      restoreHealth(tx, payload);
+      return result;
+    });
   } finally {
     if (store) sweepPhotos(db, store);
   }
+}
+
+/**
+ * Health days from the backup fill the days this device has nothing for, in both modes: they are not
+ * part of the journal, and a replace leaves the ones already here. A backup with health days turns
+ * the opt-in on, so the next backup keeps them.
+ */
+function restoreHealth(tx: Database, payload: ExportPayload): void {
+  if (!payload.health_days?.length) return;
+  restoreHealthDays(tx, payload.health_days);
+  updateSettings(tx, { health_in_backup: true });
 }
 
 /** Restores the snapshot 1:1, ids included. The device-local `last_export_at` survives. */

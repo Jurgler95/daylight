@@ -15,7 +15,7 @@ const TABS: { name: string; key: string; icon: Icon; active: Icon }[] = [
   { name: 'index', key: 'today', icon: 'sunny-outline', active: 'sunny' },
   { name: 'calendar', key: 'calendar', icon: 'calendar-outline', active: 'calendar' },
   { name: 'insights', key: 'insights', icon: 'analytics-outline', active: 'analytics' },
-  { name: 'history', key: 'history', icon: 'list-outline', active: 'list' },
+  { name: 'achievements', key: 'achievements', icon: 'trophy-outline', active: 'trophy' },
   { name: 'settings', key: 'settings', icon: 'ellipsis-horizontal-circle-outline', active: 'ellipsis-horizontal-circle' },
 ];
 

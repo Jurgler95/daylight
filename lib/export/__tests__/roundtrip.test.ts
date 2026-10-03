@@ -1,4 +1,4 @@
-import { createActivity, createEntry, createMood, getSettings, listGroups, updateSettings } from '@/db/repositories';
+import { createActivity, createEntry, createMood, getSettings, listGroups, listHealthDays, replaceHealthDays, updateSettings } from '@/db/repositories';
 import { countRows, deleteAllData } from '@/db/repositories/maintenance';
 import { createTestDb } from '@/db/testDb';
 import type { DateString } from '@/lib/dates';
@@ -38,6 +38,45 @@ describe('JSON round trip', () => {
     expect('last_export_at' in payload.settings).toBe(false);
     applyImport(db, payload, 'replace');
     expect(getSettings(db).last_export_at).toBe('2026-09-01T10:00:00.000Z');
+  });
+});
+
+describe('health days in the backup', () => {
+  const steps = (date: string, value: number) => ({ date, steps: value, sleep_minutes: 420, resting_hr: null, exercise_minutes: null });
+
+  it('stay out unless the user opted in', () => {
+    const db = sampled();
+    replaceHealthDays(db, '2026-09-01', '2026-09-02', [steps('2026-09-01', 5000), steps('2026-09-02', 7000)]);
+    expect(buildExport(db, '1.0.0').health_days).toBeUndefined();
+    updateSettings(db, { health_in_backup: true });
+    expect(buildExport(db, '1.0.0').health_days?.map((day) => [day.date, day.steps])).toEqual([
+      ['2026-09-01', 5000],
+      ['2026-09-02', 7000],
+    ]);
+  });
+
+  it('come back on a new device, marked as restored, and keep the opt-in on', () => {
+    const source = sampled();
+    replaceHealthDays(source, '2026-09-01', '2026-09-02', [steps('2026-09-01', 5000), steps('2026-09-02', 7000)]);
+    updateSettings(source, { health_in_backup: true });
+    const payload = parseImport(JSON.stringify(buildExport(source, '1.0.0')));
+
+    const target = createTestDb();
+    expect(previewImport(target, payload).healthDays).toBe(2);
+    applyImport(target, payload, 'replace');
+    expect(listHealthDays(target).map((day) => [day.date, day.steps, day.restored])).toEqual([
+      ['2026-09-01', 5000, true],
+      ['2026-09-02', 7000, true],
+    ]);
+    expect(getSettings(target).health_in_backup).toBe(true);
+  });
+
+  it('a file from before the opt-in still imports', () => {
+    const payload = parseImport(JSON.stringify(buildExport(sampled(), '1.0.0')));
+    const target = createTestDb();
+    applyImport(target, payload, 'merge');
+    expect(listHealthDays(target)).toEqual([]);
+    expect(getSettings(target).health_in_backup).toBe(false);
   });
 });
 

@@ -46,6 +46,12 @@ export default function MoreScreen() {
     <Screen title={t('settings.title')}>
       <Card>
         <AppText variant="caption" muted>
+          {t('settings.diarySection').toUpperCase()}
+        </AppText>
+        <ListRow icon="list-outline" label={t('settings.history')} onPress={go('/more/history')} />
+      </Card>
+      <Card>
+        <AppText variant="caption" muted>
           {t('manage.title').toUpperCase()}
         </AppText>
         <ListRow icon="pricetags-outline" label={t('manage.activities')} onPress={go('/more/activities')} />

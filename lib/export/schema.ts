@@ -9,6 +9,7 @@ import { isPhotoName } from '@/lib/photos/store';
  * restores the journal exactly. `app` tells it apart from other apps' exports (Zyklus has a
  * `schema_version` too). Referential integrity is checked here, before any row is written.
  * Version 2 added `entry_photos`; the photo files themselves travel next to the JSON in a ZIP.
+ * `health_days` is optional and only there when the user opted in; older app versions skip it.
  */
 
 export const EXPORT_SCHEMA_VERSION = 2;
@@ -61,6 +62,17 @@ export const entrySchema = z.object({
   updated_at: isoTimestamp,
 });
 
+const minutes = z.number().int().min(0).nullable();
+
+export const healthDaySchema = z.object({
+  date: dateString,
+  steps: z.number().int().min(0).nullable(),
+  sleep_minutes: minutes,
+  resting_hr: z.number().int().positive().nullable(),
+  exercise_minutes: minutes,
+  synced_at: isoTimestamp,
+});
+
 export const settingsSchema = z.object({
   first_day_of_week: z.number().int().min(0).max(6),
   reminder_enabled: z.boolean(),
@@ -93,6 +105,7 @@ export const exportSchema = z
         created_at: isoTimestamp,
       }),
     ),
+    health_days: z.array(healthDaySchema).optional(),
   })
   .superRefine((payload, ctx) => {
     const ids = (rows: readonly { id: number }[]) => new Set(rows.map((row) => row.id));
@@ -115,8 +128,11 @@ export const exportSchema = z
     for (const plan of payload.planned_activities) check(activities.has(plan.activity_id), 'Verweis in planned_activities ungültig');
     for (const photo of payload.entry_photos) check(entries.has(photo.entry_id), 'Verweis in entry_photos ungültig');
     check(new Set(payload.entry_photos.map((photo) => photo.file_name)).size === payload.entry_photos.length, 'doppelte Fotonamen');
+    const health = payload.health_days ?? [];
+    check(new Set(health.map((day) => day.date)).size === health.length, 'doppelte Gesundheitstage');
   });
 
 export type ExportPayload = z.infer<typeof exportSchema>;
 export type ExportSettings = z.infer<typeof settingsSchema>;
 export type ExportPhoto = ExportPayload['entry_photos'][number];
+export type ExportHealthDay = z.infer<typeof healthDaySchema>;

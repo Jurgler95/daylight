@@ -103,6 +103,12 @@ export default function HealthScreen() {
       ) : null}
       <Card>
         <ToggleRow label={t('health.enable')} hint={t('health.enableHint')} value={enabled} disabled={status === null} onChange={toggle} />
+        <ToggleRow
+          label={t('health.inBackup')}
+          hint={t('health.inBackupHint')}
+          value={settings.health_in_backup}
+          onChange={(value) => update({ health_in_backup: value })}
+        />
       </Card>
       {enabled || days > 0 ? (
         <Card>
@@ -126,6 +132,7 @@ export default function HealthScreen() {
           <ListRow icon="unlink-outline" label={t('health.disconnect')} destructive onPress={disconnect} />
         </Card>
       ) : null}
+
       <AppText variant="caption" muted>
         {t('health.historyHint')}
       </AppText>
