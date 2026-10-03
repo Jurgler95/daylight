@@ -24,6 +24,7 @@ import {
   updateGroup,
   updateSettings,
 } from '../repositories';
+import { ensureDefaults } from '../repositories/defaults';
 import { entryActivities } from '../schema';
 import { createTestDb } from '../testDb';
 
@@ -50,12 +51,44 @@ describe('defaults', () => {
     expect(listGroups(db).map((g) => g.name)).toEqual(['Emotions', 'Sleep', 'Weather', 'Social', 'Work', 'Places and hobbies']);
   });
 
+  it('fills each standard group with a few starter activities in the chosen language', () => {
+    const db = createTestDb();
+    const byGroup = (lang: 'de' | 'en') => {
+      deleteAllData(db, lang);
+      const groups = listGroups(db);
+      return Object.fromEntries(groups.map((g) => [g.name, listActivities(db).filter((a) => a.group_id === g.id).map((a) => a.name)]));
+    };
+    expect(byGroup('de')).toEqual({
+      Gefühle: ['Glücklich', 'Entspannt', 'Müde', 'Gestresst', 'Traurig'],
+      Schlaf: ['Gut', 'Mäßig', 'Schlecht'],
+      Wetter: ['Sonnig', 'Wolkig', 'Regnerisch', 'Schnee'],
+      Soziales: ['Familie', 'Freunde', 'Date', 'Party'],
+      Arbeit: ['Arbeit', 'HomeOffice', 'Überstunden', 'Urlaub'],
+      'Orte und Freizeit': ['Sport', 'Lesen', 'Natur', 'Filme', 'Einkaufen'],
+    });
+    expect(byGroup('en')).toEqual({
+      Emotions: ['Happy', 'Relaxed', 'Tired', 'Stressed', 'Sad'],
+      Sleep: ['Good sleep', 'Medium sleep', 'Bad sleep'],
+      Weather: ['Sunny', 'Cloudy', 'Rainy', 'Snow'],
+      Social: ['Family', 'Friends', 'Date', 'Party'],
+      Work: ['Work', 'Work from home', 'Overtime', 'Vacation'],
+      'Places and hobbies': ['Sport', 'Reading', 'Nature', 'Movies', 'Shopping'],
+    });
+    expect(listActivities(db).every((a) => a.icon !== 'tag-outline')).toBe(true);
+  });
+
+  it('does not refill an emptied group on the next start', () => {
+    const db = createTestDb();
+    ensureDefaults(db);
+    expect(countRows(db).activities).toBe(0);
+  });
+
   it('delete all restores the first start', () => {
     const db = createTestDb();
     createMood(db, { label: 'Erschöpft', level: 2 });
     updateSettings(db, { outlook_enabled: false });
     deleteAllData(db);
-    expect(countRows(db)).toEqual({ entries: 0, moods: 5, groups: 6, activities: 0, scales: 0, planned: 0, photos: 0 });
+    expect(countRows(db)).toEqual({ entries: 0, moods: 5, groups: 6, activities: 25, scales: 0, planned: 0, photos: 0 });
     expect(getSettings(db).outlook_enabled).toBe(true);
   });
 });

@@ -1,6 +1,6 @@
 import type { MoodLevel } from '@/db/schema';
 import { currentLanguage, type Language } from '@/lib/i18n/language';
-import type { IconName } from '@/lib/icons';
+import { FALLBACK_ACTIVITY_ICON, type IconName } from '@/lib/icons';
 import { fold } from '@/lib/search/fold';
 
 /**
@@ -162,7 +162,7 @@ const ACTIVITIES: Record<DefaultGroupKey, readonly (readonly [readonly string[],
     [['Filme', 'movies'], 'movie-open-outline'],
     [['Restaurant', 'restaurant'], 'silverware-fork-knife'],
     [['Entspannen', 'relax'], 'sofa-outline'],
-    [['Lesen', 'read', 'reading'], 'book-open-variant'],
+    [['Lesen', 'reading', 'read'], 'book-open-variant'],
     [['Spielen', 'gaming'], 'gamepad-variant-outline'],
     [['Sport', 'sport', 'exercise'], 'run'],
   ],
@@ -177,6 +177,30 @@ for (const group of DEFAULT_GROUP_KEYS) {
       if (!ACTIVITY_BY_NAME.has(key)) ACTIVITY_BY_NAME.set(key, { group, icon });
     }
   }
+}
+
+/**
+ * Created on first start next to the groups, so a new journal is usable right away: a short pick
+ * from Daylio's standard activities, fewer than Daylio itself brings. Listed by German name.
+ */
+const STARTER_ACTIVITIES: Record<DefaultGroupKey, readonly string[]> = {
+  feelings: ['Glücklich', 'Entspannt', 'Müde', 'Gestresst', 'Traurig'],
+  sleep: ['Gut', 'Mäßig', 'Schlecht'],
+  weather: ['Sonnig', 'Wolkig', 'Regnerisch', 'Schnee'],
+  social: ['Familie', 'Freunde', 'Date', 'Party'],
+  work: ['Arbeit', 'HomeOffice', 'Überstunden', 'Urlaub'],
+  leisure: ['Sport', 'Lesen', 'Natur', 'Filme', 'Einkaufen'],
+};
+
+/** The starter activities of each default group, named in `language`, in the order of `defaultGroups`. */
+export function starterActivities(language: Language = currentLanguage()): { name: string; icon: IconName }[][] {
+  return DEFAULT_GROUP_KEYS.map((group) =>
+    STARTER_ACTIVITIES[group].map((german) => {
+      const [names, icon] = ACTIVITIES[group].find(([candidates]) => candidates[0] === german) ?? [[german], FALLBACK_ACTIVITY_ICON];
+      const english = names[1] ?? german;
+      return { name: language === 'de' ? german : english.charAt(0).toUpperCase() + english.slice(1), icon };
+    }),
+  );
 }
 
 /** Group and icon for a standard Daylio activity name, or null when it is unknown. */

@@ -19,6 +19,14 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.20',
+    date: '2026-10-03',
+    changes: {
+      de: ['Beim ersten Start bringt jede Gruppe schon ein paar Aktivitäten aus Daylio mit, auf Deutsch oder Englisch'],
+      en: ['On first start, every group already comes with a few activities from Daylio, in English or German'],
+    },
+  },
+  {
     version: '1.0.19',
     date: '2026-10-01',
     changes: {

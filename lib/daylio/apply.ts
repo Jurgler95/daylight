@@ -134,7 +134,8 @@ export function applyDaylioImport(
     return db.transaction((tx) => {
       if (options.mode === 'replace') {
         clearJournal(tx);
-        ensureDefaults(tx);
+        // The file brings its own activities; starters it does not use would only be clutter.
+        ensureDefaults(tx, undefined, { starters: false });
       }
       const plan = buildImportPlan(parsed.entries, readCatalog(tx), options.choices);
       const added = carryOut(tx, plan, options.source ?? 'daylio_csv');
