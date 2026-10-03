@@ -19,13 +19,13 @@ Ein Stimmungstagebuch für Android, das deine Daten nicht kennt. Keine Konten, k
 
 - 🔒 **Komplett offline.** Daylight hat keine Internet-Berechtigung. Deine Einträge liegen in einer Datenbank auf dem Gerät und verlassen es nur, wenn du selbst eine Sicherung teilst.
 - ⚡ **In Sekunden eingetragen.** Stimmung antippen, Aktivitäten wählen, fertig. Notiz, eigene Skalen und ein Foto pro Tag sind optional.
-- 📦 **Umstieg von Daylio.** Daylight übernimmt ein bestehendes Tagebuch vollständig, als CSV-Export oder als Daylio-Sicherung mit Fotos. Exportieren kannst du auch wieder im Daylio-Format.
+- 📦 **Einfacher Umstieg.** Daylight übernimmt ein bestehendes Stimmungstagebuch aus einer anderen App vollständig, als CSV-Export oder als Sicherung mit Fotos. Exportieren kannst du auch wieder als CSV.
 - 📊 **Einblicke in deine Muster.** Verlauf, Wochentage, Monate, Jahr in Pixeln, welche Aktivitäten mit besseren oder schlechteren Tagen zusammenfallen, was am Folgetag passiert, häufige Wörter in deinen Notizen. Immer als Beschreibung deiner Einträge, nie als Diagnose.
 - 🔭 **Ein ehrlicher Ausblick.** Daylight schätzt die nächsten sieben Tage, aber nur dort, wo das auf deinen eigenen Daten nachweislich besser funktioniert als simples Raten. Sonst tritt der Ausblick zurück und sagt das auch.
 - ❤️ **Gesundheitsdaten, wenn du willst.** Schritte, Schlaf, Ruhepuls und Training aus Health Connect, etwa von einer Smartwatch. Nur lesend und nur nach deiner Zustimmung.
 - 🛡️ **Geschützt.** App-Sperre über die Displaysperre des Geräts, keine Screenshots bei aktiver Sperre, kein Android-Cloud-Backup. Eine Erinnerung am Abend verrät im Text nichts aus dem Tagebuch.
 
-Daylight ist nach dem Vorbild von [Daylio](https://daylio.net/) entstanden. Mit Daylio oder dessen Hersteller hat das Projekt nichts zu tun. Die Oberfläche gibt es auf Deutsch und Englisch.
+Die Oberfläche gibt es auf Deutsch und Englisch.
 
 ## Installieren
 

@@ -26,7 +26,7 @@ Steps, sleep, resting heart rate and exercise from Health Connect, for example f
 App lock with your device's screen lock, no screenshots while the lock is on, no Android cloud backup. The optional evening reminder reveals nothing from your journal.
 
 📦 Your data, your files
-Share or save a full backup with photos, restore it any time, and export in the Daylio CSV format. Coming from Daylio? Daylight imports an existing journal completely, as a CSV export or as a Daylio backup with photos, and shows a preview before anything changes.
+Share or save a full backup with photos, restore it any time, and export as CSV. Coming from another mood journal app? Daylight imports an existing journal completely, as a CSV export or as a backup with photos, and shows a preview before anything changes.
 
 Available in English and German.
 

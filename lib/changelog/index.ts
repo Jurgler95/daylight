@@ -19,6 +19,14 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.22',
+    date: '2026-10-03',
+    changes: {
+      de: ['Kleinere Korrekturen im Hintergrund'],
+      en: ['Minor fixes in the background'],
+    },
+  },
+  {
     version: '1.0.21',
     date: '2026-10-03',
     changes: {
