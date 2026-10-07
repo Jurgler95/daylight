@@ -10,3 +10,4 @@ export * from './plans';
 export * from './scales';
 export * from './settings';
 export * from './order';
+export * from './turningPoints';

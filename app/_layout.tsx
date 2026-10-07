@@ -86,6 +86,8 @@ function AppShell() {
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="entry/new" options={{ presentation: 'modal' }} />
           <Stack.Screen name="entry/[id]" options={{ presentation: 'modal' }} />
+          {/* The one screen that leaves the daylight palette: setting a turning point happens at dawn. */}
+          <Stack.Screen name="turning/new" options={{ presentation: 'fullScreenModal', animation: 'fade', contentStyle: { backgroundColor: '#0B1433' } }} />
           <Stack.Screen name="photo/[name]" options={{ presentation: 'fullScreenModal', contentStyle: { backgroundColor: '#000000' } }} />
         </Stack>
       </View>

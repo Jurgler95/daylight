@@ -10,7 +10,7 @@ import { useAchievements } from './useAchievements';
 /** The achievements tab itself: whoever looks at it has seen every star. */
 export const ACHIEVEMENTS_PATH = '/achievements';
 /** Screens a message would cover in the middle of writing; it waits until they close. */
-const BUSY = ['/entry', '/photo'];
+const BUSY = ['/entry', '/photo', '/turning/new'];
 
 /**
  * New stars since the last announcement, and the way to mark them as seen. Stores without asking

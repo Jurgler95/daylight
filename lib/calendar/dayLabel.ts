@@ -10,6 +10,8 @@ export interface DayMarker {
   icon: IconName;
   /** Number of entries; more than one adds a small dot. */
   count: number;
+  /** The day is a turning point; drawn as a small flag. */
+  turning?: boolean;
 }
 
 /**
@@ -40,6 +42,8 @@ export interface DayLabelTexts {
   outlook: (level: MoodLevel) => string;
   /** "geplant: Familie, Arbeit". */
   planned: (names: string) => string;
+  /** "Wendepunkt". */
+  turning: string;
 }
 
 /**
@@ -62,6 +66,7 @@ export function dayAccessibilityLabel(
   } else if (marker) {
     parts.push(texts.mood(marker.level));
     if (marker.count > 1) parts.push(texts.entries(marker.count));
+    if (marker.turning) parts.push(texts.turning);
   } else if (!isFuture) parts.push(texts.noEntry);
   return parts.join(', ');
 }

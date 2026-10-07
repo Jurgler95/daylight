@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
 import { getDb } from '@/db';
-import { deleteEntry, entryIdOnDate, getEntryDetails, saveEntry } from '@/db/repositories/entries';
+import { deleteEntry, entryIdOnDate, getEntryDetails, saveEntry, turningPointLostBy } from '@/db/repositories/entries';
+import type { TurningPoint } from '@/db/schema';
 import { nowTime, today, type DateString } from '@/lib/dates';
 import { haptics } from '@/lib/haptics';
 import { filePhotoStore } from '@/lib/photos/fileStore';
@@ -22,6 +23,9 @@ export interface EntryEditor {
   canSave: boolean;
   /** The draft was moved to a day that already has an entry; one entry per day. */
   dayTaken: boolean;
+  /** The turning point that goes when this entry is deleted, or saved on another day, since it is the last of its day. */
+  turningPointLostOnDelete: TurningPoint | undefined;
+  turningPointLostOnSave: TurningPoint | undefined;
   update: (patch: Partial<EntryDraft>) => void;
   /** Writes the draft; false when it cannot be saved yet. */
   save: () => boolean;
@@ -62,6 +66,8 @@ export function useEntryEditor(target: EditorTarget): EntryEditor {
     dirty: draft !== null && initial !== null && !sameDraft(draft, initial),
     canSave: input !== null && !dayTaken,
     dayTaken,
+    turningPointLostOnDelete: id !== null ? turningPointLostBy(getDb(), id) : undefined,
+    turningPointLostOnSave: id !== null && draft !== null && draft.date !== initial?.date ? turningPointLostBy(getDb(), id, draft.date) : undefined,
     update: (patch) => setDraft((current) => (current ? { ...current, ...patch } : current)),
     save: () => {
       if (!input || dayTaken) return false;

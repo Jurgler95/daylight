@@ -20,6 +20,7 @@ function achievementsOf(db: Database) {
     activities: listActivities(db, { includeArchived: true }),
     isStarter: isStarterActivity,
     opens: 0,
+    turningPoints: 0,
     today,
     firstDayOfWeek: 1,
   });

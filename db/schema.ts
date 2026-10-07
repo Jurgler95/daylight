@@ -189,6 +189,18 @@ export const healthDays = sqliteTable('health_days', {
   restored: integer('restored', { mode: 'boolean' }).notNull().default(false),
 });
 
+/**
+ * A day the user marks as a turning point (a move, a new job), to compare the days before it with
+ * the days after. At most one per day and `TURNING_POINTS_PER_YEAR` per calendar year of its date.
+ */
+export const turningPoints = sqliteTable('turning_points', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  date: text('date').notNull().unique(),
+  title: text('title').notNull(),
+  note: text('note'),
+  ...timestamps,
+});
+
 export type Mood = typeof moods.$inferSelect;
 export type NewMood = typeof moods.$inferInsert;
 export type ActivityGroup = typeof activityGroups.$inferSelect;
@@ -202,5 +214,6 @@ export type EntryPhoto = typeof entryPhotos.$inferSelect;
 export type PlannedActivity = typeof plannedActivities.$inferSelect;
 export type Settings = typeof settings.$inferSelect;
 export type HealthDay = typeof healthDays.$inferSelect;
+export type TurningPoint = typeof turningPoints.$inferSelect;
 export type EntrySource = (typeof ENTRY_SOURCES)[number];
 export type MoodLevel = (typeof MOOD_LEVELS)[number];

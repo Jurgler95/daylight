@@ -1,6 +1,7 @@
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { StyleSheet, View } from 'react-native';
 
+import { DAWN } from '@/components/turning/dawn';
 import { AppText } from '@/components/ui';
 import { isAhead, type CalendarMarker } from '@/lib/calendar/dayLabel';
 import { moodColors, useTheme } from '@/lib/theme';
@@ -18,7 +19,8 @@ export const DAY_GLYPH_HEIGHT = 58;
 /**
  * The drawing of a single day, shared by the month list and the day strip. The mood is shown by
  * colour and icon together, never by colour alone: soft fill with the mood icon = entry,
- * small dot below = several entries, accent ring = today, pale blue disc = past day without entry.
+ * small dot below = several entries, accent ring = today, pale blue disc = past day without entry,
+ * small dark badge with a flag = turning point.
  * A future day may carry a hollow ring in the colour of the outlook's level, with the level's icon
  * inside, faint; planned activities take the place of that icon (two at most, a dot for more).
  */
@@ -62,6 +64,11 @@ export function DayGlyph({ marker, isToday, isFuture, dayOfMonth }: Props) {
         ]}
       >
         {marker && mood ? <MaterialCommunityIcons name={marker.icon} size={20} color={mood.strong} /> : null}
+        {marker?.turning ? (
+          <View style={[styles.flag, { backgroundColor: DAWN.skyMid, borderColor: colors.background }]}>
+            <MaterialCommunityIcons name="flag-variant" size={9} color={DAWN.sun} />
+          </View>
+        ) : null}
       </View>
       <View style={styles.footer}>
         {marker && mood && marker.count > 1 ? <View style={[styles.dot, { backgroundColor: mood.strong }]} /> : null}
@@ -78,4 +85,6 @@ const styles = StyleSheet.create({
   planned: { flexDirection: 'row', gap: 1 },
   faint: { opacity: 0.7 },
   dot: { width: 5, height: 5, borderRadius: 3 },
+  // Pinned to the top right of the circle, like a badge.
+  flag: { position: 'absolute', top: -3, right: -4, width: 16, height: 16, borderRadius: 8, borderWidth: 1.5, alignItems: 'center', justifyContent: 'center' },
 });

@@ -2,7 +2,7 @@ import { and, asc, eq, gte, inArray, lte, min, ne } from 'drizzle-orm';
 
 import type { DateString } from '@/lib/dates';
 
-import { entries, entryActivities, entryScales, moods, type Entry, type EntrySource, type MoodLevel } from '../schema';
+import { entries, entryActivities, entryScales, moods, turningPoints, type Entry, type EntrySource, type MoodLevel, type TurningPoint } from '../schema';
 import type { Database } from '../types';
 import { assertDate, assertTime, now, optionalText } from '../validate';
 import { listPhotos, photosByEntry, setPhotos } from './photos';
@@ -71,8 +71,10 @@ export function updateEntry(db: Database, id: number, patch: Partial<EntryInput>
       ...(fields.note_title !== undefined && { note_title: optionalText(fields.note_title) }),
       updated_at: now(),
     };
+    const before = getEntry(tx, id);
     const entry = tx.update(entries).set(values).where(eq(entries.id, id)).returning().get();
     writeLinks(tx, id, { activity_ids, scales, photos });
+    if (before && before.date !== entry.date) dropOrphanTurningPoint(tx, before.date);
     return entry;
   });
 }
@@ -83,11 +85,32 @@ export function saveEntry(db: Database, id: number | null, input: EntryInput): E
   return db.transaction((tx) => createEntry(tx, input));
 }
 
-/** Deletes the entry; returns its photo file names, which the caller removes from disk. */
+/**
+ * Deletes the entry; returns its photo file names, which the caller removes from disk. A turning
+ * point hangs on a day with an entry, so it goes with the last entry of its day (the editor asks first).
+ */
 export function deleteEntry(db: Database, id: number): string[] {
-  const photos = listPhotos(db, id);
-  db.delete(entries).where(eq(entries.id, id)).run();
-  return photos;
+  return db.transaction((tx) => {
+    const photos = listPhotos(tx, id);
+    const entry = getEntry(tx, id);
+    tx.delete(entries).where(eq(entries.id, id)).run();
+    if (entry) dropOrphanTurningPoint(tx, entry.date);
+    return photos;
+  });
+}
+
+/**
+ * The turning point that deleting the entry (`newDate` undefined) or moving it to `newDate` would
+ * remove, because it is the last entry of a turning point's day. For the editor to ask first.
+ */
+export function turningPointLostBy(db: Database, id: number, newDate?: string): TurningPoint | undefined {
+  const entry = getEntry(db, id);
+  if (!entry || entry.date === newDate || entryIdOnDate(db, entry.date, id) !== undefined) return undefined;
+  return db.select().from(turningPoints).where(eq(turningPoints.date, entry.date)).get();
+}
+
+function dropOrphanTurningPoint(tx: Database, date: string): void {
+  if (entryIdOnDate(tx, date) === undefined) tx.delete(turningPoints).where(eq(turningPoints.date, date)).run();
 }
 
 /** The first entry of a day, optionally other than `exceptId`, or undefined when the day has none. */

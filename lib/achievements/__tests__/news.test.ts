@@ -7,7 +7,7 @@ import { parseSeen, quietSeen, seenOf, starNews } from '../news';
 const today = '2026-10-03' as DateString;
 const entry = (date: string): AchievementEntry => ({ date, activity_ids: [], photos: [], scales: [] });
 const build = (entries: AchievementEntry[]) =>
-  buildAchievements({ entries, health: [], activities: [], isStarter: isStarterActivity, opens: 0, today, firstDayOfWeek: 1 });
+  buildAchievements({ entries, health: [], activities: [], isStarter: isStarterActivity, opens: 0, turningPoints: 0, today, firstDayOfWeek: 1 });
 
 const empty = build([]);
 const one = build([entry('2026-10-03')]);

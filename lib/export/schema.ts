@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { ENTRY_SOURCES } from '@/db/schema';
 import { isDateString } from '@/lib/dates';
 import { isPhotoName } from '@/lib/photos/store';
+import { countByYear, TURNING_POINTS_PER_YEAR } from '@/lib/turning/rules';
 
 /**
  * The Daylight JSON format: every table of the database, ids included, so a replace-import
@@ -10,6 +11,7 @@ import { isPhotoName } from '@/lib/photos/store';
  * `schema_version` too). Referential integrity is checked here, before any row is written.
  * Version 2 added `entry_photos`; the photo files themselves travel next to the JSON in a ZIP.
  * `health_days` is optional and only there when the user opted in; older app versions skip it.
+ * `turning_points` is optional too: backups from before they existed simply have none.
  */
 
 export const EXPORT_SCHEMA_VERSION = 2;
@@ -73,6 +75,14 @@ export const healthDaySchema = z.object({
   synced_at: isoTimestamp,
 });
 
+export const turningPointSchema = z.object({
+  date: dateString,
+  title: name,
+  note: z.string().nullable(),
+  created_at: isoTimestamp,
+  updated_at: isoTimestamp,
+});
+
 export const settingsSchema = z.object({
   first_day_of_week: z.number().int().min(0).max(6),
   reminder_enabled: z.boolean(),
@@ -106,6 +116,7 @@ export const exportSchema = z
       }),
     ),
     health_days: z.array(healthDaySchema).optional(),
+    turning_points: z.array(turningPointSchema).optional(),
   })
   .superRefine((payload, ctx) => {
     const ids = (rows: readonly { id: number }[]) => new Set(rows.map((row) => row.id));
@@ -130,9 +141,13 @@ export const exportSchema = z
     check(new Set(payload.entry_photos.map((photo) => photo.file_name)).size === payload.entry_photos.length, 'doppelte Fotonamen');
     const health = payload.health_days ?? [];
     check(new Set(health.map((day) => day.date)).size === health.length, 'doppelte Gesundheitstage');
+    const turning = (payload.turning_points ?? []).map((point) => point.date);
+    check(new Set(turning).size === turning.length, 'doppelte Wendepunkte');
+    for (const [year, n] of countByYear(turning)) check(n <= TURNING_POINTS_PER_YEAR, `zu viele Wendepunkte in ${year}`);
   });
 
 export type ExportPayload = z.infer<typeof exportSchema>;
 export type ExportSettings = z.infer<typeof settingsSchema>;
 export type ExportPhoto = ExportPayload['entry_photos'][number];
 export type ExportHealthDay = z.infer<typeof healthDaySchema>;
+export type ExportTurningPoint = z.infer<typeof turningPointSchema>;

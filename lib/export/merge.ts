@@ -1,11 +1,12 @@
 import { chunked } from '@/db/chunks';
 import { listEntryDetails } from '@/db/repositories/entries';
 import { addPhotos } from '@/db/repositories/photos';
-import { activities, activityGroups, entries, entryActivities, entryScales, moods, plannedActivities, scales } from '@/db/schema';
+import { activities, activityGroups, entries, entryActivities, entryScales, moods, plannedActivities, scales, turningPoints } from '@/db/schema';
 import type { Database } from '@/db/types';
 import { entryKey } from '@/lib/daylio/plan';
 import { readCatalog } from '@/lib/daylio/apply';
 import { fold } from '@/lib/search/fold';
+import { onEntryDays, roomInYear } from '@/lib/turning/rules';
 
 import type { ExportPayload } from './schema';
 
@@ -140,6 +141,20 @@ export function mergeImport(tx: Database, payload: ExportPayload): { added: numb
   const plans = payload.planned_activities.map((plan) => ({ date: plan.date, activity_id: activityIds.get(plan.activity_id) as number }));
   for (const chunk of chunked(plans)) tx.insert(plannedActivities).values(chunk).onConflictDoNothing().run();
   attachPhotos(tx, payload, entryIds, levels(payload));
+  mergeTurningPoints(tx, payload);
 
   return { added: matches.newEntries.length, duplicates: matches.duplicates };
+}
+
+/**
+ * A turning point on a day that already has one stays as it is here. One that would push its year
+ * past the cap is left out, so a merge never ends with more than the app would let anyone set.
+ */
+function mergeTurningPoints(tx: Database, payload: ExportPayload): void {
+  const dates = tx.select({ date: turningPoints.date }).from(turningPoints).all().map((row) => row.date);
+  for (const point of onEntryDays(payload.turning_points ?? [], payload.entries)) {
+    if (dates.includes(point.date) || roomInYear(dates, point.date) === 0) continue;
+    tx.insert(turningPoints).values(point).run();
+    dates.push(point.date);
+  }
 }

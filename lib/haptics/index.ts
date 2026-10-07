@@ -21,6 +21,10 @@ export const haptics = {
   off: () => run(Haptics.AndroidHaptics.Toggle_Off, () => Haptics.selectionAsync()),
   /** Moving along a scale or a wheel of days. */
   tick: () => run(Haptics.AndroidHaptics.Segment_Tick, () => Haptics.selectionAsync()),
+  /** One beat while something is being held down, e.g. setting a turning point. */
+  hold: () => run(Haptics.AndroidHaptics.Segment_Frequent_Tick, () => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)),
+  /** The end of a long press that set something rare. */
+  landmark: () => run(Haptics.AndroidHaptics.Long_Press, () => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)),
   /** An entry that matters was recorded. */
   confirm: () => run(Haptics.AndroidHaptics.Confirm, () => Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)),
 };

@@ -40,7 +40,7 @@
     "saveJson": "Save backup to folder",
     "exportCsv": "Export as Daylio CSV",
     "deleteAll": "Delete all data",
-    "backupHint": "Only the backup restores everything. With photos it is a ZIP file. The CSV has no groups, icons, plans or photos.",
+    "backupHint": "Only the backup restores everything. With photos it is a ZIP file. The CSV has no groups, icons, plans, turning points or photos.",
     "backupNever": "Never",
     "backupToday": "Today",
     "backupAgo_one": "{{count}} day ago",
@@ -71,7 +71,8 @@
     "languageSection": "Language",
     "language": "App language",
     "diarySection": "Diary",
-    "history": "History"
+    "history": "History",
+    "turningPoints": "Turning points"
   },
   "import": {
     "title": "Import",
@@ -165,7 +166,10 @@
     "scaleValue": "{{value}} of {{max}}",
     "scaleLine": "{{name}} {{value}} of {{max}}",
     "scaleEmpty": "Not set",
-    "dayTaken": "There is already an entry for this day. One entry per day is possible."
+    "dayTaken": "There is already an entry for this day. One entry per day is possible.",
+    "turningLost": "This day is the turning point \"{{title}}\". Without an entry on this day, it will be deleted too.",
+    "turningMoveTitle": "Turning point will be lost",
+    "turningMoveConfirm": "Move and delete"
   },
   "photo": {
     "title": "Photo",
@@ -196,7 +200,11 @@
     "empty": "No entries yet",
     "noResults": "Nothing found",
     "count_one": "{{count}} entry",
-    "count_other": "{{count}} entries"
+    "count_other": "{{count}} entries",
+    "turning_one": "Turning points · {{count}}",
+    "turning_other": "Turning points · {{count}}",
+    "turningEmpty": "No turning points yet. You set one on Today, below the day's entry.",
+    "turningYear": "{{count}} of {{max}}"
   },
   "manage": {
     "title": "Manage",
@@ -658,7 +666,7 @@
   "privacy": {
     "title": "Privacy",
     "intro": "Daylight stores everything only on this device.",
-    "stored": "Stored are: entries with mood, activities, scales, notes and photos, your moods, activities, groups and scales, planned activities and your settings.",
+    "stored": "Stored are: entries with mood, activities, scales, notes and photos, your moods, activities, groups and scales, planned activities, turning points and your settings.",
     "network": "No accounts, no servers, no analytics, no ads. The app requests no internet permission and cannot send anything.",
     "leave": "Data only leaves the device when you share or save a backup or a CSV export yourself.",
     "noCloudBackup": "The app is excluded from the automatic Android backup. So your entries do not end up in your Google account either. The price: if you uninstall or switch devices, they are gone unless you have your own backup. After 60 days without a backup, Today reminds you.",
@@ -749,7 +757,9 @@
       "photos_one": "{{value}} photo",
       "photos_other": "{{value}} photos",
       "opens_one": "{{value}} time",
-      "opens_other": "{{value}} times"
+      "opens_other": "{{value}} times",
+      "turningPoints_one": "{{value}} turning point",
+      "turningPoints_other": "{{value}} turning points"
     },
     "items": {
       "days": {
@@ -812,6 +822,10 @@
         "title": "Measured",
         "text": "Days with values on a scale"
       },
+      "turningPoints": {
+        "title": "Turning points",
+        "text": "Days that changed something"
+      },
       "opens": {
         "title": "Regular",
         "text": "Times you opened the app"
@@ -831,5 +845,63 @@
       "across_one": "Progress in {{count}} award",
       "across_other": "Progress in {{count}} awards"
     }
+  },
+  "turning": {
+    "eyebrow": "Turning point",
+    "title": "Turning point",
+    "invalid": "A turning point needs a day with an entry, today or earlier.",
+    "room_one": "{{count}} of {{max}} left for {{year}}",
+    "room_other": "{{count}} of {{max}} left for {{year}}",
+    "full": "All {{max}} set for {{year}}",
+    "fullHint": "All {{max}} turning points for {{year}} are set. If this day matters more, delete another one first.",
+    "already": "This day already is a turning point.",
+    "titleLabel": "Name of the turning point",
+    "titlePlaceholder": "e.g. Moving to Leipzig",
+    "noteLabel": "Note on the turning point",
+    "notePlaceholder": "A few words about it, if you like",
+    "before": "Before",
+    "after": "After",
+    "beforeShort": "Before",
+    "afterShort": "After",
+    "hold": "Press and hold",
+    "holdA11y": "Set turning point",
+    "nameFirst": "It needs a name first: what is this day called?",
+    "explain": "Daylight will then compare the days before with the days after.",
+    "set": "From here on, it's after.",
+    "save": "Save",
+    "edit": "Edit",
+    "gone": "This turning point no longer exists",
+    "delete": "Delete turning point",
+    "deleteTitle": "Delete turning point?",
+    "deleteText": "\"{{title}}\" will be removed. The day's entries stay.",
+    "mark": "Mark as turning point",
+    "markHint": "A day that changed something. Up to four a year.",
+    "compare": "See before and after",
+    "cardA11y": "Turning point: {{title}}. See before and after",
+    "span": {
+      "label": "Days on each side",
+      "30": "30",
+      "90": "90",
+      "180": "180",
+      "all": "All"
+    },
+    "tooSoon": "There are no days after this one to compare yet. The after side fills up with every entry.",
+    "few": "Too few days to compare yet: {{before}} before, {{after}} after with an entry. Each side needs at least {{min}}.",
+    "daysWithEntries_one": "{{count}} day with an entry",
+    "daysWithEntries_other": "{{count}} days with an entry",
+    "sentence_one": "The day after, your mood was {{after}}; the day before, {{before}}.",
+    "sentence_other": "In the {{count}} days after, your mood averaged {{after}}; in the {{count}} days before, {{before}}.",
+    "windows": "Before: {{beforeFrom}} to {{beforeTo}}. After: {{afterFrom}} to {{afterTo}}.",
+    "seasons": "The two periods fall in different seasons. Part of the difference may come from that.",
+    "noCause": "This describes your entries, it does not show a cause. Turning points often come after a hard stretch, so the after side tends to look better for that reason alone.",
+    "trend": "Mood around the turning point",
+    "levels": "Moods",
+    "activities": "How activities changed",
+    "activitiesSame": "No activity comes up clearly more or less often after.",
+    "activityShift": "before on {{before}} of days, after on {{after}}",
+    "health": "Health",
+    "healthShift": "{{before}} → {{after}}",
+    "nameLabel": "Give this day a name",
+    "setTitle": "Turning point set"
   }
 }

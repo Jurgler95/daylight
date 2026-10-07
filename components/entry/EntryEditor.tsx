@@ -57,25 +57,38 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
         ? [
             {
               text: t('entry.save'),
-              onPress: () => {
-                editor.save();
-                navigation.dispatch(data.action);
-              },
+              onPress: () =>
+                confirmTurningLoss(() => {
+                  editor.save();
+                  navigation.dispatch(data.action);
+                }),
             },
           ]
         : []),
     ]);
   });
 
+  /** Moving the last entry of a turning point's day away takes the turning point with it: ask first. */
+  const confirmTurningLoss = (then: () => void) => {
+    const lost = editor.turningPointLostOnSave;
+    if (!lost) return then();
+    Alert.alert(t('entry.turningMoveTitle'), t('entry.turningLost', { title: lost.title }), [
+      { text: t('common.cancel'), style: 'cancel' },
+      { text: t('entry.turningMoveConfirm'), style: 'destructive', onPress: then },
+    ]);
+  };
+
   const leave = () => {
     leaving.current = true;
     router.back();
   };
-  const save = () => {
-    if (editor.save()) leave();
-  };
+  const save = () =>
+    confirmTurningLoss(() => {
+      if (editor.save()) leave();
+    });
+  const lostOnDelete = editor.turningPointLostOnDelete;
   const remove = () =>
-    Alert.alert(t('entry.deleteTitle'), t('entry.deleteBody'), [
+    Alert.alert(t('entry.deleteTitle'), lostOnDelete ? `${t('entry.deleteBody')} ${t('entry.turningLost', { title: lostOnDelete.title })}` : t('entry.deleteBody'), [
       { text: t('common.cancel'), style: 'cancel' },
       {
         text: t('entry.delete'),

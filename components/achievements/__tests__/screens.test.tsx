@@ -48,7 +48,7 @@ describe('achievements screen', () => {
   it('shows every achievement without stars on an empty diary', async () => {
     use(createTestDb());
     await render(<AchievementsScreen />);
-    expect(screen.getByText('0/80')).toBeTruthy();
+    expect(screen.getByText('0/85')).toBeTruthy();
     expect(screen.getByText('Am Ball')).toBeTruthy();
     expect(screen.getAllByText('Braucht Gesundheitsdaten aus Health Connect', ALL)).toHaveLength(2);
     expect(screen.queryByText(BROKEN, ALL)).toBeNull();
@@ -65,7 +65,7 @@ describe('achievements screen', () => {
     );
     use(db);
     await render(<AchievementsScreen />);
-    expect(screen.queryByText('0/80')).toBeNull();
+    expect(screen.queryByText('0/85')).toBeNull();
     expect(screen.getByText('Schlafprotokoll')).toBeTruthy();
     expect(screen.queryByText(BROKEN, ALL)).toBeNull();
   });

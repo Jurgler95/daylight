@@ -5,6 +5,7 @@ import type { DateString } from '@/lib/dates';
 import { isStarterActivity } from '@/lib/daylio/known';
 import { readInsightEntries } from '@/lib/insights/useInsights';
 import { cached, useQuery } from '@/lib/store/dataVersion';
+import { readTurningPoints } from '@/lib/turning/useTurningPoints';
 import { useSettingsStore } from '@/lib/store/settingsStore';
 
 import { buildAchievements, type Achievement } from './achievements';
@@ -23,6 +24,7 @@ export function useAchievements(today: DateString): Achievement[] {
           activities: listActivities(db, { includeArchived: true }),
           isStarter: isStarterActivity,
           opens,
+          turningPoints: readTurningPoints().length,
           today,
           firstDayOfWeek,
         });

@@ -19,6 +19,22 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.24',
+    date: '2026-10-07',
+    changes: {
+      de: [
+        'Wendepunkte: Markiere bis zu vier Tage im Jahr, die etwas verändert haben, und vergleiche die Zeit davor mit der danach',
+        'Wendepunkte stehen im Verlauf, als Fähnchen im Kalender und als Linie im Stimmungsverlauf',
+        'Neuer Erfolg für Wendepunkte, und die Stufen bei den Wörtern in sieben Tagen sind leichter erreichbar',
+      ],
+      en: [
+        'Turning points: mark up to four days a year that changed something and compare the time before with the time after',
+        'Turning points show up in History, as a flag in the calendar and as a line in the mood chart',
+        'New award for turning points, and the tiers for words in seven days are easier to reach',
+      ],
+    },
+  },
+  {
     version: '1.0.23',
     date: '2026-10-03',
     changes: {

@@ -1,6 +1,6 @@
 import { listHealthDays } from '@/db/repositories/health';
 import { getSettings } from '@/db/repositories/settings';
-import { activities, activityGroups, entries, entryActivities, entryPhotos, entryScales, moods, plannedActivities, scales } from '@/db/schema';
+import { activities, activityGroups, entries, entryActivities, entryPhotos, entryScales, moods, plannedActivities, scales, turningPoints } from '@/db/schema';
 import type { Database } from '@/db/types';
 
 import { EXPORT_APP, EXPORT_SCHEMA_VERSION, type ExportPayload, type ExportSettings } from './schema';
@@ -65,6 +65,12 @@ export function buildExport(db: Database, appVersion: string, exportedAt = new D
       .all()
       .sort((a, b) => a.entry_id - b.entry_id || a.sort_order - b.sort_order || a.id - b.id)
       .map(({ entry_id, file_name, sort_order, created_at }) => ({ entry_id, file_name, sort_order, created_at })),
+    turning_points: db
+      .select()
+      .from(turningPoints)
+      .all()
+      .sort((a, b) => a.date.localeCompare(b.date))
+      .map(({ date, title, note, created_at, updated_at }) => ({ date, title, note, created_at, updated_at })),
     ...(settings.health_in_backup ? { health_days: listHealthDays(db).map(({ restored: _r, ...day }) => day) } : {}),
   };
 }

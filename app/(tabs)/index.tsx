@@ -13,6 +13,7 @@ import { BackupCard } from '@/components/today/BackupCard';
 import { DayStrip, type DayStripHandle } from '@/components/today/DayStrip';
 import { LookbackCard } from '@/components/today/LookbackCard';
 import { LowMoodCard } from '@/components/today/LowMoodCard';
+import { TurningDayCard } from '@/components/turning/TurningDayCard';
 import { AppText, Button, Card, CardMotion, EmptyState, Screen } from '@/components/ui';
 import { getDb } from '@/db';
 import { listEntryDetails } from '@/db/repositories/entries';
@@ -129,6 +130,7 @@ export default function TodayScreen() {
               />
             ))}
             {health ? <HealthDayCard day={health} /> : null}
+            {entries.length > 0 ? <TurningDayCard date={date} /> : null}
             {offset === 0 ? <LookbackCard date={date} catalog={catalog} onOpenDay={setDate} /> : null}
             {offset === 0 && lowMood.show ? <LowMoodCard onDismiss={lowMood.dismiss} /> : null}
             {offset === 0 ? <BackupCard /> : null}

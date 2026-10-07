@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, SectionList, StyleSheet, View } from 'react-native';
@@ -7,20 +7,31 @@ import { Pressable, SectionList, StyleSheet, View } from 'react-native';
 import { EntryRow, type HealthLabels } from '@/components/history/EntryRow';
 import { FilterPanel } from '@/components/history/FilterPanel';
 import { SearchBar } from '@/components/history/SearchBar';
-import { AppText, EmptyState, Screen } from '@/components/ui';
+import { TurningRow } from '@/components/turning/TurningRow';
+import { AppText, Chip, EmptyState, Screen } from '@/components/ui';
 import { useCatalog } from '@/lib/catalog/useCatalog';
 import { formatMonthYear, type DateString } from '@/lib/dates';
 import { useToday } from '@/lib/dates/useToday';
 import { haptics } from '@/lib/haptics';
 import { useHealthByDate } from '@/lib/health/useHealthDays';
+import { fold } from '@/lib/search/fold';
 import { EMPTY_QUERY, isEmptyQuery, type SearchQuery } from '@/lib/search/search';
 import { useEntrySearch } from '@/lib/search/useEntrySearch';
 import { useSelectedDayStore } from '@/lib/store/selectedDay';
 import { TOUCH_TARGET, radius, spacing, useTheme } from '@/lib/theme';
+import { countByYear, TURNING_POINTS_PER_YEAR } from '@/lib/turning/rules';
+import { useTurningPoints } from '@/lib/turning/useTurningPoints';
 
-/** Every entry, newest first, by month. The search above narrows the same list instead of opening another. */
+/**
+ * Every entry, newest first, by month. The search above narrows the same list instead of opening
+ * another. The "Wendepunkte" chip swaps the entries for the turning points, newest first by year;
+ * `?turning=1` opens it that way.
+ */
 export default function HistoryScreen() {
   const { t } = useTranslation();
+  const params = useLocalSearchParams<{ turning?: string }>();
+  const [turning, setTurning] = useState(params.turning === '1');
+  const allTurning = useTurningPoints();
   const { colors } = useTheme();
   const today = useToday();
   const catalog = useCatalog();
@@ -33,6 +44,15 @@ export default function HistoryScreen() {
     [t],
   );
   const filterCount = query.levels.length + query.activityIds.length + (query.period === 'all' ? 0 : 1);
+  const turningSections = useMemo(() => {
+    const needle = fold(query.text.trim());
+    const perYear = countByYear(allTurning.map((point) => point.date));
+    const shown = allTurning
+      .filter((point) => !needle || fold(`${point.title} ${point.note ?? ''}`).includes(needle))
+      .reverse();
+    const years = [...new Set(shown.map((point) => point.date.slice(0, 4)))];
+    return years.map((year) => ({ year, set: perYear.get(year) ?? 0, data: shown.filter((point) => point.date.startsWith(year)) }));
+  }, [allTurning, query.text]);
   const pick = useSelectedDayStore((s) => s.pick);
   // Like the calendar: the row opens its day on "Heute", editing is one tap further.
   const open = (date: DateString) => {
@@ -55,24 +75,34 @@ export default function HistoryScreen() {
             onChange={(text) => setQuery((current) => ({ ...current, text }))}
           />
         </View>
-        <Pressable
-          onPress={() => {
-            haptics.tick();
-            setFiltersOpen((value) => !value);
-          }}
-          accessibilityRole="button"
-          accessibilityState={{ expanded: filtersOpen }}
-          accessibilityLabel={filterCount > 0 ? t('history.filtersActive', { count: filterCount }) : t('history.filters')}
-          style={({ pressed }) => [
-            styles.filterButton,
-            { backgroundColor: filterCount > 0 ? colors.accent : colors.surfaceMuted, opacity: pressed ? 0.6 : 1 },
-          ]}
-        >
-          <Ionicons name="options-outline" size={20} color={filterCount > 0 ? colors.textOnAccent : colors.text} />
-        </Pressable>
+        {turning ? null : (
+          <Pressable
+            onPress={() => {
+              haptics.tick();
+              setFiltersOpen((value) => !value);
+            }}
+            accessibilityRole="button"
+            accessibilityState={{ expanded: filtersOpen }}
+            accessibilityLabel={filterCount > 0 ? t('history.filtersActive', { count: filterCount }) : t('history.filters')}
+            style={({ pressed }) => [
+              styles.filterButton,
+              { backgroundColor: filterCount > 0 ? colors.accent : colors.surfaceMuted, opacity: pressed ? 0.6 : 1 },
+            ]}
+          >
+            <Ionicons name="options-outline" size={20} color={filterCount > 0 ? colors.textOnAccent : colors.text} />
+          </Pressable>
+        )}
       </View>
-      {filtersOpen ? <FilterPanel query={query} catalog={catalog} chipIds={chipIds} onChange={setQuery} /> : null}
-      {!isEmptyQuery(query) ? (
+      <View style={styles.chips}>
+        <Chip
+          label={t('history.turning', { count: allTurning.length })}
+          icon="flag-variant-outline"
+          selected={turning}
+          onPress={() => setTurning((value) => !value)}
+        />
+      </View>
+      {filtersOpen && !turning ? <FilterPanel query={query} catalog={catalog} chipIds={chipIds} onChange={setQuery} /> : null}
+      {!turning && !isEmptyQuery(query) ? (
         <View style={styles.resultRow}>
           <AppText variant="caption" muted style={styles.flex}>
             {t('history.results', { count: hits.length })}
@@ -90,7 +120,29 @@ export default function HistoryScreen() {
 
   return (
     <Screen back backLabel={t('common.back')} scroll={false} sticky={pinned}>
-      {total === 0 ? (
+      {turning ? (
+        turningSections.length === 0 ? (
+          <EmptyState icon="flag-outline" label={allTurning.length === 0 ? t('history.turningEmpty') : t('history.noResults')} />
+        ) : (
+          <SectionList
+            sections={turningSections}
+            keyExtractor={(point) => String(point.id)}
+            renderItem={({ item }) => <TurningRow point={item} />}
+            renderSectionHeader={({ section }) => (
+              <View style={[styles.month, { backgroundColor: colors.background }]}>
+                <AppText variant="headline">{section.year}</AppText>
+                <AppText variant="caption" muted>
+                  {t('history.turningYear', { count: section.set, max: TURNING_POINTS_PER_YEAR })}
+                </AppText>
+              </View>
+            )}
+            stickySectionHeadersEnabled
+            keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="on-drag"
+            contentContainerStyle={styles.list}
+          />
+        )
+      ) : total === 0 ? (
         <EmptyState icon="list-outline" label={t('history.empty')} />
       ) : hits.length === 0 ? (
         <EmptyState icon="search-outline" label={t('history.noResults')} />
@@ -127,6 +179,7 @@ const styles = StyleSheet.create({
   searchRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
   filterButton: { width: TOUCH_TARGET, height: TOUCH_TARGET, borderRadius: radius.pill, alignItems: 'center', justifyContent: 'center' },
   resultRow: { flexDirection: 'row', alignItems: 'center' },
+  chips: { flexDirection: 'row' },
   month: { flexDirection: 'row', alignItems: 'baseline', justifyContent: 'space-between', paddingTop: spacing.md, paddingBottom: spacing.xs },
   list: { paddingBottom: spacing.xl },
 });

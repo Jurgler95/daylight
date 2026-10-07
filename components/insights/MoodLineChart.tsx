@@ -6,7 +6,7 @@ import Svg, { Line, Path } from 'react-native-svg';
 
 import { AppText } from '@/components/ui';
 import { MOOD_LEVELS, type MoodLevel } from '@/db/schema';
-import { daysBetween, formatShort } from '@/lib/dates';
+import { daysBetween, formatShort, type DateString } from '@/lib/dates';
 import { formatDecimal, ROLLING_DAYS, windowLength, type DayWindow, type MoodPoint } from '@/lib/insights';
 import type { IconName } from '@/lib/icons';
 import { roundLevel } from '@/lib/mood/dayMood';
@@ -17,6 +17,8 @@ interface Props {
   window: DayWindow;
   mean: number | null;
   iconFor: (level: MoodLevel) => IconName;
+  /** Turning points inside the window, drawn as dashed lines with a flag on top. */
+  marks?: readonly DateString[];
 }
 
 const HEIGHT = 150;
@@ -28,7 +30,7 @@ const PAD = 8;
  * has 365 dots, which as one path per level stays cheap where a chart library would draw a
  * component per point. The line breaks where a gap is longer than its own week.
  */
-export function MoodLineChart({ points, window, mean, iconFor }: Props) {
+export function MoodLineChart({ points, window, mean, iconFor, marks = [] }: Props) {
   const { t } = useTranslation();
   const { colors } = useTheme();
   const [width, setWidth] = useState(0);
@@ -50,6 +52,7 @@ export function MoodLineChart({ points, window, mean, iconFor }: Props) {
     const jump = !previous || daysBetween(previous.date, point.date) > ROLLING_DAYS;
     line += `${jump ? 'M' : 'L'}${x(point.date).toFixed(1)} ${y(point.rolling).toFixed(1)}`;
   });
+  const shownMarks = marks.filter((date) => date >= window.from && date <= window.to);
   const last = points[points.length - 1];
   const label = t('insights.trend.a11y', {
     from: formatShort(window.from),
@@ -70,9 +73,19 @@ export function MoodLineChart({ points, window, mean, iconFor }: Props) {
             {[...dots.entries()].map(([level, d]) => (
               <Path key={level} d={d} stroke={moodColors[level].strong} strokeWidth={dot} strokeLinecap="round" opacity={0.55} />
             ))}
+            {shownMarks.map((date) => (
+              <Line key={date} x1={x(date)} x2={x(date)} y1={PAD + 6} y2={HEIGHT - PAD} stroke={colors.accent} strokeWidth={1.5} strokeDasharray="4 3" />
+            ))}
             <Path d={line} stroke={colors.text} strokeWidth={2} fill="none" strokeLinejoin="round" strokeLinecap="round" />
           </Svg>
         ) : null}
+        {width > 0
+          ? shownMarks.map((date) => (
+              <View key={date} style={[styles.flag, { left: x(date) - 7 }]}>
+                <MaterialCommunityIcons name="flag-variant" size={14} color={colors.accent} />
+              </View>
+            ))
+          : null}
         {MOOD_LEVELS.map((level) => (
           <View key={level} style={[styles.icon, { top: y(level) - 9 }]}>
             <MaterialCommunityIcons name={iconFor(level)} size={18} color={moodColors[level].strong} />
@@ -109,6 +122,7 @@ const styles = StyleSheet.create({
   wrap: { gap: spacing.xs },
   plot: { height: HEIGHT },
   icon: { position: 'absolute', left: 0 },
+  flag: { position: 'absolute', top: -6 },
   axis: { flexDirection: 'row', justifyContent: 'space-between' },
   legend: { flexDirection: 'row', gap: spacing.lg },
   legendItem: { flexDirection: 'row', alignItems: 'center', gap: spacing.xs },

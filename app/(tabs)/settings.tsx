@@ -49,6 +49,7 @@ export default function MoreScreen() {
           {t('settings.diarySection').toUpperCase()}
         </AppText>
         <ListRow icon="list-outline" label={t('settings.history')} onPress={go('/more/history')} />
+        <ListRow icon="flag-outline" label={t('settings.turningPoints')} onPress={go('/more/history?turning=1')} />
       </Card>
       <Card>
         <AppText variant="caption" muted>

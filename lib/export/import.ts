@@ -4,11 +4,12 @@ import { restoreHealthDays } from '@/db/repositories/health';
 import { updateSettings } from '@/db/repositories/settings';
 import { clearJournal } from '@/db/repositories/maintenance';
 import { allPhotoFileNames } from '@/db/repositories/photos';
-import { activities, activityGroups, entries, entryActivities, entryPhotos, entryScales, moods, plannedActivities, scales, settings } from '@/db/schema';
+import { activities, activityGroups, entries, entryActivities, entryPhotos, entryScales, moods, plannedActivities, scales, settings, turningPoints } from '@/db/schema';
 import type { Database } from '@/db/types';
 import type { DateString } from '@/lib/dates';
 import type { ImportMode } from '@/lib/daylio/apply';
 import { sweepPhotos, writePhotos, type PhotoStore } from '@/lib/photos/store';
+import { onEntryDays } from '@/lib/turning/rules';
 
 import { matchPayload, mergeImport } from './merge';
 import { migrateExportFormat } from './migrateFormat';
@@ -117,6 +118,7 @@ function replaceAll(tx: Database, payload: ExportPayload): { added: number; dupl
   insert(payload.entry_scales, (rows) => tx.insert(entryScales).values(rows).run());
   insert(payload.planned_activities, (rows) => tx.insert(plannedActivities).values(rows).run());
   insert(payload.entry_photos, (rows) => tx.insert(entryPhotos).values(rows).run());
+  insert(onEntryDays(payload.turning_points ?? [], payload.entries), (rows) => tx.insert(turningPoints).values(rows).run());
   ensureDefaults(tx);
   return { added: payload.entries.length, duplicates: 0 };
 }

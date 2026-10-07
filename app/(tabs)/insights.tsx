@@ -39,6 +39,7 @@ import { useHealthInsights, useInsights } from '@/lib/insights/useInsights';
 import type { IconName } from '@/lib/icons';
 import { useSelectedDayStore } from '@/lib/store/selectedDay';
 import { useSettingsStore } from '@/lib/store/settingsStore';
+import { useTurningPoints } from '@/lib/turning/useTurningPoints';
 import { spacing } from '@/lib/theme';
 
 /**
@@ -68,6 +69,8 @@ export default function InsightsScreen() {
   const catalog = useCatalog();
   const firstDay = useSettingsStore((s) => s.settings?.first_day_of_week) ?? 1;
   const pick = useSelectedDayStore((s) => s.pick);
+  const turningPoints = useTurningPoints();
+  const marks = useMemo(() => turningPoints.map((point) => point.date as DateString), [turningPoints]);
 
   const names: ActivityNames = useMemo(
     () => ({
@@ -140,7 +143,7 @@ export default function InsightsScreen() {
             </View>
           )}
           <InsightCard title={t('insights.trend.title')} empty={empty ? t('insights.emptyRange') : null}>
-            <MoodLineChart points={insights.series} window={insights.window} mean={insights.mean} iconFor={(level) => levelMood(catalog, level).icon} />
+            <MoodLineChart points={insights.series} window={insights.window} mean={insights.mean} iconFor={(level) => levelMood(catalog, level).icon} marks={marks} />
           </InsightCard>
           {empty ? null : <DistributionCard rows={insights.distribution} moodFor={(level) => levelMood(catalog, level)} />}
           <PixelsCard days={insights.allDays} years={insights.years} today={now} moodLabel={(level) => levelMood(catalog, level).label} onOpen={openDay} />

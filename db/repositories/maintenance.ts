@@ -2,13 +2,13 @@ import { count } from 'drizzle-orm';
 
 import { currentLanguage, type Language } from '@/lib/i18n/language';
 
-import { activities, activityGroups, entries, entryActivities, entryPhotos, entryScales, healthDays, moods, plannedActivities, scales, settings } from '../schema';
+import { activities, activityGroups, entries, entryActivities, entryPhotos, entryScales, healthDays, moods, plannedActivities, scales, settings, turningPoints } from '../schema';
 import type { Database } from '../types';
 import { ensureDefaults } from './defaults';
 import { getSettings, updateSettings } from './settings';
 
 /**
- * Removes every journal row (entries, moods, groups, activities, scales, plans) but keeps the
+ * Removes every journal row (entries, moods, groups, activities, scales, plans, turning points) but keeps the
  * settings row. Does not restore the defaults: a replace-import brings its own moods and groups.
  * Photo files stay on disk; `sweepPhotos` removes them once nothing points to them.
  */
@@ -17,6 +17,7 @@ export function clearJournal(db: Database): void {
   db.delete(entryPhotos).run();
   db.delete(entryScales).run();
   db.delete(plannedActivities).run();
+  db.delete(turningPoints).run();
   db.delete(entries).run();
   db.delete(activities).run();
   db.delete(activityGroups).run();

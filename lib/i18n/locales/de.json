@@ -40,7 +40,7 @@
     "saveJson": "Sicherung in Ordner speichern",
     "exportCsv": "Als Daylio-CSV exportieren",
     "deleteAll": "Alle Daten löschen",
-    "backupHint": "Nur die Sicherung stellt alles wieder her. Mit Fotos ist sie eine ZIP-Datei. Die CSV enthält keine Gruppen, Symbole, Pläne und Fotos.",
+    "backupHint": "Nur die Sicherung stellt alles wieder her. Mit Fotos ist sie eine ZIP-Datei. Die CSV enthält keine Gruppen, Symbole, Pläne, Wendepunkte und Fotos.",
     "backupNever": "Nie",
     "backupToday": "Heute",
     "backupAgo_one": "Vor {{count}} Tag",
@@ -71,7 +71,8 @@
     "languageSection": "Sprache",
     "language": "Sprache der App",
     "diarySection": "Tagebuch",
-    "history": "Verlauf"
+    "history": "Verlauf",
+    "turningPoints": "Wendepunkte"
   },
   "import": {
     "title": "Import",
@@ -165,7 +166,10 @@
     "scaleValue": "{{value}} von {{max}}",
     "scaleLine": "{{name}} {{value}} von {{max}}",
     "scaleEmpty": "Keine Angabe",
-    "dayTaken": "Für diesen Tag gibt es schon einen Eintrag. Pro Tag ist ein Eintrag möglich."
+    "dayTaken": "Für diesen Tag gibt es schon einen Eintrag. Pro Tag ist ein Eintrag möglich.",
+    "turningLost": "Dieser Tag ist der Wendepunkt „{{title}}“. Ohne Eintrag an diesem Tag wird er mit gelöscht.",
+    "turningMoveTitle": "Wendepunkt geht verloren",
+    "turningMoveConfirm": "Verschieben und löschen"
   },
   "photo": {
     "title": "Foto",
@@ -196,7 +200,11 @@
     "empty": "Noch keine Einträge",
     "noResults": "Nichts gefunden",
     "count_one": "{{count}} Eintrag",
-    "count_other": "{{count}} Einträge"
+    "count_other": "{{count}} Einträge",
+    "turning_one": "Wendepunkte · {{count}}",
+    "turning_other": "Wendepunkte · {{count}}",
+    "turningEmpty": "Noch keine Wendepunkte. Du setzt einen auf Heute, unter dem Eintrag des Tages.",
+    "turningYear": "{{count}} von {{max}}"
   },
   "manage": {
     "title": "Verwaltung",
@@ -658,7 +666,7 @@
   "privacy": {
     "title": "Datenschutz",
     "intro": "Daylight speichert alles ausschließlich auf diesem Gerät.",
-    "stored": "Gespeichert werden: Einträge mit Stimmung, Aktivitäten, Skalen, Notizen und Fotos, deine Stimmungen, Aktivitäten, Gruppen und Skalen, geplante Aktivitäten und deine Einstellungen.",
+    "stored": "Gespeichert werden: Einträge mit Stimmung, Aktivitäten, Skalen, Notizen und Fotos, deine Stimmungen, Aktivitäten, Gruppen und Skalen, geplante Aktivitäten, Wendepunkte und deine Einstellungen.",
     "network": "Keine Konten, keine Server, keine Analyse, keine Werbung. Die App fordert keine Internet-Berechtigung an und kann nichts senden.",
     "leave": "Daten verlassen das Gerät nur, wenn du selbst eine Sicherung oder einen CSV-Export teilst oder speicherst.",
     "noCloudBackup": "Die App ist von der automatischen Android-Sicherung ausgenommen. Deine Einträge landen also auch nicht in deinem Google-Konto. Der Preis dafür: Bei Deinstallation oder Gerätewechsel sind sie weg, wenn du keine eigene Sicherung hast. Nach 60 Tagen ohne Sicherung erinnert Heute daran.",
@@ -749,7 +757,9 @@
       "photos_one": "{{value}} Foto",
       "photos_other": "{{value}} Fotos",
       "opens_one": "{{value}} Mal",
-      "opens_other": "{{value}} Mal"
+      "opens_other": "{{value}} Mal",
+      "turningPoints_one": "{{value}} Wendepunkt",
+      "turningPoints_other": "{{value}} Wendepunkte"
     },
     "items": {
       "days": {
@@ -812,6 +822,10 @@
         "title": "Messbar",
         "text": "Tage mit Werten auf einer Skala"
       },
+      "turningPoints": {
+        "title": "Wendepunkte",
+        "text": "Tage, die etwas verändert haben"
+      },
       "opens": {
         "title": "Stammgast",
         "text": "Mal die App geöffnet"
@@ -831,5 +845,63 @@
       "across_one": "Fortschritt in {{count}} Erfolg",
       "across_other": "Fortschritt in {{count}} Erfolgen"
     }
+  },
+  "turning": {
+    "eyebrow": "Wendepunkt",
+    "title": "Wendepunkt",
+    "invalid": "Ein Wendepunkt braucht einen Tag mit Eintrag, heute oder früher.",
+    "room_one": "Für {{year}} ist noch {{count}} von {{max}} frei",
+    "room_other": "Für {{year}} sind noch {{count}} von {{max}} frei",
+    "full": "Für {{year}} sind alle {{max}} gesetzt",
+    "fullHint": "Für {{year}} sind schon alle {{max}} Wendepunkte gesetzt. Wenn dieser Tag wichtiger ist, lösche zuerst einen anderen.",
+    "already": "Dieser Tag ist schon ein Wendepunkt.",
+    "titleLabel": "Name des Wendepunkts",
+    "titlePlaceholder": "z. B. Umzug nach Leipzig",
+    "noteLabel": "Notiz zum Wendepunkt",
+    "notePlaceholder": "Ein paar Worte dazu, wenn du magst",
+    "before": "Davor",
+    "after": "Danach",
+    "beforeShort": "Davor",
+    "afterShort": "Danach",
+    "hold": "Gedrückt halten",
+    "holdA11y": "Wendepunkt setzen",
+    "nameFirst": "Ohne Namen geht es nicht: Wie heißt dieser Tag?",
+    "explain": "Danach vergleicht Daylight die Tage davor mit den Tagen danach.",
+    "set": "Ab hier zählt das Danach.",
+    "save": "Speichern",
+    "edit": "Bearbeiten",
+    "gone": "Diesen Wendepunkt gibt es nicht mehr",
+    "delete": "Wendepunkt löschen",
+    "deleteTitle": "Wendepunkt löschen?",
+    "deleteText": "„{{title}}“ wird entfernt. Die Einträge des Tages bleiben.",
+    "mark": "Als Wendepunkt markieren",
+    "markHint": "Ein Tag, der etwas verändert hat. Bis zu vier im Jahr.",
+    "compare": "Davor und danach ansehen",
+    "cardA11y": "Wendepunkt: {{title}}. Davor und danach ansehen",
+    "span": {
+      "label": "Tage auf jeder Seite",
+      "30": "30",
+      "90": "90",
+      "180": "180",
+      "all": "Alle"
+    },
+    "tooSoon": "Nach diesem Tag gibt es noch keine Tage zum Vergleichen. Das Danach füllt sich mit jedem Eintrag.",
+    "few": "Noch zu wenige Tage zum Vergleichen: davor {{before}}, danach {{after}} Tage mit Eintrag. Es braucht auf jeder Seite mindestens {{min}}.",
+    "daysWithEntries_one": "{{count}} Tag mit Eintrag",
+    "daysWithEntries_other": "{{count}} Tage mit Eintrag",
+    "sentence_one": "Am Tag danach lag deine Stimmung bei {{after}}, am Tag davor bei {{before}}.",
+    "sentence_other": "In den {{count}} Tagen danach lag deine Stimmung im Schnitt bei {{after}}, in den {{count}} Tagen davor bei {{before}}.",
+    "windows": "Davor: {{beforeFrom}} bis {{beforeTo}}. Danach: {{afterFrom}} bis {{afterTo}}.",
+    "seasons": "Die beiden Zeiträume liegen in verschiedenen Jahreszeiten. Ein Teil des Unterschieds kann auch daher kommen.",
+    "noCause": "Das beschreibt deine Einträge, es zeigt keine Ursache. Wendepunkte kommen oft nach einer schweren Zeit, das Danach sieht dann schon deshalb besser aus.",
+    "trend": "Verlauf um den Wendepunkt",
+    "levels": "Stimmungen",
+    "activities": "Was sich bei Aktivitäten verändert hat",
+    "activitiesSame": "Keine Aktivität kommt danach deutlich öfter oder seltener vor.",
+    "activityShift": "davor an {{before}} der Tage, danach an {{after}}",
+    "health": "Gesundheit",
+    "healthShift": "{{before}} → {{after}}",
+    "nameLabel": "Gib diesem Tag einen Namen",
+    "setTitle": "Wendepunkt gesetzt"
   }
 }

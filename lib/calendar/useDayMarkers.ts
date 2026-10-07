@@ -9,6 +9,7 @@ import type { MoodLevel } from '@/db/schema';
 import type { DateString } from '@/lib/dates';
 import { useFuturePlans, useOutlook } from '@/lib/outlook/useOutlook';
 import { cached, useQuery } from '@/lib/store/dataVersion';
+import { readTurningPoints } from '@/lib/turning/useTurningPoints';
 
 import type { CalendarMarker, DayMarker } from './dayLabel';
 import { buildAheadMarkers, buildDayMarkers, sameMarker } from './markers';
@@ -39,6 +40,7 @@ export function useDayMarkers(): ReadonlyMap<string, DayMarker> {
             listEntryMoods(getDb()),
             (id) => catalog.moodById.get(id)?.icon as IconName | undefined,
             (level) => levelMood(catalog, level).icon,
+            new Set(readTurningPoints().map((point) => point.date)),
           ),
         ),
       ),

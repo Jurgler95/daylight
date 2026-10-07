@@ -16,7 +16,7 @@ export const WEEK_MIN_DAYS = 5;
 export const WINDOW_DAYS = 7;
 
 export type AchievementGroup = 'streaks' | 'volume';
-export type AchievementUnit = 'days' | 'weeks' | 'words' | 'activities' | 'photos' | 'opens';
+export type AchievementUnit = 'days' | 'weeks' | 'words' | 'activities' | 'photos' | 'opens' | 'turningPoints';
 /** A run of days or weeks, the best seven days in a row, or a plain total. */
 export type AchievementMeasure = 'run' | 'window' | 'total';
 
@@ -36,6 +36,7 @@ export type AchievementKey =
   | 'custom'
   | 'photos'
   | 'scaleDays'
+  | 'turningPoints'
   | 'opens';
 
 interface Definition {
@@ -62,13 +63,15 @@ export const DEFINITIONS: readonly Definition[] = [
   { key: 'sleepDays', group: 'streaks', measure: 'run', unit: 'days', icon: 'sleep', tiers: RUN_TIERS, health: true },
   { key: 'stepDays', group: 'streaks', measure: 'run', unit: 'days', icon: 'shoe-print', tiers: RUN_TIERS, health: true },
   { key: 'totalDays', group: 'volume', measure: 'total', unit: 'days', icon: 'calendar-multiple-check', tiers: [7, 30, 100, 365, 1000] },
-  { key: 'weekWords', group: 'volume', measure: 'window', unit: 'words', icon: 'text-long', tiers: [100, 500, 1500, 4000, 10000] },
+  { key: 'weekWords', group: 'volume', measure: 'window', unit: 'words', icon: 'text-long', tiers: [100, 300, 700, 1200, 2000] },
   { key: 'chips', group: 'volume', measure: 'total', unit: 'activities', icon: 'tag-multiple-outline', tiers: [10, 100, 500, 2500, 10000] },
   { key: 'weekChips', group: 'volume', measure: 'window', unit: 'activities', icon: 'tag-plus-outline', tiers: [10, 25, 50, 100, 150] },
   { key: 'variety', group: 'volume', measure: 'total', unit: 'activities', icon: 'palette-outline', tiers: [5, 15, 30, 60, 100] },
   { key: 'custom', group: 'volume', measure: 'total', unit: 'activities', icon: 'plus-box-multiple-outline', tiers: [1, 5, 15, 30, 50] },
   { key: 'photos', group: 'volume', measure: 'total', unit: 'photos', icon: 'image-multiple-outline', tiers: [1, 10, 50, 200, 1000] },
   { key: 'scaleDays', group: 'volume', measure: 'total', unit: 'days', icon: 'tune-variant', tiers: [1, 10, 50, 200, 500] },
+  // Four a year at most, so the fifth star takes a few years of diary (or an imported one).
+  { key: 'turningPoints', group: 'volume', measure: 'total', unit: 'turningPoints', icon: 'flag-variant-outline', tiers: [1, 3, 5, 7, 10] },
   // The first opening is a given, so the first star waits for the second.
   { key: 'opens', group: 'volume', measure: 'total', unit: 'opens', icon: 'door-open', tiers: [2, 50, 365, 1500, 5000] },
 ];
@@ -99,6 +102,7 @@ export interface AchievementInput {
   isStarter: (name: string) => boolean;
   /** Times the app was opened on this device. */
   opens: number;
+  turningPoints: number;
   today: DateString;
   firstDayOfWeek: number;
 }
@@ -252,6 +256,7 @@ export function buildAchievements(input: AchievementInput): Achievement[] {
     custom: [custom, null],
     photos: [photos, null],
     scaleDays: [scaleDays.size, null],
+    turningPoints: [input.turningPoints, null],
     opens: [input.opens, null],
   };
 

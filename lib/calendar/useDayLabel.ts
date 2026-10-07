@@ -18,6 +18,7 @@ export function useDayLabel(today: DateString): (date: DateString, marker: Calen
     formatDate: formatLong,
     outlook: (level: 1 | 2 | 3 | 4 | 5) => t('calendar.outlook', { mood: levelMood(catalog, level).label }),
     planned: (names: string) => t('calendar.planned', { names }),
+    turning: t('turning.eyebrow'),
   };
   return (date, marker) => dayAccessibilityLabel(date, marker, date === today, date > today, texts);
 }

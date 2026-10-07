@@ -21,6 +21,7 @@ export function buildDayMarkers(
   entries: readonly MarkerEntry[],
   moodIcon: (moodId: number) => IconName | undefined,
   levelIcon: (level: MoodLevel) => IconName,
+  turningDates: ReadonlySet<string> = new Set(),
 ): Map<DateString, DayMarker> {
   const latestByDayAndLevel = new Map<string, MarkerEntry>();
   for (const entry of entries) {
@@ -32,7 +33,7 @@ export function buildDayMarkers(
   for (const [date, day] of dayMoods(entries)) {
     const source = latestByDayAndLevel.get(`${date}|${day.level}`);
     const icon = (source && moodIcon(source.mood_id)) ?? levelIcon(day.level);
-    markers.set(date, { level: day.level, icon, count: day.count });
+    markers.set(date, turningDates.has(date) ? { level: day.level, icon, count: day.count, turning: true } : { level: day.level, icon, count: day.count });
   }
   return markers;
 }
@@ -63,5 +64,5 @@ export function sameMarker(a: CalendarMarker, b: CalendarMarker): boolean {
     if (!isAhead(a) || !isAhead(b)) return false;
     return a.outlook?.level === b.outlook?.level && a.outlook?.icon === b.outlook?.icon && a.planned.length === b.planned.length && a.planned.every((p, i) => p.icon === b.planned[i]!.icon && p.name === b.planned[i]!.name);
   }
-  return a.level === b.level && a.icon === b.icon && a.count === b.count;
+  return a.level === b.level && a.icon === b.icon && a.count === b.count && !!a.turning === !!b.turning;
 }

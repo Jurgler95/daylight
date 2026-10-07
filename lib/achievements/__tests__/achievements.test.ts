@@ -16,7 +16,7 @@ function daysBack(end: DateString, count: number): DateString[] {
 }
 
 function input(extra: Partial<AchievementInput>): AchievementInput {
-  return { entries: [], health: [], activities: [], isStarter: isStarterActivity, opens: 0, today, firstDayOfWeek: 1, ...extra };
+  return { entries: [], health: [], activities: [], isStarter: isStarterActivity, opens: 0, turningPoints: 0, today, firstDayOfWeek: 1, ...extra };
 }
 
 const byKey = (achievements: ReturnType<typeof buildAchievements>) => new Map(achievements.map((a) => [a.key, a]));
@@ -77,6 +77,11 @@ describe('countWords', () => {
 });
 
 describe('buildAchievements', () => {
+  it('fills the turning point stars from one to ten', () => {
+    const stars = (turningPoints: number) => byKey(buildAchievements(input({ turningPoints }))).get('turningPoints')!.stars;
+    expect([0, 1, 2, 3, 5, 7, 9, 10].map(stars)).toEqual([0, 1, 1, 2, 3, 4, 4, 5]);
+  });
+
   it('gives nothing to an empty diary', () => {
     const achievements = buildAchievements(input({}));
     expect(totalStars(achievements)).toBe(0);

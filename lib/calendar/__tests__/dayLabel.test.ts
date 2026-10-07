@@ -13,6 +13,7 @@ const texts = {
   formatDate: (date: DateString) => date,
   outlook: (level: MoodLevel) => `Ausblick ${NAMES[level]}`,
   planned: (names: string) => `geplant: ${names}`,
+  turning: 'Wendepunkt',
 };
 
 const date = '2026-03-14' as DateString;
@@ -33,6 +34,10 @@ describe('dayAccessibilityLabel', () => {
 
   it('names the count only when there are several entries', () => {
     expect(dayAccessibilityLabel(date, marker({ level: 3, count: 2 }), false, false, texts)).toBe('2026-03-14, Ok, 2 Einträge');
+  });
+
+  it('names a turning point after the entries', () => {
+    expect(dayAccessibilityLabel(date, marker({ count: 2, turning: true }), false, false, texts)).toBe('2026-03-14, Gut, 2 Einträge, Wendepunkt');
   });
 
   it('marks today without an entry', () => {
