@@ -19,6 +19,20 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.25',
+    date: '2026-10-08',
+    changes: {
+      de: [
+        'Nach einem Sprachwechsel zeigen Tagesstreifen und Datum unter „Heute“ sofort die neue Sprache',
+        'Die App ist deutlich kleiner und braucht weniger Speicher',
+      ],
+      en: [
+        'After switching the language, the day strip and date on Today show the new language right away',
+        'The app is noticeably smaller and takes up less storage',
+      ],
+    },
+  },
+  {
     version: '1.0.24',
     date: '2026-10-07',
     changes: {
