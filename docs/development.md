@@ -87,7 +87,25 @@ Die App-Screenshots stammen aus dem Pixel-9-Emulator mit den Beispieldaten, die 
 
 ## Release
 
-Der ganze Ablauf steckt im Skill `deploy` (`.claude/skills/deploy/SKILL.md`): er hebt `version` und `versionCode`, schreibt einen kurzen Eintrag auf Deutsch und Englisch in `lib/changelog/index.ts`, committet, pusht und startet die GitHub-Action `.github/workflows/release.yml` auf `main`. Die baut die APK (nur `arm64-v8a`) und das App Bundle für den Play Store (`arm64-v8a` und `armeabi-v7a`), prüft das Manifest der APK (`.github/scripts/check-manifest.mjs`: kein `INTERNET`, `allowBackup=false`, Health Connect nur lesend, weder Firebase noch Play Services im Code), prüft die Signatur beider Dateien, legt sie mit den Stichpunkten aus der Updatehistorie (Deutsch, darunter Englisch) als GitHub-Release ab und setzt dabei den Tag `vX.Y.Z`. Aufs Handy kommt die APK direkt aus dem GitHub-Release, die `.aab` wird von Hand in der Play Console hochgeladen. Der Daylight-Schlüssel ist dort als App-Signaturschlüssel hinterlegt, Play-Version und APK lassen sich also übereinander installieren.
+Der ganze Ablauf steckt im Skill `deploy` (`.claude/skills/deploy/SKILL.md`): er hebt `version` und `versionCode`, schreibt einen kurzen Eintrag auf Deutsch und Englisch in `lib/changelog/index.ts`, committet, pusht und startet die GitHub-Action `.github/workflows/release.yml` auf `main`. Die baut die APK (nur `arm64-v8a`) und das App Bundle für den Play Store (`arm64-v8a` und `armeabi-v7a`), prüft das Manifest der APK (`.github/scripts/check-manifest.mjs`: kein `INTERNET`, `allowBackup=false`, Health Connect nur lesend, weder Firebase noch Play Services im Code), prüft die Signatur beider Dateien, legt sie mit den Stichpunkten aus der Updatehistorie (Deutsch, darunter Englisch) als GitHub-Release ab und setzt dabei den Tag `vX.Y.Z`. Zuletzt lädt `.github/workflows/play.yml` die `.aab` aus dem Release in den Play Store (siehe unten). Aufs Handy kommt die APK direkt aus dem GitHub-Release. Der Daylight-Schlüssel ist dort als App-Signaturschlüssel hinterlegt, Play-Version und APK lassen sich also übereinander installieren.
+
+### Play Store
+
+`.github/workflows/play.yml` lädt das App Bundle einer Version aus ihrem GitHub-Release in den Play Store, mit den Stichpunkten aus der Updatehistorie als „Neu in dieser Version". Play nimmt je Sprache höchstens 500 Zeichen, das prüft `release-notes.mjs` schon vor dem Build. Der Workflow läuft am Ende von `release.yml` und lässt sich für ein schon veröffentlichtes Release von Hand starten, etwa wenn nur der Upload scheiterte:
+
+```bash
+GH_TOKEN=$(gh auth token --user Jurgler95) gh workflow run play.yml --repo Jurgler95/daylight --ref main -f version=1.0.24
+```
+
+Der Zugang ist ein Dienstkonto aus Google Cloud (Projekt mit der „Google Play Android Developer API", ohne Rollen in Cloud), das in der Play Console unter „Nutzer und Berechtigungen" nur für Daylight freigegeben ist: Releases in Test-Tracks und in Produktion. Sein JSON-Schlüssel liegt im Repo-Secret `PLAY_SERVICE_ACCOUNT_JSON`. Fehlt es, scheitert nur dieser Workflow, das GitHub-Release steht dann schon und die `.aab` geht von Hand hoch. Die Action ist auf einen Commit festgenagelt, weil sie den Schlüssel sieht; beim Aktualisieren den Commit des neuen Release-Tags von `r0adkll/upload-google-play` eintragen.
+
+Die Spur bestimmt die Repo-Variable `PLAY_TRACK`, ohne sie geht jede Version in den geschlossenen Test (`alpha`). Nach dem Freischalten für Produktion umstellen:
+
+```bash
+GH_TOKEN=$(gh auth token --user Jurgler95) gh variable set PLAY_TRACK --body production --repo Jurgler95/daylight
+```
+
+Lehnt Play eine Version ab, weil ihr `versionCode` schon vergeben ist, lag sie bereits dort.
 
 Cloud-Build über EAS, Profile in `eas.json` (braucht ein Expo-Konto, bisher nicht genutzt):
 

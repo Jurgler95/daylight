@@ -1,0 +1,75 @@
+# Lädt das App Bundle einer Version aus ihrem GitHub-Release in den Play Store, mit den Stichpunkten
+# der Updatehistorie als „Neu in dieser Version". Läuft am Ende von release.yml und lässt sich für
+# ein schon veröffentlichtes Release von Hand starten, etwa nach einem gescheiterten Upload:
+# `gh workflow run play.yml --ref main -f version=1.0.24`.
+#
+# Die Spur steht in der Repo-Variable PLAY_TRACK, ohne sie geht es in den geschlossenen Test
+# (`alpha`). Der Zugang ist ein Dienstkonto aus Google Cloud, in der Play Console nur für Daylight
+# freigegeben, sein JSON-Schlüssel liegt im Secret PLAY_SERVICE_ACCOUNT_JSON (siehe
+# docs/development.md, Play Store).
+name: Play Store
+run-name: Play Store ${{ inputs.version }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version wie in app.json, ohne v
+        required: true
+  workflow_call:
+    inputs:
+      version:
+        type: string
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: play
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      VERSION: ${{ inputs.version }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      # Alle Tags, weil das Release-Notes-Skript den versionCode der Vorversion abgleicht
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      - name: Zugang prüfen
+        env:
+          PLAY_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+        run: |
+          if [ -z "$PLAY_JSON" ]; then
+            echo "::error::Secret PLAY_SERVICE_ACCOUNT_JSON fehlt, das App Bundle liegt im GitHub-Release und muss von Hand hoch"
+            exit 1
+          fi
+
+      # Texte aus dem Stand des Tags, nicht aus main, damit ein später Upload zur Version passt
+      - name: App Bundle und Texte holen
+        run: |
+          gh release download "v$VERSION" --pattern "daylight-$VERSION.aab"
+          git checkout -q "v$VERSION" -- lib/changelog app.json package.json package-lock.json
+          node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON .github/scripts/release-notes.mjs "$VERSION" --whatsnew whatsnew
+
+      # Auf einen Commit festgenagelt (v1.1.5), weil die Action den Play-Schlüssel sieht: ein
+      # verschobener Tag könnte sonst fremden Code mit ihm laufen lassen.
+      - name: In den Play Store hochladen
+        uses: r0adkll/upload-google-play@e738b9dd8f2476ea806d921b64aacd24f34515a5
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: de.behla.daylight
+          releaseFiles: daylight-${{ inputs.version }}.aab
+          releaseName: ${{ inputs.version }}
+          track: ${{ vars.PLAY_TRACK || 'alpha' }}
+          status: completed
+          whatsNewDirectory: whatsnew

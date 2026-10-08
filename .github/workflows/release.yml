@@ -1,4 +1,5 @@
-# Baut die sideloadbare APK, prüft ihr Manifest und stellt sie als GitHub-Release bereit. Angestoßen
+# Baut die sideloadbare APK, prüft ihr Manifest und stellt sie als GitHub-Release bereit, danach geht
+# das App Bundle in den Play Store (play.yml). Angestoßen
 # vom Deploy-Skill (.claude/skills/deploy) per `gh workflow run release.yml --ref main -f
 # version=1.0.11`, nachdem Version, Updatehistorie und Commit auf main liegen. Übernommen aus der
 # Zyklus-App, ergänzt um die Manifestprüfung.
@@ -149,3 +150,12 @@ jobs:
           fi
           gh release upload "$TAG" "daylight-$VERSION.apk" "daylight-$VERSION.aab" --clobber
           gh release edit "$TAG" --draft=false
+
+  # Danach geht das App Bundle in den Play Store, siehe play.yml. Ein eigener Workflow, damit sich ein
+  # gescheiterter Upload wiederholen lässt, ohne neu zu bauen oder das Release anzufassen.
+  play:
+    needs: apk
+    uses: ./.github/workflows/play.yml
+    with:
+      version: ${{ inputs.version }}
+    secrets: inherit

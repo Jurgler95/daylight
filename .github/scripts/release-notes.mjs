@@ -9,17 +9,23 @@
  *
  *   node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON .github/scripts/release-notes.mjs 1.0.11
  *
+ * Mit `--whatsnew <ordner>` schreibt es stattdessen die Texte für „Neu in dieser Version" im Play
+ * Store, je Sprache eine Datei `whatsnew-de-DE` und `whatsnew-en-US`. Play nimmt höchstens 500
+ * Zeichen je Sprache, das prüft auch der normale Aufruf, damit es vor dem Build auffällt.
+ *
  * Braucht Node 22.18 oder neuer, weil die Updatehistorie direkt als TypeScript geladen wird, und
  * die Versions-Tags im lokalen Klon. Übernommen aus der Zyklus-App.
  */
 import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 import { RELEASES } from '../../lib/changelog/index.ts';
 
 const version = process.argv[2]?.replace(/^v/, '');
+const whatsnewAt = process.argv[3] === '--whatsnew' ? process.argv[4] : null;
 if (!version) {
-  console.error('Aufruf: release-notes.mjs <version>');
+  console.error('Aufruf: release-notes.mjs <version> [--whatsnew <ordner>]');
   process.exit(1);
 }
 
@@ -28,6 +34,7 @@ const app = readJson('app.json');
 const pkg = readJson('package.json');
 const lock = readJson('package-lock.json');
 const release = RELEASES[0];
+const PLAY_LIMIT = 500;
 
 const problems = [
   ['app.json', app.expo.version],
@@ -43,6 +50,15 @@ if (release) {
   if (de.length === 0) problems.push('Der Eintrag in der Updatehistorie hat keine deutschen Stichpunkte');
   if (en.length === 0) problems.push('Der Eintrag in der Updatehistorie hat keine englischen Stichpunkte');
   if (de.length !== en.length) problems.push(`Deutsch hat ${de.length} Stichpunkte, Englisch ${en.length}`);
+  for (const [language, text] of Object.entries(whatsnew(release))) {
+    if (text.length > PLAY_LIMIT) problems.push(`Der ${language}-Text für Play hat ${text.length} Zeichen, erlaubt sind ${PLAY_LIMIT}`);
+  }
+}
+
+/** „Neu in dieser Version" für Play: die Stichpunkte je Sprache, eine Zeile pro Punkt. */
+function whatsnew({ changes }) {
+  const lines = (list = []) => list.map((change) => `• ${change}`).join('\n');
+  return { 'de-DE': lines(changes?.de), 'en-US': lines(changes?.en) };
 }
 
 /** `versionCode` des letzten Versions-Tags vor dieser Version, falls es einen gibt. */
@@ -57,7 +73,9 @@ function previousVersionCode() {
   return { tag, versionCode: JSON.parse(git('show', `${tag}:app.json`)).expo.android.versionCode };
 }
 
-const previous = previousVersionCode();
+// Für die Play-Texte nicht nötig: das Bundle ist dann schon gebaut und geprüft, und ein später
+// Upload einer älteren Version fände sonst neuere Tags.
+const previous = whatsnewAt ? null : previousVersionCode();
 if (previous && app.expo.android.versionCode <= previous.versionCode) {
   problems.push(`versionCode ${app.expo.android.versionCode} liegt nicht über ${previous.versionCode} aus ${previous.tag}`);
 }
@@ -65,6 +83,12 @@ if (previous && app.expo.android.versionCode <= previous.versionCode) {
 if (problems.length > 0) {
   for (const problem of problems) console.error(problem);
   process.exit(1);
+}
+
+if (whatsnewAt) {
+  mkdirSync(whatsnewAt, { recursive: true });
+  for (const [language, text] of Object.entries(whatsnew(release))) writeFileSync(join(whatsnewAt, `whatsnew-${language}`), `${text}\n`);
+  process.exit(0);
 }
 
 console.log(release.changes.de.map((change) => `- ${change}`).join('\n'));
