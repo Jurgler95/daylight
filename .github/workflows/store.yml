@@ -1,12 +1,12 @@
-# Lädt den Store-Eintrag aus fastlane/metadata/android in den Play Store: Kurz- und
-# Langbeschreibung, Icon, Feature Graphic und Screenshots je Sprache, über fastlane supply. Das App
+# Lädt den Store-Eintrag aus fastlane/metadata/android in den Play Store: Titel, Kurz-
+# und Langbeschreibung, Icon, Feature Graphic und Screenshots je Sprache, über fastlane supply. Das App
 # Bundle und „Neu in dieser Version" lädt play.yml hoch, nicht dieser Workflow.
 #
 # Nur von Hand, ohne `live` als reine Prüfung, die nichts ändert:
 #   gh workflow run store.yml --ref main
 #   gh workflow run store.yml --ref main -f live=true
 #
-# Fehlt eine Textdatei, bleibt der Wert in Play unverändert, etwa der App-Titel. Bilder werden nur
+# Fehlt eine Textdatei, bleibt der Wert in Play unverändert. Bilder werden nur
 # hochgeladen, wenn sie sich geändert haben. Das Dienstkonto braucht in der Play Console zusätzlich
 # „Store-Präsenz verwalten" (siehe docs/development.md, Play Store).
 name: Store-Eintrag
