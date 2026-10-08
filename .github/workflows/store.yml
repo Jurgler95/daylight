@@ -46,6 +46,9 @@ jobs:
         env:
           PLAY_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
           VALIDATE_ONLY: ${{ inputs.live && 'false' || 'true' }}
+          # supply hängt den Eintrag an die neueste Version einer Spur und bricht ab, wenn die Spur
+          # leer ist. Deshalb dieselbe Spur wie play.yml, solange es keine Produktion gibt.
+          TRACK: ${{ vars.PLAY_TRACK || 'alpha' }}
         run: |
           if [ -z "$PLAY_JSON" ]; then
             echo "::error::Secret PLAY_SERVICE_ACCOUNT_JSON fehlt"
@@ -55,6 +58,7 @@ jobs:
             --package_name de.behla.daylight \
             --json_key_data "$PLAY_JSON" \
             --metadata_path fastlane/metadata/android \
+            --track "$TRACK" \
             --skip_upload_apk true \
             --skip_upload_aab true \
             --skip_upload_changelogs true \
