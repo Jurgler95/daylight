@@ -16,8 +16,14 @@ Every day in its color, so good and hard stretches stand out at a glance. Days w
 📊 Insights into your patterns
 Trend and 7-day average, distribution, weekdays and months, your year in pixels, calm and restless weeks, streaks, which activities go along with better or worse days, what tends to follow the next day, and frequent words in your notes. Always a description of your entries, never a diagnosis.
 
+🌅 Turning points
+Mark up to four days a year that changed something, like a new job or a move. Daylight compares the time before with the time after: mood, activities and health data.
+
 🔭 An honest outlook
 Daylight estimates the next seven days, but only where that measurably works better on your own data than simple guessing. Otherwise the outlook steps back and says so.
+
+🏆 Awards for keeping at it
+Stars for days and weeks in a row, for notes, photos, activities, sleep and steps. Only the journaling is rewarded, never how a day went.
 
 ❤️ Health data, if you want
 Steps, sleep, resting heart rate and exercise from Health Connect, for example from a smartwatch, next to your mood. Read only, and only after you agree.

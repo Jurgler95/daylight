@@ -1,0 +1,62 @@
+# Lädt den Store-Eintrag aus fastlane/metadata/android in den Play Store: Kurz- und
+# Langbeschreibung, Icon, Feature Graphic und Screenshots je Sprache, über fastlane supply. Das App
+# Bundle und „Neu in dieser Version" lädt play.yml hoch, nicht dieser Workflow.
+#
+# Nur von Hand, ohne `live` als reine Prüfung, die nichts ändert:
+#   gh workflow run store.yml --ref main
+#   gh workflow run store.yml --ref main -f live=true
+#
+# Fehlt eine Textdatei, bleibt der Wert in Play unverändert, etwa der App-Titel. Bilder werden nur
+# hochgeladen, wenn sie sich geändert haben. Das Dienstkonto braucht in der Play Console zusätzlich
+# „Store-Präsenz verwalten" (siehe docs/development.md, Play Store).
+name: Store-Eintrag
+run-name: Store-Eintrag ${{ inputs.live && 'hochladen' || 'prüfen' }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      live:
+        description: Wirklich hochladen statt nur prüfen
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: play
+
+jobs:
+  listing:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+
+      # Auf einen Commit festgenagelt (v1.327.0), weil später im selben Job der Play-Schlüssel liegt
+      - uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8
+        with:
+          ruby-version: '3.3'
+
+      # Feste Version, weil fastlane den Play-Schlüssel sieht
+      - name: fastlane installieren
+        run: gem install fastlane -v 2.240.1 --no-document
+
+      - name: Store-Eintrag hochladen
+        env:
+          PLAY_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          VALIDATE_ONLY: ${{ inputs.live && 'false' || 'true' }}
+        run: |
+          if [ -z "$PLAY_JSON" ]; then
+            echo "::error::Secret PLAY_SERVICE_ACCOUNT_JSON fehlt"
+            exit 1
+          fi
+          fastlane supply \
+            --package_name de.behla.daylight \
+            --json_key_data "$PLAY_JSON" \
+            --metadata_path fastlane/metadata/android \
+            --skip_upload_apk true \
+            --skip_upload_aab true \
+            --skip_upload_changelogs true \
+            --sync_image_upload true \
+            --validate_only "$VALIDATE_ONLY"

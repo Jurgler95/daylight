@@ -1,0 +1,42 @@
+Daylight ist ein Stimmungstagebuch, das deine Daten nicht kennt. Keine Konten, keine Server, keine Analytics, keine Werbung und keine Internet-Berechtigung. Alles bleibt auf deinem Gerät.
+
+Wie war dein Tag? Stimmung antippen, auswählen, was du gemacht hast, fertig. Eine Notiz, eigene Skalen und ein Foto pro Tag sind optional.
+
+WAS DAYLIGHT KANN
+
+🔒 Komplett offline
+Daylight hat überhaupt keine Internet-Berechtigung. Deine Einträge liegen in einer Datenbank auf deinem Handy und verlassen es nur, wenn du selbst eine Sicherung teilst.
+
+⚡ In Sekunden eingetragen
+Fünf Stimmungen, Aktivitäten in Gruppen wie Gefühle, Schlaf, Wetter, Soziales und Arbeit. Umbenennen, umsortieren, archivieren oder eigene ergänzen, mit Icons.
+
+📅 Kalender
+Jeder Tag in seiner Farbe, so fallen gute und schwere Phasen auf einen Blick auf. Tage mit mehreren Einträgen sind markiert, geplante Aktivitäten erscheinen an den kommenden Tagen.
+
+📊 Einblicke in deine Muster
+Verlauf und 7-Tage-Schnitt, Verteilung, Wochentage und Monate, dein Jahr in Pixeln, ruhige und unruhige Wochen, Serien, welche Aktivitäten mit besseren oder schlechteren Tagen zusammenfallen, was oft am Folgetag kommt, und häufige Wörter in deinen Notizen. Immer eine Beschreibung deiner Einträge, nie eine Diagnose.
+
+🌅 Wendepunkte
+Markiere bis zu vier Tage im Jahr, die etwas verändert haben, etwa einen neuen Job oder einen Umzug. Daylight vergleicht die Zeit davor mit der Zeit danach: Stimmung, Aktivitäten und Gesundheitsdaten.
+
+🔭 Ein ehrlicher Ausblick
+Daylight schätzt die nächsten sieben Tage, aber nur dort, wo das auf deinen eigenen Daten nachweislich besser funktioniert als simples Raten. Sonst tritt der Ausblick zurück und sagt das auch.
+
+🏆 Erfolge fürs Dranbleiben
+Sterne für Tage und Wochen am Stück, für Notizen, Fotos, Aktivitäten, Schlaf und Schritte. Belohnt wird nur das Festhalten, nie wie ein Tag war.
+
+❤️ Gesundheitsdaten, wenn du willst
+Schritte, Schlaf, Ruhepuls und Training aus Health Connect, etwa von einer Smartwatch, neben deiner Stimmung. Nur lesend und nur nach deiner Zustimmung.
+
+🛡️ Geschützt
+App-Sperre über die Displaysperre deines Geräts, keine Screenshots bei aktiver Sperre, kein Android-Cloud-Backup. Die optionale Erinnerung am Abend verrät nichts aus deinem Tagebuch.
+
+📦 Deine Daten, deine Dateien
+Eine vollständige Sicherung mit Fotos teilen oder speichern, jederzeit wiederherstellen und als CSV exportieren. Du kommst von einer anderen Stimmungstagebuch-App? Daylight übernimmt ein bestehendes Tagebuch vollständig, als CSV-Export oder als Sicherung mit Fotos, und zeigt vorher eine Vorschau.
+
+Auf Deutsch und Englisch.
+
+FREI UND OPEN SOURCE
+Daylight ist freie Software unter der GNU GPL, Version 3 oder später. Keine Werbung, keine In-App-Käufe, kein Tracking.
+
+Daylight ist kein Medizinprodukt und ersetzt keine Beratung oder Behandlung. Wenn es dir schon länger nicht gut geht, wende dich bitte an einen Menschen, dem du vertraust. Die Telefonseelsorge ist rund um die Uhr unter 0800 111 0 111 erreichbar.

@@ -116,6 +116,13 @@ GH_TOKEN=$(gh auth token --user Jurgler95) gh variable set PLAY_TRACK --body pro
 
 Lehnt Play eine Version ab, weil ihr `versionCode` schon vergeben ist, lag sie bereits dort.
 
+Den Store-Eintrag (Texte, Icon, Feature Graphic und Screenshots aus `fastlane/metadata/android/`) lädt `.github/workflows/store.yml` über fastlane supply hoch, nur von Hand. Ohne `live` prüft er nur und ändert nichts, das Dienstkonto braucht dafür zusätzlich „Store-Präsenz verwalten". Fehlt eine Textdatei, bleibt der Wert in Play unverändert, den App-Titel pflegt deshalb weiter die Play Console.
+
+```bash
+GH_TOKEN=$(gh auth token --user Jurgler95) gh workflow run store.yml --repo Jurgler95/daylight --ref main
+GH_TOKEN=$(gh auth token --user Jurgler95) gh workflow run store.yml --repo Jurgler95/daylight --ref main -f live=true
+```
+
 Cloud-Build über EAS, Profile in `eas.json` (braucht ein Expo-Konto, bisher nicht genutzt):
 
 ```bash
