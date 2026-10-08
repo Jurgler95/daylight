@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
-import { useEffect, type ComponentProps } from 'react';
+import { Fragment, useEffect, type ComponentProps } from 'react';
 import { StyleSheet, View, type ColorValue } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Animated, { useAnimatedStyle, useSharedValue, withSequence, withSpring, withTiming } from 'react-native-reanimated';
@@ -37,13 +37,19 @@ const backToHomeRouter: ComponentProps<typeof Tabs>['UNSTABLE_router'] = (origin
 
 export default function TabsLayout() {
   const { colors } = useTheme();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const insets = useSafeAreaInsets();
 
   return (
     <Tabs
       backBehavior="history"
       UNSTABLE_router={backToHomeRouter}
+      // The React Compiler caches formatted dates and numbers by their arguments only, so a language
+      // switch would leave them in the old language. The other tabs start over in the new one;
+      // "Mehr" stays, it is where the switch was made and keeps its scroll position.
+      screenLayout={({ route, children }) => (
+        <Fragment key={route.name === 'settings' ? route.name : `${route.name}-${i18n.language}`}>{children}</Fragment>
+      )}
       screenOptions={{
         headerShown: false,
         // Tabs out of sight skip the re-render every write triggers and catch up when shown again.
