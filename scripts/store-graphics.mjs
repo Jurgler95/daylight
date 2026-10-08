@@ -26,7 +26,8 @@ const SHOTS = [
   ['shot-4', '4_insights'],
   ['shot-5', '5_year_in_pixels'],
   ['shot-6', '6_outlook'],
-  ['shot-7', '7_private'],
+  ['shot-7', '7_turning_points'],
+  ['shot-8', '8_private'],
 ];
 
 function render(lang, asset, file, [width, height]) {

@@ -134,7 +134,8 @@ const TEXT = {
     4: ['Einblicke', 'Erkenne deine<br><em>Muster</em>', 'Verlauf, Wochentage und was mit guten Tagen zusammenfällt. Beschreibend, nie als Diagnose.'],
     5: ['Jahr in Pixeln', 'Dein Jahr<br>auf <em>einen Blick</em>', 'Jeder Tag ein Pixel. Tippen öffnet den Tag.'],
     6: ['Ausblick', 'Ein <em>ehrlicher</em><br>Blick nach vorn', 'Nur wo die Schätzung auf deinen Daten besser ist als Raten. Sonst sagt Daylight das auch.'],
-    7: ['Privat', 'Bleibt auf<br><em>deinem Handy</em>', 'Deine Einträge liegen nur auf dem Gerät. Sicherungen teilst du selbst, wenn du willst.'],
+    7: ['Wendepunkte', 'Der Tag, der<br><em>alles änderte</em>', 'Gib dem Tag einen Namen. Daylight vergleicht die Zeit davor mit der Zeit danach.'],
+    8: ['Privat', 'Bleibt auf<br><em>deinem Handy</em>', 'Deine Einträge liegen nur auf dem Gerät. Sicherungen teilst du selbst, wenn du willst.'],
     badges: ['Kein Internet', 'Kein Konto', 'Keine Werbung', 'App-Sperre'],
     tagline: 'Dein Stimmungstagebuch.<br>Privat, offline, auf deinem Gerät.',
   },
@@ -145,7 +146,8 @@ const TEXT = {
     4: ['Insights', 'Spot your<br><em>patterns</em>', 'Trends, weekdays and what comes with good days. Descriptive, never a diagnosis.'],
     5: ['Year in pixels', 'Your year<br>at <em>a glance</em>', 'Every day a pixel. Tap one to open the day.'],
     6: ['Outlook', 'An <em>honest</em><br>look ahead', 'Only where the estimate beats guessing on your own data. Otherwise Daylight says so.'],
-    7: ['Private', 'Stays on<br><em>your phone</em>', 'Your entries live only on your device. You share backups yourself, if you want to.'],
+    7: ['Turning points', 'The day that<br><em>changed things</em>', 'Give the day a name. Daylight compares the time before with the time after.'],
+    8: ['Private', 'Stays on<br><em>your phone</em>', 'Your entries live only on your device. You share backups yourself, if you want to.'],
     badges: ['No internet', 'No account', 'No ads', 'App lock'],
     tagline: 'Your mood journal.<br>Private, offline, on your device.',
   },
@@ -291,8 +293,8 @@ const ASSETS = {
       phone('editor.png', { x: 330, y: 700, w: 680, rot: 4 }),
       pop('editor.png', [44, 380, 992, 305], { x: 36, y: 830, w: 760, rot: -3 }),
       LANG === 'en'
-        ? pop('editor.png', [90, 1070, 880, 540], { x: 40, y: 1220, w: 660, rot: -5, radius: 40 })
-        : pop('editor.png', [100, 1070, 640, 680], { x: 60, y: 1200, w: 520, rot: -5, radius: 40 }),
+        ? pop('editor.png', [90, 930, 880, 540], { x: 40, y: 1220, w: 660, rot: -5, radius: 40 })
+        : pop('editor.png', [90, 930, 880, 690], { x: 40, y: 1210, w: 640, rot: -5, radius: 40 }),
     ];
   },
   'shot-3': () => {
@@ -302,7 +304,7 @@ const ASSETS = {
       deco(c, { cx: 960, cy: 1320, r: 460, opacity: .12 }),
       head(150, ...TEXT[3]),
       phone('kalender.png', { x: 200, y: 700, w: 680, persp: 'perspective(2200px) rotateY(-16deg) rotateX(6deg)' }),
-      pop('kalender.png', [80, 1060, 920, 300], { x: 470, y: 1300, w: 580, rot: 3, radius: 36 }),
+      pop('kalender.png', [80, 1530, 920, 330], { x: 470, y: 1300, w: 580, rot: 3, radius: 36 }),
     ];
   },
   'shot-4': () => {
@@ -340,9 +342,20 @@ const ASSETS = {
   'shot-7': () => {
     const c = { w: W, h: H };
     return [
+      sky(c, { sunX: 1000, sunY: 370, sunR: 88 }),
+      deco(c, { cx: 1000, cy: 370, r: 370, opacity: .12 }),
+      head(150, ...TEXT[7]),
+      phone('vergleich.png', { x: 330, y: 760, w: 680, rot: 3 }),
+      pop('vergleich-verlauf.png', [42, LANG === 'en' ? 393 : 469, 994, 720], { x: 24, y: 1000, w: 560, rot: -4, radius: 34 }),
+      pop('vergleich.png', [42, 1932, 994, LANG === 'en' ? 326 : 282], { x: 30, y: 1560, w: 760, rot: -2, radius: 36 }),
+    ];
+  },
+  'shot-8': () => {
+    const c = { w: W, h: H };
+    return [
       sky(c, { sunX: 975, sunY: 115, sunR: 90 }),
       deco(c, { cx: 975, cy: 115, r: 360, opacity: .12 }),
-      head(150, ...TEXT[7]),
+      head(150, ...TEXT[8]),
       (() => { const b = el('div', { class: 'badges', style: { top: px(720) } }); b.append(...['wifi', 'user', 'ad', 'lock'].map((icon, i) => badge(icon, TEXT.badges[i]))); return b; })(),
       phone('verlauf.png', { x: 200, y: 1010, w: 680, rot: -3 }),
     ];

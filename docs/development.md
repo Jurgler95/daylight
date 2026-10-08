@@ -75,7 +75,7 @@ Das Skript rastert mit `npx @resvg/resvg-js-cli` in fester Version; npx lädt es
 
 ## Store-Grafiken
 
-App-Icon (512 × 512), Feature Graphic (1024 × 500) und sieben Screenshots (1080 × 1920) für Google Play liegen auf Deutsch und Englisch in `fastlane/metadata/android/de-DE/images/` und `en-US/images/`, der Ordnerstruktur von fastlane supply, die auch F-Droid liest. Quelle ist die Vorlage `store/graphics.html` mit den App-Screenshots aus `store/screens/de/` und `store/screens/en/`. Neu rendern mit headless Chrome:
+App-Icon (512 × 512), Feature Graphic (1024 × 500) und acht Screenshots (1080 × 1920) für Google Play liegen auf Deutsch und Englisch in `fastlane/metadata/android/de-DE/images/` und `en-US/images/`, der Ordnerstruktur von fastlane supply, die auch F-Droid liest. Quelle ist die Vorlage `store/graphics.html` mit den App-Screenshots aus `store/screens/de/` und `store/screens/en/`. Neu rendern mit headless Chrome:
 
 ```bash
 node scripts/store-graphics.mjs
@@ -83,7 +83,16 @@ node scripts/store-graphics.mjs
 
 Einzelne Grafik im Browser ansehen: `store/graphics.html?asset=shot-3&lang=en` (oder `icon`, `feature`; ohne `lang` Deutsch).
 
-Die App-Screenshots stammen aus dem Pixel-9-Emulator mit den Beispieldaten, die in der Sprache der App geladen werden. Vorher die App-Sprache setzen (`adb shell cmd locale set-app-locales de.behla.daylight --locales en-US`), dann erst die Daten zurücksetzen und „Beispieldaten laden“, sonst tragen Stimmungen und Gruppen die Namen der anderen Sprache. Uhr und Statusleiste über den Demo-Modus der System-UI auf 20:30 festsetzen.
+Die App-Screenshots stammen aus dem Pixel-9-Emulator mit den Beispieldaten, die in der Sprache der App geladen werden, sonst tragen Stimmungen und Gruppen die Namen der anderen Sprache. Je Sprache die App-Daten leeren und die Sprache vor dem ersten Start setzen, denn eine in der App gewählte Sprache hat Vorrang vor `set-app-locales`:
+
+```bash
+adb shell pm clear de.behla.daylight
+adb shell cmd locale set-app-locales de.behla.daylight --locales en-US
+```
+
+Dann „Beispieldaten laden“ und die App einmal neu starten, erst dann stimmen Daten und Wochentage. Datum (7. Oktober 2026) und 24-Stunden-Format in den Einstellungen des Emulators setzen, Uhr und Statusleiste über den Demo-Modus der System-UI auf 20:30 festsetzen.
+
+Auf dem Emulator (Android 37) zeichnet der Tagesstreifen unter „Heute“ die Ausblick-Ringe der kommenden Tage direkt nach dem Start eckig statt rund. Vor Aufnahmen mit dem Streifen ihn deshalb weit in die Vergangenheit und zurück wischen, einen vergangenen Tag antippen und dann „Heute“, danach sind die Ringe rund.
 
 ## Release
 
