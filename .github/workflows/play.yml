@@ -70,6 +70,6 @@ jobs:
           packageName: de.behla.daylight
           releaseFiles: daylight-${{ inputs.version }}.aab
           releaseName: ${{ inputs.version }}
-          track: ${{ vars.PLAY_TRACK || 'alpha' }}
+          tracks: ${{ vars.PLAY_TRACK || 'alpha' }}
           status: completed
           whatsNewDirectory: whatsnew
