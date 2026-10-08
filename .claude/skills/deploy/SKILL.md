@@ -195,7 +195,7 @@ GH_TOKEN=$(gh auth token --user Jurgler95) gh release view "v$VERSION" --repo Ju
 git fetch --tags origin
 ```
 
-Das Release muss genau eine `daylight-$VERSION.apk` und eine `daylight-$VERSION.aab` tragen, der
+Das Release muss genau eine `daylight-$VERSION.apk`, eine `daylight-$VERSION.aab` und die R8-Zuordnung `daylight-$VERSION-mapping.txt` tragen, der
 Fetch holt den Tag, den der Workflow gesetzt hat. Danach lädt der Job `play` (`play.yml`) die
 `.aab` in den Play Store, in die Spur aus der Repo-Variable `PLAY_TRACK` (ohne sie der geschlossene
 Test). Scheitert nur dieser Job, ist das GitHub-Release trotzdem vollständig: Ursache aus dem Log

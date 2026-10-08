@@ -135,7 +135,10 @@ jobs:
         run: |
           cp android/app/build/outputs/apk/release/app-release.apk "daylight-$VERSION.apk"
           cp android/app/build/outputs/bundle/release/app-release.aab "daylight-$VERSION.aab"
-          node .github/scripts/check-manifest.mjs "daylight-$VERSION.apk"
+          # Die Zuordnung der von R8 gekürzten Namen, aus dem Bundle-Build (der zuletzt lief). Play
+          # braucht sie für lesbare Absturzberichte, der Code ist ohnehin offen.
+          cp android/app/build/outputs/mapping/release/mapping.txt "daylight-$VERSION-mapping.txt"
+          node .github/scripts/check-manifest.mjs "daylight-$VERSION.apk" "daylight-$VERSION-mapping.txt"
 
       # Erst als Entwurf anlegen oder einen Entwurf aus einem abgebrochenen Lauf weiterverwenden,
       # dann APK und App Bundle hochladen und zuletzt veröffentlichen. So ist ein Release erst
@@ -148,7 +151,7 @@ jobs:
             gh release create "$TAG" --draft --target "$GITHUB_SHA" \
               --title "Daylight $VERSION" --notes-file release-notes.md
           fi
-          gh release upload "$TAG" "daylight-$VERSION.apk" "daylight-$VERSION.aab" --clobber
+          gh release upload "$TAG" "daylight-$VERSION.apk" "daylight-$VERSION.aab" "daylight-$VERSION-mapping.txt" --clobber
           gh release edit "$TAG" --draft=false
 
   # Danach geht das App Bundle in den Play Store, siehe play.yml. Ein eigener Workflow, damit sich ein

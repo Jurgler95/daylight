@@ -11,7 +11,10 @@
  * Modul `modules/daylight-reminders`, und eine neue Abhängigkeit soll Google nicht unbemerkt
  * zurückbringen.
  *
- *   node .github/scripts/check-manifest.mjs builds/daylight-1.0.11.apk
+ *   node .github/scripts/check-manifest.mjs builds/daylight-1.0.11.apk [mapping.txt]
+ *
+ * R8 kürzt die Klassennamen im Code. Mit der Zuordnung von R8 als zweitem Argument sucht die
+ * Prüfung auch dort nach den ursprünglichen Namen, sonst fiele eine umbenannte Klasse durch.
  *
  * aapt2 kommt aus dem neuesten `build-tools` unter `ANDROID_HOME`, lokal ersatzweise aus
  * `~/Library/Android/sdk`.
@@ -59,8 +62,13 @@ if (health.join() !== HEALTH_PERMISSIONS.join()) {
 }
 // Typnamen stehen im Klartext in der String-Tabelle jeder .dex-Datei.
 const dex = execFileSync('unzip', ['-p', apk, 'classes*.dex'], { maxBuffer: 512 * 1024 * 1024 });
+const mapping = process.argv[3] ? readFileSync(process.argv[3], 'utf8') : '';
 for (const prefix of ['Lcom/google/firebase/', 'Lcom/google/android/gms/']) {
-  if (dex.includes(prefix)) problems.push(`Google-Bibliothek im Code: ${prefix.slice(1, -1).replaceAll('/', '.')}`);
+  const name = prefix.slice(1).replaceAll('/', '.');
+  // In der Zuordnung beginnt jede Klasse eine Zeile: `com.google.firebase.X -> a.b:`
+  if (dex.includes(prefix) || mapping.includes(`\n${name}`) || mapping.startsWith(name)) {
+    problems.push(`Google-Bibliothek im Code: ${name.slice(0, -1)}`);
+  }
 }
 if (!/allowBackup\([^)]*\)=(false|\(type 0x12\)0x0)\b/.test(manifest)) problems.push('android:allowBackup ist nicht false');
 

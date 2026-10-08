@@ -58,6 +58,9 @@ jobs:
       - name: App Bundle und Texte holen
         run: |
           gh release download "v$VERSION" --pattern "daylight-$VERSION.aab"
+          # Ältere Releases ohne R8 haben keine Zuordnung
+          gh release download "v$VERSION" --pattern "daylight-$VERSION-mapping.txt" || true
+          if [ -f "daylight-$VERSION-mapping.txt" ]; then echo "MAPPING=daylight-$VERSION-mapping.txt" >> "$GITHUB_ENV"; fi
           git checkout -q "v$VERSION" -- lib/changelog app.json package.json package-lock.json
           node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON .github/scripts/release-notes.mjs "$VERSION" --whatsnew whatsnew
 
@@ -73,3 +76,4 @@ jobs:
           tracks: ${{ vars.PLAY_TRACK || 'alpha' }}
           status: completed
           whatsNewDirectory: whatsnew
+          mappingFile: ${{ env.MAPPING }}
