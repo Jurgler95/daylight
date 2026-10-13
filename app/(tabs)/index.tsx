@@ -13,6 +13,9 @@ import { BackupCard } from '@/components/today/BackupCard';
 import { DayStrip, type DayStripHandle } from '@/components/today/DayStrip';
 import { LookbackCard } from '@/components/today/LookbackCard';
 import { LowMoodCard } from '@/components/today/LowMoodCard';
+import { StreakChip } from '@/components/today/StreakChip';
+import { StreakRescueCard } from '@/components/today/StreakRescueCard';
+import { StreakRiskCard } from '@/components/today/StreakRiskCard';
 import { TurningDayCard } from '@/components/turning/TurningDayCard';
 import { AppText, Button, Card, CardMotion, EmptyState, Screen } from '@/components/ui';
 import { getDb } from '@/db';
@@ -20,12 +23,13 @@ import { listEntryDetails } from '@/db/repositories/entries';
 import { useCatalog } from '@/lib/catalog/useCatalog';
 import { useDayLabel } from '@/lib/calendar/useDayLabel';
 import { useCalendarMarkers } from '@/lib/calendar/useDayMarkers';
-import { daysBetween, formatLong, type DateString } from '@/lib/dates';
+import { addDaysToDateString, daysBetween, formatLong, type DateString } from '@/lib/dates';
 import { useToday } from '@/lib/dates/useToday';
 import { useHealthDay } from '@/lib/health/useHealthDays';
 import { useOutlook } from '@/lib/outlook/useOutlook';
 import { useQuery } from '@/lib/store/dataVersion';
 import { useSelectedDay } from '@/lib/store/selectedDay';
+import { useChipPulse, useStreak } from '@/lib/streak/useStreak';
 import { useLowMoodNote } from '@/lib/support/useLowMoodNote';
 import { spacing, useTheme } from '@/lib/theme';
 
@@ -42,9 +46,13 @@ export default function TodayScreen() {
   const dayLabel = useDayLabel(now);
   const entries = useQuery(() => listEntryDetails(getDb(), date, date), [date]);
   const health = useHealthDay(date);
+  const streak = useStreak(now);
 
   const offset = daysBetween(now, date);
   const isFuture = offset > 0;
+  // Like the cards below, the streak belongs to today only.
+  const streakChip = offset === 0 ? streak.chip : null;
+  const chipPulse = useChipPulse(streakChip !== null);
   const outlookDay = outlookEnabled && outlook?.status === 'ready' ? outlook.days.find((day) => day.date === date) : undefined;
   const title =
     offset === 0
@@ -68,6 +76,7 @@ export default function TodayScreen() {
 
   const newEntry = (mood?: number) =>
     router.push({ pathname: '/entry/new', params: mood === undefined ? { date } : { date, mood: String(mood) } });
+  const fillIn = (day: DateString) => router.push({ pathname: '/entry/new', params: { date: day } });
 
   const pinned = (
     <>
@@ -95,6 +104,9 @@ export default function TodayScreen() {
           </AppText>
         </Animated.View>
         {offset !== 0 ? <Button label={t('calendar.today')} variant="secondary" onPress={() => setDate(now)} /> : null}
+        {streakChip ? (
+          <StreakChip view={streakChip} pulse={chipPulse} onPress={() => router.navigate({ pathname: '/achievements', params: { focus: 'days' } })} />
+        ) : null}
       </View>
     </>
   );
@@ -117,6 +129,12 @@ export default function TodayScreen() {
           </>
         ) : (
           <>
+            {offset === 0 && streak.state.status === 'atRisk' ? (
+              <StreakRiskCard days={streak.state.days} onFillIn={() => fillIn(addDaysToDateString(now, -1))} />
+            ) : null}
+            {offset === 0 && streak.rescue ? (
+              <StreakRescueCard missing={streak.state.missing} restoredDays={streak.state.restoredDays ?? 0} onFillIn={fillIn} onDismiss={streak.dismissRescue} />
+            ) : null}
             {entries.length === 0 ? picker : null}
             {entries.map((entry) => (
               <EntryCard

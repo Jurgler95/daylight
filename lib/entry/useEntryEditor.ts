@@ -8,6 +8,7 @@ import { haptics } from '@/lib/haptics';
 import { filePhotoStore } from '@/lib/photos/fileStore';
 import { mutate } from '@/lib/store/dataVersion';
 import { useSettingsStore } from '@/lib/store/settingsStore';
+import { celebrateSave } from '@/lib/streak/celebrate';
 
 import { defaultTime, draftFromEntry, draftToInput, newDraft, sameDraft, type EntryDraft } from './draft';
 
@@ -71,9 +72,10 @@ export function useEntryEditor(target: EditorTarget): EntryEditor {
     update: (patch) => setDraft((current) => (current ? { ...current, ...patch } : current)),
     save: () => {
       if (!input || dayTaken) return false;
-      mutate(() => saveEntry(getDb(), id, input));
+      const celebration = celebrateSave(() => mutate(() => saveEntry(getDb(), id, input)));
       removePhotoFiles((initial?.photos ?? []).filter((name) => !input.photos?.includes(name)));
-      haptics.confirm();
+      // A celebration brings its own buzz when it shows; one is enough.
+      if (!celebration) haptics.confirm();
       return true;
     },
     remove: () => {

@@ -39,6 +39,35 @@ describe('JSON round trip', () => {
     applyImport(db, payload, 'replace');
     expect(getSettings(db).last_export_at).toBe('2026-09-01T10:00:00.000Z');
   });
+
+  it('keeps the reminder sheet and the streak state on the device', () => {
+    const db = sampled();
+    const local = { reminder_prompt_done: true, streak_celebrated: '{"start":"2026-09-01","days":20}', streak_rescue_dismissed: '2026-09-20' };
+    updateSettings(db, local);
+    const payload = buildExport(db, '1.0.0');
+    for (const key of Object.keys(local)) expect(key in payload.settings).toBe(false);
+    const target = createTestDb();
+    applyImport(target, parseImport(JSON.stringify(payload)), 'replace');
+    expect(getSettings(target)).toMatchObject({ reminder_prompt_done: false, streak_celebrated: null, streak_rescue_dismissed: null });
+  });
+
+  it('carries the morning reminder, and a backup from before it leaves the choice here alone', () => {
+    const source = sampled();
+    updateSettings(source, { reminder_yesterday_enabled: false, reminder_yesterday_time: '09:15' });
+    const payload = buildExport(source, '1.0.0');
+    expect(payload.settings).toMatchObject({ reminder_yesterday_enabled: false, reminder_yesterday_time: '09:15' });
+
+    const target = createTestDb();
+    applyImport(target, parseImport(JSON.stringify(payload)), 'replace');
+    expect(getSettings(target)).toMatchObject({ reminder_yesterday_enabled: false, reminder_yesterday_time: '09:15' });
+
+    const { reminder_yesterday_enabled: _e, reminder_yesterday_time: _t, ...older } = payload.settings;
+    const old = parseImport(JSON.stringify({ ...payload, settings: older }));
+    updateSettings(target, { reminder_yesterday_enabled: true, reminder_yesterday_time: '11:00' });
+    applyImport(target, old, 'replace');
+    expect(getSettings(target)).toMatchObject({ reminder_yesterday_enabled: true, reminder_yesterday_time: '11:00', reminder_time: '21:15' });
+    applyImport(createTestDb(), old, 'merge');
+  });
 });
 
 describe('health days in the backup', () => {

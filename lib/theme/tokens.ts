@@ -17,6 +17,10 @@ export const colors = {
   accent: '#1A5FC2',
   accentSoft: '#DCEAFF',
   danger: '#C0231B',
+  // A streak at risk (yesterday missing): a warm amber that asks, never alarms. Text and icons in
+  // `amber`, on `amberSoft` or straight on a page or card.
+  amber: '#8A4B00',
+  amberSoft: '#FFE9C2',
   // Decorative only (the logo backdrop behind every screen): ring and spiral in pastel blue, the sun
   // in pastel yellow. Text scrolls over them, so they are as light as every text colour, the mood
   // colours included, needs for 4.5:1.

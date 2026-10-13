@@ -1,10 +1,11 @@
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react-native';
+import { router } from 'expo-router';
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 
 import '@/lib/i18n';
 import type { Database } from '@/db';
-import { createEntry, listMoods, listPlannedActivities, updateSettings } from '@/db/repositories';
+import { createEntry, getSettings, listMoods, listPlannedActivities, updateSettings } from '@/db/repositories';
 import { createTestDb } from '@/db/testDb';
 import { addDaysToDateString, type DateString } from '@/lib/dates';
 import { applyDaylioImport } from '@/lib/daylio/apply';
@@ -30,20 +31,20 @@ import CalendarScreen from '../../../app/(tabs)/calendar';
  * crashes, NaN and missing text keys; layout and touch are checked on the phone.
  */
 jest.mock('react-native-worklets', () => require('react-native-worklets/src/mock'));
-jest.mock('react-native-reanimated', () => require('react-native-reanimated/mock'));
+jest.mock('react-native-reanimated', () => ({ ...require('react-native-reanimated/mock'), useReducedMotion: () => false }));
 jest.mock('react-native-safe-area-context', () => require('react-native-safe-area-context/jest/mock').default);
 jest.mock('@expo/vector-icons', () => ({ Ionicons: () => null }));
 jest.mock('@expo/vector-icons/MaterialCommunityIcons', () => () => null);
-jest.mock('expo-router', () => ({ router: { push: jest.fn(), navigate: jest.fn(), back: jest.fn() }, useLocalSearchParams: () => ({}) }));
+jest.mock('expo-router', () => ({ router: { push: jest.fn(), navigate: jest.fn(), back: jest.fn() }, useLocalSearchParams: () => ({}), useIsFocused: () => true }));
 jest.mock('expo-local-authentication', () => ({ getEnrolledLevelAsync: async () => 1, SecurityLevel: { NONE: 0 }, authenticateAsync: async () => ({ success: true }) }));
-jest.mock('@/modules/daylight-reminders', () => ({ __esModule: true, default: { hasPermission: async () => false, createChannel: jest.fn(), cancelAll: jest.fn(), schedule: jest.fn() } }));
+jest.mock('@/modules/daylight-reminders', () => ({ __esModule: true, default: { hasPermission: async () => false, createChannel: jest.fn(), cancelAll: jest.fn(), schedule: jest.fn(), dismiss: jest.fn() } }));
 let mockDb: Database | null = null;
 jest.mock('@/db/client', () => ({ getDb: () => mockDb, DATABASE_NAME: 'test.db' }));
 jest.mock('@/lib/dates/useToday', () => ({ useToday: () => '2026-09-26' }));
 
 const today = '2026-09-26' as DateString;
 const FILE = path.join(__dirname, '..', '..', '..', 'private', 'daylio_export_2026_09_26.csv');
-const BROKEN = /NaN|undefined|outlook\.|lookback\.|lowMood\.|backup\.|reminders\.|lock\.|privacy\.|about\./;
+const BROKEN = /NaN|undefined|outlook\.|lookback\.|lowMood\.|backup\.|reminders\.|lock\.|privacy\.|about\.|streak\./;
 
 async function use(db: Database) {
   mockDb = db;
@@ -124,6 +125,58 @@ describe('today with the outlook', () => {
     await show(<OutlookSettingsScreen />);
     await waitFor(() => expect(screen.getByText('Bisherige Treffsicherheit')).toBeTruthy(), BACKTEST_WAIT);
     expect(screen.getByText('Immer Gut')).toBeTruthy();
+    expect(screen.queryByText(BROKEN)).toBeNull();
+  });
+});
+
+describe('streak on "Heute"', () => {
+  /** A diary with entries on these days, as offsets from today. */
+  async function diary(offsets: number[]) {
+    const db = createTestDb();
+    const good = listMoods(db).find((m) => m.level === 4)!;
+    for (const offset of offsets) createEntry(db, { date: addDaysToDateString(today, offset), time: '20:30', mood_id: good.id });
+    await use(db);
+    await show(<TodayScreen />);
+    return db;
+  }
+  const range = (from: number, to: number) => Array.from({ length: to - from + 1 }, (_, i) => from + i);
+
+  it('shows the days in a row next to the title and opens the achievements at the streak', async () => {
+    await diary(range(-4, 0));
+    const chip = screen.getByRole('button', { name: '5 Tage in Folge' });
+    await act(async () => fireEvent.press(chip));
+    expect(router.navigate).toHaveBeenCalledWith({ pathname: '/achievements', params: { focus: 'days' } });
+    expect(screen.queryByText(BROKEN)).toBeNull();
+  });
+
+  it('hides the chip without a streak and on any other day', async () => {
+    await diary([]);
+    expect(screen.queryByRole('button', { name: /in Folge/ })).toBeNull();
+    await diary(range(-4, 0));
+    await act(async () => fireEvent.press(screen.getAllByRole('button', { name: /^Freitag, 25\. September/ })[0]!));
+    expect(screen.queryByRole('button', { name: /in Folge/ })).toBeNull();
+  });
+
+  it('asks for yesterday while it is missing', async () => {
+    await diary(range(-6, -2));
+    expect(screen.getByText('Gestern fehlt noch')).toBeTruthy();
+    expect(screen.getByText('Trag es heute nach, dann bleiben deine 5 Tage.')).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Serie gefährdet, gestern fehlt noch. 5 Tage in Folge' })).toBeTruthy();
+    await act(async () => fireEvent.press(screen.getByRole('button', { name: 'Gestern nachtragen' })));
+    expect(router.push).toHaveBeenCalledWith({ pathname: '/entry/new', params: { date: '2026-09-25' } });
+  });
+
+  it('offers to fill in a short gap, oldest day first, until it is put away', async () => {
+    const db = await diary(range(-10, -4));
+    expect(screen.getByText('3 Tage fehlen')).toBeTruthy();
+    expect(screen.getByText('Nachtragen holt deine 10 Tage zurück.')).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Serie unterbrochen. 0 Tage in Folge' })).toBeTruthy();
+    await act(async () => fireEvent.press(screen.getByRole('button', { name: /^23\. .* nachtragen$/ })));
+    expect(router.push).toHaveBeenCalledWith({ pathname: '/entry/new', params: { date: '2026-09-23' } });
+    await act(async () => fireEvent.press(screen.getByRole('button', { name: 'Später' })));
+    expect(screen.queryByText('3 Tage fehlen')).toBeNull();
+    expect(screen.queryByRole('button', { name: /in Folge/ })).toBeNull();
+    expect(getSettings(db).streak_rescue_dismissed).toBe(today);
     expect(screen.queryByText(BROKEN)).toBeNull();
   });
 });

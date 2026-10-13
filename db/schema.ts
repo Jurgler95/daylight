@@ -167,6 +167,16 @@ export const settings = sqliteTable('settings', {
   app_opens: integer('app_opens').notNull().default(0),
   /** Opt-in: the health days go into the JSON backup. Device-local; an import that brings health days turns it on. */
   health_in_backup: integer('health_in_backup', { mode: 'boolean' }).notNull().default(false),
+  /** Morning reminder on a day whose yesterday has no entry yet. Only with `reminder_enabled`; part of the backup like it. */
+  reminder_yesterday_enabled: integer('reminder_yesterday_enabled', { mode: 'boolean' }).notNull().default(true),
+  /** "HH:mm" of the morning reminder. Part of the backup. */
+  reminder_yesterday_time: text('reminder_yesterday_time').notNull().default('10:00'),
+  /** The start sheet offering the reminder was answered, or never needed (reminder already on). Device-local, never exported. */
+  reminder_prompt_done: integer('reminder_prompt_done', { mode: 'boolean' }).notNull().default(false),
+  /** Highest streak length celebrated, as JSON `{ start, days }` (`lib/streak/celebration.ts`). Device-local, never exported. */
+  streak_celebrated: text('streak_celebrated'),
+  /** Day the rescue card for a broken streak was last put away ("YYYY-MM-DD"). Device-local, never exported. */
+  streak_rescue_dismissed: text('streak_rescue_dismissed'),
   ...timestamps,
 });
 

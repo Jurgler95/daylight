@@ -5,7 +5,7 @@ import { deviceLanguage } from '@/lib/i18n/language';
 
 import { getDb } from './client';
 import { ensureDefaults } from './repositories/defaults';
-import { ensureSettings, updateSettings } from './repositories/settings';
+import { ensureSettings, settleReminderPrompt, updateSettings } from './repositories/settings';
 
 /**
  * Runs all pending Drizzle migrations, then guarantees the settings singleton and the default
@@ -22,4 +22,5 @@ export async function runMigrations(): Promise<void> {
     updateSettings(db, { language });
   }
   ensureDefaults(db, language);
+  settleReminderPrompt(db);
 }

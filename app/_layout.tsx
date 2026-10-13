@@ -11,6 +11,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StarToast } from '@/components/achievements/StarToast';
 import { HealthSyncIndicator } from '@/components/health/HealthSyncIndicator';
 import { LockScreen } from '@/components/lock/LockScreen';
+import { ReminderPrompt } from '@/components/reminders/ReminderPrompt';
+import { StreakCelebration } from '@/components/streak/StreakCelebration';
 import { AppText, Button, LogoBackdrop } from '@/components/ui';
 import { useOpenCounter } from '@/lib/achievements/useOpenCounter';
 import { useHealthSync } from '@/lib/health/useHealthSync';
@@ -22,6 +24,12 @@ import { useAppBootstrap } from '@/lib/useAppBootstrap';
 import '@/lib/i18n';
 
 void SplashScreen.preventAutoHideAsync();
+
+/**
+ * The tabs lie under every screen reached by a link, so a tap on a reminder that opens the editor
+ * on a cold start still leads back to "Heute".
+ */
+export const unstable_settings = { anchor: '(tabs)' };
 
 export default function RootLayout() {
   return (
@@ -98,6 +106,10 @@ function AppShell() {
       ) : (
         <>
           <HealthSyncIndicator />
+          {/* One at a time, by priority (`lib/store/overlays.ts`): the reminder start sheet, then the
+              streak celebration, then the stars. */}
+          <ReminderPrompt />
+          <StreakCelebration />
           <StarToast />
         </>
       )}

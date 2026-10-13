@@ -18,14 +18,15 @@ import { StarToast, TOAST_DELAY_MS } from '../StarToast';
 
 /** Renders the achievements tab, the star message and the history page that moved under "Mehr", as the insight screen tests do. */
 jest.mock('react-native-worklets', () => require('react-native-worklets/src/mock'));
-jest.mock('react-native-reanimated', () => require('react-native-reanimated/mock'));
+jest.mock('react-native-reanimated', () => ({ ...require('react-native-reanimated/mock'), useReducedMotion: () => false }));
 jest.mock('react-native-safe-area-context', () => require('react-native-safe-area-context/jest/mock').default);
 jest.mock('@expo/vector-icons', () => ({ Ionicons: () => null }));
 jest.mock('@expo/vector-icons/MaterialCommunityIcons', () => () => null);
 let mockPath = '/';
+let mockParams: Record<string, string | undefined> = {};
 jest.mock('expo-router', () => ({
-  router: { push: jest.fn(), navigate: jest.fn(), back: jest.fn() },
-  useLocalSearchParams: () => ({}),
+  router: { push: jest.fn(), navigate: jest.fn(), back: jest.fn(), setParams: jest.fn() },
+  useLocalSearchParams: () => mockParams,
   usePathname: () => mockPath,
 }));
 let mockDb: Database | null = null;
@@ -68,6 +69,17 @@ describe('achievements screen', () => {
     expect(screen.queryByText('0/85')).toBeNull();
     expect(screen.getByText('Schlafprotokoll')).toBeTruthy();
     expect(screen.queryByText(BROKEN, ALL)).toBeNull();
+  });
+
+  it('takes the focus parameter back once it has been followed', async () => {
+    use(createTestDb());
+    mockParams = { focus: 'days' };
+    try {
+      await render(<AchievementsScreen />);
+      expect(router.setParams).toHaveBeenCalledWith({ focus: undefined });
+    } finally {
+      mockParams = {};
+    }
   });
 });
 
@@ -124,6 +136,17 @@ describe('star message', () => {
     expect(screen.getByText(/NEUE STERNE/)).toBeTruthy();
     await act(async () => jest.advanceTimersByTime(8000));
     expect(screen.queryByText(/NEUE STERNE/)).toBeNull();
+  });
+
+  it('opens the achievements at the achievement with the most new stars', async () => {
+    const db = createTestDb();
+    use(db);
+    await render(<StarToast />);
+    applySample(db, generateSample({ today }));
+    await act(async () => useDataVersion.getState().bump());
+    await act(async () => jest.advanceTimersByTime(TOAST_DELAY_MS));
+    await act(async () => fireEvent.press(screen.getByText('Ansehen')));
+    expect(router.navigate).toHaveBeenLastCalledWith({ pathname: '/achievements', params: { focus: expect.any(String) } });
   });
 
   it('stays away on the achievements tab and counts the stars as seen there', async () => {

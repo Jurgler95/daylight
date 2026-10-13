@@ -6,7 +6,8 @@ import type { Database } from '@/db/types';
 import { EXPORT_APP, EXPORT_SCHEMA_VERSION, type ExportPayload, type ExportSettings } from './schema';
 
 /**
- * last_export_at, low_mood_dismissed_on, the announced stars, the number of app opens, the language and the Health Connect state describe this device, not the
+ * last_export_at, low_mood_dismissed_on, the announced stars, the number of app opens, the language, the Health Connect state,
+ * the answered reminder sheet and the streak's celebrations and put away rescue describe this device, not the
  * data, so they stay out of the snapshot. The health days themselves only go in when the user opted in.
  */
 export function settingsForExport(row: ReturnType<typeof getSettings>): ExportSettings {
@@ -24,6 +25,9 @@ export function settingsForExport(row: ReturnType<typeof getSettings>): ExportSe
     achievements_seen: _as,
     app_opens: _ao,
     health_in_backup: _hb,
+    reminder_prompt_done: _rp,
+    streak_celebrated: _sc,
+    streak_rescue_dismissed: _sr,
     ...rest
   } = row;
   return rest;

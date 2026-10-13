@@ -27,4 +27,9 @@ export const haptics = {
   landmark: () => run(Haptics.AndroidHaptics.Long_Press, () => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)),
   /** An entry that matters was recorded. */
   confirm: () => run(Haptics.AndroidHaptics.Confirm, () => Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)),
+  /** A rare, big moment (a streak of 200 days): the confirmation, then a heavier beat. */
+  celebrate: () => {
+    haptics.confirm();
+    setTimeout(haptics.landmark, 180);
+  },
 };

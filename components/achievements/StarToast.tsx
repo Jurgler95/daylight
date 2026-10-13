@@ -23,6 +23,7 @@ import { TIER_COUNT, type Achievement, type StarNews } from '@/lib/achievements'
 import { ACHIEVEMENTS_PATH, useStarNews } from '@/lib/achievements/useStarNews';
 import { haptics } from '@/lib/haptics';
 import { formatCount } from '@/lib/insights';
+import { useOverlaySlot } from '@/lib/store/overlays';
 import { radius, spacing, TOUCH_TARGET, useTheme, withAlpha } from '@/lib/theme';
 
 import { STAR_COLOR, TierStar } from './StarRow';
@@ -37,14 +38,16 @@ const SPARKS = 8;
 
 /**
  * Slides in from the top when stars were earned, wherever the app is, except over an open entry
- * and on the achievements tab itself. A tap opens the achievements; the cross or the timer put it
- * away. Either way the stars count as announced.
+ * and on the achievements tab itself. Waits while the start sheet or a streak celebration is up.
+ * A tap opens the achievements at the new stars; the cross or the timer put it away. Either way
+ * the stars count as announced.
  */
 export function StarToast() {
   const { news, acknowledge } = useStarNews();
+  const mine = useOverlaySlot('stars', news !== null);
   // Keyed by its content, so a second batch of stars starts its own entrance and timer.
   const key = news ? (news.kind === 'welcome' ? 'welcome' : news.earned.map(({ achievement }) => `${achievement.key}${achievement.stars}`).join()) : null;
-  return news && key ? (
+  return news && key && mine ? (
     <Delayed key={key}>
       <Toast news={news} acknowledge={acknowledge} />
     </Delayed>
@@ -76,7 +79,9 @@ function Toast({ news, acknowledge }: { news: StarNews; acknowledge: () => void 
   const open = () => {
     haptics.tap();
     close();
-    router.navigate(ACHIEVEMENTS_PATH);
+    // The achievement with the most new stars; the welcome has none in particular.
+    const first = news.kind === 'stars' ? news.earned[0]?.achievement.key : undefined;
+    router.navigate(first ? { pathname: ACHIEVEMENTS_PATH, params: { focus: first } } : ACHIEVEMENTS_PATH);
   };
 
   useEffect(() => {

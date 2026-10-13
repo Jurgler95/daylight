@@ -13,14 +13,18 @@ export default function RemindersScreen() {
   if (!settings) return null;
   const available = notificationsAvailable();
 
-  /** The system permission is only asked for when the reminder is switched on, never at startup. */
+  /**
+   * The system permission is asked for when the reminder is switched on, here or in the start sheet
+   * that offers it once (`components/reminders/ReminderPrompt.tsx`), never by itself at startup.
+   * Switching it on here answers that sheet too.
+   */
   const toggle = (value: boolean) => {
     if (!value) {
       update({ reminder_enabled: false });
       return;
     }
     void requestPermission(t('notify.channel')).then((granted) => {
-      if (granted) update({ reminder_enabled: true });
+      if (granted) update({ reminder_enabled: true, reminder_prompt_done: true });
       else Alert.alert(t('reminders.title'), t('reminders.permissionDenied'));
     });
   };
@@ -39,6 +43,22 @@ export default function RemindersScreen() {
           value={settings.reminder_time}
           disabled={!settings.reminder_enabled}
           onChange={(reminder_time) => update({ reminder_time })}
+        />
+      </Card>
+      {/* The morning reminder only comes along with the daily one, so it waits while that is off. */}
+      <Card>
+        <ToggleRow
+          label={t('reminders.yesterday')}
+          hint={t('reminders.yesterdayHint')}
+          value={settings.reminder_yesterday_enabled}
+          disabled={!settings.reminder_enabled}
+          onChange={(reminder_yesterday_enabled) => update({ reminder_yesterday_enabled })}
+        />
+        <TimeRow
+          label={t('reminders.time')}
+          value={settings.reminder_yesterday_time}
+          disabled={!settings.reminder_enabled || !settings.reminder_yesterday_enabled}
+          onChange={(reminder_yesterday_time) => update({ reminder_yesterday_time })}
         />
       </Card>
       <AppText variant="caption" muted>

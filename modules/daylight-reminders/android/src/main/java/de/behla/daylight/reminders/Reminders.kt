@@ -21,20 +21,31 @@ import org.json.JSONObject
  * Local reminders without Firebase. Replaces the part of expo-notifications Daylight used and
  * copies its behaviour: an inexact alarm unless exact alarms are allowed, pending reminders kept in
  * SharedPreferences and set again after a reboot or an update, past ones dropped, the notification
- * silent while the app is in the foreground, a tap opening the app.
+ * silent while the app is in the foreground, a tap opening the app (at the reminder's link, if any).
  */
-internal data class Reminder(val id: String, val at: Long, val channelId: String, val title: String, val body: String) {
+internal data class Reminder(
+  val id: String,
+  val at: Long,
+  val channelId: String,
+  val title: String,
+  val body: String,
+  /** Deep link the tap opens, e.g. `daylight://entry/new?date=2026-10-13`; null opens the app as it is. */
+  val url: String? = null,
+) {
   fun toJson(): String = JSONObject()
     .put("at", at)
     .put("channelId", channelId)
     .put("title", title)
     .put("body", body)
+    .apply { if (url != null) put("url", url) }
     .toString()
 
   companion object {
+    /** Reminders stored before links existed have no `url` and simply open the app. */
     fun fromJson(id: String, json: String): Reminder? = try {
       val o = JSONObject(json)
-      Reminder(id, o.getLong("at"), o.getString("channelId"), o.getString("title"), o.getString("body"))
+      val url = if (o.has("url")) o.getString("url") else null
+      Reminder(id, o.getLong("at"), o.getString("channelId"), o.getString("title"), o.getString("body"), url)
     } catch (e: Exception) {
       null
     }
@@ -45,6 +56,8 @@ internal object Reminders {
   private const val TAG = "DaylightReminders"
   private const val PREFS = "daylight_reminders"
   const val ACTION_FIRE = "de.behla.daylight.reminders.FIRE"
+  /** Notifications are told apart by their tag (the reminder id), so the numeric id is always the same. */
+  private const val NOTIFICATION_ID = 0
 
   private fun prefs(context: Context) = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
 
@@ -71,6 +84,12 @@ internal object Reminders {
     val prefs = prefs(context)
     for (id in prefs.all.keys) alarmManager(context).cancel(fireIntent(context, id))
     prefs.edit().clear().apply()
+  }
+
+  /** Takes notifications off the screen, e.g. once the day they ask about has an entry. */
+  fun dismiss(context: Context, ids: List<String>) {
+    val manager = NotificationManagerCompat.from(context)
+    for (id in ids) manager.cancel(id, NOTIFICATION_ID)
   }
 
   /** After a reboot or an update the system has forgotten every alarm. */
@@ -122,18 +141,25 @@ internal object Reminders {
       .setStyle(NotificationCompat.BigTextStyle().bigText(reminder.body))
       // Like expo-notifications with shouldPlaySound: false while the app is open.
       .setSilent(isAppInForeground())
-    openAppIntent(context)?.let { builder.setContentIntent(it) }
+    openAppIntent(context, reminder)?.let { builder.setContentIntent(it) }
     try {
-      manager.notify(reminder.id, 0, builder.build())
+      manager.notify(reminder.id, NOTIFICATION_ID, builder.build())
     } catch (e: SecurityException) {
       Log.w(TAG, "Reminder ${reminder.id} could not be shown", e)
     }
   }
 
-  private fun openAppIntent(context: Context): PendingIntent? {
+  /**
+   * With a link: ACTION_VIEW with the link as data, aimed at the launch activity. React Native only
+   * hands the URL to JS (initial URL on a cold start, a `url` event on a warm one) when it is the
+   * intent's data, extras would go unseen. Each reminder gets its own request code, so two shown at
+   * once never share (and overwrite) one PendingIntent.
+   */
+  private fun openAppIntent(context: Context, reminder: Reminder): PendingIntent? {
     val launch = runCatching { context.packageManager.getLaunchIntentForPackage(context.packageName) }.getOrNull() ?: return null
-    launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-    return PendingIntent.getActivity(context, 0, launch, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+    val intent = reminder.url?.let { Intent(Intent.ACTION_VIEW, Uri.parse(it)).setComponent(launch.component) } ?: launch
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    return PendingIntent.getActivity(context, reminder.id.hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
   }
 
   /**

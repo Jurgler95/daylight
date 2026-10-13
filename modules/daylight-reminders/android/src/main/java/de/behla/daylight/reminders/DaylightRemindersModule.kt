@@ -47,12 +47,16 @@ class DaylightRemindersModule : Module() {
       }, Manifest.permission.POST_NOTIFICATIONS)
     }
 
-    Function("schedule") { id: String, at: Double, channelId: String, title: String, body: String ->
-      Reminders.schedule(context, Reminder(id, at.toLong(), channelId, title, body))
+    Function("schedule") { id: String, at: Double, channelId: String, title: String, body: String, url: String? ->
+      Reminders.schedule(context, Reminder(id, at.toLong(), channelId, title, body, url))
     }
 
     Function("cancelAll") {
       Reminders.cancelAll(context)
+    }
+
+    Function("dismiss") { ids: List<String> ->
+      Reminders.dismiss(context, ids)
     }
   }
 }

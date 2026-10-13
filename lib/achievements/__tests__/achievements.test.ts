@@ -82,6 +82,13 @@ describe('buildAchievements', () => {
     expect([0, 1, 2, 3, 5, 7, 9, 10].map(stars)).toEqual([0, 1, 1, 2, 3, 4, 4, 5]);
   });
 
+  it('leaves days after today out of the day streak and the day totals', () => {
+    const dates = [...daysBack(today, 3), addDaysToDateString(today, 1), addDaysToDateString(today, 2)];
+    const days = byKey(buildAchievements(input({ entries: dates.map((date) => entry(date)) })));
+    expect(days.get('days')).toMatchObject({ best: 3, current: 3 });
+    expect(days.get('totalDays')).toMatchObject({ best: 3 });
+  });
+
   it('gives nothing to an empty diary', () => {
     const achievements = buildAchievements(input({}));
     expect(totalStars(achievements)).toBe(0);

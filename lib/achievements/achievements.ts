@@ -1,6 +1,7 @@
 import { addDaysToDateString, type DateString } from '@/lib/dates';
 import type { IconName } from '@/lib/icons';
 import { weekStart } from '@/lib/insights/swings';
+import { entryDaysUpTo } from '@/lib/streak/days';
 
 /**
  * Achievements reward keeping the diary, never how a day went: nothing here looks at a mood level.
@@ -206,7 +207,8 @@ function finish(definition: Definition, best: number, current: number | null): A
 /** Every achievement in the order of `DEFINITIONS`. */
 export function buildAchievements(input: AchievementInput): Achievement[] {
   const { today } = input;
-  const days = new Set<string>();
+  // The same days the streak on "Heute" counts, so its length matches `days` while it is active.
+  const days = entryDaysUpTo(input.entries.map((entry) => entry.date), today);
   const activityDays = new Set<string>();
   const noteDays = new Set<string>();
   const photoDays = new Set<string>();
@@ -219,7 +221,6 @@ export function buildAchievements(input: AchievementInput): Achievement[] {
 
   for (const entry of input.entries) {
     const { date } = entry;
-    days.add(date);
     if (entry.activity_ids.length > 0) activityDays.add(date);
     if (entry.photos.length > 0) photoDays.add(date);
     if (entry.scales.length > 0) scaleDays.add(date);

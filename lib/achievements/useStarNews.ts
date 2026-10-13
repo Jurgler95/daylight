@@ -2,6 +2,7 @@ import { usePathname } from 'expo-router';
 import { useCallback, useEffect, useMemo } from 'react';
 
 import { useToday } from '@/lib/dates/useToday';
+import { overlayBlocked } from '@/lib/store/overlays';
 import { useSettingsStore } from '@/lib/store/settingsStore';
 
 import { parseSeen, quietSeen, seenOf, starNews, type StarNews } from './news';
@@ -9,8 +10,6 @@ import { useAchievements } from './useAchievements';
 
 /** The achievements tab itself: whoever looks at it has seen every star. */
 export const ACHIEVEMENTS_PATH = '/achievements';
-/** Screens a message would cover in the middle of writing; it waits until they close. */
-const BUSY = ['/entry', '/photo', '/turning/new'];
 
 /**
  * New stars since the last announcement, and the way to mark them as seen. Stores without asking
@@ -35,6 +34,5 @@ export function useStarNews(): { news: StarNews | null; acknowledge: () => void 
     if (quiet) update({ achievements_seen: JSON.stringify(quiet) });
   }, [onTab, news, achievements, seen, acknowledge, update]);
 
-  const busy = BUSY.some((prefix) => pathname.startsWith(prefix));
-  return { news: onTab || busy ? null : news, acknowledge };
+  return { news: onTab || overlayBlocked(pathname) ? null : news, acknowledge };
 }

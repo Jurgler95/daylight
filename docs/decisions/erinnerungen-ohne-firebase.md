@@ -28,7 +28,7 @@ Verworfen:
 | `modules/daylight-reminders/` | Lokales Expo-Modul, nur Android, automatisch verlinkt. `index.ts` liefert das Modul oder `null` (Expo Go, iOS, Jest) |
 | `.../Reminders.kt` | Kanal anlegen, Erinnerung stellen, alle löschen, nach Neustart wiederherstellen, anzeigen. Offene Erinnerungen liegen in den SharedPreferences `daylight_reminders` |
 | `.../ReminderReceiver.kt` | Zeigt eine fällige Erinnerung; stellt nach `BOOT_COMPLETED`, `REBOOT`, `QUICKBOOT_POWERON` und `MY_PACKAGE_REPLACED` alle offenen neu |
-| `.../DaylightRemindersModule.kt` | Brücke zu JS: `createChannel`, `hasPermission`, `requestPermission`, `schedule`, `cancelAll` |
+| `.../DaylightRemindersModule.kt` | Brücke zu JS: `createChannel`, `hasPermission`, `requestPermission`, `schedule` (mit Deep Link), `cancelAll`, `dismiss` |
 | `.../res/drawable-*/daylight_reminder_icon.png`, `values/colors.xml` | Benachrichtigungssymbol und Farbe `#11786A`, vorher vom Config-Plugin von expo-notifications erzeugt. `scripts/logo.mjs` schreibt die Symbole jetzt direkt hierher, `assets/notification-icon.png` ist entfallen |
 | `lib/notifications/client.ts` | Gleiche Schnittstelle wie vorher, spricht das eigene Modul an |
 | `.github/scripts/check-manifest.mjs` | Bricht ab, wenn `com.google.firebase` oder `com.google.android.gms` in den `.dex`-Dateien der APK steht |
@@ -40,9 +40,20 @@ Nachgelesen im Quellcode von expo-notifications 57.0.21:
 1. **Alarm:** `RTC_WAKEUP` mit `setExactAndAllowWhileIdle`, wenn genaue Alarme erlaubt sind (vor Android 12 immer), sonst `setAndAllowWhileIdle`. Daylight fordert `SCHEDULE_EXACT_ALARM` nicht an, ab Android 12 also wie bisher ungenau.
 2. **Kanal** `reminders`: gleiche ID, Wichtigkeit `DEFAULT`, auf dem Sperrbildschirm `PRIVATE`, Vibration `[0, 200]`, Standardton. Bestehende Kanaleinstellungen der Nutzer bleiben, weil die ID gleich bleibt.
 3. **Benachrichtigung:** Titel, Text als `BigTextStyle`, schließt sich beim Antippen, Priorität `HIGH` (wirkt ab Android 8 ohnehin nur über den Kanal). Ist die App im Vordergrund, kommt sie stumm, wie vorher mit `shouldPlaySound: false`.
-4. **Antippen** öffnet die App über ihren Launcher-Intent.
+4. **Antippen** öffnet die App über ihren Launcher-Intent. Seit der Morgen-Erinnerung (`docs/decisions/serie-und-erinnerung.md`) mit Deep Link, siehe unten.
 5. **Neustart und Update:** offene Erinnerungen werden neu gestellt, verpasste verfallen.
 6. **Berechtigung:** ab Android 13 `POST_NOTIFICATIONS` über das Berechtigungsmodul von Expo, davor der Systemschalter für Benachrichtigungen. Die Kanalanlage vor der Abfrage bleibt.
+
+## Deep Link beim Antippen
+
+Seit 2026-10-13 bekommt `schedule` als sechstes Argument einen Link (`daylight://entry/new?date=YYYY-MM-DD`, in JS gebaut), der den Editor für den passenden Tag öffnet.
+
+- `Reminder` speichert ihn als `url` in den SharedPreferences. `fromJson` liest ihn nur, wenn er da ist: ältere Einträge ohne Link bleiben gültig und öffnen einfach die App. Nach Neustart oder Update stellt `restore` die Erinnerung samt Link wieder her.
+- Der Content-Intent ist dann `ACTION_VIEW` mit dem Link als Daten, gerichtet an die Komponente des Launcher-Intents (`MainActivity`, `singleTask`). Extras würde React Native nicht melden; so kommt der Link beim Kaltstart als Start-URL, beim Warmstart als `url`-Ereignis bei expo-router an. Ohne Link bleibt es beim Launcher-Intent.
+- Jede Erinnerung hat einen eigenen `requestCode` (`id.hashCode()`), damit sich zwei angezeigte nicht denselben PendingIntent teilen.
+- `dismiss(ids)` nimmt angezeigte Benachrichtigungen per Tag (= Erinnerungs-ID) und fester Nummer 0 aus der Leiste, passend zu `notify(id, 0, …)`.
+
+Keine neue Berechtigung, keine neue Abhängigkeit.
 
 ## Offene Punkte
 

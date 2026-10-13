@@ -642,12 +642,30 @@
     "time": "Uhrzeit",
     "permissionDenied": "Ohne Systemberechtigung stellt die App keine Erinnerung. Du kannst sie in den Android-Einstellungen erlauben.",
     "unavailable": "In Expo Go stellt Android keine Erinnerungen. Die Einstellung wird gespeichert und greift in der installierten App.",
-    "discreet": "Der Text lautet nur „Wie war dein Tag?“ und verrät nichts aus dem Tagebuch."
+    "discreet": "Der Text nennt höchstens, wie lange deine Serie läuft, oder dass gestern noch ein Eintrag fehlt, nie Inhalte aus dem Tagebuch.",
+    "yesterday": "Erinnerung am nächsten Morgen",
+    "yesterdayHint": "Nur wenn gestern noch fehlt. Kommt nur zusammen mit der täglichen Erinnerung"
   },
   "notify": {
     "title": "Erinnerung",
     "channel": "Erinnerung",
-    "body": "Wie war dein Tag?"
+    "body": "Wie war dein Tag?",
+    "bodyStreak": "Wie war dein Tag? Tag {{value}} deiner Serie.",
+    "yesterday": "Gestern fehlt noch ein Eintrag.",
+    "yesterdayStreak_one": "Gestern fehlt noch. Trag es nach, dann geht deine Serie weiter.",
+    "yesterdayStreak_other": "Gestern fehlt noch. Trag es nach, dann bleiben deine {{value}} Tage."
+  },
+  "reminderPrompt": {
+    "title": "Abends kurz erinnern?",
+    "body": "Eine Erinnerung am Abend hilft dir, deine Serie zu halten. Ihr Text ist diskret, und alles bleibt auf diesem Gerät.",
+    "time": "Uhrzeit am Abend",
+    "morning": "Fehlt ein Tag, erinnere ich dich am nächsten Morgen.",
+    "remind": "Erinnern",
+    "remindHint": "Fragt nach der Berechtigung für Benachrichtigungen",
+    "later": "Später",
+    "laterHint": "Fragt nicht noch einmal. Die Erinnerung lässt sich unter Mehr › Erinnerung einschalten",
+    "denied": "Du kannst sie jederzeit unter Mehr › Erinnerung einschalten.",
+    "ok": "OK"
   },
   "lock": {
     "title": "App-Sperre",
@@ -672,7 +690,7 @@
     "noCloudBackup": "Die App ist von der automatischen Android-Sicherung ausgenommen. Deine Einträge landen also auch nicht in deinem Google-Konto. Der Preis dafür: Bei Deinstallation oder Gerätewechsel sind sie weg, wenn du keine eigene Sicherung hast. Nach 60 Tagen ohne Sicherung erinnert Heute daran.",
     "backup": "Eine Sicherung ist eine unverschlüsselte Datei mit allen Einträgen, Notizen und Fotos. Lege sie an einem Ort ab, dem du vertraust.",
     "computed": "Einblicke und Ausblick werden auf dem Gerät aus deinen Einträgen berechnet. Sie beschreiben deine Daten und sind keine medizinische Aussage.",
-    "reminders": "Die Erinnerung ist eine lokale Benachrichtigung des Geräts. Ihr Text verrät nichts aus dem Tagebuch.",
+    "reminders": "Erinnerungen sind lokale Benachrichtigungen des Geräts: am Abend die tägliche, am Morgen eine, wenn gestern noch ein Eintrag fehlt. Ihr Text nennt höchstens, wie lange deine Serie läuft, oder dass gestern fehlt, nie Inhalte aus dem Tagebuch. Wer das Gerät in der Hand hat, sieht daran also, dass und wie regelmäßig du schreibst.",
     "lockNote": "Die optionale App-Sperre nutzt die Entsperrung des Geräts. Solange sie aktiv ist, sind Bildschirmfotos gesperrt.",
     "deleteNote": "Alle Daten löschen entfernt Einträge, Fotos, Aktivitäten, Pläne, Gesundheitsdaten und Einstellungen vom Gerät und gibt den Zugriff auf Health Connect zurück.",
     "photos": "Fotos wählst du über die Fotoauswahl von Android aus. Daylight bekommt dabei nur das eine Bild, keinen Zugriff auf deine Galerie und keine Kamera. Eine verkleinerte Kopie liegt im privaten Speicher der App, nicht in der Galerie.",
@@ -844,6 +862,43 @@
       "close": "Schließen",
       "across_one": "Fortschritt in {{count}} Erfolg",
       "across_other": "Fortschritt in {{count}} Erfolgen"
+    }
+  },
+  "streak": {
+    "days_one": "{{value}} Tag in Folge",
+    "days_other": "{{value}} Tage in Folge",
+    "chip": {
+      "atRisk": "Serie gefährdet, gestern fehlt noch",
+      "broken": "Serie unterbrochen",
+      "hint": "Zeigt die Serie in den Erfolgen"
+    },
+    "risk": {
+      "title": "Gestern fehlt noch",
+      "body_one": "Trag es heute nach, dann geht deine Serie weiter.",
+      "body_other": "Trag es heute nach, dann bleiben deine {{value}} Tage.",
+      "action": "Gestern nachtragen"
+    },
+    "rescue": {
+      "title_one": "{{count}} Tag fehlt",
+      "title_other": "{{count}} Tage fehlen",
+      "body_one": "Nachtragen holt deinen {{value}} Tag zurück.",
+      "body_other": "Nachtragen holt deine {{value}} Tage zurück.",
+      "action": "{{date}} nachtragen",
+      "later": "Später",
+      "laterHint": "Blendet den Hinweis bis zur nächsten Lücke aus"
+    },
+    "celebration": {
+      "eyebrow": "Serie",
+      "rescued_one": "Serie gerettet: {{value}} Tag",
+      "rescued_other": "Serie gerettet: {{value}} Tage",
+      "rescuedShort": "Serie gerettet",
+      "milestone": "Ein Eintrag an jedem dieser Tage.",
+      "gapClosed": "Die Lücke ist nachgetragen.",
+      "inARow_one": "Tag in Folge",
+      "inARow_other": "Tage in Folge",
+      "open": "Ansehen",
+      "openLabel": "Serie in den Erfolgen ansehen",
+      "close": "Schließen"
     }
   },
   "turning": {

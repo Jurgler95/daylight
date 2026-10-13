@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
-import type { PropsWithChildren, ReactNode } from 'react';
+import type { PropsWithChildren, ReactNode, Ref } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -22,9 +22,11 @@ interface Props extends PropsWithChildren {
   sticky?: ReactNode;
   /** A new value starts the scroll area over at the top, e.g. when a tab above it switches. */
   contentKey?: string;
+  /** The scroll view, to bring a part of the page into view. Only with `scroll`. */
+  scrollRef?: Ref<ScrollView>;
 }
 
-export function Screen({ title, eyebrow, scroll = true, back, backLabel, sticky, contentKey, children }: Props) {
+export function Screen({ title, eyebrow, scroll = true, back, backLabel, sticky, contentKey, scrollRef, children }: Props) {
   const { t } = useTranslation();
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
@@ -57,6 +59,7 @@ export function Screen({ title, eyebrow, scroll = true, back, backLabel, sticky,
       ) : null}
       <Container
         key={contentKey}
+        ref={scroll ? scrollRef : undefined}
         // Without the scroll view the padding moves onto the container itself, so a child list
         // can fill the remaining height and own its bottom inset.
         style={scroll ? styles.root : [styles.root, styles.content, { paddingTop: sticky ? spacing.lg : insets.top + spacing.lg }]}

@@ -90,6 +90,10 @@ export const settingsSchema = z.object({
   app_lock_enabled: z.boolean(),
   app_lock_delay_seconds: z.number().int().min(0),
   outlook_enabled: z.boolean(),
+  // Optional without a default: backups from before the morning reminder leave the choice on this
+  // device alone, since a replace writes these settings as they come.
+  reminder_yesterday_enabled: z.boolean().optional(),
+  reminder_yesterday_time: timeString.optional(),
 });
 
 export const exportSchema = z

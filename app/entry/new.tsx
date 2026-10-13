@@ -20,5 +20,7 @@ export default function NewEntryScreen() {
   const known = catalog.moods.some((candidate) => candidate.id === mood);
   const existing = entryIdOnDate(getDb(), date);
   if (existing !== undefined) return <Redirect href={{ pathname: '/entry/[id]', params: { id: String(existing) } }} />;
-  return <EntryEditor target={{ kind: 'new', date, moodId: known ? mood : null }} />;
+  // Keyed by the day: a reminder's link can arrive while the editor is open for another day, and the
+  // editor keeps its draft in state.
+  return <EntryEditor key={date} target={{ kind: 'new', date, moodId: known ? mood : null }} />;
 }

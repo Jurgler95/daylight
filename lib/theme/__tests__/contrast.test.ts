@@ -47,6 +47,10 @@ const PAIRS: { fg: keyof Colors; bg: keyof Colors; large?: boolean }[] = [
   { fg: 'accent', bg: 'accentSoft' },
   { fg: 'danger', bg: 'surface' },
   { fg: 'danger', bg: 'background' },
+  { fg: 'amber', bg: 'amberSoft' },
+  { fg: 'amber', bg: 'surface' },
+  { fg: 'amber', bg: 'background' },
+  { fg: 'text', bg: 'amberSoft' },
 ];
 
 describe('colour palette', () => {

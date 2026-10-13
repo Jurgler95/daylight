@@ -1,7 +1,7 @@
 import { parseDateString } from '@/lib/dates';
 import Reminders from '@/modules/daylight-reminders';
 
-import type { PlannedReminder } from './plan';
+import { entryLink, type PlannedReminder } from './plan';
 
 /**
  * Reminders go through the app's own native module (`modules/daylight-reminders`), not
@@ -10,7 +10,7 @@ import type { PlannedReminder } from './plan';
  * to "no reminders".
  */
 
-/** Android channel for the one reminder this app schedules. */
+/** Android channel for the reminders this app schedules, evening and morning alike. */
 export const CHANNEL_ID = 'reminders';
 
 /** False in Expo Go; the settings page uses this to explain why nothing arrives. */
@@ -40,21 +40,25 @@ function triggerAt(reminder: PlannedReminder): number {
   return new Date(day.getFullYear(), day.getMonth(), day.getDate(), reminder.hour, reminder.minute, 0, 0).getTime();
 }
 
-export interface ReminderTexts {
-  channelName: string;
-  title: string;
-  body: string;
+/**
+ * Replaces every scheduled reminder with the given plan. The app schedules nothing else, so
+ * cancelling all first keeps the device in sync without bookkeeping of identifiers. Each reminder
+ * carries its own text and the link that opens its day in the editor.
+ */
+export async function syncReminders(planned: readonly PlannedReminder[], channelName: string): Promise<void> {
+  if (!Reminders) return;
+  Reminders.createChannel(CHANNEL_ID, channelName);
+  Reminders.cancelAll();
+  for (const reminder of planned) {
+    Reminders.schedule(reminder.key, triggerAt(reminder), CHANNEL_ID, reminder.title, reminder.body, entryLink(reminder.openDate));
+  }
 }
 
 /**
- * Replaces every scheduled reminder with the given plan. The app schedules nothing else, so
- * cancelling all first keeps the device in sync without bookkeeping of identifiers.
+ * Takes reminders off the screen whose day is done by now, so "Wie war dein Tag?" does not linger
+ * once the entry is written. Keys that show nothing are ignored.
  */
-export async function syncReminders(planned: readonly PlannedReminder[], texts: ReminderTexts): Promise<void> {
-  if (!Reminders) return;
-  Reminders.createChannel(CHANNEL_ID, texts.channelName);
-  Reminders.cancelAll();
-  for (const reminder of planned) {
-    Reminders.schedule(reminder.key, triggerAt(reminder), CHANNEL_ID, texts.title, texts.body);
-  }
+export async function dismissReminders(keys: readonly string[]): Promise<void> {
+  if (!Reminders || keys.length === 0) return;
+  Reminders.dismiss([...keys]);
 }

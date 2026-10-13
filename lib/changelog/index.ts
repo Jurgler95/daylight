@@ -19,6 +19,26 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.26',
+    date: '2026-10-13',
+    changes: {
+      de: [
+        '„Heute“ zeigt, wie viele Tage in Folge du einträgst, und feiert alle 10, 50 und 200 Tage',
+        'Fehlt ein Tag, holt Nachtragen deine Serie zurück, eine Karte führt durch die fehlenden Tage',
+        'Fehlt gestern noch ein Eintrag, erinnert dich die App am nächsten Morgen, ein Tipp darauf öffnet gleich den richtigen Tag',
+        'Beim ersten Start fragt die App, ob sie dich abends erinnern soll',
+        'Ein Tipp auf einen neuen Erfolg springt direkt zu seiner Karte',
+      ],
+      en: [
+        'Today shows how many days in a row you have logged and celebrates every 10, 50 and 200 days',
+        'If a day is missing, filling it in brings your streak back, and a card walks you through the missing days',
+        'If yesterday has no entry yet, the app reminds you the next morning, and tapping the reminder opens the right day',
+        'On first launch the app asks whether it should remind you in the evening',
+        'Tapping a new award jumps straight to its card',
+      ],
+    },
+  },
+  {
     version: '1.0.25',
     date: '2026-10-08',
     changes: {
