@@ -2,7 +2,7 @@
   "expo": {
     "name": "Daylight",
     "slug": "daylight",
-    "version": "1.0.27",
+    "version": "1.0.28",
     "scheme": "daylight",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -12,7 +12,7 @@
     },
     "android": {
       "package": "de.behla.daylight",
-      "versionCode": 28,
+      "versionCode": 29,
       "allowBackup": false,
       "adaptiveIcon": {
         "backgroundColor": "#11786A",
@@ -100,7 +100,8 @@
         }
       ],
       "./plugins/withReleaseSigning",
-      "./plugins/withBlockedPermissionsSdk23"
+      "./plugins/withBlockedPermissionsSdk23",
+      "./plugins/withNoDeviceTransfer"
     ],
     "experiments": {
       "typedRoutes": true,

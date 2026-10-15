@@ -690,7 +690,7 @@
     "stored": "Stored are: entries with mood, activities, scales, notes and photos, your moods, activities, groups and scales, planned activities, turning points and your settings.",
     "network": "No accounts, no servers, no analytics, no ads. The app requests no internet permission and cannot send anything.",
     "leave": "Data only leaves the device when you share or save a backup or a CSV export yourself.",
-    "noCloudBackup": "The app is excluded from the automatic Android backup. So your entries do not end up in your Google account either. The price: if you uninstall or switch devices, they are gone unless you have your own backup. After 60 days without a backup, Today reminds you.",
+    "noCloudBackup": "The app is excluded from the automatic Android backup and from transfers to a new phone. So your entries neither end up in your Google account nor get copied when you set up a new device. The price: if you uninstall or switch devices, they are gone unless you have your own backup. After 60 days without a backup, Today reminds you.",
     "backup": "A backup is an unencrypted file with all entries, notes and photos. Keep it in a place you trust.",
     "computed": "Insights and outlook are calculated on the device from your entries. They describe your data and are not a medical statement.",
     "reminders": "Reminders are local notifications of the device: the daily one in the evening, and one in the morning when yesterday is still missing an entry. Their text names at most how long your streak runs, or that yesterday is missing, never anything from the journal. So whoever holds the device can tell from them that, and how regularly, you write.",

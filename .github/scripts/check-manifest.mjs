@@ -4,7 +4,8 @@
  * Manifest im Quellbaum: eine Abhängigkeit kann beim Build Berechtigungen nachschieben.
  *
  * Bricht ab, wenn `versionName` oder `versionCode` nicht zu `app.json` passen, wenn INTERNET, c2dm
- * oder Launcher-Badges auftauchen, wenn `android:allowBackup` nicht aus ist oder wenn von Health
+ * oder Launcher-Badges auftauchen, wenn `android:allowBackup` nicht aus ist, wenn die
+ * `dataExtractionRules` den Umzug auf ein neues Handy nicht sperren oder wenn von Health
  * Connect etwas anderes als genau die fünf lesenden Berechtigungen dasteht
  * (`docs/decisions/gesundheitsdaten-health-connect.md`). Bricht auch ab, wenn der Code der APK
  * Klassen von Firebase oder den Google Play Services enthält: Erinnerungen laufen über das eigene
@@ -77,6 +78,26 @@ for (const prefix of ['Lcom/google/firebase/', 'Lcom/google/android/gms/']) {
 }
 if (!/allowBackup\([^)]*\)=(false|\(type 0x12\)0x0)\b/.test(manifest)) problems.push('android:allowBackup ist nicht false');
 
+// allowBackup=false hält ab Android 12 den Umzug von Gerät zu Gerät nicht auf. Die Regeln aus
+// plugins/withNoDeviceTransfer.js müssen für Cloud und Umzug jeden internen Speicherbereich
+// ausschließen. R8 kürzt die Pfade der Ressourcen, die Datei wird deshalb über ihre id gesucht.
+const RULE_DOMAINS = ['root', 'file', 'database', 'sharedpref', 'device_root', 'device_file', 'device_database', 'device_sharedpref'];
+const rulesId = manifest.match(/dataExtractionRules\([^)]*\)=@(0x[0-9a-f]+)/)?.[1];
+const rulesFile = rulesId && dump('resources').match(new RegExp(`resource ${rulesId} [^\\n]*\\n\\s+\\(\\) \\(file\\) (\\S+)`))?.[1];
+if (!rulesFile) {
+  problems.push('android:dataExtractionRules fehlt, der Umzug auf ein neues Handy nimmt die Daten mit');
+} else {
+  const rules = dump('xmltree', '--file', rulesFile);
+  for (const section of ['cloud-backup', 'device-transfer']) {
+    const body = rules.split(new RegExp(`E: ${section} `))[1]?.split(/\n {4}E: /)[0] ?? '';
+    if (!body) problems.push(`dataExtractionRules ohne <${section}>`);
+    if (/E: include /.test(body)) problems.push(`dataExtractionRules: <${section}> nimmt Daten mit (include)`);
+    const excluded = [...body.matchAll(/domain="([^"]+)"/g)].map((m) => m[1]);
+    const missing = RULE_DOMAINS.filter((d) => !excluded.includes(d));
+    if (body && missing.length > 0) problems.push(`dataExtractionRules: <${section}> schließt ${missing.join(', ')} nicht aus`);
+  }
+}
+
 console.log(pkg);
 for (const p of permissions) console.log(`uses-permission: ${p}`);
 
@@ -84,4 +105,4 @@ if (problems.length > 0) {
   for (const problem of problems) console.error(`::error::${problem}`);
   process.exit(1);
 }
-console.log('Manifest in Ordnung: kein INTERNET, keine Cloud-Sicherung, Health Connect nur lesend, kein Firebase.');
+console.log('Manifest in Ordnung: kein INTERNET, keine Cloud-Sicherung, kein Umzug auf ein neues Handy, Health Connect nur lesend, kein Firebase.');

@@ -19,6 +19,14 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.28',
+    date: '2026-10-15',
+    changes: {
+      de: ['Beim Einrichten eines neuen Handys kopiert Android dein Tagebuch nicht mehr mit, es zieht nur über deine eigene Sicherung um'],
+      en: ['When you set up a new phone, Android no longer copies your journal, it only moves over with your own backup'],
+    },
+  },
+  {
     version: '1.0.27',
     date: '2026-10-15',
     changes: {
