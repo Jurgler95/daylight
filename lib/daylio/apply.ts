@@ -12,7 +12,7 @@ import { sweepPhotos, writePhotos, type PhotoStore } from '@/lib/photos/store';
 import { fold } from '@/lib/search/fold';
 
 import type { ParsedDaylio, RawEntry } from './parse';
-import { buildImportPlan, entryKey, type Catalog, type ImportChoices, type ImportPlan } from './plan';
+import { buildImportPlan, countKeys, defaultsCatalog, entryKey, recordKey, type Catalog, type ImportChoices, type ImportPlan } from './plan';
 
 /** Database side of the CSV import: read what is there, carry out a plan. */
 
@@ -25,20 +25,46 @@ export class ImportHasErrorsError extends Error {
   }
 }
 
+/** `entryKey` of every stored entry, oldest first, with its id. */
+export function storedEntryKeys(db: Database): { id: number; key: string }[] {
+  const names = new Map(listActivities(db, { includeArchived: true }).map((activity) => [activity.id, activity.name]));
+  return listEntryDetails(db).map((entry) => ({
+    id: entry.id,
+    key: entryKey({
+      date: entry.date,
+      time: entry.time,
+      level: entry.level,
+      noteTitle: entry.note_title,
+      note: entry.note,
+      activities: entry.activity_ids.map((id) => names.get(id) ?? ''),
+    }),
+  }));
+}
+
+/** Stored entry id by key, the first one when several share a key. */
+export function entryIdsByKey(db: Database): Map<string, number> {
+  const ids = new Map<string, number>();
+  for (const { id, key } of storedEntryKeys(db)) if (!ids.has(key)) ids.set(key, id);
+  return ids;
+}
+
 export function readCatalog(db: Database): Catalog {
   return {
     moods: listMoods(db, { includeArchived: true }),
     groups: listGroups(db, { includeArchived: true }),
     activities: listActivities(db, { includeArchived: true }),
     scales: listScales(db, { includeArchived: true }),
-    entryKeys: new Set(listEntryDetails(db).map((entry) => entryKey(entry.date, entry.time, entry.level, entry.note))),
+    entryKeys: countKeys(storedEntryKeys(db).map((entry) => entry.key)),
     photoNames: allPhotoFileNames(db),
   };
 }
 
-/** What a merge would do, computed against the current database. Never writes. */
-export function previewDaylioImport(db: Database, parsed: ParsedDaylio, choices: ImportChoices = {}): ImportPlan {
-  return buildImportPlan(parsed.entries, readCatalog(db), choices);
+/**
+ * What the import would do, never writing. A merge plans against the current database, a replace
+ * against the standard moods and groups it starts from, so the preview asks about the right moods.
+ */
+export function previewDaylioImport(db: Database, parsed: ParsedDaylio, choices: ImportChoices = {}, mode: ImportMode = 'merge'): ImportPlan {
+  return buildImportPlan(parsed.entries, mode === 'replace' ? defaultsCatalog() : readCatalog(db), choices);
 }
 
 /** Creates everything the plan needs, then the entries. Expects to run inside a transaction. */
@@ -94,14 +120,10 @@ function attachPhotos(tx: Database, plan: ImportPlan, records: readonly RawEntry
   const withPhotos = records.filter((record) => record.photos.length > 0);
   if (withPhotos.length === 0) return 0;
   const levels = new Map(plan.moods.map((mood) => [mood.key, mood.level]));
-  const ids = new Map<string, number>();
-  for (const entry of listEntryDetails(tx)) {
-    const key = entryKey(entry.date, entry.time, entry.level, entry.note);
-    if (!ids.has(key)) ids.set(key, entry.id);
-  }
+  const ids = entryIdsByKey(tx);
   let added = 0;
   for (const record of withPhotos) {
-    const id = ids.get(entryKey(record.date, record.time, levels.get(fold(record.mood)) ?? 0, record.note));
+    const id = ids.get(recordKey(record, levels.get(fold(record.mood)) ?? 0));
     if (id !== undefined) added += addPhotos(tx, id, record.photos).length;
   }
   return added;
@@ -117,7 +139,8 @@ export interface ImportOutcome {
 /**
  * Applies a parsed Daylio file in one transaction. Rows with errors are only skipped when
  * `skipErrors` confirms it; otherwise nothing is written. `replace` clears the journal first
- * (settings stay) and plans against a fresh start, so the preview's merge numbers do not apply.
+ * (settings stay) and plans against a fresh start, as the preview in replace mode showed,
+ * so the levels and groups picked there apply to the moods and activities the clearing removed.
  */
 export function applyDaylioImport(
   db: Database,

@@ -166,6 +166,39 @@ describe('entries', () => {
     expect([hasEntryOn(db, '2026-03-01'), hasEntryOn(db, '2026-03-02'), hasEntryOn(db, '2026-03-03')]).toEqual([true, true, false]);
   });
 
+  it('reads the links of a date range the same as the whole journal does', () => {
+    const { db, tired, calm, energy, good } = setup();
+    createEntry(db, { date: '2026-03-01', time: '20:00', mood_id: good.id, activity_ids: [tired.id], scales: [{ scale_id: energy.id, value: 1 }], photos: ['a.jpg'] });
+    createEntry(db, { date: '2026-03-02', time: '08:00', mood_id: good.id, activity_ids: [calm.id], photos: ['b.jpg'] });
+    createEntry(db, { date: '2026-03-02', time: '20:00', mood_id: good.id, scales: [{ scale_id: energy.id, value: 4 }] });
+    createEntry(db, { date: '2026-03-03', time: '20:00', mood_id: good.id, activity_ids: [tired.id, calm.id], photos: ['c.jpg'] });
+    const all = listEntryDetails(db);
+    expect(listEntryDetails(db, '2026-03-02', '2026-03-02')).toEqual(all.filter((e) => e.date === '2026-03-02'));
+    expect(listEntryDetails(db, '2026-03-02', '2026-03-02').map((e) => [e.activity_ids, e.scales, e.photos])).toEqual([
+      [[calm.id], [], ['b.jpg']],
+      [[], [{ scale_id: energy.id, value: 4 }], []],
+    ]);
+    expect(listEntryDetails(db, '2026-03-03')).toEqual(all.slice(3));
+    expect(listEntryDetails(db, undefined, '2026-03-01')).toEqual(all.slice(0, 1));
+    expect(listEntryDetails(db, '2026-04-01', '2026-04-30')).toEqual([]);
+  });
+
+  it('keeps the last value when a scale is given twice', () => {
+    const { db, energy, good } = setup();
+    const entry = createEntry(db, {
+      date: '2026-03-02',
+      time: '20:30',
+      mood_id: good.id,
+      scales: [
+        { scale_id: energy.id, value: 2 },
+        { scale_id: energy.id, value: 3 },
+      ],
+    });
+    expect(listEntryDetails(db)[0]?.scales).toEqual([{ scale_id: energy.id, value: 3 }]);
+    updateEntry(db, entry.id, { scales: [{ scale_id: energy.id, value: 5 }, { scale_id: energy.id, value: 1 }] });
+    expect(listEntryDetails(db)[0]?.scales).toEqual([{ scale_id: energy.id, value: 1 }]);
+  });
+
   it('finds the entry of a day and reads the look back days', () => {
     const { db, good } = setup();
     const late = createEntry(db, { date: '2026-03-02', time: '20:30', mood_id: good.id });

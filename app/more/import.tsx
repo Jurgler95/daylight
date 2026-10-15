@@ -29,7 +29,7 @@ export default function ImportScreen() {
   const [choices, setChoices] = useState<ImportChoices>({});
   const [skipErrors, setSkipErrors] = useState(false);
   const [busy, setBusy] = useState(false);
-  const preview = useImportPreview(file, choices);
+  const preview = useImportPreview(file, choices, mode);
 
   if (!file || !preview) {
     return (

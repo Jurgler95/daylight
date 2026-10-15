@@ -1,7 +1,7 @@
 import type { HealthDay } from '@/db/schema';
 
 import { healthMood } from '../health';
-import { days, run } from './fixtures';
+import { d, days, run } from './fixtures';
 
 function health(date: string, values: Partial<HealthDay>): HealthDay {
   return { date, steps: null, sleep_minutes: null, resting_hr: null, exercise_minutes: null, synced_at: '2026-09-27T10:00:00.000Z', restored: false, ...values };
@@ -21,7 +21,7 @@ describe('healthMood', () => {
       // A day without an entry does not count.
       health('2026-09-20', { sleep_minutes: 200, steps: 100 }),
     ];
-    const mood = healthMood(diary, rows);
+    const mood = healthMood(diary, rows, d('2026-10-01'));
     expect(mood.pairedDays).toBe(6);
     expect(mood.sleep.map((b) => [b.key, b.mean, b.days])).toEqual([
       ['sleepUnder6', 7 / 3, 3],
@@ -43,7 +43,7 @@ describe('healthMood', () => {
       health('2026-09-02', { steps: 4000 }),
       health('2026-09-05', { exercise_minutes: 45 }),
     ];
-    const mood = healthMood(diary, rows);
+    const mood = healthMood(diary, rows, d('2026-10-01'));
     expect(mood.exercise).toEqual([
       { key: 'exerciseWith', mean: null, days: 2 },
       { key: 'exerciseWithout', mean: null, days: 1 },
@@ -51,10 +51,25 @@ describe('healthMood', () => {
     expect(mood.sleep).toEqual([]);
   });
 
+  it('leaves today’s unfinished steps and exercise out of the bands', () => {
+    const rows = [health('2026-09-06', { steps: 12000, exercise_minutes: 30 }), health('2026-09-07', { steps: 800, sleep_minutes: 300 })];
+    const mood = healthMood(diary, rows, d('2026-09-07'));
+    expect(mood.steps.map((b) => [b.key, b.days])).toEqual([
+      ['stepsUnder5k', 0],
+      ['steps5to10k', 0],
+      ['stepsOver10k', 1],
+    ]);
+    expect(mood.exercise.map((b) => [b.key, b.days])).toEqual([
+      ['exerciseWith', 1],
+      ['exerciseWithout', 0],
+    ]);
+    expect(mood.sleep.find((b) => b.key === 'sleepUnder6')?.days).toBe(1);
+  });
+
   it('sorts the resting pulse around its median', () => {
     const pulses = [55, 58, 60, 60, 61, 64, 66];
     const rows = pulses.map((resting_hr, i) => health(`2026-09-0${i + 1}`, { resting_hr }));
-    const mood = healthMood(diary, rows);
+    const mood = healthMood(diary, rows, d('2026-10-01'));
     expect(mood.hrBounds).toEqual([58, 62]);
     expect(mood.restingHr.map((b) => [b.key, b.days])).toEqual([
       ['hrLow', 1],

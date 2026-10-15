@@ -27,7 +27,7 @@ Verworfen:
 | --- | --- |
 | `modules/daylight-reminders/` | Lokales Expo-Modul, nur Android, automatisch verlinkt. `index.ts` liefert das Modul oder `null` (Expo Go, iOS, Jest) |
 | `.../Reminders.kt` | Kanal anlegen, Erinnerung stellen, alle löschen, nach Neustart wiederherstellen, anzeigen. Offene Erinnerungen liegen in den SharedPreferences `daylight_reminders` |
-| `.../ReminderReceiver.kt` | Zeigt eine fällige Erinnerung; stellt nach `BOOT_COMPLETED`, `REBOOT`, `QUICKBOOT_POWERON` und `MY_PACKAGE_REPLACED` alle offenen neu |
+| `.../ReminderReceiver.kt` | Zeigt eine fällige Erinnerung; stellt nach `BOOT_COMPLETED`, `REBOOT`, `QUICKBOOT_POWERON`, `MY_PACKAGE_REPLACED`, `TIMEZONE_CHANGED` und `TIME_SET` alle offenen neu |
 | `.../DaylightRemindersModule.kt` | Brücke zu JS: `createChannel`, `hasPermission`, `requestPermission`, `schedule` (mit Deep Link), `cancelAll`, `dismiss` |
 | `.../res/drawable-*/daylight_reminder_icon.png`, `values/colors.xml` | Benachrichtigungssymbol und Farbe `#11786A`, vorher vom Config-Plugin von expo-notifications erzeugt. `scripts/logo.mjs` schreibt die Symbole jetzt direkt hierher, `assets/notification-icon.png` ist entfallen |
 | `lib/notifications/client.ts` | Gleiche Schnittstelle wie vorher, spricht das eigene Modul an |
@@ -54,6 +54,16 @@ Seit 2026-10-13 bekommt `schedule` als sechstes Argument einen Link (`daylight:/
 - `dismiss(ids)` nimmt angezeigte Benachrichtigungen per Tag (= Erinnerungs-ID) und fester Nummer 0 aus der Leiste, passend zu `notify(id, 0, …)`.
 
 Keine neue Berechtigung, keine neue Abhängigkeit.
+
+## Zeitzone
+
+Seit 2026-10-15 behält eine Erinnerung ihre Uhrzeit, wenn sich die Zeitzone ändert (Reise, Umzug). Vorher rechnete JS „20:30 am Tag D“ einmal in einen absoluten Zeitpunkt um, und `RTC_WAKEUP` klingelte danach zur alten 20:30.
+
+- `schedule` bekommt als siebtes Argument die Ortszeit `YYYY-MM-DDTHH:mm` (ein String, weil Expo-Funktionen höchstens acht Argumente nehmen). `Reminder` speichert sie als `date`, `hour` und `minute` neben `at`.
+- `restore` rechnet `at` mit java.time (`ZonedDateTime`, `ZoneId.systemDefault()`) neu aus, verpasste fallen weg. java.time gibt es ab API 26, der minSdk von Daylight, Desugaring ist also nicht nötig. Liegt die Zeit in einer Lücke der Sommerzeit, rückt sie hinter die Lücke, wie bei `Date` in JS.
+- Der Empfänger hört zusätzlich auf `TIMEZONE_CHANGED` und `TIME_SET`. Beide sind von den Einschränkungen für implizite Broadcasts ausgenommen, wirken also auch bei geschlossener App.
+- Gespeicherte Einträge ohne Ortszeit (ältere Versionen) behalten ihr `at`, bis die App sie beim nächsten Öffnen neu stellt.
+- In JS gehört die Zeitzone zur Signatur des Plans (`timeZoneKey`: IANA-Name aus Intl und aktueller Versatz). Kommt die App nach einem Wechsel zurück in den Vordergrund, stellt `useReminderSync` alles neu, auch mit Texten und Tagen, die sich mit dem neuen Datum geändert haben. Ein Wechsel der Sommerzeit ändert den Versatz und stellt ebenfalls neu, das schadet nicht.
 
 ## Offene Punkte
 

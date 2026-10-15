@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { getDb } from '@/db';
 import { deleteEntry, entryIdOnDate, getEntryDetails, saveEntry, turningPointLostBy } from '@/db/repositories/entries';
@@ -6,7 +6,7 @@ import type { TurningPoint } from '@/db/schema';
 import { nowTime, today, type DateString } from '@/lib/dates';
 import { haptics } from '@/lib/haptics';
 import { filePhotoStore } from '@/lib/photos/fileStore';
-import { mutate } from '@/lib/store/dataVersion';
+import { mutate, useQuery } from '@/lib/store/dataVersion';
 import { useSettingsStore } from '@/lib/store/settingsStore';
 import { celebrateSave } from '@/lib/streak/celebrate';
 
@@ -28,7 +28,7 @@ export interface EntryEditor {
   turningPointLostOnDelete: TurningPoint | undefined;
   turningPointLostOnSave: TurningPoint | undefined;
   update: (patch: Partial<EntryDraft>) => void;
-  /** Writes the draft; false when it cannot be saved yet. */
+  /** Writes the draft; false when it cannot be saved yet or was already saved. */
   save: () => boolean;
   remove: () => void;
 }
@@ -58,8 +58,18 @@ export function useEntryEditor(target: EditorTarget): EntryEditor {
   const [draft, setDraft] = useState<EntryDraft | null>(initial);
   const input = draft ? draftToInput(draft) : null;
   const id = target.kind === 'edit' ? target.id : null;
+  const date = draft?.date ?? null;
+  const moved = date !== null && date !== initial?.date;
   // Only a moved entry is checked, so a day imported with several entries can still be edited.
-  const dayTaken = draft !== null && (id === null || draft.date !== initial?.date) && entryIdOnDate(getDb(), draft.date, id) !== undefined;
+  const isTaken = (day: string) => (id === null || day !== initial?.date) && entryIdOnDate(getDb(), day, id) !== undefined;
+  // Set once the draft is written or the entry deleted: a second tap before the editor has closed
+  // must not write again. The state keeps the closing editor from reading its own entry as taken.
+  const done = useRef(false);
+  const [closing, setClosing] = useState(false);
+  // Read again when the day or the data changes, not on every keystroke.
+  const dayTaken = useQuery(() => !closing && date !== null && isTaken(date), [closing, date, id]);
+  const turningPointLostOnDelete = useQuery(() => (id !== null ? turningPointLostBy(getDb(), id) : undefined), [id]);
+  const turningPointLostOnSave = useQuery(() => (id !== null && moved ? turningPointLostBy(getDb(), id, date ?? undefined) : undefined), [id, date, moved]);
 
   return {
     draft,
@@ -67,19 +77,25 @@ export function useEntryEditor(target: EditorTarget): EntryEditor {
     dirty: draft !== null && initial !== null && !sameDraft(draft, initial),
     canSave: input !== null && !dayTaken,
     dayTaken,
-    turningPointLostOnDelete: id !== null ? turningPointLostBy(getDb(), id) : undefined,
-    turningPointLostOnSave: id !== null && draft !== null && draft.date !== initial?.date ? turningPointLostBy(getDb(), id, draft.date) : undefined,
+    turningPointLostOnDelete,
+    turningPointLostOnSave,
     update: (patch) => setDraft((current) => (current ? { ...current, ...patch } : current)),
     save: () => {
-      if (!input || dayTaken) return false;
+      // Checked against the database as it is now, since another editor may have taken the day meanwhile.
+      if (done.current || !input || isTaken(input.date)) return false;
       const celebration = celebrateSave(() => mutate(() => saveEntry(getDb(), id, input)));
+      done.current = true;
+      setClosing(true);
       removePhotoFiles((initial?.photos ?? []).filter((name) => !input.photos?.includes(name)));
       // A celebration brings its own buzz when it shows; one is enough.
       if (!celebration) haptics.confirm();
       return true;
     },
     remove: () => {
-      if (id !== null) removePhotoFiles(mutate(() => deleteEntry(getDb(), id)));
+      if (id === null || done.current) return;
+      done.current = true;
+      setClosing(true);
+      removePhotoFiles(mutate(() => deleteEntry(getDb(), id)));
     },
   };
 }

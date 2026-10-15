@@ -193,10 +193,23 @@ describe('rescue card', () => {
     expect(showRescueCard(entryStreak(on(range(-8, -3)), T), dismissedOn)).toBe(false);
     // Still the same gap after a few more days without an entry.
     expect(showRescueCard(entryStreak(on(range(-8, -3)), day(3)), dismissedOn)).toBe(false);
-    // An entry in between does not make a new gap while older days of the old one are still in the window.
-    expect(showRescueCard(entryStreak(on([...range(-8, -3), -1]), day(3)), dismissedOn)).toBe(false);
+    // Coming back without filling it in leaves the same gap behind the new run.
+    expect(showRescueCard(entryStreak(on([...range(-8, -3), ...range(1, 3)]), day(3)), dismissedOn)).toBe(false);
+    // Back on the day it was put away, then away again: a new gap, although its anchor is still T-3.
+    expect(showRescueCard(entryStreak(on([...range(-8, -3), -1]), day(3)), dismissedOn)).toBe(true);
     // A new gap after a few days with entries is anchored after the day it was put away.
     const later = day(10);
     expect(showRescueCard(entryStreak(on([...range(-8, -3), ...range(4, 6)]), later), dismissedOn)).toBe(true);
+  });
+
+  it('comes back for a new gap while the old one still sets the anchor', () => {
+    // Gap on T-2 and T-1, put away on T, then three days with entries and two without.
+    const entries = on([...range(-20, -3), 0, 1, 2]);
+    expect(showRescueCard(entryStreak(entries, day(3)), T)).toBe(false);
+    const broken = entryStreak(entries, day(5));
+    expect(broken.status).toBe('broken');
+    expect(broken.rescue?.anchor).toBe(day(-3));
+    expect(showRescueCard(broken, T)).toBe(true);
+    expect(streakChip(broken, true)).toEqual({ tone: 'muted', days: 0 });
   });
 });

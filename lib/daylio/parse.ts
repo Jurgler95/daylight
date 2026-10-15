@@ -51,7 +51,7 @@ export interface RowError {
  */
 export interface RowWarning {
   line: number;
-  code: 'scales' | 'duplicateActivity' | 'photoMissing';
+  code: 'scales' | 'duplicateActivity' | 'duplicateScale' | 'photoMissing';
   value: string;
 }
 
@@ -127,17 +127,26 @@ export function splitActivities(value: string): { names: string[]; repeated: str
   return { names, repeated };
 }
 
-/** `Name: Wert` pairs separated by ` | `. Anything else is reported, not guessed. */
-export function parseScales(value: string): { scales: RawScale[]; unreadable: boolean } {
-  if (value.trim() === '') return { scales: [], unreadable: false };
-  const scales: RawScale[] = [];
+/**
+ * `Name: Wert` pairs separated by ` | `. Anything else is reported, not guessed. A scale named twice
+ * (folded) keeps its last value; `repeated` lists the names of the values dropped.
+ */
+export function parseScales(value: string): { scales: RawScale[]; unreadable: boolean; repeated: string[] } {
+  if (value.trim() === '') return { scales: [], unreadable: false, repeated: [] };
+  const byName = new Map<string, RawScale>();
+  const repeated: string[] = [];
   let unreadable = false;
   for (const part of value.split('|')) {
     const match = /^\s*(.+?)\s*:\s*(-?\d+)\s*$/.exec(part);
-    if (match) scales.push({ name: match[1] as string, value: Number(match[2]) });
-    else unreadable = true;
+    if (!match) {
+      unreadable = true;
+      continue;
+    }
+    const scale = { name: match[1] as string, value: Number(match[2]) };
+    if (byName.has(fold(scale.name))) repeated.push(scale.name);
+    byName.set(fold(scale.name), scale);
   }
-  return { scales, unreadable };
+  return { scales: [...byName.values()], unreadable, repeated };
 }
 
 const rowSchema = z.object({
@@ -179,8 +188,9 @@ export function parseDaylioCsv(text: string): ParsedDaylio {
       continue;
     }
     const row = parsed.data;
-    const { scales, unreadable } = parseScales(row.scales);
+    const { scales, unreadable, repeated } = parseScales(row.scales);
     if (unreadable) result.warnings.push({ line, code: 'scales', value: row.scales });
+    for (const name of repeated) result.warnings.push({ line, code: 'duplicateScale', value: name });
     const activities = splitActivities(row.activities);
     for (const name of activities.repeated) result.warnings.push({ line, code: 'duplicateActivity', value: name });
     result.entries.push({

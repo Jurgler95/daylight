@@ -59,8 +59,8 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
               text: t('entry.save'),
               onPress: () =>
                 confirmTurningLoss(() => {
-                  editor.save();
-                  navigation.dispatch(data.action);
+                  // Not saved (the day was taken meanwhile): stay, so the draft is not dropped.
+                  if (editor.save()) navigation.dispatch(data.action);
                 }),
             },
           ]
@@ -78,9 +78,15 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
     ]);
   };
 
+  // Once only: a second tap while the modal closes would go back past the screen below.
   const leave = () => {
+    if (leaving.current) return;
     leaving.current = true;
     router.back();
+  };
+  // A second tap on the close button, after the first one went through, would do the same.
+  const close = () => {
+    if (!leaving.current && navigation.isFocused()) router.back();
   };
   const save = () =>
     confirmTurningLoss(() => {
@@ -94,6 +100,7 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
         text: t('entry.delete'),
         style: 'destructive',
         onPress: () => {
+          if (leaving.current) return;
           editor.remove();
           leave();
         },
@@ -104,7 +111,7 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
   const header = (
     <View style={[styles.header, { paddingTop: insets.top + spacing.sm, borderBottomColor: colors.border }]}>
       <Pressable
-        onPress={() => router.back()}
+        onPress={close}
         accessibilityRole="button"
         accessibilityLabel={t('common.close')}
         style={({ pressed }) => [styles.close, { backgroundColor: colors.surfaceMuted, opacity: pressed ? 0.6 : 1 }]}

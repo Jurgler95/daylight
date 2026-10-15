@@ -118,6 +118,7 @@
     "warning": {
       "scales": "Row {{line}}: scales “{{value}}” not readable, skipped",
       "duplicateActivity": "Row {{line}}: “{{value}}” twice, taken once",
+      "duplicateScale": "Row {{line}}: scale “{{value}}” twice, last value taken",
       "photoMissing": "Entry from {{value}}: photo missing in the file"
     },
     "run": "Import",
@@ -216,6 +217,7 @@
     "group": "Group",
     "name": "Name",
     "icon": "Icon",
+    "iconOption": "{{section}}, icon {{index}} of {{count}}",
     "level": "Level",
     "add": "Add",
     "newMood": "New mood",
@@ -639,7 +641,8 @@
     "title": "Reminder",
     "daily": "Daily reminder",
     "dailyHint": "Skipped when the day already has an entry",
-    "time": "Time",
+    "dailyTime": "Daily reminder time",
+    "yesterdayTime": "Morning reminder time",
     "permissionDenied": "Without system permission the app sets no reminder. You can allow it in the Android settings.",
     "unavailable": "In Expo Go, Android sets no reminders. The setting is saved and takes effect in the installed app.",
     "discreet": "The text names at most how long your streak runs, or that yesterday is still missing an entry, never anything from the journal.",
@@ -905,6 +908,7 @@
     "eyebrow": "Turning point",
     "title": "Turning point",
     "invalid": "A turning point needs a day with an entry, today or earlier.",
+    "discardTitle": "Discard what you typed?",
     "room_one": "{{count}} of {{max}} left for {{year}}",
     "room_other": "{{count}} of {{max}} left for {{year}}",
     "full": "All {{max}} set for {{year}}",

@@ -207,8 +207,11 @@ function finish(definition: Definition, best: number, current: number | null): A
 /** Every achievement in the order of `DEFINITIONS`. */
 export function buildAchievements(input: AchievementInput): Achievement[] {
   const { today } = input;
+  // Entries dated after today (only an import makes them) count once their day has come.
+  const entries = input.entries.filter((entry) => entry.date <= today);
+  const health = input.health.filter((day) => day.date <= today);
   // The same days the streak on "Heute" counts, so its length matches `days` while it is active.
-  const days = entryDaysUpTo(input.entries.map((entry) => entry.date), today);
+  const days = entryDaysUpTo(entries.map((entry) => entry.date), today);
   const activityDays = new Set<string>();
   const noteDays = new Set<string>();
   const photoDays = new Set<string>();
@@ -219,7 +222,7 @@ export function buildAchievements(input: AchievementInput): Achievement[] {
   let chips = 0;
   let photos = 0;
 
-  for (const entry of input.entries) {
+  for (const entry of entries) {
     const { date } = entry;
     if (entry.activity_ids.length > 0) activityDays.add(date);
     if (entry.photos.length > 0) photoDays.add(date);
@@ -235,8 +238,8 @@ export function buildAchievements(input: AchievementInput): Achievement[] {
     photos += entry.photos.length;
   }
 
-  const sleep = input.health.filter((day) => (day.sleep_minutes ?? 0) > 0).map((day) => day.date);
-  const steps = input.health.filter((day) => (day.steps ?? 0) > 0).map((day) => day.date);
+  const sleep = health.filter((day) => (day.sleep_minutes ?? 0) > 0).map((day) => day.date);
+  const steps = health.filter((day) => (day.steps ?? 0) > 0).map((day) => day.date);
   const custom = input.activities.filter((activity) => !input.isStarter(activity.name)).length;
 
   const fromRun = (run: Run) => [run.longest, run.current] as const;

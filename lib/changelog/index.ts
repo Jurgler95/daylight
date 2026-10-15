@@ -19,6 +19,26 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.27',
+    date: '2026-10-15',
+    changes: {
+      de: [
+        'Doppeltes Tippen auf Speichern legt keinen Eintrag mehr doppelt an, und angefangene Einträge gehen nicht mehr verloren',
+        'Der Import ordnet eigene Stimmungen richtig zu und behält Einträge, die nur ähnlich aussehen',
+        'Schritte und Training von heute zählen in den Auswertungen erst, wenn der Tag vorbei ist',
+        'Erinnerungen kommen nach einem Wechsel der Zeitzone zur richtigen Uhrzeit',
+        'Die App-Sperre fragt nach Fotoauswahl, Teilen oder Berechtigungen nicht mehr erneut',
+      ],
+      en: [
+        'Tapping Save twice no longer creates a duplicate entry, and unfinished entries are no longer lost',
+        'Import maps your own moods correctly and keeps entries that only look alike',
+        'Today\'s steps and exercise count in Insights only once the day is over',
+        'Reminders arrive at the right time after a time zone change',
+        'The app lock no longer asks again after picking a photo, sharing or granting a permission',
+      ],
+    },
+  },
+  {
     version: '1.0.26',
     date: '2026-10-13',
     changes: {

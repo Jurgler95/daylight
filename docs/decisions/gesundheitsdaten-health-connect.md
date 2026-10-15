@@ -48,6 +48,8 @@ Angepasst: `app/_layout.tsx` (Hook und Ladekreis, der Kreis nur ohne Sperrbildsc
 
 14. **Tageswerte auf Heute und im Verlauf** (nach 1.0.5 ergänzt). Heute zeigt an jedem vergangenen Tag und heute die Karte „Gesundheit“ (`components/health/HealthDayCard.tsx`) mit bis zu vier Kacheln: Schlaf, Schritte, Training, Ruhepuls. Fehlende Werte lassen keine Lücke, ohne Daten fehlt die Karte. Der Verlauf zeigt am Eintrag eine kurze Zeile mit Symbolen (Schlaf „7:20 h“, Schritte, Trainingsminuten), ohne Ruhepuls, damit sie kurz bleibt. Beides liest über `useHealthDay` und `useHealthByDate` (`lib/health/useHealthDays.ts`), einmal je Datenstand. Zahlen formatiert `lib/health/format.ts` ohne Intl, damit Gerät und Tests gleich rechnen.
 
+15. **Der Datenschutz-Link im Health-Connect-Dialog öffnet „Datenschutz“** (2026-10-15). Play verlangt dort die Datenschutzerklärung. Das Plugin von `react-native-health-connect` hängt den Rationale-Intent (bis Android 13) und den Alias `ViewPermissionUsageActivity` (ab Android 14) an `MainActivity`, die dann nur die zuletzt offene Seite zeigte. `plugins/withHealthPrivacyPolicy.js` hängt beides um an `PrivacyPolicyActivity` (in `modules/daylight-reminders`, ohne Anzeige, `Theme.NoDisplay`): sie schickt `daylight://more/privacy` als VIEW-Intent an die Launcher-Aktivität und schließt sich. expo-router öffnet den Link wie jeden Deep Link, beim Kalt- wie beim Warmstart, ohne Code in JS. Verworfen: `+native-intent` von expo-router, das sieht nur Intents mit URL, der Rationale-Intent hat keine. Die Aktivität steht im App-Manifest, damit sie vor dem Alias steht (Android verlangt das Ziel vor dem Alias). Das Plugin muss in `app.json` direkt vor `react-native-health-connect` stehen, weil Manifest-Mods in umgekehrter Reihenfolge laufen; fehlen Filter oder Alias, bricht der Prebuild ab.
+
 ## Offene Punkte
 
 **Nur auf dem Gerät zu prüfen:**
@@ -56,5 +58,5 @@ Angepasst: `app/_layout.tsx` (Hook und Ladekreis, der Kreis nur ohne Sperrbildsc
 - Welche Daten Samsung Health tatsächlich weitergibt. Schritte, Schlaf und Training sehr wahrscheinlich. Ob Samsung einen eigenen **Ruhepuls** schreibt, ist unklar. Bleibt die Spalte leer, wäre ein Tagesminimum aus `HeartRate` ein möglicher Ersatz (braucht `READ_HEART_RATE`).
 - Wie weit die Daten zurückreichen. Health Connect enthält nur, was Samsung Health dorthin übertragen hat, oft erst ab dem Tag, an dem die Verbindung eingeschaltet wurde.
 - Dauer des ersten Abgleichs über die ganze Tagebuchzeit (ein Monat sind vier Anfragen plus Schlafseiten).
-- Tippt man im Health-Connect-Dialog auf den Datenschutz-Link, öffnet sich Daylight (Rationale-Intent), aber auf der zuletzt offenen Seite statt direkt auf „Datenschutz“. Die Seite ist über Mehr erreichbar. Direkt dorthin bräuchte es nativen Code, der die Intent-Action nach JS reicht.
+- Datenschutz-Link im Health-Connect-Dialog (seit 2026-10-15, Entscheidung 15): auf dem Gerät prüfen, dass er bis Android 13 und ab Android 14 direkt „Datenschutz“ öffnet, auch bei gesperrter App (dann nach dem Entsperren).
 - Dev-Client: wie bisher `INTERNET` vorübergehend aus `blockedPermissions` nehmen, Expo Go kann Health Connect nicht.

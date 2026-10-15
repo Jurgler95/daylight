@@ -1,6 +1,8 @@
-import { File } from 'expo-file-system';
+import { File, Paths } from 'expo-file-system';
 import { ImageManipulator, SaveFormat } from 'expo-image-manipulator';
 import * as ImagePicker from 'expo-image-picker';
+
+import { withLockSuspended } from '@/lib/lock/store';
 
 import { photoFile } from './fileStore';
 import { newPhotoName } from './store';
@@ -16,7 +18,8 @@ const QUALITY = 0.8;
  * never gets saved is swept on the next start.
  */
 export async function pickPhoto(): Promise<string | null> {
-  const result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ['images'], quality: 1, exif: false });
+  // The picker is a system screen of its own; coming back from it must not lock the app.
+  const result = await withLockSuspended(() => ImagePicker.launchImageLibraryAsync({ mediaTypes: ['images'], quality: 1, exif: false }));
   if (result.canceled) return null;
   const asset = result.assets[0];
   if (!asset) return null;
@@ -30,5 +33,20 @@ export async function pickPhoto(): Promise<string | null> {
   const name = newPhotoName();
   const source = new File(saved.uri);
   source.moveSync(photoFile(name));
+  dropPickerCopy(asset.uri);
   return name;
+}
+
+/**
+ * The picker hands over a full-size copy in the app's cache; once the scaled copy is stored it is
+ * not needed. Only a file inside the cache goes, never the original in the gallery.
+ */
+function dropPickerCopy(uri: string): void {
+  if (!uri.startsWith(Paths.cache.uri)) return;
+  try {
+    const file = new File(uri);
+    if (file.exists) file.delete();
+  } catch {
+    // Left for "Alle Daten löschen", which clears the cache.
+  }
 }

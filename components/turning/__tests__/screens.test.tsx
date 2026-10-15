@@ -24,10 +24,18 @@ jest.mock('react-native-keyboard-controller', () => {
 jest.mock('@expo/vector-icons', () => ({ Ionicons: () => null }));
 jest.mock('@expo/vector-icons/MaterialCommunityIcons', () => () => null);
 let mockParams: Record<string, string> = {};
+let mockFocused = true;
 jest.mock('expo-router', () => ({
-  router: { push: jest.fn(), navigate: jest.fn(), back: jest.fn(), replace: jest.fn() },
+  router: { push: jest.fn(), navigate: jest.fn(), back: jest.fn(() => (mockFocused = false)), replace: jest.fn() },
   useLocalSearchParams: () => mockParams,
   usePathname: () => '/',
+  useNavigation: () => ({ isFocused: () => mockFocused, dispatch: jest.fn() }),
+}));
+let mockPreventing = false;
+jest.mock('expo-router/react-navigation', () => ({
+  usePreventRemove: (prevent: boolean) => {
+    mockPreventing = prevent;
+  },
 }));
 let mockDb: Database | null = null;
 jest.mock('@/db/client', () => ({ getDb: () => mockDb, DATABASE_NAME: 'test.db' }));
@@ -113,6 +121,23 @@ describe('setting a turning point', () => {
     await act(async () => fireEvent.changeText(screen.getByLabelText('Name des Wendepunkts'), 'Neue Stadt'));
     await act(async () => fireEvent.press(screen.getByText('Speichern')));
     expect(listTurningPoints(db)[0]!.title).toBe('Neue Stadt');
+  });
+
+  it('asks before a typed name is dropped and closes only once', async () => {
+    const { router } = jest.requireMock('expo-router');
+    router.back.mockClear();
+    mockFocused = true;
+    const db = diary();
+    const point = setPoint(db, 'Umzug');
+    mockParams = { id: String(point.id) };
+    await render(<TurningPointScreen />);
+    expect(mockPreventing).toBe(false);
+    await act(async () => fireEvent.changeText(screen.getByLabelText('Name des Wendepunkts'), 'Neue Stadt'));
+    expect(mockPreventing).toBe(true);
+    await act(async () => fireEvent.press(screen.getByText('Speichern')));
+    await act(async () => fireEvent.press(screen.getByText('Speichern')));
+    await act(async () => fireEvent.press(screen.getByLabelText('Schließen')));
+    expect(router.back).toHaveBeenCalledTimes(1);
   });
 });
 

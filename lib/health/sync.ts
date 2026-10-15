@@ -51,6 +51,7 @@ export async function syncHealth({ db, source, now, force = false, onWindow, wri
 
   try {
     const types = await source.granted();
+    if (!stillEnabled()) return 'stopped';
     if (types.size === 0) {
       write(() => updateSettings(db, { health_last_error: 'Kein Zugriff erlaubt' }));
       return 'nothing-allowed';
@@ -70,7 +71,11 @@ export async function syncHealth({ db, source, now, force = false, onWindow, wri
     return 'done';
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    write(() => updateSettings(db, { health_last_error: message.slice(0, 300) }));
+    try {
+      write(() => updateSettings(db, { health_last_error: message.slice(0, 300) }));
+    } catch {
+      // The database went away meanwhile (deleted, connection closed): nothing left to note the error in.
+    }
     return 'failed';
   }
 }

@@ -27,6 +27,8 @@ export function useDataTransfer() {
   const markBackedUp = useCallback(() => updateSettings({ last_export_at: new Date().toISOString() }), [updateSettings]);
 
   // With photos the backup is a ZIP (JSON plus the photo files), without it stays plain JSON.
+  // Sharing does not count as a backup: Android does not tell whether the sheet was cancelled, and a
+  // cancelled one must not silence the backup reminder. Only "Speichern" in a picked folder counts.
   const exportJson = useCallback(async () => {
     const payload = buildExport(getDb(), appVersion());
     if (payload.entry_photos.length > 0) {
@@ -34,8 +36,7 @@ export function useDataTransfer() {
     } else {
       await shareText(exportFileName(today()), 'application/json', JSON.stringify(payload, null, 2));
     }
-    markBackedUp();
-  }, [markBackedUp]);
+  }, []);
 
   const saveJson = useCallback(async () => {
     const payload = buildExport(getDb(), appVersion());

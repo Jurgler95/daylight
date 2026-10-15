@@ -1,4 +1,4 @@
-import type { DateString } from '@/lib/dates';
+import { addDaysToDateString, type DateString } from '@/lib/dates';
 
 import type { StreakState } from './streak';
 
@@ -15,12 +15,21 @@ export interface StreakChipView {
 
 /**
  * The rescue card while a gap can still be filled in (a broken streak, or a gap right before the
- * run still going), unless it was put away. "Later" holds for this gap only: a new gap always has
- * an anchor on or after the day the card was put away.
+ * run still going), unless it was put away. "Later" holds for that gap only, also while it grows
+ * because no entry follows. The anchor cannot tell a new gap apart: it is the oldest entry within
+ * reach and can stay before the day the card was put away. A new gap is a missing day after an
+ * entry made on or after that day.
  */
 export function showRescueCard(state: StreakState, dismissedOn: DateString | null): boolean {
   if (!state.rescue) return false;
-  return !dismissedOn || state.rescue.anchor >= dismissedOn;
+  if (!dismissedOn) return true;
+  const { anchor, missing } = state.rescue;
+  const lastMissing = missing.at(-1);
+  if (!lastMissing) return false;
+  const gap = new Set(missing);
+  // Between the anchor and the last missing day, every day not missing has an entry.
+  for (let day = anchor > dismissedOn ? anchor : dismissedOn; day < lastMissing; day = addDaysToDateString(day, 1)) if (!gap.has(day)) return true;
+  return false;
 }
 
 /**

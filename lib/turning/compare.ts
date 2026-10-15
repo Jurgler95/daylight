@@ -1,7 +1,7 @@
 import type { HealthDay } from '@/db/schema';
 import { addDaysToDateString, daysBetween, type DateString } from '@/lib/dates';
 import { daysIn, mean, moodDistribution, type DayWindow, type InsightDay, type LevelShare } from '@/lib/insights';
-import { HEALTH_METRICS, metricValue, type HealthMetric } from '@/lib/insights/healthStats';
+import { HEALTH_METRICS, settledValue, type HealthMetric } from '@/lib/insights/healthStats';
 
 /**
  * Before and after one turning point, each turning point on its own: windows of the same length on
@@ -95,7 +95,7 @@ export function compareTurningPoint({ days, health, date, span, today }: Turning
     afterMean: mean(afterDays.map((day) => day.mean)),
     distribution: { before: moodDistribution(beforeDays, null), after: moodDistribution(afterDays, null) },
     activities: enough ? activityShifts(beforeDays, afterDays) : [],
-    health: before && after ? healthShifts(health, before, after) : [],
+    health: before && after ? healthShifts(health, before, after, today) : [],
     seasons: !!before && !!after && seasonOf(middle(before)) !== seasonOf(middle(after)),
   };
 }
@@ -120,10 +120,11 @@ export function activityShifts(before: readonly InsightDay[], after: readonly In
     .slice(0, ACTIVITY_ROWS);
 }
 
-export function healthShifts(rows: readonly HealthDay[], before: DayWindow, after: DayWindow): HealthShift[] {
+/** Today's steps and exercise are left out, they hold only what was synced so far. */
+export function healthShifts(rows: readonly HealthDay[], before: DayWindow, after: DayWindow, today: DateString): HealthShift[] {
   const side = (window: DayWindow, metric: HealthMetric) =>
     rows.filter((row) => row.date >= window.from && row.date <= window.to).flatMap((row) => {
-      const value = metricValue(row, metric);
+      const value = settledValue(row, metric, today);
       return value === null ? [] : [value];
     });
   return HEALTH_METRICS.flatMap((metric) => {

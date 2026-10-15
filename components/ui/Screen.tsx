@@ -3,7 +3,8 @@ import { router } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import type { PropsWithChildren, ReactNode, Ref } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { Pressable, type ScrollView, StyleSheet, View } from 'react-native';
+import { KeyboardAwareScrollView, type KeyboardAwareScrollViewRef } from 'react-native-keyboard-controller';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { TOUCH_TARGET, spacing, useTheme, withAlpha } from '@/lib/theme';
@@ -30,7 +31,8 @@ export function Screen({ title, eyebrow, scroll = true, back, backLabel, sticky,
   const { t } = useTranslation();
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
-  const Container = scroll ? ScrollView : View;
+  // Keeps a focused field near the bottom, like an "add" row, above the keyboard.
+  const Container = scroll ? KeyboardAwareScrollView : View;
   const backButton = (
     <Pressable
       onPress={() => router.back()}
@@ -59,7 +61,10 @@ export function Screen({ title, eyebrow, scroll = true, back, backLabel, sticky,
       ) : null}
       <Container
         key={contentKey}
-        ref={scroll ? scrollRef : undefined}
+        // The keyboard aware view is a ScrollView underneath, with one extra method.
+        ref={scroll ? (scrollRef as Ref<KeyboardAwareScrollViewRef> | undefined) : undefined}
+        bottomOffset={scroll ? spacing.xxxl : undefined}
+        keyboardShouldPersistTaps={scroll ? 'handled' : undefined}
         // Without the scroll view the padding moves onto the container itself, so a child list
         // can fill the remaining height and own its bottom inset.
         style={scroll ? styles.root : [styles.root, styles.content, { paddingTop: sticky ? spacing.lg : insets.top + spacing.lg }]}

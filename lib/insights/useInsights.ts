@@ -52,7 +52,7 @@ export function useHealthInsights(insights: Insights, today: DateString): Health
     const rows = cached('healthDays', () => listHealthDays(getDb()));
     if (rows.length === 0) return null;
     return {
-      mood: healthMood(insights.days, rows),
+      mood: healthMood(insights.days, rows, today),
       stats: healthStats({ health: rows, allDays: insights.allDays, window: insights.window, previous: insights.previous, today }),
     };
   }, [insights, today]);

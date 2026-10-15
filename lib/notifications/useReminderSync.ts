@@ -9,7 +9,7 @@ import { useSettingsStore } from '@/lib/store/settingsStore';
 import { readEntryDays } from '@/lib/streak/celebrate';
 
 import { cancelAll, dismissReminders, hasPermission, syncReminders } from './client';
-import { doneReminderKeys, planReminders, planSignature, type PlannedReminder, type ReminderWording } from './plan';
+import { doneReminderKeys, planReminders, planSignature, timeZoneKey, type PlannedReminder, type ReminderWording } from './plan';
 import { createSerialQueue } from './serial';
 
 const enqueueSync = createSerialQueue();
@@ -58,7 +58,8 @@ export function useReminderSync(): void {
     // `tick` re-plans after the app was in the background: the time of day may have passed.
     [today, enabled, time, yesterdayEnabled, yesterdayTime, entryDays, wording, tick],
   );
-  const signature = planSignature(plan);
+  // Read on every render: a return to the app after a change of time zone sets the times again.
+  const signature = planSignature(plan, timeZoneKey());
   const done = useMemo(() => doneReminderKeys(entryDays, today), [entryDays, today]);
   const doneSignature = done.join('|');
 

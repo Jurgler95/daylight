@@ -2,10 +2,11 @@ import { and, asc, eq, gte, inArray, lte, min, ne } from 'drizzle-orm';
 
 import type { DateString } from '@/lib/dates';
 
+import { chunked } from '../chunks';
 import { entries, entryActivities, entryScales, moods, turningPoints, type Entry, type EntrySource, type MoodLevel, type TurningPoint } from '../schema';
 import type { Database } from '../types';
 import { assertDate, assertTime, now, optionalText } from '../validate';
-import { listPhotos, photosByEntry, setPhotos } from './photos';
+import { listPhotos, photosByEntry, photosForEntries, setPhotos } from './photos';
 
 export interface EntryInput {
   date: string;
@@ -36,7 +37,9 @@ function writeLinks(db: Database, entryId: number, input: Pick<EntryInput, 'acti
   }
   if (input.scales) {
     db.delete(entryScales).where(eq(entryScales.entry_id, entryId)).run();
-    if (input.scales.length) db.insert(entryScales).values(input.scales.map((s) => ({ entry_id: entryId, ...s }))).run();
+    // One value per scale: a scale given twice keeps its last value instead of breaking the primary key.
+    const values = new Map(input.scales.map((s) => [s.scale_id, s.value]));
+    if (values.size) db.insert(entryScales).values([...values].map(([scale_id, value]) => ({ entry_id: entryId, scale_id, value }))).run();
   }
   if (input.photos) setPhotos(db, entryId, input.photos);
 }
@@ -155,6 +158,11 @@ export function listEntries(db: Database, from?: string, to?: string): Entry[] {
     .all();
 }
 
+/** Rows of the given entries, read in chunks below SQLite's variable limit; every row when `ids` is null. */
+function linkRows<T>(ids: readonly number[] | null, some: (ids: number[]) => T[], all: () => T[]): T[] {
+  return ids === null ? all() : chunked(ids, 500).flatMap(some);
+}
+
 /** Same order as `listEntries`, with level, activity ids, scale values and photos attached. */
 export function listEntryDetails(db: Database, from?: string, to?: string): EntryDetails[] {
   const rows = db
@@ -164,19 +172,31 @@ export function listEntryDetails(db: Database, from?: string, to?: string): Entr
     .where(and(from ? gte(entries.date, from) : undefined, to ? lte(entries.date, to) : undefined))
     .orderBy(asc(entries.date), asc(entries.time), asc(entries.id))
     .all();
+  // A range (the Today tab asks for one day) reads only the links of its entries, the whole journal reads them all.
+  const ids = from || to ? rows.map((row) => row.entry.id) : null;
+  const activityRows = linkRows(
+    ids,
+    (chunk) => db.select().from(entryActivities).where(inArray(entryActivities.entry_id, chunk)).all(),
+    () => db.select().from(entryActivities).all(),
+  );
+  const scaleRows = linkRows(
+    ids,
+    (chunk) => db.select().from(entryScales).where(inArray(entryScales.entry_id, chunk)).all(),
+    () => db.select().from(entryScales).all(),
+  );
   const links = new Map<number, number[]>();
-  for (const link of db.select().from(entryActivities).all()) {
+  for (const link of activityRows) {
     const list = links.get(link.entry_id);
     if (list) list.push(link.activity_id);
     else links.set(link.entry_id, [link.activity_id]);
   }
   const values = new Map<number, { scale_id: number; value: number }[]>();
-  for (const { entry_id, scale_id, value } of db.select().from(entryScales).all()) {
+  for (const { entry_id, scale_id, value } of scaleRows) {
     const list = values.get(entry_id);
     if (list) list.push({ scale_id, value });
     else values.set(entry_id, [{ scale_id, value }]);
   }
-  const photos = photosByEntry(db);
+  const photos = ids ? new Map(chunked(ids, 500).flatMap((chunk) => [...photosForEntries(db, chunk)])) : photosByEntry(db);
   return rows.map(({ entry, level }) => ({
     ...entry,
     level: level as MoodLevel,

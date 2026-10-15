@@ -4,6 +4,7 @@ import type * as HealthConnectTypes from 'react-native-health-connect';
 
 import type { HealthDayInput } from '@/db/repositories/health';
 import { addDaysToDateString, toLocalDate, type DateString } from '@/lib/dates';
+import { withLockSuspended } from '@/lib/lock/store';
 
 import { bucketValues, mergeReadings, sleepMinutesByDay, type DayBucket, type SleepSessionLike } from './days';
 
@@ -82,10 +83,12 @@ export async function grantedTypes(): Promise<Set<HealthRecordType>> {
 export async function requestAccess(): Promise<Set<HealthRecordType>> {
   const module = await ready();
   if (!module) return new Set();
-  await module.requestPermission([
-    ...HEALTH_RECORD_TYPES.map((recordType) => ({ accessType: 'read' as const, recordType })),
-    { accessType: 'read', recordType: 'ReadHealthDataHistory' },
-  ]);
+  await withLockSuspended(() =>
+    module.requestPermission([
+      ...HEALTH_RECORD_TYPES.map((recordType) => ({ accessType: 'read' as const, recordType })),
+      { accessType: 'read', recordType: 'ReadHealthDataHistory' },
+    ]),
+  );
   return grantedTypes();
 }
 

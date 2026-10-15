@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
-import { router, useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams, useNavigation } from 'expo-router';
+import { usePreventRemove } from 'expo-router/react-navigation';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useRef, useState } from 'react';
@@ -93,6 +94,9 @@ export default function TurningPointScreen() {
   const [set, setSet] = useState(false);
   const [nudged, setNudged] = useState(false);
   const titleRef = useRef<TextInput>(null);
+  const navigation = useNavigation();
+  // Set right before a deliberate exit (saved), so the guard below lets it through.
+  const leaving = useRef(false);
   // The wait between the burst and the comparison; cleared when the page is left first.
   const linger = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(
@@ -118,7 +122,46 @@ export default function TurningPointScreen() {
   const flashStyle = useAnimatedStyle(() => ({ opacity: flash.value }));
   const shakeStyle = useAnimatedStyle(() => ({ transform: [{ translateX: shake.value }] }));
 
-  const close = () => router.back();
+  /** Saves the new title and note of an existing one; false (with a message) when that failed. */
+  const write = (id: number): boolean => {
+    try {
+      mutate(() => updateTurningPoint(getDb(), id, { title, note }));
+      haptics.confirm();
+      return true;
+    } catch (error) {
+      Alert.alert(t('common.error'), error instanceof Error ? error.message : String(error));
+      return false;
+    }
+  };
+
+  // Leaving with a typed name or note asks first; once set, there is nothing left to lose.
+  const dirty = !set && (title !== (existing?.title ?? '') || note !== (existing?.note ?? ''));
+  usePreventRemove(dirty, ({ data }) => {
+    if (leaving.current) {
+      navigation.dispatch(data.action);
+      return;
+    }
+    // A new one is only set by holding the button, so here it can just be kept or dropped.
+    Alert.alert(existing ? t('entry.unsavedTitle') : t('turning.discardTitle'), undefined, [
+      { text: t('entry.keepEditing'), style: 'cancel' },
+      { text: t('entry.discard'), style: 'destructive', onPress: () => navigation.dispatch(data.action) },
+      ...(existing && ready
+        ? [
+            {
+              text: t('turning.save'),
+              onPress: () => {
+                if (write(existing.id)) navigation.dispatch(data.action);
+              },
+            },
+          ]
+        : []),
+    ]);
+  });
+
+  // Once only: a second tap while the page closes would go back past the screen below.
+  const close = () => {
+    if (!leaving.current && navigation.isFocused()) router.back();
+  };
 
   /** A hold without a name: the field shakes, takes the focus and says what it wants. */
   const nudge = () => {
@@ -139,9 +182,11 @@ export default function TurningPointScreen() {
   const save = (): boolean => {
     try {
       if (existing) {
-        mutate(() => updateTurningPoint(getDb(), existing.id, { title, note }));
-        haptics.confirm();
-        close();
+        if (leaving.current) return true;
+        if (write(existing.id)) {
+          leaving.current = true;
+          router.back();
+        }
         return true;
       }
       const created = mutate(() => createTurningPoint(getDb(), { date: date!, title, note }));

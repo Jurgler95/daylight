@@ -3,7 +3,9 @@ import type { DateString } from '@/lib/dates';
 import { FALLBACK_ACTIVITY_ICON, type IconName } from '@/lib/icons';
 import { fold } from '@/lib/search/fold';
 
-import { knownActivity, knownMoodLevel, resolveGroupName } from './known';
+import type { Language } from '@/lib/i18n/language';
+
+import { defaultGroups, defaultMoods, knownActivity, knownMoodLevel, resolveGroupName } from './known';
 import type { RawEntry } from './parse';
 
 /**
@@ -19,8 +21,8 @@ export interface Catalog {
   /** In display order (group order, then order inside the group). */
   activities: readonly { id: number; group_id: number; name: string }[];
   scales: readonly { id: number; name: string }[];
-  /** `entryKey` of every entry already stored. */
-  entryKeys: ReadonlySet<string>;
+  /** `entryKey` of the entries already stored, with how many entries share it. */
+  entryKeys: ReadonlyMap<string, number>;
   /** Photo file names already stored, so a second import of the same backup brings none twice. */
   photoNames: ReadonlySet<string>;
 }
@@ -66,7 +68,7 @@ export interface ImportPlan {
   newScales: { name: string; min: number; max: number }[];
   /** Records that would be added, file order. */
   entries: { raw: RawEntry; key: string }[];
-  /** Records already stored or repeated in the file. */
+  /** Records already stored. Rows repeated inside the file are all kept, as often as the file has them. */
   duplicates: number;
   /** Photos in the file, and how many of them are not stored yet (they also go to existing entries). */
   photos: number;
@@ -76,9 +78,58 @@ export interface ImportPlan {
 /** Default level for a mood name nobody recognises, until the user picks one. */
 export const UNKNOWN_MOOD_LEVEL: MoodLevel = 3;
 
-/** An entry counts as already there when date, time, mood level and note all match. */
-export function entryKey(date: string, time: string, level: number, note: string | null): string {
-  return [date, time, level, note ?? ''].join('\u0001');
+/** What `entryKey` compares; activities by name, in any order. */
+export interface KeyedEntry {
+  date: string;
+  time: string;
+  level: number;
+  noteTitle: string | null;
+  note: string | null;
+  activities: readonly string[];
+}
+
+/** An entry counts as already there when date, time, mood level, note title, note and activities all match. */
+export function entryKey({ date, time, level, noteTitle, note, activities }: KeyedEntry): string {
+  const names = [...new Set(activities.map(fold))].sort().join('\u0002');
+  return [date, time, level, noteTitle ?? '', note ?? '', names].join('\u0001');
+}
+
+/** `entryKey` of a record from the file, once its mood has a level. */
+export function recordKey(record: RawEntry, level: number): string {
+  return entryKey({ date: record.date, time: record.time, level, noteTitle: record.noteTitle, note: record.note, activities: record.activities });
+}
+
+/** Counts how many entries share each key, for `Catalog.entryKeys`. */
+export function countKeys(keys: Iterable<string>): Map<string, number> {
+  const counts = new Map<string, number>();
+  for (const key of keys) counts.set(key, (counts.get(key) ?? 0) + 1);
+  return counts;
+}
+
+/**
+ * True when `key` matches a stored entry not matched yet, and uses that one up. Re-importing a file
+ * finds every row again, while two equal rows in one file still become two entries.
+ */
+export function takeKey(stored: Map<string, number>, key: string): boolean {
+  const left = stored.get(key) ?? 0;
+  if (left === 0) return false;
+  stored.set(key, left - 1);
+  return true;
+}
+
+/**
+ * The catalog a replace import plans against: the journal cleared and only the standard moods and
+ * groups of `language` back, as the replace import in `apply.ts` leaves it. Ids are placeholders, for the preview only.
+ */
+export function defaultsCatalog(language?: Language): Catalog {
+  return {
+    moods: defaultMoods(language).map((mood, index) => ({ id: index + 1, label: mood.label, level: mood.level, sort_order: index, archived: false })),
+    groups: defaultGroups(language).map((name, index) => ({ id: index + 1, name })),
+    activities: [],
+    scales: [],
+    entryKeys: new Map(),
+    photoNames: new Set(),
+  };
 }
 
 /**
@@ -176,15 +227,14 @@ export function buildImportPlan(records: readonly RawEntry[], catalog: Catalog, 
     newGroups.push(activity.group);
   }
 
-  const seen = new Set(catalog.entryKeys);
+  const stored = new Map(catalog.entryKeys);
   const toAdd: ImportPlan['entries'] = [];
   let duplicates = 0;
   for (const record of records) {
     const level = moods.get(fold(record.mood))?.level ?? UNKNOWN_MOOD_LEVEL;
-    const key = entryKey(record.date, record.time, level, record.note);
-    if (seen.has(key)) duplicates++;
+    const key = recordKey(record, level);
+    if (takeKey(stored, key)) duplicates++;
     else toAdd.push({ raw: record, key });
-    seen.add(key);
   }
 
   const photoNames = records.flatMap((record) => record.photos);

@@ -9,6 +9,7 @@ import { AppText } from '@/components/ui';
 import { haptics } from '@/lib/haptics';
 import type { IconName } from '@/lib/icons';
 import { ICON_SECTIONS } from '@/lib/icons/catalog';
+import { useCloseOnLock } from '@/lib/lock/useCloseOnLock';
 import { TOUCH_TARGET, radius, spacing, useTheme, withAlpha } from '@/lib/theme';
 
 interface Props {
@@ -24,6 +25,7 @@ export function IconPicker({ value, color, onChange }: Props) {
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   const [open, setOpen] = useState(false);
+  useCloseOnLock(() => setOpen(false));
   const tint = color ?? colors.text;
 
   return (
@@ -59,7 +61,7 @@ export function IconPicker({ value, color, onChange }: Props) {
                   {t(`icons.${section.key}`).toUpperCase()}
                 </AppText>
                 <View style={styles.grid}>
-                  {section.icons.map((icon) => {
+                  {section.icons.map((icon, index) => {
                     const selected = icon === value;
                     return (
                       <Pressable
@@ -71,7 +73,7 @@ export function IconPicker({ value, color, onChange }: Props) {
                         }}
                         accessibilityRole="radio"
                         accessibilityState={{ selected }}
-                        accessibilityLabel={icon.replace(/-/g, ' ')}
+                        accessibilityLabel={t('manage.iconOption', { section: t(`icons.${section.key}`), index: index + 1, count: section.icons.length })}
                         style={({ pressed }) => [
                           styles.cell,
                           { backgroundColor: selected ? colors.accentSoft : 'transparent', borderColor: selected ? colors.accent : 'transparent', opacity: pressed ? 0.6 : 1 },

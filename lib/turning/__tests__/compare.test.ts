@@ -72,6 +72,21 @@ describe('compareTurningPoint', () => {
     expect(result.health.find((row) => row.metric === 'sleep')).toBeUndefined();
   });
 
+  it('leaves today’s unfinished steps out of the side after', () => {
+    const today = addDaysToDateString(turn, 10);
+    const health: HealthDay[] = diary(addDaysToDateString(turn, -10), 21, () => ({ level: 0 })).map((entry) => ({
+      date: entry.date,
+      steps: entry.date === today ? 800 : 8000,
+      sleep_minutes: null,
+      resting_hr: null,
+      exercise_minutes: null,
+      synced_at: 'X',
+      restored: false,
+    }));
+    const result = compareTurningPoint({ days, health, date: turn, span: '30', today });
+    expect(result.health.find((row) => row.metric === 'steps')).toEqual({ metric: 'steps', before: 8000, after: 8000 });
+  });
+
   it('flags windows in different seasons', () => {
     expect(seasonOf(d('2026-01-15'))).toBe(0);
     expect(seasonOf(d('2026-12-01'))).toBe(0);

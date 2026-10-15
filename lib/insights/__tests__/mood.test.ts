@@ -118,6 +118,14 @@ describe('goodStreaks', () => {
     expect(goodStreaks(list, d('2026-09-11'), d('2026-09-08')).longest).toEqual({ start: '2026-09-09', end: '2026-09-10', days: 2 });
   });
 
+  it('leaves days after today out of the runs', () => {
+    // An import can bring days after today; the run up to today is the one still going.
+    const withFuture = days([...run('2026-09-01', [4, 4]), ...run('2026-09-04', [5, 5, 5, 5])]);
+    const streaks = goodStreaks(withFuture, d('2026-09-02'));
+    expect(streaks.current).toEqual({ start: '2026-09-01', end: '2026-09-02', days: 2 });
+    expect(streaks.longest).toEqual(streaks.current);
+  });
+
   it('has no current run when the last day was not good', () => {
     expect(goodStreaks(days(run('2026-09-01', [4, 2])), d('2026-09-02')).current).toBeNull();
   });

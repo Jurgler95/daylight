@@ -46,6 +46,22 @@ export function metricValue(row: HealthDay | undefined, metric: HealthMetric): n
   }
 }
 
+/**
+ * Steps and exercise add up over the day, and the sync always reads up to today, so today's row
+ * holds only what was walked or trained by the time of the sync. Sleep (the night that ended
+ * today) and the resting pulse are complete once they are there.
+ */
+export const CUMULATIVE_METRICS: readonly HealthMetric[] = ['steps', 'exercise'];
+
+/**
+ * A day's value once it is final: null for today's steps and exercise, which may still grow. Like
+ * the entry streak with an empty today, an unfinished day is left out instead of counted short.
+ */
+export function settledValue(row: HealthDay | undefined, metric: HealthMetric, today: DateString): number | null {
+  if (row && row.date >= today && CUMULATIVE_METRICS.includes(metric)) return null;
+  return metricValue(row, metric);
+}
+
 export interface MetricSummary {
   metric: HealthMetric;
   mean: number;
@@ -216,8 +232,13 @@ function weekdays(rows: readonly HealthDay[], metric: HealthMetric, window: DayW
   return buckets.map((values, weekday) => ({ weekday, mean: mean(values), days: values.length }));
 }
 
-/** Runs over the whole history, so a run that began before the window keeps its full length. */
+/**
+ * Runs over the whole history, so a run that began before the window keeps its full length. Today's
+ * steps or exercise below the goal are not final yet: they neither end the run nor count as a miss,
+ * while a goal already reached today counts.
+ */
 function goal(rows: readonly HealthDay[], metric: HealthMetric, reached: (value: number) => boolean, window: DayWindow, today: DateString): GoalStats | null {
+  const partialToday = CUMULATIVE_METRICS.includes(metric);
   let hit = 0;
   let days = 0;
   const runs: Streak[] = [];
@@ -227,7 +248,7 @@ function goal(rows: readonly HealthDay[], metric: HealthMetric, reached: (value:
     const date = row.date as DateString;
     if (date > window.to) break;
     const value = metricValue(row, metric);
-    if (value === null) continue;
+    if (value === null || (partialToday && date >= today && !reached(value))) continue;
     lastDate = date;
     if (inWindow(date, window)) {
       days += 1;
@@ -256,7 +277,7 @@ function goal(rows: readonly HealthDay[], metric: HealthMetric, reached: (value:
   return { hit, days, longest: longest ? { ...longest } : null, current };
 }
 
-function records(rows: readonly HealthDay[], window: DayWindow, moods: Map<DateString, InsightDay>): HealthRecord[] {
+function records(rows: readonly HealthDay[], window: DayWindow, moods: Map<DateString, InsightDay>, today: DateString): HealthRecord[] {
   const defs: { key: RecordKey; metric: HealthMetric; pickMax: boolean }[] = [
     { key: 'mostSteps', metric: 'steps', pickMax: true },
     { key: 'fewestSteps', metric: 'steps', pickMax: false },
@@ -272,7 +293,7 @@ function records(rows: readonly HealthDay[], window: DayWindow, moods: Map<DateS
     for (const row of rows) {
       const date = row.date as DateString;
       if (!inWindow(date, window)) continue;
-      const value = metricValue(row, def.metric);
+      const value = settledValue(row, def.metric, today);
       if (value === null || (def.metric === 'exercise' && value <= 0)) continue;
       // The newer day wins a tie, it is the one people remember.
       if (!best || (def.pickMax ? value >= best.value : value <= best.value)) best = { date, value };
@@ -389,13 +410,18 @@ export function activityHealth(rows: Map<string, HealthDay>, days: readonly Insi
 export function healthStats({ health, allDays, window, previous, today }: HealthStatsInput): HealthStats {
   const rows = [...health].sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
   const rowByDate = new Map(rows.map((row) => [row.date, row]));
+  // Steps and exercise without today's unfinished row, for everything that compares whole days.
+  const settledRows = rows.filter((row) => row.date < today);
+  const settledByDate = new Map(settledRows.map((row) => [row.date, row]));
+  const rowsFor = (metric: HealthMetric) => (CUMULATIVE_METRICS.includes(metric) ? settledRows : rows);
+  const byDateFor = (metric: HealthMetric) => (CUMULATIVE_METRICS.includes(metric) ? settledByDate : rowByDate);
   const moods = byDate(allDays);
   const days = allDays.filter((day) => inWindow(day.date, window));
 
   const summaries: HealthStats['summaries'] = {};
   const metrics: HealthMetric[] = [];
   for (const metric of HEALTH_METRICS) {
-    const s = summary(rows, metric, window, previous);
+    const s = summary(rowsFor(metric), metric, window, previous);
     // Exercise at 0 on every day means nothing records it; showing "0 min" would read as a fact.
     if (!s || (metric === 'exercise' && s.max <= 0)) continue;
     summaries[metric] = s;
@@ -408,7 +434,7 @@ export function healthStats({ health, allDays, window, previous, today }: Health
     series: {},
     weekdays: {},
     goals: { sleep: null, steps: null, exercise: null },
-    records: records(rows, window, moods).filter((record) => metrics.includes(record.metric)),
+    records: records(rows, window, moods, today).filter((record) => metrics.includes(record.metric)),
     moodSplits: [],
     links: [],
     activities: {},
@@ -417,23 +443,25 @@ export function healthStats({ health, allDays, window, previous, today }: Health
   };
   for (const metric of metrics) {
     result.series[metric] = series(rows, metric, window);
-    result.weekdays[metric] = weekdays(rows, metric, window);
-    const split = moodSplit(rowByDate, days, metric);
+    result.weekdays[metric] = weekdays(rowsFor(metric), metric, window);
+    const split = moodSplit(byDateFor(metric), days, metric);
     if (split) result.moodSplits.push(split);
     for (const pairing of LINK_PAIRINGS[metric]) {
-      const found = link(rowByDate, days, moods, metric, pairing);
+      const found = link(byDateFor(metric), days, moods, metric, pairing);
       if (found) result.links.push(found);
     }
-    result.activities[metric] = activityHealth(rowByDate, days, metric);
+    result.activities[metric] = activityHealth(byDateFor(metric), days, metric);
   }
   if (metrics.includes('sleep')) result.goals.sleep = goal(rows, 'sleep', (v) => v >= SLEEP_GOAL_MINUTES, window, today);
   if (metrics.includes('steps')) result.goals.steps = goal(rows, 'steps', (v) => v >= STEPS_GOAL, window, today);
   if (metrics.includes('exercise')) {
     const exercise = goal(rows, 'exercise', (v) => v > 0, window, today);
-    const total = valuesIn(rows, window, 'exercise').reduce((sum, v) => sum + v, 0);
+    const total = valuesIn(settledRows, window, 'exercise').reduce((sum, v) => sum + v, 0);
     // Weeks since the first health day in the window: before it nothing was recorded, not nothing done.
+    // Up to yesterday when the window reaches today, since today's minutes are left out of the total.
     const first = rows.find((row) => inWindow(row.date as DateString, window))!.date as DateString;
-    const span = windowLength({ from: first, to: window.to });
+    const last = window.to >= today ? addDaysToDateString(today, -1) : window.to;
+    const span = windowLength({ from: first, to: last < first ? first : last });
     if (exercise) result.goals.exercise = { ...exercise, minutesPerWeek: (total / span) * 7 };
   }
   return result;

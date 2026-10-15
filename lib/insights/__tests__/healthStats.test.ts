@@ -46,6 +46,25 @@ describe('healthStats', () => {
     expect(goals.current).toEqual(goals.longest);
   });
 
+  it('does not count today’s unfinished steps as a finished day', () => {
+    // 19 days around 11,000 steps, then 800 by the time of this morning’s sync.
+    const rows = Array.from({ length: 20 }, (_, i) => health(dateAt('2026-09-01', i), { steps: i === 19 ? 800 : 11000 + i * 10, sleep_minutes: 450 }));
+    const levels = Array.from({ length: 20 }, (_, i) => (i % 2 === 0 ? 4 : 2));
+    const result = stats(rows, levels);
+    expect(result.records.find((r) => r.key === 'fewestSteps')?.date).toBe('2026-09-01');
+    expect(result.summaries.steps).toMatchObject({ min: 11000, days: 19 });
+    expect(result.goals.steps).toMatchObject({ hit: 19, days: 19 });
+    expect(result.goals.steps?.current).toEqual({ start: '2026-09-01', end: '2026-09-19', days: 19 });
+    expect(result.moodSplits.find((s) => s.metric === 'steps')?.allDays).toBe(19);
+    // Sleep is complete once it is there and keeps today.
+    expect(result.summaries.sleep?.days).toBe(20);
+  });
+
+  it('counts today towards the goal once it is reached', () => {
+    const rows = [health('2026-09-19', { steps: 10500 }), health('2026-09-20', { steps: 10100 })];
+    expect(stats(rows, []).goals.steps).toMatchObject({ hit: 2, days: 2, current: { start: '2026-09-19', end: '2026-09-20', days: 2 } });
+  });
+
   it('finds records with the mood of that day', () => {
     const rows = [health('2026-09-01', { sleep_minutes: 300, resting_hr: 60 }), health('2026-09-02', { sleep_minutes: 540, resting_hr: 55 })];
     const records = stats(rows, [2, 5]).records;

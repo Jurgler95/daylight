@@ -1,4 +1,5 @@
 import { Redirect, useLocalSearchParams } from 'expo-router';
+import { useState } from 'react';
 
 import { EntryEditor } from '@/components/entry/EntryEditor';
 import { getDb } from '@/db';
@@ -14,13 +15,14 @@ import { useToday } from '@/lib/dates/useToday';
 export default function NewEntryScreen() {
   const params = useLocalSearchParams<{ date?: string; mood?: string }>();
   const today = useToday();
-  const date: DateString = params.date && isDateString(params.date) && params.date <= today ? params.date : today;
+  // Fixed when the screen opens. A link for another day opens its own screen (see `dangerouslySingular`
+  // in the root layout), and midnight must not swap the day under a draft.
+  const [date] = useState<DateString>(() => (params.date && isDateString(params.date) && params.date <= today ? params.date : today));
   const catalog = useCatalog();
   const mood = params.mood ? Number(params.mood) : NaN;
   const known = catalog.moods.some((candidate) => candidate.id === mood);
-  const existing = entryIdOnDate(getDb(), date);
+  // Also only on opening: once this editor has saved, its own entry must not send it to the edit screen.
+  const [existing] = useState(() => entryIdOnDate(getDb(), date));
   if (existing !== undefined) return <Redirect href={{ pathname: '/entry/[id]', params: { id: String(existing) } }} />;
-  // Keyed by the day: a reminder's link can arrive while the editor is open for another day, and the
-  // editor keeps its draft in state.
-  return <EntryEditor key={date} target={{ kind: 'new', date, moodId: known ? mood : null }} />;
+  return <EntryEditor target={{ kind: 'new', date, moodId: known ? mood : null }} />;
 }

@@ -30,7 +30,6 @@ jobs:
     env:
       VERSION: ${{ inputs.version }}
       TAG: v${{ inputs.version }}
-      GH_TOKEN: ${{ github.token }}
     steps:
       # Alle Tags, damit das Release-Notes-Skript den versionCode der Vorversion findet
       - uses: actions/checkout@v5
@@ -55,8 +54,10 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      # Schreibt den Cache nur auf dem Default-Branch, deshalb der Start auf main
-      - uses: gradle/actions/setup-gradle@v4
+      # Schreibt den Cache nur auf dem Default-Branch, deshalb der Start auf main. Auf einen Commit
+      # festgenagelt (v4.4.3, worauf v4 zeigte), weil die Action vor den Schritten mit dem
+      # Signaturschlüssel läuft und ein verschobener Tag sonst fremden Code mitbrächte.
+      - uses: gradle/actions/setup-gradle@ed408507eac070d1f99cc633dbcf757c94c7933a
 
       - name: Versionen und Updatehistorie abgleichen
         run: node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON .github/scripts/release-notes.mjs "$VERSION" > release-notes.md
@@ -76,8 +77,9 @@ jobs:
       - name: Gradle einstellen
         run: mkdir -p ~/.gradle && printf 'org.gradle.caching=true\norg.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=1g\n' >> ~/.gradle/gradle.properties
 
-      # Der Keystore liegt Base64-kodiert im Secret und nur für diesen Lauf auf der Platte. Fehlt
-      # ein Secret, bricht der Lauf ab, statt still mit dem Debug-Schlüssel zu signieren.
+      # Der Keystore liegt Base64-kodiert im Secret und nur für die beiden Builds auf der Platte.
+      # Fehlt ein Secret, bricht der Lauf ab, statt still mit dem Debug-Schlüssel zu signieren. Ins
+      # Job-Environment kommen nur Pfad und Alias, das Passwort bekommen allein die Build-Schritte.
       - name: Signaturschlüssel bereitstellen
         env:
           KEYSTORE_BASE64: ${{ secrets.DAYLIGHT_KEYSTORE_BASE64 }}
@@ -90,21 +92,33 @@ jobs:
           echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/daylight-release.jks"
           {
             echo "DAYLIGHT_KEYSTORE=$RUNNER_TEMP/daylight-release.jks"
-            echo "DAYLIGHT_KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD"
             echo "DAYLIGHT_KEY_ALIAS=daylight"
-            echo "DAYLIGHT_KEY_PASSWORD=$KEYSTORE_PASSWORD"
           } >> "$GITHUB_ENV"
 
       # arm64 reicht für jedes aktuelle Gerät und spart mehr als die Hälfte der Größe
       - name: APK bauen
         working-directory: android
+        env:
+          DAYLIGHT_KEYSTORE_PASSWORD: ${{ secrets.DAYLIGHT_KEYSTORE_PASSWORD }}
+          DAYLIGHT_KEY_PASSWORD: ${{ secrets.DAYLIGHT_KEYSTORE_PASSWORD }}
         run: ./gradlew assembleRelease -PreactNativeArchitectures=arm64-v8a
 
       # Das App Bundle für den Play Store. Anders als die APK mit 32- und 64-Bit-ARM, weil Play
       # daraus je Gerät eine passende APK schneidet und sonst ältere Geräte ausschlösse.
       - name: App Bundle bauen
         working-directory: android
+        env:
+          DAYLIGHT_KEYSTORE_PASSWORD: ${{ secrets.DAYLIGHT_KEYSTORE_PASSWORD }}
+          DAYLIGHT_KEY_PASSWORD: ${{ secrets.DAYLIGHT_KEYSTORE_PASSWORD }}
         run: ./gradlew bundleRelease -PreactNativeArchitectures=arm64-v8a,armeabi-v7a
+
+      # Danach braucht nichts mehr den Schlüssel. Läuft auch nach einem gescheiterten Build, und der
+      # Gradle-Daemon, der das Passwort aus den Build-Schritten noch kennt, wird mit beendet.
+      - name: Signaturschlüssel löschen
+        if: always()
+        run: |
+          rm -f "$RUNNER_TEMP/daylight-release.jks"
+          if [ -x android/gradlew ]; then (cd android && ./gradlew --stop) || true; fi
 
       # Der Fingerabdruck ist öffentlich und steht auch im README. Weicht er ab, wurde mit einem
       # anderen Schlüssel signiert, und das Update ließe sich nicht über die installierte App spielen.
@@ -127,23 +141,37 @@ jobs:
             echo "::error::Das App Bundle ist nicht mit dem Daylight-Schlüssel signiert"
             exit 1
           fi
-          rm -f "$RUNNER_TEMP/daylight-release.jks"
 
-      # Kein INTERNET, keine Cloud-Sicherung, Health Connect nur lesend. Schlägt das fehl, wird
-      # nichts veröffentlicht.
+      # Kein INTERNET, keine Cloud-Sicherung, Health Connect nur lesend, in der APK wie im App Bundle.
+      # Schlägt das fehl, wird nichts veröffentlicht. aapt2 liest kein Bundle, deshalb macht
+      # bundletool daraus eine universelle APK (unsigniert, nur zum Prüfen) mit Manifest und Code
+      # des Bundles. bundletool kommt als festgelegte Version mit Prüfsumme von GitHub.
       - name: Manifest prüfen
+        env:
+          BUNDLETOOL_VERSION: 1.18.3
+          BUNDLETOOL_SHA256: a099cfa1543f55593bc2ed16a70a7c67fe54b1747bb7301f37fdfd6d91028e29
         run: |
           cp android/app/build/outputs/apk/release/app-release.apk "daylight-$VERSION.apk"
           cp android/app/build/outputs/bundle/release/app-release.aab "daylight-$VERSION.aab"
           # Die Zuordnung der von R8 gekürzten Namen, aus dem Bundle-Build (der zuletzt lief). Play
           # braucht sie für lesbare Absturzberichte, der Code ist ohnehin offen.
           cp android/app/build/outputs/mapping/release/mapping.txt "daylight-$VERSION-mapping.txt"
+          echo "APK:"
           node .github/scripts/check-manifest.mjs "daylight-$VERSION.apk" "daylight-$VERSION-mapping.txt"
+          BUNDLETOOL="$RUNNER_TEMP/bundletool.jar"
+          curl -fsSL -o "$BUNDLETOOL" "https://github.com/google/bundletool/releases/download/$BUNDLETOOL_VERSION/bundletool-all-$BUNDLETOOL_VERSION.jar"
+          echo "$BUNDLETOOL_SHA256  $BUNDLETOOL" | sha256sum -c -
+          java -jar "$BUNDLETOOL" build-apks --mode=universal --bundle "daylight-$VERSION.aab" --output "$RUNNER_TEMP/bundle.apks"
+          unzip -o -q "$RUNNER_TEMP/bundle.apks" universal.apk -d "$RUNNER_TEMP/bundle"
+          echo "App Bundle:"
+          node .github/scripts/check-manifest.mjs "$RUNNER_TEMP/bundle/universal.apk" "daylight-$VERSION-mapping.txt"
 
       # Erst als Entwurf anlegen oder einen Entwurf aus einem abgebrochenen Lauf weiterverwenden,
       # dann APK und App Bundle hochladen und zuletzt veröffentlichen. So ist ein Release erst
       # sichtbar, wenn beide dranhängen, und ein Rerun landet im selben Zustand.
       - name: Release veröffentlichen
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release edit "$TAG" --title "Daylight $VERSION" --notes-file release-notes.md --target "$GITHUB_SHA"
@@ -161,4 +189,6 @@ jobs:
     uses: ./.github/workflows/play.yml
     with:
       version: ${{ inputs.version }}
-    secrets: inherit
+    # Nur der Play-Zugang, nicht auch der Signaturschlüssel
+    secrets:
+      PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}

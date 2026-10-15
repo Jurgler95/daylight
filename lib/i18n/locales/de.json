@@ -118,6 +118,7 @@
     "warning": {
       "scales": "Zeile {{line}}: Skalen „{{value}}“ nicht lesbar, übersprungen",
       "duplicateActivity": "Zeile {{line}}: „{{value}}“ doppelt, einmal übernommen",
+      "duplicateScale": "Zeile {{line}}: Skala „{{value}}“ doppelt, letzter Wert übernommen",
       "photoMissing": "Eintrag vom {{value}}: Foto fehlt in der Datei"
     },
     "run": "Importieren",
@@ -216,6 +217,7 @@
     "group": "Gruppe",
     "name": "Name",
     "icon": "Symbol",
+    "iconOption": "{{section}}, Symbol {{index}} von {{count}}",
     "level": "Stufe",
     "add": "Hinzufügen",
     "newMood": "Neue Stimmung",
@@ -639,7 +641,8 @@
     "title": "Erinnerung",
     "daily": "Tägliche Erinnerung",
     "dailyHint": "Entfällt, wenn der Tag schon einen Eintrag hat",
-    "time": "Uhrzeit",
+    "dailyTime": "Uhrzeit der täglichen Erinnerung",
+    "yesterdayTime": "Uhrzeit am Morgen",
     "permissionDenied": "Ohne Systemberechtigung stellt die App keine Erinnerung. Du kannst sie in den Android-Einstellungen erlauben.",
     "unavailable": "In Expo Go stellt Android keine Erinnerungen. Die Einstellung wird gespeichert und greift in der installierten App.",
     "discreet": "Der Text nennt höchstens, wie lange deine Serie läuft, oder dass gestern noch ein Eintrag fehlt, nie Inhalte aus dem Tagebuch.",
@@ -905,6 +908,7 @@
     "eyebrow": "Wendepunkt",
     "title": "Wendepunkt",
     "invalid": "Ein Wendepunkt braucht einen Tag mit Eintrag, heute oder früher.",
+    "discardTitle": "Eingaben verwerfen?",
     "room_one": "Für {{year}} ist noch {{count}} von {{max}} frei",
     "room_other": "Für {{year}} sind noch {{count}} von {{max}} frei",
     "full": "Für {{year}} sind alle {{max}} gesetzt",

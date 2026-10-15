@@ -1,7 +1,8 @@
 import { parseDateString } from '@/lib/dates';
+import { withLockSuspended } from '@/lib/lock/store';
 import Reminders from '@/modules/daylight-reminders';
 
-import { entryLink, type PlannedReminder } from './plan';
+import { entryLink, localTrigger, type PlannedReminder } from './plan';
 
 /**
  * Reminders go through the app's own native module (`modules/daylight-reminders`), not
@@ -28,7 +29,8 @@ export async function requestPermission(channelName: string): Promise<boolean> {
   if (!Reminders) return false;
   if (await hasPermission()) return true;
   Reminders.createChannel(CHANNEL_ID, channelName);
-  return Reminders.requestPermission();
+  const module = Reminders;
+  return withLockSuspended(() => module.requestPermission());
 }
 
 export async function cancelAll(): Promise<void> {
@@ -43,14 +45,23 @@ function triggerAt(reminder: PlannedReminder): number {
 /**
  * Replaces every scheduled reminder with the given plan. The app schedules nothing else, so
  * cancelling all first keeps the device in sync without bookkeeping of identifiers. Each reminder
- * carries its own text and the link that opens its day in the editor.
+ * carries its own text, the link that opens its day in the editor and its wall-clock time, so the
+ * module can move it when the time zone changes while the app is closed.
  */
 export async function syncReminders(planned: readonly PlannedReminder[], channelName: string): Promise<void> {
   if (!Reminders) return;
   Reminders.createChannel(CHANNEL_ID, channelName);
   Reminders.cancelAll();
   for (const reminder of planned) {
-    Reminders.schedule(reminder.key, triggerAt(reminder), CHANNEL_ID, reminder.title, reminder.body, entryLink(reminder.openDate));
+    Reminders.schedule(
+      reminder.key,
+      triggerAt(reminder),
+      CHANNEL_ID,
+      reminder.title,
+      reminder.body,
+      entryLink(reminder.openDate),
+      localTrigger(reminder),
+    );
   }
 }
 

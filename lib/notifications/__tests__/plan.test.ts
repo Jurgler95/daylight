@@ -4,10 +4,12 @@ import {
   doneReminderKeys,
   entryLink,
   formatTime,
+  localTrigger,
   parseTime,
   planReminders,
   planSignature,
   REMINDER_DAYS,
+  timeZoneKey,
   yesterdayCandidates,
   type PlanInput,
   type ReminderWording,
@@ -90,6 +92,27 @@ describe('planReminders', () => {
     expect(streak).not.toBe(a);
     expect(planSignature(planReminders(input({ entryDays: entries(-1, -2) })))).not.toBe(streak);
     expect(planSignature(planReminders(input({ wording: { ...wording, title: 'Reminder' } })))).not.toBe(a);
+  });
+
+  it('changes its signature with the time zone, so a return to the app after a move reschedules', () => {
+    const plan = planReminders(input());
+    const berlin = planSignature(plan, 'Europe/Berlin-120');
+    expect(planSignature(plan, 'Europe/Berlin-120')).toBe(berlin);
+    expect(planSignature(plan, 'Europe/London-60')).not.toBe(berlin);
+    expect(planSignature(plan, 'Europe/Berlin-60')).not.toBe(berlin);
+    // An empty plan cancels everything wherever the phone is.
+    expect(planSignature([], 'Europe/London-60')).toBe(planSignature([], 'Europe/Berlin-120'));
+  });
+
+  it('names the time zone and its current offset', () => {
+    const now = new Date(2026, 9, 15, 12, 0);
+    expect(timeZoneKey(now)).toMatch(new RegExp(`${now.getTimezoneOffset()}$`));
+  });
+
+  it('hands the wall-clock time of each reminder to the module', () => {
+    const first = planReminders(input())[0]!;
+    expect(localTrigger(first)).toBe('2026-09-26T20:30');
+    expect(localTrigger({ ...first, hour: 7, minute: 5 })).toBe('2026-09-26T07:05');
   });
 
   it('parses and formats "HH:mm"', () => {

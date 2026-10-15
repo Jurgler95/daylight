@@ -26,7 +26,7 @@ const fresh = (): Catalog => ({
   groups: DEFAULT_GROUPS.map((name, i) => ({ id: i + 1, name })),
   activities: [],
   scales: [],
-  entryKeys: new Set(),
+  entryKeys: new Map(),
   photoNames: new Set(),
 });
 
@@ -114,23 +114,40 @@ describe('buildImportPlan', () => {
     expect(plan.activities[0]).toMatchObject({ existingId: 7, group: 'Schlaf' });
   });
 
-  it('skips entries that are stored already or repeated in the file', () => {
-    const catalog = { ...fresh(), entryKeys: new Set([entryKey('2026-03-01', '20:00', 4, 'alt')]) };
+  const key = (date: string, level: number, note: string | null, activities: string[] = [], noteTitle: string | null = null) =>
+    entryKey({ date, time: '20:00', level, noteTitle, note, activities });
+
+  it('skips entries that are stored already, but keeps rows repeated in the file', () => {
+    const catalog = { ...fresh(), entryKeys: new Map([[key('2026-03-01', 4, 'alt'), 1]]) };
     const plan = buildImportPlan(
       [raw('2026-03-01', 'Gut', [], 'alt'), raw('2026-03-02', 'Gut', [], 'neu'), raw('2026-03-02', 'gut', [], 'neu'), raw('2026-03-02', 'Gut', [], 'neu', '21:00')],
       catalog,
     );
-    expect(plan.duplicates).toBe(2);
+    expect(plan.duplicates).toBe(1);
     expect(plan.entries.map((e) => [e.raw.date, e.raw.time])).toEqual([
+      ['2026-03-02', '20:00'],
       ['2026-03-02', '20:00'],
       ['2026-03-02', '21:00'],
     ]);
   });
 
-  it('counts an entry with another mood level or note as new', () => {
-    const catalog = { ...fresh(), entryKeys: new Set([entryKey('2026-03-01', '20:00', 4, null)]) };
-    const plan = buildImportPlan([raw('2026-03-01', 'Super'), raw('2026-03-01', 'Gut', [], 'x')], catalog);
+  it('matches a stored entry only as often as it is stored', () => {
+    const catalog = { ...fresh(), entryKeys: new Map([[key('2026-03-01', 4, null), 1]]) };
+    const plan = buildImportPlan([raw('2026-03-01', 'Gut'), raw('2026-03-01', 'Gut')], catalog);
+    expect(plan.duplicates).toBe(1);
+    expect(plan.entries).toHaveLength(1);
+  });
+
+  it('counts an entry with another mood level, note, note title or activities as new', () => {
+    const catalog = { ...fresh(), entryKeys: new Map([[key('2026-03-01', 4, null), 1]]) };
+    const titled = { ...raw('2026-03-01', 'Gut'), noteTitle: 'Titel' };
+    const plan = buildImportPlan([raw('2026-03-01', 'Super'), raw('2026-03-01', 'Gut', [], 'x'), titled, raw('2026-03-01', 'Gut', ['Arbeit'])], catalog);
     expect(plan.duplicates).toBe(0);
+  });
+
+  it('compares activities by folded name in any order', () => {
+    const catalog = { ...fresh(), entryKeys: new Map([[key('2026-03-01', 4, null, ['Sport', 'Arbeit']), 1]]) };
+    expect(buildImportPlan([raw('2026-03-01', 'Gut', ['arbeit', 'SPORT'])], catalog).duplicates).toBe(1);
   });
 
   it('plans new scales with a range that holds every value', () => {

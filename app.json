@@ -2,7 +2,7 @@
   "expo": {
     "name": "Daylight",
     "slug": "daylight",
-    "version": "1.0.26",
+    "version": "1.0.27",
     "scheme": "daylight",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -12,7 +12,7 @@
     },
     "android": {
       "package": "de.behla.daylight",
-      "versionCode": 27,
+      "versionCode": 28,
       "allowBackup": false,
       "adaptiveIcon": {
         "backgroundColor": "#11786A",
@@ -87,6 +87,7 @@
           "microphonePermission": false
         }
       ],
+      "./plugins/withHealthPrivacyPolicy",
       "react-native-health-connect",
       [
         "expo-build-properties",
@@ -98,7 +99,8 @@
           }
         }
       ],
-      "./plugins/withReleaseSigning"
+      "./plugins/withReleaseSigning",
+      "./plugins/withBlockedPermissionsSdk23"
     ],
     "experiments": {
       "typedRoutes": true,

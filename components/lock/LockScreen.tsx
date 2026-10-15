@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BackHandler, StyleSheet, View } from 'react-native';
+import { AppState, BackHandler, StyleSheet, View } from 'react-native';
 
 import { AppText, Button, Logo, LogoBackdrop } from '@/components/ui';
 import { authenticate, isLockAvailable, useLockStore } from '@/lib/lock';
@@ -38,10 +38,23 @@ export function LockScreen() {
     return () => subscription.remove();
   }, []);
 
+  // With a delay of zero the lock closes while the app is in the background; the prompt waits for
+  // the way back, since Android does not show it for an app that is not in front.
   useEffect(() => {
     if (prompted.current) return;
-    prompted.current = true;
-    void prompt();
+    const start = () => {
+      if (prompted.current) return;
+      prompted.current = true;
+      void prompt();
+    };
+    if (AppState.currentState === 'active') {
+      start();
+      return;
+    }
+    const subscription = AppState.addEventListener('change', (state) => {
+      if (state === 'active') start();
+    });
+    return () => subscription.remove();
   }, [prompt]);
 
   return (

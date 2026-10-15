@@ -168,13 +168,33 @@ export function doneReminderKeys(entryDays: ReadonlySet<string>, today: DateStri
   return keys;
 }
 
+/** The wall-clock time a reminder is meant for, "YYYY-MM-DDTHH:mm", handed to the native module. */
+export function localTrigger(reminder: PlannedReminder): string {
+  return `${reminder.date}T${formatTime(reminder.hour, reminder.minute)}`;
+}
+
 /**
  * Stable signature of a plan, so the device is only reprogrammed when something changed. The text
- * belongs to it: a streak that grew by a day has to reach the scheduled reminder.
+ * belongs to it: a streak that grew by a day has to reach the scheduled reminder. So does the time
+ * zone (`zone`, see `timeZoneKey`): the scheduled times are absolute, after a move 20:30 would
+ * otherwise ring at the old zone's 20:30.
  */
-export function planSignature(planned: readonly PlannedReminder[]): string {
-  return planned
-    .map((r) => `${r.key}@${formatTime(r.hour, r.minute)}>${r.openDate}#${r.title}#${r.body}`)
-    .sort()
-    .join('\n');
+export function planSignature(planned: readonly PlannedReminder[], zone = ''): string {
+  const lines = planned.map((r) => `${r.key}@${formatTime(r.hour, r.minute)}>${r.openDate}#${r.title}#${r.body}`).sort();
+  return planned.length === 0 ? '' : [`zone:${zone}`, ...lines].join('\n');
+}
+
+/**
+ * The device's time zone as it bears on the plan: its name where Intl knows it, plus the current
+ * offset, so a change of either reschedules. A switch to or from summer time changes the offset
+ * too; rescheduling then is harmless.
+ */
+export function timeZoneKey(now: Date = new Date()): string {
+  let name = '';
+  try {
+    name = Intl.DateTimeFormat().resolvedOptions().timeZone ?? '';
+  } catch {
+    // Without Intl the offset alone has to do.
+  }
+  return `${name}${now.getTimezoneOffset()}`;
 }

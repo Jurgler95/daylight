@@ -47,8 +47,9 @@ class DaylightRemindersModule : Module() {
       }, Manifest.permission.POST_NOTIFICATIONS)
     }
 
-    Function("schedule") { id: String, at: Double, channelId: String, title: String, body: String, url: String? ->
-      Reminders.schedule(context, Reminder(id, at.toLong(), channelId, title, body, url))
+    // `local` is the wall-clock time "YYYY-MM-DDTHH:mm" behind `at`, kept for a change of time zone.
+    Function("schedule") { id: String, at: Double, channelId: String, title: String, body: String, url: String?, local: String? ->
+      Reminders.schedule(context, Reminder(id, at.toLong(), channelId, title, body, url, LocalTrigger.parse(local)))
     }
 
     Function("cancelAll") {

@@ -16,12 +16,17 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ProcessLifecycleOwner
 import org.json.JSONObject
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 /**
  * Local reminders without Firebase. Replaces the part of expo-notifications Daylight used and
  * copies its behaviour: an inexact alarm unless exact alarms are allowed, pending reminders kept in
  * SharedPreferences and set again after a reboot or an update, past ones dropped, the notification
  * silent while the app is in the foreground, a tap opening the app (at the reminder's link, if any).
+ * Unlike expo-notifications a reminder keeps its wall-clock time when the time zone changes.
  */
 internal data class Reminder(
   val id: String,
@@ -31,6 +36,12 @@ internal data class Reminder(
   val body: String,
   /** Deep link the tap opens, e.g. `daylight://entry/new?date=2026-10-13`; null opens the app as it is. */
   val url: String? = null,
+  /**
+   * The wall-clock time the reminder is meant for: `date` as "YYYY-MM-DD", `hour` and `minute` in
+   * the device's time zone. With it `at` is worked out again after a change of time zone, so 20:30
+   * stays 20:30 where the phone is now. Null for reminders stored before, those keep their `at`.
+   */
+  val local: LocalTrigger? = null,
 ) {
   fun toJson(): String = JSONObject()
     .put("at", at)
@@ -38,16 +49,59 @@ internal data class Reminder(
     .put("title", title)
     .put("body", body)
     .apply { if (url != null) put("url", url) }
+    .apply {
+      if (local != null) {
+        put("date", local.date)
+        put("hour", local.hour)
+        put("minute", local.minute)
+      }
+    }
     .toString()
 
+  /** `at` for the wall-clock time in the zone the device is in now; without one the stored `at`. */
+  fun inCurrentZone(): Reminder {
+    val zoned = local?.atMillis(ZoneId.systemDefault()) ?: return this
+    return copy(at = zoned)
+  }
+
   companion object {
-    /** Reminders stored before links existed have no `url` and simply open the app. */
+    /** Reminders stored before links existed have no `url` and simply open the app; ones without `date` keep `at`. */
     fun fromJson(id: String, json: String): Reminder? = try {
       val o = JSONObject(json)
       val url = if (o.has("url")) o.getString("url") else null
-      Reminder(id, o.getLong("at"), o.getString("channelId"), o.getString("title"), o.getString("body"), url)
+      val local = if (o.has("date") && o.has("hour") && o.has("minute")) {
+        LocalTrigger.of(o.getString("date"), o.getInt("hour"), o.getInt("minute"))
+      } else {
+        null
+      }
+      Reminder(id, o.getLong("at"), o.getString("channelId"), o.getString("title"), o.getString("body"), url, local)
     } catch (e: Exception) {
       null
+    }
+  }
+}
+
+/** A day and a time of day without a zone. java.time is part of Android from API 26, the app's minSdk. */
+internal data class LocalTrigger(val date: String, val hour: Int, val minute: Int) {
+  /** A time that does not exist on that day (clocks jumping forward) moves to just after the gap. */
+  fun atMillis(zone: ZoneId): Long? = try {
+    ZonedDateTime.of(LocalDate.parse(date), LocalTime.of(hour, minute), zone).toInstant().toEpochMilli()
+  } catch (e: Exception) {
+    null
+  }
+
+  companion object {
+    /** "YYYY-MM-DDTHH:mm" as JS sends it, null when it is missing or malformed. */
+    fun parse(value: String?): LocalTrigger? {
+      val match = value?.let { Regex("""^(\d{4}-\d{2}-\d{2})T(\d{2}):(\d{2})$""").matchEntire(it) } ?: return null
+      return of(match.groupValues[1], match.groupValues[2].toInt(), match.groupValues[3].toInt())
+    }
+
+    /** Null when the parts do not make a valid day and time; the reminder then keeps its `at`. */
+    fun of(date: String?, hour: Int?, minute: Int?): LocalTrigger? {
+      if (date == null || hour == null || minute == null) return null
+      val trigger = LocalTrigger(date, hour, minute)
+      return if (trigger.atMillis(ZoneId.systemDefault()) == null) null else trigger
     }
   }
 }
@@ -92,11 +146,22 @@ internal object Reminders {
     for (id in ids) manager.cancel(id, NOTIFICATION_ID)
   }
 
-  /** After a reboot or an update the system has forgotten every alarm. */
+  /**
+   * After a reboot or an update the system has forgotten every alarm. After a change of time zone
+   * or of the clock the alarms are still there, but at the old absolute time, so each `at` is
+   * worked out again from the stored wall-clock time. One that has passed in the new zone is dropped.
+   */
   fun restore(context: Context) {
     for ((id, json) in prefs(context).all) {
       val reminder = (json as? String)?.let { Reminder.fromJson(id, it) }
-      if (reminder == null) remove(context, id) else schedule(context, reminder)
+      if (reminder == null) {
+        alarmManager(context).cancel(fireIntent(context, id))
+        remove(context, id)
+      } else {
+        val moved = reminder.inCurrentZone()
+        if (moved.at <= System.currentTimeMillis()) alarmManager(context).cancel(fireIntent(context, id))
+        schedule(context, moved)
+      }
     }
   }
 

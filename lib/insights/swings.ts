@@ -80,9 +80,11 @@ export function goodStreaks(
   from: DateString | null = null,
   minLevel: number = STREAK_MIN_LEVEL,
 ): Streaks {
+  // Days after today (only an import makes them) are not part of any run yet.
+  const past = days.filter((day) => day.date <= today);
   const runs: Streak[] = [];
   let run: Streak | null = null;
-  for (const day of days) {
+  for (const day of past) {
     if (day.level < minLevel) {
       run = null;
       continue;
@@ -101,7 +103,7 @@ export function goodStreaks(
     if (!longest || candidate.days >= longest.days) longest = candidate;
   }
   const last = runs[runs.length - 1];
-  const lastDay = days[days.length - 1];
+  const lastDay = past[past.length - 1];
   const reachesNow = last && lastDay && last.end === lastDay.date && daysBetween(last.end, today) <= 1;
   return { longest: longest ? { ...longest } : null, current: reachesNow ? { ...last } : null };
 }

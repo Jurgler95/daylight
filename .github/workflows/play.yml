@@ -21,6 +21,10 @@ on:
       version:
         type: string
         required: true
+    # Nicht required: fehlt es, meldet der Schritt „Zugang prüfen" das verständlicher
+    secrets:
+      PLAY_SERVICE_ACCOUNT_JSON:
+        required: false
 
 permissions:
   contents: read
@@ -34,7 +38,6 @@ jobs:
     timeout-minutes: 15
     env:
       VERSION: ${{ inputs.version }}
-      GH_TOKEN: ${{ github.token }}
     steps:
       # Alle Tags, weil das Release-Notes-Skript den versionCode der Vorversion abgleicht
       - uses: actions/checkout@v5
@@ -56,6 +59,8 @@ jobs:
 
       # Texte aus dem Stand des Tags, nicht aus main, damit ein später Upload zur Version passt
       - name: App Bundle und Texte holen
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh release download "v$VERSION" --pattern "daylight-$VERSION.aab"
           # Ältere Releases ohne R8 haben keine Zuordnung

@@ -138,15 +138,23 @@ describe('JSON merge', () => {
   it('adds only what is missing and never duplicates entries', () => {
     const payload = buildExport(sampled(), '1', 'X');
     const target = createTestDb();
-    const [feelings] = listGroups(target);
-    const tired = createActivity(target, { group_id: feelings!.id, name: 'müde' });
+    // The first entry is already here, with the same activities in the same groups.
     const first = payload.entries[0]!;
+    const groupIds = new Map(listGroups(target).map((group) => [group.name, group.id]));
+    const activityIds = payload.entry_activities
+      .filter((link) => link.entry_id === first.id)
+      .map((link) => {
+        const activity = payload.activities.find((a) => a.id === link.activity_id)!;
+        const group = payload.activity_groups.find((g) => g.id === activity.group_id)!;
+        return createActivity(target, { group_id: groupIds.get(group.name)!, name: activity.name }).id;
+      });
+    expect(activityIds.length).toBeGreaterThan(0);
     const level = payload.moods.find((m) => m.id === first.mood_id)!.level;
-    createEntry(target, { date: first.date, time: first.time, mood_id: 6 - level, note: first.note, activity_ids: [tired.id] });
+    createEntry(target, { date: first.date, time: first.time, mood_id: 6 - level, note_title: first.note_title, note: first.note, activity_ids: activityIds });
 
     const preview = previewImport(target, payload);
     expect(preview).toMatchObject({ entries: payload.entries.length, toAdd: payload.entries.length - 1, duplicates: 1, newMoods: 1 });
-    expect(preview.newActivities).toBe(payload.activities.length - 1);
+    expect(preview.newActivities).toBe(payload.activities.length - activityIds.length);
 
     expect(applyImport(target, payload, 'merge')).toEqual({ added: payload.entries.length - 1, duplicates: 1 });
     const counts = countRows(target);

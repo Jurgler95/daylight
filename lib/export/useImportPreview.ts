@@ -2,10 +2,11 @@ import { useMemo } from 'react';
 
 import { getDb } from '@/db';
 import { listGroups } from '@/db/repositories/groups';
-import { readCatalog } from '@/lib/daylio/apply';
+import { readCatalog, type ImportMode } from '@/lib/daylio/apply';
 import { resolveGroupName } from '@/lib/daylio/known';
 import type { RowError, RowWarning } from '@/lib/daylio/parse';
-import { buildImportPlan, type ImportChoices, type PlannedActivity, type PlannedMood } from '@/lib/daylio/plan';
+import { buildImportPlan, defaultsCatalog, type ImportChoices, type PlannedActivity, type PlannedMood } from '@/lib/daylio/plan';
+import { filePhotoStore } from '@/lib/photos/fileStore';
 import { useQuery } from '@/lib/store/dataVersion';
 
 import { previewImport, type ImportSummary } from './import';
@@ -23,14 +24,21 @@ export interface ImportPreview {
   warnings: RowWarning[];
 }
 
-/** Recomputes the preview whenever the file, the choices or the database change. Never writes. */
-export function useImportPreview(file: PendingImport | null, choices: ImportChoices): ImportPreview | null {
-  const catalog = useQuery(() => readCatalog(getDb()), []);
-  const groups = useQuery(() => listGroups(getDb()).map((group) => group.name), []);
-  const json = useQuery(() => (file?.kind === 'json' ? previewImport(getDb(), file.payload, { files: file.photos }) : null), [file]);
+/**
+ * Recomputes the preview whenever the file, the choices, the mode or the database change. Never writes.
+ * A CSV replace plans against the standard moods and groups it starts from, so the mapping asks about
+ * every mood and activity the clearing removes.
+ */
+export function useImportPreview(file: PendingImport | null, choices: ImportChoices, mode: ImportMode = 'merge'): ImportPreview | null {
+  const stored = useQuery(() => readCatalog(getDb()), []);
+  const storedGroups = useQuery(() => listGroups(getDb()).map((group) => group.name), []);
+  const json = useQuery(() => (file?.kind === 'json' ? previewImport(getDb(), file.payload, { store: filePhotoStore, files: file.photos }) : null), [file]);
 
   return useMemo(() => {
     if (!file) return null;
+    const fresh = mode === 'replace' && file.kind === 'csv';
+    const catalog = fresh ? defaultsCatalog() : stored;
+    const groups = fresh ? catalog.groups.map((group) => group.name) : storedGroups;
     const imported = resolveGroupName('imported', groups);
     const groupNames = groups.includes(imported) ? groups : [...groups, imported];
     if (file.kind === 'json') {
@@ -45,5 +53,5 @@ export function useImportPreview(file: PendingImport | null, choices: ImportChoi
       errors: file.parsed.errors,
       warnings: file.parsed.warnings,
     };
-  }, [file, choices, catalog, groups, json]);
+  }, [file, choices, mode, stored, storedGroups, json]);
 }

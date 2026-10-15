@@ -27,6 +27,7 @@ export { healthMood, HR_USUAL_BPM, MIN_BAND_DAYS, type HealthBand, type HealthMo
 export {
   activityHealth,
   correlation,
+  CUMULATIVE_METRICS,
   GOOD_MIN,
   HARD_MAX,
   HEALTH_METRICS,
@@ -35,6 +36,7 @@ export {
   metricValue,
   MIN_LINK_PAIRS,
   RECORD_KEYS,
+  settledValue,
   SLEEP_GOAL_MINUTES,
   STEPS_GOAL,
   type ActivityHealth,

@@ -32,15 +32,27 @@ describe('decodeNote', () => {
 
 describe('parseScales', () => {
   it('reads name: value pairs and flags the rest', () => {
-    expect(parseScales('')).toEqual({ scales: [], unreadable: false });
+    expect(parseScales('')).toEqual({ scales: [], unreadable: false, repeated: [] });
     expect(parseScales('Energie: 4 | Stress: 2')).toEqual({
       scales: [
         { name: 'Energie', value: 4 },
         { name: 'Stress', value: 2 },
       ],
       unreadable: false,
+      repeated: [],
     });
     expect(parseScales('Energie: viel').unreadable).toBe(true);
+  });
+
+  it('keeps the last value of a scale named twice', () => {
+    expect(parseScales('Stress: 2 | Energie: 4 | stress: 3')).toEqual({
+      scales: [
+        { name: 'stress', value: 3 },
+        { name: 'Energie', value: 4 },
+      ],
+      unreadable: false,
+      repeated: ['stress'],
+    });
   });
 });
 

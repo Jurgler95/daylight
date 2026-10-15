@@ -89,6 +89,18 @@ describe('buildAchievements', () => {
     expect(days.get('totalDays')).toMatchObject({ best: 3 });
   });
 
+  it('leaves days after today out of the other runs and totals too', () => {
+    const future = [addDaysToDateString(today, 1), addDaysToDateString(today, 2)];
+    const dates = [...daysBack(today, 3), ...future];
+    const entries = dates.map((date) => entry(date, { activity_ids: [1], note: 'ein kurzer Tag', photos: ['a.jpg'] }));
+    const health = dates.map((date) => ({ date, steps: 5000, sleep_minutes: 420, resting_hr: null, exercise_minutes: null, synced_at: 'X', restored: false }));
+    const result = byKey(buildAchievements(input({ entries, health })));
+    for (const key of ['activityDays', 'noteDays', 'photoDays', 'sleepDays', 'stepDays'] as const) expect(result.get(key)).toMatchObject({ best: 3, current: 3 });
+    expect(result.get('weekWords')).toMatchObject({ best: 9, current: 9 });
+    expect(result.get('chips')?.best).toBe(3);
+    expect(result.get('photos')?.best).toBe(3);
+  });
+
   it('gives nothing to an empty diary', () => {
     const achievements = buildAchievements(input({}));
     expect(totalStars(achievements)).toBe(0);

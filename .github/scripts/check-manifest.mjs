@@ -13,6 +13,9 @@
  *
  *   node .github/scripts/check-manifest.mjs builds/daylight-1.0.11.apk [mapping.txt]
  *
+ * Das App Bundle für Play prüft die Pipeline genauso: bundletool macht daraus eine universelle APK
+ * (Manifest und Code des Bundles, unsigniert), die dieses Skript bekommt.
+ *
  * R8 kürzt die Klassennamen im Code. Mit der Zuordnung von R8 als zweitem Argument sucht die
  * Prüfung auch dort nach den ursprünglichen Namen, sonst fiele eine umbenannte Klasse durch.
  *
@@ -48,7 +51,9 @@ const manifest = dump('xmltree', '--file', 'AndroidManifest.xml');
 const app = JSON.parse(readFileSync(new URL('../../app.json', import.meta.url), 'utf8')).expo;
 
 const pkg = badging.match(/^package: .*$/m)?.[0] ?? '';
-const permissions = [...badging.matchAll(/^uses-permission: name='([^']+)'/gm)].map((m) => m[1]);
+// `uses-permission-sdk-23` grants the same as `uses-permission`, only from Android 6 on (all of
+// Daylight's devices), so both count.
+const permissions = [...badging.matchAll(/^uses-permission(?:-sdk-23)?: name='([^']+)'/gm)].map((m) => m[1]);
 const health = permissions.filter((p) => p.startsWith('android.permission.health.')).sort();
 
 const problems = [];

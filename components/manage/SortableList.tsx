@@ -14,7 +14,8 @@ interface Props<T> {
   /** Fixed, so the drop position follows from the drag distance without measuring. */
   rowHeight: number;
   renderRow: (item: T) => ReactNode;
-  onReorder: (orderedIds: number[]) => void;
+  /** Returns false when saving failed, so the dragged row goes back to its place. */
+  onReorder: (orderedIds: number[]) => boolean | void;
   /** "Müde verschieben", on the handle. */
   handleLabel: (item: T) => string;
   moveUpLabel: string;
@@ -51,7 +52,11 @@ export function SortableList<T>({ items, keyOf, rowHeight, renderRow, onReorder,
     }
     next.splice(to, 0, moved);
     haptics.on();
-    onReorder(next);
+    // A failed write keeps the old order, so no new order arrives to drop the drag shifts.
+    if (onReorder(next) === false) {
+      dragging.value = -1;
+      offset.value = 0;
+    }
   };
 
   return (

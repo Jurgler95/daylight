@@ -2,6 +2,8 @@ import * as DocumentPicker from 'expo-document-picker';
 import { Directory, File, Paths } from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 
+import { withLockSuspended } from '@/lib/lock/store';
+
 /** Native side of export/import. Everything stays on the device unless the user shares. */
 
 function cacheFile(name: string): File {
@@ -14,14 +16,14 @@ export async function shareText(name: string, mimeType: string, content: string)
   const file = cacheFile(name);
   file.write(content);
   if (!(await Sharing.isAvailableAsync())) throw new Error('Teilen nicht verfügbar');
-  await Sharing.shareAsync(file.uri, { mimeType, dialogTitle: name });
+  await withLockSuspended(() => Sharing.shareAsync(file.uri, { mimeType, dialogTitle: name }));
 }
 
 /** Storage Access Framework: the user picks a folder (e.g. Downloads); returns false when cancelled. */
 export async function saveToPickedDirectory(name: string, mimeType: string, content: string): Promise<boolean> {
   let directory: Directory;
   try {
-    directory = await Directory.pickDirectoryAsync();
+    directory = await withLockSuspended(() => Directory.pickDirectoryAsync());
   } catch {
     return false;
   }
@@ -65,14 +67,14 @@ function cacheFileFrom(name: string, fill: (write: (chunk: Uint8Array) => void) 
 export async function shareBinary(name: string, mimeType: string, fill: (write: (chunk: Uint8Array) => void) => void): Promise<void> {
   const file = cacheFileFrom(name, fill);
   if (!(await Sharing.isAvailableAsync())) throw new Error('Teilen nicht verfügbar');
-  await Sharing.shareAsync(file.uri, { mimeType, dialogTitle: name });
+  await withLockSuspended(() => Sharing.shareAsync(file.uri, { mimeType, dialogTitle: name }));
 }
 
 /** Like `saveToPickedDirectory`, for a file built in chunks (the backup ZIP). */
 export async function saveBinaryToPickedDirectory(name: string, mimeType: string, fill: (write: (chunk: Uint8Array) => void) => void): Promise<boolean> {
   let directory: Directory;
   try {
-    directory = await Directory.pickDirectoryAsync();
+    directory = await withLockSuspended(() => Directory.pickDirectoryAsync());
   } catch {
     return false;
   }
@@ -85,11 +87,13 @@ export async function saveBinaryToPickedDirectory(name: string, mimeType: string
 
 /** Lets the user pick a file to import and returns its name and bytes, or null when cancelled. */
 export async function pickImportFile(): Promise<{ name: string; bytes: Uint8Array } | null> {
-  const result = await DocumentPicker.getDocumentAsync({
-    type: ['application/json', 'text/csv', 'text/comma-separated-values', 'text/plain', 'application/zip', 'application/octet-stream', '*/*'],
-    copyToCacheDirectory: true,
-    multiple: false,
-  });
+  const result = await withLockSuspended(() =>
+    DocumentPicker.getDocumentAsync({
+      type: ['application/json', 'text/csv', 'text/comma-separated-values', 'text/plain', 'application/zip', 'application/octet-stream', '*/*'],
+      copyToCacheDirectory: true,
+      multiple: false,
+    }),
+  );
   if (result.canceled) return null;
   const asset = result.assets[0];
   if (!asset) return null;
@@ -98,4 +102,23 @@ export async function pickImportFile(): Promise<{ name: string; bytes: Uint8Arra
   // The picker's cache copy holds a whole journal; it is read now and not needed again.
   if (file.exists) file.delete();
   return { name: asset.name, bytes };
+}
+
+/** Cache folders where the pickers and the image manipulator leave copies of what passed through. */
+const COPY_FOLDERS = ['ImagePicker', 'ImageManipulator', 'DocumentPicker'];
+
+/**
+ * "Alle Daten löschen": the exports shared from the cache (`daylight-…`) and the copies the pickers
+ * left there go too, so no journal or photo survives outside the database and the photo folder.
+ */
+export function deleteCachedCopies(): void {
+  for (const item of Paths.cache.list()) {
+    const ours = item instanceof File ? item.name.startsWith('daylight-') : COPY_FOLDERS.includes(item.name);
+    if (!ours) continue;
+    try {
+      item.delete();
+    } catch {
+      // Android clears the cache on its own sooner or later; one stuck file must not stop the rest.
+    }
+  }
 }

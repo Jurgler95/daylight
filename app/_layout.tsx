@@ -15,6 +15,7 @@ import { ReminderPrompt } from '@/components/reminders/ReminderPrompt';
 import { StreakCelebration } from '@/components/streak/StreakCelebration';
 import { AppText, Button, LogoBackdrop } from '@/components/ui';
 import { useOpenCounter } from '@/lib/achievements/useOpenCounter';
+import { today } from '@/lib/dates';
 import { useHealthSync } from '@/lib/health/useHealthSync';
 import { useAppLock } from '@/lib/lock';
 import { useReminderSync } from '@/lib/notifications';
@@ -92,7 +93,8 @@ function AppShell() {
       <View style={styles.flex} importantForAccessibility={locked ? 'no-hide-descendants' : 'auto'} accessibilityElementsHidden={locked}>
         <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.background } }}>
           <Stack.Screen name="(tabs)" />
-          <Stack.Screen name="entry/new" options={{ presentation: 'modal' }} />
+          {/* One editor per day: a reminder's link for another day opens on top and keeps the draft below. */}
+          <Stack.Screen name="entry/new" options={{ presentation: 'modal' }} dangerouslySingular={(_, params) => (typeof params.date === 'string' ? params.date : today())} />
           <Stack.Screen name="entry/[id]" options={{ presentation: 'modal' }} />
           {/* The one screen that leaves the daylight palette: setting a turning point happens at dawn. */}
           <Stack.Screen name="turning/new" options={{ presentation: 'fullScreenModal', animation: 'fade', contentStyle: { backgroundColor: '#0B1433' } }} />

@@ -17,9 +17,10 @@ import { syncHealth, type SyncOutcome } from './sync';
 export async function runHealthSync(force = false): Promise<SyncOutcome | 'busy'> {
   if (useHealthSyncStore.getState().running) return 'busy';
   useHealthSyncStore.setState({ running: true, month: null });
+  const db = getDb();
   try {
     return await syncHealth({
-      db: getDb(),
+      db,
       source: { granted: grantedTypes, read: (from, to, types) => readHealthDays(from, to, types as Parameters<typeof readHealthDays>[2]) },
       now: new Date(),
       force,
@@ -30,7 +31,8 @@ export async function runHealthSync(force = false): Promise<SyncOutcome | 'busy'
         useSettingsStore.getState().load();
         return result;
       },
-      stillEnabled: () => useSettingsStore.getState().settings?.health_enabled ?? false,
+      // "Delete all data" closes this connection; a sync still reading must not write to it.
+      stillEnabled: () => getDb() === db && (useSettingsStore.getState().settings?.health_enabled ?? false),
     });
   } finally {
     useHealthSyncStore.setState({ running: false, month: null });

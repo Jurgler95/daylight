@@ -1,4 +1,5 @@
 import type { HealthDay } from '@/db/schema';
+import type { DateString } from '@/lib/dates';
 
 import type { InsightDay } from './days';
 import { mean, median } from './stats';
@@ -65,9 +66,10 @@ function bands(defs: readonly BandDef[], pairs: readonly [value: number, mood: n
 
 /**
  * Mood of the diary days against sleep, steps, exercise and resting pulse. Only days with an entry and a value
- * count; the numbers describe the diary and say nothing about cause and effect.
+ * count; the numbers describe the diary and say nothing about cause and effect. Today's steps and
+ * exercise are still growing, so today joins those bands only once it had exercise.
  */
-export function healthMood(days: readonly InsightDay[], health: readonly HealthDay[]): HealthMood {
+export function healthMood(days: readonly InsightDay[], health: readonly HealthDay[], today: DateString): HealthMood {
   const byDate = new Map(health.map((row) => [row.date, row]));
   const sleep: [number, number][] = [];
   const steps: [number, number][] = [];
@@ -80,10 +82,11 @@ export function healthMood(days: readonly InsightDay[], health: readonly HealthD
     if (!row) continue;
     pairedDays += 1;
     if (row.sleep_minutes !== null) sleep.push([row.sleep_minutes, day.mean]);
-    if (row.steps !== null) steps.push([row.steps, day.mean]);
+    const unfinished = day.date >= today;
+    if (row.steps !== null && !unfinished) steps.push([row.steps, day.mean]);
     if (row.resting_hr !== null) pulse.push([row.resting_hr, day.mean]);
     if (row.exercise_minutes !== null && row.exercise_minutes > 0) withExercise.push(day.mean);
-    else withoutExercise.push(day.mean);
+    else if (!unfinished) withoutExercise.push(day.mean);
   }
   const usual = median(pulse.map(([value]) => value));
   const hrBounds: [number, number] | null = usual === null ? null : [Math.round(usual) - HR_USUAL_BPM, Math.round(usual) + HR_USUAL_BPM];

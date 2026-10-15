@@ -5,7 +5,7 @@ import { AppState } from 'react-native';
 
 import { useSettingsStore } from '@/lib/store/settingsStore';
 
-import { shouldRelock, useLockStore } from './store';
+import { handleAppStateChange, useLockStore } from './store';
 
 const SCREEN_CAPTURE_KEY = 'app-lock';
 
@@ -27,7 +27,7 @@ export function useAppLock(): { locked: boolean } {
 
   useEffect(() => {
     if (!enabled) {
-      useLockStore.setState({ locked: false, leftAt: null });
+      useLockStore.setState({ locked: false, leftAt: null, leftForSystem: false });
       setScreenCapture(false);
       return;
     }
@@ -37,16 +37,7 @@ export function useAppLock(): { locked: boolean } {
 
   useEffect(() => {
     if (!enabled) return;
-    const subscription = AppState.addEventListener('change', (state) => {
-      const { leftAt, lock, setLeftAt } = useLockStore.getState();
-      if (state === 'background' || state === 'inactive') {
-        if (leftAt === null) setLeftAt(Date.now());
-        return;
-      }
-      if (state !== 'active') return;
-      setLeftAt(null);
-      if (shouldRelock(leftAt, Date.now(), delaySeconds)) lock();
-    });
+    const subscription = AppState.addEventListener('change', (state) => handleAppStateChange(state, Date.now(), delaySeconds));
     return () => subscription.remove();
   }, [enabled, delaySeconds]);
 

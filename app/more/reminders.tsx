@@ -23,10 +23,12 @@ export default function RemindersScreen() {
       update({ reminder_enabled: false });
       return;
     }
-    void requestPermission(t('notify.channel')).then((granted) => {
-      if (granted) update({ reminder_enabled: true, reminder_prompt_done: true });
-      else Alert.alert(t('reminders.title'), t('reminders.permissionDenied'));
-    });
+    void requestPermission(t('notify.channel'))
+      .catch(() => false)
+      .then((granted) => {
+        if (granted) update({ reminder_enabled: true, reminder_prompt_done: true });
+        else Alert.alert(t('reminders.title'), t('reminders.permissionDenied'));
+      });
   };
 
   return (
@@ -39,7 +41,7 @@ export default function RemindersScreen() {
       <Card>
         <ToggleRow label={t('reminders.daily')} hint={t('reminders.dailyHint')} value={settings.reminder_enabled} onChange={toggle} />
         <TimeRow
-          label={t('reminders.time')}
+          label={t('reminders.dailyTime')}
           value={settings.reminder_time}
           disabled={!settings.reminder_enabled}
           onChange={(reminder_time) => update({ reminder_time })}
@@ -55,7 +57,7 @@ export default function RemindersScreen() {
           onChange={(reminder_yesterday_enabled) => update({ reminder_yesterday_enabled })}
         />
         <TimeRow
-          label={t('reminders.time')}
+          label={t('reminders.yesterdayTime')}
           value={settings.reminder_yesterday_time}
           disabled={!settings.reminder_enabled || !settings.reminder_yesterday_enabled}
           onChange={(reminder_yesterday_time) => update({ reminder_yesterday_time })}

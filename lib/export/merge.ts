@@ -1,10 +1,9 @@
 import { chunked } from '@/db/chunks';
-import { listEntryDetails } from '@/db/repositories/entries';
 import { addPhotos } from '@/db/repositories/photos';
 import { activities, activityGroups, entries, entryActivities, entryScales, moods, plannedActivities, scales, turningPoints } from '@/db/schema';
 import type { Database } from '@/db/types';
-import { entryKey } from '@/lib/daylio/plan';
-import { readCatalog } from '@/lib/daylio/apply';
+import { entryIdsByKey, readCatalog } from '@/lib/daylio/apply';
+import { entryKey, takeKey } from '@/lib/daylio/plan';
 import { fold } from '@/lib/search/fold';
 import { onEntryDays, roomInYear } from '@/lib/turning/rules';
 
@@ -13,7 +12,7 @@ import type { ExportPayload } from './schema';
 /**
  * Merge side of the JSON import. Rows are matched by meaning, not by id: groups and scales by
  * folded name, moods by folded label and level, activities by group and folded name, entries by
- * date, time, mood level and note. Unmatched rows are added with fresh ids; settings stay as they are.
+ * date, time, mood level, note title, note and activity names (`entryKey`). Unmatched rows are added with fresh ids; settings stay as they are.
  */
 
 export interface Matches {
@@ -42,38 +41,52 @@ export function matchPayload(db: Database, payload: ExportPayload): Matches {
   );
   const scaleMatches = new Map(payload.scales.map((scale) => [scale.id, catalog.scales.find((s) => fold(s.name) === fold(scale.name))?.id ?? null]));
 
-  const moodLevels = levels(payload);
-  const seen = new Set(catalog.entryKeys);
+  const keyOf = payloadKeys(payload);
+  const stored = new Map(catalog.entryKeys);
   const newEntries: ExportPayload['entries'] = [];
   let duplicates = 0;
   for (const entry of payload.entries) {
-    const key = entryKey(entry.date, entry.time, moodLevels.get(entry.mood_id) ?? 0, entry.note);
-    if (seen.has(key)) duplicates++;
+    if (takeKey(stored, keyOf(entry))) duplicates++;
     else newEntries.push(entry);
-    seen.add(key);
   }
   return { moods: moodMatches, groups, activities: activityMatches, scales: scaleMatches, newEntries, duplicates };
 }
 
-const levels = (payload: ExportPayload) => new Map(payload.moods.map((mood) => [mood.id, mood.level]));
+/** `entryKey` of a payload entry, with its mood level and activity names looked up in the payload. */
+function payloadKeys(payload: ExportPayload): (entry: ExportPayload['entries'][number]) => string {
+  const levels = new Map(payload.moods.map((mood) => [mood.id, mood.level]));
+  const names = new Map(payload.activities.map((activity) => [activity.id, activity.name]));
+  const activityNames = new Map<number, string[]>();
+  for (const link of payload.entry_activities) {
+    const name = names.get(link.activity_id) ?? '';
+    const list = activityNames.get(link.entry_id);
+    if (list) list.push(name);
+    else activityNames.set(link.entry_id, [name]);
+  }
+  return (entry) =>
+    entryKey({
+      date: entry.date,
+      time: entry.time,
+      level: levels.get(entry.mood_id) ?? 0,
+      noteTitle: entry.note_title,
+      note: entry.note,
+      activities: activityNames.get(entry.id) ?? [],
+    });
+}
 
 /**
  * Photos go to the new entry, or to the stored entry the payload entry matched, so merging a
  * backup into a journal that already has its entries (say from a CSV) still brings the photos.
  */
-function attachPhotos(tx: Database, payload: ExportPayload, entryIds: ReadonlyMap<number, number>, moodLevels: ReadonlyMap<number, number>): void {
+function attachPhotos(tx: Database, payload: ExportPayload, entryIds: ReadonlyMap<number, number>): void {
   if (payload.entry_photos.length === 0) return;
-  const stored = new Map<string, number>();
-  for (const entry of listEntryDetails(tx)) {
-    const key = entryKey(entry.date, entry.time, entry.level, entry.note);
-    if (!stored.has(key)) stored.set(key, entry.id);
-  }
+  const stored = entryIdsByKey(tx);
+  const keyOf = payloadKeys(payload);
   const byEntry = new Map(payload.entries.map((entry) => [entry.id, entry]));
   const photos = [...payload.entry_photos].sort((a, b) => a.entry_id - b.entry_id || a.sort_order - b.sort_order);
   for (const photo of photos) {
     const entry = byEntry.get(photo.entry_id);
-    const target =
-      entryIds.get(photo.entry_id) ?? (entry ? stored.get(entryKey(entry.date, entry.time, moodLevels.get(entry.mood_id) ?? 0, entry.note)) : undefined);
+    const target = entryIds.get(photo.entry_id) ?? (entry ? stored.get(keyOf(entry)) : undefined);
     if (target !== undefined) addPhotos(tx, target, [photo.file_name]);
   }
 }
@@ -140,7 +153,7 @@ export function mergeImport(tx: Database, payload: ExportPayload): { added: numb
   for (const chunk of chunked(values)) tx.insert(entryScales).values(chunk).onConflictDoNothing().run();
   const plans = payload.planned_activities.map((plan) => ({ date: plan.date, activity_id: activityIds.get(plan.activity_id) as number }));
   for (const chunk of chunked(plans)) tx.insert(plannedActivities).values(chunk).onConflictDoNothing().run();
-  attachPhotos(tx, payload, entryIds, levels(payload));
+  attachPhotos(tx, payload, entryIds);
   mergeTurningPoints(tx, payload);
 
   return { added: matches.newEntries.length, duplicates: matches.duplicates };

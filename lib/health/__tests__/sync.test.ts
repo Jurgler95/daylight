@@ -75,6 +75,16 @@ describe('syncHealth', () => {
     expect(reads).toEqual(['2026-09-21..2026-09-27']);
   });
 
+  it('ends quietly when the database goes away during a sync', async () => {
+    const db = createTestDb();
+    updateSettings(db, { health_enabled: true });
+    const { source } = fakeSource();
+    const closed = () => {
+      throw new Error('database is closed');
+    };
+    await expect(syncHealth({ db, source, now, write: closed })).resolves.toBe('failed');
+  });
+
   it('says so when nothing was allowed', async () => {
     const db = createTestDb();
     updateSettings(db, { health_enabled: true });

@@ -16,11 +16,14 @@ export async function runMigrations(): Promise<void> {
   await migrate(db, migrations);
   // Before the settings store loads, so the first start names moods and groups in the device's language.
   // Stored right away, so the choice stays put when the device language changes later.
-  let language = ensureSettings(db).language;
-  if (!language) {
-    language = deviceLanguage();
-    updateSettings(db, { language });
-  }
-  ensureDefaults(db, language);
-  settleReminderPrompt(db);
+  // One transaction: an app killed halfway through the first start never keeps half the defaults.
+  db.transaction((tx) => {
+    let language = ensureSettings(tx).language;
+    if (!language) {
+      language = deviceLanguage();
+      updateSettings(tx, { language });
+    }
+    ensureDefaults(tx, language);
+    settleReminderPrompt(tx);
+  });
 }

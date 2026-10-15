@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Modal, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { useCloseOnLock } from '@/lib/lock/useCloseOnLock';
 import { TOUCH_TARGET, radius, spacing, useTheme, withAlpha } from '@/lib/theme';
 
 import { AppText } from './AppText';
@@ -41,6 +42,7 @@ export function SelectRow({ label, value, sections, title, closeLabel, placehold
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   const [open, setOpen] = useState(false);
+  useCloseOnLock(() => setOpen(false));
   const options = sections.flatMap((section) => section.options);
   const current = options.find((option) => option.value === value);
 
