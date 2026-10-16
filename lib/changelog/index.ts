@@ -26,6 +26,42 @@ export function changesIn(release: Release, language: Language): string[] {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.29',
+    date: '2026-10-16',
+    changes: {
+      de: [
+        'Daylight gibt es jetzt auch auf Spanisch, Portugiesisch, Französisch und Italienisch, umschalten lässt sich unter „Mehr“ bei „Sprache“',
+        'Der Hinweis „Reden hilft“ nennt die Krisenhotline deines Landes statt immer die deutsche',
+        'Kurze Beschriftungen wie Wochentage werden nicht mehr abgeschnitten',
+      ],
+      en: [
+        'Daylight is now also available in Spanish, Portuguese, French and Italian, switch under “More” at “Language”',
+        'The “Talking helps” note names the crisis line of your country instead of always the German one',
+        'Short labels like weekdays are no longer cut off',
+      ],
+      es: [
+        'Daylight ya está disponible en español, portugués, francés e italiano, cámbialo en “Más”, apartado “Idioma”',
+        'El aviso “Hablar ayuda” muestra la línea de crisis de tu país en lugar de siempre la alemana',
+        'Las etiquetas cortas, como los días de la semana, ya no se cortan',
+      ],
+      pt: [
+        'O Daylight agora também está em espanhol, português, francês e italiano, troque em “Mais”, na seção “Idioma”',
+        'O aviso “Conversar ajuda” mostra a linha de apoio do seu país em vez de sempre a alemã',
+        'Rótulos curtos, como os dias da semana, não aparecem mais cortados',
+      ],
+      fr: [
+        'Daylight existe maintenant aussi en espagnol, portugais, français et italien, à choisir dans « Plus », rubrique « Langue »',
+        'La remarque « Parler aide » indique la ligne d\'écoute de ton pays au lieu de toujours celle d\'Allemagne',
+        'Les libellés courts comme les jours de la semaine ne sont plus coupés',
+      ],
+      it: [
+        'Daylight ora è disponibile anche in spagnolo, portoghese, francese e italiano, cambia lingua in “Altro” alla voce “Lingua”',
+        'L\'avviso “Parlarne aiuta” indica la linea di ascolto del tuo paese invece di quella tedesca',
+        'Le etichette brevi come i giorni della settimana non vengono più tagliate',
+      ],
+    },
+  },
+  {
     version: '1.0.28',
     date: '2026-10-15',
     changes: {
