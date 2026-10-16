@@ -1,11 +1,12 @@
 import type { MoodLevel } from '@/db/schema';
-import { currentLanguage, type Language } from '@/lib/i18n/language';
+import { CONTENT, type ActivityKey, type GroupKey } from '@/lib/i18n/content';
+import { currentLanguage, LANGUAGES, type Language } from '@/lib/i18n/language';
 import { FALLBACK_ACTIVITY_ICON, type IconName } from '@/lib/icons';
 import { fold } from '@/lib/search/fold';
 
 /**
- * Fixed vocabulary of Daylio's standard names (German and English), used to suggest a level for a
- * mood and a group and icon for an activity during import. A suggestion, never a rule: the import
+ * Fixed vocabulary of Daylio's standard names (German and English) and of Daylight's own names in
+ * every language of the app, used to suggest a level for a mood and a group and icon for an activity during import. A suggestion, never a rule: the import
  * preview lets every one of them be changed.
  */
 
@@ -15,22 +16,21 @@ export interface DefaultMood {
   icon: IconName;
 }
 
+const MOOD_ICONS = ['emoticon-excited-outline', 'emoticon-happy-outline', 'emoticon-neutral-outline', 'emoticon-sad-outline', 'emoticon-cry-outline'] as const;
+
+/** Five names best first, levels 5 to 1, with the icon of each level. */
+function moodSet(names: readonly [string, string, string, string, string]): readonly DefaultMood[] {
+  return names.map((label, index) => ({ label, level: (5 - index) as MoodLevel, icon: MOOD_ICONS[index]! }));
+}
+
 /** Created on first start, best first like in Daylio, but with Daylight's own names. */
 const MOODS_BY_LANGUAGE: Record<Language, readonly DefaultMood[]> = {
-  de: [
-    { label: 'Super', level: 5, icon: 'emoticon-excited-outline' },
-    { label: 'Gut', level: 4, icon: 'emoticon-happy-outline' },
-    { label: 'Ok', level: 3, icon: 'emoticon-neutral-outline' },
-    { label: 'Schlecht', level: 2, icon: 'emoticon-sad-outline' },
-    { label: 'Mies', level: 1, icon: 'emoticon-cry-outline' },
-  ],
-  en: [
-    { label: 'Great', level: 5, icon: 'emoticon-excited-outline' },
-    { label: 'Good', level: 4, icon: 'emoticon-happy-outline' },
-    { label: 'Okay', level: 3, icon: 'emoticon-neutral-outline' },
-    { label: 'Bad', level: 2, icon: 'emoticon-sad-outline' },
-    { label: 'Awful', level: 1, icon: 'emoticon-cry-outline' },
-  ],
+  de: moodSet(['Super', 'Gut', 'Ok', 'Schlecht', 'Mies']),
+  en: moodSet(['Great', 'Good', 'Okay', 'Bad', 'Awful']),
+  es: moodSet(CONTENT.es.moods),
+  pt: moodSet(CONTENT.pt.moods),
+  fr: moodSet(CONTENT.fr.moods),
+  it: moodSet(CONTENT.it.moods),
 };
 
 export function defaultMoods(language: Language = currentLanguage()): readonly DefaultMood[] {
@@ -58,19 +58,24 @@ const MOOD_LEVEL_BY_NAME = new Map<string, MoodLevel>(
   ),
 );
 
-/** Level of a standard Daylio mood name in either language, or null for a custom mood. */
-export function knownMoodLevel(name: string): MoodLevel | null {
-  return MOOD_LEVEL_BY_NAME.get(fold(name.trim())) ?? null;
+/**
+ * Level of a standard mood name, or null for a custom mood. Daylio's names and the German and
+ * English defaults count always, the defaults of the other languages only in their own language,
+ * so a self-made "Normal" in an English export stays a mood of its own.
+ */
+export function knownMoodLevel(name: string, language: Language = currentLanguage()): MoodLevel | null {
+  const key = fold(name.trim());
+  return MOOD_LEVEL_BY_NAME.get(key) ?? MOODS_BY_LANGUAGE[language].find((mood) => fold(mood.label) === key)?.level ?? null;
 }
 
 /**
  * The standard groups, created on first start in the app's language, plus the one that takes
- * activities outside the known list. A group is found by its name in either language, so an
+ * activities outside the known list. A group is found by its name in any language, so an
  * English Daylio export lands in "Gefühle" as well as in "Emotions".
  */
-export type GroupKey = 'feelings' | 'sleep' | 'weather' | 'social' | 'work' | 'leisure' | 'imported';
+export type { GroupKey };
 
-const GROUP_NAMES: Record<GroupKey, Record<Language, string>> = {
+const GROUP_NAMES_DE_EN: Record<GroupKey, { de: string; en: string }> = {
   feelings: { de: 'Gefühle', en: 'Emotions' },
   sleep: { de: 'Schlaf', en: 'Sleep' },
   weather: { de: 'Wetter', en: 'Weather' },
@@ -79,6 +84,13 @@ const GROUP_NAMES: Record<GroupKey, Record<Language, string>> = {
   leisure: { de: 'Orte und Freizeit', en: 'Places and hobbies' },
   imported: { de: 'Importiert', en: 'Imported' },
 };
+
+const GROUP_NAMES = Object.fromEntries(
+  (Object.keys(GROUP_NAMES_DE_EN) as GroupKey[]).map((key) => [
+    key,
+    { ...GROUP_NAMES_DE_EN[key], es: CONTENT.es.groups[key], pt: CONTENT.pt.groups[key], fr: CONTENT.fr.groups[key], it: CONTENT.it.groups[key] },
+  ]),
+) as Record<GroupKey, Record<Language, string>>;
 
 const DEFAULT_GROUP_KEYS = ['feelings', 'sleep', 'weather', 'social', 'work', 'leisure'] as const;
 type DefaultGroupKey = (typeof DEFAULT_GROUP_KEYS)[number];
@@ -95,7 +107,7 @@ export function defaultGroups(language: Language = currentLanguage()): string[] 
 /** The German set, as the tests and the sample data know it. */
 export const DEFAULT_GROUPS = defaultGroups('de');
 
-/** The name of `key` among `existing` in either language, else its name in the app's language. */
+/** The name of `key` among `existing` in any language, else its name in the app's language. */
 export function resolveGroupName(key: GroupKey, existing: readonly string[], language: Language = currentLanguage()): string {
   const names = new Set(Object.values(GROUP_NAMES[key]).map(fold));
   return existing.find((name) => names.has(fold(name))) ?? groupName(key, language);
@@ -106,8 +118,11 @@ export interface KnownActivity {
   icon: IconName;
 }
 
-/** [names in any language, icon] per group. The first name is the German one, the second the English one. */
-const ACTIVITIES: Record<DefaultGroupKey, readonly (readonly [readonly string[], IconName])[]> = {
+/**
+ * [Daylio names, icon] per group. The first name is the German one, the second the English one,
+ * further ones are variants; the other languages come from `lib/i18n/content`, keyed by the German name.
+ */
+const ACTIVITIES: Record<DefaultGroupKey, readonly (readonly [readonly [ActivityKey, ...string[]], IconName])[]> = {
   feelings: [
     [['Glücklich', 'happy'], 'emoticon-happy-outline'],
     [['Aufgeregt', 'excited'], 'flash-outline'],
@@ -171,7 +186,9 @@ const ACTIVITIES: Record<DefaultGroupKey, readonly (readonly [readonly string[],
 const ACTIVITY_BY_NAME = new Map<string, KnownActivity>();
 for (const group of DEFAULT_GROUP_KEYS) {
   for (const [names, icon] of ACTIVITIES[group]) {
-    for (const name of names) {
+    const german = names[0];
+    const translated = Object.values(CONTENT).map((content) => content.activities[german]);
+    for (const name of [...names, ...translated]) {
       const key = fold(name);
       // "Gut" and "Schlecht" exist only as sleep here; first definition wins for any repeat.
       if (!ACTIVITY_BY_NAME.has(key)) ACTIVITY_BY_NAME.set(key, { group, icon });
@@ -183,7 +200,7 @@ for (const group of DEFAULT_GROUP_KEYS) {
  * Created on first start next to the groups, so a new journal is usable right away: a short pick
  * from Daylio's standard activities, fewer than Daylio itself brings. Listed by German name.
  */
-const STARTER_ACTIVITIES: Record<DefaultGroupKey, readonly string[]> = {
+const STARTER_ACTIVITIES: Record<DefaultGroupKey, readonly ActivityKey[]> = {
   feelings: ['Glücklich', 'Entspannt', 'Müde', 'Gestresst', 'Traurig'],
   sleep: ['Gut', 'Mäßig', 'Schlecht'],
   weather: ['Sonnig', 'Wolkig', 'Regnerisch', 'Schnee'],
@@ -197,18 +214,26 @@ export function starterActivities(language: Language = currentLanguage()): { nam
   return DEFAULT_GROUP_KEYS.map((group) =>
     STARTER_ACTIVITIES[group].map((german) => {
       const [names, icon] = ACTIVITIES[group].find(([candidates]) => candidates[0] === german) ?? [[german], FALLBACK_ACTIVITY_ICON];
+      if (language === 'de') return { name: german, icon };
+      if (language !== 'en') return { name: CONTENT[language].activities[german], icon };
       const english = names[1] ?? german;
-      return { name: language === 'de' ? german : english.charAt(0).toUpperCase() + english.slice(1), icon };
+      return { name: english.charAt(0).toUpperCase() + english.slice(1), icon };
     }),
   );
 }
 
-/** Starter names in both languages, folded, so a renamed or self-made activity is told apart from one the app brought. */
-const STARTER_NAMES = new Set((['de', 'en'] as const).flatMap((language) => starterActivities(language).flat().map((activity) => fold(activity.name))));
+/** Starter names per language, folded, so a renamed or self-made activity is told apart from one the app brought. */
+const STARTER_NAMES = Object.fromEntries(
+  LANGUAGES.map((language) => [language, new Set(starterActivities(language).flat().map((activity) => fold(activity.name)))]),
+) as Record<Language, Set<string>>;
 
-/** Whether `name` is one of the activities the app sets up on first start, in either language. */
-export function isStarterActivity(name: string): boolean {
-  return STARTER_NAMES.has(fold(name.trim()));
+/**
+ * Whether `name` is one of the activities the app sets up on first start, in German, English or
+ * `language`. Not in every language: a self-made "Stress" in a German journal stays self-made.
+ */
+export function isStarterActivity(name: string, language: Language = currentLanguage()): boolean {
+  const key = fold(name.trim());
+  return STARTER_NAMES.de.has(key) || STARTER_NAMES.en.has(key) || STARTER_NAMES[language].has(key);
 }
 
 /** Group and icon for a standard Daylio activity name, or null when it is unknown. */

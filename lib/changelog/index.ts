@@ -5,8 +5,10 @@ import type { Language } from '@/lib/i18n/language';
  *
  * Neue Einträge kommen immer oben dazu. Jeder Punkt beschreibt eine Änderung, die in der App
  * sichtbar oder spürbar ist: keine Umbauten im Code, keine Abhängigkeiten, keine Tests.
- * Kurz halten, ein Satz pro Punkt. Jeder Eintrag steht auf Deutsch und Englisch, mit gleich vielen
- * Punkten in derselben Reihenfolge; die App zeigt die Sprache, die gerade eingestellt ist.
+ * Kurz halten, ein Satz pro Punkt. Jeder Eintrag steht in allen Sprachen der App, mit gleich vielen
+ * Punkten in derselben Reihenfolge; die App zeigt die Sprache, die gerade eingestellt ist. Einträge
+ * von vor Version 1.0.29 gibt es nur auf Deutsch und Englisch, die übrigen Sprachen zeigen dort das
+ * Englische.
  */
 export interface Release {
   /** Muss der `version` in `app.json` entsprechen. */
@@ -14,7 +16,12 @@ export interface Release {
   /** Erscheinungsdatum als `YYYY-MM-DD`. */
   date: string;
   /** Kurze Stichpunkte je Sprache, jeweils ohne Satzzeichen am Ende. */
-  changes: Record<Language, string[]>;
+  changes: { de: string[]; en: string[] } & Partial<Record<Language, string[]>>;
+}
+
+/** The points of `release` in `language`, English where an older entry lacks that language. */
+export function changesIn(release: Release, language: Language): string[] {
+  return release.changes[language] ?? release.changes.en;
 }
 
 export const RELEASES: Release[] = [

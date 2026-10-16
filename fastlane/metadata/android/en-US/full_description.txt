@@ -34,7 +34,7 @@ App lock with your device's screen lock, no screenshots while the lock is on, no
 📦 Your data, your files
 Share or save a full backup with photos, restore it any time, and export as CSV. Coming from another mood journal app? Daylight imports an existing journal completely, as a CSV export or as a backup with photos, and shows a preview before anything changes.
 
-Available in English and German.
+Available in English, German, Spanish, French, Italian and Portuguese (Brazil).
 
 FREE AND OPEN SOURCE
 Daylight is free software under the GNU GPL, version 3 or later. No ads, no in-app purchases, no tracking.

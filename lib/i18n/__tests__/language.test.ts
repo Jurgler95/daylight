@@ -1,4 +1,4 @@
-import { formatDayMonth, formatLong, formatNumeric, formatRange, formatWeekdayLong, type DateString } from '@/lib/dates';
+import { formatDayMonth, formatLong, formatNumeric, formatRange, formatWeekdayLong, formatWeekdayShort, type DateString } from '@/lib/dates';
 import { formatSteps } from '@/lib/health/format';
 import { formatDecimal, formatPercent, formatSigned } from '@/lib/insights/format';
 
@@ -31,6 +31,32 @@ describe('language switch', () => {
     expect(formatSteps(8412)).toBe('8.412');
   });
 
+  it('formats dates and numbers in Spanish, Portuguese, French and Italian', () => {
+    applyLanguage('es');
+    expect(formatLong(d('2026-03-14'))).toBe('Sábado, 14 de marzo');
+    expect(formatRange(d('2026-03-14'), d('2026-03-17'))).toBe('14 al 17 mar');
+    expect(formatNumeric(d('2025-12-29'))).toBe('29/12/2025');
+    expect(formatDecimal(4.35)).toBe('4,4');
+    expect(formatPercent(0.74)).toBe('74 %');
+    expect(formatSteps(8412)).toBe('8.412');
+
+    applyLanguage('pt');
+    expect(formatLong(d('2026-03-14'))).toBe('Sábado, 14 de março');
+    expect(formatPercent(0.74)).toBe('74%');
+    expect(formatWeekdayShort(d('2026-03-14'))).toBe('Sáb');
+
+    applyLanguage('fr');
+    expect(formatLong(d('2026-03-14'))).toBe('Samedi 14 mars');
+    expect(formatRange(d('2026-03-14'), d('2026-03-17'))).toBe('14 au 17 mars');
+    expect(formatSteps(8412)).toBe('8\u00a0412');
+    expect(formatPercent(0.74)).toBe('74\u00a0%');
+
+    applyLanguage('it');
+    expect(formatLong(d('2026-03-14'))).toBe('Sabato 14 marzo');
+    expect(formatWeekdayLong(d('2026-03-01'))).toBe('domenica');
+    expect(formatSteps(8412)).toBe('8.412');
+  });
+
   it('writes the Daylio CSV columns like Daylio in that language', () => {
     applyLanguage('en');
     expect(formatDayMonth(d('2026-03-01'))).toBe('March 1');
@@ -41,11 +67,17 @@ describe('language switch', () => {
 });
 
 describe('languageForLocale', () => {
-  it('picks German for every German locale and English otherwise', () => {
+  it('picks the language of every regional variant and English otherwise', () => {
     for (const locale of ['de-DE', 'de-AT', 'de-CH', 'de_CH', 'de', 'de-LU', 'de-BE', 'DE-de']) {
       expect(languageForLocale(locale)).toBe('de');
     }
-    for (const locale of ['en-US', 'en-DE', 'fr-CH', 'it-IT', 'dev', '']) {
+    expect(languageForLocale('es-MX')).toBe('es');
+    expect(languageForLocale('es-419')).toBe('es');
+    expect(languageForLocale('pt-BR')).toBe('pt');
+    expect(languageForLocale('pt_PT')).toBe('pt');
+    expect(languageForLocale('fr-CH')).toBe('fr');
+    expect(languageForLocale('it-IT')).toBe('it');
+    for (const locale of ['en-US', 'en-DE', 'nl-NL', 'pl', 'dev', '']) {
       expect(languageForLocale(locale)).toBe('en');
     }
   });

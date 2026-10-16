@@ -3,11 +3,11 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert } from 'react-native';
 
-import { AppText, Card, ListRow, Screen, Segmented } from '@/components/ui';
+import { AppText, Card, ListRow, Screen, Segmented, SelectRow } from '@/components/ui';
 import { getDb } from '@/db';
 import { countRows, deleteAllData } from '@/db/repositories/maintenance';
 import { loadSampleData } from '@/lib/dev/sample';
-import { deviceLanguage, type Language } from '@/lib/i18n/language';
+import { deviceLanguage, isLanguage, LANGUAGE_NAMES, LANGUAGES } from '@/lib/i18n/language';
 import { useBackupStatus } from '@/lib/export/useBackupStatus';
 import { useDataTransfer } from '@/lib/export/useDataTransfer';
 import { filePhotoStore } from '@/lib/photos/fileStore';
@@ -75,15 +75,15 @@ export default function MoreScreen() {
         <AppText variant="caption" muted>
           {t('settings.languageSection').toUpperCase()}
         </AppText>
-        {/* Each language under its own name, so the way back is readable from either side. */}
-        <Segmented<Language>
+        {/* Each language under its own name, so the way back is readable from any of them. */}
+        <SelectRow
           label={t('settings.language')}
-          options={[
-            { value: 'de', label: 'Deutsch' },
-            { value: 'en', label: 'English' },
-          ]}
           value={language}
-          onChange={(next) => updateSettings({ language: next })}
+          sections={[{ options: LANGUAGES.map((value) => ({ value, label: LANGUAGE_NAMES[value] })) }]}
+          closeLabel={t('common.close')}
+          onChange={(next) => {
+            if (isLanguage(next)) updateSettings({ language: next });
+          }}
         />
       </Card>
       <Card>

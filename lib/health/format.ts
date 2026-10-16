@@ -1,11 +1,11 @@
 /** Display of the health values; pure, so Heute, Verlauf and tests agree. */
 
-import { currentLanguage } from '@/lib/i18n/language';
+import { numberStyle } from '@/lib/i18n/language';
 import type { HealthMetric } from '@/lib/insights/healthStats';
 
 /** "8.412" in German, "8,412" in English, independent of the device's Intl data. */
 export function formatSteps(steps: number): string {
-  return String(Math.round(steps)).replace(/\B(?=(\d{3})+(?!\d))/g, currentLanguage() === 'en' ? ',' : '.');
+  return String(Math.round(steps)).replace(/\B(?=(\d{3})+(?!\d))/g, numberStyle().group);
 }
 
 /** "7 h 20 min", "45 min", "8 h". */

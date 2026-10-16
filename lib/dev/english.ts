@@ -1,8 +1,9 @@
 import type { SampleData } from './generateSample';
+import { translateSample, type SampleTranslation } from './translate';
 
 /**
- * English version of the sample data. The generator stays German, so seeds and tests are the same
- * in both languages; this maps every name and every note sentence afterwards.
+ * English version of the sample data, mapped onto the German generator by `translateSample`. The
+ * other languages keep their tables in `lib/i18n/content`.
  */
 
 const MOODS: Record<string, string> = { Super: 'Great', Gut: 'Good', Ok: 'Okay', Schlecht: 'Bad', Mies: 'Awful' };
@@ -98,29 +99,8 @@ const SENTENCES: Record<string, string> = {
   'Mittags kurz notiert.': 'Quick note at lunch.',
 };
 
-/** Longest first, so no sentence is replaced inside a longer one. */
-const SENTENCE_ORDER = Object.keys(SENTENCES).sort((a, b) => b.length - a.length);
-
-function translateNote(note: string): string {
-  let text = note;
-  for (const german of SENTENCE_ORDER) text = text.split(german).join(SENTENCES[german] as string);
-  return text;
-}
-
-const activity = (name: string) => ACTIVITIES[name] ?? name;
-
-export const SAMPLE_SCALE_EN = { name: 'Energy', min: 1, max: 5 } as const;
+export const ENGLISH: SampleTranslation = { moods: MOODS, activities: ACTIVITIES, titles: TITLES, sentences: SENTENCES, scale: 'Energy' };
 
 export function sampleInEnglish(data: SampleData): SampleData {
-  return {
-    entries: data.entries.map((entry) => ({
-      ...entry,
-      mood: MOODS[entry.mood] ?? entry.mood,
-      activities: entry.activities.map(activity),
-      scales: entry.scales.map((scale) => ({ ...scale, name: SAMPLE_SCALE_EN.name })),
-      noteTitle: entry.noteTitle === null ? null : (TITLES[entry.noteTitle] ?? entry.noteTitle),
-      note: entry.note === null ? null : translateNote(entry.note),
-    })),
-    plans: data.plans.map((plan) => ({ ...plan, activity: activity(plan.activity) })),
-  };
+  return translateSample(data, ENGLISH);
 }

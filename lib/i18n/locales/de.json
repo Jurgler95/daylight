@@ -310,8 +310,10 @@
     "distribution": {
       "title": "Verteilung",
       "before": "vorher {{share}}",
-      "a11y": "{{mood}}: {{share}}, {{count}} Tage",
-      "a11yBefore": "{{mood}}: {{share}}, {{count}} Tage, vorher {{before}}"
+      "a11y_one": "{{mood}}: {{share}}, {{count}} Tag",
+      "a11y_other": "{{mood}}: {{share}}, {{count}} Tage",
+      "a11yBefore_one": "{{mood}}: {{share}}, {{count}} Tag, vorher {{before}}",
+      "a11yBefore_other": "{{mood}}: {{share}}, {{count}} Tage, vorher {{before}}"
     },
     "pixels": {
       "title": "Jahr in Pixeln",
@@ -624,9 +626,12 @@
   },
   "lowMood": {
     "title": "Reden hilft",
-    "body": "Die letzten Tage waren oft schwer. Manchmal hilft es, mit jemandem zu sprechen. Die Telefonseelsorge ist rund um die Uhr erreichbar, anonym und kostenlos.",
-    "call": "0800 111 0 111 anrufen",
-    "callLabel": "Telefonseelsorge anrufen, 0800 111 0 111",
+    "body": "Die letzten Tage waren oft schwer. Manchmal hilft es, mit jemandem zu sprechen.",
+    "lineAllDay": "Rund um die Uhr erreichbar: {{name}}, {{number}}.",
+    "lineHours": "Täglich von {{from}} bis {{to}} Uhr erreichbar: {{name}}, {{number}}.",
+    "noLine": "Auch eine Krisenhotline in deinem Land oder ein Mensch, dem du vertraust, kann helfen.",
+    "call": "{{number}} anrufen",
+    "callLabel": "{{name}} anrufen, {{number}}",
     "later": "Ausblenden",
     "laterHint": "Blendet den Hinweis für 14 Tage aus"
   },

@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 /**
  * Rendert die Play-Store-Grafiken aus `store/graphics.html` nach `fastlane/metadata/android/<locale>/images/`
- * (de-DE und en-US), in der Ordnerstruktur, die fastlane supply und F-Droid erwarten.
+ * (de-DE, en-US, es-ES, es-419, pt-BR, fr-FR, it-IT), in der Ordnerstruktur, die fastlane supply und F-Droid erwarten.
+ * Die Texte der Grafiken stehen je Sprache in `store/text/<lang>.js`.
  *
- *   node scripts/store-graphics.mjs
+ *   node scripts/store-graphics.mjs          # alle Sprachen
+ *   node scripts/store-graphics.mjs es fr    # nur diese
  *
  * Braucht Google Chrome (oder CHROME=/pfad/zu/chrome) und Netz für die Schrift von Google Fonts.
- * Die Screenshots der App liegen in `store/screens/<de|en>/` und stammen aus einem Pixel-9-Emulator mit den
+ * Die Screenshots der App liegen in `store/screens/<lang>/` und stammen aus einem Pixel-9-Emulator mit den
  * eingebauten Beispieldaten in der jeweiligen Sprache.
  */
 import { execFileSync } from 'node:child_process';
@@ -16,7 +18,9 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const PAGE = pathToFileURL(join(ROOT, 'store/graphics.html')).href;
-const LOCALES = [['de', 'de-DE'], ['en', 'en-US']];
+const ALL = [['de', 'de-DE'], ['en', 'en-US'], ['es', 'es-ES'], ['es', 'es-419'], ['pt', 'pt-BR'], ['fr', 'fr-FR'], ['it', 'it-IT']];
+const ONLY = process.argv.slice(2);
+const LOCALES = ONLY.length ? ALL.filter(([lang]) => ONLY.includes(lang)) : ALL;
 const CHROME = process.env.CHROME ?? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 
 const SHOTS = [

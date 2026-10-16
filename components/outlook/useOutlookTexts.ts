@@ -7,6 +7,9 @@ import { formatWeekdayLong, type DateString } from '@/lib/dates';
 import { formatDecimal, formatPercent } from '@/lib/insights/format';
 import type { OutlookDay, OutlookRange, OutlookReason } from '@/lib/outlook';
 
+/** Spanish, Portuguese and Italian lines may begin with the weekday, which they write in lower case. */
+const sentence = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
+
 /** Sentences of the outlook, with mood and activity names from the catalog. */
 export function useOutlookTexts(catalog: Catalog) {
   const { t } = useTranslation();
@@ -17,7 +20,7 @@ export function useOutlookTexts(catalog: Catalog) {
 
   const reason = (value: OutlookReason, date: DateString): string => {
     const up = value.value > 0;
-    if (value.kind === 'weekday') return t(up ? 'outlook.reasonWeekdayUp' : 'outlook.reasonWeekdayDown', { weekday: formatWeekdayLong(date) });
+    if (value.kind === 'weekday') return sentence(t(up ? 'outlook.reasonWeekdayUp' : 'outlook.reasonWeekdayDown', { weekday: formatWeekdayLong(date) }));
     if (value.kind === 'carry') return t(up ? 'outlook.reasonCarryUp' : 'outlook.reasonCarryDown');
     const name = activityLabel(catalog, value.activityId);
     if (value.source === 'planned') return t(up ? 'outlook.reasonPlannedUp' : 'outlook.reasonPlannedDown', { name });
@@ -27,8 +30,8 @@ export function useOutlookTexts(catalog: Catalog) {
 
   const profile = (day: OutlookDay) =>
     day.weekdayMean === null
-      ? t('outlook.weekdayNone', { weekday: formatWeekdayLong(day.date) })
-      : t('outlook.weekdayMean', { weekday: formatWeekdayLong(day.date), mean: formatDecimal(day.weekdayMean), count: day.weekdayDays });
+      ? sentence(t('outlook.weekdayNone', { weekday: formatWeekdayLong(day.date) }))
+      : sentence(t('outlook.weekdayMean', { weekday: formatWeekdayLong(day.date), mean: formatDecimal(day.weekdayMean), count: day.weekdayDays }));
 
   const names = (ids: readonly number[]) => ids.map((id) => activityLabel(catalog, id)).join(', ');
 

@@ -310,8 +310,10 @@
     "distribution": {
       "title": "Distribution",
       "before": "before {{share}}",
-      "a11y": "{{mood}}: {{share}}, {{count}} days",
-      "a11yBefore": "{{mood}}: {{share}}, {{count}} days, before {{before}}"
+      "a11y_one": "{{mood}}: {{share}}, {{count}} day",
+      "a11y_other": "{{mood}}: {{share}}, {{count}} days",
+      "a11yBefore_one": "{{mood}}: {{share}}, {{count}} day, before {{before}}",
+      "a11yBefore_other": "{{mood}}: {{share}}, {{count}} days, before {{before}}"
     },
     "pixels": {
       "title": "Year in pixels",
@@ -624,9 +626,12 @@
   },
   "lowMood": {
     "title": "Talking helps",
-    "body": "The last few days were often hard. Sometimes it helps to talk to someone. In Germany, the TelefonSeelsorge is available around the clock, anonymous and free of charge.",
-    "call": "Call 0800 111 0 111",
-    "callLabel": "Call TelefonSeelsorge, 0800 111 0 111",
+    "body": "The last few days were often hard. Sometimes it helps to talk to someone.",
+    "lineAllDay": "Available around the clock: {{name}}, {{number}}.",
+    "lineHours": "Available daily from {{from}}:00 to {{to}}:00: {{name}}, {{number}}.",
+    "noLine": "A crisis line in your country or someone you trust can help too.",
+    "call": "Call {{number}}",
+    "callLabel": "Call {{name}}, {{number}}",
     "later": "Hide",
     "laterHint": "Hides this note for 14 days"
   },

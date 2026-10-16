@@ -3,15 +3,16 @@
  * Schreibt die Stichpunkte einer Version aus der Updatehistorie der App als Markdown auf stdout,
  * auf Deutsch und darunter auf Englisch, für die Beschreibung des GitHub-Releases. Bricht ab, wenn die Version nicht zu `app.json`,
  * `package.json`, `package-lock.json` und dem obersten Eintrag der Updatehistorie passt, wenn der
- * Eintrag in einer der beiden Sprachen keine Stichpunkte hat, wenn Deutsch und Englisch verschieden
- * viele Punkte haben oder wenn `versionCode` nicht über dem des letzten Versions-Tags
+ * Eintrag in einer Sprache der App keine Stichpunkte hat, wenn die Sprachen verschieden viele Punkte
+ * haben oder wenn `versionCode` nicht über dem des letzten Versions-Tags
  * liegt, denn sonst nimmt Android das Update nicht an.
  *
  *   node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON .github/scripts/release-notes.mjs 1.0.11
  *
  * Mit `--whatsnew <ordner>` schreibt es stattdessen die Texte für „Neu in dieser Version" im Play
- * Store, je Sprache eine Datei `whatsnew-de-DE` und `whatsnew-en-US`. Play nimmt höchstens 500
- * Zeichen je Sprache, das prüft auch der normale Aufruf, damit es vor dem Build auffällt.
+ * Store, je Store-Sprache eine Datei wie `whatsnew-de-DE` oder `whatsnew-es-419`, nur für die Sprachen,
+ * die der Eintrag hat. Play nimmt höchstens 500 Zeichen je Sprache, das prüft auch der normale
+ * Aufruf, damit es vor dem Build auffällt.
  *
  * Braucht Node 22.18 oder neuer, weil die Updatehistorie direkt als TypeScript geladen wird, und
  * die Versions-Tags im lokalen Klon. Übernommen aus der Zyklus-App.
@@ -21,6 +22,7 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { RELEASES } from '../../lib/changelog/index.ts';
+import { LANGUAGES } from '../../lib/i18n/language.ts';
 
 const version = process.argv[2]?.replace(/^v/, '');
 const whatsnewAt = process.argv[3] === '--whatsnew' ? process.argv[4] : null;
@@ -35,6 +37,14 @@ const pkg = readJson('package.json');
 const lock = readJson('package-lock.json');
 const release = RELEASES[0];
 const PLAY_LIMIT = 500;
+/** Store-Sprachen je Sprache der App, wie in fastlane/metadata/android. Spanisch für Spanien und Lateinamerika. */
+const PLAY_LOCALES = { de: ['de-DE'], en: ['en-US'], es: ['es-ES', 'es-419'], pt: ['pt-BR'], fr: ['fr-FR'], it: ['it-IT'] };
+
+const unmapped = LANGUAGES.filter((language) => !PLAY_LOCALES[language]);
+if (unmapped.length > 0) {
+  console.error(`Keine Store-Sprache für ${unmapped.join(', ')} in PLAY_LOCALES`);
+  process.exit(1);
+}
 
 const problems = [
   ['app.json', app.expo.version],
@@ -46,19 +56,25 @@ const problems = [
   .map(([where, found]) => `${where}: ${found}, erwartet ${version}`);
 
 if (release) {
-  const { de = [], en = [] } = release.changes ?? {};
-  if (de.length === 0) problems.push('Der Eintrag in der Updatehistorie hat keine deutschen Stichpunkte');
-  if (en.length === 0) problems.push('Der Eintrag in der Updatehistorie hat keine englischen Stichpunkte');
-  if (de.length !== en.length) problems.push(`Deutsch hat ${de.length} Stichpunkte, Englisch ${en.length}`);
-  for (const [language, text] of Object.entries(whatsnew(release))) {
-    if (text.length > PLAY_LIMIT) problems.push(`Der ${language}-Text für Play hat ${text.length} Zeichen, erlaubt sind ${PLAY_LIMIT}`);
+  const changes = release.changes ?? {};
+  // Ein später Upload einer älteren Version, die noch nicht alle Sprachen kannte, nimmt, was da ist.
+  for (const language of whatsnewAt ? ['de', 'en'] : LANGUAGES) {
+    const count = changes[language]?.length ?? 0;
+    if (count === 0) problems.push(`Der Eintrag in der Updatehistorie hat keine Stichpunkte auf ${language}`);
+    else if (count !== changes.de?.length) problems.push(`Deutsch hat ${changes.de?.length ?? 0} Stichpunkte, ${language} ${count}`);
+  }
+  for (const [locale, text] of Object.entries(whatsnew(release))) {
+    if (text.length > PLAY_LIMIT) problems.push(`Der ${locale}-Text für Play hat ${text.length} Zeichen, erlaubt sind ${PLAY_LIMIT}`);
   }
 }
 
-/** „Neu in dieser Version" für Play: die Stichpunkte je Sprache, eine Zeile pro Punkt. */
+/** „Neu in dieser Version" für Play: die Stichpunkte je Store-Sprache, eine Zeile pro Punkt. */
 function whatsnew({ changes }) {
-  const lines = (list = []) => list.map((change) => `• ${change}`).join('\n');
-  return { 'de-DE': lines(changes?.de), 'en-US': lines(changes?.en) };
+  return Object.fromEntries(
+    Object.entries(PLAY_LOCALES).flatMap(([language, locales]) =>
+      changes?.[language]?.length ? locales.map((locale) => [locale, changes[language].map((change) => `• ${change}`).join('\n')]) : [],
+    ),
+  );
 }
 
 /** `versionCode` des letzten Versions-Tags vor dieser Version, falls es einen gibt. */

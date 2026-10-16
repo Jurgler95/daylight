@@ -3,6 +3,7 @@ import { listGroups } from '@/db/repositories/groups';
 import { countRows } from '@/db/repositories/maintenance';
 import { createTestDb } from '@/db/testDb';
 import type { DateString } from '@/lib/dates';
+import { CONTENT, type ContentLanguage } from '@/lib/i18n/content';
 import { parseDaylioCsv } from '@/lib/daylio/parse';
 import { readDaylioRows } from '@/lib/daylio/rows';
 import { writeDaylioCsv } from '@/lib/daylio/write';
@@ -10,6 +11,7 @@ import { writeDaylioCsv } from '@/lib/daylio/write';
 import { sampleInEnglish } from '../english';
 import { generateSample } from '../generateSample';
 import { applySample } from '../sample';
+import { contentTranslation, translateSample } from '../translate';
 
 const today = '2026-09-26' as DateString;
 
@@ -69,5 +71,16 @@ describe('sample data', () => {
     const imported = listGroups(db).find((group) => group.name === 'Importiert' || group.name === 'Imported');
     expect(listActivities(db).filter((activity) => activity.group_id === imported?.id)).toEqual([]);
     expect(countRows(db).planned).toBe(english.plans.length);
+  });
+
+  it.each(Object.keys(CONTENT) as ContentLanguage[])('has a %s version whose activities all land in their standard groups', (language) => {
+    const translated = translateSample(data, contentTranslation(language));
+    expect(translated.entries.every((entry) => CONTENT[language].moods.includes(entry.mood))).toBe(true);
+
+    const db = createTestDb();
+    applySample(db, translated, language);
+    const imported = listGroups(db).find((group) => group.name === CONTENT[language].groups.imported);
+    expect(listActivities(db).filter((activity) => activity.group_id === imported?.id)).toEqual([]);
+    expect(countRows(db).planned).toBe(translated.plans.length);
   });
 });

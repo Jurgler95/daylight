@@ -1,0 +1,1026 @@
+{
+  "app": {
+    "name": "Daylight"
+  },
+  "tabs": {
+    "today": "Oggi",
+    "calendar": "Calendario",
+    "insights": "Analisi",
+    "achievements": "Traguardi",
+    "settings": "Altro"
+  },
+  "lookback": {
+    "title": "Uno sguardo indietro",
+    "week": "Una settimana fa",
+    "month": "Un mese fa",
+    "halfYear": "6 mesi fa",
+    "year": "Un anno fa",
+    "none": "Nessuna voce",
+    "hint": "Apre questo giorno"
+  },
+  "today": {
+    "empty": "Ancora nessuna voce",
+    "ask": "Allora, com'è andata la giornata? ☀️",
+    "future": "Questo giorno deve ancora arrivare. Goditi l'attesa! ✨",
+    "yesterday": "Ieri",
+    "tomorrow": "Domani",
+    "relPast_one": "{{count}} giorno fa",
+    "relPast_other": "{{count}} giorni fa",
+    "relPast_many": "{{count}} giorni fa",
+    "relFuture_one": "Tra {{count}} giorno",
+    "relFuture_other": "Tra {{count}} giorni",
+    "relFuture_many": "Tra {{count}} giorni",
+    "editHint": "Apre la voce",
+    "planned": "In programma",
+    "plannedHint": "Attività per questo giorno"
+  },
+  "settings": {
+    "title": "Altro",
+    "data": "Dati",
+    "import": "Importa",
+    "exportJson": "Condividi backup",
+    "saveJson": "Salva backup in una cartella",
+    "exportCsv": "Esporta come CSV Daylio",
+    "deleteAll": "Elimina tutti i dati",
+    "backupHint": "Solo il backup ripristina tutto. Con le foto è un file ZIP. Il CSV non contiene gruppi, icone, piani, svolte e foto.",
+    "backupNever": "Mai",
+    "backupToday": "Oggi",
+    "backupAgo_one": "{{count}} giorno fa",
+    "backupAgo_other": "{{count}} giorni fa",
+    "backupAgo_many": "{{count}} giorni fa",
+    "saved": "Salvato",
+    "changelog": "Cronologia aggiornamenti",
+    "unknownFile": "Questo file non è né un backup di Daylight né un'esportazione o un backup di Daylio.",
+    "invalidFile": "File non leggibile",
+    "deleteWord": "ELIMINA",
+    "deleteBody": "Tutte le voci, le foto, gli umori, le attività, i piani, i dati sulla salute e le impostazioni verranno eliminati da questo dispositivo.",
+    "deleteBackupHint": "Per conservare i tuoi dati, condividi prima un backup.",
+    "deleteConfirm": "Scrivi {{word}} per confermare",
+    "deleted": "Tutti i dati eliminati",
+    "outlookSection": "Previsione",
+    "calendarSection": "Calendario",
+    "weekStart": "La settimana inizia di",
+    "monday": "Lunedì",
+    "sunday": "Domenica",
+    "outlook": "Previsione",
+    "privacyLabel": "Privacy",
+    "reminders": "Promemoria",
+    "lock": "Blocco app",
+    "about": "Informazioni",
+    "protection": "Protezione",
+    "info": "Info",
+    "healthSection": "Salute",
+    "health": "Dati sulla salute",
+    "languageSection": "Lingua",
+    "language": "Lingua dell'app",
+    "diarySection": "Diario",
+    "history": "Cronologia",
+    "turningPoints": "Svolte"
+  },
+  "import": {
+    "title": "Importa",
+    "noFile": "Nessun file selezionato",
+    "entries_one": "{{count}} voce",
+    "entries_other": "{{count}} voci",
+    "entries_many": "{{count}} voci",
+    "moods_one": "{{count}} umore",
+    "moods_other": "{{count}} umori",
+    "moods_many": "{{count}} umori",
+    "activities_one": "{{count}} attività",
+    "activities_other": "{{count}} attività",
+    "activities_many": "{{count}} attività",
+    "summary": "{{entries}} dal {{from}} al {{to}}, {{moods}}, {{activities}} (nuove: {{fresh}}).",
+    "summaryEmpty": "Il file non contiene voci.",
+    "mergeInfo_one": "L'unione aggiunge {{count}} voce, {{duplicates}}.",
+    "mergeInfo_other": "L'unione aggiunge {{count}} voci, {{duplicates}}.",
+    "mergeInfo_many": "L'unione aggiunge {{count}} voci, {{duplicates}}.",
+    "duplicates_one": "{{count}} esiste già",
+    "duplicates_other": "{{count}} esistono già",
+    "duplicates_many": "{{count}} esistono già",
+    "photoInfo_one": "In più {{count}} foto, nuove: {{fresh}}.",
+    "photoInfo_other": "In più {{count}} foto, nuove: {{fresh}}.",
+    "photoInfo_many": "In più {{count}} foto, nuove: {{fresh}}.",
+    "healthInfo_one": "In più dati sulla salute per {{count}} giorno.",
+    "healthInfo_other": "In più dati sulla salute per {{count}} giorni.",
+    "healthInfo_many": "In più dati sulla salute per {{count}} giorni.",
+    "newMoods": "Nuovi umori",
+    "newActivities": "Nuove attività",
+    "level": "{{name}} ({{level}})",
+    "mode": "Modalità",
+    "merge": "Unisci",
+    "replace": "Sostituisci",
+    "replaceWarningCsv": "La sostituzione elimina tutte le voci, gli umori, i gruppi e le attività. Le impostazioni restano.",
+    "replaceWarningJson": "La sostituzione elimina tutti i dati e ripristina il backup esattamente com'è.",
+    "replaceConfirm": "Sostituire davvero tutto?",
+    "errorsTitle_one": "{{count}} riga con errori",
+    "errorsTitle_other": "{{count}} righe con errori",
+    "errorsTitle_many": "{{count}} righe con errori",
+    "skipErrors": "Salta le righe con errori",
+    "warningsTitle_one": "{{count}} avviso",
+    "warningsTitle_other": "{{count}} avvisi",
+    "warningsTitle_many": "{{count}} avvisi",
+    "more": "e altri {{count}}",
+    "error": {
+      "columns": "Riga {{line}}: {{value}} colonne invece di 9",
+      "date": "Riga {{line}}: data “{{value}}” non valida",
+      "time": "Riga {{line}}: ora “{{value}}” non valida",
+      "mood": "Riga {{line}}: umore mancante",
+      "entry": "Voce {{line}}: non leggibile"
+    },
+    "warning": {
+      "scales": "Riga {{line}}: scale “{{value}}” non leggibili, saltate",
+      "duplicateActivity": "Riga {{line}}: “{{value}}” due volte, presa una volta sola",
+      "duplicateScale": "Riga {{line}}: scala “{{value}}” due volte, preso l'ultimo valore",
+      "photoMissing": "Voce del {{value}}: foto mancante nel file"
+    },
+    "run": "Importa",
+    "done_one": "{{count}} voce importata",
+    "done_other": "{{count}} voci importate",
+    "done_many": "{{count}} voci importate",
+    "failed": "Importazione non riuscita"
+  },
+  "changelog": {
+    "title": "Cronologia aggiornamenti",
+    "version": "Versione {{version}}"
+  },
+  "dev": {
+    "title": "Sviluppo",
+    "seed": "Carica dati di esempio",
+    "wipe": "Svuota database",
+    "sampleHint": "Un anno inventato per fare prove. Sparisce da questo elenco con la tua prima voce."
+  },
+  "calendar": {
+    "today": "Oggi",
+    "entries_one": "{{count}} voce",
+    "entries_other": "{{count}} voci",
+    "entries_many": "{{count}} voci",
+    "noEntry": "nessuna voce",
+    "legendSeveral": "più voci",
+    "outlook": "Previsione {{mood}}",
+    "planned": "in programma: {{names}}",
+    "legendOutlook": "Previsione"
+  },
+  "entry": {
+    "newTitle": "Nuova voce",
+    "editTitle": "Voce",
+    "save": "Salva",
+    "delete": "Elimina voce",
+    "deleteTitle": "Eliminare la voce?",
+    "deleteBody": "La voce sparisce insieme a nota e attività.",
+    "unsavedTitle": "Salvare le modifiche?",
+    "keepEditing": "Continua a modificare",
+    "discard": "Scarta",
+    "gone": "Questa voce non esiste più",
+    "selected_one": "{{count}} selezionata",
+    "selected_other": "{{count}} selezionate",
+    "selected_many": "{{count}} selezionate",
+    "noActivities": "Ancora nessuna attività",
+    "addActivity": "Nuova attività in {{group}}",
+    "note": "Nota",
+    "date": "Giorno",
+    "time": "Ora",
+    "scaleValue": "{{value}} su {{max}}",
+    "scaleLine": "{{name}} {{value}} su {{max}}",
+    "scaleEmpty": "Non indicato",
+    "dayTaken": "Per questo giorno c'è già una voce. È possibile una sola voce al giorno.",
+    "turningLost": "Questo giorno è la svolta “{{title}}”. Senza una voce in questo giorno, verrà eliminata anch'essa.",
+    "turningMoveTitle": "La svolta andrà persa",
+    "turningMoveConfirm": "Sposta ed elimina"
+  },
+  "photo": {
+    "title": "Foto",
+    "add": "Aggiungi foto",
+    "remove": "Rimuovi foto",
+    "open": "Vedi foto a schermo intero",
+    "label": "Foto della voce",
+    "failed": "Impossibile aggiungere la foto"
+  },
+  "history": {
+    "title": "Cronologia",
+    "search": "Cerca nelle voci",
+    "placeholder": "Cerca",
+    "clear": "Cancella ricerca",
+    "filters": "Filtri",
+    "filtersActive_one": "Filtri, {{count}} attivo",
+    "filtersActive_other": "Filtri, {{count}} attivi",
+    "filtersActive_many": "Filtri, {{count}} attivi",
+    "activitiesAll": "Tutte le attività selezionate",
+    "period": {
+      "all": "Tutto",
+      "30": "30 giorni",
+      "90": "90 giorni",
+      "365": "Anno"
+    },
+    "results_one": "{{count}} voce trovata",
+    "results_other": "{{count}} voci trovate",
+    "results_many": "{{count}} voci trovate",
+    "reset": "Reimposta",
+    "empty": "Ancora nessuna voce",
+    "noResults": "Nessun risultato",
+    "count_one": "{{count}} voce",
+    "count_other": "{{count}} voci",
+    "count_many": "{{count}} voci",
+    "turning_one": "Svolte · {{count}}",
+    "turning_other": "Svolte · {{count}}",
+    "turning_many": "Svolte · {{count}}",
+    "turningEmpty": "Ancora nessuna svolta. Ne imposti una in Oggi, sotto la voce del giorno.",
+    "turningYear": "{{count}} su {{max}}"
+  },
+  "manage": {
+    "title": "Gestione",
+    "moods": "Umori",
+    "activities": "Attività e gruppi",
+    "groups": "Ordina gruppi",
+    "sortGroups": "Ordina gruppi",
+    "scales": "Scale",
+    "group": "Gruppo",
+    "name": "Nome",
+    "icon": "Icona",
+    "iconOption": "{{section}}, icona {{index}} di {{count}}",
+    "level": "Livello",
+    "add": "Aggiungi",
+    "newMood": "Nuovo umore",
+    "newActivity": "Nuova attività",
+    "newGroup": "Nuovo gruppo",
+    "newScale": "Nuova scala",
+    "newScaleRange": "Intervallo della nuova scala",
+    "range": "da {{min}} a {{max}}",
+    "archived": "Archivio",
+    "archive": "Archivia",
+    "archiveMoodHint": "Non più selezionabile, le voci passate lo mantengono.",
+    "archiveActivityHint": "Non più selezionabile, le voci passate la mantengono.",
+    "archiveGroupHint": "Il gruppo e le sue attività non sono più selezionabili.",
+    "archiveScaleHint": "Non più nella voce, i valori passati restano.",
+    "usage_one": "{{count}} voce",
+    "usage_other": "{{count}} voci",
+    "usage_many": "{{count}} voci",
+    "levelUsage_one": "Livello {{level}}, {{count}} voce",
+    "levelUsage_other": "Livello {{level}}, {{count}} voci",
+    "levelUsage_many": "Livello {{level}}, {{count}} voci",
+    "activityCount_one": "{{count}} attività",
+    "activityCount_other": "{{count}} attività",
+    "activityCount_many": "{{count}} attività",
+    "editGroup": "Modifica gruppo {{name}}",
+    "moveHandle": "Sposta {{name}}",
+    "moveUp": "Sposta su",
+    "moveDown": "Sposta giù",
+    "mergeWith": "Unisci con",
+    "mergeChoose": "Scegli",
+    "mergeSheet": "Unisci {{name}} con",
+    "mergeTitle": "Unire “{{from}}” in “{{into}}”?",
+    "mergeBody_one": "{{count}} voce riceve “{{into}}”. Poi “{{from}}” verrà eliminato.",
+    "mergeBody_other": "{{count}} voci ricevono “{{into}}”. Poi “{{from}}” verrà eliminato.",
+    "mergeBody_many": "{{count}} voci ricevono “{{into}}”. Poi “{{from}}” verrà eliminato.",
+    "merge": "Unisci",
+    "nameTaken": "“{{name}}” esiste già qui",
+    "nameTakenHint": "Due attività uguali si possono unire.",
+    "lastMood": "Deve restare almeno un umore",
+    "gone": "Non esiste più"
+  },
+  "icons": {
+    "moods": "Umore",
+    "feelings": "Emozioni",
+    "sleep": "Sonno",
+    "weather": "Meteo",
+    "people": "Persone",
+    "work": "Lavoro",
+    "leisure": "Tempo libero",
+    "health": "Salute",
+    "other": "Altro"
+  },
+  "common": {
+    "error": "Qualcosa è andato storto",
+    "retry": "Riprova",
+    "back": "Indietro",
+    "close": "Chiudi",
+    "cancel": "Annulla",
+    "on": "Attivo",
+    "off": "Disattivo",
+    "increase": "Aumenta {{label}}",
+    "decrease": "Diminuisci {{label}}"
+  },
+  "insights": {
+    "empty": "Le analisi compaiono non appena ci sono voci",
+    "emptyRange": "In questo periodo non ci sono voci",
+    "range": {
+      "label": "Periodo",
+      "30": "30 giorni",
+      "90": "90 giorni",
+      "365": "Anno",
+      "all": "Tutto"
+    },
+    "tabs": {
+      "mood": "Umore",
+      "patterns": "Schemi",
+      "activities": "Attività",
+      "health": "Salute",
+      "links": "Relazioni",
+      "notes": "Note"
+    },
+    "days_one": "{{count}} giorno",
+    "days_other": "{{count}} giorni",
+    "days_many": "{{count}} giorni",
+    "tiles": {
+      "mean": "Media",
+      "coverage": "Copertura",
+      "coverageHint": "{{days}} giorni su {{span}}"
+    },
+    "trend": {
+      "title": "Andamento",
+      "day": "Giorno",
+      "week": "Media su 7 giorni",
+      "a11y": "Umore dal {{from}} al {{to}}, {{count}} giorni, media {{mean}}, ultima media su 7 giorni {{last}}"
+    },
+    "distribution": {
+      "title": "Distribuzione",
+      "before": "prima {{share}}",
+      "a11y_one": "{{mood}}: {{share}}, {{count}} giorno",
+      "a11y_other": "{{mood}}: {{share}}, {{count}} giorni",
+      "a11y_many": "{{mood}}: {{share}}, {{count}} giorni",
+      "a11yBefore_one": "{{mood}}: {{share}}, {{count}} giorno, prima {{before}}",
+      "a11yBefore_other": "{{mood}}: {{share}}, {{count}} giorni, prima {{before}}",
+      "a11yBefore_many": "{{mood}}: {{share}}, {{count}} giorni, prima {{before}}"
+    },
+    "pixels": {
+      "title": "L'anno in pixel",
+      "year": "Anno",
+      "a11yMonth": "{{month}}: {{summary}}",
+      "a11yEmpty": "{{month}}: nessuna voce",
+      "a11yHint": "Apre il giorno toccato"
+    },
+    "weekdays": {
+      "title": "Giorni della settimana",
+      "overall": "Media su tutti i giorni: {{mean}}",
+      "a11y": "{{day}}: {{mean}}, {{count}} giorni, {{diff}} rispetto alla media",
+      "none": "{{day}}: nessuna voce"
+    },
+    "months": {
+      "title": "Mesi",
+      "empty": "Ancora nessun mese"
+    },
+    "swings": {
+      "title": "Oscillazioni",
+      "typical": "In una settimana il tuo umore varia di solito di {{value}} livelli.",
+      "calm": "Settimane più tranquille",
+      "rough": "Settimane più agitate",
+      "week": "Settimana dal {{date}}",
+      "row": "Media {{mean}}, oscillazione {{spread}}",
+      "empty": "Ancora nessuna settimana con almeno quattro voci"
+    },
+    "streaks": {
+      "title": "Serie",
+      "longest": "Serie più lunga da {{mood}} in su",
+      "current": "Serie attuale",
+      "none": "nessuna",
+      "range": "dal {{from}} al {{to}}"
+    },
+    "frequency": {
+      "title": "Frequenza",
+      "before": "prima {{count}}",
+      "empty": "Nessuna attività in questo periodo"
+    },
+    "effects": {
+      "title": "Umore con e senza",
+      "nextTitle": "Il giorno dopo",
+      "higher": "Media più alta",
+      "lower": "Media più bassa",
+      "sentence": "Nei giorni con {{name}}, in media {{with}} invece di {{without}} ({{count}} giorni)",
+      "nextSentence": "Il giorno dopo {{name}}, in media {{with}} invece di {{without}} ({{count}} giorni)",
+      "empty": "Ancora nessuna attività con una differenza chiara",
+      "more": "Mostra tutto",
+      "less": "Mostra meno"
+    },
+    "pairs": {
+      "title": "Spesso insieme",
+      "pair": "{{a}} e {{b}}",
+      "detail": "{{count}} giorni, {{lift}} volte più spesso del caso, media {{mean}}",
+      "empty": "Ancora nessuna attività che compaia insieme a un'altra con particolare frequenza"
+    },
+    "beforeHard": {
+      "title": "Prima dei giorni difficili",
+      "row": "Nei due giorni prima di {{count}} giorni difficili su {{total}} ({{share}}), altrimenti prima di {{base}} di tutti i giorni",
+      "few": "Troppo pochi giorni difficili per un confronto",
+      "nothing": "Nessuna attività compare con particolare frequenza prima dei giorni difficili"
+    },
+    "groups": {
+      "title": "Vista per gruppo",
+      "none": "Niente da questo gruppo",
+      "row": "{{mean}}, {{count}} giorni",
+      "few": "{{count}} giorni",
+      "empty": "In questo periodo non ci sono voci in questo gruppo",
+      "pick": "Gruppo"
+    },
+    "words": {
+      "title": "Parole",
+      "good": "Più frequenti nei giorni da {{mood}} in su",
+      "low": "Più frequenti negli altri giorni",
+      "empty": "Ancora troppo poche note",
+      "none": "Nessuna parola con una differenza chiara",
+      "a11y": "{{word}}, in {{count}} giorni"
+    },
+    "coverage": {
+      "title": "Quantità",
+      "entries": "Voci",
+      "days": "Giorni con una voce",
+      "share": "Copertura",
+      "time": "Di solito alle",
+      "hours": "Voci per ora del giorno",
+      "a11yHours": "La maggior parte delle voci tra le {{from}} e le {{to}}"
+    },
+    "activity": {
+      "days": "In {{count}} giorni su {{total}} ({{share}})",
+      "levels": "Umore con e senza",
+      "with": "Con",
+      "without": "Senza",
+      "meanWith": "Media {{with}} invece di {{without}}",
+      "weekdays": "Giorni della settimana",
+      "companions": "Abbinamenti",
+      "companion": "in {{count}} di questi giorni ({{share}})",
+      "months": "Frequenza al mese",
+      "allDays": "Tutti i giorni",
+      "showAll": "Mostra tutti i {{count}} giorni",
+      "edit": "Modifica attività",
+      "insights": "Analisi",
+      "noDays": "Non ancora registrata in nessun giorno",
+      "few": "Ancora troppo pochi giorni per un confronto"
+    },
+    "level": {
+      "days": "In {{count}} giorni su {{total}} ({{share}})",
+      "typical": "Più frequenti in questi giorni",
+      "rare": "Meno frequenti in questi giorni",
+      "row": "{{share}} dei giorni invece di {{other}}",
+      "none": "Nessuna attività con una differenza chiara",
+      "noDays": "Ancora nessun giorno con questo umore"
+    },
+    "health": {
+      "title": "Umore secondo sonno e movimento",
+      "empty": "In questo periodo non ci sono giorni con una voce e dati sulla salute",
+      "sleep": "Sonno della notte prima",
+      "steps": "Passi",
+      "exercise": "Allenamento",
+      "bands": {
+        "sleepUnder6": "sotto le 6 h",
+        "sleep6to7": "da 6 a 7 h",
+        "sleep7to8": "da 7 a 8 h",
+        "sleepOver8": "8 h o più",
+        "stepsUnder5k": "sotto 5.000",
+        "steps5to10k": "da 5.000 a 10.000",
+        "stepsOver10k": "10.000 o più",
+        "exerciseWith": "con allenamento",
+        "exerciseWithout": "senza allenamento",
+        "hrLow": "sotto {{low}} bpm",
+        "hrUsual": "da {{low}} a {{high}} bpm",
+        "hrHigh": "oltre {{high}} bpm"
+      },
+      "a11y": "{{band}}: media {{mean}}, {{count}} giorni",
+      "a11yFew": "{{band}}: {{count}} giorni, troppo pochi per una media",
+      "hint_one": "Da {{count}} giorno con una voce e dati da Health Connect. Descrive il tuo diario, non causa ed effetto.",
+      "hint_other": "Da {{count}} giorni con una voce e dati da Health Connect. Descrive il tuo diario, non causa ed effetto.",
+      "hint_many": "Da {{count}} giorni con una voce e dati da Health Connect. Descrive il tuo diario, non causa ed effetto.",
+      "restingHr": "Battito a riposo"
+    },
+    "healthStats": {
+      "empty": "In questo periodo non ci sono dati sulla salute",
+      "emptyRange": "In questo periodo non ci sono dati sulla salute",
+      "metric": {
+        "sleep": "Sonno",
+        "steps": "Passi",
+        "restingHr": "Battito",
+        "exercise": "Allenamento"
+      },
+      "tiles": {
+        "sleep": "Sonno",
+        "steps": "Passi",
+        "restingHr": "Battito a riposo",
+        "exercise": "Allenamento a settimana",
+        "before": "prima {{value}}",
+        "days_one": "in {{count}} giorno",
+        "days_other": "in {{count}} giorni",
+        "days_many": "in {{count}} giorni",
+        "exerciseDays_one": "in {{count}} giorno",
+        "exerciseDays_other": "in {{count}} giorni",
+        "exerciseDays_many": "in {{count}} giorni"
+      },
+      "trend": {
+        "title": "Andamento dei valori",
+        "goal": "Obiettivo",
+        "mean": "Media",
+        "median": "Mediana",
+        "min": "Minimo",
+        "max": "Massimo",
+        "days_one": "Da {{count}} giorno",
+        "days_other": "Da {{count}} giorni",
+        "days_many": "Da {{count}} giorni",
+        "before_one": "Da {{count}} giorno, in media {{value}} nel periodo precedente",
+        "before_other": "Da {{count}} giorni, in media {{value}} nel periodo precedente",
+        "before_many": "Da {{count}} giorni, in media {{value}} nel periodo precedente",
+        "a11y": "{{metric}} dal {{from}} al {{to}}, {{count}} giorni, ultima media su 7 giorni {{last}}"
+      },
+      "goals": {
+        "title": "Obiettivi e serie",
+        "sleep": "Notti da 7 ore in su",
+        "steps": "Giorni da 10.000 passi in su",
+        "exercise": "Giorni con allenamento",
+        "share": "{{hit}} su {{count}} giorni con dati",
+        "perWeek": "In media {{value}} a settimana",
+        "longest": "Serie più lunga",
+        "current": "Serie attuale"
+      },
+      "weekdays": {
+        "title": "Valori per giorno della settimana",
+        "a11y": "{{day}}: {{value}}, {{count}} giorni"
+      },
+      "records": {
+        "title": "Record",
+        "mostSteps": "Più passi",
+        "fewestSteps": "Meno passi",
+        "longestSleep": "Sonno più lungo",
+        "shortestSleep": "Sonno più breve",
+        "longestExercise": "Allenamento più lungo",
+        "lowestHr": "Battito a riposo più basso",
+        "highestHr": "Battito a riposo più alto",
+        "mood": "Umore {{mood}} ({{mean}})",
+        "noEntry": "nessuna voce"
+      },
+      "split": {
+        "title": "Giorni buoni e difficili",
+        "good": "da {{mood}} in su",
+        "hard": "da {{mood}} in giù",
+        "diff": "Nei giorni buoni {{diff}}",
+        "few": "troppo pochi giorni",
+        "a11y": "{{metric}}: nei giorni buoni {{good}}, nei giorni difficili {{hard}}",
+        "empty": "Ancora troppo pochi giorni buoni o difficili con dati sulla salute",
+        "hint": "Media nei giorni da {{good}} in su contro i giorni da {{hard}} in giù. Il sonno è quello della notte prima."
+      },
+      "links": {
+        "title": "Umore e corpo",
+        "empty": "Per una relazione servono almeno {{count}} giorni con una voce e dati sulla salute",
+        "pairing": {
+          "sleep": {
+            "same": "Sonno della notte prima e umore",
+            "nightAfter": "Umore e sonno della notte dopo"
+          },
+          "steps": {
+            "same": "Passi e umore nello stesso giorno",
+            "next": "Passi e umore del giorno dopo"
+          },
+          "restingHr": {
+            "same": "Battito a riposo e umore nello stesso giorno",
+            "next": "Battito a riposo e umore del giorno dopo"
+          },
+          "exercise": {
+            "same": "Allenamento e umore nello stesso giorno",
+            "next": "Allenamento e umore del giorno dopo"
+          }
+        },
+        "sleep": {
+          "up": "Più sonno, umore migliore ({{strength}})",
+          "down": "Più sonno, umore peggiore ({{strength}})"
+        },
+        "steps": {
+          "up": "Più passi, umore migliore ({{strength}})",
+          "down": "Più passi, umore peggiore ({{strength}})"
+        },
+        "restingHr": {
+          "up": "Battito a riposo più alto, umore migliore ({{strength}})",
+          "down": "Battito a riposo più alto, umore peggiore ({{strength}})"
+        },
+        "exercise": {
+          "up": "Più allenamento, umore migliore ({{strength}})",
+          "down": "Più allenamento, umore peggiore ({{strength}})"
+        },
+        "nightAfter": {
+          "up": "Umore migliore, più sonno dopo ({{strength}})",
+          "down": "Umore migliore, meno sonno dopo ({{strength}})"
+        },
+        "none": "Quasi nessuna relazione",
+        "strength": {
+          "weak": "debole",
+          "medium": "media",
+          "strong": "chiara"
+        },
+        "detail": "r = {{r}}, {{count}} giorni",
+        "hint": "Correlazione da -1 a 1: quanto i due valori salgono o scendono insieme. Descrive il tuo diario, non causa ed effetto."
+      },
+      "activities": {
+        "title": "Attività e corpo",
+        "sentence": "In questi giorni, in media {{with}} invece di {{without}} ({{count}} giorni)",
+        "nightSentence": "Nella notte dopo, in media {{with}} invece di {{without}} ({{count}} notti)",
+        "higher": {
+          "sleep": "Più sonno",
+          "steps": "Più passi",
+          "restingHr": "Battito a riposo più alto",
+          "exercise": "Più allenamento"
+        },
+        "lower": {
+          "sleep": "Meno sonno",
+          "steps": "Meno passi",
+          "restingHr": "Battito a riposo più basso",
+          "exercise": "Meno allenamento"
+        },
+        "empty": "Ancora nessuna attività con una differenza chiara"
+      }
+    }
+  },
+  "outlook": {
+    "show": "Mostra previsione",
+    "showHint": "In Oggi e nel calendario",
+    "computing": "Calcolo in corso",
+    "between": "tra {{low}} e {{high}}",
+    "hardChance": "Possibile giorno difficile ({{percent}})",
+    "weekdayMean": "{{weekday}}: finora in media {{mean}} ({{count}} giorni)",
+    "weekdayNone": "{{weekday}}: ancora nessuna voce",
+    "usual": "Spesso in questo giorno della settimana: {{names}}",
+    "reasons": "Perché",
+    "reasonWeekdayUp": "{{weekday}}: di solito va meglio",
+    "reasonWeekdayDown": "{{weekday}}: di solito va peggio",
+    "reasonCarryUp": "Ultimi giorni piuttosto buoni",
+    "reasonCarryDown": "Ultimi giorni piuttosto difficili",
+    "reasonPlannedUp": "{{name}} in programma, giorni così di solito vanno meglio",
+    "reasonPlannedDown": "{{name}} in programma, giorni così di solito vanno peggio",
+    "reasonRecurringUp": "Di solito {{name}}, giorni così tendono ad andare meglio",
+    "reasonRecurringDown": "Di solito {{name}}, giorni così tendono ad andare peggio",
+    "reasonSkippedUp": "Stavolta senza {{name}}, che di solito va piuttosto peggio",
+    "reasonSkippedDown": "Stavolta senza {{name}}, che di solito va piuttosto meglio",
+    "accuracy": "Precisione finora",
+    "accuracyHint": "Per ogni giorno passato dalla 30ª voce in poi: la previsione fatta solo con i dati fino a quel momento, confrontata con ciò che è successo. Scarto medio in livelli, più piccolo è meglio.",
+    "accuracyEmpty": "Servono 30 giorni con una voce.",
+    "horizon_one": "Tra {{count}} giorno",
+    "horizon_other": "Tra {{count}} giorni",
+    "horizon_many": "Tra {{count}} giorni",
+    "colModel": "Previsione",
+    "colLongMean": "Media a lungo termine",
+    "colMode": "Sempre {{mood}}",
+    "shown": "mostrata",
+    "notShown": "non mostrata",
+    "cases": "{{count}} confronti per distanza",
+    "about": "La previsione descrive ciò che finora è capitato spesso nelle tue voci. Non sa nulla di te che non sia scritto nelle voci."
+  },
+  "lowMood": {
+    "title": "Parlarne aiuta",
+    "body": "Gli ultimi giorni sono stati spesso difficili. A volte aiuta parlare con qualcuno.",
+    "lineAllDay": "Attivo giorno e notte: {{name}}, {{number}}.",
+    "lineHours": "Attivo ogni giorno dalle {{from}} alle {{to}}: {{name}}, {{number}}.",
+    "noLine": "Anche una linea di ascolto del tuo paese o una persona di fiducia può aiutarti.",
+    "call": "Chiama {{number}}",
+    "callLabel": "Chiama {{name}}, {{number}}",
+    "later": "Nascondi",
+    "laterHint": "Nasconde questo avviso per 14 giorni"
+  },
+  "backup": {
+    "title": "È ora di fare un backup",
+    "bodyNever": "Le tue voci sono solo su questo dispositivo. Un backup come file le protegge se perdi o cambi il dispositivo.",
+    "bodyAgo_one": "L'ultimo backup risale a {{count}} giorno fa.",
+    "bodyAgo_other": "L'ultimo backup risale a {{count}} giorni fa.",
+    "bodyAgo_many": "L'ultimo backup risale a {{count}} giorni fa.",
+    "now": "Fai il backup"
+  },
+  "reminders": {
+    "title": "Promemoria",
+    "daily": "Promemoria giornaliero",
+    "dailyHint": "Non arriva se il giorno ha già una voce",
+    "dailyTime": "Ora del promemoria giornaliero",
+    "yesterdayTime": "Ora del promemoria al mattino",
+    "permissionDenied": "Senza l'autorizzazione di sistema l'app non imposta promemoria. Puoi concederla nelle impostazioni di Android.",
+    "unavailable": "In Expo Go, Android non imposta promemoria. L'impostazione viene salvata e vale nell'app installata.",
+    "discreet": "Il testo dice al massimo da quanto dura la tua serie, o che manca ancora la voce di ieri, mai contenuti del diario.",
+    "yesterday": "Promemoria la mattina dopo",
+    "yesterdayHint": "Solo se manca ancora ieri. Arriva solo insieme al promemoria giornaliero"
+  },
+  "notify": {
+    "title": "Promemoria",
+    "channel": "Promemoria",
+    "body": "Com'è andata la giornata?",
+    "bodyStreak": "Com'è andata la giornata? Giorno {{value}} della tua serie.",
+    "yesterday": "Manca ancora la voce di ieri.",
+    "yesterdayStreak_one": "Manca ancora ieri. Recuperalo e la tua serie continua.",
+    "yesterdayStreak_other": "Manca ancora ieri. Recuperalo e tieni i tuoi {{value}} giorni.",
+    "yesterdayStreak_many": "Manca ancora ieri. Recuperalo e tieni i tuoi {{value}} giorni."
+  },
+  "reminderPrompt": {
+    "title": "Un breve promemoria la sera?",
+    "body": "Un promemoria serale ti aiuta a mantenere la tua serie. Il testo è discreto e tutto resta su questo dispositivo.",
+    "time": "Ora serale",
+    "morning": "Se manca un giorno, te lo ricordo la mattina dopo.",
+    "remind": "Ricordamelo",
+    "remindHint": "Chiede l'autorizzazione per le notifiche",
+    "later": "Più tardi",
+    "laterHint": "Non lo chiederà più. Puoi attivare il promemoria in Altro › Promemoria",
+    "denied": "Puoi attivarlo quando vuoi in Altro › Promemoria.",
+    "ok": "OK"
+  },
+  "lock": {
+    "title": "Blocco app",
+    "prompt": "Conferma per sbloccare",
+    "unlock": "Sblocca",
+    "failed": "Sblocco non riuscito.",
+    "enable": "Blocco app",
+    "enableHint": "Richiedi lo sblocco all'apertura",
+    "unavailable": "Nessun blocco schermo impostato. Imposta sul dispositivo un PIN, una sequenza o la biometria.",
+    "delay": "Blocca dopo",
+    "delayImmediate": "Subito",
+    "delayMinutes_one": "1 minuto",
+    "delayMinutes_other": "{{count}} minuti",
+    "delayMinutes_many": "{{count}} minuti",
+    "secure": "Finché il blocco è attivo, l'anteprima nella panoramica delle app resta vuota e gli screenshot sono bloccati."
+  },
+  "privacy": {
+    "title": "Privacy",
+    "intro": "Daylight salva tutto esclusivamente su questo dispositivo.",
+    "stored": "Vengono salvati: le voci con umore, attività, scale, note e foto, i tuoi umori, attività, gruppi e scale, le attività in programma, le svolte e le tue impostazioni.",
+    "network": "Nessun account, nessun server, nessun tracciamento, nessuna pubblicità. L'app non chiede l'autorizzazione per Internet e non può inviare nulla.",
+    "leave": "I dati lasciano il dispositivo solo quando sei tu a condividere o salvare un backup o un'esportazione CSV.",
+    "noCloudBackup": "L'app è esclusa dal backup automatico di Android e dal trasferimento su un nuovo telefono. Così le tue voci non finiscono nel tuo account Google e non vengono copiate quando configuri un nuovo dispositivo. Il prezzo: se disinstalli l'app o cambi dispositivo, spariscono, a meno che tu non abbia un backup tuo. Dopo 60 giorni senza backup, Oggi te lo ricorda.",
+    "backup": "Un backup è un file non crittografato con tutte le voci, le note e le foto. Conservalo in un posto di cui ti fidi.",
+    "computed": "Analisi e previsione vengono calcolate sul dispositivo a partire dalle tue voci. Descrivono i tuoi dati e non sono un'indicazione medica.",
+    "reminders": "I promemoria sono notifiche locali del dispositivo: quello giornaliero la sera, e uno la mattina se manca ancora la voce di ieri. Il loro testo dice al massimo da quanto dura la tua serie, o che manca ieri, mai contenuti del diario. Chi ha in mano il dispositivo può quindi capire che scrivi e con quale regolarità.",
+    "lockNote": "Il blocco app opzionale usa lo sblocco del dispositivo. Finché è attivo, gli screenshot sono bloccati.",
+    "deleteNote": "“Elimina tutti i dati” rimuove dal dispositivo voci, foto, attività, piani, dati sulla salute e impostazioni e restituisce l'accesso a Health Connect.",
+    "photos": "Scegli le foto con il selettore di foto di Android. Daylight riceve solo quell'immagine, nessun accesso alla tua galleria e nessuna fotocamera. Una copia ridotta resta nella memoria privata dell'app, non nella galleria.",
+    "health": "Se attivi i dati sulla salute, Daylight legge da Health Connect passi, sonno, battito a riposo e allenamento come valori giornalieri. Succede sul dispositivo, senza Internet. Daylight non scrive nulla in Health Connect. I valori finiscono nel backup solo se lo attivi in Dati sulla salute. Gestisci l'accesso in Health Connect, “Disconnetti ed elimina i dati” rimuove tutto ciò che è stato importato."
+  },
+  "about": {
+    "title": "Informazioni",
+    "tagline": "Diario dell'umore, locale, offline, senza account.",
+    "version": "Versione {{version}}",
+    "copyright": "© 2026 Paul Behla, paul-behla.de",
+    "license": "Daylight è software libero sotto la GNU General Public License, versione 3 o successiva, con una clausola aggiuntiva sull'attribuzione. Senza alcuna garanzia. Licenza e codice sorgente: github.com/Jurgler95/daylight",
+    "disclaimer": "Daylight non è un dispositivo medico e non sostituisce consulenze o cure. Analisi e previsione descrivono solo le tue voci."
+  },
+  "health": {
+    "title": "Dati sulla salute",
+    "enable": "Importa da Health Connect",
+    "enableHint": "Passi, sonno, battito a riposo e allenamento, per esempio da Samsung Health e dal Galaxy Watch. Solo lettura.",
+    "state": "Stato",
+    "running": "Sincronizzazione in corso",
+    "never": "Non ancora sincronizzato",
+    "lastSyncAt": "Ultima sincronizzazione il {{date}} alle {{time}}",
+    "coverage_one": "{{count}} giorno con dati, il più vecchio il {{date}}",
+    "coverage_other": "{{count}} giorni con dati, il più vecchio il {{date}}",
+    "coverage_many": "{{count}} giorni con dati, il più vecchio il {{date}}",
+    "noDays": "Ancora nessun giorno con dati",
+    "lastError": "Ultimo errore: {{message}}",
+    "syncNow": "Sincronizza ora",
+    "reread": "Rileggi tutto",
+    "manage": "Gestisci in Health Connect",
+    "disconnect": "Disconnetti ed elimina i dati",
+    "disconnectBody": "Daylight restituisce l'accesso a Health Connect ed elimina da questo dispositivo i dati sulla salute importati. In Health Connect tutto resta com'è.",
+    "disconnectConfirm": "Disconnetti",
+    "denied": "Senza autorizzazione in Health Connect, Daylight non può importare nulla. Puoi concederla quando vuoi in “Gestisci in Health Connect”.",
+    "missing": "Health Connect non è installato su questo dispositivo. È integrato da Android 14, prima c'è l'app Health Connect nel Play Store.",
+    "needsUpdate": "Prima bisogna aggiornare Health Connect.",
+    "unsupported": "I dati sulla salute sono disponibili solo nell'app installata su Android, non in Expo Go.",
+    "historyHint": "Per i giorni più vecchi di 30 giorni, nella finestra di Health Connect consenti anche l'accesso ai dati passati. Se l'hai consentito solo dopo, “Rileggi tutto” recupera i giorni più vecchi. Viene importato solo ciò che Samsung Health ha passato a Health Connect.",
+    "readOnly": "Daylight legge soltanto e non scrive mai nulla in Health Connect. La sincronizzazione avviene all'apertura dell'app, al massimo ogni 15 minuti. I dati sulla salute finiscono nel backup solo se lo attivi qui sopra. Altrimenti, dopo una reinstallazione, una nuova sincronizzazione riporta ciò che Health Connect ha ancora.",
+    "inBackup": "Includi nel backup",
+    "inBackupHint": "Anche i giorni con dati sulla salute finiscono nel backup. Così sonno e passi tornano dopo una reinstallazione, anche se Health Connect non ha più i giorni vecchi.",
+    "syncing": "Sincronizzazione dei dati sulla salute",
+    "syncingMonth": "Sincronizzazione dei dati sulla salute, {{month}}",
+    "day": {
+      "title": "Salute",
+      "sleep": "Sonno",
+      "steps": "Passi",
+      "exercise": "Allenamento",
+      "restingHr": "Battito a riposo",
+      "bpm": "{{value}} bpm"
+    }
+  },
+  "achievements": {
+    "title": "Traguardi",
+    "intro": "Le stelle arrivano dalla costanza e dallo scrivere, mai da com'è andata una giornata.",
+    "stars": "{{stars}} stelle su {{max}}",
+    "starsShort": "{{stars}}/{{max}}",
+    "complete": "{{count}} su {{total}} completati",
+    "groups": {
+      "streaks": "Di fila",
+      "volume": "Quantità"
+    },
+    "best": "Record {{value}}",
+    "current": "Ora {{value}}",
+    "lastWeek": "Ultimi 7 giorni {{value}}",
+    "total": "Finora {{value}}",
+    "next": "Prossima stella: {{value}}",
+    "done": "Tutte e cinque le stelle raggiunte",
+    "needsHealth": "Servono dati sulla salute da Health Connect",
+    "percent": "{{value}}%",
+    "overallLabel": "{{value}} per cento completato in totale",
+    "progressLabel": "{{value}} per cento della strada verso la quinta stella",
+    "starLabel": "{{stars}} stelle su 5",
+    "tiers": "Livelli: {{tiers}}",
+    "units": {
+      "days_one": "{{value}} giorno",
+      "days_other": "{{value}} giorni",
+      "days_many": "{{value}} giorni",
+      "weeks_one": "{{value}} settimana",
+      "weeks_other": "{{value}} settimane",
+      "weeks_many": "{{value}} settimane",
+      "words_one": "{{value}} parola",
+      "words_other": "{{value}} parole",
+      "words_many": "{{value}} parole",
+      "activities_one": "{{value}} attività",
+      "activities_other": "{{value}} attività",
+      "activities_many": "{{value}} attività",
+      "photos_one": "{{value}} foto",
+      "photos_other": "{{value}} foto",
+      "photos_many": "{{value}} foto",
+      "opens_one": "{{value}} volta",
+      "opens_other": "{{value}} volte",
+      "opens_many": "{{value}} volte",
+      "turningPoints_one": "{{value}} svolta",
+      "turningPoints_other": "{{value}} svolte",
+      "turningPoints_many": "{{value}} svolte"
+    },
+    "items": {
+      "days": {
+        "title": "Sul pezzo",
+        "text": "Giorni di fila con una voce"
+      },
+      "weeks": {
+        "title": "Costanza",
+        "text": "Settimane di fila con voci in almeno 5 giorni"
+      },
+      "activityDays": {
+        "title": "Giorni attivi",
+        "text": "Giorni di fila con attività"
+      },
+      "noteDays": {
+        "title": "Penna in mano",
+        "text": "Giorni di fila con una nota"
+      },
+      "photoDays": {
+        "title": "Diario per immagini",
+        "text": "Giorni di fila con una foto"
+      },
+      "sleepDays": {
+        "title": "Diario del sonno",
+        "text": "Giorni di fila con dati sul sonno"
+      },
+      "stepDays": {
+        "title": "Passo dopo passo",
+        "text": "Giorni di fila con passi"
+      },
+      "totalDays": {
+        "title": "Giorni di diario",
+        "text": "Giorni con una voce in totale"
+      },
+      "weekWords": {
+        "title": "Fiume di parole",
+        "text": "Parole scritte in 7 giorni"
+      },
+      "chips": {
+        "title": "Collezione",
+        "text": "Attività registrate in totale"
+      },
+      "weekChips": {
+        "title": "Settimana piena",
+        "text": "Attività registrate in 7 giorni"
+      },
+      "variety": {
+        "title": "Varietà",
+        "text": "Attività diverse registrate"
+      },
+      "custom": {
+        "title": "Tocco personale",
+        "text": "Attività create da te"
+      },
+      "photos": {
+        "title": "Album di foto",
+        "text": "Foto nelle voci in totale"
+      },
+      "scaleDays": {
+        "title": "Misurabile",
+        "text": "Giorni con valori su una scala"
+      },
+      "turningPoints": {
+        "title": "Svolte",
+        "text": "Giorni che hanno cambiato qualcosa"
+      },
+      "opens": {
+        "title": "Di casa",
+        "text": "Volte che hai aperto l'app"
+      }
+    },
+    "toast": {
+      "welcomeEyebrow": "Novità in Daylight",
+      "welcome": "Hai già raccolto {{stars}} stelle per la tua costanza. Dai un'occhiata.",
+      "newStars_one": "Nuova stella",
+      "newStars_other": "{{count}} nuove stelle",
+      "newStars_many": "{{count}} nuove stelle",
+      "allFive": "Tutte e cinque le stelle",
+      "reached": "Raggiunto: {{value}}",
+      "more_one": "e {{count}} altro",
+      "more_other": "e altri {{count}}",
+      "more_many": "e altri {{count}}",
+      "open": "Vedi",
+      "close": "Chiudi",
+      "across_one": "Progressi in {{count}} traguardo",
+      "across_other": "Progressi in {{count}} traguardi",
+      "across_many": "Progressi in {{count}} traguardi"
+    }
+  },
+  "streak": {
+    "days_one": "{{value}} giorno di fila",
+    "days_other": "{{value}} giorni di fila",
+    "days_many": "{{value}} giorni di fila",
+    "chip": {
+      "atRisk": "Serie a rischio, manca ancora ieri",
+      "broken": "Serie interrotta",
+      "hint": "Mostra la serie nei traguardi"
+    },
+    "risk": {
+      "title": "Manca ancora ieri",
+      "body_one": "Recuperalo oggi e la tua serie continua.",
+      "body_other": "Recuperalo oggi e tieni i tuoi {{value}} giorni.",
+      "body_many": "Recuperalo oggi e tieni i tuoi {{value}} giorni.",
+      "action": "Recupera ieri"
+    },
+    "rescue": {
+      "title_one": "Manca {{count}} giorno",
+      "title_other": "Mancano {{count}} giorni",
+      "title_many": "Mancano {{count}} giorni",
+      "body_one": "Recuperando riavrai la tua serie di {{value}} giorno.",
+      "body_other": "Recuperando riavrai la tua serie di {{value}} giorni.",
+      "body_many": "Recuperando riavrai la tua serie di {{value}} giorni.",
+      "action": "Recupera {{date}}",
+      "later": "Più tardi",
+      "laterHint": "Nasconde questo avviso fino al prossimo vuoto"
+    },
+    "celebration": {
+      "eyebrow": "Serie",
+      "rescued_one": "Serie salvata: {{value}} giorno",
+      "rescued_other": "Serie salvata: {{value}} giorni",
+      "rescued_many": "Serie salvata: {{value}} giorni",
+      "rescuedShort": "Serie salvata",
+      "milestone": "Una voce in ognuno di questi giorni.",
+      "gapClosed": "Il vuoto è stato colmato.",
+      "inARow_one": "giorno di fila",
+      "inARow_other": "giorni di fila",
+      "inARow_many": "giorni di fila",
+      "open": "Vedi",
+      "openLabel": "Vedi la serie nei traguardi",
+      "close": "Chiudi"
+    }
+  },
+  "turning": {
+    "eyebrow": "Svolta",
+    "title": "Svolta",
+    "invalid": "Una svolta richiede un giorno con una voce, oggi o prima.",
+    "discardTitle": "Scartare quello che hai scritto?",
+    "room_one": "Per il {{year}} ne resta {{count}} su {{max}}",
+    "room_other": "Per il {{year}} ne restano {{count}} su {{max}}",
+    "room_many": "Per il {{year}} ne restano {{count}} su {{max}}",
+    "full": "Per il {{year}} sono già impostate tutte e {{max}}",
+    "fullHint": "Per il {{year}} hai già impostato tutte e {{max}} le svolte. Se questo giorno conta di più, eliminane prima un'altra.",
+    "already": "Questo giorno è già una svolta.",
+    "titleLabel": "Nome della svolta",
+    "titlePlaceholder": "es. Trasloco a Bologna",
+    "noteLabel": "Nota sulla svolta",
+    "notePlaceholder": "Qualche parola, se ti va",
+    "before": "Prima",
+    "after": "Dopo",
+    "beforeShort": "Prima",
+    "afterShort": "Dopo",
+    "hold": "Tieni premuto",
+    "holdA11y": "Imposta svolta",
+    "nameFirst": "Prima serve un nome: come si chiama questo giorno?",
+    "explain": "Poi Daylight confronterà i giorni prima con i giorni dopo.",
+    "set": "Da qui in poi conta il dopo.",
+    "save": "Salva",
+    "edit": "Modifica",
+    "gone": "Questa svolta non esiste più",
+    "delete": "Elimina svolta",
+    "deleteTitle": "Eliminare la svolta?",
+    "deleteText": "“{{title}}” verrà rimossa. Le voci del giorno restano.",
+    "mark": "Segna come svolta",
+    "markHint": "Un giorno che ha cambiato qualcosa. Fino a quattro all'anno.",
+    "compare": "Vedi prima e dopo",
+    "cardA11y": "Svolta: {{title}}. Vedi prima e dopo",
+    "span": {
+      "label": "Giorni per lato",
+      "30": "30",
+      "90": "90",
+      "180": "180",
+      "all": "Tutti"
+    },
+    "tooSoon": "Dopo questo giorno non ci sono ancora giorni da confrontare. Il dopo si riempie con ogni voce.",
+    "few": "Ancora troppo pochi giorni per un confronto: {{before}} prima, {{after}} dopo, con una voce. Ogni lato ne richiede almeno {{min}}.",
+    "daysWithEntries_one": "{{count}} giorno con una voce",
+    "daysWithEntries_other": "{{count}} giorni con una voce",
+    "daysWithEntries_many": "{{count}} giorni con una voce",
+    "sentence_one": "Il giorno dopo il tuo umore era {{after}}, il giorno prima {{before}}.",
+    "sentence_other": "Nei {{count}} giorni dopo il tuo umore era in media {{after}}, nei {{count}} giorni prima {{before}}.",
+    "sentence_many": "Nei {{count}} giorni dopo il tuo umore era in media {{after}}, nei {{count}} giorni prima {{before}}.",
+    "windows": "Prima: dal {{beforeFrom}} al {{beforeTo}}. Dopo: dal {{afterFrom}} al {{afterTo}}.",
+    "seasons": "I due periodi cadono in stagioni diverse. Parte della differenza può dipendere anche da questo.",
+    "noCause": "Questo descrive le tue voci, non mostra una causa. Le svolte arrivano spesso dopo un periodo difficile, quindi il dopo sembra migliore già solo per questo.",
+    "trend": "Umore intorno alla svolta",
+    "levels": "Umori",
+    "activities": "Come sono cambiate le attività",
+    "activitiesSame": "Nessuna attività compare dopo in modo chiaramente più o meno frequente.",
+    "activityShift": "prima nel {{before}} dei giorni, dopo nel {{after}}",
+    "health": "Salute",
+    "healthShift": "{{before}} → {{after}}",
+    "nameLabel": "Dai un nome a questo giorno",
+    "setTitle": "Svolta impostata"
+  }
+}

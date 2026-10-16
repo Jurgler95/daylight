@@ -1,5 +1,5 @@
 import { addDays, addMonths, eachDayOfInterval, endOfMonth, endOfWeek, format, isMatch, isValid, parseISO, startOfMonth, startOfWeek } from 'date-fns';
-import { de, enUS } from 'date-fns/locale';
+import { de, enUS, es, fr, it, ptBR, type Locale } from 'date-fns/locale';
 
 import { currentLanguage, type Language } from '@/lib/i18n/language';
 
@@ -8,18 +8,35 @@ export type DateString = string & { readonly __brand: 'DateString' };
 
 const PATTERN = 'yyyy-MM-dd';
 
-/** Display patterns per language. English keeps the house style: written out, no dash. */
+/**
+ * Display patterns per language. English keeps the house style: written out, no dash. `to` joins
+ * the two ends of a range; English names the month first, every other language the day.
+ */
 const PATTERNS = {
-  de: { long: 'EEEE, d. MMMM', short: 'd. MMM', shortWithYear: 'd. MMM yy', numeric: 'dd.MM.yyyy', dayMonth: 'd. MMMM', dayOnly: 'd.', to: 'bis' },
-  en: { long: 'EEEE, MMMM d', short: 'MMM d', shortWithYear: "MMM d ''yy", numeric: 'MMM d, yyyy', dayMonth: 'MMMM d', dayOnly: 'd', to: 'to' },
-} as const;
+  de: { long: 'EEEE, d. MMMM', short: 'd. MMM', shortWithYear: 'd. MMM yy', numeric: 'dd.MM.yyyy', dayMonth: 'd. MMMM', dayOnly: 'd.', monthYear: 'MMMM yyyy', to: 'bis' },
+  en: { long: 'EEEE, MMMM d', short: 'MMM d', shortWithYear: "MMM d ''yy", numeric: 'MMM d, yyyy', dayMonth: 'MMMM d', dayOnly: 'd', monthYear: 'MMMM yyyy', to: 'to' },
+  es: { long: "EEEE, d 'de' MMMM", short: 'd MMM', shortWithYear: 'd MMM yyyy', numeric: 'dd/MM/yyyy', dayMonth: "d 'de' MMMM", dayOnly: 'd', monthYear: "MMMM 'de' yyyy", to: 'al' },
+  pt: { long: "EEEE, d 'de' MMMM", short: 'd MMM', shortWithYear: 'd MMM yyyy', numeric: 'dd/MM/yyyy', dayMonth: "d 'de' MMMM", dayOnly: 'd', monthYear: "MMMM 'de' yyyy", to: 'a' },
+  fr: { long: 'EEEE d MMMM', short: 'd MMM', shortWithYear: 'd MMM yyyy', numeric: 'dd/MM/yyyy', dayMonth: 'd MMMM', dayOnly: 'd', monthYear: 'MMMM yyyy', to: 'au' },
+  it: { long: 'EEEE d MMMM', short: 'd MMM', shortWithYear: 'd MMM yyyy', numeric: 'dd/MM/yyyy', dayMonth: 'd MMMM', dayOnly: 'd', monthYear: 'MMMM yyyy', to: 'al' },
+} as const satisfies Record<Language, Record<string, string>>;
+
+const LOCALES: Record<Language, Locale> = { de, en: enUS, es, pt: ptBR, fr, it };
 
 function locale(language: Language = currentLanguage()) {
-  return language === 'en' ? enUS : de;
+  return LOCALES[language];
 }
 
 function patterns(language: Language = currentLanguage()) {
   return PATTERNS[language];
+}
+
+/**
+ * Spanish, Portuguese, French and Italian write weekdays and months in lower case. Where a name
+ * stands alone, as a heading, an axis label or a column of the day strip, it starts upper case.
+ */
+function capitalized(text: string): string {
+  return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
 export function isDateString(value: string): value is DateString {
@@ -73,20 +90,26 @@ export function compareDateStrings(a: DateString, b: DateString): number {
 }
 
 export function formatLong(value: DateString): string {
-  return format(parseDateString(value), patterns().long, { locale: locale() });
+  return capitalized(format(parseDateString(value), patterns().long, { locale: locale() }));
 }
 
 export function formatShort(value: DateString): string {
   return format(parseDateString(value), patterns().short, { locale: locale() });
 }
 
+/** date-fns spells the Portuguese Saturday "sab"; Brazilian usage writes it with the accent. */
+function weekdayShort(date: Date): string {
+  const text = format(date, 'EEEEEE', { locale: locale() });
+  return capitalized(currentLanguage() === 'pt' && text === 'sab' ? 'sáb' : text);
+}
+
 /** "Mo", "Di" ... for the horizontal day strip. */
 export function formatWeekdayShort(value: DateString): string {
-  return format(parseDateString(value), 'EEEEEE', { locale: locale() });
+  return weekdayShort(parseDateString(value));
 }
 
 export function formatMonthYear(value: DateString): string {
-  return format(parseDateString(value), 'MMMM yyyy', { locale: locale() });
+  return capitalized(format(parseDateString(value), patterns().monthYear, { locale: locale() }));
 }
 
 export function daysBetween(from: DateString, to: DateString): number {
@@ -125,7 +148,7 @@ export function formatShortWithYear(value: DateString): string {
 /** Short weekday names ("Mo", "Di", ...) starting from the given first day of the week (0 = Sunday). */
 export function weekdayLabels(weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6): string[] {
   const start = startOfWeek(new Date(2026, 0, 4), { weekStartsOn });
-  return Array.from({ length: 7 }, (_, i) => format(addDays(start, i), 'EEEEEE', { locale: locale() }));
+  return Array.from({ length: 7 }, (_, i) => weekdayShort(addDays(start, i)));
 }
 
 /** "29.12.2025" or "Dec 29, 2025", for summaries that name exact days. */
@@ -162,15 +185,15 @@ export function toLocalDate(day: DateString, time = '12:00'): Date {
 
 /** "Jan", "Feb", "Mär": stand-alone month name, abbreviated, for chart axes. */
 export function formatMonthShort(value: DateString): string {
-  return format(parseDateString(value), 'LLL', { locale: locale() }).replace('.', '');
+  return capitalized(format(parseDateString(value), 'LLL', { locale: locale() }).replace('.', ''));
 }
 
 /** "Januar", stand-alone, for screen reader text. */
 export function formatMonthLong(value: DateString): string {
-  return format(parseDateString(value), 'LLLL', { locale: locale() });
+  return capitalized(format(parseDateString(value), 'LLLL', { locale: locale() }));
 }
 
 /** "J", "F", "M": one letter per month, for the year in pixels. */
 export function formatMonthNarrow(value: DateString): string {
-  return format(parseDateString(value), 'LLLLL', { locale: locale() });
+  return capitalized(format(parseDateString(value), 'LLLLL', { locale: locale() }));
 }

@@ -90,7 +90,8 @@ export const typography = {
   headline: { fontSize: 18, lineHeight: 24, fontWeight: '700', letterSpacing: -0.2 },
   body: { fontSize: 16, lineHeight: 22, fontWeight: '400', letterSpacing: 0 },
   label: { fontSize: 14, lineHeight: 18, fontWeight: '700', letterSpacing: 0 },
-  caption: { fontSize: 12, lineHeight: 16, fontWeight: '600', letterSpacing: 0.2 },
+  // No positive letter spacing: Android measures text without it and then drops the last letter of short labels ("Te" for "Ter").
+  caption: { fontSize: 12, lineHeight: 16, fontWeight: '600', letterSpacing: 0 },
 } as const;
 
 export type TypographyVariant = keyof typeof typography;

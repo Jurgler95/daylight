@@ -1,0 +1,1026 @@
+{
+  "app": {
+    "name": "Daylight"
+  },
+  "tabs": {
+    "today": "Hoy",
+    "calendar": "Calendario",
+    "insights": "Análisis",
+    "achievements": "Logros",
+    "settings": "Más"
+  },
+  "lookback": {
+    "title": "Mirando atrás",
+    "week": "Hace una semana",
+    "month": "Hace un mes",
+    "halfYear": "Hace 6 meses",
+    "year": "Hace un año",
+    "none": "Sin entrada",
+    "hint": "Abre este día"
+  },
+  "today": {
+    "empty": "Aún no hay entradas",
+    "ask": "Y bien, ¿qué tal tu día? ☀️",
+    "future": "Este día aún está por llegar. ¡Espéralo con ganas! ✨",
+    "yesterday": "Ayer",
+    "tomorrow": "Mañana",
+    "relPast_one": "Hace {{count}} día",
+    "relPast_other": "Hace {{count}} días",
+    "relPast_many": "Hace {{count}} días",
+    "relFuture_one": "En {{count}} día",
+    "relFuture_other": "En {{count}} días",
+    "relFuture_many": "En {{count}} días",
+    "editHint": "Abre la entrada",
+    "planned": "Planeado",
+    "plannedHint": "Actividades para este día"
+  },
+  "settings": {
+    "title": "Más",
+    "data": "Datos",
+    "import": "Importar",
+    "exportJson": "Compartir copia",
+    "saveJson": "Guardar copia en carpeta",
+    "exportCsv": "Exportar como CSV de Daylio",
+    "deleteAll": "Borrar todos los datos",
+    "backupHint": "Solo la copia de seguridad lo restaura todo. Con fotos, es un archivo ZIP. El CSV no incluye grupos, iconos, planes, puntos de inflexión ni fotos.",
+    "backupNever": "Nunca",
+    "backupToday": "Hoy",
+    "backupAgo_one": "Hace {{count}} día",
+    "backupAgo_other": "Hace {{count}} días",
+    "backupAgo_many": "Hace {{count}} días",
+    "saved": "Guardado",
+    "changelog": "Actualizaciones",
+    "unknownFile": "Este archivo no es una copia de seguridad de Daylight, ni una exportación o copia de seguridad de Daylio.",
+    "invalidFile": "No se puede leer el archivo",
+    "deleteWord": "BORRAR",
+    "deleteBody": "Se borrarán de este dispositivo todas las entradas, fotos, estados de ánimo, actividades, planes, datos de salud y ajustes.",
+    "deleteBackupHint": "Si quieres conservar tus datos, comparte antes una copia de seguridad.",
+    "deleteConfirm": "Escribe {{word}} para confirmar",
+    "deleted": "Todos los datos borrados",
+    "outlookSection": "Previsión",
+    "calendarSection": "Calendario",
+    "weekStart": "La semana empieza el",
+    "monday": "Lunes",
+    "sunday": "Domingo",
+    "outlook": "Previsión",
+    "privacyLabel": "Privacidad",
+    "reminders": "Recordatorio",
+    "lock": "Bloqueo de la app",
+    "about": "Acerca de",
+    "protection": "Protección",
+    "info": "Información",
+    "healthSection": "Salud",
+    "health": "Datos de salud",
+    "languageSection": "Idioma",
+    "language": "Idioma de la app",
+    "diarySection": "Diario",
+    "history": "Historial",
+    "turningPoints": "Puntos de inflexión"
+  },
+  "import": {
+    "title": "Importar",
+    "noFile": "Ningún archivo seleccionado",
+    "entries_one": "{{count}} entrada",
+    "entries_other": "{{count}} entradas",
+    "entries_many": "{{count}} entradas",
+    "moods_one": "{{count}} estado de ánimo",
+    "moods_other": "{{count}} estados de ánimo",
+    "moods_many": "{{count}} estados de ánimo",
+    "activities_one": "{{count}} actividad",
+    "activities_other": "{{count}} actividades",
+    "activities_many": "{{count}} actividades",
+    "summary": "{{entries}} del {{from}} al {{to}}, {{moods}}, {{activities}} (nuevas: {{fresh}}).",
+    "summaryEmpty": "El archivo no contiene entradas.",
+    "mergeInfo_one": "Al combinar se añade {{count}} entrada, {{duplicates}}.",
+    "mergeInfo_other": "Al combinar se añaden {{count}} entradas, {{duplicates}}.",
+    "mergeInfo_many": "Al combinar se añaden {{count}} entradas, {{duplicates}}.",
+    "duplicates_one": "{{count}} ya existe",
+    "duplicates_other": "{{count}} ya existen",
+    "duplicates_many": "{{count}} ya existen",
+    "photoInfo_one": "Además, {{count}} foto. Nuevas: {{fresh}}.",
+    "photoInfo_other": "Además, {{count}} fotos. Nuevas: {{fresh}}.",
+    "photoInfo_many": "Además, {{count}} fotos. Nuevas: {{fresh}}.",
+    "healthInfo_one": "Además, datos de salud de {{count}} día.",
+    "healthInfo_other": "Además, datos de salud de {{count}} días.",
+    "healthInfo_many": "Además, datos de salud de {{count}} días.",
+    "newMoods": "Nuevos estados de ánimo",
+    "newActivities": "Nuevas actividades",
+    "level": "{{name}} ({{level}})",
+    "mode": "Modo",
+    "merge": "Combinar",
+    "replace": "Reemplazar",
+    "replaceWarningCsv": "Reemplazar borra todas las entradas, estados de ánimo, grupos y actividades. Los ajustes se mantienen.",
+    "replaceWarningJson": "Reemplazar borra todos los datos y restaura la copia de seguridad tal cual.",
+    "replaceConfirm": "¿Seguro que quieres reemplazarlo todo?",
+    "errorsTitle_one": "{{count}} fila con errores",
+    "errorsTitle_other": "{{count}} filas con errores",
+    "errorsTitle_many": "{{count}} filas con errores",
+    "skipErrors": "Omitir filas con errores",
+    "warningsTitle_one": "{{count}} aviso",
+    "warningsTitle_other": "{{count}} avisos",
+    "warningsTitle_many": "{{count}} avisos",
+    "more": "y {{count}} más",
+    "error": {
+      "columns": "Fila {{line}}: {{value}} columnas en vez de 9",
+      "date": "Fila {{line}}: fecha “{{value}}” no válida",
+      "time": "Fila {{line}}: hora “{{value}}” no válida",
+      "mood": "Fila {{line}}: falta el estado de ánimo",
+      "entry": "Entrada {{line}}: no se puede leer"
+    },
+    "warning": {
+      "scales": "Fila {{line}}: escalas “{{value}}” ilegibles, omitidas",
+      "duplicateActivity": "Fila {{line}}: “{{value}}” dos veces, se toma una vez",
+      "duplicateScale": "Fila {{line}}: escala “{{value}}” dos veces, se toma el último valor",
+      "photoMissing": "Entrada del {{value}}: falta la foto en el archivo"
+    },
+    "run": "Importar",
+    "done_one": "{{count}} entrada importada",
+    "done_other": "{{count}} entradas importadas",
+    "done_many": "{{count}} entradas importadas",
+    "failed": "La importación falló"
+  },
+  "changelog": {
+    "title": "Actualizaciones",
+    "version": "Versión {{version}}"
+  },
+  "dev": {
+    "title": "Desarrollo",
+    "seed": "Cargar datos de ejemplo",
+    "wipe": "Vaciar base de datos",
+    "sampleHint": "Un año inventado para probar. Desaparece de esta lista con tu primera entrada propia."
+  },
+  "calendar": {
+    "today": "Hoy",
+    "entries_one": "{{count}} entrada",
+    "entries_other": "{{count}} entradas",
+    "entries_many": "{{count}} entradas",
+    "noEntry": "sin entrada",
+    "legendSeveral": "varias entradas",
+    "outlook": "Previsión {{mood}}",
+    "planned": "planeado: {{names}}",
+    "legendOutlook": "Previsión"
+  },
+  "entry": {
+    "newTitle": "Nueva entrada",
+    "editTitle": "Entrada",
+    "save": "Guardar",
+    "delete": "Borrar entrada",
+    "deleteTitle": "¿Borrar la entrada?",
+    "deleteBody": "La entrada desaparece junto con su nota y sus actividades.",
+    "unsavedTitle": "¿Guardar los cambios?",
+    "keepEditing": "Seguir editando",
+    "discard": "Descartar",
+    "gone": "Esta entrada ya no existe",
+    "selected_one": "{{count}} elegida",
+    "selected_other": "{{count}} elegidas",
+    "selected_many": "{{count}} elegidas",
+    "noActivities": "Aún no hay actividades",
+    "addActivity": "Nueva actividad en {{group}}",
+    "note": "Nota",
+    "date": "Día",
+    "time": "Hora",
+    "scaleValue": "{{value}} de {{max}}",
+    "scaleLine": "{{name}} {{value}} de {{max}}",
+    "scaleEmpty": "Sin indicar",
+    "dayTaken": "Ya hay una entrada para este día. Solo se puede hacer una entrada por día.",
+    "turningLost": "Este día es el punto de inflexión “{{title}}”. Sin una entrada en este día, también se borrará.",
+    "turningMoveTitle": "Se perderá el punto de inflexión",
+    "turningMoveConfirm": "Mover y borrar"
+  },
+  "photo": {
+    "title": "Foto",
+    "add": "Añadir foto",
+    "remove": "Quitar foto",
+    "open": "Ver la foto en grande",
+    "label": "Foto de la entrada",
+    "failed": "No se pudo añadir la foto"
+  },
+  "history": {
+    "title": "Historial",
+    "search": "Buscar entradas",
+    "placeholder": "Buscar",
+    "clear": "Limpiar búsqueda",
+    "filters": "Filtros",
+    "filtersActive_one": "Filtros, {{count}} activo",
+    "filtersActive_other": "Filtros, {{count}} activos",
+    "filtersActive_many": "Filtros, {{count}} activos",
+    "activitiesAll": "Todas las actividades elegidas",
+    "period": {
+      "all": "Todo",
+      "30": "30 días",
+      "90": "90 días",
+      "365": "Año"
+    },
+    "results_one": "{{count}} entrada encontrada",
+    "results_other": "{{count}} entradas encontradas",
+    "results_many": "{{count}} entradas encontradas",
+    "reset": "Restablecer",
+    "empty": "Aún no hay entradas",
+    "noResults": "No se encontró nada",
+    "count_one": "{{count}} entrada",
+    "count_other": "{{count}} entradas",
+    "count_many": "{{count}} entradas",
+    "turning_one": "Puntos de inflexión · {{count}}",
+    "turning_other": "Puntos de inflexión · {{count}}",
+    "turning_many": "Puntos de inflexión · {{count}}",
+    "turningEmpty": "Aún no hay puntos de inflexión. Puedes marcar uno en Hoy, debajo de la entrada del día.",
+    "turningYear": "{{count}} de {{max}}"
+  },
+  "manage": {
+    "title": "Gestionar",
+    "moods": "Estados de ánimo",
+    "activities": "Actividades y grupos",
+    "groups": "Ordenar grupos",
+    "sortGroups": "Ordenar grupos",
+    "scales": "Escalas",
+    "group": "Grupo",
+    "name": "Nombre",
+    "icon": "Icono",
+    "iconOption": "{{section}}, icono {{index}} de {{count}}",
+    "level": "Nivel",
+    "add": "Añadir",
+    "newMood": "Nuevo estado de ánimo",
+    "newActivity": "Nueva actividad",
+    "newGroup": "Nuevo grupo",
+    "newScale": "Nueva escala",
+    "newScaleRange": "Rango de la nueva escala",
+    "range": "{{min}} a {{max}}",
+    "archived": "Archivado",
+    "archive": "Archivar",
+    "archiveMoodHint": "Ya no se puede elegir, las entradas antiguas lo conservan.",
+    "archiveActivityHint": "Ya no se puede elegir, las entradas antiguas la conservan.",
+    "archiveGroupHint": "El grupo y sus actividades ya no se pueden elegir.",
+    "archiveScaleHint": "Ya no aparece en la entrada, los valores antiguos se mantienen.",
+    "usage_one": "{{count}} entrada",
+    "usage_other": "{{count}} entradas",
+    "usage_many": "{{count}} entradas",
+    "levelUsage_one": "Nivel {{level}}, {{count}} entrada",
+    "levelUsage_other": "Nivel {{level}}, {{count}} entradas",
+    "levelUsage_many": "Nivel {{level}}, {{count}} entradas",
+    "activityCount_one": "{{count}} actividad",
+    "activityCount_other": "{{count}} actividades",
+    "activityCount_many": "{{count}} actividades",
+    "editGroup": "Editar el grupo {{name}}",
+    "moveHandle": "Mover {{name}}",
+    "moveUp": "Subir",
+    "moveDown": "Bajar",
+    "mergeWith": "Combinar con",
+    "mergeChoose": "Elegir",
+    "mergeSheet": "Combinar {{name}} con",
+    "mergeTitle": "¿Combinar “{{from}}” con “{{into}}”?",
+    "mergeBody_one": "{{count}} entrada pasa a tener “{{into}}”. Después se borra “{{from}}”.",
+    "mergeBody_other": "{{count}} entradas pasan a tener “{{into}}”. Después se borra “{{from}}”.",
+    "mergeBody_many": "{{count}} entradas pasan a tener “{{into}}”. Después se borra “{{from}}”.",
+    "merge": "Combinar",
+    "nameTaken": "“{{name}}” ya existe aquí",
+    "nameTakenHint": "Dos actividades iguales se pueden combinar.",
+    "lastMood": "Debe quedar al menos un estado de ánimo",
+    "gone": "Ya no existe"
+  },
+  "icons": {
+    "moods": "Ánimo",
+    "feelings": "Sentimientos",
+    "sleep": "Sueño",
+    "weather": "Clima",
+    "people": "Personas",
+    "work": "Trabajo",
+    "leisure": "Tiempo libre",
+    "health": "Salud",
+    "other": "Otros"
+  },
+  "common": {
+    "error": "Algo salió mal",
+    "retry": "Reintentar",
+    "back": "Atrás",
+    "close": "Cerrar",
+    "cancel": "Cancelar",
+    "on": "Activado",
+    "off": "Desactivado",
+    "increase": "Aumentar {{label}}",
+    "decrease": "Reducir {{label}}"
+  },
+  "insights": {
+    "empty": "Los análisis aparecen en cuanto haya entradas",
+    "emptyRange": "No hay entradas en este período",
+    "range": {
+      "label": "Período",
+      "30": "30 días",
+      "90": "90 días",
+      "365": "Año",
+      "all": "Todo"
+    },
+    "tabs": {
+      "mood": "Ánimo",
+      "patterns": "Patrones",
+      "activities": "Actividades",
+      "health": "Salud",
+      "links": "Relaciones",
+      "notes": "Notas"
+    },
+    "days_one": "{{count}} día",
+    "days_other": "{{count}} días",
+    "days_many": "{{count}} días",
+    "tiles": {
+      "mean": "Promedio",
+      "coverage": "Cobertura",
+      "coverageHint": "{{days}} de {{span}} días"
+    },
+    "trend": {
+      "title": "Evolución",
+      "day": "Día",
+      "week": "Promedio de 7 días",
+      "a11y": "Ánimo del {{from}} al {{to}}, {{count}} días, promedio {{mean}}, último promedio de 7 días {{last}}"
+    },
+    "distribution": {
+      "title": "Distribución",
+      "before": "antes {{share}}",
+      "a11y_one": "{{mood}}: {{share}}, {{count}} día",
+      "a11y_other": "{{mood}}: {{share}}, {{count}} días",
+      "a11y_many": "{{mood}}: {{share}}, {{count}} días",
+      "a11yBefore_one": "{{mood}}: {{share}}, {{count}} día, antes {{before}}",
+      "a11yBefore_other": "{{mood}}: {{share}}, {{count}} días, antes {{before}}",
+      "a11yBefore_many": "{{mood}}: {{share}}, {{count}} días, antes {{before}}"
+    },
+    "pixels": {
+      "title": "El año en píxeles",
+      "year": "Año",
+      "a11yMonth": "{{month}}: {{summary}}",
+      "a11yEmpty": "{{month}}: sin entradas",
+      "a11yHint": "Abre el día que tocas"
+    },
+    "weekdays": {
+      "title": "Días de la semana",
+      "overall": "Promedio de todos los días: {{mean}}",
+      "a11y": "{{day}}: {{mean}}, {{count}} días, {{diff}} respecto al promedio",
+      "none": "{{day}}: sin entradas"
+    },
+    "months": {
+      "title": "Meses",
+      "empty": "Aún no hay meses"
+    },
+    "swings": {
+      "title": "Altibajos",
+      "typical": "En una semana, tu ánimo suele variar {{value}} niveles.",
+      "calm": "Semanas más tranquilas",
+      "rough": "Semanas más agitadas",
+      "week": "Semana del {{date}}",
+      "row": "Promedio {{mean}}, variación {{spread}}",
+      "empty": "Aún no hay ninguna semana con al menos cuatro entradas"
+    },
+    "streaks": {
+      "title": "Rachas",
+      "longest": "Racha más larga de {{mood}} o mejor",
+      "current": "Racha actual",
+      "none": "ninguna",
+      "range": "{{from}} a {{to}}"
+    },
+    "frequency": {
+      "title": "Frecuencia",
+      "before": "antes {{count}}",
+      "empty": "No hay actividades en este período"
+    },
+    "effects": {
+      "title": "Ánimo con y sin",
+      "nextTitle": "Al día siguiente",
+      "higher": "Promedio más alto",
+      "lower": "Promedio más bajo",
+      "sentence": "Los días con {{name}}, promedio de {{with}} en vez de {{without}} ({{count}} días)",
+      "nextSentence": "El día después de {{name}}, promedio de {{with}} en vez de {{without}} ({{count}} días)",
+      "empty": "Aún no hay ninguna actividad con una diferencia clara",
+      "more": "Ver todo",
+      "less": "Ver menos"
+    },
+    "pairs": {
+      "title": "A menudo juntas",
+      "pair": "{{a}} y {{b}}",
+      "detail": "{{count}} días, {{lift}} veces más que por azar, promedio {{mean}}",
+      "empty": "Aún no hay actividades que coincidan con especial frecuencia"
+    },
+    "beforeHard": {
+      "title": "Antes de días difíciles",
+      "row": "En los dos días antes de {{count}} de {{total}} días difíciles ({{share}}), frente a {{base}} de todos los días",
+      "few": "Muy pocos días difíciles para comparar",
+      "nothing": "Ninguna actividad apareció con especial frecuencia antes de días difíciles"
+    },
+    "groups": {
+      "title": "Vista por grupo",
+      "none": "Nada de este grupo",
+      "row": "{{mean}}, {{count}} días",
+      "few": "{{count}} días",
+      "empty": "No hay entradas de este grupo en este período",
+      "pick": "Grupo"
+    },
+    "words": {
+      "title": "Palabras",
+      "good": "Más frecuentes en días de {{mood}} o mejor",
+      "low": "Más frecuentes en los demás días",
+      "empty": "Aún hay muy pocas notas",
+      "none": "No hay palabras con una diferencia clara",
+      "a11y": "{{word}}, en {{count}} días"
+    },
+    "coverage": {
+      "title": "Alcance",
+      "entries": "Entradas",
+      "days": "Días con entrada",
+      "share": "Cobertura",
+      "time": "Normalmente a las",
+      "hours": "Entradas por hora del día",
+      "a11yHours": "La mayoría de las entradas entre las {{from}} y las {{to}}"
+    },
+    "activity": {
+      "days": "En {{count}} de {{total}} días ({{share}})",
+      "levels": "Ánimo con y sin",
+      "with": "Con",
+      "without": "Sin",
+      "meanWith": "Promedio de {{with}} en vez de {{without}}",
+      "weekdays": "Días de la semana",
+      "companions": "Suele ir con",
+      "companion": "en {{count}} de estos días ({{share}})",
+      "months": "Frecuencia por mes",
+      "allDays": "Todos los días",
+      "showAll": "Ver los {{count}} días",
+      "edit": "Editar actividad",
+      "insights": "Análisis",
+      "noDays": "Aún no se ha registrado ningún día",
+      "few": "Aún hay muy pocos días para comparar"
+    },
+    "level": {
+      "days": "En {{count}} de {{total}} días ({{share}})",
+      "typical": "Más frecuentes en estos días",
+      "rare": "Menos frecuentes en estos días",
+      "row": "{{share}} de los días en vez de {{other}}",
+      "none": "Ninguna actividad con una diferencia clara",
+      "noDays": "Aún no hay ningún día con este estado de ánimo"
+    },
+    "health": {
+      "title": "Ánimo según sueño y ejercicio",
+      "empty": "No hay días con entrada y datos de salud en este período",
+      "sleep": "Sueño de la noche anterior",
+      "steps": "Pasos",
+      "exercise": "Ejercicio",
+      "bands": {
+        "sleepUnder6": "menos de 6 h",
+        "sleep6to7": "6 a 7 h",
+        "sleep7to8": "7 a 8 h",
+        "sleepOver8": "8 h o más",
+        "stepsUnder5k": "menos de 5 mil",
+        "steps5to10k": "5 mil a 10 mil",
+        "stepsOver10k": "10 mil o más",
+        "exerciseWith": "con ejercicio",
+        "exerciseWithout": "sin ejercicio",
+        "hrLow": "menos de {{low}} lpm",
+        "hrUsual": "{{low}} a {{high}} lpm",
+        "hrHigh": "más de {{high}} lpm"
+      },
+      "a11y": "{{band}}: promedio {{mean}}, {{count}} días",
+      "a11yFew": "{{band}}: {{count}} días, muy pocos para un promedio",
+      "hint_one": "A partir de {{count}} día con entrada y datos de Health Connect. Esto describe tu diario, no causas ni efectos.",
+      "hint_other": "A partir de {{count}} días con entrada y datos de Health Connect. Esto describe tu diario, no causas ni efectos.",
+      "hint_many": "A partir de {{count}} días con entrada y datos de Health Connect. Esto describe tu diario, no causas ni efectos.",
+      "restingHr": "Pulso en reposo"
+    },
+    "healthStats": {
+      "empty": "No hay datos de salud en este período",
+      "emptyRange": "No hay datos de salud en este período",
+      "metric": {
+        "sleep": "Sueño",
+        "steps": "Pasos",
+        "restingHr": "Pulso",
+        "exercise": "Ejercicio"
+      },
+      "tiles": {
+        "sleep": "Sueño",
+        "steps": "Pasos",
+        "restingHr": "Pulso en reposo",
+        "exercise": "Ejercicio por semana",
+        "before": "antes {{value}}",
+        "days_one": "en {{count}} día",
+        "days_other": "en {{count}} días",
+        "days_many": "en {{count}} días",
+        "exerciseDays_one": "en {{count}} día",
+        "exerciseDays_other": "en {{count}} días",
+        "exerciseDays_many": "en {{count}} días"
+      },
+      "trend": {
+        "title": "Valores en el tiempo",
+        "goal": "Objetivo",
+        "mean": "Promedio",
+        "median": "Mediana",
+        "min": "Mínimo",
+        "max": "Máximo",
+        "days_one": "De {{count}} día",
+        "days_other": "De {{count}} días",
+        "days_many": "De {{count}} días",
+        "before_one": "De {{count}} día, promedio de {{value}} en el período anterior",
+        "before_other": "De {{count}} días, promedio de {{value}} en el período anterior",
+        "before_many": "De {{count}} días, promedio de {{value}} en el período anterior",
+        "a11y": "{{metric}} del {{from}} al {{to}}, {{count}} días, último promedio de 7 días {{last}}"
+      },
+      "goals": {
+        "title": "Objetivos y rachas",
+        "sleep": "Noches de 7 horas o más",
+        "steps": "Días con 10 mil pasos o más",
+        "exercise": "Días con ejercicio",
+        "share": "{{hit}} de {{count}} días con datos",
+        "perWeek": "Un promedio de {{value}} por semana",
+        "longest": "Racha más larga",
+        "current": "Racha actual"
+      },
+      "weekdays": {
+        "title": "Valores por día de la semana",
+        "a11y": "{{day}}: {{value}}, {{count}} días"
+      },
+      "records": {
+        "title": "Récords",
+        "mostSteps": "Más pasos",
+        "fewestSteps": "Menos pasos",
+        "longestSleep": "Sueño más largo",
+        "shortestSleep": "Sueño más corto",
+        "longestExercise": "Ejercicio más largo",
+        "lowestHr": "Pulso en reposo más bajo",
+        "highestHr": "Pulso en reposo más alto",
+        "mood": "Ánimo {{mood}} ({{mean}})",
+        "noEntry": "sin entrada"
+      },
+      "split": {
+        "title": "Días buenos y difíciles",
+        "good": "{{mood}} o mejor",
+        "hard": "{{mood}} o peor",
+        "diff": "En días buenos {{diff}}",
+        "few": "muy pocos días",
+        "a11y": "{{metric}}: en días buenos {{good}}, en días difíciles {{hard}}",
+        "empty": "Aún hay muy pocos días buenos o difíciles con datos de salud",
+        "hint": "Promedio en días de {{good}} o mejor frente a días de {{hard}} o peor. El sueño es el de la noche anterior."
+      },
+      "links": {
+        "title": "Ánimo y cuerpo",
+        "empty": "Para ver una relación hacen falta al menos {{count}} días con entrada y datos de salud",
+        "pairing": {
+          "sleep": {
+            "same": "Sueño de la noche anterior y ánimo",
+            "nightAfter": "Ánimo y sueño de la noche siguiente"
+          },
+          "steps": {
+            "same": "Pasos y ánimo el mismo día",
+            "next": "Pasos y ánimo al día siguiente"
+          },
+          "restingHr": {
+            "same": "Pulso en reposo y ánimo el mismo día",
+            "next": "Pulso en reposo y ánimo al día siguiente"
+          },
+          "exercise": {
+            "same": "Ejercicio y ánimo el mismo día",
+            "next": "Ejercicio y ánimo al día siguiente"
+          }
+        },
+        "sleep": {
+          "up": "Más sueño, mejor ánimo ({{strength}})",
+          "down": "Más sueño, peor ánimo ({{strength}})"
+        },
+        "steps": {
+          "up": "Más pasos, mejor ánimo ({{strength}})",
+          "down": "Más pasos, peor ánimo ({{strength}})"
+        },
+        "restingHr": {
+          "up": "Pulso en reposo más alto, mejor ánimo ({{strength}})",
+          "down": "Pulso en reposo más alto, peor ánimo ({{strength}})"
+        },
+        "exercise": {
+          "up": "Más ejercicio, mejor ánimo ({{strength}})",
+          "down": "Más ejercicio, peor ánimo ({{strength}})"
+        },
+        "nightAfter": {
+          "up": "Mejor ánimo, más sueño después ({{strength}})",
+          "down": "Mejor ánimo, menos sueño después ({{strength}})"
+        },
+        "none": "Apenas hay relación",
+        "strength": {
+          "weak": "débil",
+          "medium": "moderada",
+          "strong": "clara"
+        },
+        "detail": "r = {{r}}, {{count}} días",
+        "hint": "Correlación de -1 a 1: cuánto suben o bajan ambos a la vez. Describe tu diario, no causas ni efectos."
+      },
+      "activities": {
+        "title": "Actividades y cuerpo",
+        "sentence": "En estos días, promedio de {{with}} en vez de {{without}} ({{count}} días)",
+        "nightSentence": "En la noche siguiente, promedio de {{with}} en vez de {{without}} ({{count}} noches)",
+        "higher": {
+          "sleep": "Más sueño",
+          "steps": "Más pasos",
+          "restingHr": "Pulso en reposo más alto",
+          "exercise": "Más ejercicio"
+        },
+        "lower": {
+          "sleep": "Menos sueño",
+          "steps": "Menos pasos",
+          "restingHr": "Pulso en reposo más bajo",
+          "exercise": "Menos ejercicio"
+        },
+        "empty": "Aún no hay ninguna actividad con una diferencia clara"
+      }
+    }
+  },
+  "outlook": {
+    "show": "Mostrar previsión",
+    "showHint": "En Hoy y en el calendario",
+    "computing": "Calculando",
+    "between": "entre {{low}} y {{high}}",
+    "hardChance": "Posible día difícil ({{percent}})",
+    "weekdayMean": "{{weekday}}: hasta ahora, promedio de {{mean}} ({{count}} días)",
+    "weekdayNone": "{{weekday}}: aún sin registros",
+    "usual": "A menudo este día de la semana: {{names}}",
+    "reasons": "Por qué",
+    "reasonWeekdayUp": "{{weekday}}: suele ser mejor",
+    "reasonWeekdayDown": "{{weekday}}: suele ser peor",
+    "reasonCarryUp": "Los últimos días, más bien buenos",
+    "reasonCarryDown": "Los últimos días, más bien difíciles",
+    "reasonPlannedUp": "Con {{name}} en la agenda, esos días suelen ser mejores",
+    "reasonPlannedDown": "Con {{name}} en la agenda, esos días suelen ser peores",
+    "reasonRecurringUp": "Normalmente {{name}}, esos días tienden a ser mejores",
+    "reasonRecurringDown": "Normalmente {{name}}, esos días tienden a ser peores",
+    "reasonSkippedUp": "Esta vez sin {{name}}, que suele ir con días peores",
+    "reasonSkippedDown": "Esta vez sin {{name}}, que suele ir con días mejores",
+    "accuracy": "Precisión hasta ahora",
+    "accuracyHint": "Para cada día pasado a partir de la entrada 30: la previsión hecha solo con los datos hasta entonces, comparada con lo que pasó. Desviación media en niveles, cuanto menor, mejor.",
+    "accuracyEmpty": "Necesita 30 días con entrada.",
+    "horizon_one": "En {{count}} día",
+    "horizon_other": "En {{count}} días",
+    "horizon_many": "En {{count}} días",
+    "colModel": "Previsión",
+    "colLongMean": "Promedio a largo plazo",
+    "colMode": "Siempre {{mood}}",
+    "shown": "se muestra",
+    "notShown": "no se muestra",
+    "cases": "{{count}} comparaciones por distancia",
+    "about": "La previsión describe lo que solía pasar en tus entradas hasta ahora. No sabe nada de ti que no esté en las entradas."
+  },
+  "lowMood": {
+    "title": "Hablar ayuda",
+    "body": "Los últimos días fueron a menudo difíciles. A veces ayuda hablar con alguien.",
+    "lineAllDay": "Disponible las 24 horas: {{name}}, {{number}}.",
+    "lineHours": "Disponible cada día de {{from}} a {{to}} h: {{name}}, {{number}}.",
+    "noLine": "También puede ayudarte una línea de crisis de tu país o alguien de confianza.",
+    "call": "Llamar al {{number}}",
+    "callLabel": "Llamar a {{name}}, {{number}}",
+    "later": "Ocultar",
+    "laterHint": "Oculta este aviso durante 14 días"
+  },
+  "backup": {
+    "title": "Hora de una copia de seguridad",
+    "bodyNever": "Tus entradas solo están en este dispositivo. Una copia de seguridad en un archivo las protege si pierdes o cambias el dispositivo.",
+    "bodyAgo_one": "La última copia de seguridad fue hace {{count}} día.",
+    "bodyAgo_other": "La última copia de seguridad fue hace {{count}} días.",
+    "bodyAgo_many": "La última copia de seguridad fue hace {{count}} días.",
+    "now": "Hacer copia ahora"
+  },
+  "reminders": {
+    "title": "Recordatorio",
+    "daily": "Recordatorio diario",
+    "dailyHint": "Se omite si el día ya tiene una entrada",
+    "dailyTime": "Hora del recordatorio diario",
+    "yesterdayTime": "Hora del recordatorio de la mañana",
+    "permissionDenied": "Sin el permiso del sistema, la app no programa recordatorios. Puedes permitirlo en los ajustes de Android.",
+    "unavailable": "En Expo Go, Android no programa recordatorios. El ajuste se guarda y funciona en la app instalada.",
+    "discreet": "El texto dice como mucho cuánto dura tu racha o que a ayer aún le falta una entrada, nunca nada del diario.",
+    "yesterday": "Recordatorio a la mañana siguiente",
+    "yesterdayHint": "Solo si aún falta ayer. Llega solo junto con el recordatorio diario"
+  },
+  "notify": {
+    "title": "Recordatorio",
+    "channel": "Recordatorio",
+    "body": "¿Qué tal tu día?",
+    "bodyStreak": "¿Qué tal tu día? Día {{value}} de tu racha.",
+    "yesterday": "Aún falta la entrada de ayer.",
+    "yesterdayStreak_one": "Aún falta ayer. Complétalo para mantener tu racha.",
+    "yesterdayStreak_other": "Aún falta ayer. Complétalo para conservar tus {{value}} días.",
+    "yesterdayStreak_many": "Aún falta ayer. Complétalo para conservar tus {{value}} días."
+  },
+  "reminderPrompt": {
+    "title": "¿Un breve recordatorio por la noche?",
+    "body": "Un recordatorio por la noche te ayuda a mantener tu racha. Su texto es discreto y todo se queda en este dispositivo.",
+    "time": "Hora por la noche",
+    "morning": "Si falta un día, te lo recuerdo a la mañana siguiente.",
+    "remind": "Recordarme",
+    "remindHint": "Pide permiso para mostrar notificaciones",
+    "later": "Más tarde",
+    "laterHint": "No volverá a preguntar. Puedes activar el recordatorio en Más › Recordatorio",
+    "denied": "Puedes activarlo cuando quieras en Más › Recordatorio.",
+    "ok": "OK"
+  },
+  "lock": {
+    "title": "Bloqueo de la app",
+    "prompt": "Confirma para desbloquear",
+    "unlock": "Desbloquear",
+    "failed": "No se desbloqueó.",
+    "enable": "Bloqueo de la app",
+    "enableHint": "Pedir desbloqueo al abrir",
+    "unavailable": "No hay bloqueo de pantalla configurado. Configura un PIN, un patrón o biometría en el dispositivo.",
+    "delay": "Bloquear después de",
+    "delayImmediate": "Inmediatamente",
+    "delayMinutes_one": "1 minuto",
+    "delayMinutes_other": "{{count}} minutos",
+    "delayMinutes_many": "{{count}} minutos",
+    "secure": "Mientras el bloqueo esté activo, la vista previa en las apps recientes queda vacía y las capturas de pantalla están bloqueadas."
+  },
+  "privacy": {
+    "title": "Privacidad",
+    "intro": "Daylight guarda todo solo en este dispositivo.",
+    "stored": "Se guardan: entradas con estado de ánimo, actividades, escalas, notas y fotos, tus estados de ánimo, actividades, grupos y escalas, actividades planeadas, puntos de inflexión y tus ajustes.",
+    "network": "Sin cuentas, sin servidores, sin analíticas, sin publicidad. La app no pide permiso de internet y no puede enviar nada.",
+    "leave": "Los datos solo salen del dispositivo cuando tú compartes o guardas una copia de seguridad o una exportación CSV.",
+    "noCloudBackup": "La app está excluida de la copia de seguridad automática de Android y de la transferencia a un teléfono nuevo. Así, tus entradas no acaban en tu cuenta de Google ni se copian al configurar un dispositivo nuevo. El precio: si desinstalas la app o cambias de dispositivo, se pierden si no tienes tu propia copia de seguridad. Tras 60 días sin copia de seguridad, Hoy te lo recuerda.",
+    "backup": "Una copia de seguridad es un archivo sin cifrar con todas las entradas, notas y fotos. Guárdala en un lugar de confianza.",
+    "computed": "Los análisis y la previsión se calculan en el dispositivo a partir de tus entradas. Describen tus datos y no son una valoración médica.",
+    "reminders": "Los recordatorios son notificaciones locales del dispositivo: el recordatorio diario por la noche y otro por la mañana si a ayer aún le falta una entrada. Su texto dice como mucho cuánto dura tu racha o que falta ayer, nunca nada del diario. Así que quien tenga el dispositivo en la mano puede ver que escribes y con qué regularidad.",
+    "lockNote": "El bloqueo opcional de la app usa el desbloqueo del dispositivo. Mientras está activo, las capturas de pantalla están bloqueadas.",
+    "deleteNote": "Borrar todos los datos elimina del dispositivo entradas, fotos, actividades, planes, datos de salud y ajustes, y renuncia al acceso a Health Connect.",
+    "photos": "Eliges las fotos con el selector de fotos de Android. Daylight solo recibe esa imagen, sin acceso a tu galería ni a la cámara. Una copia reducida se guarda en el almacenamiento privado de la app, no en la galería.",
+    "health": "Si activas los datos de salud, Daylight lee de Health Connect pasos, sueño, pulso en reposo y ejercicio como valores diarios. Esto ocurre en el dispositivo, sin internet. Daylight no escribe nada en Health Connect. Los valores solo entran en la copia de seguridad si lo activas en Datos de salud. El acceso lo gestionas en Health Connect, y “Desconectar y borrar datos” elimina todo lo importado."
+  },
+  "about": {
+    "title": "Acerca de",
+    "tagline": "Diario de ánimo, local, sin conexión, sin cuenta.",
+    "version": "Versión {{version}}",
+    "copyright": "© 2026 Paul Behla, paul-behla.de",
+    "license": "Daylight es software libre bajo la GNU General Public License, versión 3 o posterior, con una cláusula adicional de atribución. Sin ninguna garantía. Licencia y código fuente: github.com/Jurgler95/daylight",
+    "disclaimer": "Daylight no es un dispositivo médico y no sustituye ningún consejo ni tratamiento. Los análisis y la previsión solo describen tus propias entradas."
+  },
+  "health": {
+    "title": "Datos de salud",
+    "enable": "Importar de Health Connect",
+    "enableHint": "Pasos, sueño, pulso en reposo y ejercicio, por ejemplo de Samsung Health y el Galaxy Watch. Solo lectura.",
+    "state": "Estado",
+    "running": "Sincronizando",
+    "never": "Aún sin sincronizar",
+    "lastSyncAt": "Última sincronización el {{date}} a las {{time}}",
+    "coverage_one": "{{count}} día con datos, el más antiguo el {{date}}",
+    "coverage_other": "{{count}} días con datos, el más antiguo el {{date}}",
+    "coverage_many": "{{count}} días con datos, el más antiguo el {{date}}",
+    "noDays": "Aún no hay días con datos",
+    "lastError": "Último error: {{message}}",
+    "syncNow": "Sincronizar ahora",
+    "reread": "Volver a leer todo",
+    "manage": "Gestionar en Health Connect",
+    "disconnect": "Desconectar y borrar datos",
+    "disconnectBody": "Daylight renuncia a su acceso a Health Connect y borra de este dispositivo los datos de salud importados. En Health Connect todo queda como está.",
+    "disconnectConfirm": "Desconectar",
+    "denied": "Sin permiso en Health Connect, Daylight no puede importar nada. Puedes darlo cuando quieras en “Gestionar en Health Connect”.",
+    "missing": "Health Connect no está instalado en este dispositivo. Viene integrado desde Android 14. En versiones anteriores, está la app Health Connect en Play Store.",
+    "needsUpdate": "Primero hay que actualizar Health Connect.",
+    "unsupported": "Los datos de salud solo están disponibles en la app instalada en Android, no en Expo Go.",
+    "historyHint": "Para días de hace más de 30 días, permite también en el diálogo de Health Connect el acceso a datos anteriores. Si lo permitiste más tarde, “Volver a leer todo” recupera los días más antiguos. Solo se importa lo que Samsung Health haya pasado a Health Connect.",
+    "readOnly": "Daylight solo lee y nunca escribe nada en Health Connect. La sincronización se hace al abrir la app, como mucho cada 15 minutos. Los datos de salud solo entran en la copia de seguridad si lo activas arriba. Si no, tras reinstalar, una nueva sincronización recupera lo que Health Connect aún tenga.",
+    "inBackup": "Incluir en la copia",
+    "inBackupHint": "Los días de salud también entran en la copia de seguridad. Así el sueño y los pasos vuelven tras reinstalar, aunque Health Connect ya no tenga los días antiguos.",
+    "syncing": "Sincronizando datos de salud",
+    "syncingMonth": "Sincronizando datos de salud, {{month}}",
+    "day": {
+      "title": "Salud",
+      "sleep": "Sueño",
+      "steps": "Pasos",
+      "exercise": "Ejercicio",
+      "restingHr": "Pulso en reposo",
+      "bpm": "{{value}} lpm"
+    }
+  },
+  "achievements": {
+    "title": "Logros",
+    "intro": "Las estrellas se ganan con constancia y escribiendo, nunca por cómo fue un día.",
+    "stars": "{{stars}} de {{max}} estrellas",
+    "starsShort": "{{stars}}/{{max}}",
+    "complete": "{{count}} de {{total}} completos",
+    "groups": {
+      "streaks": "Seguidos",
+      "volume": "Cantidad"
+    },
+    "best": "Mejor {{value}}",
+    "current": "Ahora {{value}}",
+    "lastWeek": "Últimos 7 días {{value}}",
+    "total": "Hasta ahora {{value}}",
+    "next": "Próxima estrella: {{value}}",
+    "done": "Las cinco estrellas conseguidas",
+    "needsHealth": "Necesita datos de salud de Health Connect",
+    "percent": "{{value}} %",
+    "overallLabel": "{{value}} por ciento completado en total",
+    "progressLabel": "{{value}} por ciento del camino hasta la quinta estrella",
+    "starLabel": "{{stars}} de 5 estrellas",
+    "tiers": "Niveles: {{tiers}}",
+    "units": {
+      "days_one": "{{value}} día",
+      "days_other": "{{value}} días",
+      "days_many": "{{value}} días",
+      "weeks_one": "{{value}} semana",
+      "weeks_other": "{{value}} semanas",
+      "weeks_many": "{{value}} semanas",
+      "words_one": "{{value}} palabra",
+      "words_other": "{{value}} palabras",
+      "words_many": "{{value}} palabras",
+      "activities_one": "{{value}} actividad",
+      "activities_other": "{{value}} actividades",
+      "activities_many": "{{value}} actividades",
+      "photos_one": "{{value}} foto",
+      "photos_other": "{{value}} fotos",
+      "photos_many": "{{value}} fotos",
+      "opens_one": "{{value}} vez",
+      "opens_other": "{{value}} veces",
+      "opens_many": "{{value}} veces",
+      "turningPoints_one": "{{value}} punto de inflexión",
+      "turningPoints_other": "{{value}} puntos de inflexión",
+      "turningPoints_many": "{{value}} puntos de inflexión"
+    },
+    "items": {
+      "days": {
+        "title": "En racha",
+        "text": "Días seguidos con entrada"
+      },
+      "weeks": {
+        "title": "Constancia",
+        "text": "Semanas seguidas con entradas en al menos 5 días"
+      },
+      "activityDays": {
+        "title": "En movimiento",
+        "text": "Días seguidos con actividades"
+      },
+      "noteDays": {
+        "title": "Racha de escritura",
+        "text": "Días seguidos con nota"
+      },
+      "photoDays": {
+        "title": "Diario en fotos",
+        "text": "Días seguidos con foto"
+      },
+      "sleepDays": {
+        "title": "Registro de sueño",
+        "text": "Días seguidos con datos de sueño"
+      },
+      "stepDays": {
+        "title": "Paso a paso",
+        "text": "Días seguidos con pasos"
+      },
+      "totalDays": {
+        "title": "Días de diario",
+        "text": "Días con entrada en total"
+      },
+      "weekWords": {
+        "title": "Buena pluma",
+        "text": "Palabras escritas en 7 días"
+      },
+      "chips": {
+        "title": "Colección",
+        "text": "Actividades registradas en total"
+      },
+      "weekChips": {
+        "title": "Semana intensa",
+        "text": "Actividades registradas en 7 días"
+      },
+      "variety": {
+        "title": "Variedad",
+        "text": "Actividades distintas registradas"
+      },
+      "custom": {
+        "title": "Sello propio",
+        "text": "Actividades creadas por ti"
+      },
+      "photos": {
+        "title": "Álbum de fotos",
+        "text": "Fotos en entradas en total"
+      },
+      "scaleDays": {
+        "title": "Con medida",
+        "text": "Días con valores en una escala"
+      },
+      "turningPoints": {
+        "title": "Puntos de inflexión",
+        "text": "Días que cambiaron algo"
+      },
+      "opens": {
+        "title": "Visita frecuente",
+        "text": "Veces que abriste la app"
+      }
+    },
+    "toast": {
+      "welcomeEyebrow": "Nuevo en Daylight",
+      "welcome": "Ya llevas {{stars}} estrellas por tu constancia. Échales un vistazo.",
+      "newStars_one": "Nueva estrella",
+      "newStars_other": "{{count}} estrellas nuevas",
+      "newStars_many": "{{count}} estrellas nuevas",
+      "allFive": "Las cinco estrellas",
+      "reached": "Logrado: {{value}}",
+      "more_one": "y {{count}} más",
+      "more_other": "y {{count}} más",
+      "more_many": "y {{count}} más",
+      "open": "Ver",
+      "close": "Cerrar",
+      "across_one": "Progreso en {{count}} logro",
+      "across_other": "Progreso en {{count}} logros",
+      "across_many": "Progreso en {{count}} logros"
+    }
+  },
+  "streak": {
+    "days_one": "{{value}} día seguido",
+    "days_other": "{{value}} días seguidos",
+    "days_many": "{{value}} días seguidos",
+    "chip": {
+      "atRisk": "Racha en peligro, aún falta ayer",
+      "broken": "Racha interrumpida",
+      "hint": "Muestra la racha en los logros"
+    },
+    "risk": {
+      "title": "Aún falta ayer",
+      "body_one": "Complétalo hoy para mantener tu racha.",
+      "body_other": "Complétalo hoy para conservar tus {{value}} días.",
+      "body_many": "Complétalo hoy para conservar tus {{value}} días.",
+      "action": "Completar ayer"
+    },
+    "rescue": {
+      "title_one": "Falta {{count}} día",
+      "title_other": "Faltan {{count}} días",
+      "title_many": "Faltan {{count}} días",
+      "body_one": "Al completarlo, recuperas tu racha de {{value}} día.",
+      "body_other": "Al completarlo, recuperas tu racha de {{value}} días.",
+      "body_many": "Al completarlo, recuperas tu racha de {{value}} días.",
+      "action": "Completar {{date}}",
+      "later": "Más tarde",
+      "laterHint": "Oculta este aviso hasta el próximo hueco"
+    },
+    "celebration": {
+      "eyebrow": "Racha",
+      "rescued_one": "Racha salvada: {{value}} día",
+      "rescued_other": "Racha salvada: {{value}} días",
+      "rescued_many": "Racha salvada: {{value}} días",
+      "rescuedShort": "Racha salvada",
+      "milestone": "Una entrada en cada uno de estos días.",
+      "gapClosed": "El hueco está completado.",
+      "inARow_one": "día seguido",
+      "inARow_other": "días seguidos",
+      "inARow_many": "días seguidos",
+      "open": "Ver",
+      "openLabel": "Ver la racha en los logros",
+      "close": "Cerrar"
+    }
+  },
+  "turning": {
+    "eyebrow": "Punto de inflexión",
+    "title": "Punto de inflexión",
+    "invalid": "Un punto de inflexión necesita un día con entrada, hoy o antes.",
+    "discardTitle": "¿Descartar lo que escribiste?",
+    "room_one": "Queda {{count}} de {{max}} para {{year}}",
+    "room_other": "Quedan {{count}} de {{max}} para {{year}}",
+    "room_many": "Quedan {{count}} de {{max}} para {{year}}",
+    "full": "Ya marcaste los {{max}} de {{year}}",
+    "fullHint": "Ya marcaste los {{max}} puntos de inflexión de {{year}}. Si este día importa más, borra antes otro.",
+    "already": "Este día ya es un punto de inflexión.",
+    "titleLabel": "Nombre del punto de inflexión",
+    "titlePlaceholder": "p. ej., Mudanza a Leipzig",
+    "noteLabel": "Nota sobre el punto de inflexión",
+    "notePlaceholder": "Unas palabras sobre ello, si quieres",
+    "before": "Antes",
+    "after": "Después",
+    "beforeShort": "Antes",
+    "afterShort": "Después",
+    "hold": "Mantén presionado",
+    "holdA11y": "Marcar punto de inflexión",
+    "nameFirst": "Primero necesita un nombre: ¿cómo se llama este día?",
+    "explain": "Luego Daylight comparará los días de antes con los de después.",
+    "set": "A partir de aquí, es el después.",
+    "save": "Guardar",
+    "edit": "Editar",
+    "gone": "Este punto de inflexión ya no existe",
+    "delete": "Borrar punto de inflexión",
+    "deleteTitle": "¿Borrar el punto de inflexión?",
+    "deleteText": "“{{title}}” se eliminará. Las entradas del día se mantienen.",
+    "mark": "Marcar como punto de inflexión",
+    "markHint": "Un día que cambió algo. Hasta cuatro al año.",
+    "compare": "Ver antes y después",
+    "cardA11y": "Punto de inflexión: {{title}}. Ver antes y después",
+    "span": {
+      "label": "Días a cada lado",
+      "30": "30",
+      "90": "90",
+      "180": "180",
+      "all": "Todos"
+    },
+    "tooSoon": "Aún no hay días después de este para comparar. El después se llena con cada entrada.",
+    "few": "Aún hay muy pocos días para comparar: {{before}} antes y {{after}} después con entrada. Cada lado necesita al menos {{min}}.",
+    "daysWithEntries_one": "{{count}} día con entrada",
+    "daysWithEntries_other": "{{count}} días con entrada",
+    "daysWithEntries_many": "{{count}} días con entrada",
+    "sentence_one": "El día después, tu ánimo estuvo en {{after}}, y el día antes, en {{before}}.",
+    "sentence_other": "En los {{count}} días después, tu ánimo tuvo un promedio de {{after}}, y en los {{count}} días antes, de {{before}}.",
+    "sentence_many": "En los {{count}} días después, tu ánimo tuvo un promedio de {{after}}, y en los {{count}} días antes, de {{before}}.",
+    "windows": "Antes: {{beforeFrom}} a {{beforeTo}}. Después: {{afterFrom}} a {{afterTo}}.",
+    "seasons": "Los dos períodos caen en estaciones distintas. Parte de la diferencia puede venir de ahí.",
+    "noCause": "Esto describe tus entradas, no muestra una causa. Los puntos de inflexión suelen llegar tras una etapa difícil, así que el después tiende a verse mejor solo por eso.",
+    "trend": "Ánimo en torno al punto de inflexión",
+    "levels": "Estados de ánimo",
+    "activities": "Cómo cambiaron las actividades",
+    "activitiesSame": "Ninguna actividad aparece claramente más o menos a menudo después.",
+    "activityShift": "antes en {{before}} de los días, después en {{after}}",
+    "health": "Salud",
+    "healthShift": "{{before}} → {{after}}",
+    "nameLabel": "Ponle nombre a este día",
+    "setTitle": "Punto de inflexión marcado"
+  }
+}

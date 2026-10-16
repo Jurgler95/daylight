@@ -26,7 +26,7 @@ Ein Stimmungstagebuch für Android, das deine Daten nicht kennt. Keine Konten, k
 - ❤️ **Gesundheitsdaten, wenn du willst.** Schritte, Schlaf, Ruhepuls und Training aus Health Connect, etwa von einer Smartwatch. Nur lesend und nur nach deiner Zustimmung.
 - 🛡️ **Geschützt.** App-Sperre über die Displaysperre des Geräts, keine Screenshots bei aktiver Sperre, kein Android-Cloud-Backup. Eine Erinnerung am Abend verrät im Text nichts aus dem Tagebuch.
 
-Die Oberfläche gibt es auf Deutsch und Englisch.
+Die Oberfläche gibt es auf Deutsch, Englisch, Spanisch, Portugiesisch (Brasilien), Französisch und Italienisch.
 
 ## Installieren
 

@@ -6,7 +6,8 @@
 <!--
   Vorlage für alle Play-Store-Grafiken. Gerendert wird mit `node scripts/store-graphics.mjs`,
   das diese Seite je Grafik mit `?asset=<name>` in headless Chrome öffnet.
-  Zum Anschauen im Browser: store/graphics.html?asset=shot-1&lang=en (ohne lang: Deutsch)
+  Zum Anschauen im Browser: store/graphics.html?asset=shot-1&lang=en (ohne lang: Deutsch).
+  Die Texte je Sprache stehen in store/text/<lang>.js.
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=block" rel="stylesheet">
@@ -120,38 +121,19 @@
 <body>
 <div id="root"></div>
 <script>
+// Die Texte je Sprache liegen in store/text/<lang>.js und müssen vor dem Hauptskript da sein.
+const TEXT_LANG = new URLSearchParams(location.search).get('lang');
+document.write(`<script src="text/${['de', 'en', 'es', 'pt', 'fr', 'it'].includes(TEXT_LANG) ? TEXT_LANG : 'de'}.js"><\/script>`);
+</script>
+<script>
 const RAW = { w: 1080, h: 2424 };
 const params = new URLSearchParams(location.search);
-const LANG = params.get('lang') === 'en' ? 'en' : 'de';
+const LANG = ['de', 'en', 'es', 'pt', 'fr', 'it'].includes(params.get('lang')) ? params.get('lang') : 'de';
 const SHOTS = `screens/${LANG}/`;
 
-// Texte je Sprache: [Kicker, Überschrift, Unterzeile]
-const TEXT = {
-  de: {
-    1: ['Stimmungstagebuch', 'Wie war<br>dein <em>Tag?</em>', 'Ein Tipp genügt. Notiz, Foto und Aktivitäten, wenn du magst.'],
-    2: ['Schnell eingetragen', 'Antippen.<br>Auswählen. <em>Fertig.</em>', 'Stimmung und Aktivitäten in Sekunden, sortiert in deinen eigenen Gruppen.'],
-    3: ['Kalender', 'Jeder Tag<br>in <em>seiner Farbe</em>', 'Dein Monat auf einen Blick. Geplantes für die nächsten Tage gleich dabei.'],
-    4: ['Einblicke', 'Erkenne deine<br><em>Muster</em>', 'Verlauf, Wochentage und was mit guten Tagen zusammenfällt. Beschreibend, nie als Diagnose.'],
-    5: ['Jahr in Pixeln', 'Dein Jahr<br>auf <em>einen Blick</em>', 'Jeder Tag ein Pixel. Tippen öffnet den Tag.'],
-    6: ['Ausblick', 'Ein <em>ehrlicher</em><br>Blick nach vorn', 'Nur wo die Schätzung auf deinen Daten besser ist als Raten. Sonst sagt Daylight das auch.'],
-    7: ['Wendepunkte', 'Der Tag, der<br><em>alles änderte</em>', 'Gib dem Tag einen Namen. Daylight vergleicht die Zeit davor mit der Zeit danach.'],
-    8: ['Privat', 'Bleibt auf<br><em>deinem Handy</em>', 'Deine Einträge liegen nur auf dem Gerät. Sicherungen teilst du selbst, wenn du willst.'],
-    badges: ['Kein Internet', 'Kein Konto', 'Keine Werbung', 'App-Sperre'],
-    tagline: 'Dein Stimmungstagebuch.<br>Privat, offline, auf deinem Gerät.',
-  },
-  en: {
-    1: ['Mood journal', 'How was<br>your <em>day?</em>', 'One tap is enough. Notes, a photo and activities if you like.'],
-    2: ['Quick entry', 'Tap.<br>Pick. <em>Done.</em>', 'Mood and activities in seconds, sorted into your own groups.'],
-    3: ['Calendar', 'Every day<br>in <em>its color</em>', 'Your month at a glance, with plans for the days ahead.'],
-    4: ['Insights', 'Spot your<br><em>patterns</em>', 'Trends, weekdays and what comes with good days. Descriptive, never a diagnosis.'],
-    5: ['Year in pixels', 'Your year<br>at <em>a glance</em>', 'Every day a pixel. Tap one to open the day.'],
-    6: ['Outlook', 'An <em>honest</em><br>look ahead', 'Only where the estimate beats guessing on your own data. Otherwise Daylight says so.'],
-    7: ['Turning points', 'The day that<br><em>changed things</em>', 'Give the day a name. Daylight compares the time before with the time after.'],
-    8: ['Private', 'Stays on<br><em>your phone</em>', 'Your entries live only on your device. You share backups yourself, if you want to.'],
-    badges: ['No internet', 'No account', 'No ads', 'App lock'],
-    tagline: 'Your mood journal.<br>Private, offline, on your device.',
-  },
-}[LANG];
+const TEXT = window.STORE_TEXT;
+// Ausschnitte [x, y, Breite, Höhe] aus den App-Screenshots, die je nach Textlänge der Sprache wandern
+const CROP = TEXT.crops;
 const MOOD = {
   5: { strong: '#007060', soft: '#C8F3E3' },
   4: { strong: '#336E08', soft: '#DDF4C2' },
@@ -292,9 +274,8 @@ const ASSETS = {
       head(150, ...TEXT[2]),
       phone('editor.png', { x: 330, y: 700, w: 680, rot: 4 }),
       pop('editor.png', [44, 380, 992, 305], { x: 36, y: 830, w: 760, rot: -3 }),
-      LANG === 'en'
-        ? pop('editor.png', [90, 930, 880, 540], { x: 40, y: 1220, w: 660, rot: -5, radius: 40 })
-        : pop('editor.png', [90, 930, 880, 690], { x: 40, y: 1210, w: 640, rot: -5, radius: 40 }),
+      // Ein höherer Ausschnitt (mehr Zeilen Aktivitäten) sitzt etwas höher und schmaler
+      pop('editor.png', CROP.editorActivities, { x: 40, y: CROP.editorActivities[3] > 600 ? 1210 : 1220, w: CROP.editorActivities[3] > 600 ? 640 : 660, rot: -5, radius: 40 }),
     ];
   },
   'shot-3': () => {
@@ -346,8 +327,8 @@ const ASSETS = {
       deco(c, { cx: 1000, cy: 370, r: 370, opacity: .12 }),
       head(150, ...TEXT[7]),
       phone('vergleich.png', { x: 330, y: 760, w: 680, rot: 3 }),
-      pop('vergleich-verlauf.png', [42, LANG === 'en' ? 393 : 469, 994, 720], { x: 24, y: 1000, w: 560, rot: -4, radius: 34 }),
-      pop('vergleich.png', [42, 1932, 994, LANG === 'en' ? 326 : 282], { x: 30, y: 1560, w: 760, rot: -2, radius: 36 }),
+      pop('vergleich-verlauf.png', CROP.compareHistory, { x: 24, y: 1000, w: 560, rot: -4, radius: 34 }),
+      pop('vergleich.png', CROP.compareSummary, { x: 30, y: 1560, w: 760, rot: -2, radius: 36 }),
     ];
   },
   'shot-8': () => {

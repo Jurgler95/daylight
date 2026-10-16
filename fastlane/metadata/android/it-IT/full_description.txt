@@ -1,0 +1,42 @@
+Daylight è un diario dell'umore che non conosce i tuoi dati. Nessun account, nessun server, nessuna statistica di utilizzo, nessuna pubblicità e nessuna autorizzazione Internet. Tutto resta sul tuo dispositivo.
+
+Com'è andata la giornata? Tocca un umore, scegli cosa hai fatto, ed è fatta. Una nota, scale tue e una foto al giorno sono facoltative.
+
+COSA FA DAYLIGHT
+
+🔒 Completamente offline
+Daylight non ha alcuna autorizzazione Internet. Le tue voci stanno in un database sul tuo telefono e lo lasciano solo quando sei tu a condividere un backup.
+
+⚡ Una voce in pochi secondi
+Cinque umori, attività ordinate in gruppi come emozioni, sonno, meteo, persone e lavoro. Rinomina, riordina, archivia o aggiungi le tue, con icone.
+
+📅 Calendario
+Ogni giorno nel suo colore, così i periodi belli e quelli difficili saltano subito all'occhio. I giorni con più voci sono segnati, le attività in programma compaiono nei giorni a venire.
+
+📊 Analisi dei tuoi schemi
+Monitoraggio dell'umore nel tempo: andamento e media su 7 giorni, distribuzione, giorni della settimana e mesi, l'anno in pixel, settimane tranquille e agitate, serie, quali attività vanno insieme a giorni migliori o peggiori, cosa arriva spesso il giorno dopo e le parole più frequenti nelle tue note. Sempre una descrizione delle tue voci, mai una diagnosi.
+
+🌅 Svolte
+Segna fino a quattro giorni all'anno che hanno cambiato qualcosa, come un nuovo lavoro o un trasloco. Daylight confronta il periodo prima con quello dopo: umore, attività e dati sulla salute.
+
+🔭 Una previsione onesta
+Daylight stima i prossimi sette giorni, ma solo dove sui tuoi dati funziona in modo verificabile meglio che tirare a indovinare. Altrimenti la previsione si fa da parte e lo dice.
+
+🏆 Traguardi per la costanza
+Stelle per giorni e settimane di fila, per note, foto, attività, sonno e passi. Viene premiata solo la costanza nello scrivere, mai com'è andata una giornata.
+
+❤️ Dati sulla salute, se vuoi
+Passi, sonno, battito a riposo e allenamento da Health Connect, per esempio da uno smartwatch, accanto al tuo umore. Solo lettura e solo con il tuo consenso.
+
+🛡️ Protetto
+Blocco app con il blocco schermo del dispositivo, niente screenshot mentre il blocco è attivo, nessun backup di Android nel cloud. Il promemoria serale facoltativo non rivela nulla del tuo diario.
+
+📦 I tuoi dati, i tuoi file
+Condividi o salva un backup completo con le foto, ripristinalo quando vuoi ed esporta in CSV. Arrivi da un'altra app di diario emotivo? Daylight importa per intero un diario esistente, come esportazione CSV o come backup con foto, e prima ti mostra un'anteprima.
+
+In italiano, inglese, tedesco, spagnolo, francese e portoghese.
+
+LIBERO E OPEN SOURCE
+Daylight è software libero sotto la GNU GPL, versione 3 o successiva. Nessuna pubblicità, nessun acquisto in-app, nessun tracciamento.
+
+Daylight non è un dispositivo medico e non sostituisce consulenze o cure. Se da un po' di tempo non stai bene, rivolgiti a una persona di cui ti fidi o a un servizio di ascolto della tua zona.

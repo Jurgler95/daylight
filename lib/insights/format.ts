@@ -1,4 +1,4 @@
-import { currentLanguage } from '@/lib/i18n/language';
+import { numberStyle } from '@/lib/i18n/language';
 
 /**
  * Rounds half away from zero on the decimal value, not on its binary approximation: `toFixed` turns
@@ -14,8 +14,7 @@ function roundDecimal(value: number, digits: number): number {
 
 /** "4,3" in German, "4.3" in English, fixed digits. */
 export function formatDecimal(value: number, digits = 1): string {
-  const text = roundDecimal(value, digits).toFixed(digits);
-  return currentLanguage() === 'en' ? text : text.replace('.', ',');
+  return roundDecimal(value, digits).toFixed(digits).replace('.', numberStyle().decimal);
 }
 
 /** "+0,4" or "-0,2"; zero without a sign. */
@@ -27,7 +26,7 @@ export function formatSigned(value: number, digits = 1): string {
 
 /** "74 %" in German, "74%" in English, for a share 0..1, whole percent. */
 export function formatPercent(share: number): string {
-  return `${roundDecimal(share * 100, 0)}${currentLanguage() === 'en' ? '' : ' '}%`;
+  return `${roundDecimal(share * 100, 0)}${numberStyle().percent}`;
 }
 
 /** "1,8" for a ratio, one decimal. */
@@ -37,6 +36,6 @@ export function formatRatio(ratio: number): string {
 
 /** "10.000" in German, "10,000" in English, whole numbers. */
 export function formatCount(value: number): string {
-  const text = String(Math.round(Math.abs(value))).replace(/\B(?=(\d{3})+(?!\d))/g, currentLanguage() === 'en' ? ',' : '.');
+  const text = String(Math.round(Math.abs(value))).replace(/\B(?=(\d{3})+(?!\d))/g, numberStyle().group);
   return value < 0 ? `-${text}` : text;
 }

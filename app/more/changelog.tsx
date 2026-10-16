@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
 import { AppText, Card, Screen } from '@/components/ui';
-import { RELEASES } from '@/lib/changelog';
+import { changesIn, RELEASES } from '@/lib/changelog';
 import { formatLong, isDateString } from '@/lib/dates';
 import { currentLanguage } from '@/lib/i18n/language';
 import { spacing } from '@/lib/theme';
@@ -22,7 +22,7 @@ export default function ChangelogScreen() {
               {isDateString(release.date) ? formatLong(release.date) : release.date}
             </AppText>
           </View>
-          {release.changes[currentLanguage()].map((change) => (
+          {changesIn(release, currentLanguage()).map((change) => (
             <View key={change} style={styles.bullet}>
               <AppText muted>{'•'}</AppText>
               <AppText style={styles.text}>{change}</AppText>

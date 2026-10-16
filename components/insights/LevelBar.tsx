@@ -32,6 +32,7 @@ export function LevelBar({ label, levels, moodLabel }: Props) {
 
 const styles = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, minHeight: 28 },
-  label: { width: 44 },
+  // Fits "Después" and "Without" in one line; both rows of a pair share the width, so their bars line up.
+  label: { width: 64 },
   bar: { flex: 1, flexDirection: 'row', height: 14, borderRadius: radius.pill, overflow: 'hidden' },
 });

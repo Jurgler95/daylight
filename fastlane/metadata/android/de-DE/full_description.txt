@@ -34,7 +34,7 @@ App-Sperre über die Displaysperre deines Geräts, keine Screenshots bei aktiver
 📦 Deine Daten, deine Dateien
 Eine vollständige Sicherung mit Fotos teilen oder speichern, jederzeit wiederherstellen und als CSV exportieren. Du kommst von einer anderen Stimmungstagebuch-App? Daylight übernimmt ein bestehendes Tagebuch vollständig, als CSV-Export oder als Sicherung mit Fotos, und zeigt vorher eine Vorschau.
 
-Auf Deutsch und Englisch.
+Auf Deutsch, Englisch, Spanisch, Französisch, Italienisch und Portugiesisch (Brasilien).
 
 FREI UND OPEN SOURCE
 Daylight ist freie Software unter der GNU GPL, Version 3 oder später. Keine Werbung, keine In-App-Käufe, kein Tracking.
