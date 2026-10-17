@@ -3,8 +3,8 @@
 # ein schon veröffentlichtes Release von Hand starten, etwa nach einem gescheiterten Upload:
 # `gh workflow run play.yml --ref main -f version=1.0.24`.
 #
-# Die Spur steht in der Repo-Variable PLAY_TRACK, ohne sie geht es in den geschlossenen Test
-# (`alpha`). Der Zugang ist ein Dienstkonto aus Google Cloud, in der Play Console nur für Daylight
+# Jede Version geht direkt in Produktion. Die Repo-Variable PLAY_TRACK lenkt sie stattdessen in eine
+# andere Spur, etwa `alpha` für den geschlossenen Test. Der Zugang ist ein Dienstkonto aus Google Cloud, in der Play Console nur für Daylight
 # freigegeben, sein JSON-Schlüssel liegt im Secret PLAY_SERVICE_ACCOUNT_JSON (siehe
 # docs/development.md, Play Store).
 name: Play Store
@@ -78,7 +78,7 @@ jobs:
           packageName: de.behla.daylight
           releaseFiles: daylight-${{ inputs.version }}.aab
           releaseName: ${{ inputs.version }}
-          tracks: ${{ vars.PLAY_TRACK || 'alpha' }}
+          tracks: ${{ vars.PLAY_TRACK || 'production' }}
           status: completed
           whatsNewDirectory: whatsnew
           mappingFile: ${{ env.MAPPING }}

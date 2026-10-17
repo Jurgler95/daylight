@@ -47,8 +47,8 @@ jobs:
           PLAY_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
           VALIDATE_ONLY: ${{ inputs.live && 'false' || 'true' }}
           # supply hängt den Eintrag an die neueste Version einer Spur und bricht ab, wenn die Spur
-          # leer ist. Deshalb dieselbe Spur wie play.yml, solange es keine Produktion gibt.
-          TRACK: ${{ vars.PLAY_TRACK || 'alpha' }}
+          # leer ist. Deshalb dieselbe Spur wie play.yml.
+          TRACK: ${{ vars.PLAY_TRACK || 'production' }}
         run: |
           if [ -z "$PLAY_JSON" ]; then
             echo "::error::Secret PLAY_SERVICE_ACCOUNT_JSON fehlt"

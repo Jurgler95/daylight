@@ -199,8 +199,7 @@ git fetch --tags origin
 
 Das Release muss genau eine `daylight-$VERSION.apk`, eine `daylight-$VERSION.aab` und die R8-Zuordnung `daylight-$VERSION-mapping.txt` tragen, der
 Fetch holt den Tag, den der Workflow gesetzt hat. Danach lädt der Job `play` (`play.yml`) die
-`.aab` in den Play Store, in die Spur aus der Repo-Variable `PLAY_TRACK` (ohne sie der geschlossene
-Test). Scheitert nur dieser Job, ist das GitHub-Release trotzdem vollständig: Ursache aus dem Log
+`.aab` in den Play Store, in Produktion (oder in die Spur aus der Repo-Variable `PLAY_TRACK`, falls gesetzt). Scheitert nur dieser Job, ist das GitHub-Release trotzdem vollständig: Ursache aus dem Log
 melden (`--log-failed`). Fehlt das Secret `PLAY_SERVICE_ACCOUNT_JSON`, geht die `.aab` von Hand
 hoch; sonst lässt sich nur der Upload mit `gh workflow run play.yml --ref main -f
 version="$VERSION"` wiederholen. Aufs Handy kommt die APK direkt aus dem GitHub-Release, der Link reicht. Lehnt

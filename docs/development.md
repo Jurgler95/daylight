@@ -110,13 +110,20 @@ GH_TOKEN=$(gh auth token --user Jurgler95) gh workflow run play.yml --repo Jurgl
 
 Der Zugang ist ein Dienstkonto aus Google Cloud (Projekt mit der „Google Play Android Developer API", ohne Rollen in Cloud), das in der Play Console unter „Nutzer und Berechtigungen" nur für Daylight freigegeben ist: Releases in Test-Tracks und in Produktion. Sein JSON-Schlüssel liegt im Repo-Secret `PLAY_SERVICE_ACCOUNT_JSON`. Fehlt es, scheitert nur dieser Workflow, das GitHub-Release steht dann schon und die `.aab` geht von Hand hoch. Die Action ist auf einen Commit festgenagelt, weil sie den Schlüssel sieht; beim Aktualisieren den Commit des neuen Release-Tags von `r0adkll/upload-google-play` eintragen.
 
-Die Spur bestimmt die Repo-Variable `PLAY_TRACK`, ohne sie geht jede Version in den geschlossenen Test (`alpha`). Nach dem Freischalten für Produktion umstellen:
+Jede Version geht direkt in Produktion. Die Repo-Variable `PLAY_TRACK` lenkt sie stattdessen in eine andere Spur, etwa vorübergehend in den geschlossenen Test:
 
 ```bash
-GH_TOKEN=$(gh auth token --user Jurgler95) gh variable set PLAY_TRACK --body production --repo Jurgler95/daylight
+GH_TOKEN=$(gh auth token --user Jurgler95) gh variable set PLAY_TRACK --body alpha --repo Jurgler95/daylight
+GH_TOKEN=$(gh auth token --user Jurgler95) gh variable delete PLAY_TRACK --repo Jurgler95/daylight
 ```
 
-Lehnt Play eine Version ab, weil ihr `versionCode` schon vergeben ist, lag sie bereits dort.
+Eine Version, die schon in einer Test-Spur liegt, hebt `.github/workflows/promote.yml` in eine andere, ohne das App Bundle neu hochzuladen, mit ihrem Namen und „Neu in dieser Version". Standard ist vom geschlossenen Test in Produktion:
+
+```bash
+GH_TOKEN=$(gh auth token --user Jurgler95) gh workflow run promote.yml --repo Jurgler95/daylight --ref main -f version=1.0.29
+```
+
+Lehnt Play eine Version ab, weil ihr `versionCode` schon vergeben ist, lag sie bereits dort; in eine andere Spur kommt sie dann über `promote.yml`.
 
 Den Store-Eintrag (Texte, Icon, Feature Graphic und Screenshots aus `fastlane/metadata/android/`) lädt `.github/workflows/store.yml` über fastlane supply hoch, nur von Hand. Ohne `live` prüft er nur und ändert nichts, das Dienstkonto braucht dafür zusätzlich „Store-Präsenz verwalten". Fehlt eine Textdatei, bleibt der Wert in Play unverändert. Der Store-Titel steht je Sprache in `title.txt` (höchstens 30 Zeichen) und ist unabhängig vom Namen unter dem Icon, den `name` in `app.json` festlegt.
 

@@ -1,0 +1,72 @@
+# Hebt eine Version, die schon in einer Test-Spur des Play Store liegt, in eine andere Spur, ohne das
+# App Bundle neu hochzuladen (ein zweiter Upload desselben versionCode scheitert). Name und „Neu in
+# dieser Version" kommen aus der Quellspur mit. Nur von Hand, etwa um eine im geschlossenen Test
+# geprüfte Version in Produktion zu bringen:
+#   gh workflow run promote.yml --ref main -f version=1.0.29
+name: Play-Spur wechseln
+run-name: Play ${{ inputs.version }} von ${{ inputs.from }} nach ${{ inputs.to }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version wie in app.json, ohne v
+        required: true
+      from:
+        description: Spur, in der die Version liegt
+        default: alpha
+      to:
+        description: Spur, in die sie soll
+        default: production
+
+permissions:
+  contents: read
+
+concurrency:
+  group: play
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      # Auf einen Commit festgenagelt (v1.327.0), weil später im selben Job der Play-Schlüssel liegt
+      - uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8
+        with:
+          ruby-version: '3.3'
+
+      # Feste Version, weil fastlane den Play-Schlüssel sieht
+      - name: fastlane installieren
+        run: gem install fastlane -v 2.240.1 --no-document
+
+      # versionCode aus dem Stand des Tags, damit genau diese Version wechselt
+      - name: Spur wechseln
+        env:
+          PLAY_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          VERSION: ${{ inputs.version }}
+          FROM: ${{ inputs.from }}
+          TO: ${{ inputs.to }}
+        run: |
+          if [ -z "$PLAY_JSON" ]; then
+            echo "::error::Secret PLAY_SERVICE_ACCOUNT_JSON fehlt"
+            exit 1
+          fi
+          VERSION_CODE=$(git show "v$VERSION:app.json" | node -p "JSON.parse(require('fs').readFileSync(0, 'utf8')).expo.android.versionCode")
+          echo "Daylight $VERSION (versionCode $VERSION_CODE) von $FROM nach $TO"
+          fastlane supply \
+            --package_name de.behla.daylight \
+            --json_key_data "$PLAY_JSON" \
+            --track "$FROM" \
+            --track_promote_to "$TO" \
+            --version_code "$VERSION_CODE" \
+            --track_promote_release_status completed \
+            --skip_upload_apk true \
+            --skip_upload_aab true \
+            --skip_upload_metadata true \
+            --skip_upload_changelogs true \
+            --skip_upload_images true \
+            --skip_upload_screenshots true
