@@ -130,6 +130,8 @@ const RAW = { w: 1080, h: 2424 };
 const params = new URLSearchParams(location.search);
 const LANG = ['de', 'en', 'es', 'pt', 'fr', 'it'].includes(params.get('lang')) ? params.get('lang') : 'de';
 const SHOTS = `screens/${LANG}/`;
+// Saison-Icon fürs Store-Icon statt des Logos, etwa 'icon-herbst.svg'. null: wieder das Logo aus assets/logo.svg.
+const SEASON_ICON = 'icon-herbst.svg';
 
 const TEXT = window.STORE_TEXT;
 // Ausschnitte [x, y, Breite, Höhe] aus den App-Screenshots, die je nach Textlänge der Sprache wandern
@@ -343,7 +345,10 @@ const ASSETS = {
   },
 
   // App-Icon 512 × 512: sichtbarer Bereich des Adaptive Icons, vollflächig (Google rundet selbst ab).
-  icon: () => [el('img', { src: '../assets/logo.svg', style: { position: 'absolute', left: px(-512 * 18 / 72), top: px(-512 * 18 / 72), width: px(512 * 108 / 72), height: px(512 * 108 / 72) } })],
+  // Ein Saison-Icon ersetzt es ganz, mit seinem vollen Raster.
+  icon: () => [SEASON_ICON
+    ? el('img', { src: SEASON_ICON, style: { position: 'absolute', left: 0, top: 0, width: px(512), height: px(512) } })
+    : el('img', { src: '../assets/logo.svg', style: { position: 'absolute', left: px(-512 * 18 / 72), top: px(-512 * 18 / 72), width: px(512 * 108 / 72), height: px(512 * 108 / 72) } })],
 
   // Feature Graphic 1024 × 500. Wichtiges bleibt mittig, Ränder dürfen beschnitten werden.
   feature: () => {

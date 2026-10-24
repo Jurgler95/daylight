@@ -6,6 +6,7 @@
  *
  *   node scripts/store-graphics.mjs          # alle Sprachen
  *   node scripts/store-graphics.mjs es fr    # nur diese
+ *   node scripts/store-graphics.mjs --icon   # nur das Icon, etwa beim Wechsel des Saison-Icons
  *
  * Braucht Google Chrome (oder CHROME=/pfad/zu/chrome) und Netz für die Schrift von Google Fonts.
  * Die Screenshots der App liegen in `store/screens/<lang>/` und stammen aus einem Pixel-9-Emulator mit den
@@ -19,7 +20,8 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const PAGE = pathToFileURL(join(ROOT, 'store/graphics.html')).href;
 const ALL = [['de', 'de-DE'], ['en', 'en-US'], ['es', 'es-ES'], ['es', 'es-419'], ['pt', 'pt-BR'], ['fr', 'fr-FR'], ['it', 'it-IT']];
-const ONLY = process.argv.slice(2);
+const ICON_ONLY = process.argv.includes('--icon');
+const ONLY = process.argv.slice(2).filter((arg) => !arg.startsWith('--'));
 const LOCALES = ONLY.length ? ALL.filter(([lang]) => ONLY.includes(lang)) : ALL;
 const CHROME = process.env.CHROME ?? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 
@@ -50,6 +52,10 @@ function render(lang, asset, file, [width, height]) {
 
 for (const [lang, locale] of LOCALES) {
   const out = join(ROOT, 'fastlane/metadata/android', locale, 'images');
+  if (ICON_ONLY) {
+    render(lang, 'icon', join(out, 'icon.png'), [512, 512]);
+    continue;
+  }
   rmSync(join(out, 'phoneScreenshots'), { recursive: true, force: true });
   mkdirSync(join(out, 'phoneScreenshots'), { recursive: true });
   render(lang, 'icon', join(out, 'icon.png'), [512, 512]);

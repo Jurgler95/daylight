@@ -85,6 +85,12 @@ node scripts/store-graphics.mjs es fr
 
 Einzelne Grafik im Browser ansehen: `store/graphics.html?asset=shot-3&lang=en` (oder `icon`, `feature`; ohne `lang` Deutsch).
 
+Für eine Jahreszeit kann das Store-Icon vorübergehend ein eigenes SVG zeigen, etwa `store/icon-herbst.svg`: `SEASON_ICON` in `store/graphics.html` zeigt darauf, `null` bringt das Logo zurück. App-Icon und Feature Graphic bleiben beim Logo. Nach dem Umschalten nur die Icons neu rendern und den Store-Eintrag hochladen (siehe Play Store):
+
+```bash
+node scripts/store-graphics.mjs --icon
+```
+
 Die App-Screenshots stammen aus dem Pixel-9-Emulator mit den Beispieldaten, die in der Sprache der App geladen werden, sonst tragen Stimmungen und Gruppen die Namen der anderen Sprache. Je Sprache die App-Daten leeren und die Sprache vor dem ersten Start setzen, denn eine in der App gewählte Sprache hat Vorrang vor `set-app-locales`:
 
 ```bash
