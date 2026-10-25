@@ -14,6 +14,7 @@ import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { basename, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { runInNewContext } from 'node:vm';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SOURCE = join(ROOT, 'assets/logo.svg');
@@ -148,13 +149,20 @@ const SEASONS = {
 };
 
 /**
- * The season the launcher icon wears, a key of `SEASONS`, or null for the logo. Only the launcher
- * icon (legacy icon and the foreground and background layers) follows it; splash, favicon,
- * notification and themed icon and the logo inside the app stay as they are. After switching run
- * `node scripts/logo.mjs` and release a new version.
+ * The season the launcher icon wears, from the switch it shares with the store icon in
+ * `store/season.js`: a key of `SEASONS`, or null for the logo. Only the launcher icon (legacy icon
+ * and the foreground and background layers) follows it; splash, favicon, notification and themed
+ * icon and the logo inside the app stay as they are.
  */
-const SEASON = 'herbst';
+function readSeason() {
+  const context = { window: {} };
+  runInNewContext(readFileSync(join(ROOT, 'store/season.js'), 'utf8'), context);
+  const name = context.window.SEASON ?? null;
+  if (name !== null && !SEASONS[name]) throw new Error(`store/season.js: Jahreszeit '${name}' fehlt in SEASONS`);
+  return name;
+}
 
+const SEASON = readSeason();
 const season = SEASON ? SEASONS[SEASON] : null;
 
 function seasonForeground() {

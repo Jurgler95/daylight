@@ -120,6 +120,7 @@
 </head>
 <body>
 <div id="root"></div>
+<script src="season.js"></script>
 <script>
 // Die Texte je Sprache liegen in store/text/<lang>.js und müssen vor dem Hauptskript da sein.
 const TEXT_LANG = new URLSearchParams(location.search).get('lang');
@@ -130,8 +131,9 @@ const RAW = { w: 1080, h: 2424 };
 const params = new URLSearchParams(location.search);
 const LANG = ['de', 'en', 'es', 'pt', 'fr', 'it'].includes(params.get('lang')) ? params.get('lang') : 'de';
 const SHOTS = `screens/${LANG}/`;
-// Saison-Icon fürs Store-Icon statt des Logos, etwa 'icon-herbst.svg'. null: wieder das Logo aus assets/logo.svg.
-const SEASON_ICON = 'icon-herbst.svg';
+// Saison-Icon fürs Store-Icon statt des Logos, nach dem gemeinsamen Schalter in season.js. Ohne
+// Jahreszeit wieder das Logo aus assets/logo.svg.
+const SEASON_ICON = window.SEASON ? `icon-${window.SEASON}.svg` : null;
 
 const TEXT = window.STORE_TEXT;
 // Ausschnitte [x, y, Breite, Höhe] aus den App-Screenshots, die je nach Textlänge der Sprache wandern
