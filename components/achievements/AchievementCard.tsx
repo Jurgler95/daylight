@@ -48,12 +48,20 @@ export function AchievementCard({ achievement, needsHealth, highlight = false, i
   // The star that comes next, so the countdown wears the colour of what it leads to.
   const nextColor = tierColor(stars + 1);
 
-  // One line each, so a value never breaks away from its label next to the countdown.
+  const currentKey = measure === 'window' ? 'achievements.lastWeek' : 'achievements.current';
+  const facts =
+    current === null
+      ? t('achievements.total', { value: amount(best) })
+      : `${t('achievements.best', { value: amount(best) })} · ${t(currentKey, { value: amount(current) })}`;
+  // On the card the way to the next star reads as a fraction, "27/30 Aktivitäten": a run or a
+  // window from where it stands now, a total from what it has, as the countdown counts. One line
+  // each, so a value never breaks away from its label next to the countdown.
+  const fraction = (value: number, goal: number) =>
+    t(`achievements.units.${unit}`, { count: goal, value: `${formatCount(value)}/${formatCount(goal)}` });
   const factLines =
     current === null
-      ? [t('achievements.total', { value: amount(best) })]
-      : [t('achievements.best', { value: amount(best) }), t(measure === 'window' ? 'achievements.lastWeek' : 'achievements.current', { value: amount(current) })];
-  const facts = factLines.join(' · ');
+      ? [done ? t('achievements.total', { value: amount(best) }) : fraction(best, next)]
+      : [t(currentKey, { value: done ? amount(current) : fraction(current, next) }), t('achievements.best', { value: amount(best) })];
   // Rounded down, so 100 % only shows with the fifth star; at least 1 % as soon as there is anything.
   const percent = best > 0 ? Math.max(1, Math.floor(progress * 100)) : 0;
   const status = needsHealth
@@ -107,10 +115,6 @@ export function AchievementCard({ achievement, needsHealth, highlight = false, i
             {needsHealth ? (
               <AppText variant="caption" muted>
                 {status}
-              </AppText>
-            ) : !done ? (
-              <AppText variant="caption" muted>
-                {t('achievements.next', { value: amount(next) })}
               </AppText>
             ) : null}
           </View>
