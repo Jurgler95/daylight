@@ -1,6 +1,6 @@
 import { MOOD_LEVELS } from '@/db/schema';
 
-import { CARD_OPACITY, colors, moodColors, sunnyGradient, tileColors, typography, TOUCH_TARGET, type Colors } from '../tokens';
+import { CARD_OPACITY, colors, moodColors, sunnyGradient, tileColors, trophyGradient, trophySoftText, typography, TOUCH_TARGET, type Colors } from '../tokens';
 
 /** WCAG relative luminance and contrast ratio for opaque colours. */
 function luminance(hex: string): number {
@@ -89,8 +89,12 @@ describe('bright extras', () => {
     expect(contrastRatio(strong, soft)).toBeGreaterThanOrEqual(3);
   });
 
-  it.each([...sunnyGradient])('white label reads on the gradient stop %s', (stop) => {
+  it.each([...sunnyGradient, ...trophyGradient])('white label reads on the gradient stop %s', (stop) => {
     expect(contrastRatio(colors.textOnAccent, stop)).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it.each([...trophyGradient])('soft text reads on the trophy gradient stop %s', (stop) => {
+    expect(contrastRatio(trophySoftText, stop)).toBeGreaterThanOrEqual(4.5);
   });
 });
 

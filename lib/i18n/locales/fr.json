@@ -801,6 +801,8 @@
     "total": "Jusqu'ici {{value}}",
     "next": "Prochaine étoile : {{value}}",
     "done": "Les cinq étoiles atteintes",
+    "doneBadge": "Terminé",
+    "upNext": "Prochaine étape",
     "needsHealth": "Nécessite des données de santé de Health Connect",
     "percent": "{{value}} %",
     "overallLabel": "{{value}} pour cent accomplis au total",
@@ -829,6 +831,29 @@
       "turningPoints_one": "{{value}} tournant",
       "turningPoints_other": "{{value}} tournants",
       "turningPoints_many": "{{value}} tournants"
+    },
+    "toGo": {
+      "days_one": "encore <n>{{value}}</n> jour",
+      "days_other": "encore <n>{{value}}</n> jours",
+      "days_many": "encore <n>{{value}}</n> jours",
+      "weeks_one": "encore <n>{{value}}</n> semaine",
+      "weeks_other": "encore <n>{{value}}</n> semaines",
+      "weeks_many": "encore <n>{{value}}</n> semaines",
+      "words_one": "encore <n>{{value}}</n> mot",
+      "words_other": "encore <n>{{value}}</n> mots",
+      "words_many": "encore <n>{{value}}</n> mots",
+      "activities_one": "encore <n>{{value}}</n> activité",
+      "activities_other": "encore <n>{{value}}</n> activités",
+      "activities_many": "encore <n>{{value}}</n> activités",
+      "photos_one": "encore <n>{{value}}</n> photo",
+      "photos_other": "encore <n>{{value}}</n> photos",
+      "photos_many": "encore <n>{{value}}</n> photos",
+      "opens_one": "encore <n>{{value}}</n> fois",
+      "opens_other": "encore <n>{{value}}</n> fois",
+      "opens_many": "encore <n>{{value}}</n> fois",
+      "turningPoints_one": "encore <n>{{value}}</n> tournant",
+      "turningPoints_other": "encore <n>{{value}}</n> tournants",
+      "turningPoints_many": "encore <n>{{value}}</n> tournants"
     },
     "items": {
       "days": {

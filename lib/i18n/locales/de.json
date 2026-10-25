@@ -765,6 +765,8 @@
     "total": "Bisher {{value}}",
     "next": "Nächster Stern: {{value}}",
     "done": "Alle fünf Sterne erreicht",
+    "doneBadge": "Geschafft",
+    "upNext": "Als Nächstes",
     "needsHealth": "Braucht Gesundheitsdaten aus Health Connect",
     "percent": "{{value}} %",
     "overallLabel": "Insgesamt {{value}} Prozent geschafft",
@@ -786,6 +788,22 @@
       "opens_other": "{{value}} Mal",
       "turningPoints_one": "{{value}} Wendepunkt",
       "turningPoints_other": "{{value}} Wendepunkte"
+    },
+    "toGo": {
+      "days_one": "noch <n>{{value}}</n> Tag",
+      "days_other": "noch <n>{{value}}</n> Tage",
+      "weeks_one": "noch <n>{{value}}</n> Woche",
+      "weeks_other": "noch <n>{{value}}</n> Wochen",
+      "words_one": "noch <n>{{value}}</n> Wort",
+      "words_other": "noch <n>{{value}}</n> Wörter",
+      "activities_one": "noch <n>{{value}}</n> Aktivität",
+      "activities_other": "noch <n>{{value}}</n> Aktivitäten",
+      "photos_one": "noch <n>{{value}}</n> Foto",
+      "photos_other": "noch <n>{{value}}</n> Fotos",
+      "opens_one": "noch <n>{{value}}</n> Mal",
+      "opens_other": "noch <n>{{value}}</n> Mal",
+      "turningPoints_one": "noch <n>{{value}}</n> Wendepunkt",
+      "turningPoints_other": "noch <n>{{value}}</n> Wendepunkte"
     },
     "items": {
       "days": {

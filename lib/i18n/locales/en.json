@@ -765,6 +765,8 @@
     "total": "So far {{value}}",
     "next": "Next star: {{value}}",
     "done": "All five stars reached",
+    "doneBadge": "Complete",
+    "upNext": "Up next",
     "needsHealth": "Needs health data from Health Connect",
     "percent": "{{value}}%",
     "overallLabel": "{{value}} percent done overall",
@@ -786,6 +788,22 @@
       "opens_other": "{{value}} times",
       "turningPoints_one": "{{value}} turning point",
       "turningPoints_other": "{{value}} turning points"
+    },
+    "toGo": {
+      "days_one": "<n>{{value}}</n> more day",
+      "days_other": "<n>{{value}}</n> more days",
+      "weeks_one": "<n>{{value}}</n> more week",
+      "weeks_other": "<n>{{value}}</n> more weeks",
+      "words_one": "<n>{{value}}</n> more word",
+      "words_other": "<n>{{value}}</n> more words",
+      "activities_one": "<n>{{value}}</n> more activity",
+      "activities_other": "<n>{{value}}</n> more activities",
+      "photos_one": "<n>{{value}}</n> more photo",
+      "photos_other": "<n>{{value}}</n> more photos",
+      "opens_one": "<n>{{value}}</n> more time",
+      "opens_other": "<n>{{value}}</n> more times",
+      "turningPoints_one": "<n>{{value}}</n> more turning point",
+      "turningPoints_other": "<n>{{value}}</n> more turning points"
     },
     "items": {
       "days": {

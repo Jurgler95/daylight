@@ -801,6 +801,8 @@
     "total": "Hasta ahora {{value}}",
     "next": "Próxima estrella: {{value}}",
     "done": "Las cinco estrellas conseguidas",
+    "doneBadge": "Completado",
+    "upNext": "Lo próximo",
     "needsHealth": "Necesita datos de salud de Health Connect",
     "percent": "{{value}} %",
     "overallLabel": "{{value}} por ciento completado en total",
@@ -829,6 +831,29 @@
       "turningPoints_one": "{{value}} punto de inflexión",
       "turningPoints_other": "{{value}} puntos de inflexión",
       "turningPoints_many": "{{value}} puntos de inflexión"
+    },
+    "toGo": {
+      "days_one": "falta <n>{{value}}</n> día",
+      "days_other": "faltan <n>{{value}}</n> días",
+      "days_many": "faltan <n>{{value}}</n> días",
+      "weeks_one": "falta <n>{{value}}</n> semana",
+      "weeks_other": "faltan <n>{{value}}</n> semanas",
+      "weeks_many": "faltan <n>{{value}}</n> semanas",
+      "words_one": "falta <n>{{value}}</n> palabra",
+      "words_other": "faltan <n>{{value}}</n> palabras",
+      "words_many": "faltan <n>{{value}}</n> palabras",
+      "activities_one": "falta <n>{{value}}</n> actividad",
+      "activities_other": "faltan <n>{{value}}</n> actividades",
+      "activities_many": "faltan <n>{{value}}</n> actividades",
+      "photos_one": "falta <n>{{value}}</n> foto",
+      "photos_other": "faltan <n>{{value}}</n> fotos",
+      "photos_many": "faltan <n>{{value}}</n> fotos",
+      "opens_one": "falta <n>{{value}}</n> vez",
+      "opens_other": "faltan <n>{{value}}</n> veces",
+      "opens_many": "faltan <n>{{value}}</n> veces",
+      "turningPoints_one": "falta <n>{{value}}</n> punto de inflexión",
+      "turningPoints_other": "faltan <n>{{value}}</n> puntos de inflexión",
+      "turningPoints_many": "faltan <n>{{value}}</n> puntos de inflexión"
     },
     "items": {
       "days": {

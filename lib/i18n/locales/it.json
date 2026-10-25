@@ -801,6 +801,8 @@
     "total": "Finora {{value}}",
     "next": "Prossima stella: {{value}}",
     "done": "Tutte e cinque le stelle raggiunte",
+    "doneBadge": "Completato",
+    "upNext": "Prossimo traguardo",
     "needsHealth": "Servono dati sulla salute da Health Connect",
     "percent": "{{value}}%",
     "overallLabel": "{{value}} per cento completato in totale",
@@ -829,6 +831,29 @@
       "turningPoints_one": "{{value}} svolta",
       "turningPoints_other": "{{value}} svolte",
       "turningPoints_many": "{{value}} svolte"
+    },
+    "toGo": {
+      "days_one": "ancora <n>{{value}}</n> giorno",
+      "days_other": "ancora <n>{{value}}</n> giorni",
+      "days_many": "ancora <n>{{value}}</n> giorni",
+      "weeks_one": "ancora <n>{{value}}</n> settimana",
+      "weeks_other": "ancora <n>{{value}}</n> settimane",
+      "weeks_many": "ancora <n>{{value}}</n> settimane",
+      "words_one": "ancora <n>{{value}}</n> parola",
+      "words_other": "ancora <n>{{value}}</n> parole",
+      "words_many": "ancora <n>{{value}}</n> parole",
+      "activities_one": "ancora <n>{{value}}</n> attività",
+      "activities_other": "ancora <n>{{value}}</n> attività",
+      "activities_many": "ancora <n>{{value}}</n> attività",
+      "photos_one": "ancora <n>{{value}}</n> foto",
+      "photos_other": "ancora <n>{{value}}</n> foto",
+      "photos_many": "ancora <n>{{value}}</n> foto",
+      "opens_one": "ancora <n>{{value}}</n> volta",
+      "opens_other": "ancora <n>{{value}}</n> volte",
+      "opens_many": "ancora <n>{{value}}</n> volte",
+      "turningPoints_one": "ancora <n>{{value}}</n> svolta",
+      "turningPoints_other": "ancora <n>{{value}}</n> svolte",
+      "turningPoints_many": "ancora <n>{{value}}</n> svolte"
     },
     "items": {
       "days": {

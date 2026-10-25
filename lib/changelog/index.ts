@@ -26,6 +26,42 @@ export function changesIn(release: Release, language: Language): string[] {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.30',
+    date: '2026-10-25',
+    changes: {
+      de: [
+        'Jeder Erfolg zeigt groß, wie viel bis zum nächsten Stern noch fehlt',
+        'Unter „Erfolge“ steht oben, welcher Stern als Nächstes in Reichweite ist, ein Tipp springt hin',
+        'Die Seite „Erfolge“ ist bunter, mit Pokal, goldenem Fortschrittsbalken und Sternen je Bereich',
+      ],
+      en: [
+        'Every award shows in large numbers how much is still missing for the next star',
+        'The top of “Awards” shows the next star within reach, a tap jumps to it',
+        'The “Awards” page is more colourful, with a trophy, a golden progress bar and stars per section',
+      ],
+      es: [
+        'Cada logro muestra en grande cuánto falta para la próxima estrella',
+        'Arriba en “Logros” aparece la próxima estrella a tu alcance, un toque te lleva a ella',
+        'La página “Logros” tiene más color, con trofeo, barra de progreso dorada y estrellas por sección',
+      ],
+      pt: [
+        'Cada conquista mostra em destaque quanto falta para a próxima estrela',
+        'No topo de “Conquistas” aparece a próxima estrela ao seu alcance, um toque leva até ela',
+        'A página “Conquistas” ficou mais colorida, com troféu, barra de progresso dourada e estrelas por seção',
+      ],
+      fr: [
+        'Chaque succès affiche en grand ce qu’il manque pour la prochaine étoile',
+        'En haut de « Succès », la prochaine étoile à portée de main s’affiche, un appui y mène',
+        'La page « Succès » est plus colorée, avec un trophée, une barre de progression dorée et les étoiles par section',
+      ],
+      it: [
+        'Ogni traguardo mostra in grande quanto manca alla prossima stella',
+        'In cima a “Traguardi” compare la prossima stella a portata di mano, un tocco ti ci porta',
+        'La pagina “Traguardi” è più colorata, con trofeo, barra di avanzamento dorata e stelle per sezione',
+      ],
+    },
+  },
+  {
     version: '1.0.29',
     date: '2026-10-16',
     changes: {

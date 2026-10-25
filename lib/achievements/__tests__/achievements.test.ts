@@ -1,7 +1,7 @@
 import { addDaysToDateString, type DateString } from '@/lib/dates';
 import { isStarterActivity } from '@/lib/daylio/known';
 
-import { buildAchievements, countWords, dayRuns, MAX_STARS, totalStars, weekRuns, windowSums, type AchievementEntry, type AchievementInput } from '../achievements';
+import { buildAchievements, countWords, dayRuns, MAX_STARS, nextInReach, totalStars, weekRuns, windowSums, type AchievementEntry, type AchievementInput } from '../achievements';
 
 const d = (value: string) => value as DateString;
 const today = d('2026-10-03');
@@ -132,10 +132,24 @@ describe('buildAchievements', () => {
     expect(achievements.get('scaleDays')).toMatchObject({ best: 20, stars: 2 });
   });
 
+  it('says how much is missing for the next star', () => {
+    const entries = daysBack(today, 20).map((date, i) => entry(date, { note: 'eins zwei drei vier fünf', photos: i < 7 ? [`p${i}.jpg`] : [] }));
+    const achievements = byKey(buildAchievements(input({ entries })));
+    // A run counts on from today's length.
+    expect(achievements.get('days')).toMatchObject({ next: 100, remaining: 80, step: 0.2 });
+    // A broken run starts over: the third star asks for 30 photo days from nothing.
+    expect(achievements.get('photoDays')).toMatchObject({ stars: 2, next: 30, remaining: 30, step: 0 });
+    // A total only adds onto the last star: 10 more days to 30, 13 of the 23 between the stars done.
+    expect(achievements.get('totalDays')).toMatchObject({ next: 30, remaining: 10 });
+    expect(achievements.get('totalDays')!.step).toBeCloseTo(13 / 23);
+    // The last seven days hold 35 words of the 100 the first star asks for.
+    expect(achievements.get('weekWords')).toMatchObject({ next: 100, remaining: 65, step: 0.35 });
+  });
+
   it('reaches all five stars for five years in a row', () => {
     const entries = daysBack(today, 1826).map((date) => entry(date));
     const days = byKey(buildAchievements(input({ entries }))).get('days')!;
-    expect(days).toMatchObject({ stars: 5, next: null, progress: 1 });
+    expect(days).toMatchObject({ stars: 5, next: null, progress: 1, remaining: null, step: 1 });
   });
 
   it('counts sleep and steps from health days that have a value', () => {
@@ -156,5 +170,21 @@ describe('buildAchievements', () => {
   it('counts self-made activities, not the starters in either language', () => {
     const activities = [{ name: 'Glücklich' }, { name: 'Happy' }, { name: 'Bouldern' }, { name: 'Klavier' }];
     expect(byKey(buildAchievements(input({ activities }))).get('custom')).toMatchObject({ best: 2, stars: 1 });
+  });
+});
+
+describe('nextInReach', () => {
+  it('picks the achievement closest to its next star, the smaller gap on a tie', () => {
+    expect(nextInReach(buildAchievements(input({})))?.key).toBe('days');
+    // 20 days with a note: the first word star is 35 of 100 away, the second total-days star 13 of 23.
+    const entries = daysBack(today, 20).map((date) => entry(date, { note: 'eins zwei drei vier fünf' }));
+    const next = nextInReach(buildAchievements(input({ entries, opens: 49 })));
+    // One more opening for the second star beats everything else.
+    expect(next).toMatchObject({ key: 'opens', remaining: 1 });
+  });
+
+  it('is null once every star is there', () => {
+    const done = buildAchievements(input({})).map((a) => ({ ...a, next: null, remaining: null, step: 1 }));
+    expect(nextInReach(done)).toBeNull();
   });
 });

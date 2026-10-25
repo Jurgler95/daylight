@@ -50,7 +50,9 @@ describe('achievements screen', () => {
     use(createTestDb());
     await render(<AchievementsScreen />);
     expect(screen.getByText('0/85')).toBeTruthy();
-    expect(screen.getByText('Am Ball')).toBeTruthy();
+    expect(screen.getAllByText('Am Ball').length).toBeGreaterThan(0);
+    // The first entry is the next star in reach.
+    expect(screen.getByRole('button', { name: 'Als Nächstes: Am Ball, noch 1 Tag' })).toBeTruthy();
     expect(screen.getAllByText('Braucht Gesundheitsdaten aus Health Connect', ALL)).toHaveLength(2);
     expect(screen.queryByText(BROKEN, ALL)).toBeNull();
   });
@@ -67,7 +69,9 @@ describe('achievements screen', () => {
     use(db);
     await render(<AchievementsScreen />);
     expect(screen.queryByText('0/85')).toBeNull();
-    expect(screen.getByText('Schlafprotokoll')).toBeTruthy();
+    expect(screen.getAllByText('Schlafprotokoll').length).toBeGreaterThan(0);
+    // Every unfinished card counts down to its next star.
+    expect(screen.getAllByText(/^noch /, ALL).length).toBeGreaterThan(0);
     expect(screen.queryByText(BROKEN, ALL)).toBeNull();
   });
 

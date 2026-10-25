@@ -119,6 +119,13 @@ export interface Achievement extends Definition {
   next: number | null;
   /** 0..1 of the way from nothing to the fifth star's threshold, from `best`, so it never drops. */
   progress: number;
+  /**
+   * How much is still missing for the next star, null once all five are there. A run or a window
+   * counts from where it stands now (a broken run starts over), a total from what it has.
+   */
+  remaining: number | null;
+  /** 0..1 of the way to the next star, measured like `remaining`; 1 once all five are there. */
+  step: number;
 }
 
 /** Letters and digits; everything else splits words. */
@@ -201,7 +208,12 @@ function finish(definition: Definition, best: number, current: number | null): A
   const stars = starsFor(definition.tiers, best);
   const next = definition.tiers[stars] ?? null;
   const goal = definition.tiers[TIER_COUNT - 1]!;
-  return { ...definition, best, current, stars, next, progress: Math.min(1, best / goal) };
+  // A run has to be walked again from today's length; a total only adds onto the last star.
+  const from = current ?? best;
+  const floor = current === null ? (definition.tiers[stars - 1] ?? 0) : 0;
+  const remaining = next === null ? null : next - from;
+  const step = next === null ? 1 : Math.max(0, (from - floor) / (next - floor));
+  return { ...definition, best, current, stars, next, progress: Math.min(1, best / goal), remaining, step };
 }
 
 /** Every achievement in the order of `DEFINITIONS`. */
@@ -272,4 +284,17 @@ export function buildAchievements(input: AchievementInput): Achievement[] {
 
 export function totalStars(achievements: readonly Achievement[]): number {
   return achievements.reduce((sum, achievement) => sum + achievement.stars, 0);
+}
+
+/**
+ * The achievement whose next star is nearest, by share of the way still open; a tie goes to the one
+ * with less left in absolute terms. Null once all stars are there.
+ */
+export function nextInReach(achievements: readonly Achievement[]): Achievement | null {
+  let best: Achievement | null = null;
+  for (const achievement of achievements) {
+    if (achievement.remaining === null) continue;
+    if (!best || achievement.step > best.step || (achievement.step === best.step && achievement.remaining < best.remaining!)) best = achievement;
+  }
+  return best;
 }

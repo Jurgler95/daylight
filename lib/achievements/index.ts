@@ -4,6 +4,7 @@ export {
   dayRuns,
   DEFINITIONS,
   MAX_STARS,
+  nextInReach,
   TIER_COUNT,
   totalStars,
   WEEK_MIN_DAYS,
