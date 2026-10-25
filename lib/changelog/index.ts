@@ -26,6 +26,36 @@ export function changesIn(release: Release, language: Language): string[] {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.31',
+    date: '2026-10-25',
+    changes: {
+      de: [
+        'Unter „Erfolge“ stehen die Erfolge, deren nächster Stern am nächsten ist, jetzt oben',
+        'Der Pokal unter „Erfolge“ springt beim Öffnen ruhiger herein',
+      ],
+      en: [
+        'Under “Awards” the awards whose next star is closest now come first',
+        'The trophy under “Awards” appears more calmly when the page opens',
+      ],
+      es: [
+        'En “Logros” aparecen primero los logros cuya próxima estrella está más cerca',
+        'El trofeo de “Logros” aparece con más calma al abrir la página',
+      ],
+      pt: [
+        'Em “Conquistas” aparecem primeiro as conquistas cuja próxima estrela está mais perto',
+        'O troféu de “Conquistas” aparece com mais calma ao abrir a página',
+      ],
+      fr: [
+        'Dans « Succès », les succès dont la prochaine étoile est la plus proche apparaissent en premier',
+        'Le trophée de « Succès » apparaît plus calmement à l\'ouverture de la page',
+      ],
+      it: [
+        'In “Traguardi” compaiono per primi i traguardi con la prossima stella più vicina',
+        'Il trofeo di “Traguardi” appare con più calma quando si apre la pagina',
+      ],
+    },
+  },
+  {
     version: '1.0.30',
     date: '2026-10-25',
     changes: {

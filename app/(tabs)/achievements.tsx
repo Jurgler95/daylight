@@ -8,7 +8,7 @@ import { AchievementCard } from '@/components/achievements/AchievementCard';
 import { AchievementsHero } from '@/components/achievements/AchievementsHero';
 import { STAR_COLOR } from '@/components/achievements/StarRow';
 import { AppText, Screen } from '@/components/ui';
-import { nextInReach, TIER_COUNT, totalStars, type Achievement, type AchievementGroup, type AchievementKey } from '@/lib/achievements';
+import { byNextStar, nextInReach, TIER_COUNT, totalStars, type Achievement, type AchievementGroup, type AchievementKey } from '@/lib/achievements';
 import { useAchievements } from '@/lib/achievements/useAchievements';
 import { useToday } from '@/lib/dates/useToday';
 import { formatCount } from '@/lib/insights';
@@ -21,7 +21,8 @@ const GROUP_ICON = { streaks: 'fire', volume: 'treasure-chest' } as const;
 const FOCUS_MS = 1500;
 
 /**
- * Stars for keeping the diary, first the runs, then the totals. Nothing here looks at a mood.
+ * Stars for keeping the diary, first the runs, then the totals, each sorted by the next star in
+ * reach. Nothing here looks at a mood.
  * `?focus=<key>` (from the star message or the streak chip) scrolls that card to the middle and
  * marks it for a moment.
  */
@@ -89,7 +90,10 @@ export default function AchievementsScreen() {
         onUpNext={(achievement) => focusCard(achievement.key)}
       />
       {GROUPS.map((group) => {
-        const members = achievements.filter((achievement) => achievement.group === group);
+        // Closest next star first; what needs Health Connect first can't be reached and goes last.
+        const members = achievements
+          .filter((achievement) => achievement.group === group)
+          .sort((a, b) => Number(needsHealth(a)) - Number(needsHealth(b)) || byNextStar(a, b));
         const offset = achievements.findIndex((achievement) => achievement.group === group);
         const groupStars = { stars: formatCount(totalStars(members)), max: formatCount(members.length * TIER_COUNT) };
         return (

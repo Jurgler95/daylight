@@ -1,7 +1,7 @@
 import { addDaysToDateString, type DateString } from '@/lib/dates';
 import { isStarterActivity } from '@/lib/daylio/known';
 
-import { buildAchievements, countWords, dayRuns, MAX_STARS, nextInReach, totalStars, weekRuns, windowSums, type AchievementEntry, type AchievementInput } from '../achievements';
+import { buildAchievements, byNextStar, countWords, dayRuns, MAX_STARS, nextInReach, totalStars, weekRuns, windowSums, type AchievementEntry, type AchievementInput } from '../achievements';
 
 const d = (value: string) => value as DateString;
 const today = d('2026-10-03');
@@ -181,6 +181,17 @@ describe('nextInReach', () => {
     const next = nextInReach(buildAchievements(input({ entries, opens: 49 })));
     // One more opening for the second star beats everything else.
     expect(next).toMatchObject({ key: 'opens', remaining: 1 });
+  });
+
+  it('sorts the closest next star first and finished achievements last', () => {
+    const achievements = buildAchievements(input({ opens: 49 }));
+    const done = { ...achievements.find((a) => a.key === 'days')!, next: null, remaining: null, step: 1 };
+    const sorted = [done, ...achievements.filter((a) => a.key !== 'days')].sort(byNextStar);
+    expect(sorted[0]!.key).toBe('opens');
+    expect(sorted.at(-1)).toBe(done);
+    for (const [a, b] of sorted.slice(0, -1).map((a, i) => [a, sorted[i + 1]!] as const)) {
+      if (b.remaining !== null) expect(a.step).toBeGreaterThanOrEqual(b.step);
+    }
   });
 
   it('is null once every star is there', () => {

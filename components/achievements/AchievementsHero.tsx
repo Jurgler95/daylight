@@ -53,7 +53,7 @@ export function AchievementsHero({ stars, complete, total, progress, upNext, onU
         <MaterialCommunityIcons name="star-four-points" size={26} color={withAlpha('#FFFFFF', 0.18)} style={[styles.spark, { top: 70, right: 14 }]} />
       </View>
       <View style={styles.summary} accessible accessibilityLabel={`${summary}. ${t('achievements.complete', { count: complete, total })}. ${t('achievements.overallLabel', { value: percent })}`}>
-        <Animated.View entering={reduceMotion ? undefined : ZoomIn.springify().damping(12).delay(100)} style={styles.trophyHalo}>
+        <Animated.View entering={reduceMotion ? undefined : ZoomIn.springify().damping(20).stiffness(220).mass(0.6).delay(100)} style={styles.trophyHalo}>
           <LinearGradient colors={GOLD} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.trophy}>
             <MaterialCommunityIcons name="trophy" size={38} color="#7A4A00" />
           </LinearGradient>

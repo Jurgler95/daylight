@@ -287,14 +287,17 @@ export function totalStars(achievements: readonly Achievement[]): number {
 }
 
 /**
- * The achievement whose next star is nearest, by share of the way still open; a tie goes to the one
- * with less left in absolute terms. Null once all stars are there.
+ * Orders achievements by how close their next star is: the larger share of the way already done
+ * first, on a tie the smaller gap. Finished ones go last. `Array.sort` is stable, so equal ones keep
+ * the order of `DEFINITIONS`.
  */
+export function byNextStar(a: Achievement, b: Achievement): number {
+  if (a.remaining === null || b.remaining === null) return (a.remaining === null ? 1 : 0) - (b.remaining === null ? 1 : 0);
+  return b.step - a.step || a.remaining - b.remaining;
+}
+
+/** The achievement whose next star is nearest (see `byNextStar`), null once all stars are there. */
 export function nextInReach(achievements: readonly Achievement[]): Achievement | null {
-  let best: Achievement | null = null;
-  for (const achievement of achievements) {
-    if (achievement.remaining === null) continue;
-    if (!best || achievement.step > best.step || (achievement.step === best.step && achievement.remaining < best.remaining!)) best = achievement;
-  }
-  return best;
+  const next = [...achievements].sort(byNextStar)[0];
+  return next && next.remaining !== null ? next : null;
 }

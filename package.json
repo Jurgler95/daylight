@@ -1,6 +1,6 @@
 {
   "name": "daylight",
-  "version": "1.0.30",
+  "version": "1.0.31",
   "main": "expo-router/entry",
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",
