@@ -116,6 +116,27 @@
   .wordmark { position: absolute; display: flex; align-items: center; gap: 26px; }
   .wordmark .name { font-weight: 800; font-size: 84px; letter-spacing: -.04em; line-height: 1; }
   .tagline { position: absolute; font-weight: 500; font-size: 30px; line-height: 1.35; color: rgba(251,247,240,.9); }
+
+  .store-line {
+    position: absolute; left: 0; right: 0; text-align: center;
+    font-weight: 800; font-size: 76px; letter-spacing: -.03em; color: var(--cream);
+    text-shadow: 0 2px 6px rgba(5,20,50,.55), 0 4px 30px rgba(5,20,50,.7);
+  }
+  .hint {
+    position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; gap: 14px;
+    font-weight: 800; font-size: 34px; letter-spacing: .16em; text-transform: uppercase; color: var(--sun-light);
+    text-shadow: 0 2px 20px rgba(5,20,50,.5);
+  }
+  .hint svg { width: 54px; height: 54px; }
+  .center { position: absolute; left: 0; right: 0; text-align: center; }
+  .status-badges { position: absolute; left: 30px; right: 30px; display: flex; gap: 14px; justify-content: center; }
+  .status-badges .badge {
+    font-size: 31px; padding: 18px 28px 18px 20px; gap: 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,.24), rgba(255,255,255,.12));
+    border: 2px solid rgba(255,214,140,.6);
+    box-shadow: 0 16px 34px -12px rgba(3,12,35,.55), 0 0 28px rgba(255,205,120,.2);
+  }
+  .status-badges .badge svg { width: 42px; height: 42px; }
 </style>
 </head>
 <body>
@@ -374,6 +395,37 @@ const ASSETS = {
       small('kalender.png', { x: 600, y: 70, w: 230, rot: -8 }),
       small('heute.png', { x: 770, y: 40, w: 240, rot: 6 }),
       bubble(5, { x: 560, y: 330, size: 78, rot: -10 }),
+    ];
+  },
+
+  // WhatsApp-Status 1080 × 1920. Oben und unten legt WhatsApp Profilzeile und Antwortfeld darüber.
+  // Anklickbar ist im Status nur der Link in der Bildunterschrift. Eine kleine Sonne steht über der
+  // Play-Store-Zeile, der Pfeil darunter zeigt auf die Bildunterschrift, und das untere Drittel bleibt dafür frei.
+  whatsapp: () => {
+    const c = { w: W, h: H };
+    const sunY = 1300;
+    const icon = el('div', { style: { width: '92px', height: '92px', borderRadius: '24px', overflow: 'hidden', position: 'relative', boxShadow: '0 16px 34px -10px rgba(3,12,35,.6)' } });
+    icon.append(el('img', { src: '../assets/logo.svg', style: { position: 'absolute', left: px(-92 * 18 / 72), top: px(-92 * 18 / 72), width: px(92 * 108 / 72) } }));
+    const wm = el('div', { class: 'wordmark', style: { left: 0, right: 0, top: '190px', justifyContent: 'center', gap: '22px' } });
+    wm.append(icon, el('div', { class: 'name', style: { fontSize: '68px' } }, 'Daylight'));
+    const badges = el('div', { class: 'status-badges', style: { top: px(sunY + 170) } });
+    badges.append(...['wifi', 'user', 'ad'].map((icon, i) => badge(icon, TEXT.badges[i])));
+    const title = el('h1', { class: 'center', style: { top: '395px', marginTop: 0, fontSize: '92px', whiteSpace: 'nowrap' } }, `<em>${TEXT[1][0]}</em>`);
+    return [
+      sky(c, { sunX: 540, sunY: sunY - 130, sunR: 62 }),
+      deco(c, { cx: 540, cy: sunY - 130, r: 520, opacity: .14, spiral: false, width: 9 }),
+      wm,
+      title,
+      // Drei Karten aus der App wie ein Fächer: Kalender und Jahr in Pixeln hinten, die Stimmungsauswahl vorn
+      pop('kalender.png', [44, 370, 992, 990], { x: 40, y: 560, w: 470, rot: -9, radius: 30 }),
+      pop('pixel.png', [44, 1530, 992, 560], { x: 590, y: 560, w: 470, rot: 8, radius: 30 }),
+      pop('heute.png', [44, 672, 992, 414], { x: 110, y: 720, w: 860, rot: -2.5, radius: 40 }),
+      bubble(5, { x: 870, y: 980, size: 124, rot: 10 }),
+      bubble(4, { x: 40, y: 1000, size: 100, rot: -12 }),
+      el('div', { class: 'store-line', style: { top: px(sunY - 50) } }, TEXT.status.button),
+      badges,
+      el('div', { class: 'hint', style: { top: px(sunY + 320) } },
+        `${TEXT.status.hint}<svg viewBox="0 0 24 24"><path d="M12 4v15M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`),
     ];
   },
 };

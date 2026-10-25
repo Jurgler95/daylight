@@ -11,6 +11,8 @@ window.STORE_TEXT = {
   8: ['Private', 'Stays on<br><em>your phone</em>', 'Your entries live only on your device. You share backups yourself, if you want to.'],
   badges: ['No internet', 'No account', 'No ads', 'App lock'],
   tagline: 'Your mood journal.<br>Private, offline, on your device.',
+  // WhatsApp-Status: Zeile unter der Sonne und Hinweis auf den Link in der Bildunterschrift darunter
+  status: { button: 'Now on Google Play', hint: 'Tap the link below' },
   // Ausschnitte [x, y, Breite, Höhe] aus store/screens/<lang>/: Aktivitäten im Editor, Verlauf und Zusammenfassung im Vergleich
   crops: { editorActivities: [90, 930, 880, 540], compareHistory: [42, 393, 994, 720], compareSummary: [42, 1932, 994, 326] },
 };

@@ -11,6 +11,8 @@ window.STORE_TEXT = {
   8: ['Privado', 'Se queda en<br><em>tu teléfono</em>', 'Tus entradas solo están en tu dispositivo. Las copias de seguridad las compartes tú.'],
   badges: ['Sin internet', 'Sin cuenta', 'Sin anuncios', 'Bloqueo de la app'],
   tagline: 'Tu diario de ánimo.<br>Privado y sin conexión.',
+  // WhatsApp-Status: Zeile unter der Sonne und Hinweis auf den Link in der Bildunterschrift darunter
+  status: { button: 'Ya en Google Play', hint: 'Toca el enlace de abajo' },
   // Ausschnitte [x, y, Breite, Höhe] aus store/screens/<lang>/: Aktivitäten im Editor, Verlauf und Zusammenfassung im Vergleich
   crops: { editorActivities: [90, 930, 880, 690], compareHistory: [42, 393, 994, 720], compareSummary: [42, 1932, 994, 282] },
 };

@@ -11,6 +11,8 @@ window.STORE_TEXT = {
   8: ['Privé', 'Reste sur<br><em>ton téléphone</em>', 'Tes entrées restent sur l\'appareil. Tes sauvegardes, tu les partages toi-même.'],
   badges: ['Sans Internet', 'Sans compte', 'Sans pub', 'Verrouillage'],
   tagline: 'Ton journal d\'humeur.<br>Privé, hors ligne, sur ton appareil.',
+  // WhatsApp-Status: Zeile unter der Sonne und Hinweis auf den Link in der Bildunterschrift darunter
+  status: { button: 'Disponible sur Google Play', hint: 'Touche le lien en bas' },
   // Ausschnitte [x, y, Breite, Höhe] aus store/screens/<lang>/: Aktivitäten im Editor, Verlauf und Zusammenfassung im Vergleich
   crops: { editorActivities: [90, 930, 880, 540], compareHistory: [42, 393, 994, 720], compareSummary: [42, 1932, 994, 326] },
 };
