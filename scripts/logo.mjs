@@ -101,19 +101,73 @@ export const SUN = { cx: ${logo.sun.cx}, cy: ${logo.sun.cy}, r: ${logo.sun.r} } 
 
 /**
  * Ring, hour dots, spiral and sun. `mono` paints everything in one colour for themed icons,
- * `weight` thickens the strokes for tiny sizes.
+ * `weight` thickens the strokes for tiny sizes, `colors` overrides ring and dots, spiral and sun.
  */
-function mark(mono, weight = 1) {
-  const color = mono ?? logo.mark;
+function mark(mono, weight = 1, colors = {}) {
+  const ring = mono ?? colors.ring ?? logo.mark;
+  const spiral = mono ?? colors.spiral ?? logo.mark;
   const hours = logo.hours
-    .map((h) => `<circle cx="${h.cx}" cy="${h.cy}" r="${h.r}" fill="${color}" opacity="${h.opacity}"/>`)
+    .map((h) => `<circle cx="${h.cx}" cy="${h.cy}" r="${h.r}" fill="${ring}" opacity="${h.opacity}"/>`)
     .join('');
   return [
-    `<path d="${logo.ring.d}" fill="none" stroke="${color}" stroke-width="${logo.ring.width * weight}" stroke-linejoin="round"/>`,
+    `<path d="${logo.ring.d}" fill="none" stroke="${ring}" stroke-width="${logo.ring.width * weight}" stroke-linejoin="round"/>`,
     hours,
-    `<path d="${logo.spiral.d}" fill="none" stroke="${color}" stroke-width="${logo.spiral.width * weight}" stroke-linecap="round" stroke-linejoin="round"/>`,
-    `<circle cx="${logo.sun.cx}" cy="${logo.sun.cy}" r="${logo.sun.r}" fill="${mono ?? logo.sun.color}"/>`,
+    `<path d="${logo.spiral.d}" fill="none" stroke="${spiral}" stroke-width="${logo.spiral.width * weight}" stroke-linecap="round" stroke-linejoin="round"/>`,
+    `<circle cx="${logo.sun.cx}" cy="${logo.sun.cy}" r="${logo.sun.r}" fill="${mono ?? colors.sun ?? logo.sun.color}"/>`,
   ].join('');
+}
+
+// ---------------------------------------------------------------------------------------------
+// Seasonal launcher icon
+
+const MAPLE =
+  'M0 -10 L1.8 -5.5 L4.6 -6.8 L3.8 -2.4 L8.6 -3.6 L6.8 -0.6 L9 1.2 L4.2 2.4 L4.8 5.6 L1 3.8 L0.6 9 L-0.6 9 L-1 3.8 L-4.8 5.6 L-4.2 2.4 L-9 1.2 L-6.8 -0.6 L-8.6 -3.6 L-3.8 -2.4 L-4.6 -6.8 L-1.8 -5.5 Z';
+const OVAL = 'M0 -6 C3.4 -3 3.4 3 0 6 C-3.4 3 -3.4 -3 0 -6 Z';
+
+/**
+ * Seasons for the launcher icon, in the colours of the matching store icon (`store/icon-*.svg`).
+ * Leaves sit at `angle` (degrees, clockwise from three o'clock) on a circle around the centre, in
+ * the gap between the shrunk mark and the edge of the round launcher mask, so none is cut off.
+ */
+const SEASONS = {
+  herbst: {
+    background: '#F6EBDD',
+    colors: { ring: '#A4471F', spiral: '#11786A', sun: '#EE7A2F' },
+    /** The mark shrinks to this share, so the leaves fit inside the visible circle. */
+    scale: 0.78,
+    radius: 30,
+    leaves: [
+      { angle: -60, shape: MAPLE, size: 0.5, turn: 25, color: '#C8502A' },
+      { angle: 0, shape: OVAL, size: 0.6, turn: 60, color: '#E8A33A' },
+      { angle: 60, shape: OVAL, size: 0.55, turn: 20, color: '#EE7A2F' },
+      { angle: 125, shape: MAPLE, size: 0.48, turn: 35, color: '#E8A33A' },
+      { angle: 180, shape: OVAL, size: 0.6, turn: -40, color: '#A4471F' },
+      { angle: -150, shape: MAPLE, size: 0.45, turn: -20, color: '#EE7A2F' },
+    ],
+  },
+};
+
+/**
+ * The season the launcher icon wears, a key of `SEASONS`, or null for the logo. Only the launcher
+ * icon (legacy icon and the foreground and background layers) follows it; splash, favicon,
+ * notification and themed icon and the logo inside the app stay as they are. After switching run
+ * `node scripts/logo.mjs` and release a new version.
+ */
+const SEASON = 'herbst';
+
+const season = SEASON ? SEASONS[SEASON] : null;
+
+function seasonForeground() {
+  const leaves = season.leaves
+    .map(({ angle, shape, size, turn, color }) => {
+      const x = (CENTER + season.radius * Math.cos((angle * Math.PI) / 180)).toFixed(2);
+      const y = (CENTER + season.radius * Math.sin((angle * Math.PI) / 180)).toFixed(2);
+      const outline = shape === MAPLE ? ` stroke="${color}" stroke-width="1.2" stroke-linejoin="round"` : '';
+      return `<path transform="translate(${x} ${y}) rotate(${turn}) scale(${size})" d="${shape}" fill="${color}"${outline}/>`;
+    })
+    .join('');
+  const shrink = `translate(${CENTER} ${CENTER}) scale(${season.scale}) translate(${-CENTER} ${-CENTER})`;
+  return `${leaves}<g transform="${shrink}">${mark(undefined, 1, season.colors)}</g>`;
 }
 
 function document(viewBox, body) {
@@ -121,14 +175,17 @@ function document(viewBox, body) {
 }
 
 const ground = `<rect x="0" y="0" width="108" height="108" fill="${logo.background}"/>`;
+/** Ground and mark of the launcher icon, in the season's look while one is set. */
+const iconGround = season ? `<rect x="0" y="0" width="108" height="108" fill="${season.background}"/>` : ground;
+const iconMark = season ? seasonForeground() : mark();
 
 const VARIANTS = [
   // Legacy and iOS icon: fills the whole square, cropped a little tighter than the adaptive grid so
   // the ring does not look lost without a launcher mask.
-  { file: 'icon.png', size: 1024, svg: document('12 12 84 84', ground + mark()) },
+  { file: 'icon.png', size: 1024, svg: document('12 12 84 84', iconGround + iconMark) },
   // Adaptive icon layers: full 108 grid, the launcher crops and masks them itself.
-  { file: 'android-icon-foreground.png', size: 512, svg: document('0 0 108 108', mark()) },
-  { file: 'android-icon-background.png', size: 512, svg: document('0 0 108 108', ground) },
+  { file: 'android-icon-foreground.png', size: 512, svg: document('0 0 108 108', iconMark) },
+  { file: 'android-icon-background.png', size: 512, svg: document('0 0 108 108', iconGround) },
   { file: 'android-icon-monochrome.png', size: 432, svg: document('0 0 108 108', mark('#FFFFFF')) },
   // Splash (Android 12+ shows it as the window icon and masks it to a circle of two thirds): the
   // round launcher icon, on a transparent square with exactly that margin.

@@ -26,6 +26,18 @@ export function changesIn(release: Release, language: Language): string[] {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.32',
+    date: '2026-10-25',
+    changes: {
+      de: ['Das App-Symbol trägt im Herbst Laub und Herbstfarben'],
+      en: ['The app icon wears autumn leaves and colours for the season'],
+      es: ['El icono de la app lleva hojas y colores de otoño'],
+      pt: ['O ícone do app ganhou folhas e cores de outono'],
+      fr: ['L\'icône de l\'app se pare de feuilles et de couleurs d\'automne'],
+      it: ['L\'icona dell\'app si veste di foglie e colori autunnali'],
+    },
+  },
+  {
     version: '1.0.31',
     date: '2026-10-25',
     changes: {

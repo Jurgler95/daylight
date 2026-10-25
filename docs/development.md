@@ -72,6 +72,8 @@ node scripts/logo.mjs               # alles neu erzeugen
 node scripts/logo.mjs --paths-only  # nur logoPaths.ts
 ```
 
+Das Icon auf dem Startbildschirm kann zur Jahreszeit passend aussehen wie das Store-Icon: `SEASON` in `scripts/logo.mjs` nennt eine Jahreszeit aus `SEASONS` (etwa `'herbst'`), `null` bringt das Logo zurück. Das betrifft nur `icon.png` und Vorder- und Hintergrund des Adaptive Icons; Splash, Favicon, Benachrichtigungs- und Themen-Icon und das Logo in der App bleiben. Nach dem Umschalten `node scripts/logo.mjs` laufen lassen, dabei neu gerasterte, aber inhaltlich gleiche Dateien (etwa die Benachrichtigungssymbole) nicht mitcommitten, und eine neue Version veröffentlichen. Das Zurückschalten braucht wieder eine Version.
+
 Das Skript rastert mit `npx @resvg/resvg-js-cli` in fester Version; npx lädt es beim ersten Lauf in seinen Cache, es ist keine Abhängigkeit des Projekts. Ein Test (`components/ui/__tests__/logo.test.tsx`) schlägt an, wenn `logoPaths.ts` nicht mehr zur Quelle passt. Details in `docs/decisions/phase-6-logo-hintergrund.md`.
 
 ## Store-Grafiken
@@ -85,7 +87,7 @@ node scripts/store-graphics.mjs es fr
 
 Einzelne Grafik im Browser ansehen: `store/graphics.html?asset=shot-3&lang=en` (oder `icon`, `feature`; ohne `lang` Deutsch).
 
-Für eine Jahreszeit kann das Store-Icon vorübergehend ein eigenes SVG zeigen, etwa `store/icon-herbst.svg`: `SEASON_ICON` in `store/graphics.html` zeigt darauf, `null` bringt das Logo zurück. App-Icon und Feature Graphic bleiben beim Logo. Nach dem Umschalten nur die Icons neu rendern und den Store-Eintrag hochladen (siehe Play Store):
+Für eine Jahreszeit kann das Store-Icon vorübergehend ein eigenes SVG zeigen, etwa `store/icon-herbst.svg`: `SEASON_ICON` in `store/graphics.html` zeigt darauf, `null` bringt das Logo zurück. Die Feature Graphic bleibt beim Logo. Nach dem Umschalten nur die Icons neu rendern und den Store-Eintrag hochladen (siehe Play Store):
 
 ```bash
 node scripts/store-graphics.mjs --icon
