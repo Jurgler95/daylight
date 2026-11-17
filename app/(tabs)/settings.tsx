@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert } from 'react-native';
 
-import { AppText, Card, ListRow, Screen, Segmented, SelectRow } from '@/components/ui';
+import { AppText, Card, ListRow, Screen, Segmented, SelectRow, ToggleRow } from '@/components/ui';
 import { getDb } from '@/db';
 import { countRows, deleteAllData } from '@/db/repositories/maintenance';
 import { loadSampleData } from '@/lib/dev/sample';
@@ -35,6 +35,8 @@ export default function MoreScreen() {
   const reminderEnabled = useSettingsStore((s) => s.settings?.reminder_enabled ?? false);
   const reminderTime = useSettingsStore((s) => s.settings?.reminder_time ?? '');
   const healthEnabled = useSettingsStore((s) => s.settings?.health_enabled ?? false);
+  const designSeasons = useSettingsStore((s) => s.settings?.design_seasons ?? true);
+  const designFestivals = useSettingsStore((s) => s.settings?.design_festivals ?? true);
   const backup = useBackupStatus();
   const backupValue = !backup.everExported
     ? t('settings.backupNever')
@@ -84,6 +86,24 @@ export default function MoreScreen() {
           onChange={(next) => {
             if (isLanguage(next)) updateSettings({ language: next });
           }}
+        />
+      </Card>
+      <Card>
+        <AppText variant="caption" muted>
+          {t('settings.designSection').toUpperCase()}
+        </AppText>
+        <ToggleRow
+          label={t('settings.designSeasons')}
+          hint={t('settings.designSeasonsHint')}
+          value={designSeasons}
+          onChange={(design_seasons) => updateSettings({ design_seasons })}
+        />
+        <ToggleRow
+          label={t('settings.designFestivals')}
+          hint={t('settings.designFestivalsHint')}
+          value={designFestivals}
+          disabled={!designSeasons}
+          onChange={(design_festivals) => updateSettings({ design_festivals })}
         />
       </Card>
       <Card>

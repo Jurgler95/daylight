@@ -7,10 +7,11 @@ import { Pressable, type ScrollView, StyleSheet, View } from 'react-native';
 import { KeyboardAwareScrollView, type KeyboardAwareScrollViewRef } from 'react-native-keyboard-controller';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { useAppearance } from '@/lib/seasons/useDesign';
 import { TOUCH_TARGET, spacing, useTheme, withAlpha } from '@/lib/theme';
 
 import { AppText } from './AppText';
-import { LogoBackdrop } from './LogoBackdrop';
+import { LogoBackdrop, SeasonScatter } from './LogoBackdrop';
 
 interface Props extends PropsWithChildren {
   title?: string;
@@ -31,6 +32,7 @@ export function Screen({ title, eyebrow, scroll = true, back, backLabel, sticky,
   const { t } = useTranslation();
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
+  const glow = useAppearance()?.glow ?? colors.glow;
   // Keeps a focused field near the bottom, like an "add" row, above the keyboard.
   const Container = scroll ? KeyboardAwareScrollView : View;
   const backButton = (
@@ -46,13 +48,15 @@ export function Screen({ title, eyebrow, scroll = true, back, backLabel, sticky,
 
   return (
     <View style={[styles.root, { backgroundColor: colors.background }]}>
-      {/* A sky blue glow fades in from the top edge, so every page starts a little sunnier. Decorative only. */}
+      {/* A sky blue glow fades in from the top edge, so every page starts a little sunnier; in the
+          colour of the seasonal design while one is on, with its motifs strewn over it. Decorative only. */}
       <LinearGradient
         pointerEvents="none"
-        colors={[colors.glow, withAlpha(colors.glow, 0)]}
+        colors={[glow, withAlpha(glow, 0)]}
         style={[styles.glow, { height: insets.top + 320 }]}
       />
       <LogoBackdrop />
+      <SeasonScatter />
       {sticky ? (
         <View style={[styles.sticky, { paddingTop: insets.top + spacing.lg }]}>
           {back ? backButton : null}

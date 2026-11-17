@@ -101,7 +101,8 @@
       ],
       "./plugins/withReleaseSigning",
       "./plugins/withBlockedPermissionsSdk23",
-      "./plugins/withNoDeviceTransfer"
+      "./plugins/withNoDeviceTransfer",
+      "./plugins/withSeasonalIcons"
     ],
     "experiments": {
       "typedRoutes": true,

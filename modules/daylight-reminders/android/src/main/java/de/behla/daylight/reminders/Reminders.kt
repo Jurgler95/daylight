@@ -221,7 +221,7 @@ internal object Reminders {
    * once never share (and overwrite) one PendingIntent.
    */
   private fun openAppIntent(context: Context, reminder: Reminder): PendingIntent? {
-    val launch = runCatching { context.packageManager.getLaunchIntentForPackage(context.packageName) }.getOrNull() ?: return null
+    val launch = launchIntent(context)
     val intent = reminder.url?.let { Intent(Intent.ACTION_VIEW, Uri.parse(it)).setComponent(launch.component) } ?: launch
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     return PendingIntent.getActivity(context, reminder.id.hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)

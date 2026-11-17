@@ -1,0 +1,135 @@
+# Wechselt das Store-Icon mit dem Design zur Jahreszeit. Läuft jeden Morgen, ermittelt das Design
+# des Tages in Europe/Berlin nach dem Kalender der App (lib/seasons/calendar.ts, über
+# scripts/store-season.mjs) und tut nur etwas, wenn es von store/season.js abweicht: season.js
+# setzen, die Store-Icons rendern, nur das Icon über fastlane supply hochladen, dann den neuen Stand
+# auf main committen. Das Icon auf dem Startbildschirm wechselt das Gerät selbst, dafür braucht es
+# weder diesen Workflow noch eine neue Version.
+#
+# Von Hand ohne `live` als Trockenlauf: rendert und prüft den Upload, ändert weder Play noch main.
+# Mit `date` lässt sich ein Wechsel ausprobieren:
+#   gh workflow run store-icon.yml --ref main -f date=2026-10-31
+#   gh workflow run store-icon.yml --ref main -f live=true
+#
+# Hochgeladen wird aus einem eigenen Ordner, der je Sprache nur images/icon.png enthält; dazu
+# überspringt supply ausdrücklich Texte, Screenshots und „Neu in dieser Version". So können weder
+# Texte noch Screenshots noch die Feature Graphic mitgehen. Zugang und Spur wie in store.yml, das
+# Dienstkonto braucht also „Store-Präsenz verwalten" (docs/development.md, Play Store).
+name: Store-Icon zur Jahreszeit
+run-name: Store-Icon ${{ (github.event_name == 'schedule' || inputs.live) && 'wechseln' || 'prüfen' }}
+
+on:
+  schedule:
+    # 03:17 UTC, also 4:17 oder 5:17 in Berlin, nach dem Tageswechsel dort
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+    inputs:
+      live:
+        description: Wirklich hochladen und committen statt nur prüfen
+        type: boolean
+        default: false
+      date:
+        description: Für diesen Tag rechnen statt für heute (YYYY-MM-DD), nur im Trockenlauf
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: play
+
+jobs:
+  icon:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      LIVE: ${{ github.event_name == 'schedule' || inputs.live }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      # Lädt lib/seasons ohne npm install, Node entfernt die Typen selbst
+      - name: Design des Tages
+        id: season
+        env:
+          DATE: ${{ inputs.date }}
+        # Ein Wunschtag ist nur zum Ausprobieren da; hochgeladen und committet wird nur das Design von heute.
+        run: |
+          if [ -n "$DATE" ] && [ "$LIVE" = 'true' ]; then
+            echo "::error::date geht nur im Trockenlauf, für live ohne date starten"
+            exit 1
+          fi
+          node scripts/store-season.mjs --write ${DATE:+--date "$DATE"}
+
+      # Chrome läuft auf den Ubuntu-Runnern nicht in seiner Sandbox (AppArmor); gerendert werden nur
+      # die eigenen Dateien aus dem Repo.
+      - name: Store-Icons rendern
+        if: steps.season.outputs.changed == 'true'
+        run: |
+          printf '#!/bin/sh\nexec google-chrome --no-sandbox "$@"\n' > "$RUNNER_TEMP/chrome"
+          chmod +x "$RUNNER_TEMP/chrome"
+          CHROME="$RUNNER_TEMP/chrome" node scripts/store-graphics.mjs --icon
+          git status --short
+
+      - name: Nur das Icon bereitlegen
+        if: steps.season.outputs.changed == 'true'
+        run: |
+          for dir in fastlane/metadata/android/*/; do
+            locale=$(basename "$dir")
+            mkdir -p "$RUNNER_TEMP/icon-only/$locale/images"
+            cp "$dir/images/icon.png" "$RUNNER_TEMP/icon-only/$locale/images/icon.png"
+          done
+          find "$RUNNER_TEMP/icon-only" -type f
+
+      # Auf einen Commit festgenagelt (v1.327.0), weil später im selben Job der Play-Schlüssel liegt
+      - uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8
+        if: steps.season.outputs.changed == 'true'
+        with:
+          ruby-version: '3.3'
+
+      # Feste Version, weil fastlane den Play-Schlüssel sieht
+      - name: fastlane installieren
+        if: steps.season.outputs.changed == 'true'
+        run: gem install fastlane -v 2.240.1 --no-document
+
+      - name: Icon hochladen
+        if: steps.season.outputs.changed == 'true'
+        env:
+          PLAY_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          VALIDATE_ONLY: ${{ env.LIVE == 'true' && 'false' || 'true' }}
+          # supply hängt den Eintrag an die neueste Version einer Spur, wie in store.yml
+          TRACK: ${{ vars.PLAY_TRACK || 'production' }}
+        run: |
+          if [ -z "$PLAY_JSON" ]; then
+            echo "::error::Secret PLAY_SERVICE_ACCOUNT_JSON fehlt"
+            exit 1
+          fi
+          fastlane supply \
+            --package_name de.behla.daylight \
+            --json_key_data "$PLAY_JSON" \
+            --metadata_path "$RUNNER_TEMP/icon-only" \
+            --track "$TRACK" \
+            --skip_upload_apk true \
+            --skip_upload_aab true \
+            --skip_upload_metadata true \
+            --skip_upload_changelogs true \
+            --skip_upload_screenshots true \
+            --sync_image_upload true \
+            --validate_only "$VALIDATE_ONLY"
+
+      # Erst nach dem Upload: scheitert er, bleibt season.js beim alten Design und der nächste Lauf
+      # versucht es wieder.
+      - name: Neuen Stand committen
+        if: steps.season.outputs.changed == 'true' && env.LIVE == 'true' && github.ref == 'refs/heads/main'
+        env:
+          DESIGN: ${{ steps.season.outputs.design }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add store/season.js fastlane/metadata/android/*/images/icon.png
+          git commit -m "Store-Icon zur Jahreszeit: $DESIGN"
+          # main kann seit dem Checkout weitergegangen sein
+          git pull --rebase origin main
+          git push origin HEAD:main

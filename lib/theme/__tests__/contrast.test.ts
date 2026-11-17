@@ -1,4 +1,6 @@
 import { MOOD_LEVELS } from '@/db/schema';
+import { appearanceOf, colorsOf } from '@/lib/seasons/appearance';
+import { DESIGN_KEYS } from '@/lib/seasons/designs';
 
 import { CARD_OPACITY, colors, moodColors, sunnyGradient, tileColors, trophyGradient, trophySoftText, typography, TOUCH_TARGET, type Colors } from '../tokens';
 
@@ -81,6 +83,43 @@ describe('colour palette', () => {
     // Calendar dots and bars carry meaning, so they need at least the 3:1 of a graphical object.
     expect(contrastRatio(colors.accent, colors.accentSoft)).toBeGreaterThanOrEqual(3);
     expect(contrastRatio(colors.border, colors.surface)).toBeGreaterThanOrEqual(1.2);
+  });
+});
+
+/**
+ * A seasonal design replaces glow and backdrop (`lib/seasons/appearance.ts`). Every tone it paints,
+ * the glow included, holds the text that sits straight on a page, red warnings included. Mood
+ * colours only appear on cards, so they are checked on a translucent card over the decor; the rest of
+ * the palette stays as it is.
+ */
+describe('seasonal designs', () => {
+  const PAGE_TEXT = ['text', 'textMuted', 'accent', 'amber', 'danger'] as const;
+  const designs = DESIGN_KEYS.map((key) => ({ key, tones: colorsOf(appearanceOf(key)) }));
+
+  it.each(designs)('$key: page text keeps 4.5:1 on every decor tone', ({ tones }) => {
+    for (const tone of tones) {
+      for (const fg of PAGE_TEXT) expect(contrastRatio(colors[fg], tone)).toBeGreaterThanOrEqual(4.5);
+    }
+  });
+
+  it.each(designs)('$key: text on translucent cards stays readable over the decor', ({ tones }) => {
+    for (const tone of tones) {
+      for (const { fg, bg } of PAIRS.filter((pair) => CARD_TONES.includes(pair.bg))) {
+        expect(contrastRatio(colors[fg], over(colors[bg], CARD_OPACITY, tone))).toBeGreaterThanOrEqual(4.5);
+      }
+      for (const card of CARD_TONES) {
+        const fill = over(colors[card], CARD_OPACITY, tone);
+        for (const strong of [colors.danger, ...MOOD_LEVELS.map((level) => moodColors[level].strong)]) {
+          expect(contrastRatio(strong, fill)).toBeGreaterThanOrEqual(4.5);
+        }
+      }
+    }
+  });
+
+  it.each(designs)('$key: shows more than the plain glow, the decor visible on the page', ({ key, tones }) => {
+    const { glow } = appearanceOf(key);
+    expect(contrastRatio(glow, colors.background)).toBeGreaterThan(1.05);
+    expect(tones.some((tone) => contrastRatio(tone, colors.background) > 1.1)).toBe(true);
   });
 });
 

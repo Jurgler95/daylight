@@ -68,6 +68,23 @@ describe('JSON round trip', () => {
     expect(getSettings(target)).toMatchObject({ reminder_yesterday_enabled: true, reminder_yesterday_time: '11:00', reminder_time: '21:15' });
     applyImport(createTestDb(), old, 'merge');
   });
+
+  it('carries the seasonal designs, and a backup from before them leaves the choice here alone', () => {
+    const source = sampled();
+    updateSettings(source, { design_seasons: true, design_festivals: false });
+    const payload = buildExport(source, '1.0.0');
+    expect(payload.settings).toMatchObject({ design_seasons: true, design_festivals: false });
+
+    const target = createTestDb();
+    expect(getSettings(target)).toMatchObject({ design_seasons: true, design_festivals: true });
+    applyImport(target, parseImport(JSON.stringify(payload)), 'replace');
+    expect(getSettings(target)).toMatchObject({ design_seasons: true, design_festivals: false });
+
+    const { design_seasons: _s, design_festivals: _f, ...older } = payload.settings;
+    updateSettings(target, { design_seasons: false });
+    applyImport(target, parseImport(JSON.stringify({ ...payload, settings: older })), 'replace');
+    expect(getSettings(target)).toMatchObject({ design_seasons: false, design_festivals: false });
+  });
 });
 
 describe('health days in the backup', () => {

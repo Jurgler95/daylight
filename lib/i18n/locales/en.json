@@ -70,6 +70,11 @@
     "health": "Health data",
     "languageSection": "Language",
     "language": "App language",
+    "designSection": "Design",
+    "designSeasons": "Seasonal design",
+    "designSeasonsHint": "Colours and motifs in the app and the icon on the home screen follow spring, summer, autumn and winter. The icon changes once the app is in the background.",
+    "designFestivals": "Festival designs",
+    "designFestivalsHint": "Easter, Halloween, Christmas, New Year's Eve and the Lunar New Year get a design of their own. Off: only the season.",
     "diarySection": "Diary",
     "history": "History",
     "turningPoints": "Turning points"

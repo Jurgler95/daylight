@@ -9,6 +9,8 @@ interface LockState {
   leftForSystem: boolean;
   /** How many such system screens are open right now. */
   suspended: number;
+  /** True while the unlock prompt (biometrics or the device PIN, its own activity) is up. */
+  authenticating: boolean;
   lock: () => void;
   unlock: () => void;
   setLeftAt: (value: number | null) => void;
@@ -19,6 +21,7 @@ export const useLockStore = create<LockState>((set) => ({
   leftAt: null,
   leftForSystem: false,
   suspended: 0,
+  authenticating: false,
   lock: () => set({ locked: true }),
   unlock: () => set({ locked: false, leftAt: null, leftForSystem: false }),
   setLeftAt: (leftAt) => set({ leftAt }),

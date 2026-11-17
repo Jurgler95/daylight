@@ -16,13 +16,10 @@ import android.os.Bundle
 class PrivacyPolicyActivity : Activity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    val launch = runCatching { packageManager.getLaunchIntentForPackage(packageName) }.getOrNull()
-    if (launch != null) {
-      val intent = Intent(Intent.ACTION_VIEW, Uri.parse(PRIVACY_LINK))
-        .setComponent(launch.component)
-        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-      runCatching { startActivity(intent) }
-    }
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(PRIVACY_LINK))
+      .setComponent(launchIntent(this).component)
+      .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    runCatching { startActivity(intent) }
     // Theme.NoDisplay asks for finish() before onResume.
     finish()
   }

@@ -87,10 +87,10 @@ describe('defaults', () => {
   it('delete all restores the first start', () => {
     const db = createTestDb();
     createMood(db, { label: 'Erschöpft', level: 2 });
-    updateSettings(db, { outlook_enabled: false });
+    updateSettings(db, { outlook_enabled: false, design_seasons: false, design_festivals: false });
     deleteAllData(db);
     expect(countRows(db)).toEqual({ entries: 0, moods: 5, groups: 6, activities: 25, scales: 0, planned: 0, photos: 0 });
-    expect(getSettings(db).outlook_enabled).toBe(true);
+    expect(getSettings(db)).toMatchObject({ outlook_enabled: true, design_seasons: true, design_festivals: true });
   });
 
   it('starts the reminder and streak settings like a new install, also after delete all', () => {

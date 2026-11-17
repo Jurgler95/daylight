@@ -64,6 +64,13 @@
       "when": 1791871272086,
       "tag": "0008_neat_blur",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1792960257034,
+      "tag": "0009_stale_blue_shield",
+      "breakpoints": true
     }
   ]
 }

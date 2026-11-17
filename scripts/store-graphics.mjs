@@ -6,7 +6,7 @@
  *
  *   node scripts/store-graphics.mjs          # alle Sprachen
  *   node scripts/store-graphics.mjs es fr    # nur diese
- *   node scripts/store-graphics.mjs --icon   # nur das Icon, etwa beim Wechsel des Saison-Icons
+ *   node scripts/store-graphics.mjs --icon   # nur das Icon, etwa beim Wechsel des Designs zur Jahreszeit
  *
  * Braucht Google Chrome (oder CHROME=/pfad/zu/chrome) und Netz für die Schrift von Google Fonts.
  * Die Screenshots der App liegen in `store/screens/<lang>/` und stammen aus einem Pixel-9-Emulator mit den

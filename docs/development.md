@@ -13,7 +13,7 @@ npm test             # jest
 npm run db:generate  # Drizzle-Migration aus db/schema.ts erzeugen
 ```
 
-Voraussetzungen: Node 22+, Expo Go auf einem Android-Gerät im selben Netz.
+Voraussetzungen: Node 22.18+ (die Skripte laden `lib/seasons/` als TypeScript, die Typen entfernt Node selbst), Expo Go auf einem Android-Gerät im selben Netz.
 
 Unter Node 24.14.1 stürzt gelegentlich ein Jest-Worker mit `SIGSEGV` in der Speicherbereinigung von V8 ab (etwa ein Lauf von zehn, die Suite meldet "A jest worker process ... was terminated"). Das ist ein Fehler in Node, nicht in den Tests: erneut laufen lassen, oder Node 22 LTS bzw. ein neueres Node 24 verwenden.
 
@@ -41,10 +41,12 @@ Nach neuen Dateien unter `app/` einmal `npx expo customize tsconfig.json` ausfü
 | `lib/streak/` | Serie aus Tagen mit Eintrag, rein: Tage bis heute und Läufe, mit den Erfolgen geteilt (`days.ts`), Zustände `active`, `atRisk`, `broken`, `none` mit fehlenden Tagen und wiederherstellbarer Länge (`streak.ts`), Chip und Rettungskarte auf Heute (`view.ts`), Feiern alle 10, 50 und 200 Tage, je Serie einmal (`celebration.ts`). `celebrate.ts` feiert nur beim Speichern im Editor, `useStreak.ts` ist die Brücke für Heute und die Feier. Was über den Seiten liegt (Start-Sheet der Erinnerung, Feier, StarToast), zeigt `lib/store/overlays.ts` nacheinander nach Vorrang. Details in `docs/decisions/serie-und-erinnerung.md`. |
 | `lib/turning/` | Wendepunkte: Tage, die etwas verändert haben, höchstens vier je Kalenderjahr ihres Datums (`rules.ts`), nur an Tagen mit Eintrag. Mit dem letzten Eintrag eines Tages (gelöscht oder verschoben) geht auch sein Wendepunkt, der Editor fragt vorher; ein Import lässt Wendepunkte ohne Eintrag am Tag weg. `compare.ts` vergleicht jeden Wendepunkt für sich: gleich lange Fenster davor und danach (30, 90, 180 Tage oder so viel wie beide Seiten hergeben), der Tag selbst zählt zu keiner Seite. Stimmung, Verteilung, Aktivitäten und Gesundheitswerte, ab sieben Tagen mit Eintrag je Seite, mit Hinweis auf verschiedene Jahreszeiten und darauf, dass es keine Ursache zeigt. Gesetzt wird ein Wendepunkt auf Heute unter dem Eintrag, im eigenen Bildschirm `app/turning/new.tsx` mit der Morgendämmerungs-Palette aus `components/turning/dawn.ts` (die einzige Stelle außerhalb von "Tageslicht") und Gedrückthalten (`HoldButton`). Die Liste steckt im Verlauf hinter dem Chip „Wendepunkte“ (`/more/history?turning=1`), der Vergleich in `app/turning/[id].tsx`. Im Kalender ein Fähnchen, im Stimmungsverlauf eine gestrichelte Linie. Teil der JSON-Sicherung (`turning_points`, optional), nicht der CSV. |
 | `lib/catalog/` | Stimmungen, Gruppen, Aktivitäten und Skalen mit Lookups, einmal je Datenstand gelesen. |
+| `lib/seasons/` | Designs zur Jahreszeit (siehe Logo): die neun Designs mit Formen und Komposition als SVG-Markup im 108er-Raster (`designs.ts`), welches Design ein Tag trägt (`calendar.ts`: Feste vor Jahreszeiten, Ostern nach dem anonymen gregorianischen Algorithmus von Meeus, Jones und Butcher, Neujahrsfest aus einer Tabelle bis 2036), die blassen Töne für Glow, Hintergrundlogo und gestreute Motive (`appearance.ts`), `useDesign.tsx` als Brücke (`DesignProvider` im Root-Layout bestimmt das Design einmal für alle Seiten) und `useLauncherIcon.ts`, das dem Modul `modules/daylight-launcher` das gewünschte Icon auf dem Startbildschirm nennt. `designs.ts` und `calendar.ts` sind reines TypeScript ohne Imports außer `lib/dates/days.ts`, damit auch die Node-Skripte sie laden. Die Schalter stehen in `settings.design_seasons` und `settings.design_festivals` und gehören in die JSON-Sicherung (optional, ältere Sicherungen lassen sie unverändert). |
 | `lib/dev/` | Synthetische Beispieldaten (ein Jahr), geladen über den Import-Pfad. |
 | `lib/` sonst | `dates` (einziger Ort für date-fns, `useToday` für den Tageswechsel), `theme` (Palette "Tageslicht", Stimmungsfarben), `i18n`, `haptics`, `store` (`useQuery`/`mutate`, Einstellungen, gewählter Tag, Reihenfolge der Overlays), `icons` (Typ und Symbolauswahl), `manage`, `changelog`. |
 | `components/` | `ui/` Bausteine aus Zyklus (AppText, Card, Button, Chip, ListRow, Screen, Segmented, SelectRow usw., dazu `Logo` und der blasse `LogoBackdrop` mit der generierten Geometrie aus `logoPaths.ts`), `calendar/` Monatsliste und `DayGlyph` (künftige Tage mit Ausblick-Ring und Plänen), `today/` Tagesleiste, Serien-Chip, Karten zu fehlenden Tagen, Sicherungs- und Tief-Hinweis, `streak/` Banner und Overlay der Serien-Feier, `outlook/` Tagesdetail künftiger Tage und Plan-Chips, `lock/` Sperrbildschirm, `settings/` Uhrzeitwahl, `entry/` Editor und Lesekarte, `history/` Verlauf und Suche, `manage/` Verwaltung (Sortieren per Ziehen, Symbolauswahl), `mood/`, `import/`, `insights/` Karten der Einblicke (Verlauf als eigenes SVG, Pixel, Wochentage, Monatsbalken mit gifted-charts, Aktivitätszeilen). |
-| `scripts/` | `logo.mjs`: Icons, Splash und Logo-Geometrie aus `assets/logo.svg` (siehe Logo). `store-graphics.mjs`: Play-Store-Grafiken aus `store/graphics.html` (siehe Store-Grafiken). |
+| `scripts/` | `logo.mjs`: Icons, Splash und Logo-Geometrie aus `assets/logo.svg`, dazu Launcher- und Store-Icons je Design (siehe Logo). `store-graphics.mjs`: Play-Store-Grafiken aus `store/graphics.html` (siehe Store-Grafiken). `store-season.mjs`: Design des Tages fürs Store-Icon. `seasons.mjs` lädt `lib/seasons/` für die Skripte. |
+| `modules/`, `plugins/` | Eigene Expo-Module: `daylight-reminders` (Erinnerungen, siehe oben), `daylight-launcher` (schaltet die Aliase des Launcher-Icons). Config-Plugins für das Manifest: Health-Connect-Link, Signatur, gesperrte Berechtigungen, keine Übertragung, `withSeasonalIcons.js` (ein Alias je Eintrag in `launcherAliases.js`). |
 | `docs/decisions/` | Handover-Dokumente pro Phase. Vor jeder neuen Phase alle lesen. |
 
 Grundsätze (wie in Zyklus):
@@ -61,7 +63,7 @@ Grundsätze (wie in Zyklus):
 - Der Ausblick wird nur für Abstände gezeigt, in denen er im Backtest besser war als Langzeitmittel und häufigste Stimmung. Sonst zeigt ein künftiger Tag das Wochentagsmittel und Gewohntes. Auf Heute gibt es keine eigene Ausblickskarte mehr.
 - Erinnerungen fragen die Berechtigung nur, wenn jemand sie einschaltet: unter „Mehr“ oder einmal im Start-Sheet, das sie anbietet, nie von selbst. Ihr Text nennt höchstens die Länge der Serie oder dass gestern fehlt, nie Inhalte aus dem Tagebuch.
 - Health Connect wird nur gelesen: `app.json` fordert ausschließlich `health.READ_*` an und sperrt die `WRITE_*`-Varianten. Die Gesundheitstage (`health_days`) kommen nur in die JSON-Sicherung, wenn `settings.health_in_backup` an ist (Entscheidung 12 in `docs/decisions/gesundheitsdaten-health-connect.md`).
-- Das Logo liegt blass hinter jeder Seite (`LogoBackdrop` in `Screen`, Editor, Sperr- und Fehlerbildschirm), Karten sind zu 82 Prozent deckend. Die Deko-Töne `decorMark` und `decorSun` sind so hell, dass jede Textfarbe darauf 4,5:1 hält; `contrast.test.ts` prüft das.
+- Das Logo liegt blass hinter jeder Seite (`LogoBackdrop` in `Screen`, Editor, Sperr- und Fehlerbildschirm), Karten sind zu 82 Prozent deckend. Die Deko-Töne `decorMark` und `decorSun` sind so hell, dass jede Textfarbe darauf 4,5:1 hält; `contrast.test.ts` prüft das. Ein Design zur Jahreszeit ersetzt Glow und Hintergrundlogo und streut ein paar Motive oben übers Bild (`SeasonScatter`). Seine Töne mischt `lib/seasons/appearance.ts` mit dem Seitenhintergrund und schwächt sie so weit ab, dass Text direkt auf der Seite (Text, gedämpfter Text, Akzent, Bernstein, Rot) und Text auf den Karten darüber 4,5:1 halten; auch das prüft `contrast.test.ts` für jedes Design.
 
 ## Logo
 
@@ -72,9 +74,19 @@ node scripts/logo.mjs               # alles neu erzeugen
 node scripts/logo.mjs --paths-only  # nur logoPaths.ts
 ```
 
-Das Icon auf dem Startbildschirm kann zur Jahreszeit passend aussehen wie das Store-Icon. Beide folgen einem gemeinsamen Schalter, `window.SEASON` in `store/season.js` (etwa `'herbst'`, `null` bringt das Logo zurück); `scripts/logo.mjs` nimmt dazu Farben und Laub aus `SEASONS`, das Store-Icon `store/icon-<jahreszeit>.svg`. Das betrifft nur `icon.png` und Vorder- und Hintergrund des Adaptive Icons; Splash, Favicon, Benachrichtigungs- und Themen-Icon und das Logo in der App bleiben. Nach dem Umschalten `node scripts/logo.mjs` laufen lassen, dabei neu gerasterte, aber inhaltlich gleiche Dateien (etwa die Benachrichtigungssymbole) nicht mitcommitten, und eine neue Version veröffentlichen. Das Zurückschalten braucht wieder eine Version.
-
 Das Skript rastert mit `npx @resvg/resvg-js-cli` in fester Version; npx lädt es beim ersten Lauf in seinen Cache, es ist keine Abhängigkeit des Projekts. Ein Test (`components/ui/__tests__/logo.test.tsx`) schlägt an, wenn `logoPaths.ts` nicht mehr zur Quelle passt. Details in `docs/decisions/phase-6-logo-hintergrund.md`.
+
+### Designs zur Jahreszeit
+
+Neun Designs geben App und Icon die Farben der Jahreszeit oder eines Festes: Frühling (Tulpenbeet, 1.3. bis 31.5.), Sommer (Hochsommer, 1.6. bis 31.8.), Herbst (Laubregen, 1.9. bis 30.11.), Winter (Winternacht, 1.12. bis Ende Februar), Ostern (Küken, Ostersonntag 3 Tage davor bis 1 Tag danach), Halloween (Kürbislaterne, 27.10. bis 31.10.), Weihnachten (Rot und Gold, 20.12. bis 26.12.), Silvester und Neujahr (Feuerwerk, 27.12. bis 5.1.) und das chinesische Neujahrsfest (Laternen, 4 Tage um den Neujahrstag nach Mondkalender). Ein Fest gewinnt vor der Jahreszeit, bei zwei Festen das mit dem näheren Ankertag; die Jahreszeiten sind meteorologisch, Nordhalbkugel. Die Termine des Neujahrsfests stehen bis 2036 in `LUNAR_NEW_YEAR` in `lib/seasons/calendar.ts`, danach fällt das Fest weg, bis die Tabelle wächst.
+
+Einzige Quelle ist `lib/seasons/designs.ts`; Ring, Stundenpunkte, Spirale und Sonne kommen weiter aus `assets/logo.svg`. Das Gerät wählt das Design selbst nach dem Datum, für die App (Glow, Hintergrundlogo, gestreute Motive) und das Icon auf dem Startbildschirm. Unter „Mehr“ › „Design“ schaltet „Design zur Jahreszeit“ alles zurück aufs Logo und das gewohnte Tageslicht, „Designs zu Festen“ lässt nur die Feste weg.
+
+Das Icon auf dem Startbildschirm wechselt ohne neue Version: `plugins/withSeasonalIcons.js` legt für jeden Eintrag in `plugins/launcherAliases.js` eine `activity-alias` auf MainActivity an (`.launcher.logo`, `.launcher.herbst` usw., der Schlüssel unverändert im Namen) mit eigenem Adaptive Icon aus `assets/launcher/<schlüssel>-foreground.png` und `-background.png` und dem Monochrom-Layer des Logos. Die Liste darf nur wachsen: Fiele mit einem Update der Alias weg, der auf einem Gerät gerade an ist, verschwände dort das Icon. Der LAUNCHER-Intent-Filter sitzt nur an den Aliasen, ab Werk ist nur `.launcher.logo` an; findet das Modul beim Start keinen eingeschalteten Alias, schaltet es das Logo ein. Deep Links, Benachrichtigungen und Health Connect zielen weiter auf MainActivity (`modules/daylight-reminders` löst dafür den Alias auf sein Ziel auf und fällt sonst direkt auf MainActivity zurück).
+
+JS nennt `modules/daylight-launcher` nur das gewünschte Icon, auch das Logo. Umgeschaltet wird nativ mit `PackageManager.setComponentEnabledSetting`, erst wenn keine Activity der App mehr sichtbar ist (ON_STOP von `ProcessLifecycleOwner`), denn manche Launcher schließen eine Aufgabe, deren Eintrag verschwindet. Solange ein Systembildschirm offen ist, den die App selbst geöffnet hat (`withLockSuspended`: Bildauswahl, Teilen, Berechtigungen) oder die Abfrage der App-Sperre läuft, wartet der Wechsel auf das nächste Mal. Geschrieben wird nur, was nicht schon stimmt, erst das neue Icon an, dann die übrigen aus. Öffnet jemand die App länger nicht, bleibt das alte Icon, bis sie das nächste Mal aus dem Blick geht.
+
+`node scripts/logo.mjs` erzeugt neben den Icons des Logos auch `assets/launcher/` und die Store-Icons `store/icon-<schlüssel>.svg` (das ganze 108er-Raster). Das Basis-Icon (`icon.png`, die drei Ebenen des Adaptive Icons), Splash, Favicon, Benachrichtigungs- und Themen-Icon zeigen immer das Logo. Nach einer Änderung an einem Design das Skript laufen lassen, neu gerasterte, aber inhaltlich gleiche Dateien (etwa die Benachrichtigungssymbole) nicht mitcommitten und eine neue Version veröffentlichen. `lib/seasons/__tests__/designs.test.ts` schlägt an, wenn ein Store-Icon nicht mehr zu `designs.ts` passt oder Launcher-Ebenen fehlen; ob deren Pixel noch stimmen, prüft er nicht. `launcher.test.ts` hält die Aliasliste, die Namensregel im Kotlin-Modul und die Bilder zusammen.
 
 ## Store-Grafiken
 
@@ -87,10 +99,11 @@ node scripts/store-graphics.mjs es fr
 
 Einzelne Grafik im Browser ansehen: `store/graphics.html?asset=shot-3&lang=en` (oder `icon`, `feature`; ohne `lang` Deutsch).
 
-Für eine Jahreszeit kann das Store-Icon vorübergehend ein eigenes SVG zeigen, etwa `store/icon-herbst.svg`. Der Schalter ist derselbe wie fürs App-Icon, `store/season.js` (siehe Logo). Die Feature Graphic bleibt beim Logo. Nach dem Umschalten die Store-Icons neu rendern und den Store-Eintrag hochladen (siehe Play Store), dazu `node scripts/logo.mjs` und eine neue Version fürs App-Icon:
+Das Store-Icon zeigt das Design aus `store/season.js` (ein Schlüssel aus `lib/seasons/designs.ts` oder `null` fürs Logo) als `store/icon-<schlüssel>.svg`. Die Feature Graphic bleibt beim Logo. Den Schalter stellt jeden Morgen die geplante Action `.github/workflows/store-icon.yml` (siehe Play Store), von Hand geht es so:
 
 ```bash
-node scripts/store-graphics.mjs --icon
+node scripts/store-season.mjs --write   # season.js auf das Design von heute (Europe/Berlin) setzen
+node scripts/store-graphics.mjs --icon  # nur die Store-Icons neu rendern
 ```
 
 Die App-Screenshots stammen aus dem Pixel-9-Emulator mit den Beispieldaten, die in der Sprache der App geladen werden, sonst tragen Stimmungen und Gruppen die Namen der anderen Sprache. Je Sprache die App-Daten leeren und die Sprache vor dem ersten Start setzen, denn eine in der App gewählte Sprache hat Vorrang vor `set-app-locales`:
@@ -132,6 +145,13 @@ GH_TOKEN=$(gh auth token --user Jurgler95) gh workflow run promote.yml --repo Ju
 ```
 
 Lehnt Play eine Version ab, weil ihr `versionCode` schon vergeben ist, lag sie bereits dort; in eine andere Spur kommt sie dann über `promote.yml`.
+
+Das Store-Icon wechselt `.github/workflows/store-icon.yml` mit dem Design zur Jahreszeit, jeden Morgen um 03:17 UTC: es rechnet das Design des Tages nach `lib/seasons/calendar.ts` aus, und nur wenn es von `store/season.js` abweicht, setzt es die Datei, rendert die Store-Icons in headless Chrome, lädt über fastlane supply nur `icon.png` je Sprache hoch (aus einem eigenen Ordner ohne Texte und Screenshots, dazu mit `skip_upload_metadata` und `skip_upload_screenshots`) und committet danach `season.js` und die Icons auf `main`. Zugang und Spur sind dieselben wie bei `store.yml`. Von Hand ist es ohne `live` ein Trockenlauf, der nur prüft; `date` rechnet für einen anderen Tag:
+
+```bash
+GH_TOKEN=$(gh auth token --user Jurgler95) gh workflow run store-icon.yml --repo Jurgler95/daylight --ref main -f date=2026-10-31
+GH_TOKEN=$(gh auth token --user Jurgler95) gh workflow run store-icon.yml --repo Jurgler95/daylight --ref main -f live=true
+```
 
 Den Store-Eintrag (Texte, Icon, Feature Graphic und Screenshots aus `fastlane/metadata/android/`) lädt `.github/workflows/store.yml` über fastlane supply hoch, nur von Hand. Ohne `live` prüft er nur und ändert nichts, das Dienstkonto braucht dafür zusätzlich „Store-Präsenz verwalten". Fehlt eine Textdatei, bleibt der Wert in Play unverändert. Der Store-Titel steht je Sprache in `title.txt` (höchstens 30 Zeichen) und ist unabhängig vom Namen unter dem Icon, den `name` in `app.json` festlegt.
 

@@ -73,6 +73,11 @@
     "health": "Dados de saúde",
     "languageSection": "Idioma",
     "language": "Idioma do app",
+    "designSection": "Design",
+    "designSeasons": "Design da estação",
+    "designSeasonsHint": "As cores e os motivos do app e o ícone na tela inicial acompanham a primavera, o verão, o outono e o inverno. O ícone muda assim que o app fica em segundo plano.",
+    "designFestivals": "Designs de datas festivas",
+    "designFestivalsHint": "Páscoa, Halloween, Natal, Réveillon e o Ano-Novo Chinês ganham um design próprio. Desligado: só a estação.",
     "diarySection": "Diário",
     "history": "Histórico",
     "turningPoints": "Pontos de virada"

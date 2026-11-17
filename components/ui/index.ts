@@ -5,7 +5,7 @@ export { Chip } from './Chip';
 export { EmptyState } from './EmptyState';
 export { ListRow } from './ListRow';
 export { Logo } from './Logo';
-export { LogoBackdrop } from './LogoBackdrop';
+export { LogoBackdrop, SeasonScatter } from './LogoBackdrop';
 export { OptionRow } from './OptionRow';
 export { PressableScale } from './PressableScale';
 export { Screen } from './Screen';

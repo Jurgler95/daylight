@@ -19,6 +19,8 @@ import { today } from '@/lib/dates';
 import { useHealthSync } from '@/lib/health/useHealthSync';
 import { useAppLock } from '@/lib/lock';
 import { useReminderSync } from '@/lib/notifications';
+import { DesignProvider } from '@/lib/seasons/useDesign';
+import { useLauncherIcon } from '@/lib/seasons/useLauncherIcon';
 import { spacing, useTheme } from '@/lib/theme';
 import { useAppBootstrap } from '@/lib/useAppBootstrap';
 
@@ -79,17 +81,19 @@ function Root() {
  * Everything that needs a migrated database and loaded settings lives below this component.
  * The lock screen lies over the navigator instead of replacing it: an entry being written when the
  * phone went to sleep is still there after unlocking. Underneath, nothing is reachable for touch or
- * the screen reader, and FLAG_SECURE keeps it out of the recents preview.
+ * the screen reader, and FLAG_SECURE keeps it out of the recents preview. Today's seasonal design
+ * is worked out once here for every screen (`DesignProvider`).
  */
 function AppShell() {
   const { colors } = useTheme();
   const { locked } = useAppLock();
 
   return (
-    <>
+    <DesignProvider>
       <ReminderSync />
       <OpenCounter />
       <HealthSync />
+      <LauncherIcon />
       <View style={styles.flex} importantForAccessibility={locked ? 'no-hide-descendants' : 'auto'} accessibilityElementsHidden={locked}>
         <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.background } }}>
           <Stack.Screen name="(tabs)" />
@@ -115,7 +119,7 @@ function AppShell() {
           <StarToast />
         </>
       )}
-    </>
+    </DesignProvider>
   );
 }
 
@@ -137,6 +141,12 @@ function OpenCounter() {
 /** Its own component for the same reason as `ReminderSync`. */
 function HealthSync() {
   useHealthSync();
+  return null;
+}
+
+/** Follows the seasonal design on the home screen; its own component for the same reason as `ReminderSync`. */
+function LauncherIcon() {
+  useLauncherIcon();
   return null;
 }
 

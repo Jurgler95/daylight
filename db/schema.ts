@@ -177,6 +177,10 @@ export const settings = sqliteTable('settings', {
   streak_celebrated: text('streak_celebrated'),
   /** Day the rescue card for a broken streak was last put away ("YYYY-MM-DD"). Device-local, never exported. */
   streak_rescue_dismissed: text('streak_rescue_dismissed'),
+  /** "Design zur Jahreszeit": app and launcher icon follow the season (`lib/seasons`). Part of the backup. */
+  design_seasons: integer('design_seasons', { mode: 'boolean' }).notNull().default(true),
+  /** "Designs zu Festen": festivals win over the season. Only with `design_seasons`; part of the backup like it. */
+  design_festivals: integer('design_festivals', { mode: 'boolean' }).notNull().default(true),
   ...timestamps,
 });
 

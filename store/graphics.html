@@ -152,8 +152,8 @@ const RAW = { w: 1080, h: 2424 };
 const params = new URLSearchParams(location.search);
 const LANG = ['de', 'en', 'es', 'pt', 'fr', 'it'].includes(params.get('lang')) ? params.get('lang') : 'de';
 const SHOTS = `screens/${LANG}/`;
-// Saison-Icon fürs Store-Icon statt des Logos, nach dem gemeinsamen Schalter in season.js. Ohne
-// Jahreszeit wieder das Logo aus assets/logo.svg.
+// Design zur Jahreszeit fürs Store-Icon statt des Logos, nach dem Schalter in season.js. Ohne
+// Design wieder das Logo aus assets/logo.svg.
 const SEASON_ICON = window.SEASON ? `icon-${window.SEASON}.svg` : null;
 
 const TEXT = window.STORE_TEXT;
@@ -368,7 +368,7 @@ const ASSETS = {
   },
 
   // App-Icon 512 × 512: sichtbarer Bereich des Adaptive Icons, vollflächig (Google rundet selbst ab).
-  // Ein Saison-Icon ersetzt es ganz, mit seinem vollen Raster.
+  // Ein Design zur Jahreszeit ersetzt es ganz, mit seinem vollen Raster.
   icon: () => [SEASON_ICON
     ? el('img', { src: SEASON_ICON, style: { position: 'absolute', left: 0, top: 0, width: px(512), height: px(512) } })
     : el('img', { src: '../assets/logo.svg', style: { position: 'absolute', left: px(-512 * 18 / 72), top: px(-512 * 18 / 72), width: px(512 * 108 / 72), height: px(512 * 108 / 72) } })],

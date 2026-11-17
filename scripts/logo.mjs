@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 /**
  * Erzeugt alle Icon-Varianten, den Splash, das Favicon und die Logo-Geometrie für die App aus
- * `assets/logo.svg`, der einzigen Quelle des Logos.
+ * `assets/logo.svg`, der einzigen Quelle des Logos. Dazu je Design zur Jahreszeit aus
+ * `lib/seasons/designs.ts` Vorder- und Hintergrund des Launcher-Icons (`assets/launcher/`) und das
+ * Store-Icon (`store/icon-<schlüssel>.svg`).
  *
  *   node scripts/logo.mjs               alles neu erzeugen
  *   node scripts/logo.mjs --paths-only  nur components/ui/logoPaths.ts (ohne Rastern)
@@ -10,11 +12,12 @@
  * bewusst keine Abhängigkeit des Projekts.
  */
 import { execFileSync } from 'node:child_process';
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { basename, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { runInNewContext } from 'node:vm';
+
+import { designs } from './seasons.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SOURCE = join(ROOT, 'assets/logo.svg');
@@ -102,11 +105,11 @@ export const SUN = { cx: ${logo.sun.cx}, cy: ${logo.sun.cy}, r: ${logo.sun.r} } 
 
 /**
  * Ring, hour dots, spiral and sun. `mono` paints everything in one colour for themed icons,
- * `weight` thickens the strokes for tiny sizes, `colors` overrides ring and dots, spiral and sun.
+ * `weight` thickens the strokes for tiny sizes. The seasonal designs draw their own (`compose`).
  */
-function mark(mono, weight = 1, colors = {}) {
-  const ring = mono ?? colors.ring ?? logo.mark;
-  const spiral = mono ?? colors.spiral ?? logo.mark;
+function mark(mono, weight = 1) {
+  const ring = mono ?? logo.mark;
+  const spiral = mono ?? logo.mark;
   const hours = logo.hours
     .map((h) => `<circle cx="${h.cx}" cy="${h.cy}" r="${h.r}" fill="${ring}" opacity="${h.opacity}"/>`)
     .join('');
@@ -114,68 +117,30 @@ function mark(mono, weight = 1, colors = {}) {
     `<path d="${logo.ring.d}" fill="none" stroke="${ring}" stroke-width="${logo.ring.width * weight}" stroke-linejoin="round"/>`,
     hours,
     `<path d="${logo.spiral.d}" fill="none" stroke="${spiral}" stroke-width="${logo.spiral.width * weight}" stroke-linecap="round" stroke-linejoin="round"/>`,
-    `<circle cx="${logo.sun.cx}" cy="${logo.sun.cy}" r="${logo.sun.r}" fill="${mono ?? colors.sun ?? logo.sun.color}"/>`,
+    `<circle cx="${logo.sun.cx}" cy="${logo.sun.cy}" r="${logo.sun.r}" fill="${mono ?? logo.sun.color}"/>`,
   ].join('');
 }
 
 // ---------------------------------------------------------------------------------------------
-// Seasonal launcher icon
+// Seasonal designs (lib/seasons/designs.ts): launcher aliases and store icons
 
-const MAPLE =
-  'M0 -10 L1.8 -5.5 L4.6 -6.8 L3.8 -2.4 L8.6 -3.6 L6.8 -0.6 L9 1.2 L4.2 2.4 L4.8 5.6 L1 3.8 L0.6 9 L-0.6 9 L-1 3.8 L-4.8 5.6 L-4.2 2.4 L-9 1.2 L-6.8 -0.6 L-8.6 -3.6 L-3.8 -2.4 L-4.6 -6.8 L-1.8 -5.5 Z';
-const OVAL = 'M0 -6 C3.4 -3 3.4 3 0 6 C-3.4 3 -3.4 -3 0 -6 Z';
+const { DESIGNS, DESIGN_KEYS, compose } = designs;
 
 /**
- * Seasons for the launcher icon, in the colours of the matching store icon (`store/icon-*.svg`).
- * Leaves sit at `angle` (degrees, clockwise from three o'clock) on a circle around the centre, in
- * the gap between the shrunk mark and the edge of the round launcher mask, so none is cut off.
+ * The store icon of a design, `store/icon-<key>.svg`: the whole 108 grid on the design's ground,
+ * shown by `store/graphics.html` while `store/season.js` names that design.
  */
-const SEASONS = {
-  herbst: {
-    background: '#F6EBDD',
-    colors: { ring: '#A4471F', spiral: '#11786A', sun: '#EE7A2F' },
-    /** The mark shrinks to this share, so the leaves fit inside the visible circle. */
-    scale: 0.78,
-    radius: 30,
-    leaves: [
-      { angle: -60, shape: MAPLE, size: 0.5, turn: 25, color: '#C8502A' },
-      { angle: 0, shape: OVAL, size: 0.6, turn: 60, color: '#E8A33A' },
-      { angle: 60, shape: OVAL, size: 0.55, turn: 20, color: '#EE7A2F' },
-      { angle: 125, shape: MAPLE, size: 0.48, turn: 35, color: '#E8A33A' },
-      { angle: 180, shape: OVAL, size: 0.6, turn: -40, color: '#A4471F' },
-      { angle: -150, shape: MAPLE, size: 0.45, turn: -20, color: '#EE7A2F' },
-    ],
-  },
-};
-
-/**
- * The season the launcher icon wears, from the switch it shares with the store icon in
- * `store/season.js`: a key of `SEASONS`, or null for the logo. Only the launcher icon (legacy icon
- * and the foreground and background layers) follows it; splash, favicon, notification and themed
- * icon and the logo inside the app stay as they are.
- */
-function readSeason() {
-  const context = { window: {} };
-  runInNewContext(readFileSync(join(ROOT, 'store/season.js'), 'utf8'), context);
-  const name = context.window.SEASON ?? null;
-  if (name !== null && !SEASONS[name]) throw new Error(`store/season.js: Jahreszeit '${name}' fehlt in SEASONS`);
-  return name;
-}
-
-const SEASON = readSeason();
-const season = SEASON ? SEASONS[SEASON] : null;
-
-function seasonForeground() {
-  const leaves = season.leaves
-    .map(({ angle, shape, size, turn, color }) => {
-      const x = (CENTER + season.radius * Math.cos((angle * Math.PI) / 180)).toFixed(2);
-      const y = (CENTER + season.radius * Math.sin((angle * Math.PI) / 180)).toFixed(2);
-      const outline = shape === MAPLE ? ` stroke="${color}" stroke-width="1.2" stroke-linejoin="round"` : '';
-      return `<path transform="translate(${x} ${y}) rotate(${turn}) scale(${size})" d="${shape}" fill="${color}"${outline}/>`;
-    })
-    .join('');
-  const shrink = `translate(${CENTER} ${CENTER}) scale(${season.scale}) translate(${-CENTER} ${-CENTER})`;
-  return `${leaves}<g transform="${shrink}">${mark(undefined, 1, season.colors)}</g>`;
+function writeStoreIcons() {
+  for (const key of DESIGN_KEYS) {
+    const design = DESIGNS[key];
+    const source = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" width="512" height="512">
+  <!-- Store-Icon ${design.name} (${key}), erzeugt von node scripts/logo.mjs aus lib/seasons/designs.ts; nicht von Hand bearbeiten. -->
+  ${compose(design, logo)}
+</svg>
+`;
+    writeFileSync(join(ROOT, `store/icon-${key}.svg`), source);
+    console.log(`store/icon-${key}.svg`);
+  }
 }
 
 function document(viewBox, body) {
@@ -183,17 +148,14 @@ function document(viewBox, body) {
 }
 
 const ground = `<rect x="0" y="0" width="108" height="108" fill="${logo.background}"/>`;
-/** Ground and mark of the launcher icon, in the season's look while one is set. */
-const iconGround = season ? `<rect x="0" y="0" width="108" height="108" fill="${season.background}"/>` : ground;
-const iconMark = season ? seasonForeground() : mark();
 
 const VARIANTS = [
   // Legacy and iOS icon: fills the whole square, cropped a little tighter than the adaptive grid so
   // the ring does not look lost without a launcher mask.
-  { file: 'icon.png', size: 1024, svg: document('12 12 84 84', iconGround + iconMark) },
+  { file: 'icon.png', size: 1024, svg: document('12 12 84 84', ground + mark()) },
   // Adaptive icon layers: full 108 grid, the launcher crops and masks them itself.
-  { file: 'android-icon-foreground.png', size: 512, svg: document('0 0 108 108', iconMark) },
-  { file: 'android-icon-background.png', size: 512, svg: document('0 0 108 108', iconGround) },
+  { file: 'android-icon-foreground.png', size: 512, svg: document('0 0 108 108', mark()) },
+  { file: 'android-icon-background.png', size: 512, svg: document('0 0 108 108', ground) },
   { file: 'android-icon-monochrome.png', size: 432, svg: document('0 0 108 108', mark('#FFFFFF')) },
   // Splash (Android 12+ shows it as the window icon and masks it to a circle of two thirds): the
   // round launcher icon, on a transparent square with exactly that margin.
@@ -212,10 +174,17 @@ const VARIANTS = [
     size,
     svg: document('16 16 76 76', mark('#FFFFFF', 1.5)),
   })),
+  // One adaptive icon per design for its launcher alias (plugins/withSeasonalIcons.js), 108 dp at
+  // xxxhdpi. The themed icon keeps the logo's monochrome layer.
+  ...DESIGN_KEYS.flatMap((key) => [
+    { file: `assets/launcher/${key}-foreground.png`, size: 432, svg: document('0 0 108 108', compose(DESIGNS[key], logo, { ground: false })) },
+    { file: `assets/launcher/${key}-background.png`, size: 432, svg: document('0 0 108 108', `<rect width="108" height="108" fill="${DESIGNS[key].bg}"/>`) },
+  ]),
 ];
 
 function rasterize() {
   const dir = mkdtempSync(join(tmpdir(), 'daylight-logo-'));
+  mkdirSync(join(ROOT, 'assets/launcher'), { recursive: true });
   try {
     for (const variant of VARIANTS) {
       // Plain names go to assets/, the notification icons carry their own path.
@@ -233,4 +202,7 @@ function rasterize() {
 }
 
 writePaths();
-if (!process.argv.includes('--paths-only')) rasterize();
+if (!process.argv.includes('--paths-only')) {
+  writeStoreIcons();
+  rasterize();
+}

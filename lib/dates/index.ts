@@ -3,8 +3,9 @@ import { de, enUS, es, fr, it, ptBR, type Locale } from 'date-fns/locale';
 
 import { currentLanguage, type Language } from '@/lib/i18n/language';
 
-/** A calendar day as "YYYY-MM-DD". Compared lexicographically, never via timestamps. */
-export type DateString = string & { readonly __brand: 'DateString' };
+import type { DateString } from './days';
+
+export * from './days';
 
 const PATTERN = 'yyyy-MM-dd';
 
@@ -56,20 +57,6 @@ export function parseDateString(value: DateString): Date {
   return parseISO(value);
 }
 
-const MS_PER_DAY = 86_400_000;
-
-/**
- * Days since the epoch, counted on the UTC calendar so there is no DST to trip over.
- * The engines call this thousands of times per render, which is why it skips date-fns.
- */
-function dayNumber(value: DateString): number {
-  return Date.UTC(Number(value.slice(0, 4)), Number(value.slice(5, 7)) - 1, Number(value.slice(8, 10))) / MS_PER_DAY;
-}
-
-export function addDaysToDateString(value: DateString, days: number): DateString {
-  return new Date((dayNumber(value) + days) * MS_PER_DAY).toISOString().slice(0, 10) as DateString;
-}
-
 export function addMonthsToDateString(value: DateString, months: number): DateString {
   return toDateString(addMonths(parseDateString(value), months));
 }
@@ -83,10 +70,6 @@ export function startOfMonthString(value: DateString): DateString {
 export function monthWeekDays(month: DateString, weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6): DateString[] {
   const first = startOfMonth(parseDateString(month));
   return eachDayOfInterval({ start: startOfWeek(first, { weekStartsOn }), end: endOfWeek(endOfMonth(first), { weekStartsOn }) }).map(toDateString);
-}
-
-export function compareDateStrings(a: DateString, b: DateString): number {
-  return a < b ? -1 : a > b ? 1 : 0;
 }
 
 export function formatLong(value: DateString): string {
@@ -110,15 +93,6 @@ export function formatWeekdayShort(value: DateString): string {
 
 export function formatMonthYear(value: DateString): string {
   return capitalized(format(parseDateString(value), patterns().monthYear, { locale: locale() }));
-}
-
-export function daysBetween(from: DateString, to: DateString): number {
-  return dayNumber(to) - dayNumber(from);
-}
-
-/** 0 = Sunday ... 6 = Saturday, like `Date.getDay`. */
-export function weekdayOf(value: DateString): number {
-  return (((dayNumber(value) + 4) % 7) + 7) % 7;
 }
 
 /**

@@ -1,0 +1,20 @@
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'de.behla.daylight'
+version = '1.0.0'
+
+android {
+  namespace "de.behla.daylight.launcher"
+  defaultConfig {
+    versionCode 1
+    versionName '1.0.0'
+  }
+}
+
+// Already in the app through modules/daylight-reminders; gives ON_STOP of the whole process.
+dependencies {
+  implementation 'androidx.lifecycle:lifecycle-process:2.9.3'
+}
