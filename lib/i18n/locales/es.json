@@ -187,6 +187,7 @@
     "scaleValue": "{{value}} de {{max}}",
     "scaleLine": "{{name}} {{value}} de {{max}}",
     "scaleEmpty": "Sin indicar",
+    "moreHint": "¿Quieres registrar más? Puedes crear en cualquier momento tus propias escalas, como energía o sueño, y nuevos grupos.",
     "dayTaken": "Ya hay una entrada para este día. Solo se puede hacer una entrada por día.",
     "turningLost": "Este día es el punto de inflexión “{{title}}”. Sin una entrada en este día, también se borrará.",
     "turningMoveTitle": "Se perderá el punto de inflexión",

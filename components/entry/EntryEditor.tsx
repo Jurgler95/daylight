@@ -221,6 +221,18 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
             ) : null}
           </Card>
 
+          {/* A quiet pointer to what else a day can hold. The draft stays open underneath, and a new
+              scale or activity shows up here on the way back. */}
+          <View style={styles.more}>
+            <AppText variant="caption" muted style={styles.moreHint}>
+              {t('entry.moreHint')}
+            </AppText>
+            <View style={styles.moreLinks}>
+              <Button label={t('manage.scales')} variant="ghost" onPress={() => router.push('/more/scales')} />
+              <Button label={t('manage.activities')} variant="ghost" onPress={() => router.push('/more/activities')} />
+            </View>
+          </View>
+
           {!editor.isNew ? <Button label={t('entry.delete')} variant="ghost" onPress={remove} /> : null}
         </CardMotion>
       </KeyboardAwareScrollView>
@@ -240,4 +252,7 @@ const styles = StyleSheet.create({
   },
   close: { width: TOUCH_TARGET, height: TOUCH_TARGET, borderRadius: TOUCH_TARGET / 2, alignItems: 'center', justifyContent: 'center' },
   content: { padding: spacing.lg, gap: spacing.lg },
+  more: { alignItems: 'center', gap: spacing.xs, paddingTop: spacing.sm },
+  moreHint: { textAlign: 'center' },
+  moreLinks: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' },
 });

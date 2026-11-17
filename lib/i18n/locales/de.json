@@ -172,6 +172,7 @@
     "scaleValue": "{{value}} von {{max}}",
     "scaleLine": "{{name}} {{value}} von {{max}}",
     "scaleEmpty": "Keine Angabe",
+    "moreHint": "Mehr festhalten? Eigene Skalen wie Energie oder Schlaf und neue Gruppen kannst du jederzeit anlegen.",
     "dayTaken": "Für diesen Tag gibt es schon einen Eintrag. Pro Tag ist ein Eintrag möglich.",
     "turningLost": "Dieser Tag ist der Wendepunkt „{{title}}“. Ohne Eintrag an diesem Tag wird er mit gelöscht.",
     "turningMoveTitle": "Wendepunkt geht verloren",

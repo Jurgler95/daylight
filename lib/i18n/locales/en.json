@@ -172,6 +172,7 @@
     "scaleValue": "{{value}} of {{max}}",
     "scaleLine": "{{name}} {{value}} of {{max}}",
     "scaleEmpty": "Not set",
+    "moreHint": "Want to track more? You can add your own scales like energy or sleep and new groups at any time.",
     "dayTaken": "There is already an entry for this day. One entry per day is possible.",
     "turningLost": "This day is the turning point \"{{title}}\". Without an entry on this day, it will be deleted too.",
     "turningMoveTitle": "Turning point will be lost",
