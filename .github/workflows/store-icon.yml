@@ -17,10 +17,11 @@
 name: Store-Icon zur Jahreszeit
 run-name: Store-Icon ${{ (github.event_name == 'schedule' || inputs.live) && 'wechseln' || 'prüfen' }}
 
+# Vorerst nur von Hand. Für den täglichen Wechsel diesen Zeitplan wieder einkommentieren:
+#   schedule:
+#     # 03:17 UTC, also 4:17 oder 5:17 in Berlin, nach dem Tageswechsel dort
+#     - cron: '17 3 * * *'
 on:
-  schedule:
-    # 03:17 UTC, also 4:17 oder 5:17 in Berlin, nach dem Tageswechsel dort
-    - cron: '17 3 * * *'
   workflow_dispatch:
     inputs:
       live:

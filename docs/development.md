@@ -99,7 +99,7 @@ node scripts/store-graphics.mjs es fr
 
 Einzelne Grafik im Browser ansehen: `store/graphics.html?asset=shot-3&lang=en` (oder `icon`, `feature`; ohne `lang` Deutsch).
 
-Das Store-Icon zeigt das Design aus `store/season.js` (ein Schlüssel aus `lib/seasons/designs.ts` oder `null` fürs Logo) als `store/icon-<schlüssel>.svg`. Die Feature Graphic bleibt beim Logo. Den Schalter stellt jeden Morgen die geplante Action `.github/workflows/store-icon.yml` (siehe Play Store), von Hand geht es so:
+Das Store-Icon zeigt das Design aus `store/season.js` (ein Schlüssel aus `lib/seasons/designs.ts` oder `null` fürs Logo) als `store/icon-<schlüssel>.svg`. Die Feature Graphic bleibt beim Logo. Den Schalter stellt die Action `.github/workflows/store-icon.yml` (siehe Play Store, vorerst nur von Hand gestartet), lokal geht es so:
 
 ```bash
 node scripts/store-season.mjs --write   # season.js auf das Design von heute (Europe/Berlin) setzen
@@ -146,7 +146,7 @@ GH_TOKEN=$(gh auth token --user Jurgler95) gh workflow run promote.yml --repo Ju
 
 Lehnt Play eine Version ab, weil ihr `versionCode` schon vergeben ist, lag sie bereits dort; in eine andere Spur kommt sie dann über `promote.yml`.
 
-Das Store-Icon wechselt `.github/workflows/store-icon.yml` mit dem Design zur Jahreszeit, jeden Morgen um 03:17 UTC: es rechnet das Design des Tages nach `lib/seasons/calendar.ts` aus, und nur wenn es von `store/season.js` abweicht, setzt es die Datei, rendert die Store-Icons in headless Chrome, lädt über fastlane supply nur `icon.png` je Sprache hoch (aus einem eigenen Ordner ohne Texte und Screenshots, dazu mit `skip_upload_metadata` und `skip_upload_screenshots`) und committet danach `season.js` und die Icons auf `main`. Zugang und Spur sind dieselben wie bei `store.yml`. Von Hand ist es ohne `live` ein Trockenlauf, der nur prüft; `date` rechnet für einen anderen Tag:
+Das Store-Icon wechselt `.github/workflows/store-icon.yml` mit dem Design zur Jahreszeit. Vorerst läuft sie nur von Hand; der Zeitplan (jeden Morgen um 03:17 UTC) steht auskommentiert in der Datei. Sie rechnet das Design des Tages nach `lib/seasons/calendar.ts` aus, und nur wenn es von `store/season.js` abweicht, setzt es die Datei, rendert die Store-Icons in headless Chrome, lädt über fastlane supply nur `icon.png` je Sprache hoch (aus einem eigenen Ordner ohne Texte und Screenshots, dazu mit `skip_upload_metadata` und `skip_upload_screenshots`) und committet danach `season.js` und die Icons auf `main`. Zugang und Spur sind dieselben wie bei `store.yml`. Von Hand ist es ohne `live` ein Trockenlauf, der nur prüft; `date` rechnet für einen anderen Tag:
 
 ```bash
 GH_TOKEN=$(gh auth token --user Jurgler95) gh workflow run store-icon.yml --repo Jurgler95/daylight --ref main -f date=2026-10-31
