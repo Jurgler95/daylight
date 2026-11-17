@@ -223,7 +223,7 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
 
           {/* A quiet pointer to what else a day can hold. The draft stays open underneath, and a new
               scale or activity shows up here on the way back. */}
-          <View style={styles.more}>
+          <Card tone="muted" style={styles.more}>
             <AppText variant="caption" muted style={styles.moreHint}>
               {t('entry.moreHint')}
             </AppText>
@@ -231,7 +231,7 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
               <Button label={t('manage.scales')} variant="ghost" onPress={() => router.push('/more/scales')} />
               <Button label={t('manage.activities')} variant="ghost" onPress={() => router.push('/more/activities')} />
             </View>
-          </View>
+          </Card>
 
           {!editor.isNew ? <Button label={t('entry.delete')} variant="ghost" onPress={remove} /> : null}
         </CardMotion>
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
   },
   close: { width: TOUCH_TARGET, height: TOUCH_TARGET, borderRadius: TOUCH_TARGET / 2, alignItems: 'center', justifyContent: 'center' },
   content: { padding: spacing.lg, gap: spacing.lg },
-  more: { alignItems: 'center', gap: spacing.xs, paddingTop: spacing.sm },
+  more: { alignItems: 'center', gap: 0, paddingHorizontal: spacing.lg, paddingTop: spacing.md, paddingBottom: spacing.xs },
   moreHint: { textAlign: 'center' },
   moreLinks: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' },
 });
