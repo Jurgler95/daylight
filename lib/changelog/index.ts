@@ -26,6 +26,54 @@ export function changesIn(release: Release, language: Language): string[] {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.33',
+    date: '2026-11-17',
+    changes: {
+      de: [
+        'Hintergrund und App-Symbol wechseln mit den Jahreszeiten und zu Festen wie Weihnachten oder Silvester',
+        'Unter „Mehr“ lassen sich „Design zur Jahreszeit“ und „Designs zu Festen“ ausschalten',
+        'Die tägliche Erinnerung kommt auf Wunsch jeden Abend, auch wenn der Tag schon einen Eintrag hat',
+        'Unten im Eintrag führt ein kleiner Hinweis zu eigenen Skalen, Aktivitäten und Gruppen',
+        'Die Erfolge zeigen den Weg zum nächsten Stern kurz als Bruch, etwa 27/30',
+      ],
+      en: [
+        'The background and app icon change with the seasons and for holidays like Christmas or New Year’s Eve',
+        'Under “More” you can turn off “Seasonal design” and “Festival designs”',
+        'If you like, the daily reminder comes every evening, even when the day already has an entry',
+        'A small note at the bottom of an entry leads to your own scales, activities and groups',
+        'Awards show the way to the next star as a short fraction, like 27/30',
+      ],
+      es: [
+        'El fondo y el icono de la app cambian con las estaciones y en fiestas como Navidad o Nochevieja',
+        'En “Más” puedes desactivar “Diseño de temporada” y “Diseños de fiestas”',
+        'Si quieres, el recordatorio diario llega cada tarde, aunque el día ya tenga una entrada',
+        'Una pequeña nota al final de la entrada lleva a tus propias escalas, actividades y grupos',
+        'Los logros muestran lo que falta para la siguiente estrella como fracción, por ejemplo 27/30',
+      ],
+      pt: [
+        'O fundo e o ícone do app mudam com as estações e em datas como Natal ou Réveillon',
+        'Em “Mais” dá para desligar “Design da estação” e “Designs de datas festivas”',
+        'Se quiser, o lembrete diário aparece toda noite, mesmo quando o dia já tem um registro',
+        'Uma pequena dica no fim do registro leva às suas próprias escalas, atividades e grupos',
+        'As conquistas mostram o caminho até a próxima estrela como fração, por exemplo 27/30',
+      ],
+      fr: [
+        'Le fond et l’icône de l’app changent avec les saisons et pour des fêtes comme Noël ou le Nouvel An',
+        'Dans « Plus », tu peux désactiver « Design de saison » et « Designs des fêtes »',
+        'Si tu veux, le rappel quotidien arrive chaque soir, même si la journée a déjà une entrée',
+        'Une petite note en bas de l’entrée mène à tes propres échelles, activités et groupes',
+        'Les succès affichent le chemin vers la prochaine étoile sous forme de fraction, comme 27/30',
+      ],
+      it: [
+        'Lo sfondo e l’icona dell’app cambiano con le stagioni e per feste come Natale o Capodanno',
+        'In “Altro” puoi disattivare “Design di stagione” e “Design delle feste”',
+        'Se vuoi, il promemoria giornaliero arriva ogni sera, anche se il giorno ha già una voce',
+        'Una piccola nota in fondo alla voce porta alle tue scale, attività e gruppi',
+        'I traguardi mostrano quanto manca alla prossima stella come frazione, ad esempio 27/30',
+      ],
+    },
+  },
+  {
     version: '1.0.32',
     date: '2026-10-25',
     changes: {
