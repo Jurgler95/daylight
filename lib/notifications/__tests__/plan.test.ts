@@ -72,6 +72,13 @@ describe('planReminders', () => {
     expect(plan[0]!.date).toBe('2026-09-27');
   });
 
+  it('keeps today despite an entry when it should always come, but not once the time has passed', () => {
+    const plan = daily({ always: true, entryDays: entries(-1, 0) });
+    expect(plan).toHaveLength(REMINDER_DAYS);
+    expect(plan[0]).toMatchObject({ date: '2026-09-26', body: 'Wie war dein Tag? Tag 2 deiner Serie.' });
+    expect(daily({ always: true, entryDays: entries(0), nowMinutes: 21 * 60 })[0]!.date).toBe('2026-09-27');
+  });
+
   it('drops today once the time has passed, and keeps it while it is ahead', () => {
     expect(planReminders(input({ nowMinutes: 20 * 60 + 30 }))[0]!.date).toBe('2026-09-27');
     expect(planReminders(input({ nowMinutes: 20 * 60 + 29 }))[0]!.date).toBe('2026-09-26');

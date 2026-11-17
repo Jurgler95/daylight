@@ -39,12 +39,24 @@ export default function RemindersScreen() {
         </Card>
       )}
       <Card>
-        <ToggleRow label={t('reminders.daily')} hint={t('reminders.dailyHint')} value={settings.reminder_enabled} onChange={toggle} />
+        <ToggleRow
+          label={t('reminders.daily')}
+          hint={t(settings.reminder_always ? 'reminders.dailyHintAlways' : 'reminders.dailyHint')}
+          value={settings.reminder_enabled}
+          onChange={toggle}
+        />
         <TimeRow
           label={t('reminders.dailyTime')}
           value={settings.reminder_time}
           disabled={!settings.reminder_enabled}
           onChange={(reminder_time) => update({ reminder_time })}
+        />
+        <ToggleRow
+          label={t('reminders.always')}
+          hint={t('reminders.alwaysHint')}
+          value={settings.reminder_always}
+          disabled={!settings.reminder_enabled}
+          onChange={(reminder_always) => update({ reminder_always })}
         />
       </Card>
       {/* The morning reminder only comes along with the daily one, so it waits while that is off. */}

@@ -171,6 +171,8 @@ export const settings = sqliteTable('settings', {
   reminder_yesterday_enabled: integer('reminder_yesterday_enabled', { mode: 'boolean' }).notNull().default(true),
   /** "HH:mm" of the morning reminder. Part of the backup. */
   reminder_yesterday_time: text('reminder_yesterday_time').notNull().default('10:00'),
+  /** The evening reminder comes even on a day that already has an entry. Only with `reminder_enabled`; part of the backup like it. */
+  reminder_always: integer('reminder_always', { mode: 'boolean' }).notNull().default(false),
   /** The start sheet offering the reminder was answered, or never needed (reminder already on). Device-local, never exported. */
   reminder_prompt_done: integer('reminder_prompt_done', { mode: 'boolean' }).notNull().default(false),
   /** Highest streak length celebrated, as JSON `{ start, days }` (`lib/streak/celebration.ts`). Device-local, never exported. */

@@ -1,0 +1,1 @@
+ALTER TABLE `settings` ADD `reminder_always` integer DEFAULT false NOT NULL;

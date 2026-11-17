@@ -53,19 +53,19 @@ describe('JSON round trip', () => {
 
   it('carries the morning reminder, and a backup from before it leaves the choice here alone', () => {
     const source = sampled();
-    updateSettings(source, { reminder_yesterday_enabled: false, reminder_yesterday_time: '09:15' });
+    updateSettings(source, { reminder_yesterday_enabled: false, reminder_yesterday_time: '09:15', reminder_always: true });
     const payload = buildExport(source, '1.0.0');
-    expect(payload.settings).toMatchObject({ reminder_yesterday_enabled: false, reminder_yesterday_time: '09:15' });
+    expect(payload.settings).toMatchObject({ reminder_yesterday_enabled: false, reminder_yesterday_time: '09:15', reminder_always: true });
 
     const target = createTestDb();
     applyImport(target, parseImport(JSON.stringify(payload)), 'replace');
-    expect(getSettings(target)).toMatchObject({ reminder_yesterday_enabled: false, reminder_yesterday_time: '09:15' });
+    expect(getSettings(target)).toMatchObject({ reminder_yesterday_enabled: false, reminder_yesterday_time: '09:15', reminder_always: true });
 
-    const { reminder_yesterday_enabled: _e, reminder_yesterday_time: _t, ...older } = payload.settings;
+    const { reminder_yesterday_enabled: _e, reminder_yesterday_time: _t, reminder_always: _a, ...older } = payload.settings;
     const old = parseImport(JSON.stringify({ ...payload, settings: older }));
     updateSettings(target, { reminder_yesterday_enabled: true, reminder_yesterday_time: '11:00' });
     applyImport(target, old, 'replace');
-    expect(getSettings(target)).toMatchObject({ reminder_yesterday_enabled: true, reminder_yesterday_time: '11:00', reminder_time: '21:15' });
+    expect(getSettings(target)).toMatchObject({ reminder_yesterday_enabled: true, reminder_yesterday_time: '11:00', reminder_always: true, reminder_time: '21:15' });
     applyImport(createTestDb(), old, 'merge');
   });
 

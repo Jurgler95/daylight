@@ -95,9 +95,9 @@ describe('defaults', () => {
 
   it('starts the reminder and streak settings like a new install, also after delete all', () => {
     const db = createTestDb();
-    const fresh = { reminder_yesterday_enabled: true, reminder_yesterday_time: '10:00', reminder_prompt_done: false, streak_celebrated: null, streak_rescue_dismissed: null };
+    const fresh = { reminder_yesterday_enabled: true, reminder_yesterday_time: '10:00', reminder_always: false, reminder_prompt_done: false, streak_celebrated: null, streak_rescue_dismissed: null };
     expect(getSettings(db)).toMatchObject(fresh);
-    updateSettings(db, { reminder_yesterday_enabled: false, reminder_yesterday_time: '09:15', reminder_prompt_done: true, streak_celebrated: '{"start":"2026-09-01","days":10}', streak_rescue_dismissed: '2026-09-20' });
+    updateSettings(db, { reminder_yesterday_enabled: false, reminder_yesterday_time: '09:15', reminder_always: true, reminder_prompt_done: true, streak_celebrated: '{"start":"2026-09-01","days":10}', streak_rescue_dismissed: '2026-09-20' });
     deleteAllData(db);
     expect(getSettings(db)).toMatchObject(fresh);
     expect(() => updateSettings(db, { reminder_yesterday_time: '9:15' })).toThrow('reminder_yesterday_time');

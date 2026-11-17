@@ -21,7 +21,7 @@ function minutesNow(): number {
 
 /**
  * Keeps the device's scheduled reminders in sync with the settings and with the entries: the
- * evening one skips days with an entry, the morning one follows a missing yesterday, and both name
+ * evening one skips days with an entry unless it should always come, the morning one follows a missing yesterday, and both name
  * the streak in their next occurrence. Mounted once in the root layout. Never asks for permission
  * by itself.
  */
@@ -29,6 +29,7 @@ export function useReminderSync(): void {
   const { t, i18n } = useTranslation();
   const enabled = useSettingsStore((s) => s.settings?.reminder_enabled ?? false);
   const time = useSettingsStore((s) => s.settings?.reminder_time ?? '20:30');
+  const always = useSettingsStore((s) => s.settings?.reminder_always ?? false);
   const yesterdayEnabled = useSettingsStore((s) => s.settings?.reminder_yesterday_enabled ?? true);
   const yesterdayTime = useSettingsStore((s) => s.settings?.reminder_yesterday_time ?? '10:00');
   const [tick, setTick] = useState(0);
@@ -54,9 +55,9 @@ export function useReminderSync(): void {
   );
 
   const plan = useMemo<PlannedReminder[]>(
-    () => planReminders({ today, nowMinutes: minutesNow(), enabled, time, yesterdayEnabled, yesterdayTime, entryDays, wording }),
+    () => planReminders({ today, nowMinutes: minutesNow(), enabled, time, always, yesterdayEnabled, yesterdayTime, entryDays, wording }),
     // `tick` re-plans after the app was in the background: the time of day may have passed.
-    [today, enabled, time, yesterdayEnabled, yesterdayTime, entryDays, wording, tick],
+    [today, enabled, time, always, yesterdayEnabled, yesterdayTime, entryDays, wording, tick],
   );
   // Read on every render: a return to the app after a change of time zone sets the times again.
   const signature = planSignature(plan, timeZoneKey());

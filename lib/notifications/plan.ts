@@ -9,7 +9,7 @@ import { runEndingAt } from '@/lib/streak/days';
  * already have an entry. So the plan consists of one-off reminders for the coming days, rebuilt on
  * every start, every return to the app and every write.
  *
- * Two kinds: `daily` in the evening, skipped once the day has an entry, and `yesterday` in the
+ * Two kinds: `daily` in the evening, skipped once the day has an entry (unless `always`), and `yesterday` in the
  * morning of a day D whose D-1 is still empty while D-2 has an entry. That condition holds for one
  * morning per gap only, so a gap brings at most one morning reminder.
  */
@@ -52,6 +52,8 @@ export interface PlanInput {
   enabled: boolean;
   /** "HH:mm". */
   time: string;
+  /** The evening reminder comes even when the day already has an entry. */
+  always?: boolean;
   yesterdayEnabled: boolean;
   /** "HH:mm" of the morning reminder. */
   yesterdayTime: string;
@@ -90,10 +92,10 @@ function streakDayOn(days: ReadonlySet<string>, date: DateString): number | null
 function dailyReminders(input: PlanInput): PlannedReminder[] {
   const time = parseTime(input.time);
   if (!time) return [];
-  const hasEntryToday = input.entryDays.has(input.today);
+  const skipToday = !input.always && input.entryDays.has(input.today);
   const planned: PlannedReminder[] = [];
   for (let offset = 0; offset < REMINDER_DAYS; offset += 1) {
-    if (offset === 0 && (hasEntryToday || time.hour * 60 + time.minute <= input.nowMinutes)) continue;
+    if (offset === 0 && (skipToday || time.hour * 60 + time.minute <= input.nowMinutes)) continue;
     const date = addDaysToDateString(input.today, offset);
     // Only the next one carries the number; further ahead it could be stale by the time it fires.
     const streakDay = planned.length === 0 ? streakDayOn(input.entryDays, date) : null;

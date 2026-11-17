@@ -94,6 +94,7 @@ export const settingsSchema = z.object({
   // device alone, since a replace writes these settings as they come.
   reminder_yesterday_enabled: z.boolean().optional(),
   reminder_yesterday_time: timeString.optional(),
+  reminder_always: z.boolean().optional(),
   // Optional for the same reason: backups from before the seasonal designs leave them alone.
   design_seasons: z.boolean().optional(),
   design_festivals: z.boolean().optional(),
