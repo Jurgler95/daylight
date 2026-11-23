@@ -10,8 +10,8 @@ import { onEntryDays, roomInYear } from '@/lib/turning/rules';
 import type { ExportPayload } from './schema';
 
 /**
- * Merge side of the JSON import. Rows are matched by meaning, not by id: groups and scales by
- * folded name, moods by folded label and level, activities by group and folded name, entries by
+ * Merge side of the JSON import. Rows are matched by meaning, not by id: groups by folded name,
+ * scales by folded name and kind, moods by folded label and level, activities by group and folded name, entries by
  * date, time, mood level, note title, note and activity names (`entryKey`). Unmatched rows are added with fresh ids; settings stay as they are.
  */
 
@@ -39,7 +39,10 @@ export function matchPayload(db: Database, payload: ExportPayload): Matches {
       return [activity.id, match?.id ?? null];
     }),
   );
-  const scaleMatches = new Map(payload.scales.map((scale) => [scale.id, catalog.scales.find((s) => fold(s.name) === fold(scale.name))?.id ?? null]));
+  // A duration never takes the place of a rating of the same name, or minutes would land on a 1 to 5 scale.
+  const scaleMatches = new Map(
+    payload.scales.map((scale) => [scale.id, catalog.scales.find((s) => fold(s.name) === fold(scale.name) && s.kind === scale.kind)?.id ?? null]),
+  );
 
   const keyOf = payloadKeys(payload);
   const stored = new Map(catalog.entryKeys);

@@ -187,7 +187,8 @@
     "scaleValue": "{{value}} de {{max}}",
     "scaleLine": "{{name}} {{value}} de {{max}}",
     "scaleEmpty": "Sem valor",
-    "moreHint": "Quer registrar mais? Você pode criar a qualquer momento suas próprias escalas, como energia ou sono, e novos grupos.",
+    "manageActivities": "Gerenciar atividades e grupos",
+    "manageScales": "Gerenciar escalas",
     "dayTaken": "Já existe um registro para este dia. Só dá para ter um registro por dia.",
     "turningLost": "Este dia é o ponto de virada “{{title}}”. Sem um registro neste dia, ele também será apagado.",
     "turningMoveTitle": "O ponto de virada será perdido",
@@ -249,8 +250,11 @@
     "newActivity": "Nova atividade",
     "newGroup": "Novo grupo",
     "newScale": "Nova escala",
-    "newScaleRange": "Intervalo da nova escala",
+    "newScaleRange": "Tipo da nova escala",
     "range": "{{min}} a {{max}}",
+    "duration": "Duração",
+    "durationHint": "Horas e minutos, por exemplo para o trabalho, o treino ou a leitura.",
+    "scaleInsights": "Ver estatísticas",
     "archived": "Arquivados",
     "archive": "Arquivar",
     "archiveMoodHint": "Não aparece mais para escolher, registros antigos continuam com ele.",
@@ -319,6 +323,7 @@
       "mood": "Humor",
       "patterns": "Padrões",
       "activities": "Atividades",
+      "scales": "Escalas",
       "health": "Saúde",
       "links": "Relações",
       "notes": "Notas"
@@ -625,6 +630,52 @@
           "exercise": "Menos exercício"
         },
         "empty": "Nenhuma atividade com diferença clara ainda"
+      }
+    },
+    "scales": {
+      "pick": "Escolher escala",
+      "emptyRange": "Nenhuma escala tem valores neste período",
+      "trend": "Evolução da escala",
+      "weekdays": "Escala por dia da semana",
+      "mood": {
+        "title": "Humor por valor",
+        "days_one": "{{count}} dia",
+        "days_other": "{{count}} dias",
+        "days_many": "{{count}} dias",
+        "a11y": "{{value}}: humor médio {{mood}}, {{count}} dias",
+        "hint": "Humor médio dos dias com este valor. Sem barra: menos de {{count}} dias."
+      },
+      "bucket": {
+        "over": "{{value}} ou mais",
+        "under": "menos de {{value}}",
+        "between": "de {{from}} a {{to}}"
+      },
+      "links": {
+        "few": "Uma relação com o humor precisa de pelo menos {{count}} dias com valor",
+        "same": {
+          "title": "No mesmo dia",
+          "up": "{{scale}} mais alto, humor melhor ({{strength}})",
+          "down": "{{scale}} mais alto, humor pior ({{strength}})"
+        },
+        "next": {
+          "title": "No dia seguinte",
+          "up": "{{scale}} mais alto, humor melhor no dia seguinte ({{strength}})",
+          "down": "{{scale}} mais alto, humor pior no dia seguinte ({{strength}})"
+        }
+      },
+      "activities": {
+        "title": "Atividades e escala",
+        "higher": "{{scale}} mais alto com",
+        "lower": "{{scale}} mais baixo com"
+      },
+      "split": {
+        "title": "Escalas em dias bons e difíceis",
+        "empty": "Ainda poucos dias bons ou difíceis com valores",
+        "hint": "Média dos dias a partir de {{good}} contra dias até {{hard}}."
+      },
+      "compare": {
+        "title": "Escalas nestes dias",
+        "row": "Em média {{with}} em vez de {{without}} nos outros dias ({{count}} dias)"
       }
     }
   },

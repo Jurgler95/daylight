@@ -1,8 +1,8 @@
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 
 import { NameField } from '@/components/manage/NameField';
-import { AppText, Card, EmptyState, Screen, ToggleRow } from '@/components/ui';
+import { AppText, Button, Card, EmptyState, Screen, ToggleRow } from '@/components/ui';
 import { getDb } from '@/db';
 import { listScales, updateScale } from '@/db/repositories/scales';
 import { useManageWrite } from '@/lib/manage/useManageWrite';
@@ -27,7 +27,12 @@ export default function ScaleScreen() {
     <Screen back title={scale.name}>
       <Card>
         <NameField key={scale.id} label={t('manage.name')} value={scale.name} onCommit={(name) => write(() => updateScale(getDb(), scale.id, { name }))} />
-        <AppText muted>{t('manage.range', { min: scale.min, max: scale.max })}</AppText>
+        <AppText muted>{scale.kind === 'duration' ? t('manage.durationHint') : t('manage.range', { min: scale.min, max: scale.max })}</AppText>
+        <Button
+          variant="secondary"
+          label={t('manage.scaleInsights')}
+          onPress={() => router.navigate({ pathname: '/insights', params: { section: 'scales', scale: String(scale.id) } })}
+        />
       </Card>
       <Card>
         <ToggleRow

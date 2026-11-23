@@ -335,6 +335,19 @@ export function correlation(pairs: readonly (readonly [number, number])[]): numb
   return sxy / Math.sqrt(sxx * syy);
 }
 
+/** How strong a correlation of this size reads. Below the first bound it is "hardly any". */
+const STRENGTHS = [
+  { below: 0.1, key: 'none' },
+  { below: 0.3, key: 'weak' },
+  { below: 0.5, key: 'medium' },
+  { below: Infinity, key: 'strong' },
+] as const;
+export type LinkStrength = (typeof STRENGTHS)[number]['key'];
+
+export function linkStrength(r: number): LinkStrength {
+  return STRENGTHS.find((s) => Math.abs(r) < s.below)!.key;
+}
+
 /**
  * The pairings worth asking about. Sleep belongs to the day it ends on, so "same" is the night
  * before the day and "nightAfter" the night that follows it. For the day values "next" pairs a
@@ -368,16 +381,10 @@ function link(rows: Map<string, HealthDay>, days: readonly InsightDay[], moods: 
 }
 
 /**
- * The metric on days with each activity against days without. Sleep is taken from the night after
- * the activity day, the other values from the same day. Same thresholds as the mood effects.
+ * A value on days with each activity against days without, as the mood effects do: both sides need
+ * `MIN_SIDE_DAYS`, the difference is shrunk by the smaller side and divided by the value's spread.
  */
-export function activityHealth(rows: Map<string, HealthDay>, days: readonly InsightDay[], metric: HealthMetric, k: number = SHRINK_K): ActivityHealth {
-  const pairs: { activities: ReadonlySet<number>; value: number }[] = [];
-  for (const day of days) {
-    const date = metric === 'sleep' ? addDaysToDateString(day.date, 1) : day.date;
-    const value = metricValue(rows.get(date), metric);
-    if (value !== null) pairs.push({ activities: day.activities, value });
-  }
+export function valueEffects(pairs: readonly { activities: ReadonlySet<number>; value: number }[], k: number = SHRINK_K): ActivityHealth {
   const spread = standardDeviation(pairs.map((p) => p.value));
   if (!spread) return { lifts: [], lowers: [] };
   const ids = new Set<number>();
@@ -405,6 +412,20 @@ export function activityHealth(rows: Map<string, HealthDay>, days: readonly Insi
     lifts: effects.filter((e) => e.effect >= MIN_ACTIVITY_EFFECT).sort((a, b) => b.effect - a.effect || a.activityId - b.activityId),
     lowers: effects.filter((e) => e.effect <= -MIN_ACTIVITY_EFFECT).sort((a, b) => a.effect - b.effect || a.activityId - b.activityId),
   };
+}
+
+/**
+ * The metric on days with each activity against days without. Sleep is taken from the night after
+ * the activity day, the other values from the same day. Same thresholds as the mood effects.
+ */
+export function activityHealth(rows: Map<string, HealthDay>, days: readonly InsightDay[], metric: HealthMetric, k: number = SHRINK_K): ActivityHealth {
+  const pairs: { activities: ReadonlySet<number>; value: number }[] = [];
+  for (const day of days) {
+    const date = metric === 'sleep' ? addDaysToDateString(day.date, 1) : day.date;
+    const value = metricValue(rows.get(date), metric);
+    if (value !== null) pairs.push({ activities: day.activities, value });
+  }
+  return valueEffects(pairs, k);
 }
 
 export function healthStats({ health, allDays, window, previous, today }: HealthStatsInput): HealthStats {

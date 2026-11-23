@@ -1,4 +1,16 @@
-import { createActivity, createEntry, createMood, getSettings, listGroups, listHealthDays, replaceHealthDays, updateSettings } from '@/db/repositories';
+import {
+  createActivity,
+  createEntry,
+  createMood,
+  createScale,
+  getSettings,
+  listGroups,
+  listHealthDays,
+  listMoods,
+  listScales,
+  replaceHealthDays,
+  updateSettings,
+} from '@/db/repositories';
 import { countRows, deleteAllData } from '@/db/repositories/maintenance';
 import { createTestDb } from '@/db/testDb';
 import type { DateString } from '@/lib/dates';
@@ -84,6 +96,25 @@ describe('JSON round trip', () => {
     updateSettings(target, { design_seasons: false });
     applyImport(target, parseImport(JSON.stringify({ ...payload, settings: older })), 'replace');
     expect(getSettings(target)).toMatchObject({ design_seasons: false, design_festivals: false });
+  });
+});
+
+describe('duration scales in the backup', () => {
+  it('keep their kind and minutes', () => {
+    const db = sampled();
+    const work = createScale(db, { name: 'Arbeit', kind: 'duration' });
+    const mood = listMoods(db)[0];
+    createEntry(db, { date: '2026-09-27', time: '20:00', mood_id: mood?.id ?? 0, scales: [{ scale_id: work.id, value: 510 }] });
+    const target = createTestDb();
+    applyImport(target, parseImport(JSON.stringify(buildExport(db, '1.0.0'))), 'replace');
+    expect(listScales(target).find((scale) => scale.name === 'Arbeit')).toMatchObject({ kind: 'duration', min: 0, max: 1440 });
+    expect(buildExport(target, '1.0.0').entry_scales).toContainEqual(expect.objectContaining({ scale_id: work.id, value: 510 }));
+  });
+
+  it('a file from before them reads every scale as a rating', () => {
+    const file = buildExport(sampled(), '1.0.0');
+    const old = { ...file, scales: file.scales.map(({ kind: _kind, ...scale }) => scale) };
+    expect(parseImport(JSON.stringify(old)).scales.every((scale) => scale.kind === 'rating')).toBe(true);
   });
 });
 

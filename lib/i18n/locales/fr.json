@@ -187,7 +187,8 @@
     "scaleValue": "{{value}} sur {{max}}",
     "scaleLine": "{{name}} {{value}} sur {{max}}",
     "scaleEmpty": "Non renseigné",
-    "moreHint": "Envie de noter plus ? Tu peux créer à tout moment tes propres échelles, comme l'énergie ou le sommeil, et de nouveaux groupes.",
+    "manageActivities": "Gérer les activités et les groupes",
+    "manageScales": "Gérer les échelles",
     "dayTaken": "Il y a déjà une entrée pour ce jour. Une seule entrée par jour est possible.",
     "turningLost": "Ce jour est le tournant « {{title}} ». Sans entrée ce jour-là, il sera supprimé lui aussi.",
     "turningMoveTitle": "Le tournant sera perdu",
@@ -249,8 +250,11 @@
     "newActivity": "Nouvelle activité",
     "newGroup": "Nouveau groupe",
     "newScale": "Nouvelle échelle",
-    "newScaleRange": "Plage de la nouvelle échelle",
+    "newScaleRange": "Type de la nouvelle échelle",
     "range": "{{min}} à {{max}}",
+    "duration": "Durée",
+    "durationHint": "Heures et minutes, par exemple pour le travail, le sport ou la lecture.",
+    "scaleInsights": "Voir les statistiques",
     "archived": "Archivées",
     "archive": "Archiver",
     "archiveMoodHint": "N'est plus proposée, les anciennes entrées la gardent.",
@@ -319,6 +323,7 @@
       "mood": "Humeur",
       "patterns": "Rythmes",
       "activities": "Activités",
+      "scales": "Échelles",
       "health": "Santé",
       "links": "Liens",
       "notes": "Notes"
@@ -625,6 +630,52 @@
           "exercise": "Moins d'exercice"
         },
         "empty": "Pas encore d'activité avec une nette différence"
+      }
+    },
+    "scales": {
+      "pick": "Choisir une échelle",
+      "emptyRange": "Aucune échelle n’a de valeur sur cette période",
+      "trend": "Évolution de l’échelle",
+      "weekdays": "Échelle par jour de la semaine",
+      "mood": {
+        "title": "Humeur selon la valeur",
+        "days_one": "{{count}} jour",
+        "days_other": "{{count}} jours",
+        "days_many": "{{count}} jours",
+        "a11y": "{{value}} : humeur moyenne {{mood}}, {{count}} jours",
+        "hint": "Humeur moyenne des jours avec cette valeur. Sans barre : moins de {{count}} jours."
+      },
+      "bucket": {
+        "over": "{{value}} ou plus",
+        "under": "moins de {{value}}",
+        "between": "de {{from}} à {{to}}"
+      },
+      "links": {
+        "few": "Un lien avec l’humeur demande au moins {{count}} jours avec une valeur",
+        "same": {
+          "title": "Le même jour",
+          "up": "{{scale}} plus haut, meilleure humeur ({{strength}})",
+          "down": "{{scale}} plus haut, humeur moins bonne ({{strength}})"
+        },
+        "next": {
+          "title": "Le lendemain",
+          "up": "{{scale}} plus haut, meilleure humeur le lendemain ({{strength}})",
+          "down": "{{scale}} plus haut, humeur moins bonne le lendemain ({{strength}})"
+        }
+      },
+      "activities": {
+        "title": "Activités et échelle",
+        "higher": "{{scale}} plus haut avec",
+        "lower": "{{scale}} plus bas avec"
+      },
+      "split": {
+        "title": "Échelles les bons et les mauvais jours",
+        "empty": "Pas encore assez de bons ou de mauvais jours avec des valeurs",
+        "hint": "Moyenne des jours à partir de {{good}} face aux jours jusqu’à {{hard}}."
+      },
+      "compare": {
+        "title": "Échelles ces jours-là",
+        "row": "En moyenne {{with}} au lieu de {{without}} les autres jours ({{count}} jours)"
       }
     }
   },

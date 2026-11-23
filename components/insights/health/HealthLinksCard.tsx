@@ -3,20 +3,8 @@ import { StyleSheet, View } from 'react-native';
 
 import { InsightCard } from '@/components/insights/InsightCard';
 import { AppText } from '@/components/ui';
-import { formatSigned, MIN_LINK_PAIRS, type HealthLink } from '@/lib/insights';
+import { formatSigned, linkStrength, MIN_LINK_PAIRS, type HealthLink } from '@/lib/insights';
 import { spacing, useTheme } from '@/lib/theme';
-
-/** How strong a correlation of this size reads. Below the first it is "hardly any". */
-const STRENGTHS = [
-  { below: 0.1, key: 'none' },
-  { below: 0.3, key: 'weak' },
-  { below: 0.5, key: 'medium' },
-  { below: Infinity, key: 'strong' },
-] as const;
-
-function strength(r: number): (typeof STRENGTHS)[number]['key'] {
-  return STRENGTHS.find((s) => Math.abs(r) < s.below)!.key;
-}
 
 /**
  * Correlation of each value with the mood, on the same day and one step later. A bar grows left
@@ -30,7 +18,7 @@ export function HealthLinksCard({ links }: { links: HealthLink[] }) {
     <InsightCard title={t('insights.healthStats.links.title')} empty={sorted.length === 0 ? t('insights.healthStats.links.empty', { count: MIN_LINK_PAIRS }) : null}>
       {sorted.map((link) => {
         const title = t(`insights.healthStats.links.pairing.${link.metric}.${link.pairing}`);
-        const level = strength(link.r);
+        const level = linkStrength(link.r);
         const sentence =
           level === 'none'
             ? t('insights.healthStats.links.none')

@@ -10,6 +10,13 @@ export interface EntryFacts {
   activity_ids: readonly number[];
   note_title?: string | null;
   note?: string | null;
+  scales?: readonly { scale_id: number; value: number }[];
+}
+
+/** All values one scale got on a day; whether they add up or average depends on its kind, see `scaleDayValue`. */
+export interface ScaleDayValues {
+  sum: number;
+  count: number;
 }
 
 /**
@@ -26,19 +33,36 @@ export interface InsightDay {
   /** Number of entries on the day. */
   count: number;
   activities: ReadonlySet<number>;
+  /** By scale id; only scales with a value that day. */
+  scales: ReadonlyMap<number, ScaleDayValues>;
 }
 
 /** Oldest day first. */
 export function buildDays(entries: readonly EntryFacts[]): InsightDay[] {
   const moods = dayMoods(entries.map((entry) => ({ date: entry.date as DateString, level: entry.level })));
   const activities = new Map<string, Set<number>>();
+  const scales = new Map<string, Map<number, ScaleDayValues>>();
   for (const entry of entries) {
     const set = activities.get(entry.date) ?? new Set<number>();
     for (const id of entry.activity_ids) set.add(id);
     activities.set(entry.date, set);
+    if (!entry.scales?.length) continue;
+    const values = scales.get(entry.date) ?? new Map<number, ScaleDayValues>();
+    for (const { scale_id, value } of entry.scales) {
+      const previous = values.get(scale_id);
+      values.set(scale_id, { sum: (previous?.sum ?? 0) + value, count: (previous?.count ?? 0) + 1 });
+    }
+    scales.set(entry.date, values);
   }
   return [...moods.values()]
-    .map((day) => ({ date: day.date, mean: day.mean, level: day.level, count: day.count, activities: activities.get(day.date) ?? new Set<number>() }))
+    .map((day) => ({
+      date: day.date,
+      mean: day.mean,
+      level: day.level,
+      count: day.count,
+      activities: activities.get(day.date) ?? new Set<number>(),
+      scales: scales.get(day.date) ?? new Map<number, ScaleDayValues>(),
+    }))
     .sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
 }
 

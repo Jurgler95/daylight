@@ -172,7 +172,8 @@
     "scaleValue": "{{value}} von {{max}}",
     "scaleLine": "{{name}} {{value}} von {{max}}",
     "scaleEmpty": "Keine Angabe",
-    "moreHint": "Mehr festhalten? Eigene Skalen wie Energie oder Schlaf und neue Gruppen kannst du jederzeit anlegen.",
+    "manageActivities": "Aktivitäten und Gruppen verwalten",
+    "manageScales": "Skalen verwalten",
     "dayTaken": "Für diesen Tag gibt es schon einen Eintrag. Pro Tag ist ein Eintrag möglich.",
     "turningLost": "Dieser Tag ist der Wendepunkt „{{title}}“. Ohne Eintrag an diesem Tag wird er mit gelöscht.",
     "turningMoveTitle": "Wendepunkt geht verloren",
@@ -230,8 +231,11 @@
     "newActivity": "Neue Aktivität",
     "newGroup": "Neue Gruppe",
     "newScale": "Neue Skala",
-    "newScaleRange": "Bereich der neuen Skala",
+    "newScaleRange": "Art der neuen Skala",
     "range": "{{min}} bis {{max}}",
+    "duration": "Dauer",
+    "durationHint": "Stunden und Minuten, zum Beispiel für Arbeit, Training oder Lesen.",
+    "scaleInsights": "Auswertung ansehen",
     "archived": "Archiviert",
     "archive": "Archivieren",
     "archiveMoodHint": "Nicht mehr zur Auswahl, alte Einträge behalten sie.",
@@ -296,6 +300,7 @@
       "mood": "Stimmung",
       "patterns": "Muster",
       "activities": "Aktivitäten",
+      "scales": "Skalen",
       "health": "Gesundheit",
       "links": "Zusammenhänge",
       "notes": "Notizen"
@@ -594,6 +599,51 @@
           "exercise": "Weniger Training"
         },
         "empty": "Noch keine Aktivität mit deutlichem Unterschied"
+      }
+    },
+    "scales": {
+      "pick": "Skala wählen",
+      "emptyRange": "In diesem Zeitraum hat keine Skala einen Wert",
+      "trend": "Verlauf der Skala",
+      "weekdays": "Skala nach Wochentag",
+      "mood": {
+        "title": "Stimmung je Wert",
+        "days_one": "{{count}} Tag",
+        "days_other": "{{count}} Tage",
+        "a11y": "{{value}}: Stimmung im Schnitt {{mood}}, {{count}} Tage",
+        "hint": "Durchschnittliche Stimmung der Tage mit diesem Wert. Ohne Balken: weniger als {{count}} Tage."
+      },
+      "bucket": {
+        "over": "ab {{value}}",
+        "under": "unter {{value}}",
+        "between": "{{from}} bis {{to}}"
+      },
+      "links": {
+        "few": "Für einen Zusammenhang mit der Stimmung braucht es mindestens {{count}} Tage mit Wert",
+        "same": {
+          "title": "Am selben Tag",
+          "up": "{{scale}} höher, Stimmung besser ({{strength}})",
+          "down": "{{scale}} höher, Stimmung schlechter ({{strength}})"
+        },
+        "next": {
+          "title": "Am Folgetag",
+          "up": "{{scale}} höher, Stimmung am Folgetag besser ({{strength}})",
+          "down": "{{scale}} höher, Stimmung am Folgetag schlechter ({{strength}})"
+        }
+      },
+      "activities": {
+        "title": "Aktivitäten und Skala",
+        "higher": "{{scale}} höher mit",
+        "lower": "{{scale}} niedriger mit"
+      },
+      "split": {
+        "title": "Skalen an guten und schwierigen Tagen",
+        "empty": "Noch zu wenige gute oder schwierige Tage mit Skalenwerten",
+        "hint": "Schnitt an Tagen ab {{good}} gegen Tage bis {{hard}}."
+      },
+      "compare": {
+        "title": "Skalen an diesen Tagen",
+        "row": "Im Schnitt {{with}} statt {{without}} an anderen Tagen ({{count}} Tage)"
       }
     }
   },

@@ -1,4 +1,4 @@
-import type { MoodLevel } from '@/db/schema';
+import type { MoodLevel, ScaleKind } from '@/db/schema';
 import type { DateString } from '@/lib/dates';
 import { FALLBACK_ACTIVITY_ICON, type IconName } from '@/lib/icons';
 import { fold } from '@/lib/search/fold';
@@ -20,7 +20,7 @@ export interface Catalog {
   groups: readonly { id: number; name: string }[];
   /** In display order (group order, then order inside the group). */
   activities: readonly { id: number; group_id: number; name: string }[];
-  scales: readonly { id: number; name: string }[];
+  scales: readonly { id: number; name: string; kind: ScaleKind }[];
   /** `entryKey` of the entries already stored, with how many entries share it. */
   entryKeys: ReadonlyMap<string, number>;
   /** Photo file names already stored, so a second import of the same backup brings none twice. */

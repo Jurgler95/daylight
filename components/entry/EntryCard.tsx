@@ -6,6 +6,7 @@ import { MoodBadge } from '@/components/mood/MoodBadge';
 import { Photo } from '@/components/photo/Photo';
 import { AppText, Card, PressableScale } from '@/components/ui';
 import type { EntryDetails } from '@/db/repositories/entries';
+import type { Scale } from '@/db/schema';
 import type { Catalog } from '@/lib/catalog/catalog';
 import { haptics } from '@/lib/haptics';
 import type { IconName } from '@/lib/icons';
@@ -14,8 +15,8 @@ import { moodColors, radius, spacing, useTheme } from '@/lib/theme';
 interface Props {
   entry: EntryDetails;
   catalog: Catalog;
-  /** "Energie 3 von 5". */
-  scaleLabel: (name: string, value: number, max: number) => string;
+  /** "Energie 3 von 5", "Arbeit 8 h 30 min". */
+  scaleLabel: (scale: Scale, value: number) => string;
   editLabel: string;
   /** Spoken on a photo, which opens it full screen. */
   photoLabel: string;
@@ -32,9 +33,10 @@ export function EntryCard({ entry, catalog, scaleLabel, editLabel, photoLabel, o
     // Display order (group, then order inside it), not the order they were ticked in.
     .sort((a, b) => catalog.activities.indexOf(a) - catalog.activities.indexOf(b));
   const scales = entry.scales
-    .map((value) => ({ scale: catalog.scaleById.get(value.scale_id), value: value.value }))
-    .filter((item) => item.scale !== undefined)
-    .map((item) => scaleLabel(item.scale?.name ?? '', item.value, item.scale?.max ?? 0));
+    .flatMap((value) => {
+      const scale = catalog.scaleById.get(value.scale_id);
+      return scale ? [scaleLabel(scale, value.value)] : [];
+    });
   const spoken = [mood?.label, entry.time, activities.map((a) => a.name).join(', '), scales.join(', '), entry.note_title, entry.note]
     .filter(Boolean)
     .join('. ');

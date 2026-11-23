@@ -12,6 +12,7 @@ import { healthMood, type HealthMood } from './health';
 import { healthStats, type HealthStats } from './healthStats';
 import { buildInsights, type Insights } from './overview';
 import type { InsightRange } from './range';
+import { compareScales, scaleStats, type ScaleComparison, type ScaleFacts, type ScaleInsight } from './scales';
 
 /** Every entry with its level and activities, read once per data version for all insight screens. */
 export function readInsightEntries(): EntryDetails[] {
@@ -39,6 +40,21 @@ export function useActivityDetail(activityId: number): ActivityDetail {
 
 export function useLevelDetail(level: MoodLevel): LevelDetail {
   return useQuery(() => levelDetail(readInsightDays(), level), [level]);
+}
+
+/** Each scale with values in the range of "Einblicke", in display order. */
+export function useScaleInsights(insights: Insights, scales: readonly ScaleFacts[]): ScaleInsight[] {
+  return useQuery(() => scaleStats({ scales, allDays: insights.allDays, window: insights.window, previous: insights.previous }), [insights, scales]);
+}
+
+/** Scales on the days with an activity against all other days, over the whole diary like the rest of its page. */
+export function useActivityScales(activityId: number, scales: readonly ScaleFacts[]): ScaleComparison[] {
+  return useQuery(() => compareScales(readInsightDays(), scales, (day) => day.activities.has(activityId)), [activityId, scales]);
+}
+
+/** Scales on the days at a mood level against all other days. */
+export function useLevelScales(level: MoodLevel, scales: readonly ScaleFacts[]): ScaleComparison[] {
+  return useQuery(() => compareScales(readInsightDays(), scales, (day) => day.level === level), [level, scales]);
 }
 
 export interface HealthInsights {

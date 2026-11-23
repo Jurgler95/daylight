@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { ENTRY_SOURCES } from '@/db/schema';
+import { ENTRY_SOURCES, SCALE_KINDS } from '@/db/schema';
 import { isDateString } from '@/lib/dates';
 import { isPhotoName } from '@/lib/photos/store';
 import { countByYear, TURNING_POINTS_PER_YEAR } from '@/lib/turning/rules';
@@ -11,7 +11,8 @@ import { countByYear, TURNING_POINTS_PER_YEAR } from '@/lib/turning/rules';
  * `schema_version` too). Referential integrity is checked here, before any row is written.
  * Version 2 added `entry_photos`; the photo files themselves travel next to the JSON in a ZIP.
  * `health_days` is optional and only there when the user opted in; older app versions skip it.
- * `turning_points` is optional too: backups from before they existed simply have none.
+ * `turning_points` is optional too: backups from before they existed simply have none. A scale's
+ * `kind` likewise: older backups hold ratings only.
  */
 
 export const EXPORT_SCHEMA_VERSION = 2;
@@ -48,6 +49,8 @@ export const scaleSchema = z.object({
   name,
   min: z.number().int(),
   max: z.number().int(),
+  // Backups from before durations have no kind; their scales are all ratings.
+  kind: z.enum(SCALE_KINDS).default('rating'),
   sort_order: z.number().int(),
   archived: z.boolean(),
 });

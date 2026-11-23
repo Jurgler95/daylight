@@ -145,6 +145,12 @@ describe('groups, moods, scales', () => {
     expect(() => updateScale(db, energy.id, { name: 'stress' })).toThrow(NameTakenError);
     expect(updateScale(db, energy.id, { name: 'Kraft', archived: true })).toMatchObject({ name: 'Kraft', archived: true, min: 1, max: 5 });
   });
+
+  it('gives a duration a full day in minutes, whatever range is passed', () => {
+    const { db } = setup();
+    expect(createScale(db, { name: 'Arbeit', kind: 'duration', min: 1, max: 5 })).toMatchObject({ kind: 'duration', min: 0, max: 1440 });
+    expect(createScale(db, { name: 'Energie' })).toMatchObject({ kind: 'rating', min: 0, max: 10 });
+  });
 });
 
 describe('saveEntry', () => {

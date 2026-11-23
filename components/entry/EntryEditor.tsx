@@ -8,7 +8,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { MoodPicker } from '@/components/mood/MoodPicker';
-import { AppText, Button, Card, CardMotion, EmptyState, LogoBackdrop, TextField } from '@/components/ui';
+import { AppText, Button, Card, CardMotion, EmptyState, ListRow, LogoBackdrop, TextField } from '@/components/ui';
 import { getDb } from '@/db';
 import { createActivity } from '@/db/repositories/activities';
 import type { Activity } from '@/db/schema';
@@ -24,6 +24,7 @@ import { TOUCH_TARGET, spacing, useTheme } from '@/lib/theme';
 import { ActivityGroupCard } from './ActivityGroupCard';
 import { DateTimeRows } from './DateTimeRows';
 import { PhotoField } from './PhotoField';
+import { DurationInput } from './DurationInput';
 import { ScaleInput } from './ScaleInput';
 
 /**
@@ -184,18 +185,28 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
 
           {catalog.scales.length > 0 ? (
             <Card>
-              {catalog.scales.map((scale) => (
-                <ScaleInput
-                  key={scale.id}
-                  label={scale.name}
-                  min={scale.min}
-                  max={scale.max}
-                  value={draft.scales[scale.id] ?? null}
-                  valueLabel={(value) => t('entry.scaleValue', { value, max: scale.max })}
-                  emptyLabel={t('entry.scaleEmpty')}
-                  onChange={(value) => editor.update({ scales: setScale(draft.scales, scale.id, value) })}
-                />
-              ))}
+              {catalog.scales.map((scale) =>
+                scale.kind === 'duration' ? (
+                  <DurationInput
+                    key={scale.id}
+                    label={scale.name}
+                    value={draft.scales[scale.id] ?? null}
+                    emptyLabel={t('entry.scaleEmpty')}
+                    onChange={(value) => editor.update({ scales: setScale(draft.scales, scale.id, value) })}
+                  />
+                ) : (
+                  <ScaleInput
+                    key={scale.id}
+                    label={scale.name}
+                    min={scale.min}
+                    max={scale.max}
+                    value={draft.scales[scale.id] ?? null}
+                    valueLabel={(value) => t('entry.scaleValue', { value, max: scale.max })}
+                    emptyLabel={t('entry.scaleEmpty')}
+                    onChange={(value) => editor.update({ scales: setScale(draft.scales, scale.id, value) })}
+                  />
+                ),
+              )}
             </Card>
           ) : null}
 
@@ -221,16 +232,11 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
             ) : null}
           </Card>
 
-          {/* A quiet pointer to what else a day can hold. The draft stays open underneath, and a new
+          {/* A quiet way to what else a day can hold. The draft stays open underneath, and a new
               scale or activity shows up here on the way back. */}
-          <Card tone="muted" style={styles.more}>
-            <AppText variant="caption" muted style={styles.moreHint}>
-              {t('entry.moreHint')}
-            </AppText>
-            <View style={styles.moreLinks}>
-              <Button label={t('manage.scales')} variant="ghost" onPress={() => router.push('/more/scales')} />
-              <Button label={t('manage.activities')} variant="ghost" onPress={() => router.push('/more/activities')} />
-            </View>
+          <Card tone="muted">
+            <ListRow icon="pricetags-outline" label={t('entry.manageActivities')} onPress={() => router.push('/more/activities')} />
+            <ListRow icon="options-outline" label={t('entry.manageScales')} onPress={() => router.push('/more/scales')} />
           </Card>
 
           {!editor.isNew ? <Button label={t('entry.delete')} variant="ghost" onPress={remove} /> : null}
@@ -252,7 +258,4 @@ const styles = StyleSheet.create({
   },
   close: { width: TOUCH_TARGET, height: TOUCH_TARGET, borderRadius: TOUCH_TARGET / 2, alignItems: 'center', justifyContent: 'center' },
   content: { padding: spacing.lg, gap: spacing.lg },
-  more: { alignItems: 'center', gap: 0, paddingHorizontal: spacing.lg, paddingTop: spacing.md, paddingBottom: spacing.xs },
-  moreHint: { textAlign: 'center' },
-  moreLinks: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' },
 });

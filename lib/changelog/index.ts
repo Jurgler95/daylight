@@ -26,6 +26,54 @@ export function changesIn(release: Release, language: Language): string[] {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.34',
+    date: '2026-11-23',
+    changes: {
+      de: [
+        'Die Einblicke haben einen eigenen Bereich „Skalen“ mit Verlauf, Wochentagen und der Stimmung je Wert',
+        'Dort steht auch, welche Aktivitäten mit höheren oder niedrigeren Werten einhergehen und wie sich gute und schwierige Tage unterscheiden',
+        'Die Seiten zu Aktivitäten und Stimmungen vergleichen deine Skalen mit den übrigen Tagen',
+        'Eine neue Skala kann eine Dauer in Stunden und Minuten erfassen, etwa für Arbeit oder Lesen',
+        'Unten im Eintrag führen zwei Zeilen direkt zu Aktivitäten und Skalen',
+      ],
+      en: [
+        'Insights have their own “Scales” section with the course over time, weekdays and the mood for each value',
+        'It also shows which activities go with higher or lower values and how good and hard days differ',
+        'The pages for activities and moods compare your scales with all other days',
+        'A new scale can record a duration in hours and minutes, for work or reading for example',
+        'At the bottom of an entry, two rows lead straight to activities and scales',
+      ],
+      es: [
+        'Los análisis tienen una sección «Escalas» con evolución, días de la semana y ánimo por valor',
+        'Muestra qué actividades van con valores altos o bajos y cómo difieren los días buenos y difíciles',
+        'Las páginas de actividades y estados de ánimo comparan tus escalas con el resto de días',
+        'Una escala nueva puede registrar una duración en horas y minutos',
+        'Al final de cada entrada, dos filas llevan directamente a actividades y escalas',
+      ],
+      pt: [
+        'As análises têm uma seção própria “Escalas” com a evolução, os dias da semana e o humor para cada valor',
+        'Lá também aparece quais atividades combinam com valores mais altos ou mais baixos e como os dias bons e difíceis se diferenciam',
+        'As páginas de atividades e humores comparam suas escalas com os demais dias',
+        'Uma escala nova pode registrar uma duração em horas e minutos, por exemplo para trabalho ou leitura',
+        'No fim de cada registro, duas linhas levam direto para atividades e escalas',
+      ],
+      fr: [
+        'Les aperçus ont une section « Échelles » avec l’évolution, les jours et l’humeur par valeur',
+        'Elle montre les activités liées aux valeurs hautes ou basses et l’écart entre bons et mauvais jours',
+        'Les pages des activités et des humeurs comparent tes échelles avec les autres jours',
+        'Une nouvelle échelle peut enregistrer une durée en heures et minutes',
+        'En bas d’une entrée, deux lignes mènent directement aux activités et aux échelles',
+      ],
+      it: [
+        'Le analisi hanno una sezione propria «Scale» con l’andamento, i giorni della settimana e l’umore per ogni valore',
+        'Lì si vede anche quali attività vanno con valori più alti o più bassi e in cosa differiscono i giorni buoni e difficili',
+        'Le pagine di attività e umori confrontano le tue scale con gli altri giorni',
+        'Una nuova scala può registrare una durata in ore e minuti, per esempio per il lavoro o la lettura',
+        'In fondo a una voce, due righe portano direttamente ad attività e scale',
+      ],
+    },
+  },
+  {
     version: '1.0.33',
     date: '2026-11-17',
     changes: {

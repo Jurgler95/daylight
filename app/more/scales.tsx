@@ -13,25 +13,27 @@ import { scales as scalesTable, type Scale } from '@/db/schema';
 import { useManageWrite } from '@/lib/manage/useManageWrite';
 import { useQuery } from '@/lib/store/dataVersion';
 
-/** The two ranges on offer: a short one like Daylio's, and the 0 to 10 Zyklus uses. */
-const RANGES = [
-  { key: '1-5', min: 1, max: 5 },
-  { key: '0-10', min: 0, max: 10 },
+/** What a new scale can be: a short rating like Daylio's, the 0 to 10 Zyklus uses, or hours and minutes. */
+const KINDS = [
+  { key: '1-5', kind: 'rating', min: 1, max: 5 },
+  { key: '0-10', kind: 'rating', min: 0, max: 10 },
+  { key: 'duration', kind: 'duration', min: 0, max: 0 },
 ] as const;
 
-type RangeKey = (typeof RANGES)[number]['key'];
+type KindKey = (typeof KINDS)[number]['key'];
 
 /** Own values like energy or stress. Each appears in the editor below the activities. */
 export default function ScalesScreen() {
   const { t } = useTranslation();
   const write = useManageWrite();
-  const [range, setRange] = useState<RangeKey>('1-5');
+  const [choice, setChoice] = useState<KindKey>('1-5');
   const all = useQuery(() => listScales(getDb(), { includeArchived: true }), []);
   const active = all.filter((scale) => !scale.archived);
   const archived = all.filter((scale) => scale.archived);
+  const scaleMeta = (scale: Scale) => (scale.kind === 'duration' ? t('manage.duration') : t('manage.range', { min: scale.min, max: scale.max }));
   const open = (id: number) => router.push({ pathname: '/more/scale/[id]', params: { id: String(id) } });
   const row = (scale: Scale) => (
-    <ManageRow key={scale.id} label={scale.name} meta={t('manage.range', { min: scale.min, max: scale.max })} onPress={() => open(scale.id)} />
+    <ManageRow key={scale.id} label={scale.name} meta={scaleMeta(scale)} onPress={() => open(scale.id)} />
   );
 
   return (
@@ -49,16 +51,19 @@ export default function ScalesScreen() {
         />
         <Segmented
           label={t('manage.newScaleRange')}
-          options={RANGES.map((option) => ({ value: option.key, label: t('manage.range', { min: option.min, max: option.max }) }))}
-          value={range}
-          onChange={setRange}
+          options={KINDS.map((option) => ({
+            value: option.key,
+            label: option.kind === 'duration' ? t('manage.duration') : t('manage.range', { min: option.min, max: option.max }),
+          }))}
+          value={choice}
+          onChange={setChoice}
         />
         <AddRow
           placeholder={t('manage.newScale')}
           addLabel={t('manage.add')}
           onAdd={(name) => {
-            const { min, max } = RANGES.find((option) => option.key === range) ?? RANGES[0];
-            return write(() => createScale(getDb(), { name, min, max }));
+            const { kind, min, max } = KINDS.find((option) => option.key === choice) ?? KINDS[0];
+            return write(() => createScale(getDb(), { name, kind, min, max }));
           }}
         />
       </Card>

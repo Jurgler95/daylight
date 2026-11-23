@@ -1,5 +1,5 @@
-import { router } from 'expo-router';
-import { useMemo, useState } from 'react';
+import { router, useLocalSearchParams } from 'expo-router';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
@@ -24,6 +24,13 @@ import { MoodLineChart } from '@/components/insights/MoodLineChart';
 import type { ActivityNames, GroupActivities } from '@/components/insights/names';
 import { PairsCard } from '@/components/insights/PairsCard';
 import { PixelsCard } from '@/components/insights/PixelsCard';
+import { ScaleActivitiesCard } from '@/components/insights/scales/ScaleActivitiesCard';
+import { ScaleMoodCard } from '@/components/insights/scales/ScaleMoodCard';
+import { ScalePicker, useScale } from '@/components/insights/scales/ScalePicker';
+import { ScaleSplitCard } from '@/components/insights/scales/ScaleSplitCard';
+import { ScaleTiles } from '@/components/insights/scales/ScaleTiles';
+import { ScaleTrendCard } from '@/components/insights/scales/ScaleTrendCard';
+import { ScaleWeekdayCard } from '@/components/insights/scales/ScaleWeekdayCard';
 import { StatTile } from '@/components/insights/StatTile';
 import { StreakCard } from '@/components/insights/StreakCard';
 import { SwingsCard } from '@/components/insights/SwingsCard';
@@ -35,7 +42,7 @@ import { useCatalog } from '@/lib/catalog/useCatalog';
 import { weekdayLabels, type DateString } from '@/lib/dates';
 import { useToday } from '@/lib/dates/useToday';
 import { formatDecimal, formatPercent, INSIGHT_RANGES, type InsightRange } from '@/lib/insights';
-import { useHealthInsights, useInsights } from '@/lib/insights/useInsights';
+import { useHealthInsights, useInsights, useScaleInsights } from '@/lib/insights/useInsights';
 import type { IconName } from '@/lib/icons';
 import { useSelectedDayStore } from '@/lib/store/selectedDay';
 import { useSettingsStore } from '@/lib/store/settingsStore';
@@ -44,12 +51,14 @@ import { spacing } from '@/lib/theme';
 
 /**
  * The page is split into sections, one shown at a time, so no single scroll runs through twenty
- * cards. Health and what links it to mood only appear once Health Connect delivered something.
+ * cards. Scales only appear once one got a value, health and what links it to mood once Health
+ * Connect delivered something.
  */
 const SECTIONS = [
   { value: 'mood', icon: 'emoticon-outline' },
   { value: 'patterns', icon: 'calendar-sync-outline' },
   { value: 'activities', icon: 'shape-outline' },
+  { value: 'scales', icon: 'tune-vertical' },
   { value: 'health', icon: 'heart-pulse' },
   { value: 'links', icon: 'vector-link' },
   { value: 'notes', icon: 'notebook-outline' },
@@ -63,10 +72,22 @@ export default function InsightsScreen() {
   const [range, setRange] = useState<InsightRange>('90');
   const insights = useInsights(range, now);
   const health = useHealthInsights(insights, now);
-  const [picked, setSection] = useState<Section>('mood');
-  const sections = SECTIONS.filter((section) => health || !HEALTH_SECTIONS.includes(section.value));
-  const section = sections.some((s) => s.value === picked) ? picked : 'mood';
   const catalog = useCatalog();
+  // Archived scales too: their old values still belong to the diary.
+  const allScales = useMemo(() => [...catalog.scaleById.values()], [catalog]);
+  const scaleInsights = useScaleInsights(insights, allScales);
+  const [scale, setScale] = useScale(scaleInsights);
+  const hasScales = useMemo(() => insights.allDays.some((day) => day.scales.size > 0), [insights]);
+  const [picked, setSection] = useState<Section>('mood');
+  // A scale's page links here with `section=scales&scale=<id>`.
+  const params = useLocalSearchParams<{ section?: string; scale?: string }>();
+  useEffect(() => {
+    const target = SECTIONS.find((candidate) => candidate.value === params.section);
+    if (target) setSection(target.value);
+    if (params.scale) setScale(Number(params.scale));
+  }, [params.section, params.scale]); // eslint-disable-line react-hooks/exhaustive-deps
+  const sections = SECTIONS.filter((section) => (health || !HEALTH_SECTIONS.includes(section.value)) && (hasScales || section.value !== 'scales'));
+  const section = sections.some((s) => s.value === picked) ? picked : 'mood';
   const firstDay = useSettingsStore((s) => s.settings?.first_day_of_week) ?? 1;
   const pick = useSelectedDayStore((s) => s.pick);
   const turningPoints = useTurningPoints();
@@ -168,6 +189,22 @@ export default function InsightsScreen() {
           <BeforeHardCard result={insights.beforeHard} names={names} />
           <GroupCard days={insights.days} groups={groups} names={names} />
         </>
+      ) : null}
+
+      {section === 'scales' ? (
+        scale === null ? (
+          <EmptyState icon="options-outline" label={t('insights.scales.emptyRange')} />
+        ) : (
+          <>
+            <ScaleTiles insights={scaleInsights} />
+            <ScalePicker insights={scaleInsights} value={scale.scale.id} onChange={setScale} />
+            <ScaleTrendCard insight={scale} window={insights.window} />
+            <ScaleMoodCard insight={scale} />
+            <ScaleActivitiesCard insight={scale} names={names} />
+            <ScaleWeekdayCard insight={scale} names={weekdayNames} firstDay={firstDay} />
+            <ScaleSplitCard insights={scaleInsights} goodLabel={good} hardLabel={hard} />
+          </>
+        )
       ) : null}
 
       {section === 'health' && health ? (

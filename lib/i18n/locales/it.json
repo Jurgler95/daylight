@@ -187,7 +187,8 @@
     "scaleValue": "{{value}} su {{max}}",
     "scaleLine": "{{name}} {{value}} su {{max}}",
     "scaleEmpty": "Non indicato",
-    "moreHint": "Vuoi annotare di più? Puoi creare in qualsiasi momento scale tue, come energia o sonno, e nuovi gruppi.",
+    "manageActivities": "Gestisci attività e gruppi",
+    "manageScales": "Gestisci scale",
     "dayTaken": "Per questo giorno c'è già una voce. È possibile una sola voce al giorno.",
     "turningLost": "Questo giorno è la svolta “{{title}}”. Senza una voce in questo giorno, verrà eliminata anch'essa.",
     "turningMoveTitle": "La svolta andrà persa",
@@ -249,8 +250,11 @@
     "newActivity": "Nuova attività",
     "newGroup": "Nuovo gruppo",
     "newScale": "Nuova scala",
-    "newScaleRange": "Intervallo della nuova scala",
+    "newScaleRange": "Tipo della nuova scala",
     "range": "da {{min}} a {{max}}",
+    "duration": "Durata",
+    "durationHint": "Ore e minuti, per esempio per il lavoro, l'allenamento o la lettura.",
+    "scaleInsights": "Vedi statistiche",
     "archived": "Archivio",
     "archive": "Archivia",
     "archiveMoodHint": "Non più selezionabile, le voci passate lo mantengono.",
@@ -319,6 +323,7 @@
       "mood": "Umore",
       "patterns": "Schemi",
       "activities": "Attività",
+      "scales": "Scale",
       "health": "Salute",
       "links": "Relazioni",
       "notes": "Note"
@@ -625,6 +630,52 @@
           "exercise": "Meno allenamento"
         },
         "empty": "Ancora nessuna attività con una differenza chiara"
+      }
+    },
+    "scales": {
+      "pick": "Scegli una scala",
+      "emptyRange": "Nessuna scala ha valori in questo periodo",
+      "trend": "Andamento della scala",
+      "weekdays": "Scala per giorno della settimana",
+      "mood": {
+        "title": "Umore per valore",
+        "days_one": "{{count}} giorno",
+        "days_other": "{{count}} giorni",
+        "days_many": "{{count}} giorni",
+        "a11y": "{{value}}: umore medio {{mood}}, {{count}} giorni",
+        "hint": "Umore medio dei giorni con questo valore. Senza barra: meno di {{count}} giorni."
+      },
+      "bucket": {
+        "over": "{{value}} o più",
+        "under": "meno di {{value}}",
+        "between": "da {{from}} a {{to}}"
+      },
+      "links": {
+        "few": "Per una relazione con l’umore servono almeno {{count}} giorni con un valore",
+        "same": {
+          "title": "Stesso giorno",
+          "up": "{{scale}} più alto, umore migliore ({{strength}})",
+          "down": "{{scale}} più alto, umore peggiore ({{strength}})"
+        },
+        "next": {
+          "title": "Giorno dopo",
+          "up": "{{scale}} più alto, umore migliore il giorno dopo ({{strength}})",
+          "down": "{{scale}} più alto, umore peggiore il giorno dopo ({{strength}})"
+        }
+      },
+      "activities": {
+        "title": "Attività e scala",
+        "higher": "{{scale}} più alto con",
+        "lower": "{{scale}} più basso con"
+      },
+      "split": {
+        "title": "Scale nei giorni buoni e difficili",
+        "empty": "Ancora pochi giorni buoni o difficili con valori",
+        "hint": "Media dei giorni da {{good}} contro i giorni fino a {{hard}}."
+      },
+      "compare": {
+        "title": "Scale in questi giorni",
+        "row": "In media {{with}} invece di {{without}} negli altri giorni ({{count}} giorni)"
       }
     }
   },

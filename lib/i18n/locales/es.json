@@ -187,7 +187,8 @@
     "scaleValue": "{{value}} de {{max}}",
     "scaleLine": "{{name}} {{value}} de {{max}}",
     "scaleEmpty": "Sin indicar",
-    "moreHint": "¿Quieres registrar más? Puedes crear en cualquier momento tus propias escalas, como energía o sueño, y nuevos grupos.",
+    "manageActivities": "Gestionar actividades y grupos",
+    "manageScales": "Gestionar escalas",
     "dayTaken": "Ya hay una entrada para este día. Solo se puede hacer una entrada por día.",
     "turningLost": "Este día es el punto de inflexión “{{title}}”. Sin una entrada en este día, también se borrará.",
     "turningMoveTitle": "Se perderá el punto de inflexión",
@@ -249,8 +250,11 @@
     "newActivity": "Nueva actividad",
     "newGroup": "Nuevo grupo",
     "newScale": "Nueva escala",
-    "newScaleRange": "Rango de la nueva escala",
+    "newScaleRange": "Tipo de la nueva escala",
     "range": "{{min}} a {{max}}",
+    "duration": "Duración",
+    "durationHint": "Horas y minutos, por ejemplo para el trabajo, el entrenamiento o la lectura.",
+    "scaleInsights": "Ver estadísticas",
     "archived": "Archivado",
     "archive": "Archivar",
     "archiveMoodHint": "Ya no se puede elegir, las entradas antiguas lo conservan.",
@@ -319,6 +323,7 @@
       "mood": "Ánimo",
       "patterns": "Patrones",
       "activities": "Actividades",
+      "scales": "Escalas",
       "health": "Salud",
       "links": "Relaciones",
       "notes": "Notas"
@@ -625,6 +630,52 @@
           "exercise": "Menos ejercicio"
         },
         "empty": "Aún no hay ninguna actividad con una diferencia clara"
+      }
+    },
+    "scales": {
+      "pick": "Elegir escala",
+      "emptyRange": "Ninguna escala tiene valores en este periodo",
+      "trend": "Evolución de la escala",
+      "weekdays": "Escala por día de la semana",
+      "mood": {
+        "title": "Ánimo según el valor",
+        "days_one": "{{count}} día",
+        "days_other": "{{count}} días",
+        "days_many": "{{count}} días",
+        "a11y": "{{value}}: ánimo medio {{mood}}, {{count}} días",
+        "hint": "Ánimo medio de los días con este valor. Sin barra: menos de {{count}} días."
+      },
+      "bucket": {
+        "over": "{{value}} o más",
+        "under": "menos de {{value}}",
+        "between": "de {{from}} a {{to}}"
+      },
+      "links": {
+        "few": "Para una relación con el ánimo hacen falta al menos {{count}} días con valor",
+        "same": {
+          "title": "El mismo día",
+          "up": "{{scale}} más alto, mejor ánimo ({{strength}})",
+          "down": "{{scale}} más alto, peor ánimo ({{strength}})"
+        },
+        "next": {
+          "title": "Al día siguiente",
+          "up": "{{scale}} más alto, mejor ánimo al día siguiente ({{strength}})",
+          "down": "{{scale}} más alto, peor ánimo al día siguiente ({{strength}})"
+        }
+      },
+      "activities": {
+        "title": "Actividades y escala",
+        "higher": "{{scale}} más alto con",
+        "lower": "{{scale}} más bajo con"
+      },
+      "split": {
+        "title": "Escalas en días buenos y difíciles",
+        "empty": "Aún hay pocos días buenos o difíciles con valores de escala",
+        "hint": "Media en días desde {{good}} frente a días hasta {{hard}}."
+      },
+      "compare": {
+        "title": "Escalas en estos días",
+        "row": "De media {{with}} en vez de {{without}} en otros días ({{count}} días)"
       }
     }
   },

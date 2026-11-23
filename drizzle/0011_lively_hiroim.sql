@@ -1,0 +1,1 @@
+ALTER TABLE `scales` ADD `kind` text DEFAULT 'rating' NOT NULL;

@@ -4,13 +4,14 @@ import { StyleSheet, View } from 'react-native';
 
 import { ActivityLine } from '@/components/insights/ActivityLine';
 import { InsightCard } from '@/components/insights/InsightCard';
+import { ScaleCompareCard } from '@/components/insights/scales/ScaleCompareCard';
 import { MoodBadge } from '@/components/mood/MoodBadge';
 import { AppText, Card, Screen } from '@/components/ui';
 import { MOOD_LEVELS, type MoodLevel } from '@/db/schema';
 import { activityLabel, levelMood } from '@/lib/catalog/catalog';
 import { useCatalog } from '@/lib/catalog/useCatalog';
 import { formatPercent, type LevelActivity } from '@/lib/insights';
-import { readInsightDays, useLevelDetail } from '@/lib/insights/useInsights';
+import { readInsightDays, useLevelDetail, useLevelScales } from '@/lib/insights/useInsights';
 import type { IconName } from '@/lib/icons';
 import { useQuery } from '@/lib/store/dataVersion';
 import { spacing } from '@/lib/theme';
@@ -22,6 +23,7 @@ export default function MoodInsightScreen() {
   const level = (MOOD_LEVELS.find((candidate) => String(candidate) === params.level) ?? 3) as MoodLevel;
   const catalog = useCatalog();
   const detail = useLevelDetail(level);
+  const scales = useLevelScales(level, catalog.scales);
   const total = useQuery(() => readInsightDays().length, []);
   const mood = levelMood(catalog, level);
 
@@ -52,6 +54,7 @@ export default function MoodInsightScreen() {
       </Card>
       {detail.days ? (
         <>
+          <ScaleCompareCard comparisons={scales} />
           <InsightCard title={t('insights.level.typical')}>{rows(detail.typical)}</InsightCard>
           <InsightCard title={t('insights.level.rare')}>{rows(detail.rare)}</InsightCard>
         </>

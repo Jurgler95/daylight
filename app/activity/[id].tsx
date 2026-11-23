@@ -7,12 +7,13 @@ import { DayList } from '@/components/insights/DayList';
 import { InsightCard } from '@/components/insights/InsightCard';
 import { LevelBar } from '@/components/insights/LevelBar';
 import { MiniBars } from '@/components/insights/MiniBars';
+import { ScaleCompareCard } from '@/components/insights/scales/ScaleCompareCard';
 import { AppText, Button, Card, EmptyState, Screen } from '@/components/ui';
 import { activityLabel, levelMood } from '@/lib/catalog/catalog';
 import { useCatalog } from '@/lib/catalog/useCatalog';
 import { formatMonthLong, formatMonthNarrow, weekdayLabels, type DateString } from '@/lib/dates';
 import { formatDecimal, formatPercent, orderWeekdays, type ActivityEffect } from '@/lib/insights';
-import { readInsightDays, useActivityDetail } from '@/lib/insights/useInsights';
+import { readInsightDays, useActivityDetail, useActivityScales } from '@/lib/insights/useInsights';
 import type { IconName } from '@/lib/icons';
 import { useQuery } from '@/lib/store/dataVersion';
 import { useSelectedDayStore } from '@/lib/store/selectedDay';
@@ -25,6 +26,7 @@ export default function ActivityInsightScreen() {
   const activityId = Number(id);
   const catalog = useCatalog();
   const detail = useActivityDetail(activityId);
+  const scales = useActivityScales(activityId, catalog.scales);
   const total = useQuery(() => readInsightDays().length, []);
   const firstDay = useSettingsStore((s) => s.settings?.first_day_of_week) ?? 1;
   const pick = useSelectedDayStore((s) => s.pick);
@@ -68,6 +70,7 @@ export default function ActivityInsightScreen() {
             {next ? <AppText>{next}</AppText> : null}
             {!same && !next ? <AppText muted>{t('insights.activity.few')}</AppText> : null}
           </InsightCard>
+          <ScaleCompareCard comparisons={scales} />
           <InsightCard title={t('insights.activity.weekdays')}>
             <MiniBars
               values={weekdays.map((day) => day.share)}

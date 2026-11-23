@@ -1,8 +1,9 @@
 import { asc, eq, max } from 'drizzle-orm';
 
+import { DURATION_MAX_MINUTES } from '@/lib/scales/duration';
 import { fold } from '@/lib/search/fold';
 
-import { scales, type Scale } from '../schema';
+import { scales, type Scale, type ScaleKind } from '../schema';
 import { NameTakenError, RepositoryError, type Database } from '../types';
 import { assertName } from '../validate';
 
@@ -15,16 +16,20 @@ export function listScales(db: Database, options: { includeArchived?: boolean } 
     .all();
 }
 
-/** Returns the existing scale when the folded name is already taken. */
-export function createScale(db: Database, input: { name: string; min?: number; max?: number }): Scale {
+/**
+ * Returns the existing scale when the folded name is already taken. A duration always spans 0 to
+ * a full day in minutes, whatever range is passed.
+ */
+export function createScale(db: Database, input: { name: string; min?: number; max?: number; kind?: ScaleKind }): Scale {
   const name = assertName(input.name);
   const existing = listScales(db, { includeArchived: true }).find((scale) => fold(scale.name) === fold(name));
   if (existing) return existing;
-  const min = input.min ?? 0;
-  const maxValue = input.max ?? 10;
+  const kind = input.kind ?? 'rating';
+  const min = kind === 'duration' ? 0 : (input.min ?? 0);
+  const maxValue = kind === 'duration' ? DURATION_MAX_MINUTES : (input.max ?? 10);
   if (!Number.isInteger(min) || !Number.isInteger(maxValue) || min >= maxValue) throw new RepositoryError('scale needs integer min < max');
   const last = db.select({ value: max(scales.sort_order) }).from(scales).get()?.value ?? -1;
-  return db.insert(scales).values({ name, min, max: maxValue, sort_order: last + 1 }).returning().get();
+  return db.insert(scales).values({ name, min, max: maxValue, kind, sort_order: last + 1 }).returning().get();
 }
 
 /** Renames or archives a scale. Its range stays as created, so stored values always fit it. */

@@ -75,6 +75,10 @@ const TABS: Record<string, string[]> = {
   Aktivitäten: ['Häufigkeit', 'Stimmung mit und ohne', 'Am Folgetag', 'Oft zusammen', 'Vor schwierigen Tagen', 'Gruppenblick'],
   Notizen: ['Wörter', 'Umfang'],
 };
+/** The sample year records energy on most days. */
+const SCALE_TABS: Record<string, string[]> = {
+  Skalen: ['Verlauf der Skala', 'Stimmung je Wert', 'Aktivitäten und Skala', 'Skala nach Wochentag', 'Skalen an guten und schwierigen Tagen'],
+};
 const HEALTH_TABS: Record<string, string[]> = {
   Gesundheit: ['Verlauf der Werte', 'Ziele und Serien', 'Werte nach Wochentag', 'Bestwerte'],
   Zusammenhänge: ['Stimmung nach Schlaf und Bewegung', 'Gute und schwierige Tage', 'Stimmung und Körper', 'Aktivitäten und Körper'],
@@ -103,7 +107,7 @@ describe('insight screens', () => {
     use(db);
     await render(<InsightsScreen />);
     expect(screen.queryByRole('tab', { name: 'Gesundheit' })).toBeNull();
-    for (const [tab, titles] of Object.entries(TABS)) {
+    for (const [tab, titles] of Object.entries({ ...TABS, ...SCALE_TABS })) {
       await openTab(tab);
       for (const title of titles) expect(screen.getByText(title)).toBeTruthy();
       await everyRange();
@@ -113,6 +117,7 @@ describe('insight screens', () => {
     mockParams = { id: String(activity.id) };
     await render(<ActivityInsightScreen />);
     expect(screen.getByText('Begleiter')).toBeTruthy();
+    expect(screen.getByText('Skalen an diesen Tagen')).toBeTruthy();
     expect(screen.queryByText(/NaN|undefined|insights\./)).toBeNull();
     for (const level of ['1', '2', '3', '4', '5']) {
       mockParams = { level };

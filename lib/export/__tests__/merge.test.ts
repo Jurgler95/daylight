@@ -1,4 +1,4 @@
-import { countRows, createEntry, listMoods } from '@/db/repositories';
+import { countRows, createEntry, createScale, listEntryDetails, listMoods, listScales } from '@/db/repositories';
 import { createTestDb } from '@/db/testDb';
 
 import { applyImport, buildExport, parseImport, previewImport } from '../index';
@@ -29,5 +29,20 @@ describe('JSON merge dedupe', () => {
     const payload = parseImport(JSON.stringify(buildExport(db, '1')));
     expect(applyImport(db, payload, 'merge')).toEqual({ added: 0, duplicates: 4 });
     expect(countRows(db).entries).toBe(4);
+  });
+});
+
+describe('JSON merge of scales', () => {
+  it('keeps a duration apart from a rating of the same name', () => {
+    const source = createTestDb();
+    const work = createScale(source, { name: 'Arbeit', kind: 'duration' });
+    const mood = listMoods(source)[0]!;
+    createEntry(source, { date: '2026-03-02', time: '20:00', mood_id: mood.id, scales: [{ scale_id: work.id, value: 510 }] });
+    const target = createTestDb();
+    createScale(target, { name: 'arbeit', min: 1, max: 5 });
+    applyImport(target, parseImport(JSON.stringify(buildExport(source, '1'))), 'merge');
+    const duration = listScales(target).find((scale) => scale.kind === 'duration');
+    expect(duration).toMatchObject({ name: 'Arbeit', max: 1440 });
+    expect(listEntryDetails(target)[0]?.scales).toEqual([{ scale_id: duration?.id, value: 510 }]);
   });
 });

@@ -1,4 +1,4 @@
-export { buildDays, byDate, dayTexts, type EntryFacts, type InsightDay } from './days';
+export { buildDays, byDate, dayTexts, type EntryFacts, type InsightDay, type ScaleDayValues } from './days';
 export { mean, median, shrinkFactor, standardDeviation, SHRINK_K } from './stats';
 export { daysIn, inWindow, INSIGHT_RANGES, previousWindow, rangeWindow, windowLength, type DayWindow, type InsightRange } from './range';
 export { monthMeans, moodDistribution, moodSeries, overallMean, ROLLING_DAYS, type LevelShare, type MonthMean, type MoodPoint } from './mood';
@@ -33,6 +33,7 @@ export {
   HEALTH_METRICS,
   healthStats,
   LINK_PAIRINGS,
+  linkStrength,
   metricValue,
   MIN_LINK_PAIRS,
   RECORD_KEYS,
@@ -49,8 +50,24 @@ export {
   type HealthRecord,
   type HealthStats,
   type LinkPairing,
+  type LinkStrength,
   type MetricSummary,
   type MetricWeekday,
   type MoodSplit,
   type RecordKey,
+  valueEffects,
 } from './healthStats';
+export {
+  compareScales,
+  DURATION_BUCKETS,
+  scaleDayValue,
+  scaleStats,
+  type ScaleBucket,
+  type ScaleComparison,
+  type ScaleFacts,
+  type ScaleInsight,
+  type ScaleLink,
+  type ScaleSplit,
+  type ScaleStatsInput,
+  type ScaleSummary,
+} from './scales';

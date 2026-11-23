@@ -25,6 +25,7 @@ import { useDayLabel } from '@/lib/calendar/useDayLabel';
 import { useCalendarMarkers } from '@/lib/calendar/useDayMarkers';
 import { addDaysToDateString, daysBetween, formatLong, type DateString } from '@/lib/dates';
 import { useToday } from '@/lib/dates/useToday';
+import { formatDuration } from '@/lib/health/format';
 import { useHealthDay } from '@/lib/health/useHealthDays';
 import { useOutlook } from '@/lib/outlook/useOutlook';
 import { useQuery } from '@/lib/store/dataVersion';
@@ -141,7 +142,9 @@ export default function TodayScreen() {
                 key={entry.id}
                 entry={entry}
                 catalog={catalog}
-                scaleLabel={(name, value, max) => t('entry.scaleLine', { name, value, max })}
+                scaleLabel={(scale, value) =>
+                  scale.kind === 'duration' ? `${scale.name} ${formatDuration(value)}` : t('entry.scaleLine', { name: scale.name, value, max: scale.max })
+                }
                 editLabel={t('today.editHint')}
                 photoLabel={t('photo.open')}
                 onEdit={() => router.push({ pathname: '/entry/[id]', params: { id: String(entry.id) } })}

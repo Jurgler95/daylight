@@ -16,6 +16,8 @@ const timestamps = {
 };
 
 export const ENTRY_SOURCES = ['app', 'daylio_csv', 'json'] as const;
+/** `rating` is a row of steps from min to max; `duration` holds minutes (0 to a day). */
+export const SCALE_KINDS = ['rating', 'duration'] as const;
 export const MOOD_LEVELS = [1, 2, 3, 4, 5] as const;
 
 /** Every mood hangs on a level 1 (worst) to 5 (best), so every analysis can do arithmetic on it. */
@@ -88,6 +90,7 @@ export const scales = sqliteTable('scales', {
   name: text('name').notNull(),
   min: integer('min').notNull().default(0),
   max: integer('max').notNull().default(10),
+  kind: text('kind', { enum: SCALE_KINDS }).notNull().default('rating'),
   sort_order: integer('sort_order').notNull().default(0),
   archived: integer('archived', { mode: 'boolean' }).notNull().default(false),
 });
@@ -232,4 +235,5 @@ export type Settings = typeof settings.$inferSelect;
 export type HealthDay = typeof healthDays.$inferSelect;
 export type TurningPoint = typeof turningPoints.$inferSelect;
 export type EntrySource = (typeof ENTRY_SOURCES)[number];
+export type ScaleKind = (typeof SCALE_KINDS)[number];
 export type MoodLevel = (typeof MOOD_LEVELS)[number];

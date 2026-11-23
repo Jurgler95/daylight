@@ -172,7 +172,8 @@
     "scaleValue": "{{value}} of {{max}}",
     "scaleLine": "{{name}} {{value}} of {{max}}",
     "scaleEmpty": "Not set",
-    "moreHint": "Want to track more? You can add your own scales like energy or sleep and new groups at any time.",
+    "manageActivities": "Manage activities and groups",
+    "manageScales": "Manage scales",
     "dayTaken": "There is already an entry for this day. One entry per day is possible.",
     "turningLost": "This day is the turning point \"{{title}}\". Without an entry on this day, it will be deleted too.",
     "turningMoveTitle": "Turning point will be lost",
@@ -230,8 +231,11 @@
     "newActivity": "New activity",
     "newGroup": "New group",
     "newScale": "New scale",
-    "newScaleRange": "Range of the new scale",
+    "newScaleRange": "Type of the new scale",
     "range": "{{min}} to {{max}}",
+    "duration": "Duration",
+    "durationHint": "Hours and minutes, for example for work, workouts or reading.",
+    "scaleInsights": "See insights",
     "archived": "Archived",
     "archive": "Archive",
     "archiveMoodHint": "No longer selectable, old entries keep it.",
@@ -296,6 +300,7 @@
       "mood": "Mood",
       "patterns": "Patterns",
       "activities": "Activities",
+      "scales": "Scales",
       "health": "Health",
       "links": "Connections",
       "notes": "Notes"
@@ -594,6 +599,51 @@
           "exercise": "Less exercise"
         },
         "empty": "No activity with a clear difference yet"
+      }
+    },
+    "scales": {
+      "pick": "Pick a scale",
+      "emptyRange": "No scale has a value in this period",
+      "trend": "Scale over time",
+      "weekdays": "Scale by weekday",
+      "mood": {
+        "title": "Mood by value",
+        "days_one": "{{count}} day",
+        "days_other": "{{count}} days",
+        "a11y": "{{value}}: average mood {{mood}}, {{count}} days",
+        "hint": "Average mood of the days with this value. No bar: fewer than {{count}} days."
+      },
+      "bucket": {
+        "over": "{{value}} or more",
+        "under": "under {{value}}",
+        "between": "{{from}} to {{to}}"
+      },
+      "links": {
+        "few": "A link with mood needs at least {{count}} days with a value",
+        "same": {
+          "title": "Same day",
+          "up": "Higher {{scale}}, better mood ({{strength}})",
+          "down": "Higher {{scale}}, worse mood ({{strength}})"
+        },
+        "next": {
+          "title": "Next day",
+          "up": "Higher {{scale}}, better mood the next day ({{strength}})",
+          "down": "Higher {{scale}}, worse mood the next day ({{strength}})"
+        }
+      },
+      "activities": {
+        "title": "Activities and scale",
+        "higher": "Higher {{scale}} with",
+        "lower": "Lower {{scale}} with"
+      },
+      "split": {
+        "title": "Scales on good and hard days",
+        "empty": "Not enough good or hard days with scale values yet",
+        "hint": "Average on days from {{good}} against days up to {{hard}}."
+      },
+      "compare": {
+        "title": "Scales on these days",
+        "row": "Average {{with}} instead of {{without}} on other days ({{count}} days)"
       }
     }
   },
