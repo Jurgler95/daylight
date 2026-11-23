@@ -12,7 +12,7 @@ import { healthMood, type HealthMood } from './health';
 import { healthStats, type HealthStats } from './healthStats';
 import { buildInsights, type Insights } from './overview';
 import type { InsightRange } from './range';
-import { compareScales, scaleStats, type ScaleComparison, type ScaleFacts, type ScaleInsight } from './scales';
+import { compareScales, scaleHealthLinks, scalePairLinks, scaleStats, type ScaleComparison, type ScaleFacts, type ScaleHealthLink, type ScaleInsight, type ScalePairLink } from './scales';
 
 /** Every entry with its level and activities, read once per data version for all insight screens. */
 export function readInsightEntries(): EntryDetails[] {
@@ -45,6 +45,20 @@ export function useLevelDetail(level: MoodLevel): LevelDetail {
 /** Each scale with values in the range of "Einblicke", in display order. */
 export function useScaleInsights(insights: Insights, scales: readonly ScaleFacts[]): ScaleInsight[] {
   return useQuery(() => scaleStats({ scales, allDays: insights.allDays, window: insights.window, previous: insights.previous }), [insights, scales]);
+}
+
+export interface ScaleRelations {
+  pairs: ScalePairLink[];
+  /** Empty while nothing came from Health Connect. */
+  health: ScaleHealthLink[];
+}
+
+/** How the scales go with each other and with the health values, for the range of "Einblicke". */
+export function useScaleRelations(insights: Insights, scales: readonly ScaleFacts[], today: DateString): ScaleRelations {
+  return useQuery(() => {
+    const rows = cached('healthDays', () => listHealthDays(getDb()));
+    return { pairs: scalePairLinks(insights.days, scales), health: rows.length ? scaleHealthLinks(insights.days, scales, rows, today) : [] };
+  }, [insights, scales, today]);
 }
 
 /** Scales on the days with an activity against all other days, over the whole diary like the rest of its page. */

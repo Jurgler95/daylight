@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
@@ -5,7 +6,10 @@ import { useOutlookTexts } from '@/components/outlook/useOutlookTexts';
 import { AppText, Card, Screen, ToggleRow } from '@/components/ui';
 import { useCatalog } from '@/lib/catalog/useCatalog';
 import { useToday } from '@/lib/dates/useToday';
-import { formatDecimal } from '@/lib/insights/format';
+import { formatDecimal, formatPercent } from '@/lib/insights/format';
+import type { MoodLevel } from '@/db/schema';
+import type { TomorrowStatus } from '@/lib/outlook/tomorrow';
+import { useGoodTomorrow } from '@/lib/outlook/useGoodTomorrow';
 import { useOutlook } from '@/lib/outlook/useOutlook';
 import { useSettingsStore } from '@/lib/store/settingsStore';
 import { spacing, useTheme } from '@/lib/theme';
@@ -22,8 +26,21 @@ export default function OutlookSettingsScreen() {
   const update = useSettingsStore((s) => s.update);
   const catalog = useCatalog();
   const texts = useOutlookTexts(catalog);
-  const { outlook, modeLevel } = useOutlook(useToday());
+  const today = useToday();
+  const { outlook, modeLevel } = useOutlook(today);
+  const allScales = useMemo(() => [...catalog.scaleById.values()], [catalog]);
+  const tomorrow = useGoodTomorrow(today, allScales, true).result;
   if (!settings) return null;
+  const tomorrowStatus = (value: TomorrowStatus | undefined) => {
+    if (!value) return t('outlook.computing');
+    if (value.kind === 'tooFew') return t('outlook.tomorrow.status.tooFew', { count: value.needed, have: value.pairs });
+    if (value.kind === 'alwaysGood') return t('outlook.tomorrow.status.alwaysGood', { mood: texts.mood(value.level as MoodLevel) });
+    const mood = texts.mood(value.level as MoodLevel);
+    const shown = t('outlook.tomorrow.status.shown', { count: value.shown });
+    return value.proof
+      ? `${t('outlook.tomorrow.status.proof', { mood, hit: formatPercent(value.proof.hitRate), usual: formatPercent(value.proof.usual), count: value.proof.cases })} ${shown}`
+      : `${t('outlook.tomorrow.status.noProof', { mood })} ${shown}`;
+  };
   const scores = outlook?.status === 'ready' ? outlook.backtest.horizons : null;
   const cell = (value: number | null) => (value === null ? '' : formatDecimal(value, 2));
 
@@ -79,6 +96,15 @@ export default function OutlookSettingsScreen() {
             </AppText>
           </>
         )}
+      </Card>
+      <Card>
+        <AppText variant="headline" accessibilityRole="header">
+          {t('outlook.tomorrow.status.title')}
+        </AppText>
+        <AppText>{tomorrowStatus(tomorrow?.status)}</AppText>
+        <AppText variant="caption" muted>
+          {t('outlook.tomorrow.status.hint')}
+        </AppText>
       </Card>
       <AppText variant="caption" muted>
         {t('outlook.about')}

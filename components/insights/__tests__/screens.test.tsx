@@ -6,6 +6,8 @@ import '@/lib/i18n';
 import type { Database } from '@/db';
 import { listActivities } from '@/db/repositories';
 import { replaceHealthDays, type HealthDayInput } from '@/db/repositories/health';
+import { createScale } from '@/db/repositories/scales';
+import { entryScales } from '@/db/schema';
 import { createTestDb } from '@/db/testDb';
 import { addDaysToDateString, type DateString } from '@/lib/dates';
 import { applyDaylioImport } from '@/lib/daylio/apply';
@@ -65,6 +67,13 @@ function sampleHealth(db: Database) {
   replaceHealthDays(db, addDaysToDateString(today, -364), today, rows);
 }
 
+/** A second scale on the days with energy, running against it with a wobble, so scales can be compared with each other. */
+function sampleStress(db: Database) {
+  const stress = createScale(db, { name: 'Stress', min: 1, max: 5 });
+  const energy = db.select().from(entryScales).all();
+  if (energy.length) db.insert(entryScales).values(energy.map((row, i) => ({ entry_id: row.entry_id, scale_id: stress.id, value: Math.min(5, Math.max(1, 6 - row.value + (i % 3) - 1)) }))).run();
+}
+
 async function openTab(name: string) {
   await act(async () => fireEvent.press(screen.getByRole('tab', { name })));
 }
@@ -78,10 +87,19 @@ const TABS: Record<string, string[]> = {
 /** The sample year records energy on most days. */
 const SCALE_TABS: Record<string, string[]> = {
   Skalen: ['Verlauf der Skala', 'Stimmung je Wert', 'Aktivitäten und Skala', 'Skala nach Wochentag', 'Skalen an guten und schwierigen Tagen'],
+  Zusammenhänge: ['Skalen und Stimmung'],
 };
 const HEALTH_TABS: Record<string, string[]> = {
   Gesundheit: ['Verlauf der Werte', 'Ziele und Serien', 'Werte nach Wochentag', 'Bestwerte'],
-  Zusammenhänge: ['Stimmung nach Schlaf und Bewegung', 'Gute und schwierige Tage', 'Stimmung und Körper', 'Aktivitäten und Körper'],
+  Zusammenhänge: [
+    'Stimmung nach Schlaf und Bewegung',
+    'Gute und schwierige Tage',
+    'Stimmung und Körper',
+    'Aktivitäten und Körper',
+    'Skalen und Stimmung',
+    'Skalen untereinander',
+    'Skalen und Körper',
+  ],
 };
 
 async function everyRange() {
@@ -130,6 +148,7 @@ describe('insight screens', () => {
     const db = createTestDb();
     applySample(db, generateSample({ today }));
     sampleHealth(db);
+    sampleStress(db);
     use(db);
     await render(<InsightsScreen />);
     for (const [tab, titles] of Object.entries(HEALTH_TABS)) {

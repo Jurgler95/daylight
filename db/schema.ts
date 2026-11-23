@@ -220,6 +220,14 @@ export const turningPoints = sqliteTable('turning_points', {
   ...timestamps,
 });
 
+/**
+ * Days on which "Heute" showed the hint for a good next day, so it comes about once to four times
+ * in two weeks however long the app was closed. Not part of exports: it only paces the hint.
+ */
+export const tomorrowHints = sqliteTable('tomorrow_hints', {
+  date: text('date').primaryKey(),
+});
+
 export type Mood = typeof moods.$inferSelect;
 export type NewMood = typeof moods.$inferInsert;
 export type ActivityGroup = typeof activityGroups.$inferSelect;

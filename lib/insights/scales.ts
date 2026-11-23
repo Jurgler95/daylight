@@ -1,4 +1,4 @@
-import type { Scale } from '@/db/schema';
+import type { HealthDay, Scale } from '@/db/schema';
 import { addDaysToDateString, weekdayOf, type DateString } from '@/lib/dates';
 import { DURATION_MAX_MINUTES } from '@/lib/scales/duration';
 
@@ -9,9 +9,12 @@ import {
   correlation,
   GOOD_MIN,
   HARD_MAX,
+  HEALTH_METRICS,
   MIN_LINK_PAIRS,
+  settledValue,
   valueEffects,
   type ActivityHealth,
+  type HealthMetric,
   type HealthPoint,
   type MetricWeekday,
 } from './healthStats';
@@ -218,4 +221,62 @@ export function compareScales(days: readonly InsightDay[], scales: readonly Scal
     if (withValues.length < MIN_SIDE_DAYS || withoutValues.length < MIN_SIDE_DAYS) return [];
     return [{ scale, withMean: mean(withValues)!, withoutMean: mean(withoutValues)!, withDays: withValues.length, withoutDays: withoutValues.length }];
   });
+}
+
+/** Two scales on the same days, `a` before `b` in the order the scales were given. */
+export interface ScalePairLink {
+  a: ScaleFacts;
+  b: ScaleFacts;
+  r: number;
+  pairs: number;
+}
+
+/** Every pair of scales with `MIN_LINK_PAIRS` days carrying both, strongest first; `a` comes before `b` in the order given. */
+export function scalePairLinks(days: readonly InsightDay[], scales: readonly ScaleFacts[]): ScalePairLink[] {
+  const links: ScalePairLink[] = [];
+  scales.forEach((a, i) => {
+    for (const b of scales.slice(i + 1)) {
+      const pairs: [number, number][] = [];
+      for (const day of days) {
+        const x = scaleDayValue(day, a);
+        const y = scaleDayValue(day, b);
+        if (x !== null && y !== null) pairs.push([x, y]);
+      }
+      if (pairs.length < MIN_LINK_PAIRS) continue;
+      const r = correlation(pairs);
+      if (r !== null) links.push({ a, b, r, pairs: pairs.length });
+    }
+  });
+  return links.sort((x, y) => Math.abs(y.r) - Math.abs(x.r));
+}
+
+export interface ScaleHealthLink {
+  scale: ScaleFacts;
+  metric: HealthMetric;
+  r: number;
+  pairs: number;
+}
+
+/**
+ * Each scale against each health value of the same day, strongest first. Sleep belongs to the day
+ * it ends on, so it is the night before, as on the health cards. Today's steps and training are
+ * not final yet and stay out.
+ */
+export function scaleHealthLinks(days: readonly InsightDay[], scales: readonly ScaleFacts[], health: readonly HealthDay[], today: DateString): ScaleHealthLink[] {
+  const rows = new Map(health.map((row) => [row.date, row]));
+  const links: ScaleHealthLink[] = [];
+  for (const scale of scales) {
+    for (const metric of HEALTH_METRICS) {
+      const pairs: [number, number][] = [];
+      for (const day of days) {
+        const value = scaleDayValue(day, scale);
+        const body = settledValue(rows.get(day.date), metric, today);
+        if (value !== null && body !== null) pairs.push([body, value]);
+      }
+      if (pairs.length < MIN_LINK_PAIRS) continue;
+      const r = correlation(pairs);
+      if (r !== null) links.push({ scale, metric, r, pairs: pairs.length });
+    }
+  }
+  return links.sort((x, y) => Math.abs(y.r) - Math.abs(x.r));
 }

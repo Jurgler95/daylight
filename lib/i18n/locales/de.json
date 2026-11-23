@@ -644,6 +644,41 @@
       "compare": {
         "title": "Skalen an diesen Tagen",
         "row": "Im Schnitt {{with}} statt {{without}} an anderen Tagen ({{count}} Tage)"
+      },
+      "relations": {
+        "empty": "Für einen Zusammenhang braucht es mindestens {{count}} Tage mit beiden Werten",
+        "mood": {
+          "title": "Skalen und Stimmung",
+          "same": "{{scale}} und Stimmung am selben Tag",
+          "next": "{{scale}} und Stimmung am Folgetag"
+        },
+        "pairs": {
+          "title": "Skalen untereinander",
+          "row": "{{a}} und {{b}}",
+          "up": "{{a}} höher, {{b}} auch höher ({{strength}})",
+          "down": "{{a}} höher, {{b}} niedriger ({{strength}})"
+        },
+        "body": {
+          "title": "Skalen und Körper",
+          "row": {
+            "sleep": "{{scale}} und Schlaf der Nacht davor",
+            "steps": "{{scale}} und Schritte",
+            "restingHr": "{{scale}} und Ruhepuls",
+            "exercise": "{{scale}} und Training"
+          },
+          "up": {
+            "sleep": "Mehr Schlaf, {{scale}} höher ({{strength}})",
+            "steps": "Mehr Schritte, {{scale}} höher ({{strength}})",
+            "restingHr": "Höherer Ruhepuls, {{scale}} höher ({{strength}})",
+            "exercise": "Mehr Training, {{scale}} höher ({{strength}})"
+          },
+          "down": {
+            "sleep": "Mehr Schlaf, {{scale}} niedriger ({{strength}})",
+            "steps": "Mehr Schritte, {{scale}} niedriger ({{strength}})",
+            "restingHr": "Höherer Ruhepuls, {{scale}} niedriger ({{strength}})",
+            "exercise": "Mehr Training, {{scale}} niedriger ({{strength}})"
+          }
+        }
       }
     }
   },
@@ -678,7 +713,29 @@
     "shown": "gezeigt",
     "notShown": "nicht gezeigt",
     "cases": "{{count}} Vergleiche je Abstand",
-    "about": "Der Ausblick beschreibt, was in deinen bisherigen Einträgen oft so war. Er weiß nichts über dich, was nicht in den Einträgen steht."
+    "about": "Der Ausblick beschreibt, was in deinen bisherigen Einträgen oft so war. Er weiß nichts über dich, was nicht in den Einträgen steht.",
+    "tomorrow": {
+      "title": "Morgen stehen die Zeichen gut",
+      "bodyLikely": "Nach Tagen wie heute war der nächste Tag bei dir in {{hit}} der Fälle {{mood}} oder besser, sonst im Schnitt in {{usual}} ({{count}} Fälle).",
+      "bodyBetter": "Die Chance auf einen Tag ab {{mood}} ist besser als sonst: nach Tagen wie heute {{hit}}, sonst im Schnitt {{usual}} ({{count}} Fälle).",
+      "bodyOpen": "Heute gehört zu den Tagen, nach denen bei dir am ehesten ein Tag ab {{mood}} folgt. Wie oft das zutrifft, zeigt sich mit mehr Einträgen.",
+      "bodyAbove": "Die Chancen auf einen Tag ab {{mood}} stehen heute etwas besser als sonst. Wie oft das zutrifft, zeigt sich mit mehr Einträgen.",
+      "reasons": "Dafür spricht: {{names}}",
+      "reasonMood": "deine Stimmung heute",
+      "reasonWeekday": "morgen ist {{weekday}}",
+      "reasonSleep": "{{value}} Schlaf",
+      "reasonSteps": "gestern {{value}} Schritte",
+      "status": {
+        "title": "Hinweis auf gute Tage",
+        "hint": "Auf „Heute“ steht nach deinem Eintrag ein Hinweis, wenn der nächste Tag bessere Chancen als sonst hat, mindestens so gut wie dein Schnitt zu werden. Etwa ein- bis viermal in zwei Wochen, nie als Warnung vor einem schlechten Tag.",
+        "tooFew": "Braucht mindestens {{count}} Tage mit Eintrag, auf die ein weiterer folgt, bisher {{have}}.",
+        "proof": "Nach solchen Tagen war der nächste bisher in {{hit}} der Fälle {{mood}} oder besser, sonst in {{usual}} ({{count}} Fälle).",
+        "noProof": "Ein guter Tag ist für dich {{mood}} oder besser. Wie oft der Hinweis zutrifft, zeigt sich mit mehr Einträgen.",
+        "shown_one": "In den letzten 14 Tagen {{count}} Hinweis.",
+        "shown_other": "In den letzten 14 Tagen {{count}} Hinweise.",
+        "alwaysGood": "Fast jeder deiner Tage ist {{mood}} oder besser. Besser als sonst geht kaum, deshalb kommt der Hinweis nicht."
+      }
+    }
   },
   "lowMood": {
     "title": "Reden hilft",

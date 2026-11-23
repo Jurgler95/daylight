@@ -676,6 +676,41 @@
       "compare": {
         "title": "Escalas en estos días",
         "row": "De media {{with}} en vez de {{without}} en otros días ({{count}} días)"
+      },
+      "relations": {
+        "empty": "Para una relación hacen falta al menos {{count}} días con ambos valores",
+        "mood": {
+          "title": "Escalas y ánimo",
+          "same": "{{scale}} y ánimo el mismo día",
+          "next": "{{scale}} y ánimo al día siguiente"
+        },
+        "pairs": {
+          "title": "Escalas entre sí",
+          "row": "{{a}} y {{b}}",
+          "up": "{{a}} más alto, {{b}} también más alto ({{strength}})",
+          "down": "{{a}} más alto, {{b}} más bajo ({{strength}})"
+        },
+        "body": {
+          "title": "Escalas y cuerpo",
+          "row": {
+            "sleep": "{{scale}} y el sueño de la noche anterior",
+            "steps": "{{scale}} y pasos",
+            "restingHr": "{{scale}} y pulso en reposo",
+            "exercise": "{{scale}} y entrenamiento"
+          },
+          "up": {
+            "sleep": "Más sueño, {{scale}} más alto ({{strength}})",
+            "steps": "Más pasos, {{scale}} más alto ({{strength}})",
+            "restingHr": "Pulso en reposo más alto, {{scale}} más alto ({{strength}})",
+            "exercise": "Más entrenamiento, {{scale}} más alto ({{strength}})"
+          },
+          "down": {
+            "sleep": "Más sueño, {{scale}} más bajo ({{strength}})",
+            "steps": "Más pasos, {{scale}} más bajo ({{strength}})",
+            "restingHr": "Pulso en reposo más alto, {{scale}} más bajo ({{strength}})",
+            "exercise": "Más entrenamiento, {{scale}} más bajo ({{strength}})"
+          }
+        }
       }
     }
   },
@@ -711,7 +746,30 @@
     "shown": "se muestra",
     "notShown": "no se muestra",
     "cases": "{{count}} comparaciones por distancia",
-    "about": "La previsión describe lo que solía pasar en tus entradas hasta ahora. No sabe nada de ti que no esté en las entradas."
+    "about": "La previsión describe lo que solía pasar en tus entradas hasta ahora. No sabe nada de ti que no esté en las entradas.",
+    "tomorrow": {
+      "title": "Mañana pinta bien",
+      "bodyLikely": "Después de días como hoy, tu día siguiente fue {{mood}} o mejor en el {{hit}} de los casos; si no, en el {{usual}} de media ({{count}} casos).",
+      "bodyBetter": "La probabilidad de un día de {{mood}} o mejor es mayor que de costumbre: tras días como hoy {{hit}}; si no, {{usual}} de media ({{count}} casos).",
+      "bodyOpen": "Hoy es uno de los días tras los que es más probable para ti un día de {{mood}} o mejor. Con más entradas se verá cuánto se cumple.",
+      "bodyAbove": "Hoy tus probabilidades de un día de {{mood}} o mejor son algo mayores que de costumbre. Con más entradas se verá cuánto se cumple.",
+      "reasons": "A favor: {{names}}",
+      "reasonMood": "tu ánimo de hoy",
+      "reasonWeekday": "mañana es {{weekday}}",
+      "reasonSleep": "{{value}} de sueño",
+      "reasonSteps": "ayer {{value}} pasos",
+      "status": {
+        "title": "Aviso de días buenos",
+        "hint": "Tras tu entrada, «Hoy» muestra un aviso cuando el día siguiente tiene más probabilidades de lo habitual de ser al menos tan bueno como tu media. De una a cuatro veces cada dos semanas, nunca como advertencia de un mal día.",
+        "tooFew": "Necesita al menos {{count}} días con entrada seguidos de otro; por ahora {{have}}.",
+        "proof": "Tras días así, el siguiente fue {{mood}} o mejor en el {{hit}} de los casos hasta ahora; si no, en el {{usual}} ({{count}} casos).",
+        "noProof": "Para ti, un buen día es {{mood}} o mejor. Con más entradas se verá cuánto acierta el aviso.",
+        "shown_one": "{{count}} aviso en los últimos 14 días.",
+        "shown_other": "{{count}} avisos en los últimos 14 días.",
+        "shown_many": "{{count}} avisos en los últimos 14 días.",
+        "alwaysGood": "Casi todos tus días son {{mood}} o mejor. Apenas cabe algo mejor que lo habitual, así que el aviso no aparece."
+      }
+    }
   },
   "lowMood": {
     "title": "Hablar ayuda",

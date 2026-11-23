@@ -676,6 +676,41 @@
       "compare": {
         "title": "Scale in questi giorni",
         "row": "In media {{with}} invece di {{without}} negli altri giorni ({{count}} giorni)"
+      },
+      "relations": {
+        "empty": "Per una relazione servono almeno {{count}} giorni con entrambi i valori",
+        "mood": {
+          "title": "Scale e umore",
+          "same": "{{scale}} e umore nello stesso giorno",
+          "next": "{{scale}} e umore il giorno dopo"
+        },
+        "pairs": {
+          "title": "Scale tra loro",
+          "row": "{{a}} e {{b}}",
+          "up": "{{a}} più alto, anche {{b}} più alto ({{strength}})",
+          "down": "{{a}} più alto, {{b}} più basso ({{strength}})"
+        },
+        "body": {
+          "title": "Scale e corpo",
+          "row": {
+            "sleep": "{{scale}} e il sonno della notte prima",
+            "steps": "{{scale}} e passi",
+            "restingHr": "{{scale}} e battito a riposo",
+            "exercise": "{{scale}} e allenamento"
+          },
+          "up": {
+            "sleep": "Più sonno, {{scale}} più alto ({{strength}})",
+            "steps": "Più passi, {{scale}} più alto ({{strength}})",
+            "restingHr": "Battito a riposo più alto, {{scale}} più alto ({{strength}})",
+            "exercise": "Più allenamento, {{scale}} più alto ({{strength}})"
+          },
+          "down": {
+            "sleep": "Più sonno, {{scale}} più basso ({{strength}})",
+            "steps": "Più passi, {{scale}} più basso ({{strength}})",
+            "restingHr": "Battito a riposo più alto, {{scale}} più basso ({{strength}})",
+            "exercise": "Più allenamento, {{scale}} più basso ({{strength}})"
+          }
+        }
       }
     }
   },
@@ -711,7 +746,30 @@
     "shown": "mostrata",
     "notShown": "non mostrata",
     "cases": "{{count}} confronti per distanza",
-    "about": "La previsione descrive ciò che finora è capitato spesso nelle tue voci. Non sa nulla di te che non sia scritto nelle voci."
+    "about": "La previsione descrive ciò che finora è capitato spesso nelle tue voci. Non sa nulla di te che non sia scritto nelle voci.",
+    "tomorrow": {
+      "title": "Domani si prospetta bene",
+      "bodyLikely": "Dopo giorni come oggi, il tuo giorno dopo è stato {{mood}} o meglio nel {{hit}} dei casi, altrimenti in media nel {{usual}} ({{count}} casi).",
+      "bodyBetter": "La probabilità di un giorno da {{mood}} in su è più alta del solito: dopo giorni come oggi {{hit}}, altrimenti in media {{usual}} ({{count}} casi).",
+      "bodyOpen": "Oggi è uno dei giorni dopo cui per te è più probabile un giorno da {{mood}} in su. Quanto spesso si avvera si vedrà con più voci.",
+      "bodyAbove": "Oggi le tue probabilità di un giorno da {{mood}} in su sono un po’ più alte del solito. Quanto spesso si avvera si vedrà con più voci.",
+      "reasons": "A favore: {{names}}",
+      "reasonMood": "il tuo umore di oggi",
+      "reasonWeekday": "domani è {{weekday}}",
+      "reasonSleep": "{{value}} di sonno",
+      "reasonSteps": "ieri {{value}} passi",
+      "status": {
+        "title": "Avviso di giorni buoni",
+        "hint": "Dopo la tua voce, «Oggi» mostra un avviso quando il giorno dopo ha più probabilità del solito di essere almeno buono come la tua media. Da una a quattro volte ogni due settimane, mai come avvertimento di una brutta giornata.",
+        "tooFew": "Servono almeno {{count}} giorni con una voce seguiti da un altro, finora {{have}}.",
+        "proof": "Dopo giorni così, il successivo finora è stato {{mood}} o meglio nel {{hit}} dei casi, altrimenti nel {{usual}} ({{count}} casi).",
+        "noProof": "Per te una buona giornata è {{mood}} o meglio. Quanto spesso l’avviso si avvera si vedrà con più voci.",
+        "shown_one": "{{count}} avviso negli ultimi 14 giorni.",
+        "shown_other": "{{count}} avvisi negli ultimi 14 giorni.",
+        "shown_many": "{{count}} avvisi negli ultimi 14 giorni.",
+        "alwaysGood": "Quasi tutti i tuoi giorni sono {{mood}} o meglio. Non c’è quasi spazio per meglio del solito, quindi l’avviso non compare."
+      }
+    }
   },
   "lowMood": {
     "title": "Parlarne aiuta",

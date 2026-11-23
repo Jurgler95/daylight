@@ -676,6 +676,41 @@
       "compare": {
         "title": "Échelles ces jours-là",
         "row": "En moyenne {{with}} au lieu de {{without}} les autres jours ({{count}} jours)"
+      },
+      "relations": {
+        "empty": "Un lien demande au moins {{count}} jours avec les deux valeurs",
+        "mood": {
+          "title": "Échelles et humeur",
+          "same": "{{scale}} et humeur le même jour",
+          "next": "{{scale}} et humeur le lendemain"
+        },
+        "pairs": {
+          "title": "Échelles entre elles",
+          "row": "{{a}} et {{b}}",
+          "up": "{{a}} plus haut, {{b}} aussi plus haut ({{strength}})",
+          "down": "{{a}} plus haut, {{b}} plus bas ({{strength}})"
+        },
+        "body": {
+          "title": "Échelles et corps",
+          "row": {
+            "sleep": "{{scale}} et le sommeil de la nuit d’avant",
+            "steps": "{{scale}} et pas",
+            "restingHr": "{{scale}} et pouls au repos",
+            "exercise": "{{scale}} et entraînement"
+          },
+          "up": {
+            "sleep": "Plus de sommeil, {{scale}} plus haut ({{strength}})",
+            "steps": "Plus de pas, {{scale}} plus haut ({{strength}})",
+            "restingHr": "Pouls au repos plus haut, {{scale}} plus haut ({{strength}})",
+            "exercise": "Plus d’entraînement, {{scale}} plus haut ({{strength}})"
+          },
+          "down": {
+            "sleep": "Plus de sommeil, {{scale}} plus bas ({{strength}})",
+            "steps": "Plus de pas, {{scale}} plus bas ({{strength}})",
+            "restingHr": "Pouls au repos plus haut, {{scale}} plus bas ({{strength}})",
+            "exercise": "Plus d’entraînement, {{scale}} plus bas ({{strength}})"
+          }
+        }
       }
     }
   },
@@ -711,7 +746,30 @@
     "shown": "affichée",
     "notShown": "non affichée",
     "cases": "{{count}} comparaisons par écart",
-    "about": "La prévision décrit ce qui revenait souvent dans tes entrées jusqu'ici. Elle ne sait rien de toi qui ne soit pas dans tes entrées."
+    "about": "La prévision décrit ce qui revenait souvent dans tes entrées jusqu'ici. Elle ne sait rien de toi qui ne soit pas dans tes entrées.",
+    "tomorrow": {
+      "title": "Demain s’annonce bien",
+      "bodyLikely": "Après des jours comme aujourd’hui, ton lendemain a été {{mood}} ou mieux dans {{hit}} des cas, sinon dans {{usual}} en moyenne ({{count}} cas).",
+      "bodyBetter": "La chance d’un jour à partir de {{mood}} est meilleure que d’habitude : après des jours comme aujourd’hui {{hit}}, sinon {{usual}} en moyenne ({{count}} cas).",
+      "bodyOpen": "Aujourd’hui fait partie des jours après lesquels un jour à partir de {{mood}} est le plus probable pour toi. Plus d’entrées montreront à quel point cela se vérifie.",
+      "bodyAbove": "Tes chances d’un jour à partir de {{mood}} sont un peu meilleures que d’habitude aujourd’hui. Plus d’entrées montreront à quel point cela se vérifie.",
+      "reasons": "Ce qui y contribue : {{names}}",
+      "reasonMood": "ton humeur aujourd’hui",
+      "reasonWeekday": "demain, c’est {{weekday}}",
+      "reasonSleep": "{{value}} de sommeil",
+      "reasonSteps": "hier {{value}} pas",
+      "status": {
+        "title": "Indice de bonnes journées",
+        "hint": "Après ton entrée, « Aujourd’hui » affiche un indice quand le lendemain a plus de chances que d’habitude d’être au moins aussi bon que ta moyenne. Une à quatre fois en deux semaines environ, jamais comme alerte d’une mauvaise journée.",
+        "tooFew": "Il faut au moins {{count}} jours avec une entrée suivis d’un autre, pour l’instant {{have}}.",
+        "proof": "Après de tels jours, le suivant a été {{mood}} ou mieux dans {{hit}} des cas jusqu’ici, sinon dans {{usual}} ({{count}} cas).",
+        "noProof": "Pour toi, une bonne journée, c’est {{mood}} ou mieux. Plus d’entrées montreront à quel point l’indice se vérifie.",
+        "shown_one": "{{count}} indice ces 14 derniers jours.",
+        "shown_other": "{{count}} indices ces 14 derniers jours.",
+        "shown_many": "{{count}} indices ces 14 derniers jours.",
+        "alwaysGood": "Presque tous tes jours sont {{mood}} ou mieux. Il n’y a guère de place pour mieux que d’habitude, l’indice n’apparaît donc pas."
+      }
+    }
   },
   "lowMood": {
     "title": "Parler aide",

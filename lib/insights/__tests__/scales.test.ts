@@ -1,5 +1,7 @@
 import { buildDays, type EntryFacts } from '../days';
-import { compareScales, scaleDayValue, scaleStats, type ScaleFacts } from '../scales';
+import type { HealthDay } from '@/db/schema';
+
+import { compareScales, scaleDayValue, scaleHealthLinks, scalePairLinks, scaleStats, type ScaleFacts } from '../scales';
 import { d } from './fixtures';
 
 const energy: ScaleFacts = { id: 1, name: 'Energie', min: 1, max: 5, kind: 'rating' };
@@ -68,5 +70,39 @@ describe('compareScales', () => {
       { scale: energy, withMean: 5, withoutMean: 2, withDays: 6, withoutDays: 6 },
     ]);
     expect(compareScales(days.slice(0, 9), [energy], (day) => day.activities.has(7))).toEqual([]);
+  });
+});
+
+describe('scalePairLinks and scaleHealthLinks', () => {
+  const stress: ScaleFacts = { id: 3, name: 'Stress', min: 1, max: 5, kind: 'rating' };
+  // Energy runs 1..5, stress the other way round, sleep with energy.
+  const entries: EntryFacts[] = Array.from({ length: 15 }, (_, i) => ({
+    date: new Date(Date.UTC(2026, 0, 1 + i)).toISOString().slice(0, 10),
+    time: '20:00',
+    level: 3,
+    activity_ids: [],
+    scales: [
+      { scale_id: energy.id, value: 1 + (i % 5) },
+      { scale_id: stress.id, value: 5 - (i % 5) },
+    ],
+  }));
+  const days = buildDays(entries);
+  const health = entries.map((entry, i) => ({ date: entry.date, sleep_minutes: 360 + (i % 5) * 30, steps: null, resting_hr: null, exercise_minutes: null }) as HealthDay);
+
+  it('finds two scales moving against each other', () => {
+    expect(scalePairLinks(days, [energy, stress])).toEqual([{ a: energy, b: stress, r: -1, pairs: 15 }]);
+    expect(scalePairLinks(days.slice(0, 13), [energy, stress])).toEqual([]);
+  });
+
+  it('pairs each scale with the sleep of the night before', () => {
+    expect(scaleHealthLinks(days, [energy], health, d('2026-02-01'))).toEqual([{ scale: energy, metric: 'sleep', r: 1, pairs: 15 }]);
+  });
+
+  it('gives no link for a scale or a health value that never changes', () => {
+    const calm: ScaleFacts = { id: 4, name: 'Ruhe', min: 1, max: 5, kind: 'rating' };
+    const flat = buildDays(entries.map((entry) => ({ ...entry, scales: [...entry.scales!, { scale_id: calm.id, value: 3 }] })));
+    expect(scalePairLinks(flat, [energy, calm])).toEqual([]);
+    const sameSleep = health.map((row) => ({ ...row, sleep_minutes: 420 }));
+    expect(scaleHealthLinks(days, [energy], sameSleep, d('2026-02-01'))).toEqual([]);
   });
 });

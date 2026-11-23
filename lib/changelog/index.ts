@@ -26,6 +26,42 @@ export function changesIn(release: Release, language: Language): string[] {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.35',
+    date: '2026-11-23',
+    changes: {
+      de: [
+        'Unter „Zusammenhänge“ siehst du, wie deine Skalen mit Stimmung, untereinander und mit deinem Körper zusammenhängen',
+        'Nach deinem Eintrag zeigt „Heute“ ab und zu, wenn der nächste Tag bessere Chancen als sonst hat, gut zu werden',
+        'Die Seite „Ausblick“ erklärt, wann dieser Hinweis kommt und wie oft er bisher zutraf',
+      ],
+      en: [
+        'Under “Connections” you can see how your scales relate to mood, to each other and to your body',
+        'After your entry, “Today” now and then shows when the next day has a better chance than usual to be good',
+        'The “Outlook” page explains when this hint appears and how often it held so far',
+      ],
+      es: [
+        'En «Relaciones» ves cómo se relacionan tus escalas con el ánimo, entre sí y con tu cuerpo',
+        'Tras tu entrada, «Hoy» muestra de vez en cuando si el día siguiente tiene más probabilidades de ser bueno',
+        'La página «Previsión» explica cuándo aparece este aviso y cuánto ha acertado',
+      ],
+      pt: [
+        'Em “Relações” você vê como suas escalas se relacionam com o humor, entre si e com seu corpo',
+        'Depois do seu registro, “Hoje” mostra de vez em quando se o dia seguinte tem mais chance de ser bom',
+        'A página “Previsão” explica quando esse aviso aparece e quanto ele acertou até agora',
+      ],
+      fr: [
+        'Dans « Liens », tu vois comment tes échelles se relient à l’humeur, entre elles et à ton corps',
+        'Après ton entrée, « Aujourd’hui » indique parfois quand le lendemain a plus de chances d’être bon',
+        'La page « Prévision » explique quand cet indice apparaît et à quel point il s’est vérifié',
+      ],
+      it: [
+        'In «Relazioni» vedi come le tue scale si collegano all’umore, tra loro e al tuo corpo',
+        'Dopo la tua voce, «Oggi» mostra ogni tanto se il giorno dopo ha più probabilità di essere buono',
+        'La pagina «Previsione» spiega quando compare questo avviso e quanto ha indovinato finora',
+      ],
+    },
+  },
+  {
     version: '1.0.34',
     date: '2026-11-23',
     changes: {

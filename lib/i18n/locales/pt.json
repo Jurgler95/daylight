@@ -676,6 +676,41 @@
       "compare": {
         "title": "Escalas nestes dias",
         "row": "Em média {{with}} em vez de {{without}} nos outros dias ({{count}} dias)"
+      },
+      "relations": {
+        "empty": "Uma relação precisa de pelo menos {{count}} dias com os dois valores",
+        "mood": {
+          "title": "Escalas e humor",
+          "same": "{{scale}} e humor no mesmo dia",
+          "next": "{{scale}} e humor no dia seguinte"
+        },
+        "pairs": {
+          "title": "Escalas entre si",
+          "row": "{{a}} e {{b}}",
+          "up": "{{a}} mais alto, {{b}} também mais alto ({{strength}})",
+          "down": "{{a}} mais alto, {{b}} mais baixo ({{strength}})"
+        },
+        "body": {
+          "title": "Escalas e corpo",
+          "row": {
+            "sleep": "{{scale}} e o sono da noite anterior",
+            "steps": "{{scale}} e passos",
+            "restingHr": "{{scale}} e pulso em repouso",
+            "exercise": "{{scale}} e treino"
+          },
+          "up": {
+            "sleep": "Mais sono, {{scale}} mais alto ({{strength}})",
+            "steps": "Mais passos, {{scale}} mais alto ({{strength}})",
+            "restingHr": "Pulso em repouso mais alto, {{scale}} mais alto ({{strength}})",
+            "exercise": "Mais treino, {{scale}} mais alto ({{strength}})"
+          },
+          "down": {
+            "sleep": "Mais sono, {{scale}} mais baixo ({{strength}})",
+            "steps": "Mais passos, {{scale}} mais baixo ({{strength}})",
+            "restingHr": "Pulso em repouso mais alto, {{scale}} mais baixo ({{strength}})",
+            "exercise": "Mais treino, {{scale}} mais baixo ({{strength}})"
+          }
+        }
       }
     }
   },
@@ -711,7 +746,30 @@
     "shown": "exibida",
     "notShown": "não exibida",
     "cases": "{{count}} comparações por distância",
-    "about": "A previsão descreve o que costumava acontecer nos seus registros até agora. Ela não sabe nada sobre você que não esteja nos registros."
+    "about": "A previsão descreve o que costumava acontecer nos seus registros até agora. Ela não sabe nada sobre você que não esteja nos registros.",
+    "tomorrow": {
+      "title": "Amanhã promete",
+      "bodyLikely": "Depois de dias como hoje, seu dia seguinte foi {{mood}} ou melhor em {{hit}} dos casos; caso contrário, em média {{usual}} ({{count}} casos).",
+      "bodyBetter": "A chance de um dia a partir de {{mood}} é maior que o normal: depois de dias como hoje {{hit}}; caso contrário, em média {{usual}} ({{count}} casos).",
+      "bodyOpen": "Hoje é um dos dias depois dos quais um dia a partir de {{mood}} é mais provável para você. Com mais registros vai dar para ver quanto isso se confirma.",
+      "bodyAbove": "Hoje suas chances de um dia a partir de {{mood}} estão um pouco melhores que o normal. Com mais registros vai dar para ver quanto isso se confirma.",
+      "reasons": "A favor: {{names}}",
+      "reasonMood": "seu humor de hoje",
+      "reasonWeekday": "amanhã é {{weekday}}",
+      "reasonSleep": "{{value}} de sono",
+      "reasonSteps": "ontem {{value}} passos",
+      "status": {
+        "title": "Aviso de dias bons",
+        "hint": "Depois do seu registro, “Hoje” mostra um aviso quando o dia seguinte tem mais chance que o normal de ser pelo menos tão bom quanto a sua média. Cerca de uma a quatro vezes a cada duas semanas, nunca como alerta de um dia ruim.",
+        "tooFew": "Precisa de pelo menos {{count}} dias com registro seguidos de outro; até agora {{have}}.",
+        "proof": "Depois de dias assim, o seguinte foi {{mood}} ou melhor em {{hit}} dos casos até agora; caso contrário, em {{usual}} ({{count}} casos).",
+        "noProof": "Para você, um dia bom é {{mood}} ou melhor. Com mais registros vai dar para ver quanto o aviso acerta.",
+        "shown_one": "{{count}} aviso nos últimos 14 dias.",
+        "shown_other": "{{count}} avisos nos últimos 14 dias.",
+        "shown_many": "{{count}} avisos nos últimos 14 dias.",
+        "alwaysGood": "Quase todos os seus dias são {{mood}} ou melhor. Quase não há espaço para melhor que o normal, por isso o aviso não aparece."
+      }
+    }
   },
   "lowMood": {
     "title": "Conversar ajuda",

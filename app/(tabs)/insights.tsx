@@ -27,6 +27,7 @@ import { PixelsCard } from '@/components/insights/PixelsCard';
 import { ScaleActivitiesCard } from '@/components/insights/scales/ScaleActivitiesCard';
 import { ScaleMoodCard } from '@/components/insights/scales/ScaleMoodCard';
 import { ScalePicker, useScale } from '@/components/insights/scales/ScalePicker';
+import { ScaleBodyCard, ScaleMoodLinksCard, ScalePairsCard } from '@/components/insights/scales/ScaleRelationCards';
 import { ScaleSplitCard } from '@/components/insights/scales/ScaleSplitCard';
 import { ScaleTiles } from '@/components/insights/scales/ScaleTiles';
 import { ScaleTrendCard } from '@/components/insights/scales/ScaleTrendCard';
@@ -42,7 +43,7 @@ import { useCatalog } from '@/lib/catalog/useCatalog';
 import { weekdayLabels, type DateString } from '@/lib/dates';
 import { useToday } from '@/lib/dates/useToday';
 import { formatDecimal, formatPercent, INSIGHT_RANGES, type InsightRange } from '@/lib/insights';
-import { useHealthInsights, useInsights, useScaleInsights } from '@/lib/insights/useInsights';
+import { useHealthInsights, useInsights, useScaleInsights, useScaleRelations } from '@/lib/insights/useInsights';
 import type { IconName } from '@/lib/icons';
 import { useSelectedDayStore } from '@/lib/store/selectedDay';
 import { useSettingsStore } from '@/lib/store/settingsStore';
@@ -51,8 +52,8 @@ import { spacing } from '@/lib/theme';
 
 /**
  * The page is split into sections, one shown at a time, so no single scroll runs through twenty
- * cards. Scales only appear once one got a value, health and what links it to mood once Health
- * Connect delivered something.
+ * cards. Scales only appear once one got a value, health once Health Connect delivered something;
+ * the links between mood, scales and body as soon as either is there.
  */
 const SECTIONS = [
   { value: 'mood', icon: 'emoticon-outline' },
@@ -64,7 +65,6 @@ const SECTIONS = [
   { value: 'notes', icon: 'notebook-outline' },
 ] as const satisfies readonly { value: string; icon: IconName }[];
 type Section = (typeof SECTIONS)[number]['value'];
-const HEALTH_SECTIONS: readonly Section[] = ['health', 'links'];
 
 export default function InsightsScreen() {
   const { t, i18n } = useTranslation();
@@ -77,6 +77,7 @@ export default function InsightsScreen() {
   const allScales = useMemo(() => [...catalog.scaleById.values()], [catalog]);
   const scaleInsights = useScaleInsights(insights, allScales);
   const [scale, setScale] = useScale(scaleInsights);
+  const relations = useScaleRelations(insights, allScales, now);
   const hasScales = useMemo(() => insights.allDays.some((day) => day.scales.size > 0), [insights]);
   const [picked, setSection] = useState<Section>('mood');
   // A scale's page links here with `section=scales&scale=<id>`.
@@ -86,7 +87,12 @@ export default function InsightsScreen() {
     if (target) setSection(target.value);
     if (params.scale) setScale(Number(params.scale));
   }, [params.section, params.scale]); // eslint-disable-line react-hooks/exhaustive-deps
-  const sections = SECTIONS.filter((section) => (health || !HEALTH_SECTIONS.includes(section.value)) && (hasScales || section.value !== 'scales'));
+  const sections = SECTIONS.filter((section) => {
+    if (section.value === 'health') return !!health;
+    if (section.value === 'scales') return hasScales;
+    if (section.value === 'links') return !!health || hasScales;
+    return true;
+  });
   const section = sections.some((s) => s.value === picked) ? picked : 'mood';
   const firstDay = useSettingsStore((s) => s.settings?.first_day_of_week) ?? 1;
   const pick = useSelectedDayStore((s) => s.pick);
@@ -221,12 +227,20 @@ export default function InsightsScreen() {
         )
       ) : null}
 
-      {section === 'links' && health ? (
+      {section === 'links' ? (
         <>
-          <HealthCard mood={health.mood} />
-          <MoodSplitCard splits={health.stats.moodSplits} goodLabel={good} hardLabel={hard} />
-          <HealthLinksCard links={health.stats.links} />
-          <ActivityHealthCard stats={health.stats} names={names} />
+          {health ? (
+            <>
+              <HealthCard mood={health.mood} />
+              <MoodSplitCard splits={health.stats.moodSplits} goodLabel={good} hardLabel={hard} />
+              <HealthLinksCard links={health.stats.links} />
+              <ActivityHealthCard stats={health.stats} names={names} />
+            </>
+          ) : null}
+          {scaleInsights.length > 0 ? <ScaleMoodLinksCard insights={scaleInsights} /> : null}
+          {scaleInsights.length > 1 ? <ScalePairsCard pairs={relations.pairs} /> : null}
+          {health && scaleInsights.length > 0 ? <ScaleBodyCard links={relations.health} /> : null}
+          {!health && scaleInsights.length === 0 ? <EmptyState icon="options-outline" label={t('insights.scales.emptyRange')} /> : null}
         </>
       ) : null}
 

@@ -644,6 +644,41 @@
       "compare": {
         "title": "Scales on these days",
         "row": "Average {{with}} instead of {{without}} on other days ({{count}} days)"
+      },
+      "relations": {
+        "empty": "A link needs at least {{count}} days with both values",
+        "mood": {
+          "title": "Scales and mood",
+          "same": "{{scale}} and mood on the same day",
+          "next": "{{scale}} and mood the next day"
+        },
+        "pairs": {
+          "title": "Scales with each other",
+          "row": "{{a}} and {{b}}",
+          "up": "Higher {{a}}, higher {{b}} too ({{strength}})",
+          "down": "Higher {{a}}, lower {{b}} ({{strength}})"
+        },
+        "body": {
+          "title": "Scales and body",
+          "row": {
+            "sleep": "{{scale}} and the night before",
+            "steps": "{{scale}} and steps",
+            "restingHr": "{{scale}} and resting pulse",
+            "exercise": "{{scale}} and training"
+          },
+          "up": {
+            "sleep": "More sleep, higher {{scale}} ({{strength}})",
+            "steps": "More steps, higher {{scale}} ({{strength}})",
+            "restingHr": "Higher resting pulse, higher {{scale}} ({{strength}})",
+            "exercise": "More training, higher {{scale}} ({{strength}})"
+          },
+          "down": {
+            "sleep": "More sleep, lower {{scale}} ({{strength}})",
+            "steps": "More steps, lower {{scale}} ({{strength}})",
+            "restingHr": "Higher resting pulse, lower {{scale}} ({{strength}})",
+            "exercise": "More training, lower {{scale}} ({{strength}})"
+          }
+        }
       }
     }
   },
@@ -678,7 +713,29 @@
     "shown": "shown",
     "notShown": "not shown",
     "cases": "{{count}} comparisons per distance",
-    "about": "The outlook describes what was often the case in your entries so far. It knows nothing about you that is not in the entries."
+    "about": "The outlook describes what was often the case in your entries so far. It knows nothing about you that is not in the entries.",
+    "tomorrow": {
+      "title": "Tomorrow looks promising",
+      "bodyLikely": "After days like today, your next day was {{mood}} or better {{hit}} of the time, otherwise {{usual}} on average ({{count}} cases).",
+      "bodyBetter": "The chance of a day from {{mood}} up is better than usual: after days like today {{hit}}, otherwise {{usual}} on average ({{count}} cases).",
+      "bodyOpen": "Today is one of the days after which a day from {{mood}} up is most likely for you. How often that holds will show with more entries.",
+      "bodyAbove": "Your chances of a day from {{mood}} up are a little better than usual today. How often that holds will show with more entries.",
+      "reasons": "Speaking for it: {{names}}",
+      "reasonMood": "your mood today",
+      "reasonWeekday": "tomorrow is {{weekday}}",
+      "reasonSleep": "{{value}} of sleep",
+      "reasonSteps": "{{value}} steps yesterday",
+      "status": {
+        "title": "Hint for good days",
+        "hint": "After your entry, “Today” shows a hint when the next day has a better chance than usual to be at least as good as your average. About one to four times in two weeks, never as a warning about a bad day.",
+        "tooFew": "Needs at least {{count}} days with an entry followed by another one, so far {{have}}.",
+        "proof": "After such days, the next one was {{mood}} or better {{hit}} of the time so far, otherwise {{usual}} ({{count}} cases).",
+        "noProof": "A good day for you is {{mood}} or better. How often the hint holds will show with more entries.",
+        "shown_one": "{{count}} hint in the last 14 days.",
+        "shown_other": "{{count}} hints in the last 14 days.",
+        "alwaysGood": "Almost every one of your days is {{mood}} or better. There is hardly room for better than usual, so the hint does not come."
+      }
+    }
   },
   "lowMood": {
     "title": "Talking helps",
