@@ -343,6 +343,24 @@
       "title": "Months",
       "empty": "No months yet"
     },
+    "trends": {
+      "title": "Trends",
+      "hint": "From the last few weeks, whatever the range",
+      "mood": "Mood",
+      "run": {
+        "up_one": "{{name}}: up for {{count}} week",
+        "up_other": "{{name}}: up for {{count}} weeks",
+        "down_one": "{{name}}: down for {{count}} week",
+        "down_other": "{{name}}: down for {{count}} weeks"
+      },
+      "shift": {
+        "up": "{{name}}: higher over the last 4 weeks",
+        "down": "{{name}}: lower over the last 4 weeks"
+      },
+      "runDetail": "Weekly average from {{from}} to {{to}}",
+      "shiftDetail": "Last 4 weeks {{recent}}, the quarter before {{before}}",
+      "turning": "Started around “{{title}}”"
+    },
     "swings": {
       "title": "Swings",
       "typical": "Within a week, your mood usually varies by {{value}} levels.",
@@ -715,12 +733,13 @@
     "cases": "{{count}} comparisons per distance",
     "about": "The outlook describes what was often the case in your entries so far. It knows nothing about you that is not in the entries.",
     "tomorrow": {
-      "title": "Tomorrow looks promising",
+      "title": "Tomorrow could be a good day",
       "bodyLikely": "After days like today, your next day was {{mood}} or better {{hit}} of the time, otherwise {{usual}} on average ({{count}} cases).",
       "bodyBetter": "The chance of a day from {{mood}} up is better than usual: after days like today {{hit}}, otherwise {{usual}} on average ({{count}} cases).",
       "bodyOpen": "Today is one of the days after which a day from {{mood}} up is most likely for you. How often that holds will show with more entries.",
       "bodyAbove": "Your chances of a day from {{mood}} up are a little better than usual today. How often that holds will show with more entries.",
-      "reasons": "Speaking for it: {{names}}",
+      "reasons": "Reasons: {{names}}",
+      "strip": "could be a good day",
       "reasonMood": "your mood today",
       "reasonWeekday": "tomorrow is {{weekday}}",
       "reasonSleep": "{{value}} of sleep",

@@ -369,6 +369,26 @@
       "title": "Mois",
       "empty": "Pas encore de mois"
     },
+    "trends": {
+      "title": "Tendances",
+      "hint": "Sur les dernières semaines, quelle que soit la période",
+      "mood": "Humeur",
+      "run": {
+        "up_one": "{{name}} : en hausse depuis {{count}} semaine",
+        "up_other": "{{name}} : en hausse depuis {{count}} semaines",
+        "up_many": "{{name}} : en hausse depuis {{count}} semaines",
+        "down_one": "{{name}} : en baisse depuis {{count}} semaine",
+        "down_other": "{{name}} : en baisse depuis {{count}} semaines",
+        "down_many": "{{name}} : en baisse depuis {{count}} semaines"
+      },
+      "shift": {
+        "up": "{{name}} : plus haut sur les 4 dernières semaines",
+        "down": "{{name}} : plus bas sur les 4 dernières semaines"
+      },
+      "runDetail": "Moyenne hebdomadaire de {{from}} à {{to}}",
+      "shiftDetail": "4 dernières semaines {{recent}}, trimestre précédent {{before}}",
+      "turning": "A commencé autour de « {{title}} »"
+    },
     "swings": {
       "title": "Variations",
       "typical": "Sur une semaine, ton humeur varie en général de {{value}} niveaux.",
@@ -748,12 +768,13 @@
     "cases": "{{count}} comparaisons par écart",
     "about": "La prévision décrit ce qui revenait souvent dans tes entrées jusqu'ici. Elle ne sait rien de toi qui ne soit pas dans tes entrées.",
     "tomorrow": {
-      "title": "Demain s’annonce bien",
+      "title": "Demain pourrait être une bonne journée",
       "bodyLikely": "Après des jours comme aujourd’hui, ton lendemain a été {{mood}} ou mieux dans {{hit}} des cas, sinon dans {{usual}} en moyenne ({{count}} cas).",
       "bodyBetter": "La chance d’un jour à partir de {{mood}} est meilleure que d’habitude : après des jours comme aujourd’hui {{hit}}, sinon {{usual}} en moyenne ({{count}} cas).",
       "bodyOpen": "Aujourd’hui fait partie des jours après lesquels un jour à partir de {{mood}} est le plus probable pour toi. Plus d’entrées montreront à quel point cela se vérifie.",
       "bodyAbove": "Tes chances d’un jour à partir de {{mood}} sont un peu meilleures que d’habitude aujourd’hui. Plus d’entrées montreront à quel point cela se vérifie.",
-      "reasons": "Ce qui y contribue : {{names}}",
+      "reasons": "Raisons : {{names}}",
+      "strip": "pourrait être une bonne journée",
       "reasonMood": "ton humeur aujourd’hui",
       "reasonWeekday": "demain, c’est {{weekday}}",
       "reasonSleep": "{{value}} de sommeil",

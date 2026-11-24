@@ -1,4 +1,5 @@
 import { memo, useCallback, useImperativeHandle, useMemo, useRef, type Ref } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlatList, Pressable, StyleSheet, useWindowDimensions } from 'react-native';
 
 import { DayGlyph } from '@/components/calendar/DayGlyph';
@@ -28,6 +29,8 @@ interface Props {
   selected: DateString;
   markers: ReadonlyMap<string, CalendarMarker>;
   label: (date: DateString) => string;
+  /** The day the hint for a good next day points at; it gets an arrow badge on its circle. */
+  promising?: DateString | null;
   onSelect: (date: DateString) => void;
   ref?: Ref<DayStripHandle>;
 }
@@ -36,7 +39,7 @@ interface Props {
  * A horizontal wheel of days around today.
  * Flings coast on and settle on a whole day; tapping one selects it for the screen below.
  */
-export function DayStrip({ today, selected, markers, label, onSelect, ref }: Props) {
+export function DayStrip({ today, selected, markers, label, promising = null, onSelect, ref }: Props) {
   const list = useRef<FlatList<DateString>>(null);
   const { width } = useWindowDimensions();
 
@@ -68,7 +71,7 @@ export function DayStrip({ today, selected, markers, label, onSelect, ref }: Pro
       data={days}
       horizontal
       keyExtractor={(date) => date}
-      extraData={[selected, markers]}
+      extraData={[selected, markers, promising]}
       renderItem={({ item }) => (
         <StripDay
           date={item}
@@ -77,6 +80,7 @@ export function DayStrip({ today, selected, markers, label, onSelect, ref }: Pro
           isFuture={item > today}
           selected={item === selected}
           label={label(item)}
+          promising={item === promising}
           onSelect={onSelect}
         />
       )}
@@ -104,12 +108,14 @@ interface DayProps {
   isFuture: boolean;
   selected: boolean;
   label: string;
+  promising: boolean;
   onSelect: (date: DateString) => void;
 }
 
 /** Memoised, so picking a day only redraws the two days whose selection changed. */
-const StripDay = memo(function StripDay({ date, marker, isToday, isFuture, selected, label, onSelect }: DayProps) {
+const StripDay = memo(function StripDay({ date, marker, isToday, isFuture, selected, label, promising, onSelect }: DayProps) {
   const { colors } = useTheme();
+  const { t } = useTranslation();
   return (
     <Pressable
       onPress={() => {
@@ -117,7 +123,7 @@ const StripDay = memo(function StripDay({ date, marker, isToday, isFuture, selec
         onSelect(date);
       }}
       accessibilityRole="button"
-      accessibilityLabel={label}
+      accessibilityLabel={promising ? `${label}, ${t('outlook.tomorrow.strip')}` : label}
       accessibilityState={{ selected }}
       style={({ pressed }) => [
         styles.day,
@@ -132,7 +138,7 @@ const StripDay = memo(function StripDay({ date, marker, isToday, isFuture, selec
       <AppText variant="caption" color={selected ? colors.accent : colors.textMuted}>
         {formatWeekdayShort(date)}
       </AppText>
-      <DayGlyph marker={marker} isToday={isToday} isFuture={isFuture} dayOfMonth={Number(date.slice(8, 10))} />
+      <DayGlyph marker={marker} isToday={isToday} isFuture={isFuture} dayOfMonth={Number(date.slice(8, 10))} promising={promising} />
     </Pressable>
   );
 });

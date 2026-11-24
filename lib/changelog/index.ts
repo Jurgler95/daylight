@@ -26,6 +26,42 @@ export function changesIn(release: Release, language: Language): string[] {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.36',
+    date: '2026-11-24',
+    changes: {
+      de: [
+        'Die neue Karte „Trends“ unter „Einblicke“ zeigt, wohin sich Stimmung, Skalen, Schlaf und Schritte in den letzten Wochen bewegen',
+        'Ein kleiner Pfeil im Tagesstreifen markiert den Tag, der gut werden könnte',
+        'Der Hinweis auf einen guten nächsten Tag ist klarer formuliert',
+      ],
+      en: [
+        'The new “Trends” card under “Insights” shows where mood, scales, sleep and steps have been heading in recent weeks',
+        'A small arrow in the day strip marks the day that could turn out well',
+        'The hint about a good next day is worded more clearly',
+      ],
+      es: [
+        'La nueva tarjeta «Tendencias» en «Análisis» muestra hacia dónde van el ánimo, las escalas, el sueño y los pasos en las últimas semanas',
+        'Una pequeña flecha en la tira de días marca el día que podría salir bien',
+        'El aviso de un buen día siguiente está redactado con más claridad',
+      ],
+      pt: [
+        'O novo cartão “Tendências” em “Análises” mostra para onde humor, escalas, sono e passos estão indo nas últimas semanas',
+        'Uma pequena seta na faixa de dias marca o dia que pode ser bom',
+        'O aviso de um bom dia seguinte está escrito de forma mais clara',
+      ],
+      fr: [
+        'La nouvelle carte « Tendances » dans « Aperçus » montre où vont l’humeur, les échelles, le sommeil et les pas ces dernières semaines',
+        'Une petite flèche dans la bande des jours marque le jour qui pourrait être bon',
+        'L’indication d’un bon lendemain est formulée plus clairement',
+      ],
+      it: [
+        'La nuova scheda “Tendenze” in “Analisi” mostra dove vanno umore, scale, sonno e passi nelle ultime settimane',
+        'Una piccola freccia nella striscia dei giorni segna il giorno che potrebbe andare bene',
+        'L’avviso di un buon giorno successivo è formulato in modo più chiaro',
+      ],
+    },
+  },
+  {
     version: '1.0.35',
     date: '2026-11-23',
     changes: {

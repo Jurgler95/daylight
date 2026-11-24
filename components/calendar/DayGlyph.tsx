@@ -11,6 +11,8 @@ interface Props {
   isToday: boolean;
   isFuture: boolean;
   dayOfMonth: number;
+  /** The day the hint for a good next day points at: a small arrow badge, like the turning point's flag. */
+  promising?: boolean;
 }
 
 /** Height of the drawing, so rows around it can be fixed for virtualisation. */
@@ -20,12 +22,18 @@ export const DAY_GLYPH_HEIGHT = 58;
  * The drawing of a single day, shared by the month list and the day strip. The mood is shown by
  * colour and icon together, never by colour alone: soft fill with the mood icon = entry,
  * small dot below = several entries, accent ring = today, pale blue disc = past day without entry,
- * small dark badge with a flag = turning point.
+ * small dark badge with a flag = turning point,
+ * accent badge with an arrow = the day the hint for a good next day points at.
  * A future day may carry a hollow ring in the colour of the outlook's level, with the level's icon
  * inside, faint; planned activities take the place of that icon (two at most, a dot for more).
  */
-export function DayGlyph({ marker, isToday, isFuture, dayOfMonth }: Props) {
+export function DayGlyph({ marker, isToday, isFuture, dayOfMonth, promising = false }: Props) {
   const { colors } = useTheme();
+  const arrow = promising ? (
+    <View style={[styles.flag, { backgroundColor: colors.accent, borderColor: colors.background }]}>
+      <MaterialCommunityIcons name="arrow-up" size={10} color={colors.textOnAccent} />
+    </View>
+  ) : null;
   if (isAhead(marker)) {
     const ring = marker.outlook ? moodColors[marker.outlook.level].strong : null;
     return (
@@ -43,6 +51,7 @@ export function DayGlyph({ marker, isToday, isFuture, dayOfMonth }: Props) {
               ))
             )}
           </View>
+          {arrow}
         </View>
         <View style={styles.footer}>
           {marker.planned.length > 2 ? <View style={[styles.dot, { backgroundColor: colors.textMuted }]} /> : null}
@@ -69,6 +78,7 @@ export function DayGlyph({ marker, isToday, isFuture, dayOfMonth }: Props) {
             <MaterialCommunityIcons name="flag-variant" size={9} color={DAWN.sun} />
           </View>
         ) : null}
+        {arrow}
       </View>
       <View style={styles.footer}>
         {marker && mood && marker.count > 1 ? <View style={[styles.dot, { backgroundColor: mood.strong }]} /> : null}

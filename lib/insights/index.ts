@@ -75,3 +75,21 @@ export {
   type ScaleStatsInput,
   type ScaleSummary,
 } from './scales';
+export {
+  BEFORE_DAYS,
+  buildTrends,
+  HEALTH_MIN_CHANGE,
+  MIN_TREND_WEEKS,
+  MOOD_MIN_CHANGE,
+  RECENT_DAYS,
+  scaleMinChange,
+  seriesTrend,
+  TREND_BLOCKS,
+  TREND_METRICS,
+  type Trend,
+  type TrendDirection,
+  type TrendItem,
+  type TrendRun,
+  type TrendShift,
+  type TrendSubject,
+} from './trends';

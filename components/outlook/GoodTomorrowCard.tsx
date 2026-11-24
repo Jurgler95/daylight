@@ -16,7 +16,7 @@ import { moodColors, spacing } from '@/lib/theme';
 const LIKELY_FROM = 0.5;
 
 /**
- * "Morgen stehen die Zeichen gut": only ever this good news. With a backtest behind it the card
+ * "Morgen könnte ein guter Tag werden": only ever this good news. With a backtest behind it the card
  * names how often it came true after days that reached the same step; without, it says that this
  * is still open.
  * There is no card for a day that looks worse.

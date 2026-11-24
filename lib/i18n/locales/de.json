@@ -343,6 +343,24 @@
       "title": "Monate",
       "empty": "Noch keine Monate"
     },
+    "trends": {
+      "title": "Trends",
+      "hint": "Aus den letzten Wochen, unabhängig vom Zeitraum",
+      "mood": "Stimmung",
+      "run": {
+        "up_one": "{{name}}: seit {{count}} Woche aufwärts",
+        "up_other": "{{name}}: seit {{count}} Wochen aufwärts",
+        "down_one": "{{name}}: seit {{count}} Woche abwärts",
+        "down_other": "{{name}}: seit {{count}} Wochen abwärts"
+      },
+      "shift": {
+        "up": "{{name}}: letzte 4 Wochen höher",
+        "down": "{{name}}: letzte 4 Wochen niedriger"
+      },
+      "runDetail": "Im Wochenschnitt von {{from}} auf {{to}}",
+      "shiftDetail": "Letzte 4 Wochen {{recent}}, im Vierteljahr davor {{before}}",
+      "turning": "Begann rund um „{{title}}“"
+    },
     "swings": {
       "title": "Schwankung",
       "typical": "Innerhalb einer Woche schwankt die Stimmung meist um {{value}} Stufen.",
@@ -715,12 +733,13 @@
     "cases": "{{count}} Vergleiche je Abstand",
     "about": "Der Ausblick beschreibt, was in deinen bisherigen Einträgen oft so war. Er weiß nichts über dich, was nicht in den Einträgen steht.",
     "tomorrow": {
-      "title": "Morgen stehen die Zeichen gut",
+      "title": "Morgen könnte ein guter Tag werden",
       "bodyLikely": "Nach Tagen wie heute war der nächste Tag bei dir in {{hit}} der Fälle {{mood}} oder besser, sonst im Schnitt in {{usual}} ({{count}} Fälle).",
-      "bodyBetter": "Die Chance auf einen Tag ab {{mood}} ist besser als sonst: nach Tagen wie heute {{hit}}, sonst im Schnitt {{usual}} ({{count}} Fälle).",
-      "bodyOpen": "Heute gehört zu den Tagen, nach denen bei dir am ehesten ein Tag ab {{mood}} folgt. Wie oft das zutrifft, zeigt sich mit mehr Einträgen.",
-      "bodyAbove": "Die Chancen auf einen Tag ab {{mood}} stehen heute etwas besser als sonst. Wie oft das zutrifft, zeigt sich mit mehr Einträgen.",
-      "reasons": "Dafür spricht: {{names}}",
+      "bodyBetter": "Nach Tagen wie heute war der nächste Tag bei dir öfter {{mood}} oder besser als sonst: in {{hit}} der Fälle statt {{usual}} ({{count}} Fälle).",
+      "bodyOpen": "Auf Tage wie heute folgte bei dir besonders oft ein Tag ab {{mood}}. Wie verlässlich das ist, zeigt sich mit mehr Einträgen.",
+      "bodyAbove": "Auf Tage wie heute folgte bei dir etwas öfter als sonst ein Tag ab {{mood}}. Wie verlässlich das ist, zeigt sich mit mehr Einträgen.",
+      "reasons": "Gründe: {{names}}",
+      "strip": "könnte ein guter Tag werden",
       "reasonMood": "deine Stimmung heute",
       "reasonWeekday": "morgen ist {{weekday}}",
       "reasonSleep": "{{value}} Schlaf",

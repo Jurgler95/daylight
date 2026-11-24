@@ -1,6 +1,7 @@
 import { getDb } from '@/db';
 import { listEntryDetails, type EntryDetails } from '@/db/repositories/entries';
 import { listHealthDays } from '@/db/repositories/health';
+import { listTurningPoints } from '@/db/repositories/turningPoints';
 import type { MoodLevel } from '@/db/schema';
 import type { DateString } from '@/lib/dates';
 import { cached, useQuery } from '@/lib/store/dataVersion';
@@ -13,6 +14,7 @@ import { healthStats, type HealthStats } from './healthStats';
 import { buildInsights, type Insights } from './overview';
 import type { InsightRange } from './range';
 import { compareScales, scaleHealthLinks, scalePairLinks, scaleStats, type ScaleComparison, type ScaleFacts, type ScaleHealthLink, type ScaleInsight, type ScalePairLink } from './scales';
+import { buildTrends, type TrendItem } from './trends';
 
 /** Every entry with its level and activities, read once per data version for all insight screens. */
 export function readInsightEntries(): EntryDetails[] {
@@ -86,4 +88,19 @@ export function useHealthInsights(insights: Insights, today: DateString): Health
       stats: healthStats({ health: rows, allDays: insights.allDays, window: insights.window, previous: insights.previous, today }),
     };
   }, [insights, today]);
+}
+
+/** Where mood, scales and health values head over the last weeks; the range picked does not matter. */
+export function useTrends(insights: Insights, scales: readonly ScaleFacts[], today: DateString): TrendItem[] {
+  return useQuery(
+    () =>
+      buildTrends({
+        allDays: insights.allDays,
+        scales,
+        health: cached('healthDays', () => listHealthDays(getDb())),
+        turningPoints: cached('turningPoints', () => listTurningPoints(getDb())),
+        today,
+      }),
+    [insights.allDays, scales, today],
+  );
 }

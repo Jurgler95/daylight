@@ -369,6 +369,26 @@
       "title": "Meses",
       "empty": "Aún no hay meses"
     },
+    "trends": {
+      "title": "Tendencias",
+      "hint": "De las últimas semanas, sea cual sea el periodo",
+      "mood": "Ánimo",
+      "run": {
+        "up_one": "{{name}}: subiendo desde hace {{count}} semana",
+        "up_other": "{{name}}: subiendo desde hace {{count}} semanas",
+        "up_many": "{{name}}: subiendo desde hace {{count}} semanas",
+        "down_one": "{{name}}: bajando desde hace {{count}} semana",
+        "down_other": "{{name}}: bajando desde hace {{count}} semanas",
+        "down_many": "{{name}}: bajando desde hace {{count}} semanas"
+      },
+      "shift": {
+        "up": "{{name}}: más alto en las últimas 4 semanas",
+        "down": "{{name}}: más bajo en las últimas 4 semanas"
+      },
+      "runDetail": "Media semanal de {{from}} a {{to}}",
+      "shiftDetail": "Últimas 4 semanas {{recent}}, trimestre anterior {{before}}",
+      "turning": "Empezó en torno a «{{title}}»"
+    },
     "swings": {
       "title": "Altibajos",
       "typical": "En una semana, tu ánimo suele variar {{value}} niveles.",
@@ -748,12 +768,13 @@
     "cases": "{{count}} comparaciones por distancia",
     "about": "La previsión describe lo que solía pasar en tus entradas hasta ahora. No sabe nada de ti que no esté en las entradas.",
     "tomorrow": {
-      "title": "Mañana pinta bien",
+      "title": "Mañana podría ser un buen día",
       "bodyLikely": "Después de días como hoy, tu día siguiente fue {{mood}} o mejor en el {{hit}} de los casos; si no, en el {{usual}} de media ({{count}} casos).",
       "bodyBetter": "La probabilidad de un día de {{mood}} o mejor es mayor que de costumbre: tras días como hoy {{hit}}; si no, {{usual}} de media ({{count}} casos).",
       "bodyOpen": "Hoy es uno de los días tras los que es más probable para ti un día de {{mood}} o mejor. Con más entradas se verá cuánto se cumple.",
       "bodyAbove": "Hoy tus probabilidades de un día de {{mood}} o mejor son algo mayores que de costumbre. Con más entradas se verá cuánto se cumple.",
-      "reasons": "A favor: {{names}}",
+      "reasons": "Motivos: {{names}}",
+      "strip": "podría ser un buen día",
       "reasonMood": "tu ánimo de hoy",
       "reasonWeekday": "mañana es {{weekday}}",
       "reasonSleep": "{{value}} de sueño",

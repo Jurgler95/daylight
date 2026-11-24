@@ -2,7 +2,7 @@ import { addDaysToDateString, daysBetween, weekdayOf, type DateString } from '@/
 import { byDate, scaleDayValue, type InsightDay, type ScaleFacts } from '@/lib/insights';
 
 /**
- * "Morgen stehen die Zeichen gut": a hint on "Heute", after today's entry, when the next day has a
+ * "Morgen könnte ein guter Tag werden": a hint on "Heute", after today's entry, when the next day has a
  * better chance than usual to be a good one. Good is personal: a level that reaches at least the
  * user's own mean mood, and never below the middle of the scale, so someone whose days are mostly 2
  * or 3 is not measured against someone whose days are mostly 4.

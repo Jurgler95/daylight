@@ -369,6 +369,26 @@
       "title": "Meses",
       "empty": "Nenhum mês ainda"
     },
+    "trends": {
+      "title": "Tendências",
+      "hint": "Das últimas semanas, seja qual for o período",
+      "mood": "Humor",
+      "run": {
+        "up_one": "{{name}}: subindo há {{count}} semana",
+        "up_other": "{{name}}: subindo há {{count}} semanas",
+        "up_many": "{{name}}: subindo há {{count}} semanas",
+        "down_one": "{{name}}: descendo há {{count}} semana",
+        "down_other": "{{name}}: descendo há {{count}} semanas",
+        "down_many": "{{name}}: descendo há {{count}} semanas"
+      },
+      "shift": {
+        "up": "{{name}}: mais alto nas últimas 4 semanas",
+        "down": "{{name}}: mais baixo nas últimas 4 semanas"
+      },
+      "runDetail": "Média semanal de {{from}} a {{to}}",
+      "shiftDetail": "Últimas 4 semanas {{recent}}, trimestre anterior {{before}}",
+      "turning": "Começou por volta de “{{title}}”"
+    },
     "swings": {
       "title": "Oscilação",
       "typical": "Dentro de uma semana, seu humor costuma variar {{value}} níveis.",
@@ -748,12 +768,13 @@
     "cases": "{{count}} comparações por distância",
     "about": "A previsão descreve o que costumava acontecer nos seus registros até agora. Ela não sabe nada sobre você que não esteja nos registros.",
     "tomorrow": {
-      "title": "Amanhã promete",
+      "title": "Amanhã pode ser um bom dia",
       "bodyLikely": "Depois de dias como hoje, seu dia seguinte foi {{mood}} ou melhor em {{hit}} dos casos; caso contrário, em média {{usual}} ({{count}} casos).",
       "bodyBetter": "A chance de um dia a partir de {{mood}} é maior que o normal: depois de dias como hoje {{hit}}; caso contrário, em média {{usual}} ({{count}} casos).",
       "bodyOpen": "Hoje é um dos dias depois dos quais um dia a partir de {{mood}} é mais provável para você. Com mais registros vai dar para ver quanto isso se confirma.",
       "bodyAbove": "Hoje suas chances de um dia a partir de {{mood}} estão um pouco melhores que o normal. Com mais registros vai dar para ver quanto isso se confirma.",
-      "reasons": "A favor: {{names}}",
+      "reasons": "Motivos: {{names}}",
+      "strip": "pode ser um bom dia",
       "reasonMood": "seu humor de hoje",
       "reasonWeekday": "amanhã é {{weekday}}",
       "reasonSleep": "{{value}} de sono",

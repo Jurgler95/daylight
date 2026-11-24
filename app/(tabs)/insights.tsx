@@ -35,6 +35,7 @@ import { ScaleWeekdayCard } from '@/components/insights/scales/ScaleWeekdayCard'
 import { StatTile } from '@/components/insights/StatTile';
 import { StreakCard } from '@/components/insights/StreakCard';
 import { SwingsCard } from '@/components/insights/SwingsCard';
+import { TrendsCard } from '@/components/insights/TrendsCard';
 import { WeekdayCard } from '@/components/insights/WeekdayCard';
 import { WordsCard } from '@/components/insights/WordsCard';
 import { AppText, EmptyState, Screen, Segmented, Tabs } from '@/components/ui';
@@ -42,8 +43,8 @@ import { activityLabel, levelMood } from '@/lib/catalog/catalog';
 import { useCatalog } from '@/lib/catalog/useCatalog';
 import { weekdayLabels, type DateString } from '@/lib/dates';
 import { useToday } from '@/lib/dates/useToday';
-import { formatDecimal, formatPercent, INSIGHT_RANGES, type InsightRange } from '@/lib/insights';
-import { useHealthInsights, useInsights, useScaleInsights, useScaleRelations } from '@/lib/insights/useInsights';
+import { formatDecimal, formatPercent, INSIGHT_RANGES, type InsightRange, type TrendSubject } from '@/lib/insights';
+import { useHealthInsights, useInsights, useScaleInsights, useScaleRelations, useTrends } from '@/lib/insights/useInsights';
 import type { IconName } from '@/lib/icons';
 import { useSelectedDayStore } from '@/lib/store/selectedDay';
 import { useSettingsStore } from '@/lib/store/settingsStore';
@@ -78,6 +79,7 @@ export default function InsightsScreen() {
   const scaleInsights = useScaleInsights(insights, allScales);
   const [scale, setScale] = useScale(scaleInsights);
   const relations = useScaleRelations(insights, allScales, now);
+  const trends = useTrends(insights, allScales, now);
   const hasScales = useMemo(() => insights.allDays.some((day) => day.scales.size > 0), [insights]);
   const [picked, setSection] = useState<Section>('mood');
   // A scale's page links here with `section=scales&scale=<id>`.
@@ -152,6 +154,12 @@ export default function InsightsScreen() {
     router.navigate('/');
   };
   const empty = insights.days.length === 0;
+  const openTrend = (subject: TrendSubject) => {
+    if (subject.kind === 'scale') {
+      setScale(subject.scale.id);
+      setSection('scales');
+    } else if (subject.kind === 'health') setSection('health');
+  };
 
   return (
     <Screen sticky={header} contentKey={section}>
@@ -169,6 +177,7 @@ export default function InsightsScreen() {
               ) : null}
             </View>
           )}
+          <TrendsCard trends={trends} onOpen={openTrend} />
           <InsightCard title={t('insights.trend.title')} empty={empty ? t('insights.emptyRange') : null}>
             <MoodLineChart points={insights.series} window={insights.window} mean={insights.mean} iconFor={(level) => levelMood(catalog, level).icon} marks={marks} />
           </InsightCard>

@@ -369,6 +369,26 @@
       "title": "Mesi",
       "empty": "Ancora nessun mese"
     },
+    "trends": {
+      "title": "Tendenze",
+      "hint": "Dalle ultime settimane, a prescindere dal periodo",
+      "mood": "Umore",
+      "run": {
+        "up_one": "{{name}}: in salita da {{count}} settimana",
+        "up_other": "{{name}}: in salita da {{count}} settimane",
+        "up_many": "{{name}}: in salita da {{count}} settimane",
+        "down_one": "{{name}}: in calo da {{count}} settimana",
+        "down_other": "{{name}}: in calo da {{count}} settimane",
+        "down_many": "{{name}}: in calo da {{count}} settimane"
+      },
+      "shift": {
+        "up": "{{name}}: più alto nelle ultime 4 settimane",
+        "down": "{{name}}: più basso nelle ultime 4 settimane"
+      },
+      "runDetail": "Media settimanale da {{from}} a {{to}}",
+      "shiftDetail": "Ultime 4 settimane {{recent}}, trimestre precedente {{before}}",
+      "turning": "Iniziato intorno a «{{title}}»"
+    },
     "swings": {
       "title": "Oscillazioni",
       "typical": "In una settimana il tuo umore varia di solito di {{value}} livelli.",
@@ -748,12 +768,13 @@
     "cases": "{{count}} confronti per distanza",
     "about": "La previsione descrive ciò che finora è capitato spesso nelle tue voci. Non sa nulla di te che non sia scritto nelle voci.",
     "tomorrow": {
-      "title": "Domani si prospetta bene",
+      "title": "Domani potrebbe essere una bella giornata",
       "bodyLikely": "Dopo giorni come oggi, il tuo giorno dopo è stato {{mood}} o meglio nel {{hit}} dei casi, altrimenti in media nel {{usual}} ({{count}} casi).",
       "bodyBetter": "La probabilità di un giorno da {{mood}} in su è più alta del solito: dopo giorni come oggi {{hit}}, altrimenti in media {{usual}} ({{count}} casi).",
       "bodyOpen": "Oggi è uno dei giorni dopo cui per te è più probabile un giorno da {{mood}} in su. Quanto spesso si avvera si vedrà con più voci.",
       "bodyAbove": "Oggi le tue probabilità di un giorno da {{mood}} in su sono un po’ più alte del solito. Quanto spesso si avvera si vedrà con più voci.",
-      "reasons": "A favore: {{names}}",
+      "reasons": "Motivi: {{names}}",
+      "strip": "potrebbe essere una bella giornata",
       "reasonMood": "il tuo umore di oggi",
       "reasonWeekday": "domani è {{weekday}}",
       "reasonSleep": "{{value}} di sonno",

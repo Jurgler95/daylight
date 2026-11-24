@@ -101,6 +101,7 @@ export default function TodayScreen() {
           selected={date}
           markers={markers}
           label={(day) => dayLabel(day, markers.get(day))}
+          promising={tomorrow?.date ?? null}
           onSelect={(day) => {
             tapped.current = day;
             setDate(day);
