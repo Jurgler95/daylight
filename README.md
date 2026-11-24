@@ -17,7 +17,7 @@ Ein Stimmungstagebuch für Android, das deine Daten nicht kennt. Keine Konten, k
 
 ## Highlights
 
-- 🔒 **Komplett offline.** Daylight hat keine Internet-Berechtigung. Deine Einträge liegen in einer Datenbank auf dem Gerät und verlassen es nur, wenn du selbst eine Sicherung teilst.
+- 🔒 **Komplett offline.** Daylight hat keine Internet-Berechtigung. Deine Einträge liegen in einer Datenbank auf dem Gerät und verlassen es nur, wenn du selbst eine Sicherung teilst. Der [Bericht von Exodus Privacy](https://reports.exodus-privacy.eu.org/de/reports/de.behla.daylight/latest/) findet in der Play-Version keinen Tracker.
 - ⚡ **In Sekunden eingetragen.** Stimmung antippen, Aktivitäten wählen, fertig. Notiz, eigene Skalen und ein Foto pro Tag sind optional.
 - 📦 **Einfacher Umstieg.** Daylight übernimmt ein bestehendes Stimmungstagebuch aus einer anderen App vollständig, als CSV-Export oder als Sicherung mit Fotos. Exportieren kannst du auch wieder als CSV.
 - 📊 **Einblicke in deine Muster.** Verlauf, Wochentage, Monate, Jahr in Pixeln, welche Aktivitäten mit besseren oder schlechteren Tagen zusammenfallen, was am Folgetag passiert, häufige Wörter in deinen Notizen. Immer als Beschreibung deiner Einträge, nie als Diagnose.
@@ -30,7 +30,9 @@ Die Oberfläche gibt es auf Deutsch, Englisch, Spanisch, Portugiesisch (Brasilie
 
 ## Installieren
 
-Die APK liegt bei jedem [Release](https://github.com/Jurgler95/daylight/releases/latest). Auf dem Handy herunterladen und öffnen; Android fragt einmalig, ob der Browser Apps installieren darf.
+Am einfachsten über [Google Play](https://play.google.com/store/apps/details?id=de.behla.daylight).
+
+Ohne Google-Konto geht es mit der APK, die bei jedem [Release](https://github.com/Jurgler95/daylight/releases/latest) liegt. Auf dem Handy herunterladen und öffnen; Android fragt einmalig, ob der Browser Apps installieren darf. Play-Version und APK sind mit demselben Schlüssel signiert und lassen sich übereinander installieren.
 
 Jede APK ist mit demselben Schlüssel signiert. Wer das prüfen will, vergleicht den SHA-256-Fingerabdruck des Zertifikats (`apksigner verify --print-certs daylight-X.Y.Z.apk`):
 
