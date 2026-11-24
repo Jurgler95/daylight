@@ -26,6 +26,42 @@ export function changesIn(release: Release, language: Language): string[] {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.40',
+    date: '2026-11-24',
+    changes: {
+      de: [
+        'Nach einer Woche mit Einträgen bittet Daylight auf „Heute“ einmal um eine Bewertung im Play Store',
+        'Unter „Mehr“ lässt sich Daylight jederzeit bewerten',
+        'Im Eintrag lässt sich der Tag direkt als Wendepunkt markieren',
+      ],
+      en: [
+        'After a week of entries, Daylight asks once on “Today” for a rating on the Play Store',
+        'You can rate Daylight any time under “More”',
+        'You can mark the day as a turning point right in the entry',
+      ],
+      es: [
+        'Tras una semana de entradas, Daylight pide una vez en «Hoy» una valoración en Play Store',
+        'En «Más» puedes valorar Daylight cuando quieras',
+        'Desde la entrada puedes marcar el día como punto de inflexión',
+      ],
+      pt: [
+        'Depois de uma semana de registros, o Daylight pede uma vez em “Hoje” uma avaliação na Play Store',
+        'Em “Mais” você pode avaliar o Daylight a qualquer momento',
+        'No registro você pode marcar o dia como ponto de virada',
+      ],
+      fr: [
+        'Après une semaine d’entrées, Daylight demande une fois dans « Aujourd’hui » une note sur le Play Store',
+        'Dans « Plus », tu peux noter Daylight à tout moment',
+        'Depuis l’entrée, tu peux marquer le jour comme tournant',
+      ],
+      it: [
+        'Dopo una settimana di voci, Daylight chiede una volta in “Oggi” una recensione sul Play Store',
+        'In “Altro” puoi valutare Daylight in qualsiasi momento',
+        'Dalla voce puoi segnare il giorno come svolta',
+      ],
+    },
+  },
+  {
     version: '1.0.39',
     date: '2026-11-24',
     changes: {
