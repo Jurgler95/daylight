@@ -3,8 +3,8 @@
  * Prüft das Manifest einer fertig gebauten APK. Das ist der einzige Beleg, der zählt, nicht das
  * Manifest im Quellbaum: eine Abhängigkeit kann beim Build Berechtigungen nachschieben.
  *
- * Bricht ab, wenn `versionName` oder `versionCode` nicht zu `app.json` passen, wenn INTERNET, c2dm
- * oder Launcher-Badges auftauchen, wenn `android:allowBackup` nicht aus ist, wenn die
+ * Bricht ab, wenn `versionName` oder `versionCode` nicht zu `app.json` passen, wenn INTERNET,
+ * ACCESS_NETWORK_STATE, c2dm oder Launcher-Badges auftauchen, wenn `android:allowBackup` nicht aus ist, wenn die
  * `dataExtractionRules` den Umzug auf ein neues Handy nicht sperren oder wenn von Health
  * Connect etwas anderes als genau die fünf lesenden Berechtigungen dasteht
  * (`docs/decisions/gesundheitsdaten-health-connect.md`). Bricht auch ab, wenn der Code der APK
@@ -61,7 +61,7 @@ const problems = [];
 if (!pkg.includes(`versionName='${app.version}'`)) problems.push(`versionName passt nicht zu ${app.version}: ${pkg}`);
 if (!pkg.includes(`versionCode='${app.android.versionCode}'`)) problems.push(`versionCode passt nicht zu ${app.android.versionCode}: ${pkg}`);
 for (const p of permissions) {
-  if (/INTERNET|c2dm|badge/i.test(p)) problems.push(`Verbotene Berechtigung: ${p}`);
+  if (/INTERNET|ACCESS_NETWORK_STATE|c2dm|badge/i.test(p)) problems.push(`Verbotene Berechtigung: ${p}`);
 }
 if (health.join() !== HEALTH_PERMISSIONS.join()) {
   problems.push(`Health Connect: erwartet ${HEALTH_PERMISSIONS.join(', ')}, gefunden ${health.join(', ') || 'nichts'}`);
