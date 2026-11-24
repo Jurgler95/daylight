@@ -60,7 +60,7 @@ function Medal() {
       ))}
       <Animated.View style={[styles.glow, medal]}>
         <LinearGradient colors={medalGradient} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.medal}>
-          <MaterialCommunityIcons name="star" size={30} color="#FFFFFF" />
+          <MaterialCommunityIcons name="star" size={21} color="#FFFFFF" />
         </LinearGradient>
       </Animated.View>
     </View>
@@ -69,7 +69,7 @@ function Medal() {
 
 function Spark({ angle, burst }: { angle: number; burst: SharedValue<number> }) {
   const style = useAnimatedStyle(() => {
-    const distance = 22 + burst.value * 12;
+    const distance = 15 + burst.value * 8;
     return {
       opacity: burst.value === 0 ? 0 : (1 - burst.value) * 0.9,
       transform: [{ translateX: Math.cos(angle) * distance }, { translateY: Math.sin(angle) * distance }, { scale: 1 - burst.value * 0.4 }],
@@ -77,7 +77,7 @@ function Spark({ angle, burst }: { angle: number; burst: SharedValue<number> }) 
   });
   return (
     <Animated.View style={[styles.spark, style]}>
-      <MaterialCommunityIcons name="star-four-points" size={10} color={STAR_COLOR} />
+      <MaterialCommunityIcons name="star-four-points" size={8} color={STAR_COLOR} />
     </Animated.View>
   );
 }
@@ -85,9 +85,9 @@ function Spark({ angle, burst }: { angle: number; burst: SharedValue<number> }) 
 const styles = StyleSheet.create({
   head: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
   text: { flex: 1, gap: spacing.xs },
-  medalBox: { width: 60, height: 60, alignItems: 'center', justifyContent: 'center' },
-  glow: { borderRadius: 26, elevation: 6, shadowColor: '#E09B00', shadowOpacity: 0.45, shadowRadius: 10, shadowOffset: { width: 0, height: 4 } },
-  medal: { width: 52, height: 52, borderRadius: 26, alignItems: 'center', justifyContent: 'center' },
+  medalBox: { width: 42, height: 42, alignItems: 'center', justifyContent: 'center' },
+  glow: { borderRadius: 18, elevation: 4, shadowColor: '#E09B00', shadowOpacity: 0.45, shadowRadius: 7, shadowOffset: { width: 0, height: 3 } },
+  medal: { width: 36, height: 36, borderRadius: 18, alignItems: 'center', justifyContent: 'center' },
   spark: { position: 'absolute' },
   actions: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: spacing.sm },
 });
