@@ -830,6 +830,13 @@
     "later": "Ocultar",
     "laterHint": "Oculta este aviso durante 14 días"
   },
+  "review": {
+    "title": "¿Te ayuda Daylight?",
+    "body": "Una valoración en Play Store ayuda a otras personas a encontrar la app.",
+    "rate": "Valorar",
+    "rateHint": "Abre Daylight en Play Store",
+    "later": "Ahora no"
+  },
   "backup": {
     "title": "Hora de una copia de seguridad",
     "bodyNever": "Tus entradas solo están en este dispositivo. Una copia de seguridad en un archivo las protege si pierdes o cambias el dispositivo.",

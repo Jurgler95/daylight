@@ -6,6 +6,7 @@ import type { TurningPoint } from '@/db/schema';
 import { nowTime, today, type DateString } from '@/lib/dates';
 import { haptics } from '@/lib/haptics';
 import { filePhotoStore } from '@/lib/photos/fileStore';
+import { noteSaveForReview } from '@/lib/review/useReviewPrompt';
 import { mutate, useQuery } from '@/lib/store/dataVersion';
 import { useSettingsStore } from '@/lib/store/settingsStore';
 import { celebrateSave } from '@/lib/streak/celebrate';
@@ -84,6 +85,7 @@ export function useEntryEditor(target: EditorTarget): EntryEditor {
       // Checked against the database as it is now, since another editor may have taken the day meanwhile.
       if (done.current || !input || isTaken(input.date)) return false;
       const celebration = celebrateSave(() => mutate(() => saveEntry(getDb(), id, input)));
+      noteSaveForReview();
       done.current = true;
       setClosing(true);
       removePhotoFiles((initial?.photos ?? []).filter((name) => !input.photos?.includes(name)));

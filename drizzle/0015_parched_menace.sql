@@ -1,0 +1,1 @@
+ALTER TABLE `settings` ADD `review_prompt_done` integer DEFAULT false NOT NULL;

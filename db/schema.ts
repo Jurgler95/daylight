@@ -190,6 +190,8 @@ export const settings = sqliteTable('settings', {
   outlook_notify_enabled: integer('outlook_notify_enabled', { mode: 'boolean' }).notNull().default(false),
   /** "HH:mm" of that notification. Part of the backup. */
   outlook_notify_time: text('outlook_notify_time').notNull().default('08:00'),
+  /** The card asking for a Play Store rating was answered ("Bewerten" or "Nicht jetzt", `lib/review`). Device-local, never exported. */
+  review_prompt_done: integer('review_prompt_done', { mode: 'boolean' }).notNull().default(false),
   ...timestamps,
 });
 

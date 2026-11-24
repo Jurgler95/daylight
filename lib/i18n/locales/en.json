@@ -794,6 +794,13 @@
     "later": "Hide",
     "laterHint": "Hides this note for 14 days"
   },
+  "review": {
+    "title": "Is Daylight helping you?",
+    "body": "A rating on the Play Store helps others find the app.",
+    "rate": "Rate",
+    "rateHint": "Opens Daylight on the Play Store",
+    "later": "Not now"
+  },
   "backup": {
     "title": "Time for a backup",
     "bodyNever": "Your entries are only on this device. A backup file protects them if the device is lost or replaced.",

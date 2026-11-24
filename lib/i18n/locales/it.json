@@ -830,6 +830,13 @@
     "later": "Nascondi",
     "laterHint": "Nasconde questo avviso per 14 giorni"
   },
+  "review": {
+    "title": "Daylight ti è utile?",
+    "body": "Una recensione sul Play Store aiuta altre persone a trovare l'app.",
+    "rate": "Valuta",
+    "rateHint": "Apre Daylight sul Play Store",
+    "later": "Non ora"
+  },
   "backup": {
     "title": "È ora di fare un backup",
     "bodyNever": "Le tue voci sono solo su questo dispositivo. Un backup come file le protegge se perdi o cambi il dispositivo.",

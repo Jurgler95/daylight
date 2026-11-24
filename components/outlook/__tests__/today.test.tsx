@@ -1,11 +1,14 @@
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react-native';
+import { eq } from 'drizzle-orm';
 import { router } from 'expo-router';
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
+import { Linking } from 'react-native';
 
 import '@/lib/i18n';
 import type { Database } from '@/db';
 import { createEntry, getSettings, listMoods, listPlannedActivities, updateSettings } from '@/db/repositories';
+import { entries } from '@/db/schema';
 import { createTestDb } from '@/db/testDb';
 import { addDaysToDateString, type DateString } from '@/lib/dates';
 import { applyDaylioImport } from '@/lib/daylio/apply';
@@ -13,7 +16,10 @@ import { parseDaylioCsv } from '@/lib/daylio/parse';
 import { generateSample } from '@/lib/dev/generateSample';
 import { applySample } from '@/lib/dev/sample';
 import { backtestIdle, resetBacktest } from '@/lib/outlook/useOutlook';
+import { PLAY_STORE_URL } from '@/lib/review/prompt';
+import { noteSaveForReview, resetReviewPrompt } from '@/lib/review/useReviewPrompt';
 import { useDataVersion } from '@/lib/store/dataVersion';
+import { useOverlayStore } from '@/lib/store/overlays';
 import { useSelectedDayStore } from '@/lib/store/selectedDay';
 import { useSettingsStore } from '@/lib/store/settingsStore';
 
@@ -44,7 +50,7 @@ jest.mock('@/lib/dates/useToday', () => ({ useToday: () => '2026-09-26' }));
 
 const today = '2026-09-26' as DateString;
 const FILE = path.join(__dirname, '..', '..', '..', 'private', 'daylio_export_2026_09_26.csv');
-const BROKEN = /NaN|undefined|outlook\.|lookback\.|lowMood\.|backup\.|reminders\.|lock\.|privacy\.|about\.|streak\./;
+const BROKEN = /NaN|undefined|outlook\.|lookback\.|lowMood\.|review\.|backup\.|reminders\.|lock\.|privacy\.|about\.|streak\./;
 
 async function use(db: Database) {
   mockDb = db;
@@ -178,6 +184,69 @@ describe('streak on "Heute"', () => {
     expect(screen.queryByRole('button', { name: /in Folge/ })).toBeNull();
     expect(getSettings(db).streak_rescue_dismissed).toBe(today);
     expect(screen.queryByText(BROKEN)).toBeNull();
+  });
+});
+
+describe('rating card on "Heute"', () => {
+  /** One entry for each of the last `days` days, each written on its own day. */
+  async function used(days: number) {
+    const db = createTestDb();
+    const good = listMoods(db).find((m) => m.level === 4)!;
+    for (let i = 0; i < days; i += 1) {
+      const date = addDaysToDateString(today, -i);
+      const { id } = createEntry(db, { date, time: '20:30', mood_id: good.id });
+      db.update(entries).set({ created_at: new Date(`${date}T20:30:00`).toISOString() }).where(eq(entries.id, id)).run();
+    }
+    resetReviewPrompt();
+    await use(db);
+    await show(<TodayScreen />);
+    return db;
+  }
+  const save = () => act(async () => noteSaveForReview());
+
+  it('asks after a save once entries were written on seven days, not on opening the app', async () => {
+    await used(7);
+    expect(screen.queryByText('Hilft dir Daylight?')).toBeNull();
+    await save();
+    expect(screen.getByText('Hilft dir Daylight?')).toBeTruthy();
+    expect(screen.getByText('Eine Bewertung im Play Store hilft anderen, die App zu finden.')).toBeTruthy();
+    expect(screen.queryByText(BROKEN)).toBeNull();
+  });
+
+  it('does not ask after six days of use', async () => {
+    await used(6);
+    await save();
+    expect(screen.queryByText('Hilft dir Daylight?')).toBeNull();
+  });
+
+  it('waits while a celebration or the star message is up', async () => {
+    await used(7);
+    await act(async () => useOverlayStore.getState().request('stars'));
+    await save();
+    expect(screen.queryByText('Hilft dir Daylight?')).toBeNull();
+    await act(async () => useOverlayStore.getState().release('stars'));
+    expect(screen.getByText('Hilft dir Daylight?')).toBeTruthy();
+  });
+
+  it('"Nicht jetzt" puts it away for good', async () => {
+    const db = await used(7);
+    await save();
+    await act(async () => fireEvent.press(screen.getByRole('button', { name: 'Nicht jetzt' })));
+    expect(screen.queryByText('Hilft dir Daylight?')).toBeNull();
+    expect(getSettings(db).review_prompt_done).toBe(true);
+    await save();
+    expect(screen.queryByText('Hilft dir Daylight?')).toBeNull();
+  });
+
+  it('"Bewerten" opens the store page and puts it away', async () => {
+    const open = jest.spyOn(Linking, 'openURL').mockResolvedValue(true);
+    const db = await used(7);
+    await save();
+    await act(async () => fireEvent.press(screen.getByRole('button', { name: 'Bewerten' })));
+    expect(open).toHaveBeenCalledWith(PLAY_STORE_URL);
+    expect(getSettings(db).review_prompt_done).toBe(true);
+    expect(screen.queryByText('Hilft dir Daylight?')).toBeNull();
+    open.mockRestore();
   });
 });
 

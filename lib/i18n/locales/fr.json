@@ -830,6 +830,13 @@
     "later": "Masquer",
     "laterHint": "Masque cette remarque pendant 14 jours"
   },
+  "review": {
+    "title": "Daylight t'aide ?",
+    "body": "Une note sur le Play Store aide d'autres personnes à trouver l'app.",
+    "rate": "Noter",
+    "rateHint": "Ouvre Daylight sur le Play Store",
+    "later": "Pas maintenant"
+  },
   "backup": {
     "title": "C'est l'heure d'une sauvegarde",
     "bodyNever": "Tes entrées sont uniquement sur cet appareil. Une sauvegarde en fichier les protège en cas de perte ou de changement d'appareil.",

@@ -14,6 +14,7 @@ import { BackupCard } from '@/components/today/BackupCard';
 import { DayStrip, type DayStripHandle } from '@/components/today/DayStrip';
 import { LookbackCard } from '@/components/today/LookbackCard';
 import { LowMoodCard } from '@/components/today/LowMoodCard';
+import { ReviewCard } from '@/components/today/ReviewCard';
 import { StreakChip } from '@/components/today/StreakChip';
 import { StreakRescueCard } from '@/components/today/StreakRescueCard';
 import { StreakRiskCard } from '@/components/today/StreakRiskCard';
@@ -30,6 +31,7 @@ import { formatDuration } from '@/lib/health/format';
 import { useHealthDay } from '@/lib/health/useHealthDays';
 import { useHintOnToday } from '@/lib/outlook/useGoodTomorrow';
 import { useOutlook } from '@/lib/outlook/useOutlook';
+import { useReviewPrompt } from '@/lib/review/useReviewPrompt';
 import { useQuery } from '@/lib/store/dataVersion';
 import { useSelectedDay } from '@/lib/store/selectedDay';
 import { useChipPulse, useStreak } from '@/lib/streak/useStreak';
@@ -52,6 +54,7 @@ export default function TodayScreen() {
   const entries = useQuery(() => listEntryDetails(getDb(), date, date), [date]);
   const health = useHealthDay(date);
   const streak = useStreak(now);
+  const review = useReviewPrompt();
 
   const offset = daysBetween(now, date);
   // The hint counts as given once it was on screen, today or on tomorrow's page, and not while an
@@ -165,6 +168,7 @@ export default function TodayScreen() {
               />
             ))}
             {health ? <HealthDayCard day={health} /> : null}
+            {offset === 0 && review.show ? <ReviewCard onRate={review.rate} onDismiss={review.dismiss} /> : null}
             {offset === 0 && hint && !morning ? <GoodTomorrowCard hint={hint} catalog={catalog} /> : null}
             {entries.length > 0 ? <TurningDayCard date={date} /> : null}
             {offset === 0 ? <LookbackCard date={date} catalog={catalog} onOpenDay={setDate} /> : null}

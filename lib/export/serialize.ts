@@ -7,7 +7,7 @@ import { EXPORT_APP, EXPORT_SCHEMA_VERSION, type ExportPayload, type ExportSetti
 
 /**
  * last_export_at, low_mood_dismissed_on, the announced stars, the number of app opens, the language, the Health Connect state,
- * the answered reminder sheet and the streak's celebrations and put away rescue describe this device, not the
+ * the answered reminder sheet, the streak's celebrations and put away rescue and the answered rating card describe this device, not the
  * data, so they stay out of the snapshot. The health days themselves only go in when the user opted in.
  */
 export function settingsForExport(row: ReturnType<typeof getSettings>): ExportSettings {
@@ -28,6 +28,7 @@ export function settingsForExport(row: ReturnType<typeof getSettings>): ExportSe
     reminder_prompt_done: _rp,
     streak_celebrated: _sc,
     streak_rescue_dismissed: _sr,
+    review_prompt_done: _rv,
     ...rest
   } = row;
   return rest;
