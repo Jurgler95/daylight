@@ -26,6 +26,18 @@ export function changesIn(release: Release, language: Language): string[] {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.39',
+    date: '2026-11-24',
+    changes: {
+      de: ['Daylight braucht keine Berechtigung mehr, Netzwerkverbindungen abzurufen'],
+      en: ['Daylight no longer needs the permission to view network connections'],
+      es: ['Daylight ya no necesita el permiso para ver las conexiones de red'],
+      pt: ['O Daylight não precisa mais da permissão para ver as conexões de rede'],
+      fr: ['Daylight n’a plus besoin de l’autorisation d’afficher les connexions réseau'],
+      it: ['Daylight non ha più bisogno dell’autorizzazione per visualizzare le connessioni di rete'],
+    },
+  },
+  {
     version: '1.0.38',
     date: '2026-11-24',
     changes: {
