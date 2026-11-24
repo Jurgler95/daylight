@@ -2,6 +2,8 @@
 
 Ein Stimmungstagebuch für Android, das deine Daten nicht kennt. Keine Konten, keine Server, keine Analytics, keine Werbung und keine Internet-Berechtigung. Alles bleibt auf deinem Gerät.
 
+> **English:** Daylight is a mood journal for Android that doesn't know your data. No account, no servers, no analytics, no ads and no internet permission: every entry stays on your device. Tap a mood, pick what you did, and see your patterns in a calendar, insights and an honest 7-day outlook. Optional read-only Health Connect data, app lock, CSV import and export, available in English, German, Spanish, French, Italian and Portuguese (Brazil). Free and open source under the GPL. Get it on [Google Play](https://play.google.com/store/apps/details?id=de.behla.daylight) or as a signed APK from the [releases](https://github.com/Jurgler95/daylight/releases/latest). Most of the code was written with an AI coding agent (Claude Code) under my direction; I review, test and maintain it.
+
 <p align="center">
   <img src="docs/screenshots/heute.png" width="30%" alt="Heute: Stimmung wählen und Rückblick auf frühere Tage">
   <img src="docs/screenshots/editor.png" width="30%" alt="Eintrag: Stimmung und Aktivitäten in Gruppen">
