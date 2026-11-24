@@ -27,7 +27,7 @@ export function ScaleMoodCard({ insight }: { insight: ScaleInsight }) {
   };
 
   return (
-    <InsightCard title={t('insights.scales.mood.title')}>
+    <InsightCard title={t('insights.scales.mood.title', { name: scale.name })}>
       {rows.map((bucket) => {
         const name = label(bucket);
         const days = t('insights.scales.mood.days', { count: bucket.days });

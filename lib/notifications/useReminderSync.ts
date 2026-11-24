@@ -2,6 +2,9 @@ import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AppState } from 'react-native';
 
+import { getDb } from '@/db';
+import { listTomorrowSnapshots } from '@/db/repositories/tomorrowHints';
+import { addDaysToDateString } from '@/lib/dates';
 import { useToday } from '@/lib/dates/useToday';
 import { formatCount } from '@/lib/insights';
 import { useQuery } from '@/lib/store/dataVersion';
@@ -32,9 +35,15 @@ export function useReminderSync(): void {
   const always = useSettingsStore((s) => s.settings?.reminder_always ?? false);
   const yesterdayEnabled = useSettingsStore((s) => s.settings?.reminder_yesterday_enabled ?? true);
   const yesterdayTime = useSettingsStore((s) => s.settings?.reminder_yesterday_time ?? '10:00');
+  const outlookOn = useSettingsStore((s) => (s.settings?.outlook_enabled ?? true) && (s.settings?.outlook_notify_enabled ?? false));
+  const outlookTime = useSettingsStore((s) => s.settings?.outlook_notify_time ?? '08:00');
   const [tick, setTick] = useState(0);
   const today = useToday();
   const entryDays = useQuery(() => readEntryDays(), []);
+  // Yesterday's and today's hint are all the plan looks at, and only while still stored: a hint
+  // that went away again that evening sends nothing the morning after.
+  const stored = useQuery(() => listTomorrowSnapshots(getDb(), addDaysToDateString(today, -1)), [today]);
+  const outlook = useMemo(() => (outlookOn ? { time: outlookTime, hintDays: new Set(stored.keys()) } : null), [outlookOn, outlookTime, stored]);
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (state) => {
@@ -48,6 +57,7 @@ export function useReminderSync(): void {
       title: t('notify.title'),
       daily: (n) => (n === null ? t('notify.body') : t('notify.bodyStreak', { value: formatCount(n) })),
       yesterday: (n) => (n === null ? t('notify.yesterday') : t('notify.yesterdayStreak', { count: n, value: formatCount(n) })),
+      outlook: t('notify.outlook'),
     }),
     // The language too: a switch rewrites the reminders in the new language.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -55,9 +65,9 @@ export function useReminderSync(): void {
   );
 
   const plan = useMemo<PlannedReminder[]>(
-    () => planReminders({ today, nowMinutes: minutesNow(), enabled, time, always, yesterdayEnabled, yesterdayTime, entryDays, wording }),
+    () => planReminders({ today, nowMinutes: minutesNow(), enabled, time, always, yesterdayEnabled, yesterdayTime, outlook, entryDays, wording }),
     // `tick` re-plans after the app was in the background: the time of day may have passed.
-    [today, enabled, time, always, yesterdayEnabled, yesterdayTime, entryDays, wording, tick],
+    [today, enabled, time, always, yesterdayEnabled, yesterdayTime, outlook, entryDays, wording, tick],
   );
   // Read on every render: a return to the app after a change of time zone sets the times again.
   const signature = planSignature(plan, timeZoneKey());

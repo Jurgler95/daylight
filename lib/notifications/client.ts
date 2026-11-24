@@ -2,7 +2,7 @@ import { parseDateString } from '@/lib/dates';
 import { withLockSuspended } from '@/lib/lock/store';
 import Reminders from '@/modules/daylight-reminders';
 
-import { entryLink, localTrigger, type PlannedReminder } from './plan';
+import { localTrigger, reminderLink, type PlannedReminder } from './plan';
 
 /**
  * Reminders go through the app's own native module (`modules/daylight-reminders`), not
@@ -59,7 +59,7 @@ export async function syncReminders(planned: readonly PlannedReminder[], channel
       CHANNEL_ID,
       reminder.title,
       reminder.body,
-      entryLink(reminder.openDate),
+      reminderLink(reminder),
       localTrigger(reminder),
     );
   }

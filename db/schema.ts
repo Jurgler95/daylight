@@ -186,6 +186,10 @@ export const settings = sqliteTable('settings', {
   design_seasons: integer('design_seasons', { mode: 'boolean' }).notNull().default(true),
   /** "Designs zu Festen": festivals win over the season. Only with `design_seasons`; part of the backup like it. */
   design_festivals: integer('design_festivals', { mode: 'boolean' }).notNull().default(true),
+  /** Opt-in: a morning notification on a day the hint for a good next day pointed at. Only with `outlook_enabled`; part of the backup. */
+  outlook_notify_enabled: integer('outlook_notify_enabled', { mode: 'boolean' }).notNull().default(false),
+  /** "HH:mm" of that notification. Part of the backup. */
+  outlook_notify_time: text('outlook_notify_time').notNull().default('08:00'),
   ...timestamps,
 });
 
@@ -226,6 +230,12 @@ export const turningPoints = sqliteTable('turning_points', {
  */
 export const tomorrowHints = sqliteTable('tomorrow_hints', {
   date: text('date').primaryKey(),
+  /**
+   * The hint as it was last on screen, as JSON (`GoodTomorrow`), so the next morning shows exactly
+   * that and the morning notification only comes while there is one. Null once that day's hint is
+   * gone again (its entry changed that evening); the day still counts towards the two weeks.
+   */
+  hint: text('hint'),
 });
 
 export type Mood = typeof moods.$inferSelect;

@@ -333,6 +333,8 @@
     "days_many": "{{count}} dias",
     "tiles": {
       "mean": "Média",
+      "meanOf": "{{name}} (média)",
+      "meanOfSpoken": "{{name}} (média)",
       "coverage": "Cobertura",
       "coverageHint": "{{days}} de {{span}} dias"
     },
@@ -436,10 +438,12 @@
     "groups": {
       "title": "Por grupo",
       "none": "Nada deste grupo",
-      "row": "{{mean}}, {{count}} dias",
+      "row": "média {{mean}}, {{count}} dias",
+      "rowSpoken": "média {{mean}}, {{count}} dias",
       "few": "{{count}} dias",
       "empty": "Não há registros deste grupo neste período",
-      "pick": "Grupo"
+      "pick": "Grupo",
+      "titleOf": "Por grupo: {{name}}"
     },
     "words": {
       "title": "Palavras",
@@ -519,6 +523,12 @@
         "restingHr": "Pulso",
         "exercise": "Exercício"
       },
+      "metricInText": {
+        "sleep": "sono",
+        "steps": "passos",
+        "restingHr": "pulso",
+        "exercise": "exercício"
+      },
       "tiles": {
         "sleep": "Sono",
         "steps": "Passos",
@@ -533,7 +543,7 @@
         "exerciseDays_many": "em {{count}} dias"
       },
       "trend": {
-        "title": "Valores ao longo do tempo",
+        "title": "{{name}}: evolução",
         "goal": "Meta",
         "mean": "Média",
         "median": "Mediana",
@@ -558,7 +568,7 @@
         "current": "Sequência atual"
       },
       "weekdays": {
-        "title": "Valores por dia da semana",
+        "title": "{{name}} por dia da semana",
         "a11y": "{{day}}: {{value}}, {{count}} dias"
       },
       "records": {
@@ -634,7 +644,7 @@
         "hint": "Correlação de -1 a 1: quanto os dois sobem ou descem juntos. Ela descreve seu diário, não causa e efeito."
       },
       "activities": {
-        "title": "Atividades e corpo",
+        "title": "Atividades e {{name}}",
         "sentence": "Nesses dias, média {{with}} em vez de {{without}} ({{count}} dias)",
         "nightSentence": "Na noite seguinte, média {{with}} em vez de {{without}} ({{count}} noites)",
         "higher": {
@@ -653,12 +663,13 @@
       }
     },
     "scales": {
+      "label": "Escala",
       "pick": "Escolher escala",
       "emptyRange": "Nenhuma escala tem valores neste período",
-      "trend": "Evolução da escala",
-      "weekdays": "Escala por dia da semana",
+      "trend": "{{name}}: evolução",
+      "weekdays": "{{name}} por dia da semana",
       "mood": {
-        "title": "Humor por valor",
+        "title": "Humor por {{name}}",
         "days_one": "{{count}} dia",
         "days_other": "{{count}} dias",
         "days_many": "{{count}} dias",
@@ -684,7 +695,7 @@
         }
       },
       "activities": {
-        "title": "Atividades e escala",
+        "title": "Atividades e {{name}}",
         "higher": "{{scale}} mais alto com",
         "lower": "{{scale}} mais baixo com"
       },
@@ -737,6 +748,12 @@
   "outlook": {
     "show": "Mostrar previsão",
     "showHint": "Em Hoje e no calendário",
+    "notify": {
+      "label": "Notificação de manhã",
+      "hint": "Uma notificação de manhã quando houver um aviso de um bom dia. A tela de bloqueio só mostra que a previsão chegou, não o que ela diz.",
+      "time": "Horário da manhã",
+      "permissionDenied": "Sem a permissão do sistema nenhuma notificação chega. Você pode permiti-la nas configurações do Android."
+    },
     "computing": "Calculando",
     "between": "entre {{low}} e {{high}}",
     "hardChance": "Dia difícil possível ({{percent}})",
@@ -779,6 +796,16 @@
       "reasonWeekday": "amanhã é {{weekday}}",
       "reasonSleep": "{{value}} de sono",
       "reasonSteps": "ontem {{value}} passos",
+      "morning": {
+        "title": "Boas perspectivas para hoje",
+        "bodyLikely": "Depois de dias como ontem, seu dia seguinte foi {{mood}} ou melhor em {{hit}} dos casos; caso contrário, em média {{usual}} ({{count}} casos).",
+        "bodyBetter": "Depois de dias como ontem, seu dia seguinte foi {{mood}} ou melhor com mais frequência que o normal: em {{hit}} dos casos em vez de {{usual}} ({{count}} casos).",
+        "bodyOpen": "Para você, dias como ontem foram seguidos com especial frequência por um dia a partir de {{mood}}. Com mais registros vai dar para ver quanto isso é confiável.",
+        "bodyAbove": "Para você, dias como ontem foram seguidos um pouco mais que o normal por um dia a partir de {{mood}}. Com mais registros vai dar para ver quanto isso é confiável.",
+        "reasonMood": "seu humor de ontem",
+        "reasonWeekday": "hoje é {{weekday}}",
+        "reasonSteps": "anteontem {{value}} passos"
+      },
       "status": {
         "title": "Aviso de dias bons",
         "hint": "Depois do seu registro, “Hoje” mostra um aviso quando o dia seguinte tem mais chance que o normal de ser pelo menos tão bom quanto a sua média. Cerca de uma a quatro vezes a cada duas semanas, nunca como alerta de um dia ruim.",
@@ -834,7 +861,8 @@
     "yesterday": "Ainda falta o registro de ontem.",
     "yesterdayStreak_one": "Ainda falta ontem. Registre e sua sequência continua.",
     "yesterdayStreak_other": "Ainda falta ontem. Registre para manter seus {{value}} dias.",
-    "yesterdayStreak_many": "Ainda falta ontem. Registre para manter seus {{value}} dias."
+    "yesterdayStreak_many": "Ainda falta ontem. Registre para manter seus {{value}} dias.",
+    "outlook": "Sua previsão para hoje chegou"
   },
   "reminderPrompt": {
     "title": "Um lembrete rápido à noite?",

@@ -16,23 +16,26 @@ import { moodColors, spacing } from '@/lib/theme';
 const LIKELY_FROM = 0.5;
 
 /**
- * "Morgen könnte ein guter Tag werden": only ever this good news. With a backtest behind it the card
+ * "Morgen könnte ein guter Tag werden": only ever this good news. On the morning after, before the
+ * day's entry, the same hint again as "Gute Aussichten für heute", worded from today looking back. With a backtest behind it the card
  * names how often it came true after days that reached the same step; without, it says that this
  * is still open.
  * There is no card for a day that looks worse.
  */
-export function GoodTomorrowCard({ hint, catalog }: { hint: GoodTomorrow; catalog: Catalog }) {
+export function GoodTomorrowCard({ hint, catalog, morning = false }: { hint: GoodTomorrow; catalog: Catalog; morning?: boolean }) {
   const { t } = useTranslation();
+  // The morning texts look back from the day the hint is about; the rest is shared.
+  const key = (name: string) => (morning ? `outlook.tomorrow.morning.${name}` : `outlook.tomorrow.${name}`);
   const level = Math.min(5, Math.max(1, hint.level)) as MoodLevel;
   const mood = levelMood(catalog, level);
   const reason = (value: TomorrowReason, date: DateString) => {
     switch (value.kind) {
       case 'mood':
-        return t('outlook.tomorrow.reasonMood');
+        return t(key('reasonMood'));
       case 'sleep':
         return t('outlook.tomorrow.reasonSleep', { value: formatDurationShort(value.minutes) });
       case 'steps':
-        return t('outlook.tomorrow.reasonSteps', { value: formatSteps(value.steps) });
+        return t(key('reasonSteps'), { value: formatSteps(value.steps) });
       case 'activity':
         return activityLabel(catalog, value.activityId);
       case 'scale': {
@@ -41,15 +44,15 @@ export function GoodTomorrowCard({ hint, catalog }: { hint: GoodTomorrow; catalo
         return scale ? `${scale.name} ${scale.kind === 'rating' && Number.isInteger(value.value) ? value.value : formatScaleValue(scale, value.value)}` : '';
       }
       case 'weekday':
-        return t('outlook.tomorrow.reasonWeekday', { weekday: formatWeekdayLong(date) });
+        return t(key('reasonWeekday'), { weekday: formatWeekdayLong(date) });
     }
   };
   const reasons = hint.reasons.map((value) => reason(value, hint.date)).filter(Boolean);
   const proof = hint.proof;
   // Without a backtest behind it only the top step may say that today is among the best days.
   const body = !proof
-    ? t(hint.tier === 'top' ? 'outlook.tomorrow.bodyOpen' : 'outlook.tomorrow.bodyAbove', { mood: mood.label })
-    : t(proof.hitRate > LIKELY_FROM ? 'outlook.tomorrow.bodyLikely' : 'outlook.tomorrow.bodyBetter', {
+    ? t(key(hint.tier === 'top' ? 'bodyOpen' : 'bodyAbove'), { mood: mood.label })
+    : t(key(proof.hitRate > LIKELY_FROM ? 'bodyLikely' : 'bodyBetter'), {
         mood: mood.label,
         hit: formatPercent(proof.hitRate),
         usual: formatPercent(proof.usual),
@@ -63,7 +66,7 @@ export function GoodTomorrowCard({ hint, catalog }: { hint: GoodTomorrow; catalo
       <View style={styles.row}>
         <MaterialCommunityIcons name={mood.icon} size={28} color={moodColors[level].strong} />
         <AppText variant="headline" style={styles.flex}>
-          {t('outlook.tomorrow.title')}
+          {t(key('title'))}
         </AppText>
       </View>
       <AppText>{body}</AppText>

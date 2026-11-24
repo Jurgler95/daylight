@@ -10,7 +10,7 @@ import { formatMetric } from '@/lib/health/format';
 import type { ActivityHealthEffect, HealthStats } from '@/lib/insights';
 import { spacing } from '@/lib/theme';
 
-import { MetricPicker, useMetric } from './metrics';
+import { MetricPicker, metricName, useMetric } from './metrics';
 
 /** Rows per side before "Alle zeigen". */
 const SHOWN = 4;
@@ -46,7 +46,7 @@ export function ActivityHealthCard({ stats, names }: { stats: HealthStats; names
 
   return (
     <InsightCard
-      title={t('insights.healthStats.activities.title')}
+      title={t('insights.healthStats.activities.title', { name: metricName(t, metric, true) })}
       controls={metric ? <MetricPicker metrics={stats.metrics} value={metric} onChange={setMetric} /> : null}
       empty={empty ? t('insights.healthStats.activities.empty') : null}
     >

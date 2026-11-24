@@ -1,12 +1,14 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 
 import { useOutlookTexts } from '@/components/outlook/useOutlookTexts';
+import { TimeRow } from '@/components/settings/TimeRow';
 import { AppText, Card, Screen, ToggleRow } from '@/components/ui';
 import { useCatalog } from '@/lib/catalog/useCatalog';
 import { useToday } from '@/lib/dates/useToday';
 import { formatDecimal, formatPercent } from '@/lib/insights/format';
+import { notificationsAvailable, requestPermission } from '@/lib/notifications';
 import type { MoodLevel } from '@/db/schema';
 import type { TomorrowStatus } from '@/lib/outlook/tomorrow';
 import { useGoodTomorrow } from '@/lib/outlook/useGoodTomorrow';
@@ -41,6 +43,19 @@ export default function OutlookSettingsScreen() {
       ? `${t('outlook.tomorrow.status.proof', { mood, hit: formatPercent(value.proof.hitRate), usual: formatPercent(value.proof.usual), count: value.proof.cases })} ${shown}`
       : `${t('outlook.tomorrow.status.noProof', { mood })} ${shown}`;
   };
+  /** Like the reminders: the system permission is asked for when the switch goes on, never before. */
+  const toggleNotify = (value: boolean) => {
+    if (!value) {
+      update({ outlook_notify_enabled: false });
+      return;
+    }
+    void requestPermission(t('notify.channel'))
+      .catch(() => false)
+      .then((granted) => {
+        if (granted) update({ outlook_notify_enabled: true });
+        else Alert.alert(t('outlook.notify.label'), t('outlook.notify.permissionDenied'));
+      });
+  };
   const scores = outlook?.status === 'ready' ? outlook.backtest.horizons : null;
   const cell = (value: number | null) => (value === null ? '' : formatDecimal(value, 2));
 
@@ -49,6 +64,24 @@ export default function OutlookSettingsScreen() {
       <Card>
         <ToggleRow label={t('outlook.show')} hint={t('outlook.showHint')} value={settings.outlook_enabled} onChange={(outlook_enabled) => update({ outlook_enabled })} />
       </Card>
+      {/* Without the outlook there is no hint, so its notification waits while that is off. */}
+      {notificationsAvailable() ? (
+        <Card>
+          <ToggleRow
+            label={t('outlook.notify.label')}
+            hint={t('outlook.notify.hint')}
+            value={settings.outlook_notify_enabled}
+            disabled={!settings.outlook_enabled}
+            onChange={toggleNotify}
+          />
+          <TimeRow
+            label={t('outlook.notify.time')}
+            value={settings.outlook_notify_time}
+            disabled={!settings.outlook_enabled || !settings.outlook_notify_enabled}
+            onChange={(outlook_notify_time) => update({ outlook_notify_time })}
+          />
+        </Card>
+      ) : null}
       <Card>
         <AppText variant="headline" accessibilityRole="header">
           {t('outlook.accuracy')}

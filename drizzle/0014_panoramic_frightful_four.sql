@@ -1,0 +1,1 @@
+ALTER TABLE `tomorrow_hints` ADD `hint` text;

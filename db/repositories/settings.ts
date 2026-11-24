@@ -20,6 +20,7 @@ export function getSettings(db: Database): Settings {
 export function updateSettings(db: Database, patch: SettingsPatch): Settings {
   if (patch.reminder_time !== undefined) assertTime(patch.reminder_time, 'reminder_time');
   if (patch.reminder_yesterday_time !== undefined) assertTime(patch.reminder_yesterday_time, 'reminder_yesterday_time');
+  if (patch.outlook_notify_time !== undefined) assertTime(patch.outlook_notify_time, 'outlook_notify_time');
   if (patch.streak_rescue_dismissed) assertDate(patch.streak_rescue_dismissed, 'streak_rescue_dismissed');
   if (patch.low_mood_dismissed_on) assertDate(patch.low_mood_dismissed_on, 'low_mood_dismissed_on');
   if (patch.health_synced_from) assertDate(patch.health_synced_from, 'health_synced_from');

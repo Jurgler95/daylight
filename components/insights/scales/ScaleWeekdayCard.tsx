@@ -23,7 +23,7 @@ export function ScaleWeekdayCard({ insight, names, firstDay }: Props) {
   const lo = scale.kind === 'duration' ? 0 : scale.min;
   const hi = scale.kind === 'duration' ? Math.max(1, ...rows.flatMap((row) => (row.mean === null ? [] : [row.mean]))) : scale.max;
   return (
-    <InsightCard title={t('insights.scales.weekdays')}>
+    <InsightCard title={t('insights.scales.weekdays', { name: scale.name })}>
       {rows.map((row) => {
         const name = names[row.weekday] ?? '';
         const value = row.mean === null ? '' : formatScaleValue(scale, row.mean);

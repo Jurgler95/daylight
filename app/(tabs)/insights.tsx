@@ -138,6 +138,7 @@ export default function InsightsScreen() {
           onChange={setRange}
         />
       ) : null}
+      {section === 'scales' && scale ? <ScalePicker insights={scaleInsights} value={scale.scale.id} onChange={setScale} /> : null}
     </View>
   );
 
@@ -211,8 +212,7 @@ export default function InsightsScreen() {
           <EmptyState icon="options-outline" label={t('insights.scales.emptyRange')} />
         ) : (
           <>
-            <ScaleTiles insights={scaleInsights} />
-            <ScalePicker insights={scaleInsights} value={scale.scale.id} onChange={setScale} />
+            <ScaleTiles insights={scaleInsights} value={scale.scale.id} onChange={setScale} />
             <ScaleTrendCard insight={scale} window={insights.window} />
             <ScaleMoodCard insight={scale} />
             <ScaleActivitiesCard insight={scale} names={names} />

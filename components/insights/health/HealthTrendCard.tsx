@@ -8,7 +8,7 @@ import { SLEEP_GOAL_MINUTES, STEPS_GOAL, type DayWindow, type HealthMetric, type
 import { spacing } from '@/lib/theme';
 
 import { HealthLineChart } from './HealthLineChart';
-import { MetricPicker, useMetric } from './metrics';
+import { MetricPicker, metricName, useMetric } from './metrics';
 
 const GOALS: Partial<Record<HealthMetric, number>> = { sleep: SLEEP_GOAL_MINUTES, steps: STEPS_GOAL };
 
@@ -19,7 +19,7 @@ export function HealthTrendCard({ stats, window }: { stats: HealthStats; window:
   const summary = metric ? stats.summaries[metric] : undefined;
   return (
     <InsightCard
-      title={t('insights.healthStats.trend.title')}
+      title={t('insights.healthStats.trend.title', { name: metricName(t, metric) })}
       controls={metric ? <MetricPicker metrics={stats.metrics} value={metric} onChange={setMetric} /> : null}
       empty={!metric || !summary ? t('insights.healthStats.empty') : null}
     >

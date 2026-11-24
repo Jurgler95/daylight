@@ -26,6 +26,48 @@ export function changesIn(release: Release, language: Language): string[] {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.37',
+    date: '2026-11-24',
+    changes: {
+      de: [
+        'Unter „Skalen“ wählst du die Skala oben im festen Kopf oder per Tipp auf ihre Kachel, und jede Karte nennt die gewählte Skala',
+        'Karten zu Gesundheit und Gruppen nennen im Titel, was sie gerade zeigen, und Durchschnitte tragen ein Ø',
+        'Kam abends der Hinweis auf einen guten Tag, steht er am Morgen als „Gute Aussichten für heute“ auf „Heute“',
+        'Unter „Ausblick“ kannst du dir dafür morgens eine Benachrichtigung schicken lassen, die nichts verrät',
+      ],
+      en: [
+        'Under “Scales” you pick the scale in the fixed header or by tapping its tile, and every card names the chosen scale',
+        'Health and group cards name in their title what they show, and averages are marked as such',
+        'If the hint about a good day came in the evening, “Today” shows it in the morning as “Good prospects for today”',
+        'Under “Outlook” you can get a morning notification for it that gives nothing away',
+      ],
+      es: [
+        'En «Escalas» eliges la escala en la cabecera fija o tocando su ficha, y cada tarjeta nombra la escala elegida',
+        'Las tarjetas de salud y de grupos dicen en el título lo que muestran, y los promedios van marcados',
+        'Si por la noche llegó el aviso de un buen día, «Hoy» lo muestra por la mañana como «Buenas perspectivas para hoy»',
+        'En «Previsión» puedes recibir para ello un aviso por la mañana que no revela nada',
+      ],
+      pt: [
+        'Em “Escalas” você escolhe a escala no cabeçalho fixo ou tocando no cartão dela, e cada cartão mostra a escala escolhida',
+        'Os cartões de saúde e de grupos dizem no título o que mostram, e as médias vêm indicadas',
+        'Se à noite veio o aviso de um bom dia, “Hoje” o mostra de manhã como “Boas perspectivas para hoje”',
+        'Em “Previsão” você pode receber uma notificação de manhã para isso, sem revelar nada',
+      ],
+      fr: [
+        'Dans « Échelles », tu choisis l’échelle dans l’en-tête fixe ou en touchant sa tuile, et chaque carte nomme l’échelle choisie',
+        'Les cartes santé et groupes disent dans leur titre ce qu’elles montrent, et les moyennes sont signalées',
+        'Si l’indication d’une bonne journée est venue le soir, « Aujourd’hui » l’affiche le matin sous « De belles perspectives pour aujourd’hui »',
+        'Dans « Prévision », tu peux recevoir pour cela une notification le matin qui ne dévoile rien',
+      ],
+      it: [
+        'In “Scale” scegli la scala nell’intestazione fissa o toccando la sua scheda, e ogni scheda indica la scala scelta',
+        'Le schede su salute e gruppi dicono nel titolo cosa mostrano, e le medie sono segnalate',
+        'Se la sera è arrivato l’avviso di una bella giornata, “Oggi” lo mostra al mattino come “Buone prospettive per oggi”',
+        'In “Previsione” puoi ricevere una notifica al mattino che non rivela nulla',
+      ],
+    },
+  },
+  {
     version: '1.0.36',
     date: '2026-11-24',
     changes: {

@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
-import { AppText, Chip } from '@/components/ui';
+import { AppText, Chip, SelectRow } from '@/components/ui';
 import { formatDecimal, groupRows, type InsightDay } from '@/lib/insights';
 import { roundLevel } from '@/lib/mood/dayMood';
 import { moodColors, spacing } from '@/lib/theme';
@@ -17,6 +17,9 @@ interface Props {
   names: ActivityNames;
 }
 
+/** Up to this many groups pick by chip; more would stack rows of chips over a short table, so they get one row with a list. */
+const CHIPS_UP_TO = 4;
+
 /** One group at a time (sleep, weather) as a compact table: activity, mean mood, days. */
 export function GroupCard({ days, groups, names }: Props) {
   const { t } = useTranslation();
@@ -24,15 +27,23 @@ export function GroupCard({ days, groups, names }: Props) {
   const [picked, setPicked] = useState<number | null>(null);
   const group = used.find((candidate) => candidate.id === picked) ?? used[0];
   const rows = useMemo(() => (group ? groupRows(days, group.activityIds) : []), [days, group]);
-  const detail = (mean: number | null, count: number) =>
-    mean === null ? t('insights.groups.few', { count }) : t('insights.groups.row', { mean: formatDecimal(mean), count });
+  const detail = (mean: number | null, count: number, spoken = false) =>
+    mean === null ? t('insights.groups.few', { count }) : t(spoken ? 'insights.groups.rowSpoken' : 'insights.groups.row', { mean: formatDecimal(mean), count });
 
   return (
     <InsightCard
-      title={t('insights.groups.title')}
+      title={group ? t('insights.groups.titleOf', { name: group.name }) : t('insights.groups.title')}
       empty={group ? null : t('insights.frequency.empty')}
       controls={
-        used.length > 1 ? (
+        used.length > CHIPS_UP_TO ? (
+          <SelectRow
+            label={t('insights.groups.pick')}
+            value={String(group?.id ?? '')}
+            sections={[{ options: used.map((candidate) => ({ value: String(candidate.id), label: candidate.name })) }]}
+            closeLabel={t('common.close')}
+            onChange={(id) => setPicked(Number(id))}
+          />
+        ) : used.length > 1 ? (
           <View style={styles.chips} accessibilityRole="radiogroup" accessibilityLabel={t('insights.groups.pick')}>
             {used.map((candidate) => (
               <Chip key={candidate.id} label={candidate.name} selected={candidate.id === group?.id} onPress={() => setPicked(candidate.id)} />
@@ -45,7 +56,7 @@ export function GroupCard({ days, groups, names }: Props) {
         const swatch = (last: boolean) =>
           row.mean === null ? null : <View style={[styles.swatch, last && styles.alignChevron, { backgroundColor: moodColors[roundLevel(row.mean)].strong }]} />;
         return row.activityId === null ? (
-          <View key="none" style={styles.none} accessible accessibilityLabel={`${t('insights.groups.none')}: ${detail(row.mean, row.days)}`}>
+          <View key="none" style={styles.none} accessible accessibilityLabel={`${t('insights.groups.none')}: ${detail(row.mean, row.days, true)}`}>
             <View style={styles.text}>
               <AppText variant="label">{t('insights.groups.none')}</AppText>
               <AppText variant="caption" muted>
@@ -61,6 +72,7 @@ export function GroupCard({ days, groups, names }: Props) {
             icon={names.icon(row.activityId)}
             title={names.label(row.activityId)}
             detail={detail(row.mean, row.days)}
+            spokenDetail={detail(row.mean, row.days, true)}
             trailing={swatch(false)}
           />
         );

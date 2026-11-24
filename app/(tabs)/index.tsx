@@ -28,7 +28,7 @@ import { addDaysToDateString, daysBetween, formatLong, type DateString } from '@
 import { useToday } from '@/lib/dates/useToday';
 import { formatDuration } from '@/lib/health/format';
 import { useHealthDay } from '@/lib/health/useHealthDays';
-import { useGoodTomorrow } from '@/lib/outlook/useGoodTomorrow';
+import { useHintOnToday } from '@/lib/outlook/useGoodTomorrow';
 import { useOutlook } from '@/lib/outlook/useOutlook';
 import { useQuery } from '@/lib/store/dataVersion';
 import { useSelectedDay } from '@/lib/store/selectedDay';
@@ -46,8 +46,7 @@ export default function TodayScreen() {
   const markers = useCalendarMarkers(now);
   const { enabled: outlookEnabled, outlook } = useOutlook(now);
   const allScales = useMemo(() => [...catalog.scaleById.values()], [catalog]);
-  const tomorrowView = useGoodTomorrow(now, allScales);
-  const tomorrow = tomorrowView.result?.hint ?? null;
+  const { hint, morning, markShown } = useHintOnToday(now, allScales);
   const lowMood = useLowMoodNote(now);
   const dayLabel = useDayLabel(now);
   const entries = useQuery(() => listEntryDetails(getDb(), date, date), [date]);
@@ -56,10 +55,9 @@ export default function TodayScreen() {
 
   const offset = daysBetween(now, date);
   // The hint counts as given once it was on screen, today or on tomorrow's page, and not while an
-  // entry or another screen lies on top of "Heute".
+  // entry or another screen lies on top of "Heute". In the morning it is yesterday's, counted then.
   const focused = useIsFocused();
-  const hintOnScreen = focused && tomorrow !== null && (offset === 0 || offset === 1);
-  const { markShown } = tomorrowView;
+  const hintOnScreen = focused && hint !== null && !morning && (offset === 0 || offset === 1);
   useEffect(() => {
     if (hintOnScreen) markShown();
   }, [hintOnScreen, markShown]);
@@ -101,7 +99,7 @@ export default function TodayScreen() {
           selected={date}
           markers={markers}
           label={(day) => dayLabel(day, markers.get(day))}
-          promising={tomorrow?.date ?? null}
+          promising={hint?.date ?? null}
           onSelect={(day) => {
             tapped.current = day;
             setDate(day);
@@ -139,7 +137,7 @@ export default function TodayScreen() {
       <CardMotion value>
         {isFuture ? (
           <>
-            {offset === 1 && tomorrow ? <GoodTomorrowCard hint={tomorrow} catalog={catalog} /> : null}
+            {offset === 1 && hint && !morning ? <GoodTomorrowCard hint={hint} catalog={catalog} /> : null}
             {outlookDay ? <OutlookDayCard day={outlookDay} catalog={catalog} /> : <EmptyState icon="sparkles-outline" label={t('today.future')} />}
             <PlanCards date={date} catalog={catalog} />
           </>
@@ -151,6 +149,7 @@ export default function TodayScreen() {
             {offset === 0 && streak.rescue ? (
               <StreakRescueCard missing={streak.state.missing} restoredDays={streak.state.restoredDays ?? 0} onFillIn={fillIn} onDismiss={streak.dismissRescue} />
             ) : null}
+            {offset === 0 && hint && morning ? <GoodTomorrowCard hint={hint} catalog={catalog} morning /> : null}
             {entries.length === 0 ? picker : null}
             {entries.map((entry) => (
               <EntryCard
@@ -166,7 +165,7 @@ export default function TodayScreen() {
               />
             ))}
             {health ? <HealthDayCard day={health} /> : null}
-            {offset === 0 && tomorrow ? <GoodTomorrowCard hint={tomorrow} catalog={catalog} /> : null}
+            {offset === 0 && hint && !morning ? <GoodTomorrowCard hint={hint} catalog={catalog} /> : null}
             {entries.length > 0 ? <TurningDayCard date={date} /> : null}
             {offset === 0 ? <LookbackCard date={date} catalog={catalog} onOpenDay={setDate} /> : null}
             {offset === 0 && lowMood.show ? <LowMoodCard onDismiss={lowMood.dismiss} /> : null}

@@ -309,6 +309,8 @@
     "days_other": "{{count}} days",
     "tiles": {
       "mean": "Average",
+      "meanOf": "Avg. {{name}}",
+      "meanOfSpoken": "Average {{name}}",
       "coverage": "Coverage",
       "coverageHint": "{{days}} of {{span}} days"
     },
@@ -408,10 +410,12 @@
     "groups": {
       "title": "Group view",
       "none": "Nothing from this group",
-      "row": "{{mean}}, {{count}} days",
+      "row": "avg. {{mean}}, {{count}} days",
+      "rowSpoken": "average {{mean}}, {{count}} days",
       "few": "{{count}} days",
       "empty": "There are no entries in this group in this period",
-      "pick": "Group"
+      "pick": "Group",
+      "titleOf": "Group view: {{name}}"
     },
     "words": {
       "title": "Words",
@@ -490,6 +494,12 @@
         "restingHr": "Pulse",
         "exercise": "Exercise"
       },
+      "metricInText": {
+        "sleep": "sleep",
+        "steps": "steps",
+        "restingHr": "pulse",
+        "exercise": "exercise"
+      },
       "tiles": {
         "sleep": "Sleep",
         "steps": "Steps",
@@ -502,7 +512,7 @@
         "exerciseDays_other": "on {{count}} days"
       },
       "trend": {
-        "title": "Values over time",
+        "title": "{{name}} over time",
         "goal": "Goal",
         "mean": "Average",
         "median": "Median",
@@ -525,7 +535,7 @@
         "current": "Current streak"
       },
       "weekdays": {
-        "title": "Values by weekday",
+        "title": "{{name}} by weekday",
         "a11y": "{{day}}: {{value}}, {{count}} days"
       },
       "records": {
@@ -601,7 +611,7 @@
         "hint": "Correlation from -1 to 1: how much both rise or fall together. It describes your journal, not cause and effect."
       },
       "activities": {
-        "title": "Activities and body",
+        "title": "Activities and {{name}}",
         "sentence": "On these days, average {{with}} instead of {{without}} ({{count}} days)",
         "nightSentence": "In the night after, average {{with}} instead of {{without}} ({{count}} nights)",
         "higher": {
@@ -620,12 +630,13 @@
       }
     },
     "scales": {
+      "label": "Scale",
       "pick": "Pick a scale",
       "emptyRange": "No scale has a value in this period",
-      "trend": "Scale over time",
-      "weekdays": "Scale by weekday",
+      "trend": "{{name}} over time",
+      "weekdays": "{{name}} by weekday",
       "mood": {
-        "title": "Mood by value",
+        "title": "Mood by {{name}}",
         "days_one": "{{count}} day",
         "days_other": "{{count}} days",
         "a11y": "{{value}}: average mood {{mood}}, {{count}} days",
@@ -650,7 +661,7 @@
         }
       },
       "activities": {
-        "title": "Activities and scale",
+        "title": "Activities and {{name}}",
         "higher": "Higher {{scale}} with",
         "lower": "Lower {{scale}} with"
       },
@@ -703,6 +714,12 @@
   "outlook": {
     "show": "Show outlook",
     "showHint": "On Today and in the calendar",
+    "notify": {
+      "label": "Morning notification",
+      "hint": "A notification in the morning when there is a hint about a good day. The lock screen only says that the outlook is there, not what it says.",
+      "time": "Morning time",
+      "permissionDenied": "Without the system permission no notification arrives. You can allow it in the Android settings."
+    },
     "computing": "Calculating",
     "between": "between {{low}} and {{high}}",
     "hardChance": "Hard day possible ({{percent}})",
@@ -744,6 +761,16 @@
       "reasonWeekday": "tomorrow is {{weekday}}",
       "reasonSleep": "{{value}} of sleep",
       "reasonSteps": "{{value}} steps yesterday",
+      "morning": {
+        "title": "Good prospects for today",
+        "bodyLikely": "After days like yesterday, your next day was {{mood}} or better {{hit}} of the time, otherwise {{usual}} on average ({{count}} cases).",
+        "bodyBetter": "After days like yesterday, your next day was {{mood}} or better more often than usual: {{hit}} of the time instead of {{usual}} ({{count}} cases).",
+        "bodyOpen": "For you, days like yesterday were especially often followed by a day from {{mood}} up. How reliable that is will show with more entries.",
+        "bodyAbove": "For you, days like yesterday were a little more often than usual followed by a day from {{mood}} up. How reliable that is will show with more entries.",
+        "reasonMood": "your mood yesterday",
+        "reasonWeekday": "today is {{weekday}}",
+        "reasonSteps": "{{value}} steps the day before yesterday"
+      },
       "status": {
         "title": "Hint for good days",
         "hint": "After your entry, “Today” shows a hint when the next day has a better chance than usual to be at least as good as your average. About one to four times in two weeks, never as a warning about a bad day.",
@@ -796,7 +823,8 @@
     "bodyStreak": "How was your day? Day {{value}} of your streak.",
     "yesterday": "Yesterday's entry is still missing.",
     "yesterdayStreak_one": "Yesterday is still missing. Fill it in to keep your streak going.",
-    "yesterdayStreak_other": "Yesterday is still missing. Fill it in to keep your {{value}} days."
+    "yesterdayStreak_other": "Yesterday is still missing. Fill it in to keep your {{value}} days.",
+    "outlook": "Your outlook for today is here"
   },
   "reminderPrompt": {
     "title": "A short reminder in the evening?",

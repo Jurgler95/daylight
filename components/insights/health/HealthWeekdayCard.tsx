@@ -7,7 +7,7 @@ import { formatMetric } from '@/lib/health/format';
 import { orderWeekdays, type HealthStats } from '@/lib/insights';
 import { radius, spacing, useTheme } from '@/lib/theme';
 
-import { MetricPicker, useMetric } from './metrics';
+import { MetricPicker, metricName, useMetric } from './metrics';
 
 interface Props {
   stats: HealthStats;
@@ -27,7 +27,7 @@ export function HealthWeekdayCard({ stats, names, firstDay }: Props) {
   const lo = metric === 'restingHr' && means.length ? Math.min(...means) - 3 : 0;
   return (
     <InsightCard
-      title={t('insights.healthStats.weekdays.title')}
+      title={t('insights.healthStats.weekdays.title', { name: metricName(t, metric) })}
       controls={metric ? <MetricPicker metrics={stats.metrics} value={metric} onChange={setMetric} /> : null}
       empty={!metric ? t('insights.healthStats.empty') : null}
     >

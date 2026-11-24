@@ -14,6 +14,8 @@ import m0009 from './0009_stale_blue_shield.sql';
 import m0010 from './0010_gigantic_devos.sql';
 import m0011 from './0011_lively_hiroim.sql';
 import m0012 from './0012_brown_spencer_smythe.sql';
+import m0013 from './0013_mushy_jack_murdock.sql';
+import m0014 from './0014_panoramic_frightful_four.sql';
 
   export default {
     journal,
@@ -30,7 +32,9 @@ m0008,
 m0009,
 m0010,
 m0011,
-m0012
+m0012,
+m0013,
+m0014
     }
   }
   

@@ -78,24 +78,24 @@ async function openTab(name: string) {
   await act(async () => fireEvent.press(screen.getByRole('tab', { name })));
 }
 
-const TABS: Record<string, string[]> = {
+const TABS: Record<string, (string | RegExp)[]> = {
   Stimmung: ['Verlauf', 'Verteilung', 'Jahr in Pixeln'],
   Muster: ['Wochentage', 'Monate', 'Schwankung', 'Serien'],
-  Aktivitäten: ['Häufigkeit', 'Stimmung mit und ohne', 'Am Folgetag', 'Oft zusammen', 'Vor schwierigen Tagen', 'Gruppenblick'],
+  Aktivitäten: ['Häufigkeit', 'Stimmung mit und ohne', 'Am Folgetag', 'Oft zusammen', 'Vor schwierigen Tagen', /^Gruppenblick: /],
   Notizen: ['Wörter', 'Umfang'],
 };
 /** The sample year records energy on most days. */
-const SCALE_TABS: Record<string, string[]> = {
-  Skalen: ['Verlauf der Skala', 'Stimmung je Wert', 'Aktivitäten und Skala', 'Skala nach Wochentag', 'Skalen an guten und schwierigen Tagen'],
+const SCALE_TABS: Record<string, (string | RegExp)[]> = {
+  Skalen: ['Energie im Verlauf', 'Stimmung je Energie', 'Aktivitäten und Energie', 'Energie nach Wochentag', 'Skalen an guten und schwierigen Tagen'],
   Zusammenhänge: ['Skalen und Stimmung'],
 };
-const HEALTH_TABS: Record<string, string[]> = {
-  Gesundheit: ['Verlauf der Werte', 'Ziele und Serien', 'Werte nach Wochentag', 'Bestwerte'],
+const HEALTH_TABS: Record<string, (string | RegExp)[]> = {
+  Gesundheit: [/ im Verlauf$/, 'Ziele und Serien', / nach Wochentag$/, 'Bestwerte'],
   Zusammenhänge: [
     'Stimmung nach Schlaf und Bewegung',
     'Gute und schwierige Tage',
     'Stimmung und Körper',
-    'Aktivitäten und Körper',
+    /^Aktivitäten und (Schlaf|Schritte|Puls|Training)$/,
     'Skalen und Stimmung',
     'Skalen untereinander',
     'Skalen und Körper',
@@ -161,6 +161,14 @@ describe('insight screens', () => {
       await act(async () => fireEvent.press(screen.getAllByRole('radio', { name: metric })[0]!));
       expect(screen.queryByText(/NaN|undefined|insights\./)).toBeNull();
     }
+
+    // Two scales: the head names the one the cards show, and a tap on a tile switches all cards.
+    await openTab('Skalen');
+    expect(screen.getByRole('button', { name: 'Skala: Energie' })).toBeTruthy();
+    await act(async () => fireEvent.press(screen.getByRole('radio', { name: /^Durchschnitt Stress:/ })));
+    expect(screen.getByRole('button', { name: 'Skala: Stress' })).toBeTruthy();
+    expect(screen.getByText('Stress im Verlauf')).toBeTruthy();
+    expect(screen.getByText('Stress nach Wochentag')).toBeTruthy();
   });
 
   (existsSync(FILE) ? it : it.skip)('render every card on the real export (private/)', async () => {

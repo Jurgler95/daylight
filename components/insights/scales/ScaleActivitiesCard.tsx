@@ -35,7 +35,7 @@ export function ScaleActivitiesCard({ insight, names }: { insight: ScaleInsight;
 
   return (
     <InsightCard
-      title={t('insights.scales.activities.title')}
+      title={t('insights.scales.activities.title', { name: scale.name })}
       empty={activities.lifts.length + activities.lowers.length === 0 ? t('insights.healthStats.activities.empty') : null}
     >
       {side(t('insights.scales.activities.higher', { scale: scale.name }), activities.lifts)}

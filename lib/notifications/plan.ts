@@ -12,6 +12,10 @@ import { runEndingAt } from '@/lib/streak/days';
  * Two kinds: `daily` in the evening, skipped once the day has an entry (unless `always`), and `yesterday` in the
  * morning of a day D whose D-1 is still empty while D-2 has an entry. That condition holds for one
  * morning per gap only, so a gap brings at most one morning reminder.
+ *
+ * Apart from those, on its own switch: `outlook` on the morning of a day the hint for a good next day
+ * pointed at, the evening before (`lib/outlook/tomorrow.ts`). It never says what the hint said, only
+ * that it is there, and stays away once that day has an entry.
  */
 
 /** Days planned ahead. Whoever does not open the app for two weeks stops being reminded. */
@@ -20,17 +24,17 @@ export const REMINDER_DAYS = 14;
 /** The app's URL scheme (`app.json`). A tap on a reminder opens the editor through it. */
 export const APP_SCHEME = 'daylight';
 
-export type ReminderKind = 'daily' | 'yesterday';
+export type ReminderKind = 'daily' | 'yesterday' | 'outlook';
 
 export interface PlannedReminder {
-  /** Stable identity, `daily:YYYY-MM-DD` or `yesterday:YYYY-MM-DD` (the day it fires). */
+  /** Stable identity, `daily:`, `yesterday:` or `outlook:` and the day it fires, `YYYY-MM-DD`. */
   key: string;
   kind: ReminderKind;
   date: DateString;
   hour: number;
   minute: number;
-  /** The day a tap opens in the editor: the day itself in the evening, the day before in the morning. */
-  openDate: DateString;
+  /** The day a tap opens in the editor: the day itself in the evening, the day before in the morning; null opens "Heute" on today. */
+  openDate: DateString | null;
   title: string;
   body: string;
 }
@@ -42,6 +46,8 @@ export interface ReminderWording {
   daily: (streakDay: number | null) => string;
   /** `keptDays` is the streak that filling in yesterday keeps, null for the general text. */
   yesterday: (keptDays: number | null) => string;
+  /** "Dein Ausblick für heute ist da": never what the hint says, it would sit on the lock screen. */
+  outlook: string;
 }
 
 export interface PlanInput {
@@ -57,6 +63,13 @@ export interface PlanInput {
   yesterdayEnabled: boolean;
   /** "HH:mm" of the morning reminder. */
   yesterdayTime: string;
+  /** The morning outlook notification; null while it or the outlook is off. */
+  outlook?: {
+    /** "HH:mm". */
+    time: string;
+    /** Days on which the hint for a good next day was on screen, so the day after it gets a notification. */
+    hintDays: ReadonlySet<string>;
+  } | null;
   /** Every day with an entry. Days after today are never looked at. */
   entryDays: ReadonlySet<string>;
   wording: ReminderWording;
@@ -78,6 +91,14 @@ export function formatTime(hour: number, minute: number): string {
 /** The link a reminder opens: the editor for that day (`app/entry/new.tsx`). */
 export function entryLink(date: DateString): string {
   return `${APP_SCHEME}://entry/new?date=${date}`;
+}
+
+/** "Heute" on today, wherever the app was left (`app/today.tsx`). */
+export const TODAY_LINK = `${APP_SCHEME}://today`;
+
+/** What a tap on `reminder` opens: the editor for its day, or "Heute" for the outlook. */
+export function reminderLink(reminder: PlannedReminder): string {
+  return reminder.openDate ? entryLink(reminder.openDate) : TODAY_LINK;
 }
 
 /**
@@ -150,14 +171,44 @@ function yesterdayReminders(input: PlanInput): PlannedReminder[] {
   });
 }
 
+/**
+ * The mornings after a shown hint, judged from what is known today (T): T+1 once the hint was shown
+ * today, and T itself while yesterday's hint stands, today is still empty and the time is ahead.
+ * The hint needs today's entry, so T+1 never has one yet; an entry on T+1 plans again anyway.
+ */
+export function outlookCandidates(hintDays: ReadonlySet<string>, entryDays: ReadonlySet<string>, today: DateString, timeAhead: boolean): DateString[] {
+  const dates: DateString[] = [];
+  if (timeAhead && hintDays.has(addDaysToDateString(today, -1)) && !entryDays.has(today)) dates.push(today);
+  if (hintDays.has(today)) dates.push(addDaysToDateString(today, 1));
+  return dates;
+}
+
+function outlookReminders(input: PlanInput): PlannedReminder[] {
+  if (!input.outlook) return [];
+  const time = parseTime(input.outlook.time);
+  if (!time) return [];
+  return outlookCandidates(input.outlook.hintDays, input.entryDays, input.today, time.hour * 60 + time.minute > input.nowMinutes).map((date) => ({
+    key: `outlook:${date}`,
+    kind: 'outlook',
+    date,
+    hour: time.hour,
+    minute: time.minute,
+    openDate: null,
+    // One line only: the title says it all, nothing of the hint itself reaches the lock screen.
+    title: input.wording.outlook,
+    body: '',
+  }));
+}
+
+/** The evening and morning reminders come with `enabled`; the outlook one has its own switch. */
 export function planReminders(input: PlanInput): PlannedReminder[] {
-  if (!input.enabled) return [];
-  return [...dailyReminders(input), ...yesterdayReminders(input)];
+  return [...(input.enabled ? [...dailyReminders(input), ...yesterdayReminders(input)] : []), ...outlookReminders(input)];
 }
 
 /**
  * Keys of reminders that may still be on screen although their day is done: the evening one of a
- * day that has an entry now, the morning one whose yesterday was filled in. Removing a key that
+ * day that has an entry now, the morning one whose yesterday was filled in, the outlook of a day
+ * that has its entry. Removing a key that
  * shows nothing is harmless, so the last `REMINDER_DAYS` days are all named.
  */
 export function doneReminderKeys(entryDays: ReadonlySet<string>, today: DateString): string[] {
@@ -166,6 +217,7 @@ export function doneReminderKeys(entryDays: ReadonlySet<string>, today: DateStri
     const date = addDaysToDateString(today, offset);
     if (entryDays.has(date)) keys.push(`daily:${date}`);
     if (entryDays.has(addDaysToDateString(date, -1))) keys.push(`yesterday:${date}`);
+    if (entryDays.has(date)) keys.push(`outlook:${date}`);
   }
   return keys;
 }
@@ -182,7 +234,7 @@ export function localTrigger(reminder: PlannedReminder): string {
  * otherwise ring at the old zone's 20:30.
  */
 export function planSignature(planned: readonly PlannedReminder[], zone = ''): string {
-  const lines = planned.map((r) => `${r.key}@${formatTime(r.hour, r.minute)}>${r.openDate}#${r.title}#${r.body}`).sort();
+  const lines = planned.map((r) => `${r.key}@${formatTime(r.hour, r.minute)}>${r.openDate ?? ''}#${r.title}#${r.body}`).sort();
   return planned.length === 0 ? '' : [`zone:${zone}`, ...lines].join('\n');
 }
 

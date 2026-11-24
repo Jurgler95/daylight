@@ -309,6 +309,8 @@
     "days_other": "{{count}} Tage",
     "tiles": {
       "mean": "Schnitt",
+      "meanOf": "Ø {{name}}",
+      "meanOfSpoken": "Durchschnitt {{name}}",
       "coverage": "Abdeckung",
       "coverageHint": "{{days}} von {{span}} Tagen"
     },
@@ -408,10 +410,12 @@
     "groups": {
       "title": "Gruppenblick",
       "none": "Ohne Eintrag in der Gruppe",
-      "row": "{{mean}}, {{count}} Tage",
+      "row": "Ø {{mean}}, {{count}} Tage",
+      "rowSpoken": "im Schnitt {{mean}}, {{count}} Tage",
       "few": "{{count}} Tage",
       "empty": "In dieser Gruppe gibt es im Zeitraum keine Einträge",
-      "pick": "Gruppe"
+      "pick": "Gruppe",
+      "titleOf": "Gruppenblick: {{name}}"
     },
     "words": {
       "title": "Wörter",
@@ -490,6 +494,12 @@
         "restingHr": "Puls",
         "exercise": "Training"
       },
+      "metricInText": {
+        "sleep": "Schlaf",
+        "steps": "Schritte",
+        "restingHr": "Puls",
+        "exercise": "Training"
+      },
       "tiles": {
         "sleep": "Schlaf",
         "steps": "Schritte",
@@ -502,7 +512,7 @@
         "exerciseDays_other": "an {{count}} Tagen"
       },
       "trend": {
-        "title": "Verlauf der Werte",
+        "title": "{{name}} im Verlauf",
         "goal": "Ziel",
         "mean": "Schnitt",
         "median": "Median",
@@ -525,7 +535,7 @@
         "current": "Aktuelle Folge"
       },
       "weekdays": {
-        "title": "Werte nach Wochentag",
+        "title": "{{name}} nach Wochentag",
         "a11y": "{{day}}: {{value}}, {{count}} Tage"
       },
       "records": {
@@ -601,7 +611,7 @@
         "hint": "Korrelation von -1 bis 1: wie sehr beide gemeinsam steigen oder fallen. Sie beschreibt dein Tagebuch, nicht Ursache und Wirkung."
       },
       "activities": {
-        "title": "Aktivitäten und Körper",
+        "title": "Aktivitäten und {{name}}",
         "sentence": "An diesen Tagen im Schnitt {{with}} statt {{without}} ({{count}} Tage)",
         "nightSentence": "In der Nacht danach im Schnitt {{with}} statt {{without}} ({{count}} Nächte)",
         "higher": {
@@ -620,12 +630,13 @@
       }
     },
     "scales": {
+      "label": "Skala",
       "pick": "Skala wählen",
       "emptyRange": "In diesem Zeitraum hat keine Skala einen Wert",
-      "trend": "Verlauf der Skala",
-      "weekdays": "Skala nach Wochentag",
+      "trend": "{{name}} im Verlauf",
+      "weekdays": "{{name}} nach Wochentag",
       "mood": {
-        "title": "Stimmung je Wert",
+        "title": "Stimmung je {{name}}",
         "days_one": "{{count}} Tag",
         "days_other": "{{count}} Tage",
         "a11y": "{{value}}: Stimmung im Schnitt {{mood}}, {{count}} Tage",
@@ -650,7 +661,7 @@
         }
       },
       "activities": {
-        "title": "Aktivitäten und Skala",
+        "title": "Aktivitäten und {{name}}",
         "higher": "{{scale}} höher mit",
         "lower": "{{scale}} niedriger mit"
       },
@@ -703,6 +714,12 @@
   "outlook": {
     "show": "Ausblick zeigen",
     "showHint": "Auf Heute und im Kalender",
+    "notify": {
+      "label": "Benachrichtigung am Morgen",
+      "hint": "Eine Benachrichtigung am Morgen, wenn es einen Hinweis auf einen guten Tag gibt. Auf dem Sperrbildschirm steht nur, dass der Ausblick da ist, nicht was er sagt.",
+      "time": "Uhrzeit am Morgen",
+      "permissionDenied": "Ohne Systemberechtigung kommt keine Benachrichtigung. Du kannst sie in den Android-Einstellungen erlauben."
+    },
     "computing": "Wird berechnet",
     "between": "zwischen {{low}} und {{high}}",
     "hardChance": "Schwieriger Tag möglich ({{percent}})",
@@ -744,6 +761,16 @@
       "reasonWeekday": "morgen ist {{weekday}}",
       "reasonSleep": "{{value}} Schlaf",
       "reasonSteps": "gestern {{value}} Schritte",
+      "morning": {
+        "title": "Gute Aussichten für heute",
+        "bodyLikely": "Nach Tagen wie gestern war der nächste Tag bei dir in {{hit}} der Fälle {{mood}} oder besser, sonst im Schnitt in {{usual}} ({{count}} Fälle).",
+        "bodyBetter": "Nach Tagen wie gestern war der nächste Tag bei dir öfter {{mood}} oder besser als sonst: in {{hit}} der Fälle statt {{usual}} ({{count}} Fälle).",
+        "bodyOpen": "Auf Tage wie gestern folgte bei dir besonders oft ein Tag ab {{mood}}. Wie verlässlich das ist, zeigt sich mit mehr Einträgen.",
+        "bodyAbove": "Auf Tage wie gestern folgte bei dir etwas öfter als sonst ein Tag ab {{mood}}. Wie verlässlich das ist, zeigt sich mit mehr Einträgen.",
+        "reasonMood": "deine Stimmung gestern",
+        "reasonWeekday": "heute ist {{weekday}}",
+        "reasonSteps": "vorgestern {{value}} Schritte"
+      },
       "status": {
         "title": "Hinweis auf gute Tage",
         "hint": "Auf „Heute“ steht nach deinem Eintrag ein Hinweis, wenn der nächste Tag bessere Chancen als sonst hat, mindestens so gut wie dein Schnitt zu werden. Etwa ein- bis viermal in zwei Wochen, nie als Warnung vor einem schlechten Tag.",
@@ -796,7 +823,8 @@
     "bodyStreak": "Wie war dein Tag? Tag {{value}} deiner Serie.",
     "yesterday": "Gestern fehlt noch ein Eintrag.",
     "yesterdayStreak_one": "Gestern fehlt noch. Trag es nach, dann geht deine Serie weiter.",
-    "yesterdayStreak_other": "Gestern fehlt noch. Trag es nach, dann bleiben deine {{value}} Tage."
+    "yesterdayStreak_other": "Gestern fehlt noch. Trag es nach, dann bleiben deine {{value}} Tage.",
+    "outlook": "Dein Ausblick für heute ist da"
   },
   "reminderPrompt": {
     "title": "Abends kurz erinnern?",

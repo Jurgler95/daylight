@@ -101,6 +101,9 @@ export const settingsSchema = z.object({
   // Optional for the same reason: backups from before the seasonal designs leave them alone.
   design_seasons: z.boolean().optional(),
   design_festivals: z.boolean().optional(),
+  // Optional for the same reason: backups from before the morning outlook leave it alone.
+  outlook_notify_enabled: z.boolean().optional(),
+  outlook_notify_time: timeString.optional(),
 });
 
 export const exportSchema = z

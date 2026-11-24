@@ -14,12 +14,15 @@ interface Props {
   icon: IconName;
   title: string;
   detail?: string;
+  /** What a screen reader says instead of `detail`, where that holds a sign like "Ø". */
+  spokenDetail?: string;
   /** Something on the right before the chevron, e.g. a count. */
   trailing?: ReactNode;
 }
 
 /** A row naming an activity; tapping opens its detail page, from every card alike. */
-export function ActivityLine({ activityId, icon, title, detail, trailing }: Props) {
+export function ActivityLine({ activityId, icon, title, detail, spokenDetail, trailing }: Props) {
+  const said = spokenDetail ?? detail;
   const { colors } = useTheme();
   return (
     <PressableScale
@@ -29,7 +32,7 @@ export function ActivityLine({ activityId, icon, title, detail, trailing }: Prop
         router.push({ pathname: '/activity/[id]', params: { id: String(activityId) } });
       }}
       accessibilityRole="button"
-      accessibilityLabel={detail ? `${title}. ${detail}` : title}
+      accessibilityLabel={said ? `${title}. ${said}` : title}
       style={styles.row}
     >
       <View style={[styles.icon, { backgroundColor: colors.surfaceMuted }]}>

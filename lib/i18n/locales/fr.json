@@ -333,6 +333,8 @@
     "days_many": "{{count}} jours",
     "tiles": {
       "mean": "Moyenne",
+      "meanOf": "{{name}} (moyenne)",
+      "meanOfSpoken": "{{name}} (moyenne)",
       "coverage": "Régularité",
       "coverageHint": "{{days}} jours sur {{span}}"
     },
@@ -436,10 +438,12 @@
     "groups": {
       "title": "Par groupe",
       "none": "Rien de ce groupe",
-      "row": "{{mean}}, {{count}} jours",
+      "row": "moyenne {{mean}}, {{count}} jours",
+      "rowSpoken": "moyenne {{mean}}, {{count}} jours",
       "few": "{{count}} jours",
       "empty": "Aucune entrée dans ce groupe sur cette période",
-      "pick": "Groupe"
+      "pick": "Groupe",
+      "titleOf": "Par groupe : {{name}}"
     },
     "words": {
       "title": "Mots",
@@ -519,6 +523,12 @@
         "restingHr": "Pouls",
         "exercise": "Exercice"
       },
+      "metricInText": {
+        "sleep": "sommeil",
+        "steps": "pas",
+        "restingHr": "pouls",
+        "exercise": "exercice"
+      },
       "tiles": {
         "sleep": "Sommeil",
         "steps": "Pas",
@@ -533,7 +543,7 @@
         "exerciseDays_many": "sur {{count}} jours"
       },
       "trend": {
-        "title": "Évolution des valeurs",
+        "title": "{{name}} : évolution",
         "goal": "Objectif",
         "mean": "Moyenne",
         "median": "Médiane",
@@ -558,7 +568,7 @@
         "current": "Série actuelle"
       },
       "weekdays": {
-        "title": "Valeurs par jour de la semaine",
+        "title": "{{name}} par jour de la semaine",
         "a11y": "{{day}} : {{value}}, {{count}} jours"
       },
       "records": {
@@ -634,7 +644,7 @@
         "hint": "Corrélation de -1 à 1 : à quel point les deux montent ou baissent ensemble. Elle décrit ton journal, pas un lien de cause à effet."
       },
       "activities": {
-        "title": "Activités et corps",
+        "title": "Activités et {{name}}",
         "sentence": "Ces jours-là, moyenne {{with}} au lieu de {{without}} ({{count}} jours)",
         "nightSentence": "La nuit suivante, moyenne {{with}} au lieu de {{without}} ({{count}} nuits)",
         "higher": {
@@ -653,12 +663,13 @@
       }
     },
     "scales": {
+      "label": "Échelle",
       "pick": "Choisir une échelle",
       "emptyRange": "Aucune échelle n’a de valeur sur cette période",
-      "trend": "Évolution de l’échelle",
-      "weekdays": "Échelle par jour de la semaine",
+      "trend": "{{name}} : évolution",
+      "weekdays": "{{name}} par jour de la semaine",
       "mood": {
-        "title": "Humeur selon la valeur",
+        "title": "Humeur selon {{name}}",
         "days_one": "{{count}} jour",
         "days_other": "{{count}} jours",
         "days_many": "{{count}} jours",
@@ -684,7 +695,7 @@
         }
       },
       "activities": {
-        "title": "Activités et échelle",
+        "title": "Activités et {{name}}",
         "higher": "{{scale}} plus haut avec",
         "lower": "{{scale}} plus bas avec"
       },
@@ -737,6 +748,12 @@
   "outlook": {
     "show": "Afficher la prévision",
     "showHint": "Dans Aujourd'hui et le calendrier",
+    "notify": {
+      "label": "Notification le matin",
+      "hint": "Une notification le matin quand il y a une indication d’une bonne journée. L’écran verrouillé dit seulement que la prévision est là, pas ce qu’elle dit.",
+      "time": "Heure du matin",
+      "permissionDenied": "Sans l’autorisation du système, aucune notification n’arrive. Tu peux l’autoriser dans les réglages d’Android."
+    },
     "computing": "Calcul en cours",
     "between": "entre {{low}} et {{high}}",
     "hardChance": "Jour difficile possible ({{percent}})",
@@ -779,6 +796,16 @@
       "reasonWeekday": "demain, c’est {{weekday}}",
       "reasonSleep": "{{value}} de sommeil",
       "reasonSteps": "hier {{value}} pas",
+      "morning": {
+        "title": "De belles perspectives pour aujourd’hui",
+        "bodyLikely": "Après des jours comme hier, ton lendemain a été {{mood}} ou mieux dans {{hit}} des cas, sinon dans {{usual}} en moyenne ({{count}} cas).",
+        "bodyBetter": "Après des jours comme hier, ton lendemain a été {{mood}} ou mieux plus souvent que d’habitude : dans {{hit}} des cas au lieu de {{usual}} ({{count}} cas).",
+        "bodyOpen": "Chez toi, des jours comme hier ont été particulièrement souvent suivis d’un jour à partir de {{mood}}. Plus d’entrées montreront à quel point c’est fiable.",
+        "bodyAbove": "Chez toi, des jours comme hier ont été un peu plus souvent que d’habitude suivis d’un jour à partir de {{mood}}. Plus d’entrées montreront à quel point c’est fiable.",
+        "reasonMood": "ton humeur d’hier",
+        "reasonWeekday": "aujourd’hui, c’est {{weekday}}",
+        "reasonSteps": "avant-hier {{value}} pas"
+      },
       "status": {
         "title": "Indice de bonnes journées",
         "hint": "Après ton entrée, « Aujourd’hui » affiche un indice quand le lendemain a plus de chances que d’habitude d’être au moins aussi bon que ta moyenne. Une à quatre fois en deux semaines environ, jamais comme alerte d’une mauvaise journée.",
@@ -834,7 +861,8 @@
     "yesterday": "Il manque encore l'entrée d'hier.",
     "yesterdayStreak_one": "Il manque encore hier. Complète-le pour que ta série continue.",
     "yesterdayStreak_other": "Il manque encore hier. Complète-le pour garder tes {{value}} jours.",
-    "yesterdayStreak_many": "Il manque encore hier. Complète-le pour garder tes {{value}} jours."
+    "yesterdayStreak_many": "Il manque encore hier. Complète-le pour garder tes {{value}} jours.",
+    "outlook": "Ta prévision du jour est là"
   },
   "reminderPrompt": {
     "title": "Un petit rappel le soir ?",

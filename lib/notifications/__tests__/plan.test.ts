@@ -9,6 +9,7 @@ import {
   planReminders,
   planSignature,
   REMINDER_DAYS,
+  reminderLink,
   timeZoneKey,
   yesterdayCandidates,
   type PlanInput,
@@ -24,6 +25,7 @@ const wording: ReminderWording = {
   title: 'Erinnerung',
   daily: (n) => (n === null ? 'Wie war dein Tag?' : `Wie war dein Tag? Tag ${n} deiner Serie.`),
   yesterday: (n) => (n === null ? 'Gestern fehlt noch ein Eintrag.' : `Gestern fehlt noch. Trag es nach, dann bleiben deine ${n} Tage.`),
+  outlook: 'Dein Ausblick für heute ist da',
 };
 
 const input = (overrides: Partial<PlanInput> = {}): PlanInput => ({
@@ -228,6 +230,48 @@ describe('morning reminder', () => {
   });
 });
 
+describe('outlook notification', () => {
+  /** Hints shown on the given offsets from today, the notification at 08:00. */
+  const outlook = (...offsets: number[]) => ({ time: '08:00', hintDays: entries(...offsets) });
+  const notes = (overrides: Partial<PlanInput> = {}) => planReminders(input({ enabled: false, ...overrides })).filter((r) => r.kind === 'outlook');
+
+  it('comes the morning after a hint, with one line that says nothing of the hint, and opens "Heute"', () => {
+    expect(notes({ outlook: outlook(0), entryDays: entries(0) })).toEqual([
+      { key: `outlook:${day(1)}`, kind: 'outlook', date: day(1), hour: 8, minute: 0, openDate: null, title: 'Dein Ausblick für heute ist da', body: '' },
+    ]);
+    expect(reminderLink(notes({ outlook: outlook(0), entryDays: entries(0) })[0]!)).toBe('daylight://today');
+    expect(reminderLink(planReminders(input())[0]!)).toBe(entryLink(day(0)));
+  });
+
+  it('needs neither the evening reminder nor the morning one', () => {
+    expect(notes({ outlook: outlook(0), entryDays: entries(0) })).toHaveLength(1);
+    expect(planReminders(input({ enabled: false, outlook: outlook(0), entryDays: entries(0) })).every((r) => r.kind === 'outlook')).toBe(true);
+  });
+
+  it('stays away while it is off, and without a hint', () => {
+    expect(notes({ outlook: null, entryDays: entries(0) })).toEqual([]);
+    expect(notes({ outlook: outlook(), entryDays: entries(0) })).toEqual([]);
+    expect(notes({ outlook: outlook(-3), entryDays: entries(0) })).toEqual([]);
+  });
+
+  it('comes this morning for yesterday’s hint while today is empty and the time is ahead', () => {
+    expect(notes({ outlook: outlook(-1), nowMinutes: 7 * 60 }).map((r) => r.date)).toEqual([day(0)]);
+    expect(notes({ outlook: outlook(-1), nowMinutes: 8 * 60 })).toEqual([]);
+    expect(notes({ outlook: outlook(-1), nowMinutes: 7 * 60, entryDays: entries(0) })).toEqual([]);
+  });
+
+  it('is taken off the screen once its day has an entry', () => {
+    expect(doneReminderKeys(entries(0), today)).toContain(`outlook:${day(0)}`);
+    expect(doneReminderKeys(entries(-1), today)).not.toContain(`outlook:${day(0)}`);
+  });
+
+  it('ignores an invalid time, and a new time changes the signature', () => {
+    expect(notes({ outlook: { time: '8:00', hintDays: entries(0) }, entryDays: entries(0) })).toEqual([]);
+    const plan = (time: string) => planSignature(planReminders(input({ outlook: { time, hintDays: entries(0) }, entryDays: entries(0) })));
+    expect(plan('08:00')).not.toBe(plan('07:30'));
+  });
+});
+
 describe('yesterdayCandidates', () => {
   // Every combination of entries on T-2, T-1 and T, with the morning time still ahead or passed.
   const cases: [string, number[], boolean, number[]][] = [
@@ -264,7 +308,7 @@ describe('doneReminderKeys', () => {
   });
 
   it('looks back as far as reminders are planned', () => {
-    expect(doneReminderKeys(entries(-(REMINDER_DAYS - 1)), today)).toEqual([`daily:${day(-(REMINDER_DAYS - 1))}`, `yesterday:${day(-(REMINDER_DAYS - 2))}`]);
+    expect(doneReminderKeys(entries(-(REMINDER_DAYS - 1)), today)).toEqual([`daily:${day(-(REMINDER_DAYS - 1))}`, `outlook:${day(-(REMINDER_DAYS - 1))}`, `yesterday:${day(-(REMINDER_DAYS - 2))}`]);
     expect(doneReminderKeys(entries(-REMINDER_DAYS - 1), today)).toEqual([]);
   });
 });

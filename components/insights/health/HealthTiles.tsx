@@ -27,7 +27,15 @@ export function HealthTiles({ stats }: { stats: HealthStats }) {
           summary.previousMean !== null
             ? t('insights.healthStats.tiles.before', { value: formatMetric(metric, summary.previousMean) })
             : t('insights.healthStats.tiles.days', { count: summary.days });
-        return <StatTile key={metric} label={t(`insights.healthStats.tiles.${metric}`)} value={formatMetric(metric, summary.mean)} hint={hint} />;
+        return (
+          <StatTile
+            key={metric}
+            label={t('insights.tiles.meanOf', { name: t(`insights.healthStats.tiles.${metric}`) })}
+            spokenLabel={t('insights.tiles.meanOfSpoken', { name: t(`insights.healthStats.tiles.${metric}`) })}
+            value={formatMetric(metric, summary.mean)}
+            hint={hint}
+          />
+        );
       })}
     </View>
   );

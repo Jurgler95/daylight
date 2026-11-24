@@ -1,3 +1,4 @@
+import type { TFunction } from 'i18next';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -17,6 +18,15 @@ export function useMetric(metrics: readonly HealthMetric[]): [HealthMetric | nul
   const [picked, setPicked] = useState<HealthMetric | null>(null);
   const metric = picked && metrics.includes(picked) ? picked : (metrics[0] ?? null);
   return [metric, setPicked];
+}
+
+/**
+ * The metric's name for a card title; the tab's name while there is none to show. `inText` for a
+ * name in the middle of a title ("Actividades y sueño"), lower case where the language wants it.
+ */
+export function metricName(t: TFunction, metric: HealthMetric | null, inText = false): string {
+  if (!metric) return t('insights.tabs.health');
+  return t(inText ? `insights.healthStats.metricInText.${metric}` : `insights.healthStats.metric.${metric}`);
 }
 
 /** Switches a card between sleep, steps, pulse and training; hidden when there is only one. */

@@ -28,7 +28,7 @@ export function ScaleTrendCard({ insight, window }: { insight: ScaleInsight; win
     last: last ? format(last.rolling) : '',
   });
   return (
-    <InsightCard title={t('insights.scales.trend')}>
+    <InsightCard title={t('insights.scales.trend', { name: scale.name })}>
       <ValueLineChart points={series} window={window} lo={lo} hi={hi} format={scale.kind === 'duration' ? format : (value) => String(value)} accessibilityLabel={label} />
       <View style={styles.facts}>
         {(

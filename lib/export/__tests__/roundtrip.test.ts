@@ -63,6 +63,21 @@ describe('JSON round trip', () => {
     expect(getSettings(target)).toMatchObject({ reminder_prompt_done: false, streak_celebrated: null, streak_rescue_dismissed: null });
   });
 
+  it('carries the morning outlook notification, and a backup from before it leaves the choice here alone', () => {
+    const source = sampled();
+    updateSettings(source, { outlook_notify_enabled: true, outlook_notify_time: '07:15' });
+    const payload = buildExport(source, '1.0.0');
+    expect(payload.settings).toMatchObject({ outlook_notify_enabled: true, outlook_notify_time: '07:15' });
+    const target = createTestDb();
+    applyImport(target, parseImport(JSON.stringify(payload)), 'replace');
+    expect(getSettings(target)).toMatchObject({ outlook_notify_enabled: true, outlook_notify_time: '07:15' });
+
+    const { outlook_notify_enabled: _e, outlook_notify_time: _t, ...older } = payload.settings;
+    updateSettings(target, { outlook_notify_enabled: false, outlook_notify_time: '06:45' });
+    applyImport(target, parseImport(JSON.stringify({ ...payload, settings: older })), 'replace');
+    expect(getSettings(target)).toMatchObject({ outlook_notify_enabled: false, outlook_notify_time: '06:45' });
+  });
+
   it('carries the morning reminder, and a backup from before it leaves the choice here alone', () => {
     const source = sampled();
     updateSettings(source, { reminder_yesterday_enabled: false, reminder_yesterday_time: '09:15', reminder_always: true });
