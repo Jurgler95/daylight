@@ -7,7 +7,7 @@ import Animated, { Easing, useAnimatedStyle, useSharedValue, withDelay, withSequ
 
 import { STAR_COLOR } from '@/components/achievements/StarRow';
 import { AppText, Button, Card } from '@/components/ui';
-import { medalGradient, spacing } from '@/lib/theme';
+import { TOUCH_TARGET, medalGradient, spacing } from '@/lib/theme';
 
 interface Props {
   onRate: () => void;
@@ -24,7 +24,7 @@ const SPARKS = 6;
 export function ReviewCard({ onRate, onDismiss }: Props) {
   const { t } = useTranslation();
   return (
-    <Card tone="muted">
+    <Card tone="muted" style={styles.card}>
       <View style={styles.head}>
         <Medal />
         <View style={styles.text}>
@@ -35,8 +35,8 @@ export function ReviewCard({ onRate, onDismiss }: Props) {
         </View>
       </View>
       <View style={styles.actions}>
-        <Button label={t('review.rate')} accessibilityHint={t('review.rateHint')} onPress={onRate} />
-        <Button label={t('review.later')} variant="ghost" onPress={onDismiss} />
+        <Button label={t('review.rate')} accessibilityHint={t('review.rateHint')} style={styles.button} onPress={onRate} />
+        <Button label={t('review.later')} variant="ghost" style={styles.button} onPress={onDismiss} />
       </View>
     </Card>
   );
@@ -83,11 +83,14 @@ function Spark({ angle, burst }: { angle: number; burst: SharedValue<number> }) 
 }
 
 const styles = StyleSheet.create({
+  // Tighter than a plain card: one line of buttons under a short text.
+  card: { paddingVertical: spacing.lg, gap: spacing.sm },
   head: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
-  text: { flex: 1, gap: spacing.xs },
+  text: { flex: 1, gap: 2 },
   medalBox: { width: 42, height: 42, alignItems: 'center', justifyContent: 'center' },
   glow: { borderRadius: 18, elevation: 4, shadowColor: '#E09B00', shadowOpacity: 0.45, shadowRadius: 7, shadowOffset: { width: 0, height: 3 } },
   medal: { width: 36, height: 36, borderRadius: 18, alignItems: 'center', justifyContent: 'center' },
   spark: { position: 'absolute' },
   actions: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: spacing.sm },
+  button: { minHeight: TOUCH_TARGET },
 });
