@@ -64,6 +64,9 @@ export const tileColors: readonly { strong: string; soft: string }[] = [
 /** A cheerful gradient for highlight surfaces (primary button, active tab pill). White text clears 4.5:1 on both ends. */
 export const sunnyGradient = ['#1A5FC2', '#00796B'] as const;
 
+/** Gold medal behind the trophy of a new star and the star asking for a rating; decorative, the words carry the meaning. */
+export const medalGradient = ['#FFD54A', '#E09B00'] as const;
+
 /** Behind the achievements summary and a finished achievement, blue into the fifth star's violet. White text clears 4.5:1 on both ends. */
 export const trophyGradient = ['#1A5FC2', '#6A2BB5'] as const;
 /** Secondary text on `trophyGradient`, a touch softer than white. */

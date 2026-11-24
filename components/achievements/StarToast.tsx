@@ -24,7 +24,7 @@ import { ACHIEVEMENTS_PATH, useStarNews } from '@/lib/achievements/useStarNews';
 import { haptics } from '@/lib/haptics';
 import { formatCount } from '@/lib/insights';
 import { useOverlaySlot } from '@/lib/store/overlays';
-import { radius, spacing, TOUCH_TARGET, useTheme, withAlpha } from '@/lib/theme';
+import { medalGradient, radius, spacing, TOUCH_TARGET, useTheme, withAlpha } from '@/lib/theme';
 
 import { STAR_COLOR, TierStar } from './StarRow';
 
@@ -32,8 +32,6 @@ import { STAR_COLOR, TierStar } from './StarRow';
 export const TOAST_MS = 8000;
 /** Wait before it flies in, so on opening the app it does not just sit there when the first screen appears. */
 export const TOAST_DELAY_MS = 700;
-/** Gold medal behind the trophy; decorative, the words carry the news. */
-const MEDAL = ['#FFD54A', '#E09B00'] as const;
 const SPARKS = 8;
 
 /**
@@ -201,7 +199,7 @@ function Medal() {
         <Spark key={index} angle={(index / SPARKS) * Math.PI * 2} burst={burst} />
       ))}
       <Animated.View style={medal}>
-        <LinearGradient colors={MEDAL} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.medal}>
+        <LinearGradient colors={medalGradient} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.medal}>
           <MaterialCommunityIcons name="trophy" size={28} color="#FFFFFF" />
         </LinearGradient>
       </Animated.View>
@@ -264,7 +262,7 @@ function PopBadge({ icon, delay, ring }: { icon: Achievement['icon']; delay: num
   const style = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
   return (
     <Animated.View style={[styles.badge, { borderColor: ring }, style]}>
-      <LinearGradient colors={MEDAL} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.badgeFill}>
+      <LinearGradient colors={medalGradient} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.badgeFill}>
         <MaterialCommunityIcons name={icon} size={15} color="#FFFFFF" />
       </LinearGradient>
     </Animated.View>

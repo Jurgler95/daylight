@@ -12,6 +12,7 @@ import { useBackupStatus } from '@/lib/export/useBackupStatus';
 import { useDataTransfer } from '@/lib/export/useDataTransfer';
 import { filePhotoStore } from '@/lib/photos/fileStore';
 import { sweepPhotos } from '@/lib/photos/store';
+import { useRateApp } from '@/lib/review/useReviewPrompt';
 import { mutate, useQuery } from '@/lib/store/dataVersion';
 import { useSettingsStore } from '@/lib/store/settingsStore';
 
@@ -38,6 +39,7 @@ export default function MoreScreen() {
   const designSeasons = useSettingsStore((s) => s.settings?.design_seasons ?? true);
   const designFestivals = useSettingsStore((s) => s.settings?.design_festivals ?? true);
   const backup = useBackupStatus();
+  const rateApp = useRateApp();
   const backupValue = !backup.everExported
     ? t('settings.backupNever')
     : backup.days === 0
@@ -161,6 +163,7 @@ export default function MoreScreen() {
         <ListRow icon="shield-checkmark-outline" label={t('settings.privacyLabel')} onPress={go('/more/privacy')} />
         <ListRow icon="sparkles-outline" label={t('settings.changelog')} onPress={go('/more/changelog')} />
         <ListRow icon="information-circle-outline" label={t('settings.about')} onPress={go('/more/about')} />
+        <ListRow icon="star-outline" label={t('settings.rate')} value={t('settings.rateStore')} onPress={rateApp} />
       </Card>
       {__DEV__ ? (
         <DevTools />

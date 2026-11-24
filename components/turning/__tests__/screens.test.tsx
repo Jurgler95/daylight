@@ -1,13 +1,15 @@
 import { act, fireEvent, render, screen } from '@testing-library/react-native';
+import { router } from 'expo-router';
 
 import '@/lib/i18n';
 import type { Database } from '@/db';
-import { createEntry, createTurningPoint, listMoods, listTurningPoints } from '@/db/repositories';
+import { createEntry, createTurningPoint, entryIdOnDate, listMoods, listTurningPoints } from '@/db/repositories';
 import { createTestDb } from '@/db/testDb';
 import { addDaysToDateString, type DateString } from '@/lib/dates';
 import { useDataVersion } from '@/lib/store/dataVersion';
 import { useSettingsStore } from '@/lib/store/settingsStore';
 
+import EditEntryScreen from '../../../app/entry/[id]';
 import TurningPointDetailScreen from '../../../app/turning/[id]';
 import TurningPointScreen from '../../../app/turning/new';
 import HistoryScreen from '../../../app/more/history';
@@ -162,6 +164,18 @@ describe('turning points elsewhere', () => {
     setPoint(db, 'Umzug');
     await render(<TurningDayCard date={turn} />);
     expect(screen.getByText('Umzug')).toBeTruthy();
+  });
+
+  it('offers it in the editor of an entry while it stays on its day', async () => {
+    const db = diary();
+    mockParams = { id: String(entryIdOnDate(db, turn)) };
+    await render(<EditEntryScreen />);
+    await act(async () => fireEvent.press(screen.getByText('Als Wendepunkt markieren')));
+    expect(router.push).toHaveBeenCalledWith({ pathname: '/turning/new', params: { date: turn } });
+    await act(async () => void setPoint(db, 'Umzug'));
+    await render(<EditEntryScreen />);
+    expect(screen.getByText('Umzug')).toBeTruthy();
+    expect(screen.queryByText(BROKEN)).toBeNull();
   });
 
   it('lists them in "Verlauf" behind the chip', async () => {

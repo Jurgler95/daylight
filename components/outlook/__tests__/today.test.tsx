@@ -30,6 +30,7 @@ import PrivacyScreen from '../../../app/more/privacy';
 import RemindersScreen from '../../../app/more/reminders';
 import TodayScreen from '../../../app/(tabs)/index';
 import CalendarScreen from '../../../app/(tabs)/calendar';
+import SettingsScreen from '../../../app/(tabs)/settings';
 
 /**
  * Renders "Heute" with the outlook, the plans of a future day, the low mood note and the new pages
@@ -246,6 +247,17 @@ describe('rating card on "Heute"', () => {
     expect(open).toHaveBeenCalledWith(PLAY_STORE_URL);
     expect(getSettings(db).review_prompt_done).toBe(true);
     expect(screen.queryByText('Hilft dir Daylight?')).toBeNull();
+    open.mockRestore();
+  });
+
+  it('can always be given from "Mehr", which counts as an answer', async () => {
+    const open = jest.spyOn(Linking, 'openURL').mockResolvedValue(true);
+    const db = createTestDb();
+    await use(db);
+    await show(<SettingsScreen />);
+    await act(async () => fireEvent.press(screen.getByText('Daylight bewerten')));
+    expect(open).toHaveBeenCalledWith(PLAY_STORE_URL);
+    expect(getSettings(db).review_prompt_done).toBe(true);
     open.mockRestore();
   });
 });

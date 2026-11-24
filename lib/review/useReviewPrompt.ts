@@ -21,6 +21,19 @@ export function noteSaveForReview(): void {
 }
 
 /**
+ * Opens Daylight in the Play Store, from the card or from "Mehr". Counts as an answer to the card,
+ * so someone who rated from "Mehr" is not asked again.
+ */
+export function useRateApp(): () => void {
+  const update = useSettingsStore((s) => s.update);
+  return useCallback(() => {
+    update({ review_prompt_done: true });
+    useReviewStore.setState({ asked: false });
+    void openPlayStore((url) => Linking.openURL(url));
+  }, [update]);
+}
+
+/**
  * Whether "Heute" shows the card, and its two answers. It waits while a celebration, the star
  * message or the start sheet is up, so nothing stacks. Either answer puts it away for good.
  */
@@ -29,14 +42,11 @@ export function useReviewPrompt(): { show: boolean; rate: () => void; dismiss: (
   const done = useSettingsStore((s) => s.settings?.review_prompt_done ?? false);
   const busy = useOverlayStore((s) => s.waiting.length > 0 || s.celebration !== null);
   const update = useSettingsStore((s) => s.update);
+  const rate = useRateApp();
   const dismiss = useCallback(() => {
     update({ review_prompt_done: true });
     useReviewStore.setState({ asked: false });
   }, [update]);
-  const rate = useCallback(() => {
-    dismiss();
-    void openPlayStore((url) => Linking.openURL(url));
-  }, [dismiss]);
   return { show: asked && !done && !busy, rate, dismiss };
 }
 

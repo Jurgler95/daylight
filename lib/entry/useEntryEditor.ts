@@ -19,6 +19,8 @@ export interface EntryEditor {
   /** Null when the entry to edit no longer exists. */
   draft: EntryDraft | null;
   isNew: boolean;
+  /** Day of the entry as saved, null for a new one. */
+  savedDate: DateString | null;
   /** Something changed since the editor opened; closing now would lose it. */
   dirty: boolean;
   /** A mood is picked and the day is free. */
@@ -75,6 +77,7 @@ export function useEntryEditor(target: EditorTarget): EntryEditor {
   return {
     draft,
     isNew: id === null,
+    savedDate: id === null ? null : (initial?.date ?? null),
     dirty: draft !== null && initial !== null && !sameDraft(draft, initial),
     canSave: input !== null && !dayTaken,
     dayTaken,

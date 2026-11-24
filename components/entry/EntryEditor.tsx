@@ -8,6 +8,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { MoodPicker } from '@/components/mood/MoodPicker';
+import { TurningDayCard } from '@/components/turning/TurningDayCard';
 import { AppText, Button, Card, CardMotion, EmptyState, ListRow, LogoBackdrop, TextField } from '@/components/ui';
 import { getDb } from '@/db';
 import { createActivity } from '@/db/repositories/activities';
@@ -231,6 +232,10 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
               </AppText>
             ) : null}
           </Card>
+
+          {/* The day's turning point, or a way to set one, while the entry stays on its day. The editor
+              stays open underneath, like on the way to the activities. */}
+          {editor.savedDate !== null && draft.date === editor.savedDate ? <TurningDayCard date={editor.savedDate} /> : null}
 
           {/* A quiet way to what else a day can hold. The draft stays open underneath, and a new
               scale or activity shows up here on the way back. */}
