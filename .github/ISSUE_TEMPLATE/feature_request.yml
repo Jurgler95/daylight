@@ -1,0 +1,40 @@
+name: Feature request / accessibility
+description: Suggest an idea, including anything that would make Daylight easier or more comfortable to use
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ideas are welcome, especially around accessibility: light sensitivity, visual stimulation, motion, text size, memory or focus. I can't promise that every suggestion makes it into the app, but I read all of them. **Please don't share real journal entries.**
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like?
+      description: Describe the change or option you have in mind.
+    validations:
+      required: true
+  - type: textarea
+    id: who
+    attributes:
+      label: Who would this help, and why?
+      description: For example people who are sensitive to bright screens, find animations distracting, or need reminders in a certain way.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      multiple: true
+      options:
+        - Colors, contrast or dark mode
+        - Motion and animations
+        - Text size and readability
+        - Logging an entry
+        - Reminders
+        - Insights and statistics
+        - Other
+  - type: textarea
+    id: context
+    attributes:
+      label: Anything else?
+      description: Examples from other apps or settings on your phone that work well for you.
