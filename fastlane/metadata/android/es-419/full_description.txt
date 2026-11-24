@@ -6,6 +6,7 @@ LO QUE HACE DAYLIGHT
 
 🔒 Totalmente sin conexión
 Daylight no tiene ningún permiso de internet. Tus entradas están en una base de datos en tu teléfono y solo salen de él cuando tú compartes una copia de seguridad.
+Exodus Privacy no encuentra ningún rastreador en Daylight: https://reports.exodus-privacy.eu.org/es/reports/de.behla.daylight/latest/
 
 ⚡ Registrado en segundos
 Cinco estados de ánimo y actividades ordenadas en grupos como emociones, sueño, clima, social y trabajo. Cambia nombres, reordena, archiva o añade las tuyas, con iconos.

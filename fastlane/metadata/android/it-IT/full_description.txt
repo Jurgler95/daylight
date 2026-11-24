@@ -6,6 +6,7 @@ COSA FA DAYLIGHT
 
 🔒 Completamente offline
 Daylight non ha alcuna autorizzazione Internet. Le tue voci stanno in un database sul tuo telefono e lo lasciano solo quando sei tu a condividere un backup.
+Exodus Privacy non trova nessun tracker in Daylight: https://reports.exodus-privacy.eu.org/it/reports/de.behla.daylight/latest/
 
 ⚡ Una voce in pochi secondi
 Cinque umori, attività ordinate in gruppi come emozioni, sonno, meteo, persone e lavoro. Rinomina, riordina, archivia o aggiungi le tue, con icone.

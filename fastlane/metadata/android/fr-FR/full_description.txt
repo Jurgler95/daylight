@@ -6,6 +6,7 @@ CE QUE FAIT DAYLIGHT
 
 🔒 Entièrement hors ligne
 Daylight n'a aucune autorisation Internet. Tes entrées sont dans une base de données sur ton téléphone et ne le quittent que si tu partages toi-même une sauvegarde.
+Exodus Privacy ne trouve aucun traqueur dans Daylight : https://reports.exodus-privacy.eu.org/fr/reports/de.behla.daylight/latest/
 
 ⚡ Noté en quelques secondes
 Cinq humeurs, des activités classées en groupes comme Émotions, Sommeil, Météo, Vie sociale et Travail. Renomme, trie, archive ou ajoute les tiennes, avec des icônes.

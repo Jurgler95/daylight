@@ -6,6 +6,7 @@ O QUE O DAYLIGHT FAZ
 
 🔒 Totalmente offline
 O Daylight não tem nenhuma permissão de internet. Seus registros ficam em um banco de dados no seu celular e só saem dele quando você mesmo compartilha um backup.
+O Exodus Privacy não encontra nenhum rastreador no Daylight: https://reports.exodus-privacy.eu.org/pt-br/reports/de.behla.daylight/latest/
 
 ⚡ Registro em segundos
 Cinco humores e atividades organizadas em grupos como sentimentos, sono, clima, pessoas e trabalho. Renomeie, reordene, arquive ou crie as suas, com ícones.

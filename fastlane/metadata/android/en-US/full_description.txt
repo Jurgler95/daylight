@@ -6,6 +6,7 @@ WHAT DAYLIGHT DOES
 
 🔒 Completely offline
 Daylight has no internet permission at all. Your entries live in a database on your phone and only leave it when you share a backup yourself.
+Exodus Privacy finds no trackers at all in Daylight: https://reports.exodus-privacy.eu.org/en/reports/de.behla.daylight/latest/
 
 ⚡ Logged in seconds
 Five moods, activities sorted into groups like emotions, sleep, weather, social and work. Rename, reorder, archive or add your own, with icons.

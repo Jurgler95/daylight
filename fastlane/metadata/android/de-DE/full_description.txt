@@ -6,6 +6,7 @@ WAS DAYLIGHT KANN
 
 🔒 Komplett offline
 Daylight hat überhaupt keine Internet-Berechtigung. Deine Einträge liegen in einer Datenbank auf deinem Handy und verlassen es nur, wenn du selbst eine Sicherung teilst.
+Exodus Privacy findet in Daylight keinen einzigen Tracker: https://reports.exodus-privacy.eu.org/de/reports/de.behla.daylight/latest/
 
 ⚡ In Sekunden eingetragen
 Fünf Stimmungen, Aktivitäten in Gruppen wie Gefühle, Schlaf, Wetter, Soziales und Arbeit. Umbenennen, umsortieren, archivieren oder eigene ergänzen, mit Icons.
