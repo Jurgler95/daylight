@@ -264,6 +264,7 @@ export default function InsightsScreen() {
 }
 
 const styles = StyleSheet.create({
-  head: { gap: spacing.md },
+  // Room below the chips or the scale row before the scrolling cards are cut off.
+  head: { gap: spacing.md, paddingBottom: spacing.md },
   tiles: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.md },
 });

@@ -26,6 +26,18 @@ export function changesIn(release: Release, language: Language): string[] {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.0.38',
+    date: '2026-11-24',
+    changes: {
+      de: ['In den „Einblicken“ haben die Karten mehr Abstand zu Zeitraum und Skalenauswahl im festen Kopf'],
+      en: ['In “Insights” the cards keep more distance from the period and scale picker in the fixed header'],
+      es: ['En «Análisis» las tarjetas dejan más espacio bajo el período y la selección de escala de la cabecera fija'],
+      pt: ['Em “Análises” os cartões ficam mais afastados do período e da escolha de escala no cabeçalho fixo'],
+      fr: ['Dans « Aperçus », les cartes laissent plus d’espace sous la période et le choix d’échelle de l’en-tête fixe'],
+      it: ['In «Analisi» le schede lasciano più spazio sotto il periodo e la scelta della scala nell’intestazione fissa'],
+    },
+  },
+  {
     version: '1.0.37',
     date: '2026-11-24',
     changes: {

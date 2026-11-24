@@ -2,7 +2,7 @@
   "expo": {
     "name": "Daylight",
     "slug": "daylight",
-    "version": "1.0.37",
+    "version": "1.0.38",
     "scheme": "daylight",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -12,7 +12,7 @@
     },
     "android": {
       "package": "de.behla.daylight",
-      "versionCode": 38,
+      "versionCode": 39,
       "allowBackup": false,
       "adaptiveIcon": {
         "backgroundColor": "#11786A",
