@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- The widget settings over the home screen: the wallpaper shows through, so the preview looks as it will. -->
+  <style name="DaylightWidgetSettings" parent="@android:style/Theme.Material.Light.NoActionBar">
+    <item name="android:windowShowWallpaper">true</item>
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:colorAccent">#1A5FC2</item>
+    <item name="android:statusBarColor">@android:color/transparent</item>
+    <item name="android:navigationBarColor">@android:color/transparent</item>
+  </style>
+</resources>

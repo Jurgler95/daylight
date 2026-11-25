@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/ui';
+import { upper } from '@/lib/i18n/language';
 import type { NoteWords, WordStat } from '@/lib/insights';
 import { radius, spacing, useTheme } from '@/lib/theme';
 
@@ -17,7 +18,7 @@ export function WordsCard({ words, goodLabel }: { words: NoteWords; goodLabel: s
   const side = (title: string, list: WordStat[]) => (
     <View style={styles.side}>
       <AppText variant="caption" muted>
-        {title.toUpperCase()}
+        {upper(title)}
       </AppText>
       {list.length ? (
         <View style={styles.pills}>

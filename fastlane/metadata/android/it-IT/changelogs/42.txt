@@ -1,0 +1,6 @@
+Il più grande aggiornamento di Daylight finora:
+• Quattro widget per la schermata Home: Umore, Cronologia, Serie e Nuova voce, con sfondo e colori regolabili
+• Nuovo aspetto in “Altro”: Sistema, Chiaro o Scuro
+• Daylight ora parla anche olandese, polacco, turco e indonesiano
+• L’anno in pixel si apre a schermo intero e si può salvare come PNG o condividere
+• In “Informazioni” ci sono i link al sito e al codice sorgente su GitHub

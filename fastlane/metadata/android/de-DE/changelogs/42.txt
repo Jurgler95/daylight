@@ -1,0 +1,6 @@
+Das bisher größte Update von Daylight:
+• Vier Widgets für den Startbildschirm: Stimmung, Verlauf, Serie und Neuer Eintrag, mit einstellbarem Hintergrund und Farben
+• Neues Erscheinungsbild unter „Mehr“: System, Hell oder Dunkel
+• Daylight gibt es jetzt auch auf Niederländisch, Polnisch, Türkisch und Indonesisch
+• Das Jahr in Pixeln lässt sich groß öffnen, als PNG speichern und teilen
+• Unter „Über“ führen Links zur Website und zum Quellcode auf GitHub

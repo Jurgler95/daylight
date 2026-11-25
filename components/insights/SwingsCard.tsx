@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/ui';
 import { addDaysToDateString, formatRange } from '@/lib/dates';
+import { upper } from '@/lib/i18n/language';
 import { formatDecimal, type Swings, type WeekSwing } from '@/lib/insights';
 import { spacing } from '@/lib/theme';
 
@@ -15,7 +16,7 @@ export function SwingsCard({ swings }: { swings: Swings }) {
     weeks.length ? (
       <View style={styles.list}>
         <AppText variant="caption" muted>
-          {title.toUpperCase()}
+          {upper(title)}
         </AppText>
         {weeks.map((week) => {
           const range = formatRange(week.start, addDaysToDateString(week.start, 6));

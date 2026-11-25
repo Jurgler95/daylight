@@ -329,6 +329,7 @@
   },
   "common": {
     "error": "Coś poszło nie tak",
+    "shareUnavailable": "Udostępnianie nie jest dostępne na tym urządzeniu.",
     "retry": "Spróbuj ponownie",
     "back": "Wstecz",
     "close": "Zamknij",
@@ -391,7 +392,11 @@
       "year": "Rok",
       "a11yMonth": "{{month}}: {{summary}}",
       "a11yEmpty": "{{month}}: brak wpisów",
-      "a11yHint": "Otwiera stuknięty dzień"
+      "a11yHint": "Otwiera stuknięty dzień",
+      "expand": "Powiększ",
+      "save": "Zapisz jako PNG",
+      "share": "Udostępnij",
+      "footer": "prywatny dziennik nastroju, offline"
     },
     "weekdays": {
       "title": "Dni tygodnia",
@@ -964,7 +969,9 @@
     "version": "Wersja {{version}}",
     "copyright": "© 2026 Paul Behla, paul-behla.de",
     "license": "Daylight to wolne oprogramowanie na licencji GNU General Public License w wersji 3 lub nowszej, z dodatkowym warunkiem dotyczącym uznania autorstwa. Bez jakiejkolwiek gwarancji. Licencja i kod źródłowy: github.com/Jurgler95/daylight",
-    "disclaimer": "Daylight nie jest wyrobem medycznym i nie zastępuje porady ani leczenia. Wgląd i prognoza opisują tylko Twoje własne wpisy."
+    "disclaimer": "Daylight nie jest wyrobem medycznym i nie zastępuje porady ani leczenia. Wgląd i prognoza opisują tylko Twoje własne wpisy.",
+    "website": "Strona internetowa",
+    "github": "Kod źródłowy na GitHubie"
   },
   "health": {
     "title": "Dane o zdrowiu",

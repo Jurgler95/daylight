@@ -1,0 +1,6 @@
+A maior atualização do Daylight até agora:
+• Quatro widgets para a tela inicial: Humor, Histórico, Sequência e Novo registro, com fundo e cores ajustáveis
+• Nova aparência em “Mais”: Sistema, Claro ou Escuro
+• O Daylight agora também está em holandês, polonês, turco e indonésio
+• O ano em pixels abre em tela cheia e pode ser salvo como PNG ou compartilhado
+• Em “Sobre” há links para o site e para o código-fonte no GitHub

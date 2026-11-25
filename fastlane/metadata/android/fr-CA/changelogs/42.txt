@@ -1,0 +1,6 @@
+La plus grande mise à jour de Daylight à ce jour :
+• Quatre widgets pour l’écran d’accueil : Humeur, Historique, Série et Nouvelle entrée, avec fond et couleurs réglables
+• Nouvelle apparence dans « Plus » : Système, Clair ou Sombre
+• Daylight parle désormais aussi néerlandais, polonais, turc et indonésien
+• L’année en pixels s’ouvre en plein écran et peut être enregistrée en PNG ou partagée
+• Dans « À propos », des liens mènent au site web et au code source sur GitHub

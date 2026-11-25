@@ -6,6 +6,14 @@ import { withLockSuspended } from '@/lib/lock/store';
 
 /** Native side of export/import. Everything stays on the device unless the user shares. */
 
+/** No app on the device takes a share; screens show `common.shareUnavailable` for it. */
+export class ShareUnavailableError extends Error {
+  constructor() {
+    super('Sharing is not available on this device');
+    this.name = 'ShareUnavailableError';
+  }
+}
+
 function cacheFile(name: string): File {
   const file = new File(Paths.cache, name);
   if (file.exists) file.delete();
@@ -15,7 +23,7 @@ function cacheFile(name: string): File {
 export async function shareText(name: string, mimeType: string, content: string): Promise<void> {
   const file = cacheFile(name);
   file.write(content);
-  if (!(await Sharing.isAvailableAsync())) throw new Error('Teilen nicht verfügbar');
+  if (!(await Sharing.isAvailableAsync())) throw new ShareUnavailableError();
   await withLockSuspended(() => Sharing.shareAsync(file.uri, { mimeType, dialogTitle: name }));
 }
 
@@ -29,6 +37,26 @@ export async function saveToPickedDirectory(name: string, mimeType: string, cont
   }
   const file = directory.createFile(name, mimeType);
   file.write(content);
+  return true;
+}
+
+/** Like `shareText`, for binary content handed over as base64 (a rendered PNG). */
+export async function shareBase64(name: string, mimeType: string, base64: string): Promise<void> {
+  const file = cacheFile(name);
+  file.write(base64, { encoding: 'base64' });
+  if (!(await Sharing.isAvailableAsync())) throw new ShareUnavailableError();
+  await withLockSuspended(() => Sharing.shareAsync(file.uri, { mimeType, dialogTitle: name }));
+}
+
+/** Like `saveToPickedDirectory`, for binary content handed over as base64 (a rendered PNG). */
+export async function saveBase64ToPickedDirectory(name: string, mimeType: string, base64: string): Promise<boolean> {
+  let directory: Directory;
+  try {
+    directory = await withLockSuspended(() => Directory.pickDirectoryAsync());
+  } catch {
+    return false;
+  }
+  directory.createFile(name, mimeType).write(base64, { encoding: 'base64' });
   return true;
 }
 
@@ -66,7 +94,7 @@ function cacheFileFrom(name: string, fill: (write: (chunk: Uint8Array) => void) 
 
 export async function shareBinary(name: string, mimeType: string, fill: (write: (chunk: Uint8Array) => void) => void): Promise<void> {
   const file = cacheFileFrom(name, fill);
-  if (!(await Sharing.isAvailableAsync())) throw new Error('Teilen nicht verfügbar');
+  if (!(await Sharing.isAvailableAsync())) throw new ShareUnavailableError();
   await withLockSuspended(() => Sharing.shareAsync(file.uri, { mimeType, dialogTitle: name }));
 }
 

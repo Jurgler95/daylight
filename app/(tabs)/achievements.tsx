@@ -11,6 +11,7 @@ import { AppText, Screen } from '@/components/ui';
 import { byNextStar, nextInReach, TIER_COUNT, totalStars, type Achievement, type AchievementGroup, type AchievementKey } from '@/lib/achievements';
 import { useAchievements } from '@/lib/achievements/useAchievements';
 import { useToday } from '@/lib/dates/useToday';
+import { upper } from '@/lib/i18n/language';
 import { formatCount } from '@/lib/insights';
 import { radius, spacing, useTheme } from '@/lib/theme';
 import { useSettingsStore } from '@/lib/store/settingsStore';
@@ -111,7 +112,7 @@ export default function AchievementsScreen() {
                 <MaterialCommunityIcons name={GROUP_ICON[group]} size={16} color={colors.accent} />
               </View>
               <AppText variant="label" accessibilityRole="header" style={styles.groupTitle}>
-                {t(`achievements.groups.${group}`).toUpperCase()}
+                {upper(t(`achievements.groups.${group}`))}
               </AppText>
               <View style={[styles.groupStars, { backgroundColor: colors.surface, borderColor: colors.border }]} accessible accessibilityLabel={t('achievements.stars', groupStars)}>
                 <MaterialCommunityIcons name="star" size={14} color={starColor} />

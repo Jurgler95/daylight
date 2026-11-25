@@ -1,0 +1,6 @@
+Daylight'ın bugüne kadarki en büyük güncellemesi:
+• Ana ekran için dört widget: Ruh hali, Geçmiş, Seri ve Yeni kayıt; arka planı ve renkleri ayarlanabilir
+• “Diğer” altında yeni görünüm ayarı: Sistem, Açık veya Koyu
+• Daylight artık Felemenkçe, Lehçe, Türkçe ve Endonezce de kullanılabiliyor
+• Piksellerle yıl tam ekran açılıyor, PNG olarak kaydedilebiliyor veya paylaşılabiliyor
+• “Hakkında” bölümünde web sitesine ve GitHub'daki kaynak koda bağlantılar var

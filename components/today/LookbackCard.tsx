@@ -12,6 +12,7 @@ import type { MoodLevel } from '@/db/schema';
 import type { Catalog } from '@/lib/catalog/catalog';
 import { formatShortWithYear, type DateString } from '@/lib/dates';
 import { haptics } from '@/lib/haptics';
+import { upper } from '@/lib/i18n/language';
 import type { IconName } from '@/lib/icons';
 import { useQuery } from '@/lib/store/dataVersion';
 import { lookbackDays } from '@/lib/today/lookback';
@@ -71,7 +72,7 @@ export function LookbackCard({ date, catalog, onOpenDay }: Props) {
             )}
             <View style={styles.text}>
               <AppText variant="caption" muted>
-                {`${when.toUpperCase()} · ${formatShortWithYear(day.date)}`}
+                {`${upper(when)} · ${formatShortWithYear(day.date)}`}
               </AppText>
               {entry ? (
                 <AppText variant="label" color={moodColors[entry.level as MoodLevel].strong}>

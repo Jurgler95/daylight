@@ -71,6 +71,9 @@ export default function TabsLayout() {
           paddingTop: 8,
           paddingBottom: insets.bottom,
         },
+        // From 768 dp wide (tablets, landscape) the label would move beside the icon, where the 56 dp
+        // pill runs under it. Keep the phone layout everywhere.
+        tabBarLabelPosition: 'below-icon',
         tabBarLabelStyle: { fontSize: 11, fontWeight: '700' },
         sceneStyle: { backgroundColor: colors.background },
       }}

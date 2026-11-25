@@ -4,11 +4,12 @@ import type { MoodLevel } from '@/db/schema';
 import { activityLabel, levelMood } from '@/lib/catalog/catalog';
 import type { Catalog } from '@/lib/catalog/catalog';
 import { formatWeekdayLong, type DateString } from '@/lib/dates';
+import { upper } from '@/lib/i18n/language';
 import { formatDecimal, formatPercent } from '@/lib/insights/format';
 import type { OutlookDay, OutlookRange, OutlookReason } from '@/lib/outlook';
 
 /** Spanish, Portuguese and Italian lines may begin with the weekday, which they write in lower case. */
-const sentence = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
+const sentence = (text: string) => upper(text.charAt(0)) + text.slice(1);
 
 /** Sentences of the outlook, with mood and activity names from the catalog. */
 export function useOutlookTexts(catalog: Catalog) {

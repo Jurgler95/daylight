@@ -1,9 +1,16 @@
 import Constants from 'expo-constants';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, View } from 'react-native';
+import { Linking, StyleSheet, View } from 'react-native';
 
-import { AppText, Card, Logo, Screen } from '@/components/ui';
+import { AppText, Card, ListRow, Logo, Screen } from '@/components/ui';
 import { spacing } from '@/lib/theme';
+
+const WEBSITE_URL = 'https://paul-behla.de';
+const GITHUB_URL = 'https://github.com/Jurgler95/daylight';
+
+function open(url: string) {
+  return () => void Linking.openURL(url).catch(() => undefined);
+}
 
 export default function AboutScreen() {
   const { t } = useTranslation();
@@ -26,6 +33,10 @@ export default function AboutScreen() {
         <AppText variant="caption" muted>
           {t('about.license')}
         </AppText>
+      </Card>
+      <Card>
+        <ListRow icon="globe-outline" label={t('about.website')} value="paul-behla.de" onPress={open(WEBSITE_URL)} />
+        <ListRow icon="logo-github" label={t('about.github')} onPress={open(GITHUB_URL)} />
       </Card>
       <Card tone="muted">
         <AppText>{t('about.disclaimer')}</AppText>

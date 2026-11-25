@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Alert, StyleSheet, View } from 'react-native';
 
 import { AppText, Button, Card } from '@/components/ui';
+import { ShareUnavailableError } from '@/lib/export/files';
 import { useBackupStatus } from '@/lib/export/useBackupStatus';
 import { useDataTransfer } from '@/lib/export/useDataTransfer';
 import { TOUCH_TARGET, spacing } from '@/lib/theme';
@@ -18,7 +19,7 @@ export function BackupCard() {
   if (!status.due) return null;
 
   const save = () => {
-    saveJson().catch((error: unknown) => Alert.alert(t('common.error'), error instanceof Error ? error.message : String(error)));
+    saveJson().catch((error: unknown) => Alert.alert(t('common.error'), error instanceof ShareUnavailableError ? t('common.shareUnavailable') : error instanceof Error ? error.message : String(error)));
   };
 
   return (

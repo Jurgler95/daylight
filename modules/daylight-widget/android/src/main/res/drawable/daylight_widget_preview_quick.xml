@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The quick entry button as `QuickWidget` draws it: a round plus on the accent. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+  android:width="48dp"
+  android:height="48dp"
+  android:viewportWidth="48"
+  android:viewportHeight="48">
+  <path android:fillColor="#1A5FC2" android:pathData="M1,24a23,23 0 1,0 46,0a23,23 0 1,0 -46,0z" />
+  <path
+    android:pathData="M13.44,24H34.56M24,13.44V34.56"
+    android:strokeColor="#FFFFFF"
+    android:strokeLineCap="round"
+    android:strokeWidth="4.32" />
+</vector>

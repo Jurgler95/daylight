@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+  android:minWidth="50dp"
+  android:minHeight="50dp"
+  android:minResizeWidth="40dp"
+  android:minResizeHeight="40dp"
+  android:targetCellWidth="1"
+  android:targetCellHeight="1"
+  android:resizeMode="horizontal|vertical"
+  android:widgetCategory="home_screen"
+  android:updatePeriodMillis="0"
+  android:initialLayout="@layout/daylight_quick_widget"
+  android:previewLayout="@layout/daylight_quick_widget_preview"
+  android:configure="de.behla.daylight.widget.WidgetSettingsActivity"
+  android:widgetFeatures="reconfigurable|configuration_optional"
+  android:description="@string/daylight_quick_description" />

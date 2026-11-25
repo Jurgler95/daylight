@@ -283,6 +283,7 @@
   },
   "common": {
     "error": "Something went wrong",
+    "shareUnavailable": "Sharing is not available on this device.",
     "retry": "Try again",
     "back": "Back",
     "close": "Close",
@@ -339,7 +340,11 @@
       "year": "Year",
       "a11yMonth": "{{month}}: {{summary}}",
       "a11yEmpty": "{{month}}: no entries",
-      "a11yHint": "Opens the tapped day"
+      "a11yHint": "Opens the tapped day",
+      "expand": "Expand",
+      "save": "Save as PNG",
+      "share": "Share",
+      "footer": "private offline mood tracker"
     },
     "weekdays": {
       "title": "Weekdays",
@@ -886,7 +891,9 @@
     "version": "Version {{version}}",
     "copyright": "© 2026 Paul Behla, paul-behla.de",
     "license": "Daylight is free software under the GNU General Public License, version 3 or later, with an additional attribution term. Without any warranty. License and source code: github.com/Jurgler95/daylight",
-    "disclaimer": "Daylight is not a medical device and does not replace advice or treatment. Insights and outlook only describe your own entries."
+    "disclaimer": "Daylight is not a medical device and does not replace advice or treatment. Insights and outlook only describe your own entries.",
+    "website": "Website",
+    "github": "Source code on GitHub"
   },
   "health": {
     "title": "Health data",

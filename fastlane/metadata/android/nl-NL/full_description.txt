@@ -11,11 +11,14 @@ Exodus Privacy vindt geen enkele tracker in Daylight: https://reports.exodus-pri
 ⚡ In een paar seconden bijgehouden
 Vijf stemmingen en activiteiten in groepen zoals gevoelens, slaap, weer, sociaal en werk. Hernoem, herschik, archiveer of voeg je eigen activiteiten toe, met iconen.
 
-📅 Kalender
+📅 Stemmingskalender
 Elke dag in zijn eigen kleur, zodat goede en zware periodes in één oogopslag opvallen. Dagen met meerdere registraties zijn gemarkeerd, geplande activiteiten verschijnen op de komende dagen.
 
+🟩 Je jaar in pixels
+Elke dag een vakje in de kleur van je stemming, twaalf maanden in één beeld. Zo zie je hoe maanden en seizoenen voelden, en een tik op een vakje opent die dag.
+
 📊 Inzicht in je patronen
-Verloop en 7-daags gemiddelde, verdeling, weekdagen en maanden, je jaar in pixels, rustige en onrustige weken, reeksen, welke activiteiten samengaan met betere of slechtere dagen, wat er de dag erna vaak volgt en veelgebruikte woorden in je notities. Altijd een beschrijving van je registraties, nooit een diagnose.
+Verloop en 7-daags gemiddelde, verdeling, weekdagen en maanden, rustige en onrustige weken, reeksen, welke activiteiten samengaan met betere of slechtere dagen, wat er de dag erna vaak volgt en veelgebruikte woorden in je notities. Altijd een beschrijving van je registraties, nooit een diagnose.
 
 🌅 Keerpunten
 Markeer tot vier dagen per jaar die iets hebben veranderd, zoals een nieuwe baan of een verhuizing. Daylight vergelijkt de tijd ervoor met de tijd erna: stemming, activiteiten en gezondheidsgegevens.

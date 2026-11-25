@@ -5,6 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import { AppText, Card } from '@/components/ui';
 import type { HealthDay } from '@/db/schema';
 import { formatDuration, formatSteps } from '@/lib/health/format';
+import { upper } from '@/lib/i18n/language';
 import type { IconName } from '@/lib/icons';
 import { radius, spacing, useTheme } from '@/lib/theme';
 
@@ -35,7 +36,7 @@ export function HealthDayCard({ day }: Props) {
   return (
     <Card>
       <AppText variant="caption" muted accessibilityRole="header">
-        {t('health.day.title').toUpperCase()}
+        {upper(t('health.day.title'))}
       </AppText>
       <View style={styles.grid}>
         {tiles.map((tile, i) => {

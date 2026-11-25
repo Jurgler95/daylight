@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { InsightCard } from '@/components/insights/InsightCard';
 import { AppText } from '@/components/ui';
 import { formatDuration } from '@/lib/health/format';
+import { upper } from '@/lib/i18n/language';
 import { formatDecimal, formatSigned, linkStrength, MIN_BAND_DAYS, MIN_LINK_PAIRS, type ScaleBucket, type ScaleInsight } from '@/lib/insights';
 import { roundLevel } from '@/lib/mood/dayMood';
 import { radius, spacing, useTheme } from '@/lib/theme';
@@ -73,7 +74,7 @@ export function ScaleMoodCard({ insight }: { insight: ScaleInsight }) {
           return (
             <View key={link.pairing} style={styles.link} accessible accessibilityLabel={`${title}. ${sentence}. ${detail}`}>
               <AppText variant="caption" muted>
-                {title.toUpperCase()}
+                {upper(title)}
               </AppText>
               <AppText>{sentence}</AppText>
               <AppText variant="caption" muted>

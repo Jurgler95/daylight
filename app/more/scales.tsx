@@ -10,6 +10,7 @@ import { getDb } from '@/db';
 import { writeOrder } from '@/db/repositories/order';
 import { createScale, listScales } from '@/db/repositories/scales';
 import { scales as scalesTable, type Scale } from '@/db/schema';
+import { upper } from '@/lib/i18n/language';
 import { useManageWrite } from '@/lib/manage/useManageWrite';
 import { useQuery } from '@/lib/store/dataVersion';
 
@@ -70,7 +71,7 @@ export default function ScalesScreen() {
       {archived.length > 0 ? (
         <Card tone="muted">
           <AppText variant="caption" muted>
-            {t('manage.archived').toUpperCase()}
+            {upper(t('manage.archived'))}
           </AppText>
           {archived.map(row)}
         </Card>

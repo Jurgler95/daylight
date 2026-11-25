@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A day without an entry in the history widget: a faint ring (`DaysWidget.drawDay`). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+  android:width="24dp"
+  android:height="24dp"
+  android:viewportWidth="24"
+  android:viewportHeight="24">
+  <path
+    android:pathData="M2,12a10,10 0 1,0 20,0a10,10 0 1,0 -20,0z"
+    android:strokeColor="#828090A8"
+    android:strokeWidth="1.5" />
+</vector>

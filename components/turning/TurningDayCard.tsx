@@ -7,6 +7,7 @@ import { StyleSheet, View } from 'react-native';
 import { AppText, Card, PressableScale } from '@/components/ui';
 import type { DateString } from '@/lib/dates';
 import { haptics } from '@/lib/haptics';
+import { upper } from '@/lib/i18n/language';
 import { TOUCH_TARGET, radius, spacing, useTheme } from '@/lib/theme';
 import { roomInYear } from '@/lib/turning/rules';
 import { useTurningPointOn, useTurningPoints } from '@/lib/turning/useTurningPoints';
@@ -40,7 +41,7 @@ export function TurningDayCard({ date }: { date: DateString }) {
         </View>
         <View style={styles.text}>
           <AppText variant="caption" color={DAWN.sun} style={styles.eyebrow}>
-            {t('turning.eyebrow').toUpperCase()}
+            {upper(t('turning.eyebrow'))}
           </AppText>
           <AppText variant="headline" color={DAWN.text}>
             {point.title}

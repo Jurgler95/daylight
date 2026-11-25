@@ -7,7 +7,8 @@ import { AppText, Card, ListRow, Screen, Segmented, SelectRow, ToggleRow } from 
 import { getDb } from '@/db';
 import { countRows, deleteAllData } from '@/db/repositories/maintenance';
 import { loadSampleData } from '@/lib/dev/sample';
-import { deviceLanguage, isLanguage, LANGUAGE_NAMES, LANGUAGES } from '@/lib/i18n/language';
+import { deviceLanguage, isLanguage, LANGUAGE_NAMES, LANGUAGES, upper } from '@/lib/i18n/language';
+import { ShareUnavailableError } from '@/lib/export/files';
 import { useBackupStatus } from '@/lib/export/useBackupStatus';
 import { useDataTransfer } from '@/lib/export/useDataTransfer';
 import { filePhotoStore } from '@/lib/photos/fileStore';
@@ -20,7 +21,7 @@ export default function MoreScreen() {
   const { t } = useTranslation();
   const transfer = useDataTransfer();
   const guard = (action: () => Promise<void>) => () => {
-    action().catch((error: unknown) => Alert.alert(t('common.error'), error instanceof Error ? error.message : String(error)));
+    action().catch((error: unknown) => Alert.alert(t('common.error'), error instanceof ShareUnavailableError ? t('common.shareUnavailable') : error instanceof Error ? error.message : String(error)));
   };
   const go = (pathname: Href) => () => router.push(pathname);
 
@@ -51,21 +52,21 @@ export default function MoreScreen() {
     <Screen title={t('settings.title')}>
       <Card>
         <AppText variant="caption" muted>
-          {t('settings.diarySection').toUpperCase()}
+          {upper(t('settings.diarySection'))}
         </AppText>
         <ListRow icon="list-outline" label={t('settings.history')} onPress={go('/more/history')} />
         <ListRow icon="flag-outline" label={t('settings.turningPoints')} onPress={go('/more/history?turning=1')} />
       </Card>
       <Card>
         <AppText variant="caption" muted>
-          {t('manage.title').toUpperCase()}
+          {upper(t('manage.title'))}
         </AppText>
         <ListRow icon="pricetags-outline" label={t('manage.activities')} onPress={go('/more/activities')} />
         <ListRow icon="options-outline" label={t('manage.scales')} onPress={go('/more/scales')} />
       </Card>
       <Card>
         <AppText variant="caption" muted>
-          {t('settings.data').toUpperCase()}
+          {upper(t('settings.data'))}
         </AppText>
         <ListRow icon="download-outline" label={t('settings.import')} onPress={guard(transfer.pickImport)} />
         <ListRow icon="share-outline" label={t('settings.exportJson')} value={backupValue} onPress={guard(transfer.exportJson)} />
@@ -78,7 +79,7 @@ export default function MoreScreen() {
       </Card>
       <Card>
         <AppText variant="caption" muted>
-          {t('settings.languageSection').toUpperCase()}
+          {upper(t('settings.languageSection'))}
         </AppText>
         {/* Each language under its own name, so the way back is readable from any of them. */}
         <SelectRow
@@ -93,7 +94,7 @@ export default function MoreScreen() {
       </Card>
       <Card>
         <AppText variant="caption" muted>
-          {t('settings.designSection').toUpperCase()}
+          {upper(t('settings.designSection'))}
         </AppText>
         {/* "System" follows the phone, also when it switches by itself in the evening. */}
         <Segmented
@@ -122,7 +123,7 @@ export default function MoreScreen() {
       </Card>
       <Card>
         <AppText variant="caption" muted>
-          {t('settings.calendarSection').toUpperCase()}
+          {upper(t('settings.calendarSection'))}
         </AppText>
         <Segmented
           label={t('settings.weekStart')}
@@ -136,7 +137,7 @@ export default function MoreScreen() {
       </Card>
       <Card>
         <AppText variant="caption" muted>
-          {t('settings.outlookSection').toUpperCase()}
+          {upper(t('settings.outlookSection'))}
         </AppText>
         <ListRow
           icon="telescope-outline"
@@ -147,7 +148,7 @@ export default function MoreScreen() {
       </Card>
       <Card>
         <AppText variant="caption" muted>
-          {t('settings.healthSection').toUpperCase()}
+          {upper(t('settings.healthSection'))}
         </AppText>
         <ListRow
           icon="heart-outline"
@@ -158,7 +159,7 @@ export default function MoreScreen() {
       </Card>
       <Card>
         <AppText variant="caption" muted>
-          {t('settings.protection').toUpperCase()}
+          {upper(t('settings.protection'))}
         </AppText>
         <ListRow
           icon="notifications-outline"
@@ -170,7 +171,7 @@ export default function MoreScreen() {
       </Card>
       <Card>
         <AppText variant="caption" muted>
-          {t('settings.info').toUpperCase()}
+          {upper(t('settings.info'))}
         </AppText>
         <ListRow icon="shield-checkmark-outline" label={t('settings.privacyLabel')} onPress={go('/more/privacy')} />
         <ListRow icon="sparkles-outline" label={t('settings.changelog')} onPress={go('/more/changelog')} />
@@ -217,7 +218,7 @@ function DevTools() {
   return (
     <Card tone="muted">
       <AppText variant="caption" muted>
-        {t('dev.title').toUpperCase()}
+        {upper(t('dev.title'))}
       </AppText>
       <ListRow icon="flask-outline" label={t('dev.seed')} value={`${counts.entries} · ${counts.activities}`} onPress={seed} />
       <ListRow icon="nuclear-outline" label={t('dev.wipe')} destructive onPress={wipe} />

@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import { Ionicons } from '@expo/vector-icons';
+import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, View } from 'react-native';
 import Svg, { Rect, Text as SvgText } from 'react-native-svg';
@@ -7,9 +8,10 @@ import { AppText, Chip } from '@/components/ui';
 import { MOOD_LEVELS, type MoodLevel } from '@/db/schema';
 import { formatMonthLong, formatMonthNarrow, type DateString } from '@/lib/dates';
 import { yearPixels, type InsightDay } from '@/lib/insights';
-import { spacing, useTheme } from '@/lib/theme';
+import { TOUCH_TARGET, spacing, useTheme } from '@/lib/theme';
 
 import { InsightCard } from './InsightCard';
+import { PixelsFullscreen } from './PixelsFullscreen';
 
 interface Props {
   days: InsightDay[];
@@ -25,13 +27,16 @@ const GAP = 2;
 /**
  * A year as twelve rows of day cells in the mood colour, empty where nothing was logged. The
  * range switch does not apply: a year is the point of the card, other years sit behind chips.
- * Tapping a cell opens that day on "Heute".
+ * Tapping a cell opens that day on "Heute". The button next to the title opens the year on its
+ * own, larger and with the option to save it as a PNG.
  */
 export function PixelsCard({ days, years, today, moodLabel, onOpen }: Props) {
   const { t } = useTranslation();
   const { colors, mood: moodColors } = useTheme();
   const [picked, setPicked] = useState<number | null>(null);
   const [width, setWidth] = useState(0);
+  const [expanded, setExpanded] = useState(false);
+  const close = useCallback(() => setExpanded(false), []);
   const year = picked !== null && years.includes(picked) ? picked : (years[0] ?? Number(today.slice(0, 4)));
   const months = useMemo(() => yearPixels(days, year), [days, year]);
   const cell = Math.max(4, Math.floor((width - LABEL) / 31));
@@ -60,6 +65,17 @@ export function PixelsCard({ days, years, today, moodLabel, onOpen }: Props) {
   return (
     <InsightCard
       title={t('insights.pixels.title')}
+      action={
+        <Pressable
+          onPress={() => setExpanded(true)}
+          accessibilityRole="button"
+          accessibilityLabel={t('insights.pixels.expand')}
+          hitSlop={8}
+          style={({ pressed }) => [styles.expand, { opacity: pressed ? 0.6 : 1 }]}
+        >
+          <Ionicons name="expand" size={20} color={colors.accent} />
+        </Pressable>
+      }
       controls={
         years.length > 1 ? (
           <View style={styles.years} accessibilityRole="radiogroup" accessibilityLabel={t('insights.pixels.year')}>
@@ -115,6 +131,19 @@ export function PixelsCard({ days, years, today, moodLabel, onOpen }: Props) {
           </View>
         ))}
       </View>
+      <PixelsFullscreen
+        visible={expanded}
+        onClose={close}
+        year={year}
+        years={years}
+        onYear={setPicked}
+        months={months}
+        today={today}
+        title={t('insights.pixels.title')}
+        moodLabel={moodLabel}
+        summary={summary}
+        onOpen={onOpen}
+      />
     </InsightCard>
   );
 }
@@ -124,4 +153,5 @@ const styles = StyleSheet.create({
   legend: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.md },
   legendItem: { flexDirection: 'row', alignItems: 'center', gap: spacing.xs },
   swatch: { width: 10, height: 10, borderRadius: 2 },
+  expand: { width: TOUCH_TARGET, height: TOUCH_TARGET, alignItems: 'center', justifyContent: 'center', marginVertical: -spacing.sm },
 });

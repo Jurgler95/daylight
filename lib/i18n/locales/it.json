@@ -306,6 +306,7 @@
   },
   "common": {
     "error": "Qualcosa è andato storto",
+    "shareUnavailable": "La condivisione non è disponibile su questo dispositivo.",
     "retry": "Riprova",
     "back": "Indietro",
     "close": "Chiudi",
@@ -365,7 +366,11 @@
       "year": "Anno",
       "a11yMonth": "{{month}}: {{summary}}",
       "a11yEmpty": "{{month}}: nessuna voce",
-      "a11yHint": "Apre il giorno toccato"
+      "a11yHint": "Apre il giorno toccato",
+      "expand": "Ingrandisci",
+      "save": "Salva come PNG",
+      "share": "Condividi",
+      "footer": "diario dell'umore privato, offline"
     },
     "weekdays": {
       "title": "Giorni della settimana",
@@ -925,7 +930,9 @@
     "version": "Versione {{version}}",
     "copyright": "© 2026 Paul Behla, paul-behla.de",
     "license": "Daylight è software libero sotto la GNU General Public License, versione 3 o successiva, con una clausola aggiuntiva sull'attribuzione. Senza alcuna garanzia. Licenza e codice sorgente: github.com/Jurgler95/daylight",
-    "disclaimer": "Daylight non è un dispositivo medico e non sostituisce consulenze o cure. Analisi e previsione descrivono solo le tue voci."
+    "disclaimer": "Daylight non è un dispositivo medico e non sostituisce consulenze o cure. Analisi e previsione descrivono solo le tue voci.",
+    "website": "Sito web",
+    "github": "Codice sorgente su GitHub"
   },
   "health": {
     "title": "Dati sulla salute",

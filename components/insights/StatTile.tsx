@@ -1,6 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 
 import { AppText, PressableScale } from '@/components/ui';
+import { upper } from '@/lib/i18n/language';
 import { CARD_OPACITY, radius, spacing, useTheme, withAlpha } from '@/lib/theme';
 
 interface Props {
@@ -26,7 +27,7 @@ export function StatTile({ label, spokenLabel, value, hint, selected = false, on
   const content = (
     <>
       <AppText variant="caption" color={selected ? colors.accent : undefined} muted={!selected}>
-        {label.toUpperCase()}
+        {upper(label)}
       </AppText>
       <AppText variant="title">{value}</AppText>
       {hint ? (

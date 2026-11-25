@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="daylight_widget_label">Suasana hati</string>
+  <string name="daylight_widget_description">Bagaimana harimu? Ketuk suasana hati untuk menulis entri.</string>
+  <string name="daylight_widget_empty">Buka Daylight sekali untuk menyiapkan widget.</string>
+  <string name="daylight_widget_settings_title">Sesuaikan widget</string>
+  <string name="daylight_widget_settings_background">Latar belakang</string>
+  <string name="daylight_widget_settings_colors">Warna</string>
+  <string name="daylight_widget_settings_light">Terang</string>
+  <string name="daylight_widget_settings_dark">Gelap</string>
+  <string name="daylight_widget_settings_system">Ikuti sistem</string>
+  <string name="daylight_widget_settings_done">Selesai</string>
+  <string name="daylight_widget_settings_wallpaper">Sesuai wallpaper</string>
+  <string name="daylight_days_label">Riwayat</string>
+  <string name="daylight_days_description">Hari-hari terakhirmu sekilas. Ketuk satu hari untuk membukanya.</string>
+  <string name="daylight_streak_label">Runtutan</string>
+  <string name="daylight_streak_description">Hari berturut-turut, pudar sampai hari ini diisi.</string>
+  <string name="daylight_quick_label">Entri baru</string>
+  <string name="daylight_quick_description">Sekali ketuk ke entri baru.</string>
+  <!-- Widget picker previews (`layout/*_preview.xml`): the app's texts for its default moods, Monday first. -->
+  <string name="daylight_preview_mood_5">Hebat</string>
+  <string name="daylight_preview_mood_4">Baik</string>
+  <string name="daylight_preview_mood_3">Biasa</string>
+  <string name="daylight_preview_mood_2">Buruk</string>
+  <string name="daylight_preview_mood_1">Payah</string>
+  <string name="daylight_preview_day_0">Sen</string>
+  <string name="daylight_preview_day_1">Sel</string>
+  <string name="daylight_preview_day_2">Rab</string>
+  <string name="daylight_preview_day_3">Kam</string>
+  <string name="daylight_preview_day_4">Jum</string>
+  <string name="daylight_preview_day_5">Sab</string>
+  <string name="daylight_preview_day_6">Min</string>
+  <string name="daylight_preview_streak">hari beruntun</string>
+</resources>

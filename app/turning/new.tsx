@@ -33,6 +33,7 @@ import { createTurningPoint, getTurningPoint, TurningPointLimitError, updateTurn
 import { formatLong, isDateString, type DateString } from '@/lib/dates';
 import { useToday } from '@/lib/dates/useToday';
 import { haptics } from '@/lib/haptics';
+import { upper } from '@/lib/i18n/language';
 import { readInsightDays } from '@/lib/insights/useInsights';
 import { mutate, useQuery } from '@/lib/store/dataVersion';
 import { TOUCH_TARGET, radius, spacing } from '@/lib/theme';
@@ -243,7 +244,7 @@ export default function TurningPointScreen() {
           <>
             <Animated.View entering={FadeInDown.delay(at(ENTER.head)).duration(700)} style={styles.head}>
               <AppText variant="caption" color={DAWN.sun} style={styles.eyebrow}>
-                {t('turning.eyebrow').toUpperCase()}
+                {upper(t('turning.eyebrow'))}
               </AppText>
               <AppText variant="title" color={DAWN.text} accessibilityRole="header" style={styles.centered}>
                 {formatLong(date)}
@@ -258,7 +259,7 @@ export default function TurningPointScreen() {
             <Animated.View entering={FadeInDown.delay(at(ENTER.fields)).duration(700)} style={styles.fields}>
               <Animated.View style={[styles.nameBlock, shakeStyle]}>
                 <AppText variant="caption" color={DAWN.sun} style={[styles.eyebrow, styles.centered]}>
-                  {t('turning.nameLabel').toUpperCase()}
+                  {upper(t('turning.nameLabel'))}
                 </AppText>
                 <TextInput
                   ref={titleRef}

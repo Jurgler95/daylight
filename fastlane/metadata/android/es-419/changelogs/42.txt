@@ -1,0 +1,6 @@
+La mayor actualización de Daylight hasta ahora:
+• Cuatro widgets para la pantalla de inicio: Estado de ánimo, Historial, Racha y Nueva entrada, con fondo y colores ajustables
+• Nueva apariencia en «Más»: Sistema, Claro u Oscuro
+• Daylight ya está también en neerlandés, polaco, turco e indonesio
+• El año en píxeles se abre a pantalla completa y se puede guardar como PNG o compartir
+• En «Acerca de» hay enlaces a la web y al código fuente en GitHub

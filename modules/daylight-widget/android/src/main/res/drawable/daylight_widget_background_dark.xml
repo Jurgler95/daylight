@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The "dark" style, whatever the system: night blue from the app's text colour. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+  <gradient
+    android:angle="270"
+    android:endColor="#13213A"
+    android:startColor="#22355A" />
+  <corners android:radius="@dimen/daylight_widget_radius" />
+</shape>

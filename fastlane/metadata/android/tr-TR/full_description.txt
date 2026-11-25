@@ -11,11 +11,14 @@ Exodus Privacy, Daylight'ta hiçbir izleyici bulmuyor: https://reports.exodus-pr
 ⚡ Saniyeler içinde kayıt
 Beş ruh hali ve duygular, uyku, hava durumu, sosyal ve iş gibi gruplara ayrılmış aktiviteler. Simgeleriyle birlikte yeniden adlandır, sırala, arşivle ya da kendi aktivitelerini ekle.
 
-📅 Takvim
+📅 Ruh hali takvimi
 Her gün kendi renginde, böylece iyi ve zor dönemler bir bakışta göze çarpar. Birden fazla kaydı olan günler işaretlenir, planlanan aktiviteler önümüzdeki günlerde görünür.
 
+🟩 Piksellerle yılın
+Her gün ruh halinin renginde bir kare, on iki ay tek bir resimde. Ayların ve mevsimlerin nasıl geçtiğini görürsün, bir kareye dokununca o gün açılır.
+
 📊 Alışkanlıklarına dair içgörüler
-Seyir ve 7 günlük ortalama, dağılım, haftanın günleri ve aylar, piksellerle yılın, sakin ve hareketli haftalar, seriler, hangi aktivitelerin daha iyi ya da daha kötü günlerle birlikte geldiği, ertesi gün genellikle ne olduğu ve notlarında sık geçen kelimeler. Daylight her zaman kayıtlarını betimler, asla teşhis koymaz.
+Seyir ve 7 günlük ortalama, dağılım, haftanın günleri ve aylar, sakin ve hareketli haftalar, seriler, hangi aktivitelerin daha iyi ya da daha kötü günlerle birlikte geldiği, ertesi gün genellikle ne olduğu ve notlarında sık geçen kelimeler. Daylight her zaman kayıtlarını betimler, asla teşhis koymaz.
 
 🌅 Dönüm noktaları
 Yılda bir şeyleri değiştiren en fazla dört günü işaretle, örneğin yeni bir iş ya da taşınma. Daylight öncesini ve sonrasını karşılaştırır: ruh hali, aktiviteler ve sağlık verileri.

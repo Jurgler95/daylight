@@ -283,6 +283,7 @@
   },
   "common": {
     "error": "Bir şeyler ters gitti",
+    "shareUnavailable": "Bu cihazda paylaşım kullanılamıyor.",
     "retry": "Tekrar dene",
     "back": "Geri",
     "close": "Kapat",
@@ -339,7 +340,11 @@
       "year": "Yıl",
       "a11yMonth": "{{month}}: {{summary}}",
       "a11yEmpty": "{{month}}: kayıt yok",
-      "a11yHint": "Dokunulan günü açar"
+      "a11yHint": "Dokunulan günü açar",
+      "expand": "Büyüt",
+      "save": "PNG olarak kaydet",
+      "share": "Paylaş",
+      "footer": "özel ruh hali günlüğü, çevrimdışı"
     },
     "weekdays": {
       "title": "Haftanın günleri",
@@ -886,7 +891,9 @@
     "version": "Sürüm {{version}}",
     "copyright": "© 2026 Paul Behla, paul-behla.de",
     "license": "Daylight, GNU Genel Kamu Lisansı sürüm 3 veya sonrası kapsamında, ek bir atıf koşuluyla özgür bir yazılımdır. Hiçbir garanti verilmez. Lisans ve kaynak kodu: github.com/Jurgler95/daylight",
-    "disclaimer": "Daylight tıbbi bir cihaz değildir ve tavsiye ya da tedavinin yerini tutmaz. İçgörüler ve öngörü yalnızca kendi kayıtlarını betimler."
+    "disclaimer": "Daylight tıbbi bir cihaz değildir ve tavsiye ya da tedavinin yerini tutmaz. İçgörüler ve öngörü yalnızca kendi kayıtlarını betimler.",
+    "website": "Web sitesi",
+    "github": "GitHub’da kaynak kodu"
   },
   "health": {
     "title": "Sağlık verileri",

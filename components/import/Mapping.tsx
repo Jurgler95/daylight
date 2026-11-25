@@ -5,6 +5,7 @@ import { MOOD_LEVELS, type MoodLevel } from '@/db/schema';
 import { levelMood } from '@/lib/catalog/catalog';
 import { useCatalog } from '@/lib/catalog/useCatalog';
 import type { PlannedActivity, PlannedMood } from '@/lib/daylio/plan';
+import { upper } from '@/lib/i18n/language';
 
 interface MoodProps {
   moods: readonly PlannedMood[];
@@ -24,7 +25,7 @@ export function MoodMapping({ moods, onChange }: MoodProps) {
   return (
     <Card>
       <AppText variant="caption" muted>
-        {t('import.newMoods').toUpperCase()}
+        {upper(t('import.newMoods'))}
       </AppText>
       {moods.map((mood) => (
         <SelectRow
@@ -54,7 +55,7 @@ export function ActivityMapping({ activities, groups, onChange }: ActivityProps)
   return (
     <Card>
       <AppText variant="caption" muted>
-        {t('import.newActivities').toUpperCase()}
+        {upper(t('import.newActivities'))}
       </AppText>
       {activities.map((activity) => (
         <SelectRow

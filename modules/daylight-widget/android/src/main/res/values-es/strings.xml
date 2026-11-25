@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="daylight_widget_label">Estado de ánimo</string>
+  <string name="daylight_widget_description">¿Qué tal tu día? Toca un estado de ánimo para escribir la entrada.</string>
+  <string name="daylight_widget_empty">Abre Daylight una vez para configurar el widget.</string>
+  <string name="daylight_widget_settings_title">Personalizar widget</string>
+  <string name="daylight_widget_settings_background">Fondo</string>
+  <string name="daylight_widget_settings_colors">Colores</string>
+  <string name="daylight_widget_settings_light">Claro</string>
+  <string name="daylight_widget_settings_dark">Oscuro</string>
+  <string name="daylight_widget_settings_system">Como el sistema</string>
+  <string name="daylight_widget_settings_done">Listo</string>
+  <string name="daylight_widget_settings_wallpaper">Según el fondo de pantalla</string>
+  <string name="daylight_days_label">Historial</string>
+  <string name="daylight_days_description">Tus últimos días de un vistazo. Toca un día para abrirlo.</string>
+  <string name="daylight_streak_label">Racha</string>
+  <string name="daylight_streak_description">Días seguidos, atenuado hasta que registres hoy.</string>
+  <string name="daylight_quick_label">Nueva entrada</string>
+  <string name="daylight_quick_description">Un toque para una nueva entrada.</string>
+  <!-- Widget picker previews (`layout/*_preview.xml`): the app's texts for its default moods, Monday first. -->
+  <string name="daylight_preview_mood_5">Genial</string>
+  <string name="daylight_preview_mood_4">Bien</string>
+  <string name="daylight_preview_mood_3">Normal</string>
+  <string name="daylight_preview_mood_2">Mal</string>
+  <string name="daylight_preview_mood_1">Horrible</string>
+  <string name="daylight_preview_day_0">Lu</string>
+  <string name="daylight_preview_day_1">Ma</string>
+  <string name="daylight_preview_day_2">Mi</string>
+  <string name="daylight_preview_day_3">Ju</string>
+  <string name="daylight_preview_day_4">Vi</string>
+  <string name="daylight_preview_day_5">Sá</string>
+  <string name="daylight_preview_day_6">Do</string>
+  <string name="daylight_preview_streak">días seguidos</string>
+</resources>

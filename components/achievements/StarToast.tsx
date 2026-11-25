@@ -22,6 +22,7 @@ import { AppText } from '@/components/ui';
 import { TIER_COUNT, type Achievement, type StarNews } from '@/lib/achievements';
 import { ACHIEVEMENTS_PATH, useStarNews } from '@/lib/achievements/useStarNews';
 import { haptics } from '@/lib/haptics';
+import { upper } from '@/lib/i18n/language';
 import { formatCount } from '@/lib/insights';
 import { useOverlaySlot } from '@/lib/store/overlays';
 import { medalGradient, radius, spacing, TOUCH_TARGET, useTheme, withAlpha } from '@/lib/theme';
@@ -113,7 +114,7 @@ function Toast({ news, acknowledge }: { news: StarNews; acknowledge: () => void 
           <Medal />
           <View style={styles.text}>
             <AppText variant="caption" color={starColor}>
-              {text.eyebrow.toUpperCase()}
+              {upper(text.eyebrow)}
             </AppText>
             <AppText variant="headline" numberOfLines={1}>
               {text.title}

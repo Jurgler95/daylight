@@ -6,6 +6,7 @@ import { ActivityLine } from '@/components/insights/ActivityLine';
 import { InsightCard } from '@/components/insights/InsightCard';
 import type { ActivityNames } from '@/components/insights/names';
 import { AppText, Button } from '@/components/ui';
+import { upper } from '@/lib/i18n/language';
 import type { ActivityHealthEffect, ScaleInsight } from '@/lib/insights';
 import { formatScaleValue } from '@/lib/scales/format';
 import { spacing } from '@/lib/theme';
@@ -24,7 +25,7 @@ export function ScaleActivitiesCard({ insight, names }: { insight: ScaleInsight;
     list.length ? (
       <View style={styles.side}>
         <AppText variant="caption" muted>
-          {title.toUpperCase()}
+          {upper(title)}
         </AppText>
         {(all ? list : list.slice(0, SHOWN)).map((effect) => (
           <ActivityLine key={effect.activityId} activityId={effect.activityId} icon={names.icon(effect.activityId)} title={names.label(effect.activityId)} detail={sentence(effect)} />

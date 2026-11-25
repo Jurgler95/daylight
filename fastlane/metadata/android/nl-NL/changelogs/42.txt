@@ -1,0 +1,6 @@
+De grootste update van Daylight tot nu toe:
+• Vier widgets voor het startscherm: Stemming, Verloop, Reeks en Nieuwe registratie, met instelbare achtergrond en kleuren
+• Nieuwe weergave onder “Meer”: Systeem, Licht of Donker
+• Daylight is er nu ook in het Nederlands, Pools, Turks en Indonesisch
+• Het jaar in pixels opent schermvullend en kun je als PNG opslaan of delen
+• Onder “Over” staan links naar de website en naar de broncode op GitHub

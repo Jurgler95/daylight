@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/daylight_widget_root"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <!-- The background as an image, not the root's background: an image's alpha can be set from outside, so each widget gets its own opacity. -->
+  <ImageView
+    android:id="@+id/daylight_widget_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:importantForAccessibility="no"
+    android:scaleType="fitXY"
+    android:src="@drawable/daylight_widget_background" />
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingHorizontal="8dp"
+    android:paddingVertical="8dp">
+
+    <!-- Spacers share the free height evenly: as much room above the question as between it and the moods and below them. -->
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1" />
+
+    <TextView
+      android:id="@+id/daylight_widget_title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:ellipsize="end"
+      android:gravity="center"
+      android:maxLines="1"
+      android:textColor="@color/daylight_widget_text"
+      android:textSize="17sp"
+      android:textStyle="bold" />
+
+    <FrameLayout
+      android:id="@+id/daylight_widget_gap"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1" />
+
+    <LinearLayout
+      android:id="@+id/daylight_widget_row"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center_vertical"
+      android:orientation="horizontal">
+
+      <LinearLayout
+        android:id="@+id/daylight_widget_slot_0"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+          android:id="@+id/daylight_widget_mood_0"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:importantForAccessibility="no" />
+
+        <TextView
+          android:id="@+id/daylight_widget_label_0"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="2dp"
+          android:ellipsize="end"
+          android:gravity="center"
+          android:maxLines="1"
+          android:textColor="@color/daylight_widget_muted"
+          android:textSize="12sp" />
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/daylight_widget_slot_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+          android:id="@+id/daylight_widget_mood_1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:importantForAccessibility="no" />
+
+        <TextView
+          android:id="@+id/daylight_widget_label_1"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="2dp"
+          android:ellipsize="end"
+          android:gravity="center"
+          android:maxLines="1"
+          android:textColor="@color/daylight_widget_muted"
+          android:textSize="12sp" />
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/daylight_widget_slot_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+          android:id="@+id/daylight_widget_mood_2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:importantForAccessibility="no" />
+
+        <TextView
+          android:id="@+id/daylight_widget_label_2"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="2dp"
+          android:ellipsize="end"
+          android:gravity="center"
+          android:maxLines="1"
+          android:textColor="@color/daylight_widget_muted"
+          android:textSize="12sp" />
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/daylight_widget_slot_3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+          android:id="@+id/daylight_widget_mood_3"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:importantForAccessibility="no" />
+
+        <TextView
+          android:id="@+id/daylight_widget_label_3"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="2dp"
+          android:ellipsize="end"
+          android:gravity="center"
+          android:maxLines="1"
+          android:textColor="@color/daylight_widget_muted"
+          android:textSize="12sp" />
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/daylight_widget_slot_4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+          android:id="@+id/daylight_widget_mood_4"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:importantForAccessibility="no" />
+
+        <TextView
+          android:id="@+id/daylight_widget_label_4"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="2dp"
+          android:ellipsize="end"
+          android:gravity="center"
+          android:maxLines="1"
+          android:textColor="@color/daylight_widget_muted"
+          android:textSize="12sp" />
+      </LinearLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1" />
+
+    <TextView
+      android:id="@+id/daylight_widget_empty"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:text="@string/daylight_widget_empty"
+      android:textColor="@color/daylight_widget_muted"
+      android:textSize="14sp"
+      android:visibility="gone" />
+  </LinearLayout>
+</FrameLayout>

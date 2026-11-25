@@ -31,6 +31,15 @@ export function setCurrentLanguage(language: Language): void {
   current = language;
 }
 
+/**
+ * Upper case for headings in the app language. Turkish keeps the dot: "i" becomes "İ", "ı" becomes "I"
+ * ("VERİLER", not "VERILER"). Done by hand, since Hermes may ignore the locale of `toLocaleUpperCase`.
+ */
+export function upper(text: string, language: Language = current): string {
+  if (language === 'tr') text = text.replace(/i/g, 'İ').replace(/ı/g, 'I');
+  return text.toUpperCase();
+}
+
 export function isLanguage(value: unknown): value is Language {
   return (LANGUAGES as readonly unknown[]).includes(value);
 }

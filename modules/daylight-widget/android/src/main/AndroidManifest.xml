@@ -1,0 +1,65 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <application>
+    <!-- BIND_APPWIDGET is not a permission of the app: it lets only the launcher send updates here. -->
+    <receiver
+      android:name=".MoodWidgetProvider"
+      android:exported="true"
+      android:label="@string/daylight_widget_label"
+      android:permission="android.permission.BIND_APPWIDGET">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+      </intent-filter>
+      <meta-data
+        android:name="android.appwidget.provider"
+        android:resource="@xml/daylight_mood_widget_info" />
+    </receiver>
+    <receiver
+      android:name=".DaysWidgetProvider"
+      android:exported="true"
+      android:label="@string/daylight_days_label"
+      android:permission="android.permission.BIND_APPWIDGET">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+      </intent-filter>
+      <meta-data
+        android:name="android.appwidget.provider"
+        android:resource="@xml/daylight_days_widget_info" />
+    </receiver>
+    <receiver
+      android:name=".StreakWidgetProvider"
+      android:exported="true"
+      android:label="@string/daylight_streak_label"
+      android:permission="android.permission.BIND_APPWIDGET">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+      </intent-filter>
+      <meta-data
+        android:name="android.appwidget.provider"
+        android:resource="@xml/daylight_streak_widget_info" />
+    </receiver>
+    <receiver
+      android:name=".QuickWidgetProvider"
+      android:exported="true"
+      android:label="@string/daylight_quick_label"
+      android:permission="android.permission.BIND_APPWIDGET">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+      </intent-filter>
+      <meta-data
+        android:name="android.appwidget.provider"
+        android:resource="@xml/daylight_quick_widget_info" />
+    </receiver>
+    <!-- Opened by the launcher only, from "Customize" on the widget. Its own empty task affinity keeps the app's task in the background. -->
+    <activity
+      android:name=".WidgetSettingsActivity"
+      android:excludeFromRecents="true"
+      android:exported="true"
+      android:label="@string/daylight_widget_settings_title"
+      android:taskAffinity=""
+      android:theme="@style/DaylightWidgetSettings">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+      </intent-filter>
+    </activity>
+  </application>
+</manifest>

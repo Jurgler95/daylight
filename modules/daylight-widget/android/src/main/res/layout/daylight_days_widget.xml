@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- History widget: the last week in a row, or the last five weeks as a grid. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/daylight_widget_root"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <ImageView
+    android:id="@+id/daylight_widget_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:importantForAccessibility="no"
+    android:scaleType="fitXY"
+    android:src="@drawable/daylight_widget_background" />
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1" />
+
+    <!-- One row: the last seven days, each with its weekday. Low widgets. -->
+    <LinearLayout
+      android:id="@+id/daylight_days_week"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+
+      <LinearLayout
+        android:id="@+id/daylight_days_slot_0"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+          android:id="@+id/daylight_days_icon_0"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:importantForAccessibility="no" />
+
+        <TextView
+          android:id="@+id/daylight_days_label_0"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="2dp"
+          android:ellipsize="end"
+          android:gravity="center"
+          android:maxLines="1"
+          android:textColor="@color/daylight_widget_muted"
+          android:textSize="12sp" />
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/daylight_days_slot_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+          android:id="@+id/daylight_days_icon_1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:importantForAccessibility="no" />
+
+        <TextView
+          android:id="@+id/daylight_days_label_1"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="2dp"
+          android:ellipsize="end"
+          android:gravity="center"
+          android:maxLines="1"
+          android:textColor="@color/daylight_widget_muted"
+          android:textSize="12sp" />
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/daylight_days_slot_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+          android:id="@+id/daylight_days_icon_2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:importantForAccessibility="no" />
+
+        <TextView
+          android:id="@+id/daylight_days_label_2"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="2dp"
+          android:ellipsize="end"
+          android:gravity="center"
+          android:maxLines="1"
+          android:textColor="@color/daylight_widget_muted"
+          android:textSize="12sp" />
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/daylight_days_slot_3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+          android:id="@+id/daylight_days_icon_3"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:importantForAccessibility="no" />
+
+        <TextView
+          android:id="@+id/daylight_days_label_3"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="2dp"
+          android:ellipsize="end"
+          android:gravity="center"
+          android:maxLines="1"
+          android:textColor="@color/daylight_widget_muted"
+          android:textSize="12sp" />
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/daylight_days_slot_4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+          android:id="@+id/daylight_days_icon_4"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:importantForAccessibility="no" />
+
+        <TextView
+          android:id="@+id/daylight_days_label_4"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="2dp"
+          android:ellipsize="end"
+          android:gravity="center"
+          android:maxLines="1"
+          android:textColor="@color/daylight_widget_muted"
+          android:textSize="12sp" />
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/daylight_days_slot_5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+          android:id="@+id/daylight_days_icon_5"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:importantForAccessibility="no" />
+
+        <TextView
+          android:id="@+id/daylight_days_label_5"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="2dp"
+          android:ellipsize="end"
+          android:gravity="center"
+          android:maxLines="1"
+          android:textColor="@color/daylight_widget_muted"
+          android:textSize="12sp" />
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/daylight_days_slot_6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+          android:id="@+id/daylight_days_icon_6"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:importantForAccessibility="no" />
+
+        <TextView
+          android:id="@+id/daylight_days_label_6"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="2dp"
+          android:ellipsize="end"
+          android:gravity="center"
+          android:maxLines="1"
+          android:textColor="@color/daylight_widget_muted"
+          android:textSize="12sp" />
+      </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Five weeks: weekday names over a grid drawn as one picture, in the same seven columns. Tall widgets. -->
+    <LinearLayout
+      android:id="@+id/daylight_days_head"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:visibility="gone">
+
+      <TextView
+        android:id="@+id/daylight_days_head_0"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/daylight_widget_muted"
+        android:textSize="11sp" />
+
+      <TextView
+        android:id="@+id/daylight_days_head_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/daylight_widget_muted"
+        android:textSize="11sp" />
+
+      <TextView
+        android:id="@+id/daylight_days_head_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/daylight_widget_muted"
+        android:textSize="11sp" />
+
+      <TextView
+        android:id="@+id/daylight_days_head_3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/daylight_widget_muted"
+        android:textSize="11sp" />
+
+      <TextView
+        android:id="@+id/daylight_days_head_4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/daylight_widget_muted"
+        android:textSize="11sp" />
+
+      <TextView
+        android:id="@+id/daylight_days_head_5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/daylight_widget_muted"
+        android:textSize="11sp" />
+
+      <TextView
+        android:id="@+id/daylight_days_head_6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/daylight_widget_muted"
+        android:textSize="11sp" />
+
+    </LinearLayout>
+
+    <ImageView
+      android:id="@+id/daylight_days_grid"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="4dp"
+      android:importantForAccessibility="no"
+      android:visibility="gone" />
+
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1" />
+
+    <TextView
+      android:id="@+id/daylight_widget_empty"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:text="@string/daylight_widget_empty"
+      android:textColor="@color/daylight_widget_muted"
+      android:textSize="14sp"
+      android:visibility="gone" />
+
+  </LinearLayout>
+</FrameLayout>

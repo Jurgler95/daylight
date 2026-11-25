@@ -1,6 +1,6 @@
 O Daylight é um diário de humor que não conhece os teus dados. Sem contas, sem servidores, sem estatísticas de utilização, sem anúncios e sem permissão de internet. Tudo fica no teu dispositivo.
 
-Como foi o teu dia? Toca num humor, escolhe o que fizeste, pronto. Uma nota, as tuas próprias escalas e uma foto por dia são opcionais.
+Como foi o teu dia? Toca num humor, escolhe o que fizeste, pronto. Uma nota, as tuas próprias escalas e uma foto por dia são opcionais. Registo de humor e diário de emoções num só, sem teres de escrever muito.
 
 O QUE O DAYLIGHT FAZ
 
@@ -11,11 +11,14 @@ O Exodus Privacy não encontra nenhum rastreador no Daylight: https://reports.ex
 ⚡ Registo em segundos
 Cinco humores e atividades organizadas em grupos como emoções, sono, tempo, social e trabalho. Muda o nome, reordena, arquiva ou cria as tuas, com ícones.
 
-📅 Calendário
+📅 Calendário de humor
 Cada dia na sua cor, para que as fases boas e as difíceis se vejam num relance. Os dias com mais de um registo ficam marcados e as atividades planeadas aparecem nos próximos dias.
 
+🟩 O teu ano em píxeis
+Cada dia um quadrado na cor do teu humor, doze meses numa só imagem. Assim vês como foram os meses e as estações, e um toque num quadrado abre esse dia.
+
 📊 Análises dos teus padrões
-Evolução e média de 7 dias, distribuição, dias da semana e meses, o teu ano em píxeis, semanas calmas e agitadas, sequências, que atividades acompanham dias melhores ou piores, o que costuma vir no dia seguinte e as palavras mais frequentes nas tuas notas. Sempre uma descrição dos teus registos, nunca um diagnóstico.
+Evolução e média de 7 dias, distribuição, dias da semana e meses, semanas calmas e agitadas, sequências, que atividades acompanham dias melhores ou piores, o que costuma vir no dia seguinte e as palavras mais frequentes nas tuas notas. Sempre uma descrição dos teus registos, nunca um diagnóstico.
 
 🌅 Pontos de viragem
 Marca até quatro dias por ano que mudaram alguma coisa, como um emprego novo ou uma mudança de casa. O Daylight compara o período antes com o período depois: humor, atividades e dados de saúde.

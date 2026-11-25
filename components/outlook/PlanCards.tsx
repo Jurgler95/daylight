@@ -7,6 +7,7 @@ import { getDb } from '@/db';
 import { listPlannedActivities, setPlannedActivities } from '@/db/repositories/plans';
 import { editorGroups, type Catalog } from '@/lib/catalog/catalog';
 import type { DateString } from '@/lib/dates';
+import { upper } from '@/lib/i18n/language';
 import { mutate, useQuery } from '@/lib/store/dataVersion';
 
 /**
@@ -28,7 +29,7 @@ export function PlanCards({ date, catalog }: { date: DateString; catalog: Catalo
   return (
     <>
       <AppText variant="caption" muted>
-        {t('today.planned').toUpperCase()}
+        {upper(t('today.planned'))}
       </AppText>
       {groups
         .filter((group) => group.activities.length)

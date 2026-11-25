@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Modal, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { upper } from '@/lib/i18n/language';
 import { useCloseOnLock } from '@/lib/lock/useCloseOnLock';
 import { TOUCH_TARGET, radius, spacing, useTheme, withAlpha } from '@/lib/theme';
 
@@ -89,7 +90,7 @@ export function SelectRow({ label, value, sections, title, closeLabel, placehold
               <View key={section.title ?? index} style={styles.section}>
                 {section.title ? (
                   <AppText variant="caption" muted style={styles.sectionTitle}>
-                    {section.title.toUpperCase()}
+                    {upper(section.title)}
                   </AppText>
                 ) : null}
                 {section.options.map((option) => (

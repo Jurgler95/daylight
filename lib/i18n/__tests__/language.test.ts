@@ -3,7 +3,7 @@ import { formatSteps } from '@/lib/health/format';
 import { formatDecimal, formatPercent, formatSigned } from '@/lib/insights/format';
 
 import i18n, { applyLanguage } from '..';
-import { languageForLocale } from '../language';
+import { languageForLocale, upper } from '../language';
 
 const d = (value: string) => value as DateString;
 
@@ -109,5 +109,18 @@ describe('languageForLocale', () => {
     for (const locale of ['en-US', 'en-DE', 'sv-SE', 'ja', 'dev', '']) {
       expect(languageForLocale(locale)).toBe('en');
     }
+  });
+});
+
+describe('upper', () => {
+  it('keeps the Turkish dotted and dotless i apart', () => {
+    expect(upper('Veriler', 'tr')).toBe('VERİLER');
+    expect(upper('Pazartesi, 1 Ekim', 'tr')).toBe('PAZARTESİ, 1 EKİM');
+    expect(upper('Kapalı', 'tr')).toBe('KAPALI');
+  });
+
+  it('leaves the other languages as plain upper case', () => {
+    expect(upper('Einblicke', 'de')).toBe('EINBLICKE');
+    expect(upper('Ustawienia', 'pl')).toBe('USTAWIENIA');
   });
 });

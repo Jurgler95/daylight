@@ -17,6 +17,13 @@ export interface Release {
   date: string;
   /** Kurze Stichpunkte je Sprache, jeweils ohne Satzzeichen am Ende. */
   changes: { de: string[]; en: string[] } & Partial<Record<Language, string[]>>;
+  /**
+   * Optional eine Zeile, die im Play Store unter „Neu in dieser Version“ über den Stichpunkten
+   * steht, etwa bei einem großen Update. Nur dort, nicht in der App und nicht im GitHub-Release.
+   */
+  storeIntro?: Partial<Record<Language, string>>;
+  /** Optional: nur so viele Punkte im Play Store, wenn alle zusammen über die 500 Zeichen dort kämen. */
+  storePoints?: number;
 }
 
 /** The points of `release` in `language`, English where an older entry lacks that language. */
@@ -25,6 +32,115 @@ export function changesIn(release: Release, language: Language): string[] {
 }
 
 export const RELEASES: Release[] = [
+  {
+    version: '1.0.41',
+    date: '2026-11-25',
+    storePoints: 5,
+    storeIntro: {
+      de: 'Das bisher größte Update von Daylight:',
+      en: 'The biggest Daylight update so far:',
+      es: 'La mayor actualización de Daylight hasta ahora:',
+      pt: 'A maior atualização do Daylight até agora:',
+      fr: 'La plus grande mise à jour de Daylight à ce jour :',
+      it: 'Il più grande aggiornamento di Daylight finora:',
+      nl: 'De grootste update van Daylight tot nu toe:',
+      pl: 'Największa jak dotąd aktualizacja Daylight:',
+      tr: 'Daylight\'ın bugüne kadarki en büyük güncellemesi:',
+      id: 'Pembaruan Daylight terbesar sejauh ini:',
+    },
+    changes: {
+      de: [
+        'Vier Widgets für den Startbildschirm: Stimmung, Verlauf, Serie und Neuer Eintrag, mit einstellbarem Hintergrund und Farben',
+        'Neues Erscheinungsbild unter „Mehr“: System, Hell oder Dunkel',
+        'Daylight gibt es jetzt auch auf Niederländisch, Polnisch, Türkisch und Indonesisch',
+        'Das Jahr in Pixeln lässt sich groß öffnen, als PNG speichern und teilen',
+        'Unter „Über“ führen Links zur Website und zum Quellcode auf GitHub',
+        'Auf Tablets steht die Beschriftung in der Tab-Leiste wieder sauber unter dem Symbol',
+        'Mengenangaben stehen jetzt in allen Sprachen in der richtigen Form',
+      ],
+      en: [
+        'Four home screen widgets: Mood, History, Streak and New entry, with adjustable background and colours',
+        'New appearance setting under “More”: System, Light or Dark',
+        'Daylight now speaks Dutch, Polish, Turkish and Indonesian',
+        'The year in pixels opens full screen and can be saved as a PNG or shared',
+        '“About” now links to the website and to the source code on GitHub',
+        'On tablets the tab bar labels sit neatly below their icons again',
+        'Counts now use the right grammatical form in every language',
+      ],
+      es: [
+        'Cuatro widgets para la pantalla de inicio: Estado de ánimo, Historial, Racha y Nueva entrada, con fondo y colores ajustables',
+        'Nueva apariencia en «Más»: Sistema, Claro u Oscuro',
+        'Daylight ya está también en neerlandés, polaco, turco e indonesio',
+        'El año en píxeles se abre a pantalla completa y se puede guardar como PNG o compartir',
+        'En «Acerca de» hay enlaces a la web y al código fuente en GitHub',
+        'En tabletas, los nombres de la barra de pestañas vuelven a quedar bien debajo de su icono',
+        'Las cantidades usan ahora la forma gramatical correcta en todos los idiomas',
+      ],
+      pt: [
+        'Quatro widgets para a tela inicial: Humor, Histórico, Sequência e Novo registro, com fundo e cores ajustáveis',
+        'Nova aparência em “Mais”: Sistema, Claro ou Escuro',
+        'O Daylight agora também está em holandês, polonês, turco e indonésio',
+        'O ano em pixels abre em tela cheia e pode ser salvo como PNG ou compartilhado',
+        'Em “Sobre” há links para o site e para o código-fonte no GitHub',
+        'Em tablets, os nomes na barra de abas voltam a ficar certinhos abaixo do ícone',
+        'As quantidades agora usam a forma gramatical certa em todos os idiomas',
+      ],
+      fr: [
+        'Quatre widgets pour l’écran d’accueil : Humeur, Historique, Série et Nouvelle entrée, avec fond et couleurs réglables',
+        'Nouvelle apparence dans « Plus » : Système, Clair ou Sombre',
+        'Daylight parle désormais aussi néerlandais, polonais, turc et indonésien',
+        'L’année en pixels s’ouvre en plein écran et peut être enregistrée en PNG ou partagée',
+        'Dans « À propos », des liens mènent au site web et au code source sur GitHub',
+        'Sur tablette, les libellés de la barre d’onglets sont de nouveau bien sous leur icône',
+        'Les quantités prennent maintenant la bonne forme grammaticale dans toutes les langues',
+      ],
+      it: [
+        'Quattro widget per la schermata Home: Umore, Cronologia, Serie e Nuova voce, con sfondo e colori regolabili',
+        'Nuovo aspetto in “Altro”: Sistema, Chiaro o Scuro',
+        'Daylight ora parla anche olandese, polacco, turco e indonesiano',
+        'L’anno in pixel si apre a schermo intero e si può salvare come PNG o condividere',
+        'In “Informazioni” ci sono i link al sito e al codice sorgente su GitHub',
+        'Sui tablet le etichette della barra delle schede tornano ordinate sotto la loro icona',
+        'Le quantità ora usano la forma grammaticale giusta in tutte le lingue',
+      ],
+      nl: [
+        'Vier widgets voor het startscherm: Stemming, Verloop, Reeks en Nieuwe registratie, met instelbare achtergrond en kleuren',
+        'Nieuwe weergave onder “Meer”: Systeem, Licht of Donker',
+        'Daylight is er nu ook in het Nederlands, Pools, Turks en Indonesisch',
+        'Het jaar in pixels opent schermvullend en kun je als PNG opslaan of delen',
+        'Onder “Over” staan links naar de website en naar de broncode op GitHub',
+        'Op tablets staan de labels in de tabbalk weer netjes onder hun icoon',
+        'Aantallen staan nu in elke taal in de juiste vorm',
+      ],
+      pl: [
+        'Cztery widżety na ekran główny: Nastrój, Historia, Seria i Nowy wpis, z regulowanym tłem i kolorami',
+        'Nowy motyw w „Więcej”: Systemowy, Jasny lub Ciemny',
+        'Daylight jest teraz także po niderlandzku, polsku, turecku i indonezyjsku',
+        'Rok w pikselach otwiera się na pełnym ekranie i można go zapisać jako PNG lub udostępnić',
+        'W „O aplikacji” są linki do strony i do kodu źródłowego na GitHubie',
+        'Na tabletach podpisy na pasku kart znów stoją równo pod ikonami',
+        'Liczebniki mają teraz we wszystkich językach poprawną formę',
+      ],
+      tr: [
+        'Ana ekran için dört widget: Ruh hali, Geçmiş, Seri ve Yeni kayıt; arka planı ve renkleri ayarlanabilir',
+        '“Diğer” altında yeni görünüm ayarı: Sistem, Açık veya Koyu',
+        'Daylight artık Felemenkçe, Lehçe, Türkçe ve Endonezce de kullanılabiliyor',
+        'Piksellerle yıl tam ekran açılıyor, PNG olarak kaydedilebiliyor veya paylaşılabiliyor',
+        '“Hakkında” bölümünde web sitesine ve GitHub\'daki kaynak koda bağlantılar var',
+        'Tabletlerde sekme çubuğundaki yazılar yine düzgünce simgelerin altında duruyor',
+        'Sayılar artık her dilde doğru dil bilgisi biçimiyle yazılıyor',
+      ],
+      id: [
+        'Empat widget untuk layar utama: Suasana hati, Riwayat, Runtutan, dan Entri baru, dengan latar dan warna yang bisa diatur',
+        'Pengaturan tampilan baru di “Lainnya”: Sistem, Terang, atau Gelap',
+        'Daylight kini juga tersedia dalam bahasa Belanda, Polandia, Turki, dan Indonesia',
+        'Tahun dalam piksel bisa dibuka layar penuh, disimpan sebagai PNG, atau dibagikan',
+        'Di “Tentang” ada tautan ke situs web dan ke kode sumber di GitHub',
+        'Di tablet, label di bilah tab kembali rapi di bawah ikonnya',
+        'Jumlah kini memakai bentuk tata bahasa yang tepat di semua bahasa',
+      ],
+    },
+  },
   {
     version: '1.0.40',
     date: '2026-11-24',

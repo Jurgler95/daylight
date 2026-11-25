@@ -7,6 +7,7 @@ import { Pressable, type ScrollView, StyleSheet, View } from 'react-native';
 import { KeyboardAwareScrollView, type KeyboardAwareScrollViewRef } from 'react-native-keyboard-controller';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { upper } from '@/lib/i18n/language';
 import { useAppearance } from '@/lib/seasons/useDesign';
 import { TOUCH_TARGET, spacing, useTheme, withAlpha } from '@/lib/theme';
 
@@ -87,7 +88,7 @@ export function Screen({ title, eyebrow, scroll = true, back, backLabel, sticky,
           <View style={styles.header}>
             {eyebrow ? (
               <AppText variant="caption" color={colors.accent} style={styles.eyebrow}>
-                {eyebrow.toUpperCase()}
+                {upper(eyebrow)}
               </AppText>
             ) : null}
             {title ? (

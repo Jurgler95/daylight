@@ -23,6 +23,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppText } from '@/components/ui';
 import { haptics } from '@/lib/haptics';
+import { upper } from '@/lib/i18n/language';
 import { formatCount } from '@/lib/insights';
 import { celebrationStage, type StreakCelebration as Celebration } from '@/lib/streak';
 import { useStreakCelebration } from '@/lib/streak/useStreak';
@@ -124,7 +125,7 @@ function Banner({ celebration, close }: { celebration: Celebration; close: () =>
         </Animated.View>
         <View style={styles.bannerText}>
           <AppText variant="caption" color={colors.accent}>
-            {t('streak.celebration.eyebrow').toUpperCase()}
+            {upper(t('streak.celebration.eyebrow'))}
           </AppText>
           <AppText variant="headline" numberOfLines={1}>
             {text.title}

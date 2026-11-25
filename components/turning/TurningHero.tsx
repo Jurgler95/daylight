@@ -6,6 +6,7 @@ import { Easing, useSharedValue, withDelay, withTiming } from 'react-native-rean
 
 import { AppText } from '@/components/ui';
 import { formatLong, type DateString } from '@/lib/dates';
+import { upper } from '@/lib/i18n/language';
 import type { InsightDay } from '@/lib/insights';
 import { radius, spacing } from '@/lib/theme';
 
@@ -50,7 +51,7 @@ export function TurningHero({ title, date, days }: Props) {
       ))}
       <View style={styles.head}>
         <AppText variant="caption" color={DAWN.sun} style={styles.eyebrow}>
-          {`${t('turning.eyebrow')} · ${formatLong(date)}`.toUpperCase()}
+          {upper(`${t('turning.eyebrow')} · ${formatLong(date)}`)}
         </AppText>
         <AppText variant="title" color={DAWN.text} accessibilityRole="header" style={styles.centered}>
           {title}

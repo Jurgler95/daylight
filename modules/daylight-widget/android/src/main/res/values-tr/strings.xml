@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="daylight_widget_label">Ruh hali</string>
+  <string name="daylight_widget_description">Günün nasıldı? Kaydı yazmak için bir ruh haline dokun.</string>
+  <string name="daylight_widget_empty">Widget\'ı kurmak için Daylight\'ı bir kez aç.</string>
+  <string name="daylight_widget_settings_title">Widget\'ı özelleştir</string>
+  <string name="daylight_widget_settings_background">Arka plan</string>
+  <string name="daylight_widget_settings_colors">Renkler</string>
+  <string name="daylight_widget_settings_light">Açık</string>
+  <string name="daylight_widget_settings_dark">Koyu</string>
+  <string name="daylight_widget_settings_system">Sistem gibi</string>
+  <string name="daylight_widget_settings_done">Tamam</string>
+  <string name="daylight_widget_settings_wallpaper">Duvar kâğıdına uygun</string>
+  <string name="daylight_days_label">Geçmiş</string>
+  <string name="daylight_days_description">Son günlerin bir bakışta. Açmak için bir güne dokun.</string>
+  <string name="daylight_streak_label">Seri</string>
+  <string name="daylight_streak_description">Art arda günler, bugün girilene kadar soluk.</string>
+  <string name="daylight_quick_label">Yeni kayıt</string>
+  <string name="daylight_quick_description">Tek dokunuşla yeni kayda.</string>
+  <!-- Widget picker previews (`layout/*_preview.xml`): the app's texts for its default moods, Monday first. -->
+  <string name="daylight_preview_mood_5">Harika</string>
+  <string name="daylight_preview_mood_4">İyi</string>
+  <string name="daylight_preview_mood_3">İdare eder</string>
+  <string name="daylight_preview_mood_2">Kötü</string>
+  <string name="daylight_preview_mood_1">Berbat</string>
+  <string name="daylight_preview_day_0">Pt</string>
+  <string name="daylight_preview_day_1">Sa</string>
+  <string name="daylight_preview_day_2">Ça</string>
+  <string name="daylight_preview_day_3">Pe</string>
+  <string name="daylight_preview_day_4">Cu</string>
+  <string name="daylight_preview_day_5">Ct</string>
+  <string name="daylight_preview_day_6">Pz</string>
+  <string name="daylight_preview_streak">gün art arda</string>
+</resources>

@@ -11,6 +11,7 @@ import { getDb } from '@/db';
 import { activityUsage, createActivity, listActivities, reorderActivities } from '@/db/repositories/activities';
 import { createGroup, listGroups } from '@/db/repositories/groups';
 import type { Activity } from '@/db/schema';
+import { upper } from '@/lib/i18n/language';
 import type { IconName } from '@/lib/icons';
 import { useManageWrite } from '@/lib/manage/useManageWrite';
 import { useQuery } from '@/lib/store/dataVersion';
@@ -80,7 +81,7 @@ export default function ActivitiesScreen() {
       {archivedActivities.length > 0 || archivedGroups.length > 0 ? (
         <Card tone="muted">
           <AppText variant="caption" muted>
-            {t('manage.archived').toUpperCase()}
+            {upper(t('manage.archived'))}
           </AppText>
           {archivedGroups.map((group) => (
             <ManageRow

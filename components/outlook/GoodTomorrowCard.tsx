@@ -7,6 +7,7 @@ import type { MoodLevel } from '@/db/schema';
 import { activityLabel, levelMood, type Catalog } from '@/lib/catalog/catalog';
 import { formatWeekdayLong, type DateString } from '@/lib/dates';
 import { formatDurationShort, formatSteps } from '@/lib/health/format';
+import { upper } from '@/lib/i18n/language';
 import { formatPercent } from '@/lib/insights/format';
 import type { GoodTomorrow, TomorrowReason } from '@/lib/outlook/tomorrow';
 import { formatScaleValue } from '@/lib/scales/format';
@@ -62,7 +63,7 @@ export function GoodTomorrowCard({ hint, catalog, morning = false }: { hint: Goo
   return (
     <Card>
       <AppText variant="caption" muted>
-        {t('settings.outlook').toUpperCase()}
+        {upper(t('settings.outlook'))}
       </AppText>
       <View style={styles.row}>
         <MaterialCommunityIcons name={mood.icon} size={28} color={moodColors[level].strong} />

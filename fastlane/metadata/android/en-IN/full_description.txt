@@ -1,6 +1,6 @@
 Daylight is a mood journal that doesn't know your data. No accounts, no servers, no analytics, no ads and no internet permission. Everything stays on your device.
 
-How was your day? Tap a mood, pick what you did, done. A note, your own scales and a photo per day are optional.
+How was your day? Tap a mood, pick what you did, done. A note, your own scales and a photo per day are optional. A mood tracker and emotion diary in one, without having to write much.
 
 WHAT DAYLIGHT DOES
 
@@ -11,11 +11,14 @@ Exodus Privacy finds no trackers at all in Daylight: https://reports.exodus-priv
 ⚡ Logged in seconds
 Five moods, activities sorted into groups like emotions, sleep, weather, social and work. Rename, reorder, archive or add your own, with icons.
 
-📅 Calendar
+📅 Mood calendar
 Every day in its colour, so good and hard stretches stand out at a glance. Days with more than one entry are marked, planned activities show up on the days ahead.
 
+🟩 Your year in pixels
+Every day a square in the colour of your mood, twelve months in one picture. See how months and seasons felt, and tap a square to open that day.
+
 📊 Insights into your patterns
-Trend and 7-day average, distribution, weekdays and months, your year in pixels, calm and restless weeks, streaks, which activities go along with better or worse days, what tends to follow the next day, and frequent words in your notes. Always a description of your entries, never a diagnosis.
+Trend and 7-day average, distribution, weekdays and months, calm and restless weeks, streaks, which activities go along with better or worse days, what tends to follow the next day, and frequent words in your notes. Always a description of your entries, never a diagnosis.
 
 🌅 Turning points
 Mark up to four days a year that changed something, like a new job or a move. Daylight compares the time before with the time after: mood, activities and health data.

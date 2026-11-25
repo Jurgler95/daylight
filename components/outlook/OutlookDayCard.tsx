@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { AppText, Card } from '@/components/ui';
 import { levelMood, type Catalog } from '@/lib/catalog/catalog';
+import { upper } from '@/lib/i18n/language';
 import type { OutlookDay } from '@/lib/outlook';
 import { spacing, useTheme } from '@/lib/theme';
 
@@ -21,7 +22,7 @@ export function OutlookDayCard({ day, catalog }: { day: OutlookDay; catalog: Cat
   return (
     <Card>
       <AppText variant="caption" muted>
-        {t('settings.outlook').toUpperCase()}
+        {upper(t('settings.outlook'))}
       </AppText>
       {range ? (
         <>

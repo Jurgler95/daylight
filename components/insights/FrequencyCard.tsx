@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/ui';
+import { upper } from '@/lib/i18n/language';
 import type { ActivityCount } from '@/lib/insights';
 import { spacing } from '@/lib/theme';
 
@@ -34,7 +35,7 @@ export function FrequencyCard({ counts, groups, names }: { counts: ActivityCount
       {sections.map(({ group, rows }) => (
         <View key={group.id} style={styles.group}>
           <AppText variant="caption" muted>
-            {group.name.toUpperCase()}
+            {upper(group.name)}
           </AppText>
           {rows.map((row) => (
             <ActivityLine

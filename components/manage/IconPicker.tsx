@@ -7,6 +7,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppText } from '@/components/ui';
 import { haptics } from '@/lib/haptics';
+import { upper } from '@/lib/i18n/language';
 import type { IconName } from '@/lib/icons';
 import { ICON_SECTIONS } from '@/lib/icons/catalog';
 import { useCloseOnLock } from '@/lib/lock/useCloseOnLock';
@@ -58,7 +59,7 @@ export function IconPicker({ value, color, onChange }: Props) {
             {ICON_SECTIONS.map((section) => (
               <View key={section.key} style={styles.section}>
                 <AppText variant="caption" muted style={styles.sectionTitle}>
-                  {t(`icons.${section.key}`).toUpperCase()}
+                  {upper(t(`icons.${section.key}`))}
                 </AppText>
                 <View style={styles.grid}>
                   {section.icons.map((icon, index) => {

@@ -1,6 +1,6 @@
 Daylight es un diario de ánimo que no conoce tus datos. Sin cuentas, sin servidores, sin analíticas, sin anuncios y sin permiso de internet. Todo se queda en tu dispositivo.
 
-¿Qué tal tu día? Toca un estado de ánimo, elige lo que hiciste y listo. Una nota, tus propias escalas y una foto por día son opcionales.
+¿Qué tal tu día? Toca un estado de ánimo, elige lo que hiciste y listo. Una nota, tus propias escalas y una foto por día son opcionales. Registro de estado de ánimo y diario emocional en uno, sin tener que escribir mucho.
 
 LO QUE HACE DAYLIGHT
 
@@ -11,11 +11,14 @@ Exodus Privacy no encuentra ningún rastreador en Daylight: https://reports.exod
 ⚡ Registrado en segundos
 Cinco estados de ánimo y actividades ordenadas en grupos como emociones, sueño, clima, social y trabajo. Cambia nombres, reordena, archiva o añade las tuyas, con iconos.
 
-📅 Calendario
+📅 Calendario de ánimo
 Cada día con su color, así las etapas buenas y las difíciles se ven de un vistazo. Los días con más de una entrada están marcados y las actividades planeadas aparecen en los próximos días.
 
+🟩 Tu año en píxeles
+Cada día un cuadro del color de tu estado de ánimo, doce meses en una imagen. Así ves cómo se sintieron los meses y las estaciones, y al tocar un cuadro se abre ese día.
+
 📊 Análisis de tus patrones
-Seguimiento del estado de ánimo con evolución y promedio de 7 días, distribución, días de la semana y meses, el año en píxeles, semanas tranquilas y agitadas, rachas, qué actividades coinciden con días mejores o peores, qué suele venir al día siguiente y las palabras frecuentes en tus notas. Siempre una descripción de tus entradas, nunca un diagnóstico.
+Seguimiento del estado de ánimo con evolución y promedio de 7 días, distribución, días de la semana y meses, semanas tranquilas y agitadas, rachas, qué actividades coinciden con días mejores o peores, qué suele venir al día siguiente y las palabras frecuentes en tus notas. Siempre una descripción de tus entradas, nunca un diagnóstico.
 
 🌅 Puntos de inflexión
 Marca hasta cuatro días al año que cambiaron algo, como un trabajo nuevo o una mudanza. Daylight compara el tiempo de antes con el de después: ánimo, actividades y datos de salud.

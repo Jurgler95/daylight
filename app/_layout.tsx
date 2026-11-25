@@ -24,6 +24,7 @@ import { useLauncherIcon } from '@/lib/seasons/useLauncherIcon';
 import { spacing, useTheme } from '@/lib/theme';
 import { ThemeProvider } from '@/lib/theme/ThemeProvider';
 import { useAppBootstrap } from '@/lib/useAppBootstrap';
+import { useWidgetSync } from '@/lib/widget/useWidgetSync';
 
 import '@/lib/i18n';
 
@@ -98,6 +99,7 @@ function AppShell() {
       <OpenCounter />
       <HealthSync />
       <LauncherIcon />
+      <WidgetSync />
       <View style={styles.flex} importantForAccessibility={locked ? 'no-hide-descendants' : 'auto'} accessibilityElementsHidden={locked}>
         <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.background } }}>
           <Stack.Screen name="(tabs)" />
@@ -151,6 +153,12 @@ function HealthSync() {
 /** Follows the seasonal design on the home screen; its own component for the same reason as `ReminderSync`. */
 function LauncherIcon() {
   useLauncherIcon();
+  return null;
+}
+
+/** Keeps the mood widget on the home screen up to date; its own component for the same reason as `ReminderSync`. */
+function WidgetSync() {
+  useWidgetSync();
   return null;
 }
 

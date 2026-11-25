@@ -1,0 +1,6 @@
+The biggest Daylight update so far:
+• Four home screen widgets: Mood, History, Streak and New entry, with adjustable background and colours
+• New appearance setting under “More”: System, Light or Dark
+• Daylight now speaks Dutch, Polish, Turkish and Indonesian
+• The year in pixels opens full screen and can be saved as a PNG or shared
+• “About” now links to the website and to the source code on GitHub

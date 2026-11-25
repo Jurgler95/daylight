@@ -5,6 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import { InsightCard } from '@/components/insights/InsightCard';
 import { AppText } from '@/components/ui';
 import { formatMetric, formatMetricDifference } from '@/lib/health/format';
+import { upper } from '@/lib/i18n/language';
 import { MIN_BAND_DAYS, type MoodSplit } from '@/lib/insights';
 import { spacing, useTheme } from '@/lib/theme';
 
@@ -31,10 +32,10 @@ export function MoodSplitCard({ splits, goodLabel, hardLabel }: Props) {
       <View style={styles.row} importantForAccessibility="no-hide-descendants" accessibilityElementsHidden>
         <View style={styles.name} />
         <AppText variant="caption" color={moodColors[4].strong} style={styles.cell}>
-          {t('insights.healthStats.split.good', { mood: goodLabel }).toUpperCase()}
+          {upper(t('insights.healthStats.split.good', { mood: goodLabel }))}
         </AppText>
         <AppText variant="caption" color={moodColors[2].strong} style={styles.cell}>
-          {t('insights.healthStats.split.hard', { mood: hardLabel }).toUpperCase()}
+          {upper(t('insights.healthStats.split.hard', { mood: hardLabel }))}
         </AppText>
       </View>
       {shown.map((split) => {

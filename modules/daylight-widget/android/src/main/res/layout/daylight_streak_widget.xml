@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Streak widget: days in a row in a ring, faint until today has an entry. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/daylight_widget_root"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <ImageView
+    android:id="@+id/daylight_widget_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:importantForAccessibility="no"
+    android:scaleType="fitXY"
+    android:src="@drawable/daylight_widget_background" />
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="6dp">
+
+    <FrameLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content">
+
+      <ImageView
+        android:id="@+id/daylight_streak_ring"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:importantForAccessibility="no" />
+
+      <TextView
+        android:id="@+id/daylight_streak_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/daylight_widget_text"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+    </FrameLayout>
+
+    <TextView
+      android:id="@+id/daylight_streak_label"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="2dp"
+      android:ellipsize="end"
+      android:gravity="center"
+      android:maxLines="2"
+      android:textColor="@color/daylight_widget_muted"
+      android:textSize="11sp" />
+  </LinearLayout>
+</FrameLayout>

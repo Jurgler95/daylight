@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Quick entry widget: one button for a new entry. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/daylight_widget_root"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <ImageView
+    android:id="@+id/daylight_widget_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:importantForAccessibility="no"
+    android:scaleType="fitXY"
+    android:src="@drawable/daylight_widget_background" />
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="6dp">
+
+    <ImageView
+      android:id="@+id/daylight_quick_icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:importantForAccessibility="no" />
+
+    <TextView
+      android:id="@+id/daylight_quick_label"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="4dp"
+      android:ellipsize="end"
+      android:gravity="center"
+      android:maxLines="2"
+      android:text="@string/daylight_quick_label"
+      android:textColor="@color/daylight_widget_text"
+      android:textSize="12sp" />
+  </LinearLayout>
+</FrameLayout>

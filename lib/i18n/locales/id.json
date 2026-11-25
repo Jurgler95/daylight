@@ -283,6 +283,7 @@
   },
   "common": {
     "error": "Terjadi kesalahan",
+    "shareUnavailable": "Berbagi tidak tersedia di perangkat ini.",
     "retry": "Coba lagi",
     "back": "Kembali",
     "close": "Tutup",
@@ -339,7 +340,11 @@
       "year": "Tahun",
       "a11yMonth": "{{month}}: {{summary}}",
       "a11yEmpty": "{{month}}: tidak ada entri",
-      "a11yHint": "Membuka hari yang diketuk"
+      "a11yHint": "Membuka hari yang diketuk",
+      "expand": "Perbesar",
+      "save": "Simpan sebagai PNG",
+      "share": "Bagikan",
+      "footer": "jurnal suasana hati pribadi, offline"
     },
     "weekdays": {
       "title": "Hari dalam seminggu",
@@ -886,7 +891,9 @@
     "version": "Versi {{version}}",
     "copyright": "© 2026 Paul Behla, paul-behla.de",
     "license": "Daylight adalah perangkat lunak bebas di bawah GNU General Public License, versi 3 atau yang lebih baru, dengan ketentuan atribusi tambahan. Tanpa jaminan apa pun. Lisensi dan kode sumber: github.com/Jurgler95/daylight",
-    "disclaimer": "Daylight bukan perangkat medis dan tidak menggantikan saran atau perawatan. Wawasan dan perkiraan hanya menggambarkan entrimu sendiri."
+    "disclaimer": "Daylight bukan perangkat medis dan tidak menggantikan saran atau perawatan. Wawasan dan perkiraan hanya menggambarkan entrimu sendiri.",
+    "website": "Situs web",
+    "github": "Kode sumber di GitHub"
   },
   "health": {
     "title": "Data kesehatan",

@@ -1,0 +1,6 @@
+Pembaruan Daylight terbesar sejauh ini:
+• Empat widget untuk layar utama: Suasana hati, Riwayat, Runtutan, dan Entri baru, dengan latar dan warna yang bisa diatur
+• Pengaturan tampilan baru di “Lainnya”: Sistem, Terang, atau Gelap
+• Daylight kini juga tersedia dalam bahasa Belanda, Polandia, Turki, dan Indonesia
+• Tahun dalam piksel bisa dibuka layar penuh, disimpan sebagai PNG, atau dibagikan
+• Di “Tentang” ada tautan ke situs web dan ke kode sumber di GitHub

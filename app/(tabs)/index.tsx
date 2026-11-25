@@ -29,6 +29,7 @@ import { addDaysToDateString, daysBetween, formatLong, type DateString } from '@
 import { useToday } from '@/lib/dates/useToday';
 import { formatDuration } from '@/lib/health/format';
 import { useHealthDay } from '@/lib/health/useHealthDays';
+import { upper } from '@/lib/i18n/language';
 import { useHintOnToday } from '@/lib/outlook/useGoodTomorrow';
 import { useOutlook } from '@/lib/outlook/useOutlook';
 import { useReviewPrompt } from '@/lib/review/useReviewPrompt';
@@ -113,7 +114,7 @@ export default function TodayScreen() {
         {/* Keyed on the day, so the heading rolls in fresh whenever another day is picked. */}
         <Animated.View key={date} entering={FadeInDown.duration(140)} style={styles.headerText}>
           <AppText variant="caption" color={colors.accent} style={styles.eyebrow}>
-            {formatLong(date).toUpperCase()}
+            {upper(formatLong(date))}
           </AppText>
           <AppText variant="title" accessibilityRole="header">
             {title}

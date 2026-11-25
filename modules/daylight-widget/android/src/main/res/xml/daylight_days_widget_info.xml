@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tall it shows five weeks, as low as one row the last seven days. Settings as in the mood widget. -->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+  android:minWidth="250dp"
+  android:minHeight="110dp"
+  android:minResizeWidth="180dp"
+  android:minResizeHeight="40dp"
+  android:targetCellWidth="4"
+  android:targetCellHeight="2"
+  android:resizeMode="horizontal|vertical"
+  android:widgetCategory="home_screen"
+  android:updatePeriodMillis="0"
+  android:initialLayout="@layout/daylight_days_widget"
+  android:previewLayout="@layout/daylight_days_widget_preview"
+  android:configure="de.behla.daylight.widget.WidgetSettingsActivity"
+  android:widgetFeatures="reconfigurable|configuration_optional"
+  android:description="@string/daylight_days_description" />

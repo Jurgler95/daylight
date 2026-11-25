@@ -1,6 +1,6 @@
 Daylight è un diario dell'umore che non conosce i tuoi dati. Nessun account, nessun server, nessuna statistica di utilizzo, nessuna pubblicità e nessuna autorizzazione Internet. Tutto resta sul tuo dispositivo.
 
-Com'è andata la giornata? Tocca un umore, scegli cosa hai fatto, ed è fatta. Una nota, scale tue e una foto al giorno sono facoltative.
+Com'è andata la giornata? Tocca un umore, scegli cosa hai fatto, ed è fatta. Una nota, scale tue e una foto al giorno sono facoltative. Tracker dell'umore e diario delle emozioni in uno, senza dover scrivere molto.
 
 COSA FA DAYLIGHT
 
@@ -11,11 +11,14 @@ Exodus Privacy non trova nessun tracker in Daylight: https://reports.exodus-priv
 ⚡ Una voce in pochi secondi
 Cinque umori, attività ordinate in gruppi come emozioni, sonno, meteo, persone e lavoro. Rinomina, riordina, archivia o aggiungi le tue, con icone.
 
-📅 Calendario
+📅 Calendario dell'umore
 Ogni giorno nel suo colore, così i periodi belli e quelli difficili saltano subito all'occhio. I giorni con più voci sono segnati, le attività in programma compaiono nei giorni a venire.
 
+🟩 Il tuo anno in pixel
+Ogni giorno un quadratino nel colore del tuo umore, dodici mesi in un'immagine. Così vedi come sono andati mesi e stagioni, e toccando un quadratino si apre quel giorno.
+
 📊 Analisi dei tuoi schemi
-Monitoraggio dell'umore nel tempo: andamento e media su 7 giorni, distribuzione, giorni della settimana e mesi, l'anno in pixel, settimane tranquille e agitate, serie, quali attività vanno insieme a giorni migliori o peggiori, cosa arriva spesso il giorno dopo e le parole più frequenti nelle tue note. Sempre una descrizione delle tue voci, mai una diagnosi.
+Monitoraggio dell'umore nel tempo: andamento e media su 7 giorni, distribuzione, giorni della settimana e mesi, settimane tranquille e agitate, serie, quali attività vanno insieme a giorni migliori o peggiori, cosa arriva spesso il giorno dopo e le parole più frequenti nelle tue note. Sempre una descrizione delle tue voci, mai una diagnosi.
 
 🌅 Svolte
 Segna fino a quattro giorni all'anno che hanno cambiato qualcosa, come un nuovo lavoro o un trasloco. Daylight confronta il periodo prima con quello dopo: umore, attività e dati sulla salute.

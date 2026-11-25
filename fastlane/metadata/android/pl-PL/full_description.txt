@@ -11,11 +11,14 @@ Exodus Privacy nie znajduje w Daylight żadnych trackerów: https://reports.exod
 ⚡ Wpis w kilka sekund
 Pięć nastrojów i aktywności podzielone na grupy, takie jak emocje, sen, pogoda, życie towarzyskie i praca. Zmieniaj nazwy i kolejność, archiwizuj lub dodawaj własne aktywności z ikonami.
 
-📅 Kalendarz
+📅 Kalendarz nastroju
 Każdy dzień w swoim kolorze, dzięki czemu dobre i trudne okresy widać na pierwszy rzut oka. Dni z więcej niż jednym wpisem są oznaczone, a zaplanowane aktywności pojawiają się w nadchodzących dniach.
 
+🟩 Twój rok w pikselach
+Każdy dzień to kwadrat w kolorze Twojego nastroju, dwanaście miesięcy na jednym obrazie. Widzisz, jakie były miesiące i pory roku, a stuknięcie w kwadrat otwiera ten dzień.
+
 📊 Wgląd w Twoje wzorce
-Przebieg i średnia z 7 dni, rozkład, dni tygodnia i miesiące, Twój rok w pikselach, spokojne i niespokojne tygodnie, serie, które aktywności idą w parze z lepszymi lub gorszymi dniami, co zwykle następuje dzień później i najczęstsze słowa w notatkach. Zawsze opis Twoich wpisów, nigdy diagnoza.
+Przebieg i średnia z 7 dni, rozkład, dni tygodnia i miesiące, spokojne i niespokojne tygodnie, serie, które aktywności idą w parze z lepszymi lub gorszymi dniami, co zwykle następuje dzień później i najczęstsze słowa w notatkach. Zawsze opis Twoich wpisów, nigdy diagnoza.
 
 🌅 Punkty zwrotne
 Zaznacz do czterech dni w roku, które coś zmieniły, na przykład nową pracę lub przeprowadzkę. Daylight porównuje czas przed i po: nastrój, aktywności i dane o zdrowiu.

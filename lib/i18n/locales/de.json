@@ -283,6 +283,7 @@
   },
   "common": {
     "error": "Etwas ist schiefgelaufen",
+    "shareUnavailable": "Teilen ist auf diesem Gerät nicht verfügbar.",
     "retry": "Erneut versuchen",
     "back": "Zurück",
     "close": "Schließen",
@@ -339,7 +340,11 @@
       "year": "Jahr",
       "a11yMonth": "{{month}}: {{summary}}",
       "a11yEmpty": "{{month}}: keine Einträge",
-      "a11yHint": "Öffnet den angetippten Tag"
+      "a11yHint": "Öffnet den angetippten Tag",
+      "expand": "Vergrößern",
+      "save": "Als PNG speichern",
+      "share": "Teilen",
+      "footer": "privates Stimmungstagebuch, offline"
     },
     "weekdays": {
       "title": "Wochentage",
@@ -886,7 +891,9 @@
     "version": "Version {{version}}",
     "copyright": "© 2026 Paul Behla, paul-behla.de",
     "license": "Daylight ist freie Software unter der GNU General Public License, Version 3 oder später, mit einem Zusatz zur Namensnennung. Ohne jede Gewährleistung. Lizenz und Quellcode: github.com/Jurgler95/daylight",
-    "disclaimer": "Daylight ist kein Medizinprodukt und ersetzt keine Beratung oder Behandlung. Einblicke und Ausblick beschreiben nur deine eigenen Einträge."
+    "disclaimer": "Daylight ist kein Medizinprodukt und ersetzt keine Beratung oder Behandlung. Einblicke und Ausblick beschreiben nur deine eigenen Einträge.",
+    "website": "Website",
+    "github": "Quellcode auf GitHub"
   },
   "health": {
     "title": "Gesundheitsdaten",

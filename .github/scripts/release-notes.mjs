@@ -89,11 +89,13 @@ if (release) {
   }
 }
 
-/** „Neu in dieser Version" für Play: die Stichpunkte je Store-Sprache, eine Zeile pro Punkt. */
-function whatsnew({ changes }) {
+/** „Neu in dieser Version" für Play: die Stichpunkte je Store-Sprache, eine Zeile pro Punkt, davor `storeIntro` und höchstens `storePoints` Punkte, falls gesetzt. */
+function whatsnew({ changes, storeIntro, storePoints }) {
   return Object.fromEntries(
     Object.entries(PLAY_LOCALES).flatMap(([language, locales]) =>
-      changes?.[language]?.length ? locales.map((locale) => [locale, changes[language].map((change) => `• ${change}`).join('\n')]) : [],
+      changes?.[language]?.length
+        ? locales.map((locale) => [locale, [storeIntro?.[language], ...changes[language].slice(0, storePoints).map((change) => `• ${change}`)].filter(Boolean).join('\n')])
+        : [],
     ),
   );
 }

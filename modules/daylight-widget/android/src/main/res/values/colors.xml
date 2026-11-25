@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The widget's colours in its "as the system" style: the app's light page here, a dark one in values-night. -->
+<resources>
+  <color name="daylight_widget_top">#DDEDFF</color>
+  <color name="daylight_widget_bottom">#F3F8FF</color>
+  <color name="daylight_widget_text">#13213A</color>
+  <color name="daylight_widget_muted">#475873</color>
+  <!-- The chosen mood's name: the strong mood colour on light, the soft one on dark (`lib/theme/tokens.ts`). -->
+  <color name="daylight_widget_level_1">#9C1C7A</color>
+  <color name="daylight_widget_level_2">#B03512</color>
+  <color name="daylight_widget_level_3">#876200</color>
+  <color name="daylight_widget_level_4">#336E08</color>
+  <color name="daylight_widget_level_5">#007060</color>
+</resources>

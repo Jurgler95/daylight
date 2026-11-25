@@ -1,0 +1,6 @@
+Największa jak dotąd aktualizacja Daylight:
+• Cztery widżety na ekran główny: Nastrój, Historia, Seria i Nowy wpis, z regulowanym tłem i kolorami
+• Nowy motyw w „Więcej”: Systemowy, Jasny lub Ciemny
+• Daylight jest teraz także po niderlandzku, polsku, turecku i indonezyjsku
+• Rok w pikselach otwiera się na pełnym ekranie i można go zapisać jako PNG lub udostępnić
+• W „O aplikacji” są linki do strony i do kodu źródłowego na GitHubie

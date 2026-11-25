@@ -283,6 +283,7 @@
   },
   "common": {
     "error": "Er ging iets mis",
+    "shareUnavailable": "Delen is niet beschikbaar op dit toestel.",
     "retry": "Opnieuw proberen",
     "back": "Terug",
     "close": "Sluiten",
@@ -339,7 +340,11 @@
       "year": "Jaar",
       "a11yMonth": "{{month}}: {{summary}}",
       "a11yEmpty": "{{month}}: geen registraties",
-      "a11yHint": "Opent de aangetikte dag"
+      "a11yHint": "Opent de aangetikte dag",
+      "expand": "Vergroten",
+      "save": "Opslaan als PNG",
+      "share": "Delen",
+      "footer": "privé stemmingsdagboek, offline"
     },
     "weekdays": {
       "title": "Weekdagen",
@@ -886,7 +891,9 @@
     "version": "Versie {{version}}",
     "copyright": "© 2026 Paul Behla, paul-behla.de",
     "license": "Daylight is vrije software onder de GNU General Public License, versie 3 of later, met een aanvullende voorwaarde voor naamsvermelding. Zonder enige garantie. Licentie en broncode: github.com/Jurgler95/daylight",
-    "disclaimer": "Daylight is geen medisch hulpmiddel en vervangt geen advies of behandeling. Inzichten en vooruitblik beschrijven alleen je eigen registraties."
+    "disclaimer": "Daylight is geen medisch hulpmiddel en vervangt geen advies of behandeling. Inzichten en vooruitblik beschrijven alleen je eigen registraties.",
+    "website": "Website",
+    "github": "Broncode op GitHub"
   },
   "health": {
     "title": "Gezondheidsgegevens",

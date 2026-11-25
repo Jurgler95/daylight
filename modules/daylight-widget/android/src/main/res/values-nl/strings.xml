@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="daylight_widget_label">Stemming</string>
+  <string name="daylight_widget_description">Hoe was je dag? Tik op een stemming om de registratie te schrijven.</string>
+  <string name="daylight_widget_empty">Open Daylight één keer om de widget in te stellen.</string>
+  <string name="daylight_widget_settings_title">Widget aanpassen</string>
+  <string name="daylight_widget_settings_background">Achtergrond</string>
+  <string name="daylight_widget_settings_colors">Kleuren</string>
+  <string name="daylight_widget_settings_light">Licht</string>
+  <string name="daylight_widget_settings_dark">Donker</string>
+  <string name="daylight_widget_settings_system">Zoals het systeem</string>
+  <string name="daylight_widget_settings_done">Klaar</string>
+  <string name="daylight_widget_settings_wallpaper">Passend bij de achtergrond</string>
+  <string name="daylight_days_label">Verloop</string>
+  <string name="daylight_days_description">Je laatste dagen in één oogopslag. Tik op een dag om hem te openen.</string>
+  <string name="daylight_streak_label">Reeks</string>
+  <string name="daylight_streak_description">Dagen op rij, vaag tot vandaag is ingevuld.</string>
+  <string name="daylight_quick_label">Nieuwe registratie</string>
+  <string name="daylight_quick_description">Met één tik naar een nieuwe registratie.</string>
+  <!-- Widget picker previews (`layout/*_preview.xml`): the app's texts for its default moods, Monday first. -->
+  <string name="daylight_preview_mood_5">Geweldig</string>
+  <string name="daylight_preview_mood_4">Goed</string>
+  <string name="daylight_preview_mood_3">Oké</string>
+  <string name="daylight_preview_mood_2">Slecht</string>
+  <string name="daylight_preview_mood_1">Beroerd</string>
+  <string name="daylight_preview_day_0">Ma</string>
+  <string name="daylight_preview_day_1">Di</string>
+  <string name="daylight_preview_day_2">Wo</string>
+  <string name="daylight_preview_day_3">Do</string>
+  <string name="daylight_preview_day_4">Vr</string>
+  <string name="daylight_preview_day_5">Za</string>
+  <string name="daylight_preview_day_6">Zo</string>
+  <string name="daylight_preview_streak">dagen op rij</string>
+</resources>

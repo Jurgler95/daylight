@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="daylight_widget_top">#22355A</color>
+  <color name="daylight_widget_bottom">#13213A</color>
+  <color name="daylight_widget_text">#F3F8FF</color>
+  <color name="daylight_widget_muted">#B8C4D8</color>
+  <color name="daylight_widget_level_1">#F8D8F0</color>
+  <color name="daylight_widget_level_2">#FFDCC0</color>
+  <color name="daylight_widget_level_3">#FFEC9E</color>
+  <color name="daylight_widget_level_4">#DDF4C2</color>
+  <color name="daylight_widget_level_5">#C8F3E3</color>
+</resources>

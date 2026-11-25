@@ -1,6 +1,6 @@
 Daylight ist ein Stimmungstagebuch, das deine Daten nicht kennt. Keine Konten, keine Server, keine Analytics, keine Werbung und keine Internet-Berechtigung. Alles bleibt auf deinem Gerät.
 
-Wie war dein Tag? Stimmung antippen, auswählen, was du gemacht hast, fertig. Eine Notiz, eigene Skalen und ein Foto pro Tag sind optional.
+Wie war dein Tag? Stimmung antippen, auswählen, was du gemacht hast, fertig. Eine Notiz, eigene Skalen und ein Foto pro Tag sind optional. Stimmungstracker und Gefühlstagebuch in einem, ohne dass du viel schreiben musst.
 
 WAS DAYLIGHT KANN
 
@@ -11,11 +11,14 @@ Exodus Privacy findet in Daylight keinen einzigen Tracker: https://reports.exodu
 ⚡ In Sekunden eingetragen
 Fünf Stimmungen, Aktivitäten in Gruppen wie Gefühle, Schlaf, Wetter, Soziales und Arbeit. Umbenennen, umsortieren, archivieren oder eigene ergänzen, mit Icons.
 
-📅 Kalender
+📅 Stimmungskalender
 Jeder Tag in seiner Farbe, so fallen gute und schwere Phasen auf einen Blick auf. Tage mit mehreren Einträgen sind markiert, geplante Aktivitäten erscheinen an den kommenden Tagen.
 
+🟩 Dein Jahr in Pixeln
+Jeder Tag ein Kästchen in der Farbe deiner Stimmung, zwölf Monate auf einem Bild. So siehst du, wie sich Monate und Jahreszeiten angefühlt haben, und ein Tipp öffnet den Tag.
+
 📊 Einblicke in deine Muster
-Verlauf und 7-Tage-Schnitt, Verteilung, Wochentage und Monate, dein Jahr in Pixeln, ruhige und unruhige Wochen, Serien, welche Aktivitäten mit besseren oder schlechteren Tagen zusammenfallen, was oft am Folgetag kommt, und häufige Wörter in deinen Notizen. Immer eine Beschreibung deiner Einträge, nie eine Diagnose.
+Verlauf und 7-Tage-Schnitt, Verteilung, Wochentage und Monate, ruhige und unruhige Wochen, Serien, welche Aktivitäten mit besseren oder schlechteren Tagen zusammenfallen, was oft am Folgetag kommt, und häufige Wörter in deinen Notizen. Immer eine Beschreibung deiner Einträge, nie eine Diagnose.
 
 🌅 Wendepunkte
 Markiere bis zu vier Tage im Jahr, die etwas verändert haben, etwa einen neuen Job oder einen Umzug. Daylight vergleicht die Zeit davor mit der Zeit danach: Stimmung, Aktivitäten und Gesundheitsdaten.

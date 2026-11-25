@@ -8,6 +8,7 @@ import Animated, { Easing, useAnimatedStyle, useReducedMotion, useSharedValue, w
 import { AppText } from '@/components/ui';
 import { MAX_STARS, type Achievement } from '@/lib/achievements';
 import { haptics } from '@/lib/haptics';
+import { upper } from '@/lib/i18n/language';
 import { formatCount } from '@/lib/insights';
 import { radius, spacing, useTheme, withAlpha } from '@/lib/theme';
 
@@ -92,7 +93,7 @@ export function AchievementsHero({ stars, complete, total, progress, upNext, onU
           </View>
           <View style={styles.upNextText}>
             <AppText variant="caption" color={trophySoftText}>
-              {t('achievements.upNext').toUpperCase()}
+              {upper(t('achievements.upNext'))}
             </AppText>
             <AppText variant="headline" color={colors.textOnGradient} numberOfLines={1}>
               {t(`achievements.items.${upNext.key}.title`)}

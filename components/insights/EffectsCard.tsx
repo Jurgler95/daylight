@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
 import { AppText, Button } from '@/components/ui';
+import { upper } from '@/lib/i18n/language';
 import { formatDecimal, type ActivityEffect, type SplitEffects } from '@/lib/insights';
 import { spacing } from '@/lib/theme';
 
@@ -38,7 +39,7 @@ export function EffectsCard({ effects, names, lag }: Props) {
     list.length ? (
       <View style={styles.side}>
         <AppText variant="caption" muted>
-          {title.toUpperCase()}
+          {upper(title)}
         </AppText>
         {(all ? list : list.slice(0, SHOWN)).map((effect) => (
           <ActivityLine key={effect.activityId} activityId={effect.activityId} icon={names.icon(effect.activityId)} title={names.label(effect.activityId)} detail={sentence(effect)} />

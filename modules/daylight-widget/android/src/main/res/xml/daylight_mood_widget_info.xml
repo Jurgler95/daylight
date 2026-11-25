@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  No updatePeriodMillis: the app pushes every change, and an inexact alarm redraws at midnight.
+  The settings (opacity, colours) are optional and can be changed later: from Android 12 the widget
+  is placed without them and "Customize" opens them; before that they open once on placing.
+-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+  android:minWidth="250dp"
+  android:minHeight="50dp"
+  android:minResizeWidth="180dp"
+  android:minResizeHeight="40dp"
+  android:targetCellWidth="4"
+  android:targetCellHeight="1"
+  android:resizeMode="horizontal|vertical"
+  android:widgetCategory="home_screen"
+  android:updatePeriodMillis="0"
+  android:initialLayout="@layout/daylight_mood_widget"
+  android:previewLayout="@layout/daylight_mood_widget_preview"
+  android:configure="de.behla.daylight.widget.WidgetSettingsActivity"
+  android:widgetFeatures="reconfigurable|configuration_optional"
+  android:description="@string/daylight_widget_description" />

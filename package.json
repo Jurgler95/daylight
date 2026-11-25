@@ -1,9 +1,10 @@
 {
   "name": "daylight",
-  "version": "1.0.40",
+  "version": "1.0.41",
   "main": "expo-router/entry",
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",
+    "@formatjs/intl-pluralrules": "^7.1.1",
     "@react-native-community/datetimepicker": "9.1.0",
     "date-fns": "^4.4.0",
     "drizzle-orm": "^0.45.3",
@@ -79,7 +80,7 @@
       "**/__tests__/**/*.test.ts?(x)"
     ],
     "transformIgnorePatterns": [
-      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@sentry/react-native|native-base|react-native-svg|drizzle-orm)"
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@sentry/react-native|native-base|react-native-svg|drizzle-orm|@formatjs/.*)"
     ]
   },
   "license": "GPL-3.0-or-later",

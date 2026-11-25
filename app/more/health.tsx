@@ -9,6 +9,7 @@ import { formatLong, formatShortWithYear, toDateString, toTimeString } from '@/l
 import { healthStatus, openHealthConnect, requestAccess, revokeAccess, type HealthStatus } from '@/lib/health/client';
 import { useHealthSyncStore } from '@/lib/health/store';
 import { runHealthSync } from '@/lib/health/useHealthSync';
+import { upper } from '@/lib/i18n/language';
 import { mutate, useQuery } from '@/lib/store/dataVersion';
 import { useSettingsStore } from '@/lib/store/settingsStore';
 
@@ -113,7 +114,7 @@ export default function HealthScreen() {
       {enabled || days > 0 ? (
         <Card>
           <AppText variant="caption" muted>
-            {t('health.state').toUpperCase()}
+            {upper(t('health.state'))}
           </AppText>
           <AppText>{lastSyncLabel}</AppText>
           <AppText muted>

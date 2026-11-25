@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- What the widget picker shows: `daylight_streak_widget.xml` at its default size, today entered. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@drawable/daylight_widget_background_light"
+  android:gravity="center"
+  android:orientation="vertical"
+  android:padding="6dp">
+
+  <TextView
+    android:layout_width="40dp"
+    android:layout_height="40dp"
+    android:background="@drawable/daylight_widget_preview_streak"
+    android:gravity="center"
+    android:maxLines="1"
+    android:text="12"
+    android:textColor="#FFFFFF"
+    android:textSize="16dp"
+    android:textStyle="bold" />
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
+    android:ellipsize="end"
+    android:gravity="center"
+    android:maxLines="2"
+    android:text="@string/daylight_preview_streak"
+    android:textColor="#475873"
+    android:textSize="11sp" />
+</LinearLayout>

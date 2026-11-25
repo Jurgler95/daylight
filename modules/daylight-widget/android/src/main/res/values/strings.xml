@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="daylight_widget_label">Mood</string>
+  <string name="daylight_widget_description">How was your day? Tap a mood to write the entry.</string>
+  <string name="daylight_widget_empty">Open Daylight once to set up the widget.</string>
+  <string name="daylight_widget_settings_title">Customize widget</string>
+  <string name="daylight_widget_settings_background">Background</string>
+  <string name="daylight_widget_settings_colors">Colors</string>
+  <string name="daylight_widget_settings_light">Light</string>
+  <string name="daylight_widget_settings_dark">Dark</string>
+  <string name="daylight_widget_settings_system">As the system</string>
+  <string name="daylight_widget_settings_done">Done</string>
+  <string name="daylight_widget_settings_wallpaper">Match the wallpaper</string>
+  <string name="daylight_days_label">History</string>
+  <string name="daylight_days_description">Your last days at a glance. Tap a day to open it.</string>
+  <string name="daylight_streak_label">Streak</string>
+  <string name="daylight_streak_description">Days in a row, faint until today is in.</string>
+  <string name="daylight_quick_label">New entry</string>
+  <string name="daylight_quick_description">One tap to a new entry.</string>
+  <!-- Widget picker previews (`layout/*_preview.xml`): the app's texts for its default moods, Monday first. -->
+  <string name="daylight_preview_mood_5">Great</string>
+  <string name="daylight_preview_mood_4">Good</string>
+  <string name="daylight_preview_mood_3">Okay</string>
+  <string name="daylight_preview_mood_2">Bad</string>
+  <string name="daylight_preview_mood_1">Awful</string>
+  <string name="daylight_preview_day_0">Mo</string>
+  <string name="daylight_preview_day_1">Tu</string>
+  <string name="daylight_preview_day_2">We</string>
+  <string name="daylight_preview_day_3">Th</string>
+  <string name="daylight_preview_day_4">Fr</string>
+  <string name="daylight_preview_day_5">Sa</string>
+  <string name="daylight_preview_day_6">Su</string>
+  <string name="daylight_preview_streak">days in a row</string>
+</resources>
