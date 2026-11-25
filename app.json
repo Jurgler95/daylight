@@ -6,7 +6,7 @@
     "scheme": "daylight",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": false
     },
@@ -74,7 +74,11 @@
         {
           "backgroundColor": "#F3F8FF",
           "image": "./assets/splash-icon.png",
-          "imageWidth": 160
+          "imageWidth": 160,
+          "dark": {
+            "backgroundColor": "#0D1524",
+            "image": "./assets/splash-icon.png"
+          }
         }
       ],
       "expo-sharing",
@@ -104,7 +108,8 @@
       "./plugins/withoutBaselineProfile",
       "./plugins/withBlockedPermissionsSdk23",
       "./plugins/withNoDeviceTransfer",
-      "./plugins/withSeasonalIcons"
+      "./plugins/withSeasonalIcons",
+      "./plugins/withThemeColors"
     ],
     "experiments": {
       "typedRoutes": true,

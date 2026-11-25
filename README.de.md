@@ -27,6 +27,7 @@ Ein Stimmungstagebuch für Android, das deine Daten nicht kennt. Keine Konten, k
 - 🏆 **Erfolge fürs Dranbleiben.** Sterne für Tage und Wochen am Stück, für Notizen, Fotos, Aktivitäten, Schlaf und Schritte. Belohnt wird nur das Festhalten, nie wie ein Tag war.
 - 🔭 **Ein ehrlicher Ausblick.** Daylight schätzt die nächsten sieben Tage, aber nur dort, wo das auf deinen eigenen Daten nachweislich besser funktioniert als simples Raten. Sonst tritt der Ausblick zurück und sagt das auch.
 - ❤️ **Gesundheitsdaten, wenn du willst.** Schritte, Schlaf, Ruhepuls und Training aus Health Connect, etwa von einer Smartwatch. Nur lesend und nur nach deiner Zustimmung.
+- 🌙 **Dunkles Design für den Abend.** Ein nachtblaues Farbschema, das dem Handy folgt oder fest hell oder dunkel bleibt, mit Stimmungsfarben und Jahr in Pixeln, die auf dunklem Grund gut lesbar sind. Die Designs zur Jahreszeit kommen mit.
 - 🛡️ **Geschützt.** App-Sperre über die Displaysperre des Geräts, keine Screenshots bei aktiver Sperre, kein Android-Cloud-Backup. Eine Erinnerung am Abend verrät im Text nichts aus dem Tagebuch.
 
 Die Oberfläche gibt es auf Deutsch, Englisch, Spanisch, Portugiesisch (Brasilien), Französisch und Italienisch.

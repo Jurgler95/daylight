@@ -8,9 +8,9 @@ import Animated, { FadeInDown, useAnimatedStyle, useReducedMotion, useSharedValu
 import { AppText, Card } from '@/components/ui';
 import type { Achievement } from '@/lib/achievements';
 import { formatCount } from '@/lib/insights';
-import { radius, spacing, tileColors, trophyGradient, useTheme, withAlpha } from '@/lib/theme';
+import { radius, spacing, useTheme, withAlpha } from '@/lib/theme';
 
-import { StarRow, TierStar, tierColor } from './StarRow';
+import { StarRow, TierStar, tierColor, useStarColor } from './StarRow';
 import { ToGo, useToGoText } from './ToGo';
 
 interface Props {
@@ -27,7 +27,8 @@ interface Props {
 /** One achievement: what it counts, its five stars with their thresholds and how much the next one still needs. */
 export function AchievementCard({ achievement, needsHealth, highlight = false, index = 0, onLayout }: Props) {
   const { t } = useTranslation();
-  const { colors } = useTheme();
+  const { colors, tiles, gradients } = useTheme();
+  const starColor = useStarColor();
   const toGoText = useToGoText();
   const reduceMotion = useReducedMotion();
   const frame = useSharedValue(0);
@@ -41,12 +42,12 @@ export function AchievementCard({ achievement, needsHealth, highlight = false, i
   const amount = (value: number) => t(`achievements.units.${unit}`, { count: value, value: formatCount(value) });
   const title = t(`achievements.items.${key}.title`);
   const text = t(`achievements.items.${key}.text`);
-  const tile = tileColors[DEFINITION_TILE[achievement.group]]!;
+  const tile = tiles[DEFINITION_TILE[achievement.group]]!;
   const locked = stars === 0;
   const done = next === null || remaining === null;
-  const barColor = locked ? colors.accent : tierColor(stars);
+  const barColor = locked ? colors.accent : tierColor(stars, starColor);
   // The star that comes next, so the countdown wears the colour of what it leads to.
-  const nextColor = tierColor(stars + 1);
+  const nextColor = tierColor(stars + 1, starColor);
 
   const currentKey = measure === 'window' ? 'achievements.lastWeek' : 'achievements.current';
   const facts =
@@ -119,9 +120,9 @@ export function AchievementCard({ achievement, needsHealth, highlight = false, i
             ) : null}
           </View>
           {needsHealth ? null : done ? (
-            <LinearGradient colors={trophyGradient} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.badge}>
-              <MaterialCommunityIcons name="party-popper" size={18} color={colors.textOnAccent} />
-              <AppText variant="label" color={colors.textOnAccent}>
+            <LinearGradient colors={gradients.trophy} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.badge}>
+              <MaterialCommunityIcons name="party-popper" size={18} color={colors.textOnGradient} />
+              <AppText variant="label" color={colors.textOnGradient}>
                 {t('achievements.doneBadge')}
               </AppText>
             </LinearGradient>

@@ -6,7 +6,7 @@ import type { Database } from '@/db/types';
 import { EXPORT_APP, EXPORT_SCHEMA_VERSION, type ExportPayload, type ExportSettings } from './schema';
 
 /**
- * last_export_at, low_mood_dismissed_on, the announced stars, the number of app opens, the language, the Health Connect state,
+ * last_export_at, low_mood_dismissed_on, the announced stars, the number of app opens, the language, light or dark, the Health Connect state,
  * the answered reminder sheet, the streak's celebrations and put away rescue and the answered rating card describe this device, not the
  * data, so they stay out of the snapshot. The health days themselves only go in when the user opted in.
  */
@@ -18,6 +18,7 @@ export function settingsForExport(row: ReturnType<typeof getSettings>): ExportSe
     last_export_at: _l,
     low_mood_dismissed_on: _d,
     language: _lang,
+    color_scheme: _cs,
     health_enabled: _he,
     health_synced_from: _hf,
     health_last_sync_at: _hs,

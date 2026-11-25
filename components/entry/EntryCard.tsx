@@ -10,7 +10,7 @@ import type { Scale } from '@/db/schema';
 import type { Catalog } from '@/lib/catalog/catalog';
 import { haptics } from '@/lib/haptics';
 import type { IconName } from '@/lib/icons';
-import { moodColors, radius, spacing, useTheme } from '@/lib/theme';
+import { radius, spacing, useTheme } from '@/lib/theme';
 
 interface Props {
   entry: EntryDetails;
@@ -25,7 +25,7 @@ interface Props {
 
 /** One entry to read in full: mood and time, activities, scale values, note, photos. Tapping opens the editor, a photo opens itself. */
 export function EntryCard({ entry, catalog, scaleLabel, editLabel, photoLabel, onEdit }: Props) {
-  const { colors } = useTheme();
+  const { colors, mood: moodColors } = useTheme();
   const mood = catalog.moodById.get(entry.mood_id);
   const activities = entry.activity_ids
     .map((id) => catalog.activityById.get(id))

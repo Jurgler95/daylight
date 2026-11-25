@@ -9,7 +9,7 @@ import type { MoodLevel } from '@/db/schema';
 import { haptics } from '@/lib/haptics';
 import { formatPercent, type LevelShare } from '@/lib/insights';
 import type { IconName } from '@/lib/icons';
-import { TOUCH_TARGET, moodColors, radius, spacing, useTheme } from '@/lib/theme';
+import { TOUCH_TARGET, radius, spacing, useTheme } from '@/lib/theme';
 
 import { InsightCard } from './InsightCard';
 
@@ -21,7 +21,7 @@ interface Props {
 /** Share per mood as one stacked bar, then a row per mood with the window before; a row opens the mood's page. */
 export function DistributionCard({ rows, moodFor }: Props) {
   const { t } = useTranslation();
-  const { colors } = useTheme();
+  const { colors, mood: moodColors } = useTheme();
   const shown = rows.filter((row) => row.days > 0 || (row.previousShare ?? 0) > 0);
   return (
     <InsightCard title={t('insights.distribution.title')}>

@@ -6,7 +6,7 @@ import { AppText } from '@/components/ui';
 import { formatDuration } from '@/lib/health/format';
 import { formatDecimal, formatSigned, linkStrength, MIN_BAND_DAYS, MIN_LINK_PAIRS, type ScaleBucket, type ScaleInsight } from '@/lib/insights';
 import { roundLevel } from '@/lib/mood/dayMood';
-import { moodColors, radius, spacing, useTheme } from '@/lib/theme';
+import { radius, spacing, useTheme } from '@/lib/theme';
 
 /**
  * The mood of the days at each value: does a 5 in energy go with better days than a 2? A bar per
@@ -15,7 +15,7 @@ import { moodColors, radius, spacing, useTheme } from '@/lib/theme';
  */
 export function ScaleMoodCard({ insight }: { insight: ScaleInsight }) {
   const { t } = useTranslation();
-  const { colors } = useTheme();
+  const { colors, mood: moodColors } = useTheme();
   const { scale } = insight;
   const rows = insight.buckets.filter((bucket) => bucket.days > 0);
   const label = (bucket: ScaleBucket) => {

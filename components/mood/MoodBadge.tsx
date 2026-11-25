@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import type { MoodLevel } from '@/db/schema';
 import type { IconName } from '@/lib/icons';
-import { moodColors, useTheme } from '@/lib/theme';
+import { useTheme } from '@/lib/theme';
 
 interface Props {
   level: MoodLevel;
@@ -15,7 +15,7 @@ interface Props {
 
 /** A mood as a round badge: soft colour behind the icon in the strong one. Decorative for screen readers. */
 export function MoodBadge({ level, icon, size = 40, filled }: Props) {
-  const { colors } = useTheme();
+  const { colors, mood: moodColors } = useTheme();
   const { strong, soft } = moodColors[level];
   return (
     <View

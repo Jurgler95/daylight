@@ -7,7 +7,7 @@ import { AppText, Chip } from '@/components/ui';
 import { MOOD_LEVELS, type MoodLevel } from '@/db/schema';
 import { formatMonthLong, formatMonthNarrow, type DateString } from '@/lib/dates';
 import { yearPixels, type InsightDay } from '@/lib/insights';
-import { moodColors, spacing, useTheme } from '@/lib/theme';
+import { spacing, useTheme } from '@/lib/theme';
 
 import { InsightCard } from './InsightCard';
 
@@ -29,7 +29,7 @@ const GAP = 2;
  */
 export function PixelsCard({ days, years, today, moodLabel, onOpen }: Props) {
   const { t } = useTranslation();
-  const { colors } = useTheme();
+  const { colors, mood: moodColors } = useTheme();
   const [picked, setPicked] = useState<number | null>(null);
   const [width, setWidth] = useState(0);
   const year = picked !== null && years.includes(picked) ? picked : (years[0] ?? Number(today.slice(0, 4)));

@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, View } from 'react-native';
 
 import { haptics } from '@/lib/haptics';
-import { TOUCH_TARGET, spacing, tileColors, useTheme, withAlpha } from '@/lib/theme';
+import { TOUCH_TARGET, spacing, useTheme, withAlpha, type Theme } from '@/lib/theme';
 
 import { AppText } from './AppText';
 import { PressableScale } from './PressableScale';
@@ -17,9 +17,9 @@ interface Props {
 }
 
 export function ListRow({ icon, label, value, destructive, iconColor, onPress }: Props) {
-  const { colors } = useTheme();
+  const { colors, tiles } = useTheme();
   const tint = destructive ? colors.danger : colors.text;
-  const tile = tileFor(icon);
+  const tile = tileFor(icon, tiles);
   return (
     <PressableScale
       pressedScale={0.98}
@@ -52,7 +52,7 @@ export function ListRow({ icon, label, value, destructive, iconColor, onPress }:
 }
 
 /** The same icon always lands on the same crayon colour, so rows keep their colour between visits. */
-function tileFor(icon: string) {
+function tileFor(icon: string, tileColors: Theme['tiles']) {
   let hash = 0;
   for (const char of icon) hash = (hash * 31 + char.charCodeAt(0)) >>> 0;
   return tileColors[hash % tileColors.length] ?? tileColors[0]!;

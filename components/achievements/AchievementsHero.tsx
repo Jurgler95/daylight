@@ -9,7 +9,7 @@ import { AppText } from '@/components/ui';
 import { MAX_STARS, type Achievement } from '@/lib/achievements';
 import { haptics } from '@/lib/haptics';
 import { formatCount } from '@/lib/insights';
-import { radius, spacing, trophyGradient, trophySoftText, useTheme, withAlpha } from '@/lib/theme';
+import { radius, spacing, useTheme, withAlpha } from '@/lib/theme';
 
 import { TierStar } from './StarRow';
 import { ToGo, useToGoText } from './ToGo';
@@ -31,7 +31,7 @@ interface Props {
 /** The top of the achievements tab: all stars so far, the way to all of them, and the next star in reach. */
 export function AchievementsHero({ stars, complete, total, progress, upNext, onUpNext }: Props) {
   const { t } = useTranslation();
-  const { colors } = useTheme();
+  const { colors, gradients, trophySoftText } = useTheme();
   const toGoText = useToGoText();
   const reduceMotion = useReducedMotion();
   const percent = Math.floor(progress * 100);
@@ -45,7 +45,7 @@ export function AchievementsHero({ stars, complete, total, progress, upNext, onU
   const fillStyle = useAnimatedStyle(() => ({ width: `${fill.value * 100}%` }));
 
   return (
-    <LinearGradient colors={trophyGradient} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.hero}>
+    <LinearGradient colors={gradients.trophy} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.hero}>
       {/* Sparks scattered over the corner, decorative only. */}
       <View pointerEvents="none" style={StyleSheet.absoluteFill} importantForAccessibility="no-hide-descendants" accessibilityElementsHidden>
         <MaterialCommunityIcons name="star-four-points" size={18} color={withAlpha('#FFFFFF', 0.35)} style={[styles.spark, { top: 14, right: 22 }]} />
@@ -59,7 +59,7 @@ export function AchievementsHero({ stars, complete, total, progress, upNext, onU
           </LinearGradient>
         </Animated.View>
         <View style={styles.summaryText}>
-          <AppText variant="display" color={colors.textOnAccent}>
+          <AppText variant="display" color={colors.textOnGradient}>
             {t('achievements.starsShort', { stars: formatCount(stars), max: formatCount(MAX_STARS) })}
           </AppText>
           <AppText variant="label" color={trophySoftText}>
@@ -73,7 +73,7 @@ export function AchievementsHero({ stars, complete, total, progress, upNext, onU
             <LinearGradient colors={GOLD} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.fill} />
           </Animated.View>
         </View>
-        <AppText variant="label" color={colors.textOnAccent} style={styles.percent}>
+        <AppText variant="label" color={colors.textOnGradient} style={styles.percent}>
           {t('achievements.percent', { value: percent })}
         </AppText>
       </View>
@@ -94,11 +94,11 @@ export function AchievementsHero({ stars, complete, total, progress, upNext, onU
             <AppText variant="caption" color={trophySoftText}>
               {t('achievements.upNext').toUpperCase()}
             </AppText>
-            <AppText variant="headline" color={colors.textOnAccent} numberOfLines={1}>
+            <AppText variant="headline" color={colors.textOnGradient} numberOfLines={1}>
               {t(`achievements.items.${upNext.key}.title`)}
             </AppText>
           </View>
-          <ToGo unit={upNext.unit} remaining={upNext.remaining} color={colors.textOnAccent} size={26} />
+          <ToGo unit={upNext.unit} remaining={upNext.remaining} color={colors.textOnGradient} size={26} />
           <MaterialCommunityIcons name="chevron-right" size={22} color={trophySoftText} />
         </Pressable>
       ) : null}

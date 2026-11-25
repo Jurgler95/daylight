@@ -2,7 +2,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { StyleSheet, type PressableProps, type ViewStyle } from 'react-native';
 
 import { haptics } from '@/lib/haptics';
-import { TOUCH_TARGET, radius, spacing, sunnyGradient, useTheme } from '@/lib/theme';
+import { TOUCH_TARGET, radius, spacing, useTheme } from '@/lib/theme';
 
 import { AppText } from './AppText';
 import { PressableScale } from './PressableScale';
@@ -14,10 +14,10 @@ interface Props extends Omit<PressableProps, 'children' | 'style'> {
 }
 
 export function Button({ label, variant = 'primary', disabled, style, onPress, accessibilityLabel = label, ...rest }: Props) {
-  const { colors } = useTheme();
+  const { colors, gradients } = useTheme();
   const primary = variant === 'primary';
   const background = variant === 'secondary' ? colors.accentSoft : 'transparent';
-  const text = primary ? colors.textOnAccent : colors.accent;
+  const text = primary ? colors.textOnGradient : colors.accent;
 
   return (
     <PressableScale
@@ -39,7 +39,7 @@ export function Button({ label, variant = 'primary', disabled, style, onPress, a
       ]}
     >
       {primary ? (
-        <LinearGradient colors={sunnyGradient} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
+        <LinearGradient colors={gradients.sunny} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
       ) : null}
       <AppText variant="label" color={text}>
         {label}

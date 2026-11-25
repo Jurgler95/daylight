@@ -11,7 +11,7 @@ import { formatLong, formatWeekdayShort, type DateString } from '@/lib/dates';
 import { formatDurationShort, formatSteps } from '@/lib/health/format';
 import type { IconName } from '@/lib/icons';
 import type { SearchHit } from '@/lib/search/search';
-import { TOUCH_TARGET, moodColors, radius, spacing, useTheme } from '@/lib/theme';
+import { TOUCH_TARGET, radius, spacing, useTheme } from '@/lib/theme';
 
 /** Icons beyond this collapse into "+n", so a busy day stays on one line. */
 const MAX_ICONS = 10;
@@ -43,7 +43,7 @@ function healthParts(health: HealthDay): { icon: IconName; text: string; kind: k
 
 /** One entry in the timeline: day, mood, activity icons and a note excerpt. Matched activities are highlighted. */
 export const EntryRow = memo(function EntryRow({ hit, catalog, health, healthLabels, onPress }: Props) {
-  const { colors } = useTheme();
+  const { colors, mood: moodColors } = useTheme();
   const { entry } = hit;
   const mood = catalog.moodById.get(entry.mood_id);
   const activities = entry.activity_ids

@@ -2,6 +2,7 @@ import { createContext, useContext, type PropsWithChildren } from 'react';
 
 import { useToday } from '@/lib/dates/useToday';
 import { useSettingsStore } from '@/lib/store/settingsStore';
+import { useTheme } from '@/lib/theme';
 
 import { appearanceOf, type Appearance } from './appearance';
 import { activeDesign } from './calendar';
@@ -30,8 +31,9 @@ export function useDesign(): DesignKey | null {
   return useContext(DesignContext);
 }
 
-/** Glow, backdrop and strewn motifs of today's design, null for the plain daylight look. */
+/** Glow, backdrop and strewn motifs of today's design in the scheme on screen, null for the plain daylight look. */
 export function useAppearance(): Appearance | null {
   const key = useDesign();
-  return key ? appearanceOf(key) : null;
+  const { scheme } = useTheme();
+  return key ? appearanceOf(key, scheme) : null;
 }

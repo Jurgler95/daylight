@@ -4,10 +4,12 @@ import { StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/ui';
 import { TIER_COUNT } from '@/lib/achievements';
-import { moodColors, spacing, useTheme, withAlpha } from '@/lib/theme';
+import { spacing, useTheme, withAlpha } from '@/lib/theme';
 
-/** Warm gold for an earned star; the outline against the filled glyph carries the meaning too. */
-export const STAR_COLOR = moodColors[3].strong;
+/** Warm gold for an earned star, the yellow of the middle mood in the scheme on screen; the outline against the filled glyph carries the meaning too. */
+export function useStarColor(): string {
+  return useTheme().mood[3].strong;
+}
 
 /**
  * Each star looks a little better than the one before: bronze, silver and gold as plain stars, then
@@ -22,13 +24,13 @@ const TIERS: readonly { color: string; outline?: string; medal?: readonly [strin
 ];
 
 /** Colour of the highest earned star, for things that follow the achievement's standing. */
-export function tierColor(stars: number): string {
-  return stars === 0 ? STAR_COLOR : TIERS[Math.min(stars, TIER_COUNT) - 1]!.color;
+export function tierColor(stars: number, starColor: string): string {
+  return stars === 0 ? starColor : TIERS[Math.min(stars, TIER_COUNT) - 1]!.color;
 }
 
 /** The star at `index` (0-based), earned or still an outline. Takes up `size` plus a little room for the medallions. */
 export function TierStar({ index, earned, size = 26 }: { index: number; earned: boolean; size?: number }) {
-  const { colors } = useTheme();
+  const { colors, scheme } = useTheme();
   const tier = TIERS[index]!;
   const box = Math.round(size * 1.3);
   if (!earned) {
@@ -39,11 +41,12 @@ export function TierStar({ index, earned, size = 26 }: { index: number; earned: 
     );
   }
   if (!tier.medal) {
-    // A darker outline over the fill, so even the first stars stand out on a light card.
+    // A darker outline over the fill, so even the first stars stand out on a light card. On a dark
+    // card the fill stands out by itself and a dark outline would only shrink the star.
     return (
       <View style={[styles.slot, { width: box, height: box }]}>
         <MaterialCommunityIcons name="star" size={size} color={tier.color} />
-        <MaterialCommunityIcons name="star-outline" size={size} color={tier.outline} style={styles.outline} />
+        {scheme === 'light' ? <MaterialCommunityIcons name="star-outline" size={size} color={tier.outline} style={styles.outline} /> : null}
       </View>
     );
   }

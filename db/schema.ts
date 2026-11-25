@@ -152,6 +152,8 @@ export const settings = sqliteTable('settings', {
   outlook_enabled: integer('outlook_enabled', { mode: 'boolean' }).notNull().default(true),
   /** A `Language` ("de", "en", ...); null follows the device. Device-local, never exported. */
   language: text('language', { enum: ['de', 'en', 'es', 'pt', 'fr', 'it'] }),
+  /** "light" or "dark" ("Erscheinungsbild" under "Mehr"); null follows the device. Device-local like the language, never exported. */
+  color_scheme: text('color_scheme', { enum: ['light', 'dark'] }),
   /** ISO timestamp of the last full JSON backup. Device-local, never part of an export. */
   last_export_at: text('last_export_at'),
   /** Day the low mood note on "Heute" was last put away ("YYYY-MM-DD"). Device-local, never exported. */

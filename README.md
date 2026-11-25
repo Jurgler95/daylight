@@ -27,6 +27,7 @@ A mood journal for Android that doesn't know your data. No account, no servers, 
 - 🏆 **Awards for keeping at it.** Stars for days and weeks in a row, for notes, photos, activities, sleep and steps. Only the journaling is rewarded, never how a day went.
 - 🔭 **An honest outlook.** Daylight estimates the next seven days, but only where that measurably works better on your own data than simple guessing. Otherwise the outlook steps back and says so.
 - ❤️ **Health data, if you want.** Steps, sleep, resting heart rate and exercise from Health Connect, for example from a smartwatch. Read only, and only after you agree.
+- 🌙 **Dark mode for the evening.** A night blue scheme that follows your phone or stays light or dark, with mood colours and the year in pixels tuned for dark backgrounds. The seasonal designs come along.
 - 🛡️ **Protected.** App lock with your device's screen lock, no screenshots while the lock is on, no Android cloud backup. The optional evening reminder reveals nothing from your journal.
 
 The app is available in English, German, Spanish, Portuguese (Brazil), French and Italian.

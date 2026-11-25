@@ -4,7 +4,7 @@ import Svg, { SvgAst, parse, type JsxAST } from 'react-native-svg';
 import type { DesignKey } from '@/lib/seasons/designs';
 import { appearanceOf } from '@/lib/seasons/appearance';
 import { useDesign } from '@/lib/seasons/useDesign';
-import { useTheme } from '@/lib/theme';
+import { useTheme, type ColorScheme } from '@/lib/theme';
 
 import { LogoShapes } from './Logo';
 import { LOGO_GRID } from './logoPaths';
@@ -26,9 +26,10 @@ function ast(id: string, markup: () => string): JsxAST | null {
   return parsed.get(id) ?? null;
 }
 
-const backdropAst = (key: DesignKey) => ast(`${key}:backdrop`, () => `<svg viewBox="${VIEW_BOX}">${appearanceOf(key).backdrop}</svg>`);
-const scatterAst = (key: DesignKey, i: number) =>
-  ast(`${key}:scatter:${i}`, () => `<svg viewBox="-11 -11 22 22">${appearanceOf(key).scatter[i]?.markup ?? ''}</svg>`);
+const backdropAst = (key: DesignKey, scheme: ColorScheme) =>
+  ast(`${key}:${scheme}:backdrop`, () => `<svg viewBox="${VIEW_BOX}">${appearanceOf(key, scheme).backdrop}</svg>`);
+const scatterAst = (key: DesignKey, scheme: ColorScheme, i: number) =>
+  ast(`${key}:${scheme}:scatter:${i}`, () => `<svg viewBox="-11 -11 22 22">${appearanceOf(key, scheme).scatter[i]?.markup ?? ''}</svg>`);
 
 /**
  * The logo's wavy ring, spiral and sun in faded petrol and amber, oversized and cut off in the lower
@@ -37,7 +38,7 @@ const scatterAst = (key: DesignKey, i: number) =>
  * absolutely positioned, never interactive, hidden from assistive technology.
  */
 export function LogoBackdrop() {
-  const { colors } = useTheme();
+  const { colors, scheme } = useTheme();
   const design = useDesign();
   const { width } = useWindowDimensions();
   const scale = design ? DESIGN_SCALE : 1;
@@ -48,7 +49,7 @@ export function LogoBackdrop() {
   return (
     <View pointerEvents="none" style={styles.wrap} accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
       {design ? (
-        <SvgAst ast={backdropAst(design)} override={{ width: size, height: size, style: place }} />
+        <SvgAst ast={backdropAst(design, scheme)} override={{ width: size, height: size, style: place }} />
       ) : (
         <Svg width={size} height={size} viewBox={VIEW_BOX} style={place}>
           <LogoShapes mark={colors.decorMark} sun={colors.decorSun} />
@@ -65,8 +66,9 @@ export function LogoBackdrop() {
  */
 export function SeasonScatter() {
   const design = useDesign();
+  const { scheme } = useTheme();
   const { width, height } = useWindowDimensions();
-  const spots = design ? appearanceOf(design).scatter : [];
+  const spots = design ? appearanceOf(design, scheme).scatter : [];
   if (!design || !spots.length) return null;
 
   return (
@@ -76,7 +78,7 @@ export function SeasonScatter() {
         return (
           <SvgAst
             key={i}
-            ast={scatterAst(design, i)}
+            ast={scatterAst(design, scheme, i)}
             override={{ width: edge, height: edge, style: { position: 'absolute', left: spot.x * width - edge / 2, top: spot.y * height - edge / 2 } }}
           />
         );

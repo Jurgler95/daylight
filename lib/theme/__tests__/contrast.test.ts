@@ -2,7 +2,7 @@ import { MOOD_LEVELS } from '@/db/schema';
 import { appearanceOf, colorsOf } from '@/lib/seasons/appearance';
 import { DESIGN_KEYS } from '@/lib/seasons/designs';
 
-import { CARD_OPACITY, colors, moodColors, sunnyGradient, tileColors, trophyGradient, trophySoftText, typography, TOUCH_TARGET, type Colors } from '../tokens';
+import { CARD_OPACITY, palettes, typography, TOUCH_TARGET, type Colors } from '../tokens';
 
 /** WCAG relative luminance and contrast ratio for opaque colours. */
 function luminance(hex: string): number {
@@ -53,115 +53,132 @@ const PAIRS: { fg: keyof Colors; bg: keyof Colors; large?: boolean }[] = [
   { fg: 'amber', bg: 'surface' },
   { fg: 'amber', bg: 'background' },
   { fg: 'text', bg: 'amberSoft' },
+  // The toast announcing a new star fades from `medalSoft` into the card.
+  { fg: 'text', bg: 'medalSoft' },
+  { fg: 'textMuted', bg: 'medalSoft' },
 ];
 
-describe('colour palette', () => {
-  it.each(PAIRS)('$fg on $bg meets WCAG AA', ({ fg, bg, large }) => {
-    const ratio = contrastRatio(colors[fg], colors[bg]);
-    expect(ratio).toBeGreaterThanOrEqual(large ? 3 : 4.5);
-  });
+const SCHEMES = [palettes.light, palettes.dark].map((palette) => ({ scheme: palette.scheme, palette }));
 
-  it.each(PAIRS.filter((pair) => pair.bg === 'background'))('$fg stays readable over the logo backdrop', ({ fg, large }) => {
-    for (const bg of PAGE) expect(contrastRatio(colors[fg], colors[bg])).toBeGreaterThanOrEqual(large ? 3 : 4.5);
-  });
+describe.each(SCHEMES)('$scheme scheme', ({ scheme, palette }) => {
+  const { colors, mood: moodColors, tiles: tileColors, gradients, trophySoftText } = palette;
 
-  it.each(PAIRS.filter((pair) => CARD_TONES.includes(pair.bg)))('$fg on a translucent $bg card meets WCAG AA over the backdrop', ({ fg, bg, large }) => {
-    for (const page of PAGE) {
-      expect(contrastRatio(colors[fg], over(colors[bg], CARD_OPACITY, colors[page]))).toBeGreaterThanOrEqual(large ? 3 : 4.5);
-    }
-  });
+  describe('colour palette', () => {
+    it.each(PAIRS)('$fg on $bg meets WCAG AA', ({ fg, bg, large }) => {
+      const ratio = contrastRatio(colors[fg], colors[bg]);
+      expect(ratio).toBeGreaterThanOrEqual(large ? 3 : 4.5);
+    });
 
-  it('keeps the logo backdrop faint but not invisible', () => {
-    for (const decor of ['decorMark', 'decorSun', 'glow'] as const) {
-      const ratio = contrastRatio(colors[decor], colors.background);
-      expect(ratio).toBeGreaterThan(1.05);
-      expect(ratio).toBeLessThan(1.2);
-    }
-  });
+    it.each(PAIRS.filter((pair) => pair.bg === 'background'))('$fg stays readable over the logo backdrop', ({ fg, large }) => {
+      for (const bg of PAGE) expect(contrastRatio(colors[fg], colors[bg])).toBeGreaterThanOrEqual(large ? 3 : 4.5);
+    });
 
-  it('keeps non-text markers visible against their background', () => {
-    // Calendar dots and bars carry meaning, so they need at least the 3:1 of a graphical object.
-    expect(contrastRatio(colors.accent, colors.accentSoft)).toBeGreaterThanOrEqual(3);
-    expect(contrastRatio(colors.border, colors.surface)).toBeGreaterThanOrEqual(1.2);
-  });
-});
-
-/**
- * A seasonal design replaces glow and backdrop (`lib/seasons/appearance.ts`). Every tone it paints,
- * the glow included, holds the text that sits straight on a page, red warnings included. Mood
- * colours only appear on cards, so they are checked on a translucent card over the decor; the rest of
- * the palette stays as it is.
- */
-describe('seasonal designs', () => {
-  const PAGE_TEXT = ['text', 'textMuted', 'accent', 'amber', 'danger'] as const;
-  const designs = DESIGN_KEYS.map((key) => ({ key, tones: colorsOf(appearanceOf(key)) }));
-
-  it.each(designs)('$key: page text keeps 4.5:1 on every decor tone', ({ tones }) => {
-    for (const tone of tones) {
-      for (const fg of PAGE_TEXT) expect(contrastRatio(colors[fg], tone)).toBeGreaterThanOrEqual(4.5);
-    }
-  });
-
-  it.each(designs)('$key: text on translucent cards stays readable over the decor', ({ tones }) => {
-    for (const tone of tones) {
-      for (const { fg, bg } of PAIRS.filter((pair) => CARD_TONES.includes(pair.bg))) {
-        expect(contrastRatio(colors[fg], over(colors[bg], CARD_OPACITY, tone))).toBeGreaterThanOrEqual(4.5);
+    it.each(PAIRS.filter((pair) => CARD_TONES.includes(pair.bg)))('$fg on a translucent $bg card meets WCAG AA over the backdrop', ({ fg, bg, large }) => {
+      for (const page of PAGE) {
+        expect(contrastRatio(colors[fg], over(colors[bg], CARD_OPACITY, colors[page]))).toBeGreaterThanOrEqual(large ? 3 : 4.5);
       }
-      for (const card of CARD_TONES) {
-        const fill = over(colors[card], CARD_OPACITY, tone);
-        for (const strong of [colors.danger, ...MOOD_LEVELS.map((level) => moodColors[level].strong)]) {
-          expect(contrastRatio(strong, fill)).toBeGreaterThanOrEqual(4.5);
+    });
+
+    it('keeps the logo backdrop faint but not invisible', () => {
+      for (const decor of ['decorMark', 'decorSun', 'glow'] as const) {
+        const ratio = contrastRatio(colors[decor], colors.background);
+        expect(ratio).toBeGreaterThan(1.05);
+        expect(ratio).toBeLessThan(1.2);
+      }
+    });
+
+    it('keeps non-text markers visible against their background', () => {
+      // Calendar dots and bars carry meaning, so they need at least the 3:1 of a graphical object.
+      expect(contrastRatio(colors.accent, colors.accentSoft)).toBeGreaterThanOrEqual(3);
+      expect(contrastRatio(colors.border, colors.surface)).toBeGreaterThanOrEqual(1.2);
+      // A switch's knob on its card. In the light scheme the white knob carries a shadow instead.
+      if (scheme === 'dark') expect(contrastRatio(colors.switchThumb, colors.surface)).toBeGreaterThanOrEqual(3);
+    });
+  });
+
+  /**
+   * A seasonal design replaces glow and backdrop (`lib/seasons/appearance.ts`). Every tone it paints,
+   * the glow included, holds the text that sits straight on a page, red warnings included. Mood
+   * colours only appear on cards, so they are checked on a translucent card over the decor; the rest of
+   * the palette stays as it is.
+   */
+  describe('seasonal designs', () => {
+    const PAGE_TEXT = ['text', 'textMuted', 'accent', 'amber', 'danger'] as const;
+    const designs = DESIGN_KEYS.map((key) => ({ key, tones: colorsOf(appearanceOf(key, scheme)) }));
+
+    it.each(designs)('$key: page text keeps 4.5:1 on every decor tone', ({ tones }) => {
+      for (const tone of tones) {
+        for (const fg of PAGE_TEXT) expect(contrastRatio(colors[fg], tone)).toBeGreaterThanOrEqual(4.5);
+      }
+    });
+
+    it.each(designs)('$key: text on translucent cards stays readable over the decor', ({ tones }) => {
+      for (const tone of tones) {
+        for (const { fg, bg } of PAIRS.filter((pair) => CARD_TONES.includes(pair.bg))) {
+          expect(contrastRatio(colors[fg], over(colors[bg], CARD_OPACITY, tone))).toBeGreaterThanOrEqual(4.5);
+        }
+        for (const card of CARD_TONES) {
+          const fill = over(colors[card], CARD_OPACITY, tone);
+          for (const strong of [colors.danger, ...MOOD_LEVELS.map((level) => moodColors[level].strong)]) {
+            expect(contrastRatio(strong, fill)).toBeGreaterThanOrEqual(4.5);
+          }
         }
       }
-    }
+    });
+
+    it.each(designs)('$key: shows more than the plain glow, the decor visible on the page', ({ key, tones }) => {
+      const { glow } = appearanceOf(key, scheme);
+      expect(contrastRatio(glow, colors.background)).toBeGreaterThan(1.05);
+      expect(tones.some((tone) => contrastRatio(tone, colors.background) > 1.1)).toBe(true);
+    });
   });
 
-  it.each(designs)('$key: shows more than the plain glow, the decor visible on the page', ({ key, tones }) => {
-    const { glow } = appearanceOf(key);
-    expect(contrastRatio(glow, colors.background)).toBeGreaterThan(1.05);
-    expect(tones.some((tone) => contrastRatio(tone, colors.background) > 1.1)).toBe(true);
-  });
-});
+  describe('bright extras', () => {
+    it.each(tileColors.map((tile, index) => ({ index, ...tile })))('icon tile $index stays visible on its fill', ({ strong, soft }) => {
+      expect(contrastRatio(strong, soft)).toBeGreaterThanOrEqual(3);
+    });
 
-describe('bright extras', () => {
-  it.each(tileColors.map((tile, index) => ({ index, ...tile })))('icon tile $index stays visible on its fill', ({ strong, soft }) => {
-    expect(contrastRatio(strong, soft)).toBeGreaterThanOrEqual(3);
-  });
+    it.each([...gradients.sunny, ...gradients.trophy])('label reads on the gradient stop %s', (stop) => {
+      expect(contrastRatio(colors.textOnGradient, stop)).toBeGreaterThanOrEqual(4.5);
+    });
 
-  it.each([...sunnyGradient, ...trophyGradient])('white label reads on the gradient stop %s', (stop) => {
-    expect(contrastRatio(colors.textOnAccent, stop)).toBeGreaterThanOrEqual(4.5);
+    it.each([...gradients.trophy])('soft text reads on the trophy gradient stop %s', (stop) => {
+      expect(contrastRatio(trophySoftText, stop)).toBeGreaterThanOrEqual(4.5);
+    });
   });
 
-  it.each([...trophyGradient])('soft text reads on the trophy gradient stop %s', (stop) => {
-    expect(contrastRatio(trophySoftText, stop)).toBeGreaterThanOrEqual(4.5);
-  });
-});
+  describe('mood colours', () => {
+    it.each(MOOD_LEVELS)('level %i: strong colour works as text on every surface, over the backdrop and on its soft fill', (level) => {
+      const { strong, soft } = moodColors[level];
+      const pages = PAGE.map((page) => colors[page]);
+      const cards = CARD_TONES.flatMap((tone) => pages.map((page) => over(colors[tone], CARD_OPACITY, page)));
+      for (const bg of [colors.surface, colors.surfaceMuted, soft, ...pages, ...cards]) {
+        expect(contrastRatio(strong, bg)).toBeGreaterThanOrEqual(4.5);
+      }
+    });
 
-describe('mood colours', () => {
-  it.each(MOOD_LEVELS)('level %i: strong colour works as text on every surface, over the backdrop and on its soft fill', (level) => {
-    const { strong, soft } = moodColors[level];
-    const pages = PAGE.map((page) => colors[page]);
-    const cards = CARD_TONES.flatMap((tone) => pages.map((page) => over(colors[tone], CARD_OPACITY, page)));
-    for (const bg of [colors.surface, colors.surfaceMuted, soft, ...pages, ...cards]) {
-      expect(contrastRatio(strong, bg)).toBeGreaterThanOrEqual(4.5);
-    }
+    it.each(MOOD_LEVELS)('level %i: icon on the strong colour and body text on the soft fill', (level) => {
+      const { strong, soft } = moodColors[level];
+      expect(contrastRatio(colors.textOnAccent, strong)).toBeGreaterThanOrEqual(4.5);
+      expect(contrastRatio(colors.text, soft)).toBeGreaterThanOrEqual(4.5);
+    });
+
+    it('gold star text reads on the star toast', () => {
+      expect(contrastRatio(moodColors[3].strong, colors.medalSoft)).toBeGreaterThanOrEqual(4.5);
+      expect(contrastRatio(moodColors[3].strong, colors.surface)).toBeGreaterThanOrEqual(4.5);
+    });
+
+    it('keeps neighbouring levels apart', () => {
+      // Pixels and calendar days sit side by side; adjacent levels must not collapse into one colour.
+      const rgb = (hex: string) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+      for (const level of [1, 2, 3, 4] as const) {
+        const a = rgb(moodColors[level].strong);
+        const b = rgb(moodColors[(level + 1) as 2 | 3 | 4 | 5].strong);
+        expect(Math.hypot(...a.map((v, i) => v - (b[i] ?? 0)))).toBeGreaterThanOrEqual(50);
+      }
+    });
   });
 
-  it.each(MOOD_LEVELS)('level %i: white icon on the strong colour and body text on the soft fill', (level) => {
-    const { strong, soft } = moodColors[level];
-    expect(contrastRatio(colors.textOnAccent, strong)).toBeGreaterThanOrEqual(4.5);
-    expect(contrastRatio(colors.text, soft)).toBeGreaterThanOrEqual(4.5);
-  });
-
-  it('keeps neighbouring levels apart', () => {
-    // Pixels and calendar days sit side by side; adjacent levels must not collapse into one colour.
-    const rgb = (hex: string) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
-    for (const level of [1, 2, 3, 4] as const) {
-      const a = rgb(moodColors[level].strong);
-      const b = rgb(moodColors[(level + 1) as 2 | 3 | 4 | 5].strong);
-      expect(Math.hypot(...a.map((v, i) => v - (b[i] ?? 0)))).toBeGreaterThanOrEqual(50);
-    }
-  });
 });
 
 describe('type and touch targets', () => {

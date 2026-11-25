@@ -38,6 +38,7 @@ export default function MoreScreen() {
   const healthEnabled = useSettingsStore((s) => s.settings?.health_enabled ?? false);
   const designSeasons = useSettingsStore((s) => s.settings?.design_seasons ?? true);
   const designFestivals = useSettingsStore((s) => s.settings?.design_festivals ?? true);
+  const colorScheme = useSettingsStore((s) => s.settings?.color_scheme ?? 'system');
   const backup = useBackupStatus();
   const rateApp = useRateApp();
   const backupValue = !backup.everExported
@@ -94,6 +95,17 @@ export default function MoreScreen() {
         <AppText variant="caption" muted>
           {t('settings.designSection').toUpperCase()}
         </AppText>
+        {/* "System" follows the phone, also when it switches by itself in the evening. */}
+        <Segmented
+          label={t('settings.colorScheme')}
+          options={[
+            { value: 'system', label: t('settings.colorSchemeSystem') },
+            { value: 'light', label: t('settings.colorSchemeLight') },
+            { value: 'dark', label: t('settings.colorSchemeDark') },
+          ]}
+          value={colorScheme}
+          onChange={(next) => updateSettings({ color_scheme: next === 'system' ? null : next })}
+        />
         <ToggleRow
           label={t('settings.designSeasons')}
           hint={t('settings.designSeasonsHint')}

@@ -26,7 +26,7 @@ import { formatCount } from '@/lib/insights';
 import { useOverlaySlot } from '@/lib/store/overlays';
 import { medalGradient, radius, spacing, TOUCH_TARGET, useTheme, withAlpha } from '@/lib/theme';
 
-import { STAR_COLOR, TierStar } from './StarRow';
+import { TierStar, useStarColor } from './StarRow';
 
 /** How long the message stays before it counts as seen and slides away. */
 export const TOAST_MS = 8000;
@@ -63,6 +63,7 @@ function Delayed({ children }: { children: ReactNode }) {
 }
 
 function Toast({ news, acknowledge }: { news: StarNews; acknowledge: () => void }) {
+  const starColor = useStarColor();
   const { t } = useTranslation();
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
@@ -105,13 +106,13 @@ function Toast({ news, acknowledge }: { news: StarNews; acknowledge: () => void 
         accessibilityRole="button"
         accessibilityLabel={`${text.eyebrow}. ${text.title}. ${text.detail}. ${t('achievements.toast.open')}`}
         accessibilityLiveRegion="polite"
-        style={({ pressed }) => [styles.card, { backgroundColor: colors.surface, borderColor: withAlpha(STAR_COLOR, 0.35), shadowColor: STAR_COLOR, transform: [{ scale: pressed ? 0.98 : 1 }] }]}
+        style={({ pressed }) => [styles.card, { backgroundColor: colors.surface, borderColor: withAlpha(starColor, 0.35), shadowColor: starColor, transform: [{ scale: pressed ? 0.98 : 1 }] }]}
       >
-        <LinearGradient colors={['#FFF4CC', colors.surface]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
+        <LinearGradient colors={[colors.medalSoft, colors.surface]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
         <View style={styles.row}>
           <Medal />
           <View style={styles.text}>
-            <AppText variant="caption" color={STAR_COLOR}>
+            <AppText variant="caption" color={starColor}>
               {text.eyebrow.toUpperCase()}
             </AppText>
             <AppText variant="headline" numberOfLines={1}>
@@ -149,8 +150,8 @@ function Toast({ news, acknowledge }: { news: StarNews; acknowledge: () => void 
             <Ionicons name="chevron-forward" size={16} color={colors.textOnAccent} />
           </View>
         </View>
-        <View style={[styles.track, { backgroundColor: withAlpha(STAR_COLOR, 0.15) }]}>
-          <Animated.View style={[styles.bar, { backgroundColor: STAR_COLOR }, bar]} />
+        <View style={[styles.track, { backgroundColor: withAlpha(starColor, 0.15) }]}>
+          <Animated.View style={[styles.bar, { backgroundColor: starColor }, bar]} />
         </View>
       </Pressable>
     </Animated.View>
@@ -208,6 +209,7 @@ function Medal() {
 }
 
 function Spark({ angle, burst }: { angle: number; burst: SharedValue<number> }) {
+  const starColor = useStarColor();
   const style = useAnimatedStyle(() => {
     const distance = 20 + burst.value * 12;
     return {
@@ -217,7 +219,7 @@ function Spark({ angle, burst }: { angle: number; burst: SharedValue<number> }) 
   });
   return (
     <Animated.View style={[styles.spark, style]}>
-      <MaterialCommunityIcons name="star-four-points" size={10} color={STAR_COLOR} />
+      <MaterialCommunityIcons name="star-four-points" size={10} color={starColor} />
     </Animated.View>
   );
 }
@@ -237,6 +239,7 @@ const BADGES = 5;
 
 /** With stars in several achievements: their icons pop in one after the other, the rest as "+n". */
 function PopBadges({ achievements }: { achievements: readonly Achievement[] }) {
+  const starColor = useStarColor();
   const { colors } = useTheme();
   const shown = achievements.slice(0, BADGES);
   const rest = achievements.length - shown.length;
@@ -246,7 +249,7 @@ function PopBadges({ achievements }: { achievements: readonly Achievement[] }) {
         <PopBadge key={achievement.key} icon={achievement.icon} delay={180 + index * 60} ring={colors.surface} />
       ))}
       {rest > 0 ? (
-        <AppText variant="caption" color={STAR_COLOR} style={styles.rest}>
+        <AppText variant="caption" color={starColor} style={styles.rest}>
           {`+${rest}`}
         </AppText>
       ) : null}

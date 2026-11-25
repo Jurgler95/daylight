@@ -1,0 +1,15 @@
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'de.behla.daylight'
+version = '1.0.0'
+
+android {
+  namespace "de.behla.daylight.theme"
+  defaultConfig {
+    versionCode 1
+    versionName '1.0.0'
+  }
+}

@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { AppText } from '@/components/ui';
 import type { MoodLevel } from '@/db/schema';
 import { formatPercent, type LevelCount } from '@/lib/insights';
-import { moodColors, radius, spacing, useTheme } from '@/lib/theme';
+import { radius, spacing, useTheme } from '@/lib/theme';
 
 interface Props {
   label: string;
@@ -13,7 +13,7 @@ interface Props {
 
 /** One stacked bar of mood shares with a label in front; spoken as the shares in words. */
 export function LevelBar({ label, levels, moodLabel }: Props) {
-  const { colors } = useTheme();
+  const { colors, mood: moodColors } = useTheme();
   const spoken = levels
     .filter((level) => level.days > 0)
     .map((level) => `${moodLabel(level.level)} ${formatPercent(level.share)}`)

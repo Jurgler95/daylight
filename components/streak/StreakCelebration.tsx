@@ -179,7 +179,7 @@ function Overlay({ celebration, close }: { celebration: Celebration; close: () =
     <Animated.View
       entering={reduceMotion ? undefined : FadeIn.duration(200)}
       exiting={reduceMotion ? undefined : FadeOut.duration(160)}
-      style={[StyleSheet.absoluteFill, styles.overlay, { backgroundColor: withAlpha(colors.text, 0.55) }]}
+      style={[StyleSheet.absoluteFill, styles.overlay, { backgroundColor: withAlpha(colors.scrim, 0.55) }]}
       accessibilityViewIsModal
     >
       <Pressable style={StyleSheet.absoluteFill} onPress={close} accessible={false} importantForAccessibility="no" />
