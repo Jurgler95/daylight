@@ -1,0 +1,43 @@
+Daylight adalah jurnal suasana hati yang tidak mengenal datamu. Tanpa akun, tanpa server, tanpa analitik, tanpa iklan, dan tanpa izin internet. Semuanya tetap di perangkatmu.
+
+Bagaimana harimu? Ketuk suasana hati, pilih apa yang kamu lakukan, selesai. Catatan, skala buatanmu sendiri, dan satu foto per hari bersifat opsional: mood tracker-mu bisa tetap singkat atau menjadi buku harian sungguhan.
+
+APA YANG DILAKUKAN DAYLIGHT
+
+🔒 Sepenuhnya offline
+Daylight sama sekali tidak punya izin internet. Entrimu tersimpan di database di ponselmu dan hanya keluar dari sana saat kamu sendiri membagikan cadangan.
+Exodus Privacy tidak menemukan pelacak apa pun di Daylight: https://reports.exodus-privacy.eu.org/en/reports/de.behla.daylight/latest/
+
+⚡ Tercatat dalam hitungan detik
+Lima suasana hati dan aktivitas yang dikelompokkan seperti emosi, tidur, cuaca, sosial, dan pekerjaan. Ganti nama, ubah urutan, arsipkan, atau tambahkan aktivitasmu sendiri, lengkap dengan ikon.
+
+📅 Kalender
+Setiap hari dengan warnanya sendiri, sehingga masa-masa baik dan berat langsung terlihat. Hari dengan lebih dari satu entri ditandai, dan aktivitas yang direncanakan muncul di hari-hari mendatang.
+
+📊 Wawasan tentang polamu
+Tren dan rata-rata 7 hari, distribusi, hari dalam seminggu dan bulan, tahunmu dalam piksel, minggu yang tenang dan gelisah, hari beruntun, aktivitas mana yang menyertai hari lebih baik atau lebih buruk, apa yang biasanya menyusul keesokan harinya, dan kata-kata yang sering muncul di catatanmu. Selalu gambaran dari entrimu, tidak pernah diagnosis.
+
+🌅 Titik balik
+Tandai hingga empat hari per tahun yang mengubah sesuatu, seperti pekerjaan baru atau pindah rumah. Daylight membandingkan masa sebelum dan sesudahnya: suasana hati, aktivitas, dan data kesehatan.
+
+🔭 Perkiraan yang jujur
+Daylight memperkirakan tujuh hari ke depan, tetapi hanya jika pada datamu sendiri cara itu terbukti lebih baik daripada sekadar menebak. Jika tidak, perkiraan mundur dan memberitahumu.
+
+🏆 Penghargaan untuk konsistensi
+Bintang untuk hari dan minggu berturut-turut, untuk catatan, foto, aktivitas, tidur, dan langkah. Hanya kebiasaan mencatat yang dihargai, tidak pernah bagaimana harimu berjalan.
+
+❤️ Data kesehatan, jika kamu mau
+Langkah, tidur, denyut jantung istirahat, dan olahraga dari Health Connect, misalnya dari smartwatch, di samping suasana hatimu. Hanya dibaca, dan hanya setelah kamu menyetujuinya.
+
+🛡️ Terlindungi
+Kunci aplikasi dengan kunci layar perangkatmu, tanpa tangkapan layar selama kunci aktif, tanpa cadangan cloud Android. Pengingat malam yang opsional tidak mengungkapkan apa pun dari jurnalmu.
+
+📦 Datamu, filemu
+Bagikan atau simpan cadangan lengkap dengan foto, pulihkan kapan saja, dan ekspor sebagai CSV. Pindah dari aplikasi jurnal suasana hati lain? Daylight mengimpor jurnal yang sudah ada secara lengkap, sebagai ekspor CSV atau cadangan dengan foto, dan menampilkan pratinjau sebelum ada yang berubah.
+
+Catatan: aplikasinya sendiri tersedia dalam bahasa Inggris, Jerman, Spanyol, Prancis, Italia, dan Portugis (Brasil), belum dalam bahasa Indonesia.
+
+GRATIS DAN OPEN SOURCE
+Daylight adalah perangkat lunak bebas di bawah GNU GPL, versi 3 atau yang lebih baru. Tanpa iklan, tanpa pembelian dalam aplikasi, tanpa pelacakan.
+
+Daylight bukan perangkat medis dan tidak menggantikan saran atau perawatan. Jika kamu sudah lama merasa sedih, bicaralah dengan orang yang kamu percaya atau dengan layanan dukungan di daerahmu.

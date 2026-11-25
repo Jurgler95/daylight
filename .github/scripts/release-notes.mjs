@@ -23,6 +23,7 @@ import { join } from 'node:path';
 
 import { RELEASES } from '../../lib/changelog/index.ts';
 import { LANGUAGES } from '../../lib/i18n/language.ts';
+import { BORROWED_IMAGES } from '../../store/locales.mjs';
 
 const version = process.argv[2]?.replace(/^v/, '');
 const whatsnewAt = process.argv[3] === '--whatsnew' ? process.argv[4] : null;
@@ -37,8 +38,20 @@ const pkg = readJson('package.json');
 const lock = readJson('package-lock.json');
 const release = RELEASES[0];
 const PLAY_LIMIT = 500;
-/** Store-Sprachen je Sprache der App, wie in fastlane/metadata/android. Spanisch für Spanien und Lateinamerika. */
+/**
+ * Store-Sprachen je Sprache der App, wie in fastlane/metadata/android. Spanisch für Spanien und Lateinamerika.
+ * Dazu die Store-Sprachen ohne eigene Bilder aus store/locales.mjs in der Sprache ihrer Bilder, etwa nl-NL auf
+ * Englisch, sonst stünde dort die Standardsprache des Eintrags.
+ */
 const PLAY_LOCALES = { de: ['de-DE'], en: ['en-US'], es: ['es-ES', 'es-419'], pt: ['pt-BR'], fr: ['fr-FR'], it: ['it-IT'] };
+for (const [locale, source] of Object.entries(BORROWED_IMAGES)) {
+  const language = Object.keys(PLAY_LOCALES).find((key) => PLAY_LOCALES[key].includes(source));
+  if (!language) {
+    console.error(`${locale} soll die Bilder von ${source} bekommen, das ist keine Store-Sprache in PLAY_LOCALES`);
+    process.exit(1);
+  }
+  PLAY_LOCALES[language].push(locale);
+}
 
 const unmapped = LANGUAGES.filter((language) => !PLAY_LOCALES[language]);
 if (unmapped.length > 0) {

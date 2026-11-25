@@ -46,7 +46,7 @@ Nach neuen Dateien unter `app/` einmal `npx expo customize tsconfig.json` ausfü
 | `lib/dev/` | Synthetische Beispieldaten (ein Jahr), geladen über den Import-Pfad. |
 | `lib/` sonst | `dates` (einziger Ort für date-fns, `useToday` für den Tageswechsel), `theme` (Palette "Tageslicht", Stimmungsfarben), `i18n`, `haptics`, `store` (`useQuery`/`mutate`, Einstellungen, gewählter Tag, Reihenfolge der Overlays), `icons` (Typ und Symbolauswahl), `manage`, `changelog`. |
 | `components/` | `ui/` Bausteine aus Zyklus (AppText, Card, Button, Chip, ListRow, Screen, Segmented, SelectRow usw., dazu `Logo` und der blasse `LogoBackdrop` mit der generierten Geometrie aus `logoPaths.ts`), `calendar/` Monatsliste und `DayGlyph` (künftige Tage mit Ausblick-Ring und Plänen), `today/` Tagesleiste, Serien-Chip, Karten zu fehlenden Tagen, Sicherungs- und Tief-Hinweis, Bitte um Bewertung, `streak/` Banner und Overlay der Serien-Feier, `outlook/` Tagesdetail künftiger Tage und Plan-Chips, `lock/` Sperrbildschirm, `settings/` Uhrzeitwahl, `entry/` Editor und Lesekarte, `history/` Verlauf und Suche, `manage/` Verwaltung (Sortieren per Ziehen, Symbolauswahl), `mood/`, `import/`, `insights/` Karten der Einblicke (Verlauf als eigenes SVG, Pixel, Wochentage, Monatsbalken mit gifted-charts, Aktivitätszeilen). |
-| `scripts/` | `logo.mjs`: Icons, Splash und Logo-Geometrie aus `assets/logo.svg`, dazu Launcher- und Store-Icons je Design (siehe Logo). `store-graphics.mjs`: Play-Store-Grafiken aus `store/graphics.html` (siehe Store-Grafiken). `store-season.mjs`: Design des Tages fürs Store-Icon. `seasons.mjs` lädt `lib/seasons/` für die Skripte. |
+| `scripts/` | `logo.mjs`: Icons, Splash und Logo-Geometrie aus `assets/logo.svg`, dazu Launcher- und Store-Icons je Design (siehe Logo). `store-graphics.mjs`: Play-Store-Grafiken aus `store/graphics.html`, `store-images.mjs`: Bilder für Store-Sprachen ohne eigene Grafiken (beides siehe Store-Grafiken). `store-season.mjs`: Design des Tages fürs Store-Icon. `seasons.mjs` lädt `lib/seasons/` für die Skripte. |
 | `modules/`, `plugins/` | Eigene Expo-Module: `daylight-reminders` (Erinnerungen, siehe oben), `daylight-launcher` (schaltet die Aliase des Launcher-Icons). Config-Plugins für das Manifest: Health-Connect-Link, Signatur, gesperrte Berechtigungen, keine Übertragung, `withSeasonalIcons.js` (ein Alias je Eintrag in `launcherAliases.js`). |
 | `docs/decisions/` | Handover-Dokumente pro Phase. Vor jeder neuen Phase alle lesen. |
 
@@ -100,6 +100,8 @@ node scripts/store-graphics.mjs es fr
 
 Einzelne Grafik im Browser ansehen: `store/graphics.html?asset=shot-3&lang=en` (oder `icon`, `feature`; ohne `lang` Deutsch).
 
+Weitere Store-Sprachen haben nur Texte, keinen `images`-Ordner: `nl-NL`, `pl-PL`, `tr-TR` und `id`, in denen die App nicht übersetzt ist (die Langbeschreibung sagt das und nennt die Sprachen der App), dazu Varianten mit Oberfläche in ihrer Sprache (`en-GB`, `en-AU`, `en-IN`, `en-CA`, `es-US`, `fr-CA`, `pt-PT`). Welche Bilder sie bekommen, steht in `store/locales.mjs`; ohne eigene Bilder zeigte Play die der Standardsprache. `scripts/store-images.mjs` kopiert sie erst beim Upload in einen eigenen Ordner (`store.yml`, `store-icon.yml`), damit die 15 MB je Bildersatz nicht mehrfach im Repo liegen. Dieselbe Zuordnung legt fest, in welcher Sprache dort „Neu in dieser Version“ steht. Eine neue Store-Sprache braucht also einen Ordner mit `title.txt`, `short_description.txt` und `full_description.txt` und einen Eintrag in `store/locales.mjs`; ob alles zusammenpasst, prüft `node scripts/store-images.mjs --check`.
+
 Das Store-Icon zeigt das Design aus `store/season.js` (ein Schlüssel aus `lib/seasons/designs.ts` oder `null` fürs Logo) als `store/icon-<schlüssel>.svg`. Die Feature Graphic bleibt beim Logo. Den Schalter stellt die Action `.github/workflows/store-icon.yml` (siehe Play Store, vorerst nur von Hand gestartet), lokal geht es so:
 
 ```bash
@@ -124,7 +126,7 @@ Der ganze Ablauf steckt im Skill `deploy` (`.claude/skills/deploy/SKILL.md`): er
 
 ### Play Store
 
-`.github/workflows/play.yml` lädt das App Bundle einer Version aus ihrem GitHub-Release in den Play Store, mit den Stichpunkten aus der Updatehistorie als „Neu in dieser Version". Play nimmt je Sprache höchstens 500 Zeichen, das prüft `release-notes.mjs` schon vor dem Build. Der Workflow läuft am Ende von `release.yml` und lässt sich für ein schon veröffentlichtes Release von Hand starten, etwa wenn nur der Upload scheiterte:
+`.github/workflows/play.yml` lädt das App Bundle einer Version aus ihrem GitHub-Release in den Play Store, mit den Stichpunkten aus der Updatehistorie als „Neu in dieser Version". Play nimmt je Sprache höchstens 500 Zeichen, das prüft `release-notes.mjs` schon vor dem Build. Store-Sprachen ohne Oberfläche in ihrer Sprache bekommen die Stichpunkte der Sprache ihrer Bilder aus `store/locales.mjs`. Der Workflow läuft am Ende von `release.yml` und lässt sich für ein schon veröffentlichtes Release von Hand starten, etwa wenn nur der Upload scheiterte:
 
 ```bash
 GH_TOKEN=$(gh auth token --user Jurgler95) gh workflow run play.yml --repo Jurgler95/daylight --ref main -f version=1.0.24
@@ -154,7 +156,7 @@ GH_TOKEN=$(gh auth token --user Jurgler95) gh workflow run store-icon.yml --repo
 GH_TOKEN=$(gh auth token --user Jurgler95) gh workflow run store-icon.yml --repo Jurgler95/daylight --ref main -f live=true
 ```
 
-Den Store-Eintrag (Texte, Icon, Feature Graphic und Screenshots aus `fastlane/metadata/android/`) lädt `.github/workflows/store.yml` über fastlane supply hoch, nur von Hand. Ohne `live` prüft er nur und ändert nichts, das Dienstkonto braucht dafür zusätzlich „Store-Präsenz verwalten". Fehlt eine Textdatei, bleibt der Wert in Play unverändert. Der Store-Titel steht je Sprache in `title.txt` (höchstens 30 Zeichen) und ist unabhängig vom Namen unter dem Icon, den `name` in `app.json` festlegt.
+Den Store-Eintrag (Texte, Icon, Feature Graphic und Screenshots aus `fastlane/metadata/android/`, ergänzt um die geliehenen Bilder aus `store/locales.mjs`) lädt `.github/workflows/store.yml` über fastlane supply hoch, nur von Hand. Ohne `live` prüft er nur und ändert nichts, das Dienstkonto braucht dafür zusätzlich „Store-Präsenz verwalten". Fehlt eine Textdatei, bleibt der Wert in Play unverändert. Der Store-Titel steht je Sprache in `title.txt` (höchstens 30 Zeichen) und ist unabhängig vom Namen unter dem Icon, den `name` in `app.json` festlegt.
 
 ```bash
 GH_TOKEN=$(gh auth token --user Jurgler95) gh workflow run store.yml --repo Jurgler95/daylight --ref main

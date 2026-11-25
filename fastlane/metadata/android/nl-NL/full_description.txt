@@ -1,0 +1,43 @@
+Daylight is een stemmingsdagboek dat jouw gegevens niet kent. Geen accounts, geen servers, geen analytics, geen reclame en geen internettoestemming. Alles blijft op je toestel.
+
+Hoe was je dag? Tik op een stemming, kies wat je hebt gedaan, klaar. Een notitie, je eigen schalen en een foto per dag zijn optioneel: je stemming bijhouden kan kort blijven of een echt dagboek worden.
+
+WAT DAYLIGHT DOET
+
+🔒 Volledig offline
+Daylight heeft helemaal geen internettoestemming. Je registraties staan in een database op je telefoon en verlaten die alleen als je zelf een back-up deelt.
+Exodus Privacy vindt geen enkele tracker in Daylight: https://reports.exodus-privacy.eu.org/en/reports/de.behla.daylight/latest/
+
+⚡ In een paar seconden bijgehouden
+Vijf stemmingen en activiteiten in groepen zoals gevoelens, slaap, weer, sociaal en werk. Hernoem, herschik, archiveer of voeg je eigen activiteiten toe, met iconen.
+
+📅 Kalender
+Elke dag in zijn eigen kleur, zodat goede en zware periodes in één oogopslag opvallen. Dagen met meerdere registraties zijn gemarkeerd, geplande activiteiten verschijnen op de komende dagen.
+
+📊 Inzicht in je patronen
+Verloop en 7-daags gemiddelde, verdeling, weekdagen en maanden, je jaar in pixels, rustige en onrustige weken, reeksen, welke activiteiten samengaan met betere of slechtere dagen, wat er de dag erna vaak volgt en veelgebruikte woorden in je notities. Altijd een beschrijving van je registraties, nooit een diagnose.
+
+🌅 Keerpunten
+Markeer tot vier dagen per jaar die iets hebben veranderd, zoals een nieuwe baan of een verhuizing. Daylight vergelijkt de tijd ervoor met de tijd erna: stemming, activiteiten en gezondheidsgegevens.
+
+🔭 Een eerlijke vooruitblik
+Daylight schat de komende zeven dagen in, maar alleen waar dat met jouw eigen gegevens aantoonbaar beter werkt dan gewoon gokken. Anders doet de vooruitblik een stap terug en zegt dat ook.
+
+🏆 Beloningen voor volhouden
+Sterren voor dagen en weken op rij, voor notities, foto's, activiteiten, slaap en stappen. Alleen het bijhouden wordt beloond, nooit hoe een dag was.
+
+❤️ Gezondheidsgegevens, als je wilt
+Stappen, slaap, hartslag in rust en beweging uit Health Connect, bijvoorbeeld van een smartwatch, naast je stemming. Alleen lezen, en pas nadat je toestemming geeft.
+
+🛡️ Beschermd
+App-vergrendeling met de schermvergrendeling van je toestel, geen screenshots zolang de vergrendeling aan staat, geen Android-back-up in de cloud. De optionele herinnering 's avonds verraadt niets uit je dagboek.
+
+📦 Jouw gegevens, jouw bestanden
+Deel of bewaar een volledige back-up met foto's, zet hem op elk moment terug en exporteer als CSV. Kom je van een andere stemmingsdagboek-app? Daylight importeert een bestaand dagboek volledig, als CSV-export of als back-up met foto's, en laat een voorbeeld zien voordat er iets verandert.
+
+Let op: de app zelf is beschikbaar in het Engels, Duits, Spaans, Frans, Italiaans en Portugees (Brazilië), nog niet in het Nederlands.
+
+GRATIS EN OPEN SOURCE
+Daylight is vrije software onder de GNU GPL, versie 3 of later. Geen reclame, geen in-app-aankopen, geen tracking.
+
+Daylight is geen medisch hulpmiddel en vervangt geen advies of behandeling. Voel je je al een tijdje somber, praat dan met iemand die je vertrouwt of met een hulplijn bij jou in de buurt.

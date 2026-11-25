@@ -7,8 +7,9 @@
 #   gh workflow run store.yml --ref main -f live=true
 #
 # Fehlt eine Textdatei, bleibt der Wert in Play unverändert. Bilder werden nur
-# hochgeladen, wenn sie sich geändert haben. Das Dienstkonto braucht in der Play Console zusätzlich
-# „Store-Präsenz verwalten" (siehe docs/development.md, Play Store).
+# hochgeladen, wenn sie sich geändert haben. Store-Sprachen ohne eigene Bilder bekommen die einer
+# verwandten Sprache (store/locales.mjs), kopiert in einen eigenen Ordner, nicht ins Repo. Das
+# Dienstkonto braucht in der Play Console zusätzlich „Store-Präsenz verwalten" (siehe docs/development.md, Play Store).
 name: Store-Eintrag
 run-name: Store-Eintrag ${{ inputs.live && 'hochladen' || 'prüfen' }}
 
@@ -32,6 +33,13 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      - name: Eintrag bereitlegen
+        run: node scripts/store-images.mjs "$RUNNER_TEMP/listing"
 
       # Auf einen Commit festgenagelt (v1.327.0), weil später im selben Job der Play-Schlüssel liegt
       - uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8
@@ -57,7 +65,7 @@ jobs:
           fastlane supply \
             --package_name de.behla.daylight \
             --json_key_data "$PLAY_JSON" \
-            --metadata_path fastlane/metadata/android \
+            --metadata_path "$RUNNER_TEMP/listing" \
             --track "$TRACK" \
             --skip_upload_apk true \
             --skip_upload_aab true \

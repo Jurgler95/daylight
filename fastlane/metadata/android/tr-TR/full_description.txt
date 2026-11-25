@@ -1,0 +1,43 @@
+Daylight, verilerini bilmeyen bir ruh hali günlüğü. Hesap yok, sunucu yok, analiz yok, reklam yok ve internet izni yok. Her şey cihazında kalır.
+
+Günün nasıl geçti? Bir ruh hali seç, neler yaptığını işaretle, bitti. Not, kendi ölçeklerin ve günde bir fotoğraf isteğe bağlı: duygu takibin kısa kalabilir ya da gerçek bir günlüğe dönüşebilir.
+
+DAYLIGHT NE YAPAR
+
+🔒 Tamamen çevrimdışı
+Daylight'ın hiçbir internet izni yok. Kayıtların telefonundaki bir veritabanında durur ve ancak bir yedeği kendin paylaştığında telefondan çıkar.
+Exodus Privacy, Daylight'ta hiçbir izleyici bulmuyor: https://reports.exodus-privacy.eu.org/en/reports/de.behla.daylight/latest/
+
+⚡ Saniyeler içinde kayıt
+Beş ruh hali ve duygular, uyku, hava durumu, sosyal ve iş gibi gruplara ayrılmış aktiviteler. Simgeleriyle birlikte yeniden adlandır, sırala, arşivle ya da kendi aktivitelerini ekle.
+
+📅 Takvim
+Her gün kendi renginde, böylece iyi ve zor dönemler bir bakışta göze çarpar. Birden fazla kaydı olan günler işaretlenir, planlanan aktiviteler önümüzdeki günlerde görünür.
+
+📊 Alışkanlıklarına dair içgörüler
+Seyir ve 7 günlük ortalama, dağılım, haftanın günleri ve aylar, piksellerle yılın, sakin ve hareketli haftalar, seriler, hangi aktivitelerin daha iyi ya da daha kötü günlerle birlikte geldiği, ertesi gün genellikle ne olduğu ve notlarında sık geçen kelimeler. Daylight her zaman kayıtlarını betimler, asla teşhis koymaz.
+
+🌅 Dönüm noktaları
+Yılda bir şeyleri değiştiren en fazla dört günü işaretle, örneğin yeni bir iş ya da taşınma. Daylight öncesini ve sonrasını karşılaştırır: ruh hali, aktiviteler ve sağlık verileri.
+
+🔭 Dürüst bir öngörü
+Daylight önümüzdeki yedi günü tahmin eder, ama yalnızca bu, kendi verilerinde rastgele tahminden ölçülebilir şekilde daha iyi işliyorsa. Aksi halde öngörü geri çekilir ve bunu açıkça söyler.
+
+🏆 İstikrar için ödüller
+Art arda geçen günler ve haftalar, notlar, fotoğraflar, aktiviteler, uyku ve adımlar için yıldızlar. Yalnızca günlük tutmak ödüllendirilir, günün nasıl geçtiği asla.
+
+❤️ İstersen sağlık verileri
+Health Connect'ten adımlar, uyku, dinlenme nabzı ve egzersiz, örneğin bir akıllı saatten, ruh halinin yanında. Yalnızca okuma ve yalnızca sen izin verdikten sonra.
+
+🛡️ Korumalı
+Cihazının ekran kilidiyle uygulama kilidi, kilit etkinken ekran görüntüsü yok, Android bulut yedeği yok. İsteğe bağlı akşam hatırlatıcısı günlüğünden hiçbir şey göstermez.
+
+📦 Senin verilerin, senin dosyaların
+Fotoğraflarla birlikte tam bir yedeği paylaş ya da kaydet, istediğin zaman geri yükle ve CSV olarak dışa aktar. Başka bir ruh hali günlüğü uygulamasından mı geliyorsun? Daylight mevcut bir günlüğü CSV dışa aktarımı ya da fotoğraflı yedek olarak eksiksiz içe aktarır ve bir şey değişmeden önce ön izleme gösterir.
+
+Not: Uygulamanın kendisi İngilizce, Almanca, İspanyolca, Fransızca, İtalyanca ve Portekizce (Brezilya) olarak sunuluyor, henüz Türkçe değil.
+
+ÜCRETSİZ VE AÇIK KAYNAK
+Daylight, GNU GPL sürüm 3 veya sonrası kapsamında özgür bir yazılımdır. Reklam yok, uygulama içi satın alma yok, takip yok.
+
+Daylight tıbbi bir cihaz değildir ve tavsiye ya da tedavinin yerini tutmaz. Bir süredir kendini kötü hissediyorsan güvendiğin biriyle ya da bölgendeki bir destek hattıyla konuş.

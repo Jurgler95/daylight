@@ -1,0 +1,43 @@
+O Daylight é um diário de humor que não conhece os teus dados. Sem contas, sem servidores, sem estatísticas de utilização, sem anúncios e sem permissão de internet. Tudo fica no teu dispositivo.
+
+Como foi o teu dia? Toca num humor, escolhe o que fizeste, pronto. Uma nota, as tuas próprias escalas e uma foto por dia são opcionais.
+
+O QUE O DAYLIGHT FAZ
+
+🔒 Totalmente offline
+O Daylight não tem qualquer permissão de internet. Os teus registos ficam numa base de dados no teu telemóvel e só saem dele quando és tu a partilhar uma cópia de segurança.
+O Exodus Privacy não encontra nenhum rastreador no Daylight: https://reports.exodus-privacy.eu.org/pt-br/reports/de.behla.daylight/latest/
+
+⚡ Registo em segundos
+Cinco humores e atividades organizadas em grupos como emoções, sono, tempo, social e trabalho. Muda o nome, reordena, arquiva ou cria as tuas, com ícones.
+
+📅 Calendário
+Cada dia na sua cor, para que as fases boas e as difíceis se vejam num relance. Os dias com mais de um registo ficam marcados e as atividades planeadas aparecem nos próximos dias.
+
+📊 Análises dos teus padrões
+Evolução e média de 7 dias, distribuição, dias da semana e meses, o teu ano em píxeis, semanas calmas e agitadas, sequências, que atividades acompanham dias melhores ou piores, o que costuma vir no dia seguinte e as palavras mais frequentes nas tuas notas. Sempre uma descrição dos teus registos, nunca um diagnóstico.
+
+🌅 Pontos de viragem
+Marca até quatro dias por ano que mudaram alguma coisa, como um emprego novo ou uma mudança de casa. O Daylight compara o período antes com o período depois: humor, atividades e dados de saúde.
+
+🔭 Uma previsão honesta
+O Daylight estima os próximos sete dias, mas só onde isso funciona comprovadamente melhor com os teus próprios dados do que um simples palpite. Caso contrário, a previsão não aparece e a app avisa.
+
+🏆 Conquistas por manteres o hábito
+Estrelas por dias e semanas seguidos, por notas, fotos, atividades, sono e passos. Só o registo é recompensado, nunca a forma como correu o dia.
+
+❤️ Dados de saúde, se quiseres
+Passos, sono, frequência cardíaca em repouso e exercício do Health Connect, por exemplo de um smartwatch, ao lado do teu humor. Só leitura e só com a tua autorização.
+
+🛡️ Protegido
+Bloqueio da app com o bloqueio de ecrã do teu dispositivo, sem capturas de ecrã enquanto o bloqueio estiver ativo, sem cópia de segurança do Android na cloud. O lembrete opcional à noite não revela nada do teu diário.
+
+📦 Os teus dados, os teus ficheiros
+Partilha ou guarda uma cópia de segurança completa com fotos, restaura-a quando quiseres e exporta em CSV. Vens de outra app de diário de humor? O Daylight importa um diário existente por completo, como exportação CSV ou como cópia de segurança com fotos, e mostra uma pré-visualização antes de alterar o que quer que seja.
+
+A app está disponível em português do Brasil, inglês, alemão, espanhol, francês e italiano.
+
+SOFTWARE LIVRE E DE CÓDIGO ABERTO
+O Daylight é software livre sob a GNU GPL, versão 3 ou posterior. Sem anúncios, sem compras na app, sem rastreamento.
+
+O Daylight não é um dispositivo médico e não substitui aconselhamento nem tratamento. Se não te sentes bem há algum tempo, fala com alguém de confiança ou com uma linha de apoio perto de ti.

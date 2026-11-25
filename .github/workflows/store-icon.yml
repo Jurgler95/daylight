@@ -10,7 +10,7 @@
 #   gh workflow run store-icon.yml --ref main -f date=2026-10-31
 #   gh workflow run store-icon.yml --ref main -f live=true
 #
-# Hochgeladen wird aus einem eigenen Ordner, der je Sprache nur images/icon.png enthält; dazu
+# Hochgeladen wird aus einem eigenen Ordner, der je Sprache nur images/icon.png enthält (scripts/store-images.mjs); dazu
 # überspringt supply ausdrücklich Texte, Screenshots und „Neu in dieser Version". So können weder
 # Texte noch Screenshots noch die Feature Graphic mitgehen. Zugang und Spur wie in store.yml, das
 # Dienstkonto braucht also „Store-Präsenz verwalten" (docs/development.md, Play Store).
@@ -76,12 +76,9 @@ jobs:
 
       - name: Nur das Icon bereitlegen
         if: steps.season.outputs.changed == 'true'
+        # Store-Sprachen ohne eigene Bilder bekommen das Icon ihrer Quelle aus store/locales.mjs
         run: |
-          for dir in fastlane/metadata/android/*/; do
-            locale=$(basename "$dir")
-            mkdir -p "$RUNNER_TEMP/icon-only/$locale/images"
-            cp "$dir/images/icon.png" "$RUNNER_TEMP/icon-only/$locale/images/icon.png"
-          done
+          node scripts/store-images.mjs --icon "$RUNNER_TEMP/icon-only"
           find "$RUNNER_TEMP/icon-only" -type f
 
       # Auf einen Commit festgenagelt (v1.327.0), weil später im selben Job der Play-Schlüssel liegt

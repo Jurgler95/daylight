@@ -2,7 +2,8 @@
 /**
  * Rendert die Play-Store-Grafiken aus `store/graphics.html` nach `fastlane/metadata/android/<locale>/images/`
  * (de-DE, en-US, es-ES, es-419, pt-BR, fr-FR, it-IT), in der Ordnerstruktur, die fastlane supply und F-Droid erwarten.
- * Die Texte der Grafiken stehen je Sprache in `store/text/<lang>.js`.
+ * Die Texte der Grafiken stehen je Sprache in `store/text/<lang>.js`. Weitere Store-Sprachen ohne eigene Grafiken
+ * (`store/locales.mjs`) bekommen beim Upload die Bilder einer dieser Locales, siehe `scripts/store-images.mjs`.
  *
  *   node scripts/store-graphics.mjs          # alle Sprachen
  *   node scripts/store-graphics.mjs es fr    # nur diese

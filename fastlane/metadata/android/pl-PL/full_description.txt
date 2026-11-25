@@ -1,0 +1,43 @@
+Daylight to dziennik nastroju, który nie zna Twoich danych. Bez kont, bez serwerów, bez analityki, bez reklam i bez uprawnienia do internetu. Wszystko zostaje na Twoim urządzeniu.
+
+Jak minął Ci dzień? Stuknij nastrój, zaznacz swoje aktywności i gotowe. Notatka, własne skale i jedno zdjęcie dziennie są opcjonalne: śledzenie nastroju może zostać krótkie albo stać się prawdziwym pamiętnikiem.
+
+CO POTRAFI DAYLIGHT
+
+🔒 W pełni offline
+Daylight w ogóle nie ma uprawnienia do internetu. Twoje wpisy są zapisane w bazie danych na telefonie i opuszczają go tylko wtedy, gdy samodzielnie udostępnisz kopię zapasową.
+Exodus Privacy nie znajduje w Daylight żadnych trackerów: https://reports.exodus-privacy.eu.org/en/reports/de.behla.daylight/latest/
+
+⚡ Wpis w kilka sekund
+Pięć nastrojów i aktywności podzielone na grupy, takie jak emocje, sen, pogoda, życie towarzyskie i praca. Zmieniaj nazwy i kolejność, archiwizuj lub dodawaj własne aktywności z ikonami.
+
+📅 Kalendarz
+Każdy dzień w swoim kolorze, dzięki czemu dobre i trudne okresy widać na pierwszy rzut oka. Dni z więcej niż jednym wpisem są oznaczone, a zaplanowane aktywności pojawiają się w nadchodzących dniach.
+
+📊 Wgląd w Twoje wzorce
+Przebieg i średnia z 7 dni, rozkład, dni tygodnia i miesiące, Twój rok w pikselach, spokojne i niespokojne tygodnie, serie, które aktywności idą w parze z lepszymi lub gorszymi dniami, co zwykle następuje dzień później i najczęstsze słowa w notatkach. Zawsze opis Twoich wpisów, nigdy diagnoza.
+
+🌅 Punkty zwrotne
+Zaznacz do czterech dni w roku, które coś zmieniły, na przykład nową pracę lub przeprowadzkę. Daylight porównuje czas przed i po: nastrój, aktywności i dane o zdrowiu.
+
+🔭 Uczciwa prognoza
+Daylight szacuje najbliższe siedem dni, ale tylko tam, gdzie na Twoich własnych danych działa to wymiernie lepiej niż zwykłe zgadywanie. W przeciwnym razie prognoza się wycofuje i mówi o tym wprost.
+
+🏆 Nagrody za wytrwałość
+Gwiazdki za kolejne dni i tygodnie, za notatki, zdjęcia, aktywności, sen i kroki. Nagradzane jest tylko prowadzenie dziennika, nigdy to, jaki był dzień.
+
+❤️ Dane o zdrowiu, jeśli chcesz
+Kroki, sen, tętno spoczynkowe i ćwiczenia z Health Connect, na przykład ze smartwatcha, obok Twojego nastroju. Tylko odczyt i tylko po Twojej zgodzie.
+
+🛡️ Ochrona
+Blokada aplikacji za pomocą blokady ekranu urządzenia, brak zrzutów ekranu, gdy blokada jest włączona, brak kopii zapasowej Androida w chmurze. Opcjonalne wieczorne przypomnienie nie zdradza nic z Twojego dziennika.
+
+📦 Twoje dane, Twoje pliki
+Udostępnij lub zapisz pełną kopię zapasową ze zdjęciami, przywróć ją w dowolnej chwili i eksportuj do CSV. Przechodzisz z innej aplikacji do dziennika nastroju? Daylight importuje istniejący dziennik w całości, jako eksport CSV lub kopię zapasową ze zdjęciami, i pokazuje podgląd, zanim cokolwiek się zmieni.
+
+Uwaga: sama aplikacja jest dostępna po angielsku, niemiecku, hiszpańsku, francusku, włosku i portugalsku (Brazylia), jeszcze nie po polsku.
+
+DARMOWA I OPEN SOURCE
+Daylight to wolne oprogramowanie na licencji GNU GPL w wersji 3 lub nowszej. Bez reklam, bez zakupów w aplikacji, bez śledzenia.
+
+Daylight nie jest wyrobem medycznym i nie zastępuje porady ani leczenia. Jeśli od dłuższego czasu czujesz się źle, porozmawiaj z kimś, komu ufasz, lub z telefonem wsparcia w swojej okolicy.

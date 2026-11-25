@@ -114,7 +114,8 @@ GitHub), wird ihr Eintrag auf die neue Version umbenannt und ergänzt statt ein 
 Die App zeigt die Liste unter „Mehr" → „Updatehistorie" ([app/more/changelog.tsx](app/more/changelog.tsx)),
 der Eintrag zur laufenden Version ist dort hervorgehoben, in der eingestellten Sprache. Deutsch und
 Englisch landen in der Beschreibung des GitHub-Releases, alle Sprachen in Play unter „Neu in dieser
-Version“ (Spanisch für `es-ES` und `es-419`).
+Version“ (Spanisch für `es-ES`, `es-419` und `es-US`; die Store-Sprachen aus `store/locales.mjs`
+bekommen die Sprache ihrer Bilder, etwa `nl-NL` Englisch und `pt-PT` Portugiesisch).
 
 ## 5. Lokal prüfen
 
