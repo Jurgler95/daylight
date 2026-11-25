@@ -4,7 +4,7 @@ import { AppText, PressableScale } from '@/components/ui';
 import type { Mood, MoodLevel } from '@/db/schema';
 import { haptics } from '@/lib/haptics';
 import type { IconName } from '@/lib/icons';
-import { TOUCH_TARGET, moodColors, spacing, useTheme } from '@/lib/theme';
+import { TOUCH_TARGET, spacing, useTheme } from '@/lib/theme';
 
 import { MoodBadge } from './MoodBadge';
 
@@ -18,7 +18,7 @@ interface Props {
 
 /** The five moods in one row, best first. Tapping one picks it; the icon and name carry the meaning. */
 export function MoodPicker({ moods, selected = null, onPick, size = 52 }: Props) {
-  const { colors } = useTheme();
+  const { colors, mood: moodColors } = useTheme();
   return (
     <View style={styles.row} accessibilityRole="radiogroup">
       {moods.map((mood) => {

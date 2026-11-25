@@ -9,6 +9,8 @@ window.STORE_TEXT = {
   6: ['Vooruitblik', 'Een <em>eerlijke</em><br>vooruitblik', 'Alleen waar de schatting op jouw gegevens beter is dan gokken. Anders zegt Daylight dat.'],
   7: ['Keerpunten', 'De dag die<br><em>alles veranderde</em>', 'Geef de dag een naam. Daylight vergelijkt de tijd ervoor met de tijd erna.'],
   8: ['Privé', 'Blijft op<br><em>je telefoon</em>', 'Je registraties staan alleen op je toestel. Back-ups deel je zelf, als je wilt.'],
+  // Dunkles Erscheinungsbild (Asset shot-dark)
+  dark: ['Donkere modus', 'Gemaakt voor<br>de <em>avond</em>', 'Volgt je telefoon of blijft licht of donker. Stemmingskleuren blijven goed leesbaar op een donkere achtergrond.'],
   badges: ['Geen internet', 'Geen account', 'Geen reclame', 'Vergrendeling'],
   tagline: 'Je stemmingsdagboek.<br>Privé, offline, op je toestel.',
   // WhatsApp-Status: Zeile unter der Sonne und Hinweis auf den Link in der Bildunterschrift darunter

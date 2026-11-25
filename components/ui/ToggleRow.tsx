@@ -31,7 +31,7 @@ export function ToggleRow({ label, hint, value, disabled, onChange }: Props) {
         accessibilityLabel={label}
         accessibilityHint={hint}
         trackColor={{ true: colors.accent, false: colors.surfaceMuted }}
-        thumbColor={colors.surface}
+        thumbColor={colors.switchThumb}
       />
     </View>
   );

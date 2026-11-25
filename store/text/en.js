@@ -9,6 +9,8 @@ window.STORE_TEXT = {
   6: ['Outlook', 'An <em>honest</em><br>look ahead', 'Only where the estimate beats guessing on your own data. Otherwise Daylight says so.'],
   7: ['Turning points', 'The day that<br><em>changed things</em>', 'Give the day a name. Daylight compares the time before with the time after.'],
   8: ['Private', 'Stays on<br><em>your phone</em>', 'Your entries live only on your device. You share backups yourself, if you want to.'],
+  // Dunkles Erscheinungsbild (Asset shot-dark)
+  dark: ['Dark mode', 'Made for<br>the <em>evening</em>', 'Follows your phone or stays light or dark. Mood colors stay easy to read on a dark background.'],
   badges: ['No internet', 'No account', 'No ads', 'App lock'],
   tagline: 'Your mood journal.<br>Private, offline, on your device.',
   // WhatsApp-Status: Zeile unter der Sonne und Hinweis auf den Link in der Bildunterschrift darunter

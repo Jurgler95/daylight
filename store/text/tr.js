@@ -9,6 +9,8 @@ window.STORE_TEXT = {
   6: ['Öngörü', '<em>Dürüst</em> bir<br>ileri bakış', 'Yalnızca kendi verilerinde tahminden iyiyse. Değilse Daylight bunu söyler.'],
   7: ['Dönüm noktaları', 'Her şeyi<br><em>değiştiren gün</em>', 'Güne bir ad ver. Daylight öncesini ve sonrasını karşılaştırır.'],
   8: ['Gizli', '<em>Telefonunda</em><br>kalır', 'Kayıtların yalnızca cihazında durur. Yedekleri istersen kendin paylaşırsın.'],
+  // Dunkles Erscheinungsbild (Asset shot-dark)
+  dark: ['Koyu mod', '<em>Akşamlar</em><br>için yapıldı', 'Telefonunu izler ya da açık veya koyu kalır. Ruh hâli renkleri koyu arka planda da kolay okunur.'],
   badges: ['İnternet yok', 'Hesap yok', 'Reklam yok', 'Uygulama kilidi'],
   tagline: 'Ruh hali günlüğün.<br>Gizli, çevrimdışı, cihazında.',
   // WhatsApp-Status: Zeile unter der Sonne und Hinweis auf den Link in der Bildunterschrift darunter

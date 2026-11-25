@@ -10,7 +10,7 @@ import { daysBetween, formatShort, type DateString } from '@/lib/dates';
 import { formatDecimal, ROLLING_DAYS, windowLength, type DayWindow, type MoodPoint } from '@/lib/insights';
 import type { IconName } from '@/lib/icons';
 import { roundLevel } from '@/lib/mood/dayMood';
-import { moodColors, spacing, useTheme } from '@/lib/theme';
+import { spacing, useTheme } from '@/lib/theme';
 
 interface Props {
   points: MoodPoint[];
@@ -32,7 +32,7 @@ const PAD = 8;
  */
 export function MoodLineChart({ points, window, mean, iconFor, marks = [] }: Props) {
   const { t } = useTranslation();
-  const { colors } = useTheme();
+  const { colors, mood: moodColors } = useTheme();
   const [width, setWidth] = useState(0);
   const plotWidth = Math.max(0, width - AXIS - PAD * 2);
   const plotHeight = HEIGHT - PAD * 2;

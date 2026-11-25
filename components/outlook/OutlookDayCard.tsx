@@ -5,7 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import { AppText, Card } from '@/components/ui';
 import { levelMood, type Catalog } from '@/lib/catalog/catalog';
 import type { OutlookDay } from '@/lib/outlook';
-import { moodColors, spacing, useTheme } from '@/lib/theme';
+import { spacing, useTheme } from '@/lib/theme';
 
 import { useOutlookTexts } from './useOutlookTexts';
 
@@ -15,7 +15,7 @@ import { useOutlookTexts } from './useOutlookTexts';
  */
 export function OutlookDayCard({ day, catalog }: { day: OutlookDay; catalog: Catalog }) {
   const { t } = useTranslation();
-  const { colors } = useTheme();
+  const { colors, mood: moodColors } = useTheme();
   const texts = useOutlookTexts(catalog);
   const range = day.range;
   return (

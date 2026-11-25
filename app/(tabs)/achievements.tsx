@@ -6,7 +6,7 @@ import { ScrollView, StyleSheet, useWindowDimensions, View } from 'react-native'
 
 import { AchievementCard } from '@/components/achievements/AchievementCard';
 import { AchievementsHero } from '@/components/achievements/AchievementsHero';
-import { STAR_COLOR } from '@/components/achievements/StarRow';
+import { useStarColor } from '@/components/achievements/StarRow';
 import { AppText, Screen } from '@/components/ui';
 import { byNextStar, nextInReach, TIER_COUNT, totalStars, type Achievement, type AchievementGroup, type AchievementKey } from '@/lib/achievements';
 import { useAchievements } from '@/lib/achievements/useAchievements';
@@ -29,6 +29,7 @@ const FOCUS_MS = 1500;
 export default function AchievementsScreen() {
   const { t } = useTranslation();
   const { colors } = useTheme();
+  const starColor = useStarColor();
   const today = useToday();
   const achievements = useAchievements(today);
   const healthEnabled = useSettingsStore((s) => s.settings?.health_enabled ?? false);
@@ -113,7 +114,7 @@ export default function AchievementsScreen() {
                 {t(`achievements.groups.${group}`).toUpperCase()}
               </AppText>
               <View style={[styles.groupStars, { backgroundColor: colors.surface, borderColor: colors.border }]} accessible accessibilityLabel={t('achievements.stars', groupStars)}>
-                <MaterialCommunityIcons name="star" size={14} color={STAR_COLOR} />
+                <MaterialCommunityIcons name="star" size={14} color={starColor} />
                 <AppText variant="caption">{t('achievements.starsShort', groupStars)}</AppText>
               </View>
             </View>

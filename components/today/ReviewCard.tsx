@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withDelay, withSequence, withSpring, withTiming, type SharedValue } from 'react-native-reanimated';
 
-import { STAR_COLOR } from '@/components/achievements/StarRow';
+import { useStarColor } from '@/components/achievements/StarRow';
 import { AppText, Button, Card } from '@/components/ui';
 import { TOUCH_TARGET, medalGradient, spacing } from '@/lib/theme';
 
@@ -68,6 +68,7 @@ function Medal() {
 }
 
 function Spark({ angle, burst }: { angle: number; burst: SharedValue<number> }) {
+  const starColor = useStarColor();
   const style = useAnimatedStyle(() => {
     const distance = 15 + burst.value * 8;
     return {
@@ -77,7 +78,7 @@ function Spark({ angle, burst }: { angle: number; burst: SharedValue<number> }) 
   });
   return (
     <Animated.View style={[styles.spark, style]}>
-      <MaterialCommunityIcons name="star-four-points" size={8} color={STAR_COLOR} />
+      <MaterialCommunityIcons name="star-four-points" size={8} color={starColor} />
     </Animated.View>
   );
 }

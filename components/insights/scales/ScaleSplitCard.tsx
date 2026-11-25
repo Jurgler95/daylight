@@ -5,7 +5,7 @@ import { InsightCard } from '@/components/insights/InsightCard';
 import { AppText } from '@/components/ui';
 import { MIN_BAND_DAYS, type ScaleInsight } from '@/lib/insights';
 import { formatScaleDifference, formatScaleValue } from '@/lib/scales/format';
-import { moodColors, spacing } from '@/lib/theme';
+import { spacing, useTheme } from '@/lib/theme';
 
 interface Props {
   insights: readonly ScaleInsight[];
@@ -15,6 +15,7 @@ interface Props {
 
 /** Every scale on good days against hard days, side by side: the overview of what sets those days apart. */
 export function ScaleSplitCard({ insights, goodLabel, hardLabel }: Props) {
+  const { mood: moodColors } = useTheme();
   const { t } = useTranslation();
   const rows = insights.map(({ scale, split }) => ({
     scale,

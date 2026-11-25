@@ -107,7 +107,7 @@ function Sheet({ initialTime, close }: { initialTime: string; close: () => void 
     <Animated.View
       entering={reduceMotion ? undefined : FadeIn.duration(200)}
       exiting={reduceMotion ? undefined : FadeOut.duration(160)}
-      style={[StyleSheet.absoluteFill, styles.backdrop, { backgroundColor: withAlpha(colors.text, 0.45) }]}
+      style={[StyleSheet.absoluteFill, styles.backdrop, { backgroundColor: withAlpha(colors.scrim, 0.45) }]}
       accessibilityViewIsModal
     >
       <Animated.View

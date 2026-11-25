@@ -22,6 +22,7 @@ import { useReminderSync } from '@/lib/notifications';
 import { DesignProvider } from '@/lib/seasons/useDesign';
 import { useLauncherIcon } from '@/lib/seasons/useLauncherIcon';
 import { spacing, useTheme } from '@/lib/theme';
+import { ThemeProvider } from '@/lib/theme/ThemeProvider';
 import { useAppBootstrap } from '@/lib/useAppBootstrap';
 
 import '@/lib/i18n';
@@ -39,7 +40,10 @@ export default function RootLayout() {
     <GestureHandlerRootView style={styles.flex}>
       <SafeAreaProvider>
         <KeyboardProvider>
-          <Root />
+          {/* Light or dark from "Mehr" › "Design" › "Erscheinungsbild" and the device; before the settings load, the device's. */}
+          <ThemeProvider>
+            <Root />
+          </ThemeProvider>
         </KeyboardProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
@@ -49,7 +53,7 @@ export default function RootLayout() {
 /** Keeps the splash screen up until the database is migrated and the settings are loaded. */
 function Root() {
   const bootstrap = useAppBootstrap();
-  const { colors } = useTheme();
+  const { colors, scheme } = useTheme();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -71,7 +75,7 @@ function Root() {
 
   return (
     <>
-      <StatusBar style="dark" />
+      <StatusBar style={scheme === 'dark' ? 'light' : 'dark'} />
       <AppShell />
     </>
   );

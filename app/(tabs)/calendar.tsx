@@ -20,7 +20,7 @@ import { useToday } from '@/lib/dates/useToday';
 import { useQuery } from '@/lib/store/dataVersion';
 import { useSelectedDayStore } from '@/lib/store/selectedDay';
 import { useSettingsStore } from '@/lib/store/settingsStore';
-import { moodColors, radius, spacing, useTheme } from '@/lib/theme';
+import { radius, spacing, useTheme } from '@/lib/theme';
 
 /** Enough to plan the coming weeks; the outlook itself reaches seven days. */
 const MONTHS_AHEAD = 3;
@@ -29,7 +29,7 @@ const MIN_MONTHS_BACK = 3;
 
 export default function CalendarScreen() {
   const { t } = useTranslation();
-  const { colors } = useTheme();
+  const { colors, mood: moodColors } = useTheme();
   const now = useToday();
   const thisMonth = firstOfMonth(now);
   const weekStartsOn = (useSettingsStore((s) => s.settings?.first_day_of_week) ?? 1) as WeekStart;

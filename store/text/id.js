@@ -9,6 +9,8 @@ window.STORE_TEXT = {
   6: ['Perkiraan', 'Perkiraan<br>yang <em>jujur</em>', 'Hanya jika pada datamu perkiraan lebih baik daripada menebak. Jika tidak, Daylight bilang terus terang.'],
   7: ['Titik balik', 'Hari yang<br><em>mengubah segalanya</em>', 'Beri nama hari itu. Daylight membandingkan masa sebelum dan sesudahnya.'],
   8: ['Pribadi', 'Tetap di<br><em>ponselmu</em>', 'Entrimu hanya ada di perangkatmu. Cadangan kamu bagikan sendiri, jika kamu mau.'],
+  // Dunkles Erscheinungsbild (Asset shot-dark)
+  dark: ['Mode gelap', 'Dibuat untuk<br><em>malam hari</em>', 'Mengikuti ponselmu atau tetap terang atau gelap. Warna suasana hati tetap mudah dibaca di latar gelap.'],
   badges: ['Tanpa internet', 'Tanpa akun', 'Tanpa iklan', 'Kunci aplikasi'],
   tagline: 'Jurnal suasana hatimu.<br>Pribadi, offline, di perangkatmu.',
   // WhatsApp-Status: Zeile unter der Sonne und Hinweis auf den Link in der Bildunterschrift darunter

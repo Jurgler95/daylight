@@ -10,7 +10,7 @@ import { haptics } from '@/lib/haptics';
 import { formatMetric } from '@/lib/health/format';
 import { formatDecimal, type HealthRecord } from '@/lib/insights';
 import { roundLevel } from '@/lib/mood/dayMood';
-import { TOUCH_TARGET, moodColors, radius, spacing, useTheme } from '@/lib/theme';
+import { TOUCH_TARGET, radius, spacing, useTheme } from '@/lib/theme';
 
 import { METRIC_ICONS } from './metrics';
 
@@ -23,7 +23,7 @@ interface Props {
 /** The highest and lowest day of each metric in the range, with that day's mood; a row opens the day. */
 export function HealthRecordsCard({ records, moodLabel, onOpen }: Props) {
   const { t } = useTranslation();
-  const { colors } = useTheme();
+  const { colors, mood: moodColors } = useTheme();
   return (
     <InsightCard title={t('insights.healthStats.records.title')} empty={records.length === 0 ? t('insights.healthStats.empty') : null}>
       {records.map((record) => {

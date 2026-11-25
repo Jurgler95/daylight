@@ -5,7 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import { AppText, Chip, SelectRow } from '@/components/ui';
 import { formatDecimal, groupRows, type InsightDay } from '@/lib/insights';
 import { roundLevel } from '@/lib/mood/dayMood';
-import { moodColors, spacing } from '@/lib/theme';
+import { spacing, useTheme } from '@/lib/theme';
 
 import { ActivityLine } from './ActivityLine';
 import { InsightCard } from './InsightCard';
@@ -22,6 +22,7 @@ const CHIPS_UP_TO = 4;
 
 /** One group at a time (sleep, weather) as a compact table: activity, mean mood, days. */
 export function GroupCard({ days, groups, names }: Props) {
+  const { mood: moodColors } = useTheme();
   const { t } = useTranslation();
   const used = useMemo(() => groups.filter((group) => days.some((day) => group.activityIds.some((id) => day.activities.has(id)))), [days, groups]);
   const [picked, setPicked] = useState<number | null>(null);

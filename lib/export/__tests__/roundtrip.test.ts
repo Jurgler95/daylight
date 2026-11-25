@@ -52,15 +52,21 @@ describe('JSON round trip', () => {
     expect(getSettings(db).last_export_at).toBe('2026-09-01T10:00:00.000Z');
   });
 
-  it('keeps the reminder sheet, the streak state and the rating card on the device', () => {
+  it('keeps the reminder sheet, the streak state, the rating card and light or dark on the device', () => {
     const db = sampled();
-    const local = { reminder_prompt_done: true, streak_celebrated: '{"start":"2026-09-01","days":20}', streak_rescue_dismissed: '2026-09-20', review_prompt_done: true };
+    const local = {
+      reminder_prompt_done: true,
+      streak_celebrated: '{"start":"2026-09-01","days":20}',
+      streak_rescue_dismissed: '2026-09-20',
+      review_prompt_done: true,
+      color_scheme: 'dark' as const,
+    };
     updateSettings(db, local);
     const payload = buildExport(db, '1.0.0');
     for (const key of Object.keys(local)) expect(key in payload.settings).toBe(false);
     const target = createTestDb();
     applyImport(target, parseImport(JSON.stringify(payload)), 'replace');
-    expect(getSettings(target)).toMatchObject({ reminder_prompt_done: false, streak_celebrated: null, streak_rescue_dismissed: null, review_prompt_done: false });
+    expect(getSettings(target)).toMatchObject({ reminder_prompt_done: false, streak_celebrated: null, streak_rescue_dismissed: null, review_prompt_done: false, color_scheme: null });
   });
 
   it('carries the morning outlook notification, and a backup from before it leaves the choice here alone', () => {

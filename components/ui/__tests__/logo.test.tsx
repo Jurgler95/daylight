@@ -6,7 +6,9 @@ import { createTestDb } from '@/db/testDb';
 import type { Database } from '@/db/types';
 import { DesignProvider } from '@/lib/seasons/useDesign';
 import { useSettingsStore } from '@/lib/store/settingsStore';
-import { colors } from '@/lib/theme';
+import { palettes } from '@/lib/theme';
+
+const { colors } = palettes.light;
 
 import { LogoBackdrop, SeasonScatter } from '../LogoBackdrop';
 import { HOURS, LOGO_COLORS, RING, SPIRAL, SUN } from '../logoPaths';

@@ -15,7 +15,7 @@ import { haptics } from '@/lib/haptics';
 import type { IconName } from '@/lib/icons';
 import { useQuery } from '@/lib/store/dataVersion';
 import { lookbackDays } from '@/lib/today/lookback';
-import { TOUCH_TARGET, moodColors, radius, spacing, useTheme } from '@/lib/theme';
+import { TOUCH_TARGET, radius, spacing, useTheme } from '@/lib/theme';
 
 interface Props {
   date: DateString;
@@ -30,7 +30,7 @@ interface Props {
  */
 export function LookbackCard({ date, catalog, onOpenDay }: Props) {
   const { t } = useTranslation();
-  const { colors } = useTheme();
+  const { colors, mood: moodColors } = useTheme();
   const days = lookbackDays(date);
   const { rows, photos } = useQuery(() => {
     const db = getDb();

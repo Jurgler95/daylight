@@ -9,6 +9,8 @@ window.STORE_TEXT = {
   6: ['Ausblick', 'Ein <em>ehrlicher</em><br>Blick nach vorn', 'Nur wo die Schätzung auf deinen Daten besser ist als Raten. Sonst sagt Daylight das auch.'],
   7: ['Wendepunkte', 'Der Tag, der<br><em>alles änderte</em>', 'Gib dem Tag einen Namen. Daylight vergleicht die Zeit davor mit der Zeit danach.'],
   8: ['Privat', 'Bleibt auf<br><em>deinem Handy</em>', 'Deine Einträge liegen nur auf dem Gerät. Sicherungen teilst du selbst, wenn du willst.'],
+  // Dunkles Erscheinungsbild (Asset shot-dark)
+  dark: ['Dunkles Design', 'Auch für<br>den <em>Abend</em>', 'Folgt deinem Handy oder bleibt fest hell oder dunkel. Stimmungsfarben gut lesbar auf dunklem Grund.'],
   badges: ['Kein Internet', 'Kein Konto', 'Keine Werbung', 'App-Sperre'],
   tagline: 'Dein Stimmungstagebuch.<br>Privat, offline, auf deinem Gerät.',
   // WhatsApp-Status: Zeile unter der Sonne und Hinweis auf den Link in der Bildunterschrift darunter

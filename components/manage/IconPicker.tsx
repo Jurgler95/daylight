@@ -44,7 +44,7 @@ export function IconPicker({ value, color, onChange }: Props) {
       </Pressable>
 
       <Modal visible={open} transparent animationType="slide" onRequestClose={() => setOpen(false)}>
-        <Pressable style={[styles.flex, { backgroundColor: withAlpha(colors.text, 0.35) }]} accessibilityLabel={t('common.close')} onPress={() => setOpen(false)} />
+        <Pressable style={[styles.flex, { backgroundColor: withAlpha(colors.scrim, 0.35) }]} accessibilityLabel={t('common.close')} onPress={() => setOpen(false)} />
         <View style={[styles.sheet, { backgroundColor: colors.surface, paddingBottom: insets.bottom + spacing.lg }]}>
           <View style={styles.header}>
             <AppText variant="headline" style={styles.flex}>

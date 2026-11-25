@@ -6,7 +6,7 @@ import { AppText, Card } from '@/components/ui';
 import type { HealthDay } from '@/db/schema';
 import { formatDuration, formatSteps } from '@/lib/health/format';
 import type { IconName } from '@/lib/icons';
-import { radius, spacing, tileColors, useTheme } from '@/lib/theme';
+import { radius, spacing, useTheme } from '@/lib/theme';
 
 interface Props {
   day: HealthDay;
@@ -22,7 +22,7 @@ interface Tile {
 /** The day's values from Health Connect on "Heute", one tile each; missing values leave no gap. */
 export function HealthDayCard({ day }: Props) {
   const { t } = useTranslation();
-  const { colors } = useTheme();
+  const { colors, tiles: tints } = useTheme();
   const tiles: Tile[] = [];
   if (day.sleep_minutes !== null) tiles.push({ key: 'sleep', icon: 'power-sleep', value: formatDuration(day.sleep_minutes), label: t('health.day.sleep') });
   if (day.steps !== null) tiles.push({ key: 'steps', icon: 'shoe-print', value: formatSteps(day.steps), label: t('health.day.steps') });
@@ -39,7 +39,7 @@ export function HealthDayCard({ day }: Props) {
       </AppText>
       <View style={styles.grid}>
         {tiles.map((tile, i) => {
-          const tint = tileColors[(i + 3) % tileColors.length]!;
+          const tint = tints[(i + 3) % tints.length]!;
           return (
             <View key={tile.key} style={styles.tile} accessible accessibilityLabel={`${tile.label}: ${tile.value}`}>
               <View style={[styles.icon, { backgroundColor: tint.soft }]}>

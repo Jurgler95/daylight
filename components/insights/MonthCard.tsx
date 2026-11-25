@@ -6,7 +6,7 @@ import { BarChart } from 'react-native-gifted-charts';
 import { formatMonthLong, formatMonthShort } from '@/lib/dates';
 import { formatDecimal, type MonthMean } from '@/lib/insights';
 import { roundLevel } from '@/lib/mood/dayMood';
-import { moodColors, useTheme } from '@/lib/theme';
+import { useTheme } from '@/lib/theme';
 
 import { InsightCard } from './InsightCard';
 
@@ -24,7 +24,7 @@ const FRAME_HEIGHT = PLOT_HEIGHT + X_LABELS_HEIGHT + 24;
 /** Mean per month as bars on the 1 to 5 scale, each in the colour of its rounded mean. */
 export function MonthCard({ months }: Props) {
   const { t } = useTranslation();
-  const { colors } = useTheme();
+  const { colors, mood: moodColors } = useTheme();
   const [width, setWidth] = useState(0);
   const plotWidth = Math.max(0, width - Y_AXIS_WIDTH - 12);
   const step = Math.max(12, Math.floor((plotWidth - 20) / Math.max(1, months.length)));

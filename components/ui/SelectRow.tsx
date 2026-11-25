@@ -66,7 +66,7 @@ export function SelectRow({ label, value, sections, title, closeLabel, placehold
 
       <Modal visible={open} transparent animationType="slide" onRequestClose={() => setOpen(false)}>
         <Pressable
-          style={[styles.backdrop, { backgroundColor: withAlpha(colors.text, 0.35) }]}
+          style={[styles.backdrop, { backgroundColor: withAlpha(colors.scrim, 0.35) }]}
           accessibilityLabel={closeLabel}
           onPress={() => setOpen(false)}
         />

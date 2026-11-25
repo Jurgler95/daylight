@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { DAWN } from '@/components/turning/dawn';
 import { AppText } from '@/components/ui';
 import { isAhead, type CalendarMarker } from '@/lib/calendar/dayLabel';
-import { moodColors, useTheme } from '@/lib/theme';
+import { useTheme } from '@/lib/theme';
 
 interface Props {
   marker: CalendarMarker | undefined;
@@ -28,7 +28,7 @@ export const DAY_GLYPH_HEIGHT = 58;
  * inside, faint; planned activities take the place of that icon (two at most, a dot for more).
  */
 export function DayGlyph({ marker, isToday, isFuture, dayOfMonth, promising = false }: Props) {
-  const { colors } = useTheme();
+  const { colors, mood: moodColors } = useTheme();
   const arrow = promising ? (
     <View style={[styles.flag, { backgroundColor: colors.accent, borderColor: colors.background }]}>
       <MaterialCommunityIcons name="arrow-up" size={10} color={colors.textOnAccent} />

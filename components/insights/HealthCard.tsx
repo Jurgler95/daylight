@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { AppText } from '@/components/ui';
 import type { MoodLevel } from '@/db/schema';
 import { formatDecimal, type HealthBand, type HealthMood } from '@/lib/insights';
-import { moodColors, radius, spacing, useTheme } from '@/lib/theme';
+import { radius, spacing, useTheme } from '@/lib/theme';
 
 import { InsightCard } from './InsightCard';
 
@@ -46,7 +46,7 @@ export function HealthCard({ mood }: Props) {
 
 function BandRow({ band, bounds }: { band: HealthBand; bounds: HealthMood['hrBounds'] }) {
   const { t } = useTranslation();
-  const { colors } = useTheme();
+  const { colors, mood: moodColors } = useTheme();
   const label = t(`insights.health.bands.${band.key}`, { low: bounds?.[0], high: bounds?.[1] });
   const level = band.mean === null ? null : (Math.min(5, Math.max(1, Math.round(band.mean))) as MoodLevel);
   const spoken =

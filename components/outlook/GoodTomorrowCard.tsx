@@ -10,7 +10,7 @@ import { formatDurationShort, formatSteps } from '@/lib/health/format';
 import { formatPercent } from '@/lib/insights/format';
 import type { GoodTomorrow, TomorrowReason } from '@/lib/outlook/tomorrow';
 import { formatScaleValue } from '@/lib/scales/format';
-import { moodColors, spacing } from '@/lib/theme';
+import { spacing, useTheme } from '@/lib/theme';
 
 /** Only a hit rate above this is worded "wahrscheinlich"; below it the card says "better than usual". */
 const LIKELY_FROM = 0.5;
@@ -23,6 +23,7 @@ const LIKELY_FROM = 0.5;
  * There is no card for a day that looks worse.
  */
 export function GoodTomorrowCard({ hint, catalog, morning = false }: { hint: GoodTomorrow; catalog: Catalog; morning?: boolean }) {
+  const { mood: moodColors } = useTheme();
   const { t } = useTranslation();
   // The morning texts look back from the day the hint is about; the rest is shared.
   const key = (name: string) => (morning ? `outlook.tomorrow.morning.${name}` : `outlook.tomorrow.${name}`);

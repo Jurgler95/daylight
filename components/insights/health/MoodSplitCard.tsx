@@ -6,7 +6,7 @@ import { InsightCard } from '@/components/insights/InsightCard';
 import { AppText } from '@/components/ui';
 import { formatMetric, formatMetricDifference } from '@/lib/health/format';
 import { MIN_BAND_DAYS, type MoodSplit } from '@/lib/insights';
-import { moodColors, spacing, useTheme } from '@/lib/theme';
+import { spacing, useTheme } from '@/lib/theme';
 
 import { METRIC_ICONS } from './metrics';
 
@@ -19,7 +19,7 @@ interface Props {
 /** Each metric on good days against hard days: what the body did on the days that felt best and worst. */
 export function MoodSplitCard({ splits, goodLabel, hardLabel }: Props) {
   const { t } = useTranslation();
-  const { colors } = useTheme();
+  const { colors, mood: moodColors } = useTheme();
   const value = (split: MoodSplit, side: 'good' | 'hard') => {
     const mean = split[side];
     const days = side === 'good' ? split.goodDays : split.hardDays;
