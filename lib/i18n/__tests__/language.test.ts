@@ -1,4 +1,4 @@
-import { formatDayMonth, formatLong, formatNumeric, formatRange, formatWeekdayLong, formatWeekdayShort, type DateString } from '@/lib/dates';
+import { formatDayMonth, formatLong, formatMonthYear, formatNumeric, formatRange, formatWeekdayLong, formatWeekdayShort, type DateString } from '@/lib/dates';
 import { formatSteps } from '@/lib/health/format';
 import { formatDecimal, formatPercent, formatSigned } from '@/lib/insights/format';
 
@@ -57,6 +57,30 @@ describe('language switch', () => {
     expect(formatSteps(8412)).toBe('8.412');
   });
 
+  it('formats dates and numbers in Dutch, Polish, Turkish and Indonesian', () => {
+    applyLanguage('nl');
+    expect(formatLong(d('2026-03-14'))).toBe('Zaterdag 14 maart');
+    expect(formatNumeric(d('2025-12-29'))).toBe('29-12-2025');
+    expect(formatPercent(0.74)).toBe('74%');
+
+    applyLanguage('pl');
+    expect(formatLong(d('2026-03-14'))).toBe('Sobota, 14 marca');
+    expect(formatMonthYear(d('2026-03-14'))).toBe('Marzec 2026');
+    expect(formatSteps(8412)).toBe('8\u00a0412');
+    expect(formatDecimal(4.35)).toBe('4,4');
+
+    applyLanguage('tr');
+    expect(formatLong(d('2026-03-14'))).toBe('14 Mart Cumartesi');
+    expect(formatRange(d('2026-03-14'), d('2026-03-17'))).toBe('14 ile 17 Mar arası');
+    expect(formatPercent(0.74)).toBe('%74');
+    expect(formatSteps(8412)).toBe('8.412');
+
+    applyLanguage('id');
+    expect(formatLong(d('2026-03-14'))).toBe('Sabtu, 14 Maret');
+    expect(formatRange(d('2026-03-14'), d('2026-03-17'))).toBe('14 sampai 17 Mar');
+    expect(formatPercent(0.74)).toBe('74%');
+  });
+
   it('writes the Daylio CSV columns like Daylio in that language', () => {
     applyLanguage('en');
     expect(formatDayMonth(d('2026-03-01'))).toBe('March 1');
@@ -77,7 +101,12 @@ describe('languageForLocale', () => {
     expect(languageForLocale('pt_PT')).toBe('pt');
     expect(languageForLocale('fr-CH')).toBe('fr');
     expect(languageForLocale('it-IT')).toBe('it');
-    for (const locale of ['en-US', 'en-DE', 'nl-NL', 'pl', 'dev', '']) {
+    expect(languageForLocale('nl-BE')).toBe('nl');
+    expect(languageForLocale('pl-PL')).toBe('pl');
+    expect(languageForLocale('tr-TR')).toBe('tr');
+    expect(languageForLocale('id-ID')).toBe('id');
+    expect(languageForLocale('in-ID')).toBe('id');
+    for (const locale of ['en-US', 'en-DE', 'sv-SE', 'ja', 'dev', '']) {
       expect(languageForLocale(locale)).toBe('en');
     }
   });

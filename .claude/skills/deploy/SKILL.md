@@ -62,7 +62,8 @@ Regeln für die Stichpunkte, die in der App und im GitHub-Release landen:
 - Höchstens fünf Punkte. Weniger ist besser, verwandte Punkte zusammenfassen.
 - Ein kurzer Satz pro Punkt, aktiv formuliert, kein Punkt am Ende, keine Gedankenstriche.
 - In allen Sprachen der App (`LANGUAGES` in `lib/i18n/language.ts`: Deutsch, Englisch, Spanisch,
-  Portugiesisch (Brasilien), Französisch, Italienisch), mit gleich vielen Punkten in derselben
+  Portugiesisch (Brasilien), Französisch, Italienisch, Niederländisch, Polnisch, Türkisch,
+  Indonesisch), mit gleich vielen Punkten in derselben
   Reihenfolge. Jede Übersetzung ist eine natürliche, keine wörtliche, mit den Begriffen der
   Oberfläche in dieser Sprache (`lib/i18n/locales/<sprache>.json`, etwa „Today“, „More“, „Insights“). Keine Dateinamen, keine Funktionsnamen, keine
   Commit-Hashes.
@@ -106,7 +107,7 @@ VERSION=$(node -p "require('./app.json').expo.version")
 
 Neuen Eintrag als erstes Element in `RELEASES` in `lib/changelog/index.ts` einfügen: `version` wie
 eben gesetzt, `date` das heutige Datum als `YYYY-MM-DD`, `changes` die Stichpunkte aus Schritt 2 als
-`{ de: [...], en: [...], es: [...], pt: [...], fr: [...], it: [...] }`.
+`{ de: [...], en: [...], es: [...], pt: [...], fr: [...], it: [...], nl: [...], pl: [...], tr: [...], id: [...] }`.
 Bestehende Einträge bleiben unverändert stehen. Ausnahme: Ist die vorige Version nie erschienen,
 weil ihr Lauf an einem Codefehler oder an der Manifestprüfung scheiterte (kein Tag `v<vorige>` auf
 GitHub), wird ihr Eintrag auf die neue Version umbenannt und ergänzt statt ein zweiter angelegt.
@@ -115,7 +116,7 @@ Die App zeigt die Liste unter „Mehr" → „Updatehistorie" ([app/more/changel
 der Eintrag zur laufenden Version ist dort hervorgehoben, in der eingestellten Sprache. Deutsch und
 Englisch landen in der Beschreibung des GitHub-Releases, alle Sprachen in Play unter „Neu in dieser
 Version“ (Spanisch für `es-ES`, `es-419` und `es-US`; die Store-Sprachen aus `store/locales.mjs`
-bekommen die Sprache ihrer Bilder, etwa `nl-NL` Englisch und `pt-PT` Portugiesisch).
+bekommen die Sprache ihrer Bilder, etwa `en-GB` Englisch und `pt-PT` Portugiesisch).
 
 ## 5. Lokal prüfen
 

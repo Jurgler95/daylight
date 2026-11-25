@@ -145,12 +145,12 @@
 <script>
 // Die Texte je Sprache liegen in store/text/<lang>.js und müssen vor dem Hauptskript da sein.
 const TEXT_LANG = new URLSearchParams(location.search).get('lang');
-document.write(`<script src="text/${['de', 'en', 'es', 'pt', 'fr', 'it'].includes(TEXT_LANG) ? TEXT_LANG : 'de'}.js"><\/script>`);
+document.write(`<script src="text/${['de', 'en', 'es', 'pt', 'fr', 'it', 'nl', 'pl', 'tr', 'id'].includes(TEXT_LANG) ? TEXT_LANG : 'de'}.js"><\/script>`);
 </script>
 <script>
 const RAW = { w: 1080, h: 2424 };
 const params = new URLSearchParams(location.search);
-const LANG = ['de', 'en', 'es', 'pt', 'fr', 'it'].includes(params.get('lang')) ? params.get('lang') : 'de';
+const LANG = ['de', 'en', 'es', 'pt', 'fr', 'it', 'nl', 'pl', 'tr', 'id'].includes(params.get('lang')) ? params.get('lang') : 'de';
 const SHOTS = `screens/${LANG}/`;
 // Design zur Jahreszeit fürs Store-Icon statt des Logos, nach dem Schalter in season.js. Ohne
 // Design wieder das Logo aus assets/logo.svg.

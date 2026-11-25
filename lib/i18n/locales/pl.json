@@ -1,0 +1,1293 @@
+{
+  "app": {
+    "name": "Daylight"
+  },
+  "tabs": {
+    "today": "Dziś",
+    "calendar": "Kalendarz",
+    "insights": "Wgląd",
+    "achievements": "Nagrody",
+    "settings": "Więcej"
+  },
+  "lookback": {
+    "title": "Spojrzenie wstecz",
+    "week": "Tydzień temu",
+    "month": "Miesiąc temu",
+    "halfYear": "6 miesięcy temu",
+    "year": "Rok temu",
+    "none": "Brak wpisu",
+    "hint": "Otwiera ten dzień"
+  },
+  "today": {
+    "empty": "Jeszcze brak wpisów",
+    "ask": "No i jak minął Ci dzień? ☀️",
+    "future": "Ten dzień dopiero nadejdzie. Ciesz się na niego! ✨",
+    "yesterday": "Wczoraj",
+    "tomorrow": "Jutro",
+    "relPast_one": "{{count}} dzień temu",
+    "relPast_few": "{{count}} dni temu",
+    "relPast_many": "{{count}} dni temu",
+    "relPast_other": "{{count}} dnia temu",
+    "relFuture_one": "Za {{count}} dzień",
+    "relFuture_few": "Za {{count}} dni",
+    "relFuture_many": "Za {{count}} dni",
+    "relFuture_other": "Za {{count}} dnia",
+    "editHint": "Otwiera wpis",
+    "planned": "Zaplanowane",
+    "plannedHint": "Aktywności na ten dzień"
+  },
+  "settings": {
+    "title": "Więcej",
+    "data": "Dane",
+    "import": "Import",
+    "exportJson": "Udostępnij kopię zapasową",
+    "saveJson": "Zapisz kopię zapasową w folderze",
+    "exportCsv": "Eksportuj jako Daylio CSV",
+    "deleteAll": "Usuń wszystkie dane",
+    "backupHint": "Tylko kopia zapasowa przywraca wszystko. Ze zdjęciami jest to plik ZIP. Plik CSV nie zawiera grup, ikon, planów, punktów zwrotnych ani zdjęć.",
+    "backupNever": "Nigdy",
+    "backupToday": "Dziś",
+    "backupAgo_one": "{{count}} dzień temu",
+    "backupAgo_few": "{{count}} dni temu",
+    "backupAgo_many": "{{count}} dni temu",
+    "backupAgo_other": "{{count}} dnia temu",
+    "saved": "Zapisano",
+    "changelog": "Historia zmian",
+    "unknownFile": "Ten plik nie jest ani kopią zapasową Daylight, ani eksportem lub kopią zapasową Daylio.",
+    "invalidFile": "Nie można odczytać pliku",
+    "deleteWord": "USUŃ",
+    "deleteBody": "Wszystkie wpisy, zdjęcia, nastroje, aktywności, plany, dane o zdrowiu i ustawienia zostaną usunięte z tego urządzenia.",
+    "deleteBackupHint": "Aby zachować swoje dane, najpierw udostępnij kopię zapasową.",
+    "deleteConfirm": "Wpisz {{word}}, aby potwierdzić",
+    "deleted": "Wszystkie dane usunięte",
+    "outlookSection": "Prognoza",
+    "calendarSection": "Kalendarz",
+    "weekStart": "Pierwszy dzień tygodnia",
+    "monday": "Poniedziałek",
+    "sunday": "Niedziela",
+    "outlook": "Prognoza",
+    "privacyLabel": "Prywatność",
+    "reminders": "Przypomnienie",
+    "lock": "Blokada aplikacji",
+    "about": "O aplikacji",
+    "rate": "Oceń Daylight",
+    "rateStore": "Play Store",
+    "protection": "Ochrona",
+    "info": "Informacje",
+    "healthSection": "Zdrowie",
+    "health": "Dane o zdrowiu",
+    "languageSection": "Język",
+    "language": "Język aplikacji",
+    "designSection": "Wygląd",
+    "designSeasons": "Wygląd sezonowy",
+    "designSeasonsHint": "Kolory i motywy w aplikacji oraz ikona na ekranie głównym podążają za wiosną, latem, jesienią i zimą. Ikona zmienia się, gdy aplikacja działa w tle.",
+    "designFestivals": "Wygląd świąteczny",
+    "designFestivalsHint": "Wielkanoc, Halloween, Boże Narodzenie, sylwester i Księżycowy Nowy Rok mają własny wygląd. Wyłączone: tylko pora roku.",
+    "diarySection": "Dziennik",
+    "history": "Historia",
+    "turningPoints": "Punkty zwrotne"
+  },
+  "import": {
+    "title": "Import",
+    "noFile": "Nie wybrano pliku",
+    "entries_one": "{{count}} wpis",
+    "entries_few": "{{count}} wpisy",
+    "entries_many": "{{count}} wpisów",
+    "entries_other": "{{count}} wpisu",
+    "moods_one": "{{count}} nastrój",
+    "moods_few": "{{count}} nastroje",
+    "moods_many": "{{count}} nastrojów",
+    "moods_other": "{{count}} nastroju",
+    "activities_one": "{{count}} aktywność",
+    "activities_few": "{{count}} aktywności",
+    "activities_many": "{{count}} aktywności",
+    "activities_other": "{{count}} aktywności",
+    "summary": "{{entries}} od {{from}} do {{to}}, {{moods}}, {{activities}} (w tym nowe: {{fresh}}).",
+    "summaryEmpty": "Plik nie zawiera wpisów.",
+    "mergeInfo_one": "Scalenie doda {{count}} wpis, {{duplicates}}.",
+    "mergeInfo_few": "Scalenie doda {{count}} wpisy, {{duplicates}}.",
+    "mergeInfo_many": "Scalenie doda {{count}} wpisów, {{duplicates}}.",
+    "mergeInfo_other": "Scalenie doda {{count}} wpisu, {{duplicates}}.",
+    "duplicates_one": "{{count}} już istnieje",
+    "duplicates_few": "{{count}} już istnieją",
+    "duplicates_many": "{{count}} już istnieje",
+    "duplicates_other": "{{count}} już istnieje",
+    "photoInfo_one": "Do tego {{count}} zdjęcie, w tym nowe: {{fresh}}.",
+    "photoInfo_few": "Do tego {{count}} zdjęcia, w tym nowe: {{fresh}}.",
+    "photoInfo_many": "Do tego {{count}} zdjęć, w tym nowe: {{fresh}}.",
+    "photoInfo_other": "Do tego {{count}} zdjęcia, w tym nowe: {{fresh}}.",
+    "healthInfo_one": "Do tego dane o zdrowiu z {{count}} dnia.",
+    "healthInfo_few": "Do tego dane o zdrowiu z {{count}} dni.",
+    "healthInfo_many": "Do tego dane o zdrowiu z {{count}} dni.",
+    "healthInfo_other": "Do tego dane o zdrowiu z {{count}} dnia.",
+    "newMoods": "Nowe nastroje",
+    "newActivities": "Nowe aktywności",
+    "level": "{{name}} ({{level}})",
+    "mode": "Tryb",
+    "merge": "Scal",
+    "replace": "Zastąp",
+    "replaceWarningCsv": "Zastąpienie usuwa wszystkie wpisy, nastroje, grupy i aktywności. Ustawienia zostają.",
+    "replaceWarningJson": "Zastąpienie usuwa wszystkie dane i dokładnie przywraca kopię zapasową.",
+    "replaceConfirm": "Na pewno zastąpić wszystko?",
+    "errorsTitle_one": "{{count}} błędny wiersz",
+    "errorsTitle_few": "{{count}} błędne wiersze",
+    "errorsTitle_many": "{{count}} błędnych wierszy",
+    "errorsTitle_other": "{{count}} błędnego wiersza",
+    "skipErrors": "Pomiń błędne wiersze",
+    "warningsTitle_one": "{{count}} uwaga",
+    "warningsTitle_few": "{{count}} uwagi",
+    "warningsTitle_many": "{{count}} uwag",
+    "warningsTitle_other": "{{count}} uwagi",
+    "more": "i jeszcze {{count}}",
+    "error": {
+      "columns": "Wiersz {{line}}: {{value}} zamiast 9 kolumn",
+      "date": "Wiersz {{line}}: nieprawidłowa data „{{value}}”",
+      "time": "Wiersz {{line}}: nieprawidłowa godzina „{{value}}”",
+      "mood": "Wiersz {{line}}: brak nastroju",
+      "entry": "Wpis {{line}}: nie można odczytać"
+    },
+    "warning": {
+      "scales": "Wiersz {{line}}: nie można odczytać skal „{{value}}”, pominięto",
+      "duplicateActivity": "Wiersz {{line}}: „{{value}}” dwa razy, przejęto raz",
+      "duplicateScale": "Wiersz {{line}}: skala „{{value}}” dwa razy, przejęto ostatnią wartość",
+      "photoMissing": "Wpis z {{value}}: brak zdjęcia w pliku"
+    },
+    "run": "Importuj",
+    "done_one": "Zaimportowano {{count}} wpis",
+    "done_few": "Zaimportowano {{count}} wpisy",
+    "done_many": "Zaimportowano {{count}} wpisów",
+    "done_other": "Zaimportowano {{count}} wpisu",
+    "failed": "Import nie powiódł się"
+  },
+  "changelog": {
+    "title": "Historia zmian",
+    "version": "Wersja {{version}}"
+  },
+  "dev": {
+    "title": "Rozwój",
+    "seed": "Wczytaj przykładowe dane",
+    "wipe": "Opróżnij bazę danych",
+    "sampleHint": "Wymyślony rok do wypróbowania. Znika z tej listy po Twoim pierwszym własnym wpisie."
+  },
+  "calendar": {
+    "today": "Dziś",
+    "entries_one": "{{count}} wpis",
+    "entries_few": "{{count}} wpisy",
+    "entries_many": "{{count}} wpisów",
+    "entries_other": "{{count}} wpisu",
+    "noEntry": "brak wpisu",
+    "legendSeveral": "kilka wpisów",
+    "outlook": "Prognoza: {{mood}}",
+    "planned": "zaplanowane: {{names}}",
+    "legendOutlook": "Prognoza"
+  },
+  "entry": {
+    "newTitle": "Nowy wpis",
+    "editTitle": "Wpis",
+    "save": "Zapisz",
+    "delete": "Usuń wpis",
+    "deleteTitle": "Usunąć wpis?",
+    "deleteBody": "Wpis zniknie razem z notatką i aktywnościami.",
+    "unsavedTitle": "Zapisać zmiany?",
+    "keepEditing": "Edytuj dalej",
+    "discard": "Odrzuć",
+    "gone": "Ten wpis już nie istnieje",
+    "selected_one": "Wybrano: {{count}}",
+    "selected_few": "Wybrano: {{count}}",
+    "selected_many": "Wybrano: {{count}}",
+    "selected_other": "Wybrano: {{count}}",
+    "noActivities": "Jeszcze brak aktywności",
+    "addActivity": "Nowa aktywność w grupie {{group}}",
+    "note": "Notatka",
+    "date": "Dzień",
+    "time": "Godzina",
+    "scaleValue": "{{value}} z {{max}}",
+    "scaleLine": "{{name}} {{value}} z {{max}}",
+    "scaleEmpty": "Nie ustawiono",
+    "manageActivities": "Zarządzaj aktywnościami i grupami",
+    "manageScales": "Zarządzaj skalami",
+    "dayTaken": "Na ten dzień jest już wpis. Możliwy jest jeden wpis dziennie.",
+    "turningLost": "Ten dzień jest punktem zwrotnym „{{title}}”. Bez wpisu w tym dniu punkt zwrotny też zostanie usunięty.",
+    "turningMoveTitle": "Punkt zwrotny przepadnie",
+    "turningMoveConfirm": "Przenieś i usuń"
+  },
+  "photo": {
+    "title": "Zdjęcie",
+    "add": "Dodaj zdjęcie",
+    "remove": "Usuń zdjęcie",
+    "open": "Pokaż zdjęcie w pełnym rozmiarze",
+    "label": "Zdjęcie wpisu",
+    "failed": "Nie udało się dodać zdjęcia"
+  },
+  "history": {
+    "title": "Historia",
+    "search": "Szukaj we wpisach",
+    "placeholder": "Szukaj",
+    "clear": "Wyczyść wyszukiwanie",
+    "filters": "Filtry",
+    "filtersActive_one": "Filtry, aktywne: {{count}}",
+    "filtersActive_few": "Filtry, aktywne: {{count}}",
+    "filtersActive_many": "Filtry, aktywne: {{count}}",
+    "filtersActive_other": "Filtry, aktywne: {{count}}",
+    "activitiesAll": "Wszystkie wybrane aktywności",
+    "period": {
+      "all": "Wszystko",
+      "30": "30 dni",
+      "90": "90 dni",
+      "365": "Rok"
+    },
+    "results_one": "Znaleziono {{count}} wpis",
+    "results_few": "Znaleziono {{count}} wpisy",
+    "results_many": "Znaleziono {{count}} wpisów",
+    "results_other": "Znaleziono {{count}} wpisu",
+    "reset": "Resetuj",
+    "empty": "Jeszcze brak wpisów",
+    "noResults": "Nic nie znaleziono",
+    "count_one": "{{count}} wpis",
+    "count_few": "{{count}} wpisy",
+    "count_many": "{{count}} wpisów",
+    "count_other": "{{count}} wpisu",
+    "turning_one": "Punkty zwrotne · {{count}}",
+    "turning_few": "Punkty zwrotne · {{count}}",
+    "turning_many": "Punkty zwrotne · {{count}}",
+    "turning_other": "Punkty zwrotne · {{count}}",
+    "turningEmpty": "Jeszcze brak punktów zwrotnych. Ustawisz je w zakładce Dziś, pod wpisem z danego dnia.",
+    "turningYear": "{{count}} z {{max}}"
+  },
+  "manage": {
+    "title": "Zarządzaj",
+    "moods": "Nastroje",
+    "activities": "Aktywności i grupy",
+    "groups": "Sortuj grupy",
+    "sortGroups": "Sortuj grupy",
+    "scales": "Skale",
+    "group": "Grupa",
+    "name": "Nazwa",
+    "icon": "Ikona",
+    "iconOption": "{{section}}, ikona {{index}} z {{count}}",
+    "level": "Poziom",
+    "add": "Dodaj",
+    "newMood": "Nowy nastrój",
+    "newActivity": "Nowa aktywność",
+    "newGroup": "Nowa grupa",
+    "newScale": "Nowa skala",
+    "newScaleRange": "Rodzaj nowej skali",
+    "range": "{{min}} do {{max}}",
+    "duration": "Czas trwania",
+    "durationHint": "Godziny i minuty, na przykład dla pracy, treningu lub czytania.",
+    "scaleInsights": "Zobacz wgląd",
+    "archived": "Zarchiwizowane",
+    "archive": "Archiwizuj",
+    "archiveMoodHint": "Nie można go już wybrać, stare wpisy go zachowują.",
+    "archiveActivityHint": "Nie można jej już wybrać, stare wpisy ją zachowują.",
+    "archiveGroupHint": "Grupy i jej aktywności nie można już wybrać.",
+    "archiveScaleHint": "Nie ma jej już we wpisie, stare wartości zostają.",
+    "usage_one": "{{count}} wpis",
+    "usage_few": "{{count}} wpisy",
+    "usage_many": "{{count}} wpisów",
+    "usage_other": "{{count}} wpisu",
+    "levelUsage_one": "Poziom {{level}}, {{count}} wpis",
+    "levelUsage_few": "Poziom {{level}}, {{count}} wpisy",
+    "levelUsage_many": "Poziom {{level}}, {{count}} wpisów",
+    "levelUsage_other": "Poziom {{level}}, {{count}} wpisu",
+    "activityCount_one": "{{count}} aktywność",
+    "activityCount_few": "{{count}} aktywności",
+    "activityCount_many": "{{count}} aktywności",
+    "activityCount_other": "{{count}} aktywności",
+    "editGroup": "Edytuj grupę {{name}}",
+    "moveHandle": "Przesuń {{name}}",
+    "moveUp": "Przesuń w górę",
+    "moveDown": "Przesuń w dół",
+    "mergeWith": "Scal z",
+    "mergeChoose": "Wybierz",
+    "mergeSheet": "Scal {{name}} z",
+    "mergeTitle": "Scalić „{{from}}” z „{{into}}”?",
+    "mergeBody_one": "{{count}} wpis otrzyma „{{into}}”. Potem „{{from}}” zniknie.",
+    "mergeBody_few": "{{count}} wpisy otrzymają „{{into}}”. Potem „{{from}}” zniknie.",
+    "mergeBody_many": "{{count}} wpisów otrzyma „{{into}}”. Potem „{{from}}” zniknie.",
+    "mergeBody_other": "{{count}} wpisu otrzyma „{{into}}”. Potem „{{from}}” zniknie.",
+    "merge": "Scal",
+    "nameTaken": "„{{name}}” już tu istnieje",
+    "nameTakenHint": "Dwie jednakowe aktywności można scalić.",
+    "lastMood": "Co najmniej jeden nastrój musi zostać",
+    "gone": "Już nie istnieje"
+  },
+  "icons": {
+    "moods": "Nastrój",
+    "feelings": "Emocje",
+    "sleep": "Sen",
+    "weather": "Pogoda",
+    "people": "Ludzie",
+    "work": "Praca",
+    "leisure": "Czas wolny",
+    "health": "Zdrowie",
+    "other": "Inne"
+  },
+  "common": {
+    "error": "Coś poszło nie tak",
+    "retry": "Spróbuj ponownie",
+    "back": "Wstecz",
+    "close": "Zamknij",
+    "cancel": "Anuluj",
+    "on": "Wł.",
+    "off": "Wył.",
+    "increase": "Zwiększ: {{label}}",
+    "decrease": "Zmniejsz: {{label}}"
+  },
+  "insights": {
+    "empty": "Wgląd pojawi się, gdy będą wpisy",
+    "emptyRange": "W tym okresie nie ma wpisów",
+    "range": {
+      "label": "Okres",
+      "30": "30 dni",
+      "90": "90 dni",
+      "365": "Rok",
+      "all": "Wszystko"
+    },
+    "tabs": {
+      "mood": "Nastrój",
+      "patterns": "Wzorce",
+      "activities": "Aktywności",
+      "scales": "Skale",
+      "health": "Zdrowie",
+      "links": "Powiązania",
+      "notes": "Notatki"
+    },
+    "days_one": "{{count}} dzień",
+    "days_few": "{{count}} dni",
+    "days_many": "{{count}} dni",
+    "days_other": "{{count}} dnia",
+    "tiles": {
+      "mean": "Średnia",
+      "meanOf": "Śr. {{name}}",
+      "meanOfSpoken": "Średnia {{name}}",
+      "coverage": "Pokrycie",
+      "coverageHint": "{{days}} z {{span}} dni"
+    },
+    "trend": {
+      "title": "Przebieg",
+      "day": "Dzień",
+      "week": "Średnia z 7 dni",
+      "a11y": "Nastrój od {{from}} do {{to}}, liczba dni: {{count}}, średnia {{mean}}, ostatnia średnia z 7 dni {{last}}"
+    },
+    "distribution": {
+      "title": "Rozkład",
+      "before": "wcześniej {{share}}",
+      "a11y_one": "{{mood}}: {{share}}, {{count}} dzień",
+      "a11y_few": "{{mood}}: {{share}}, {{count}} dni",
+      "a11y_many": "{{mood}}: {{share}}, {{count}} dni",
+      "a11y_other": "{{mood}}: {{share}}, {{count}} dnia",
+      "a11yBefore_one": "{{mood}}: {{share}}, {{count}} dzień, wcześniej {{before}}",
+      "a11yBefore_few": "{{mood}}: {{share}}, {{count}} dni, wcześniej {{before}}",
+      "a11yBefore_many": "{{mood}}: {{share}}, {{count}} dni, wcześniej {{before}}",
+      "a11yBefore_other": "{{mood}}: {{share}}, {{count}} dnia, wcześniej {{before}}"
+    },
+    "pixels": {
+      "title": "Rok w pikselach",
+      "year": "Rok",
+      "a11yMonth": "{{month}}: {{summary}}",
+      "a11yEmpty": "{{month}}: brak wpisów",
+      "a11yHint": "Otwiera stuknięty dzień"
+    },
+    "weekdays": {
+      "title": "Dni tygodnia",
+      "overall": "Średnia ze wszystkich dni: {{mean}}",
+      "a11y": "{{day}}: {{mean}}, liczba dni: {{count}}, {{diff}} względem średniej",
+      "none": "{{day}}: brak wpisów"
+    },
+    "months": {
+      "title": "Miesiące",
+      "empty": "Jeszcze brak miesięcy"
+    },
+    "trends": {
+      "title": "Tendencje",
+      "hint": "Z ostatnich tygodni, niezależnie od okresu",
+      "mood": "Nastrój",
+      "run": {
+        "up_one": "{{name}}: w górę od {{count}} tygodnia",
+        "up_few": "{{name}}: w górę od {{count}} tygodni",
+        "up_many": "{{name}}: w górę od {{count}} tygodni",
+        "up_other": "{{name}}: w górę od {{count}} tygodnia",
+        "down_one": "{{name}}: w dół od {{count}} tygodnia",
+        "down_few": "{{name}}: w dół od {{count}} tygodni",
+        "down_many": "{{name}}: w dół od {{count}} tygodni",
+        "down_other": "{{name}}: w dół od {{count}} tygodnia"
+      },
+      "shift": {
+        "up": "{{name}}: wyżej w ostatnich 4 tygodniach",
+        "down": "{{name}}: niżej w ostatnich 4 tygodniach"
+      },
+      "runDetail": "Średnia tygodniowa od {{from}} do {{to}}",
+      "shiftDetail": "Ostatnie 4 tygodnie {{recent}}, kwartał wcześniej {{before}}",
+      "turning": "Zaczęło się około „{{title}}”"
+    },
+    "swings": {
+      "title": "Wahania",
+      "typical": "Typowa rozpiętość Twojego nastroju w ciągu tygodnia: {{value}}.",
+      "calm": "Najspokojniejsze tygodnie",
+      "rough": "Najbardziej niespokojne tygodnie",
+      "week": "Tydzień od {{date}}",
+      "row": "Średnio {{mean}}, wahanie {{spread}}",
+      "empty": "Jeszcze brak tygodnia z co najmniej czterema wpisami"
+    },
+    "streaks": {
+      "title": "Serie",
+      "longest": "Najdłuższa seria: {{mood}} lub lepiej",
+      "current": "Obecna seria",
+      "none": "brak",
+      "range": "{{from}} do {{to}}"
+    },
+    "frequency": {
+      "title": "Częstotliwość",
+      "before": "wcześniej {{count}}",
+      "empty": "Brak aktywności w tym okresie"
+    },
+    "effects": {
+      "title": "Nastrój z i bez",
+      "nextTitle": "Następnego dnia",
+      "higher": "Wyższa średnia",
+      "lower": "Niższa średnia",
+      "sentence": "W dni z „{{name}}” średnio {{with}} zamiast {{without}} (liczba dni: {{count}})",
+      "nextSentence": "Dzień po „{{name}}” średnio {{with}} zamiast {{without}} (liczba dni: {{count}})",
+      "empty": "Jeszcze brak aktywności z wyraźną różnicą",
+      "more": "Pokaż wszystko",
+      "less": "Pokaż mniej"
+    },
+    "pairs": {
+      "title": "Często razem",
+      "pair": "{{a}} i {{b}}",
+      "detail": "Liczba dni: {{count}}, {{lift}} razy częściej niż przypadkiem, średnio {{mean}}",
+      "empty": "Jeszcze brak aktywności, które wyraźnie często występują razem"
+    },
+    "beforeHard": {
+      "title": "Przed trudnymi dniami",
+      "row": "W dwóch dniach przed {{count}} z {{total}} trudnych dni ({{share}}), poza tym przed {{base}} wszystkich dni",
+      "few": "Za mało trudnych dni na porównanie",
+      "nothing": "Żadna aktywność nie występowała wyraźnie często przed trudnymi dniami"
+    },
+    "groups": {
+      "title": "Widok grupy",
+      "none": "Nic z tej grupy",
+      "row": "śr. {{mean}}, dni: {{count}}",
+      "rowSpoken": "średnio {{mean}}, liczba dni: {{count}}",
+      "few": "Dni: {{count}}",
+      "empty": "W tym okresie nie ma wpisów w tej grupie",
+      "pick": "Grupa",
+      "titleOf": "Widok grupy: {{name}}"
+    },
+    "words": {
+      "title": "Słowa",
+      "good": "Częściej w dni na poziomie {{mood}} lub wyżej",
+      "low": "Częściej w pozostałe dni",
+      "empty": "Jeszcze za mało notatek",
+      "none": "Brak słów z wyraźną różnicą",
+      "a11y": "{{word}}, liczba dni: {{count}}"
+    },
+    "coverage": {
+      "title": "Zakres",
+      "entries": "Wpisy",
+      "days": "Dni z wpisem",
+      "share": "Pokrycie",
+      "time": "Zwykle o",
+      "hours": "Wpisy według pory dnia",
+      "a11yHours": "Najwięcej wpisów między {{from}} a {{to}}"
+    },
+    "activity": {
+      "days": "W {{count}} z {{total}} dni ({{share}})",
+      "levels": "Nastrój z i bez",
+      "with": "Z",
+      "without": "Bez",
+      "meanWith": "Średnio {{with}} zamiast {{without}}",
+      "weekdays": "Dni tygodnia",
+      "companions": "Towarzyszące",
+      "companion": "w {{count}} z tych dni ({{share}})",
+      "months": "Częstotliwość w miesiącu",
+      "allDays": "Wszystkie dni",
+      "showAll": "Pokaż wszystkie dni: {{count}}",
+      "edit": "Edytuj aktywność",
+      "insights": "Wgląd",
+      "noDays": "Jeszcze nie zapisano w żadnym dniu",
+      "few": "Jeszcze za mało dni na porównanie"
+    },
+    "level": {
+      "days": "W {{count}} z {{total}} dni ({{share}})",
+      "typical": "Częściej w te dni",
+      "rare": "Rzadziej w te dni",
+      "row": "{{share}} dni zamiast {{other}}",
+      "none": "Brak aktywności z wyraźną różnicą",
+      "noDays": "Jeszcze brak dnia z tym nastrojem"
+    },
+    "health": {
+      "title": "Nastrój a sen i ruch",
+      "empty": "W tym okresie nie ma dni z wpisem i danymi o zdrowiu",
+      "sleep": "Sen poprzedniej nocy",
+      "steps": "Kroki",
+      "exercise": "Ćwiczenia",
+      "bands": {
+        "sleepUnder6": "poniżej 6 h",
+        "sleep6to7": "6 do 7 h",
+        "sleep7to8": "7 do 8 h",
+        "sleepOver8": "8 h lub więcej",
+        "stepsUnder5k": "poniżej 5000",
+        "steps5to10k": "5000 do 10 000",
+        "stepsOver10k": "10 000 lub więcej",
+        "exerciseWith": "z ćwiczeniami",
+        "exerciseWithout": "bez ćwiczeń",
+        "hrLow": "poniżej {{low}} ud./min",
+        "hrUsual": "{{low}} do {{high}} ud./min",
+        "hrHigh": "powyżej {{high}} ud./min"
+      },
+      "a11y": "{{band}}: średnio {{mean}}, liczba dni: {{count}}",
+      "a11yFew": "{{band}}: liczba dni: {{count}}, za mało na średnią",
+      "hint_one": "Na podstawie {{count}} dnia z wpisem i danymi z Health Connect. To opis Twojego dziennika, nie przyczyna i skutek.",
+      "hint_few": "Na podstawie {{count}} dni z wpisem i danymi z Health Connect. To opis Twojego dziennika, nie przyczyna i skutek.",
+      "hint_many": "Na podstawie {{count}} dni z wpisem i danymi z Health Connect. To opis Twojego dziennika, nie przyczyna i skutek.",
+      "hint_other": "Na podstawie {{count}} dnia z wpisem i danymi z Health Connect. To opis Twojego dziennika, nie przyczyna i skutek.",
+      "restingHr": "Tętno spoczynkowe"
+    },
+    "healthStats": {
+      "empty": "W tym okresie nie ma danych o zdrowiu",
+      "emptyRange": "W tym okresie nie ma danych o zdrowiu",
+      "metric": {
+        "sleep": "Sen",
+        "steps": "Kroki",
+        "restingHr": "Tętno",
+        "exercise": "Ćwiczenia"
+      },
+      "metricInText": {
+        "sleep": "sen",
+        "steps": "kroki",
+        "restingHr": "tętno",
+        "exercise": "ćwiczenia"
+      },
+      "tiles": {
+        "sleep": "Sen",
+        "steps": "Kroki",
+        "restingHr": "Tętno spoczynkowe",
+        "exercise": "Ćwiczenia w tygodniu",
+        "before": "wcześniej {{value}}",
+        "days_one": "{{count}} dzień",
+        "days_few": "{{count}} dni",
+        "days_many": "{{count}} dni",
+        "days_other": "{{count}} dnia",
+        "exerciseDays_one": "{{count}} dzień",
+        "exerciseDays_few": "{{count}} dni",
+        "exerciseDays_many": "{{count}} dni",
+        "exerciseDays_other": "{{count}} dnia"
+      },
+      "trend": {
+        "title": "{{name}} w czasie",
+        "goal": "Cel",
+        "mean": "Średnia",
+        "median": "Mediana",
+        "min": "Najniższa",
+        "max": "Najwyższa",
+        "days_one": "Z {{count}} dnia",
+        "days_few": "Z {{count}} dni",
+        "days_many": "Z {{count}} dni",
+        "days_other": "Z {{count}} dnia",
+        "before_one": "Z {{count}} dnia, w poprzednim okresie średnio {{value}}",
+        "before_few": "Z {{count}} dni, w poprzednim okresie średnio {{value}}",
+        "before_many": "Z {{count}} dni, w poprzednim okresie średnio {{value}}",
+        "before_other": "Z {{count}} dnia, w poprzednim okresie średnio {{value}}",
+        "a11y": "{{metric}} od {{from}} do {{to}}, liczba dni: {{count}}, ostatnia średnia z 7 dni {{last}}"
+      },
+      "goals": {
+        "title": "Cele i serie",
+        "sleep": "Noce z 7 godzinami snu lub więcej",
+        "steps": "Dni z 10 000 kroków lub więcej",
+        "exercise": "Dni z ćwiczeniami",
+        "share": "{{hit}} z {{count}} dni z danymi",
+        "perWeek": "Średnio {{value}} w tygodniu",
+        "longest": "Najdłuższa seria",
+        "current": "Obecna seria"
+      },
+      "weekdays": {
+        "title": "{{name}} według dnia tygodnia",
+        "a11y": "{{day}}: {{value}}, liczba dni: {{count}}"
+      },
+      "records": {
+        "title": "Rekordy",
+        "mostSteps": "Najwięcej kroków",
+        "fewestSteps": "Najmniej kroków",
+        "longestSleep": "Najdłuższy sen",
+        "shortestSleep": "Najkrótszy sen",
+        "longestExercise": "Najdłuższe ćwiczenia",
+        "lowestHr": "Najniższe tętno spoczynkowe",
+        "highestHr": "Najwyższe tętno spoczynkowe",
+        "mood": "Nastrój: {{mood}} ({{mean}})",
+        "noEntry": "brak wpisu"
+      },
+      "split": {
+        "title": "Dobre i trudne dni",
+        "good": "{{mood}} lub lepiej",
+        "hard": "{{mood}} lub gorzej",
+        "diff": "W dobre dni {{diff}}",
+        "few": "za mało dni",
+        "a11y": "{{metric}}: w dobre dni {{good}}, w trudne dni {{hard}}",
+        "empty": "Jeszcze za mało dobrych lub trudnych dni z danymi o zdrowiu",
+        "hint": "Średnia w dni na poziomie {{good}} lub wyżej w porównaniu z dniami na poziomie {{hard}} lub niżej. Sen dotyczy poprzedniej nocy."
+      },
+      "links": {
+        "title": "Nastrój i ciało",
+        "empty": "Powiązanie wymaga co najmniej tylu dni z wpisem i danymi o zdrowiu: {{count}}",
+        "pairing": {
+          "sleep": {
+            "same": "Sen poprzedniej nocy i nastrój",
+            "nightAfter": "Nastrój i sen następnej nocy"
+          },
+          "steps": {
+            "same": "Kroki i nastrój tego samego dnia",
+            "next": "Kroki i nastrój następnego dnia"
+          },
+          "restingHr": {
+            "same": "Tętno spoczynkowe i nastrój tego samego dnia",
+            "next": "Tętno spoczynkowe i nastrój następnego dnia"
+          },
+          "exercise": {
+            "same": "Ćwiczenia i nastrój tego samego dnia",
+            "next": "Ćwiczenia i nastrój następnego dnia"
+          }
+        },
+        "sleep": {
+          "up": "Więcej snu, lepszy nastrój ({{strength}})",
+          "down": "Więcej snu, gorszy nastrój ({{strength}})"
+        },
+        "steps": {
+          "up": "Więcej kroków, lepszy nastrój ({{strength}})",
+          "down": "Więcej kroków, gorszy nastrój ({{strength}})"
+        },
+        "restingHr": {
+          "up": "Wyższe tętno spoczynkowe, lepszy nastrój ({{strength}})",
+          "down": "Wyższe tętno spoczynkowe, gorszy nastrój ({{strength}})"
+        },
+        "exercise": {
+          "up": "Więcej ćwiczeń, lepszy nastrój ({{strength}})",
+          "down": "Więcej ćwiczeń, gorszy nastrój ({{strength}})"
+        },
+        "nightAfter": {
+          "up": "Lepszy nastrój, potem więcej snu ({{strength}})",
+          "down": "Lepszy nastrój, potem mniej snu ({{strength}})"
+        },
+        "none": "Prawie brak powiązania",
+        "strength": {
+          "weak": "słabe",
+          "medium": "umiarkowane",
+          "strong": "wyraźne"
+        },
+        "detail": "r = {{r}}, liczba dni: {{count}}",
+        "hint": "Korelacja od -1 do 1: na ile obie wartości razem rosną lub spadają. To opis Twojego dziennika, nie przyczyna i skutek."
+      },
+      "activities": {
+        "title": "Aktywności i {{name}}",
+        "sentence": "W te dni średnio {{with}} zamiast {{without}} (liczba dni: {{count}})",
+        "nightSentence": "Następnej nocy średnio {{with}} zamiast {{without}} (liczba nocy: {{count}})",
+        "higher": {
+          "sleep": "Więcej snu",
+          "steps": "Więcej kroków",
+          "restingHr": "Wyższe tętno spoczynkowe",
+          "exercise": "Więcej ćwiczeń"
+        },
+        "lower": {
+          "sleep": "Mniej snu",
+          "steps": "Mniej kroków",
+          "restingHr": "Niższe tętno spoczynkowe",
+          "exercise": "Mniej ćwiczeń"
+        },
+        "empty": "Jeszcze brak aktywności z wyraźną różnicą"
+      }
+    },
+    "scales": {
+      "label": "Skala",
+      "pick": "Wybierz skalę",
+      "emptyRange": "Żadna skala nie ma wartości w tym okresie",
+      "trend": "{{name}} w czasie",
+      "weekdays": "{{name}} według dnia tygodnia",
+      "mood": {
+        "title": "Nastrój według: {{name}}",
+        "days_one": "{{count}} dzień",
+        "days_few": "{{count}} dni",
+        "days_many": "{{count}} dni",
+        "days_other": "{{count}} dnia",
+        "a11y": "{{value}}: średni nastrój {{mood}}, liczba dni: {{count}}",
+        "hint": "Średni nastrój dni z tą wartością. Brak słupka: mniej dni niż {{count}}."
+      },
+      "bucket": {
+        "over": "{{value}} lub więcej",
+        "under": "poniżej {{value}}",
+        "between": "{{from}} do {{to}}"
+      },
+      "links": {
+        "few": "Powiązanie z nastrojem wymaga co najmniej tylu dni z wartością: {{count}}",
+        "same": {
+          "title": "Ten sam dzień",
+          "up": "Wyższa wartość {{scale}}, lepszy nastrój ({{strength}})",
+          "down": "Wyższa wartość {{scale}}, gorszy nastrój ({{strength}})"
+        },
+        "next": {
+          "title": "Następny dzień",
+          "up": "Wyższa wartość {{scale}}, lepszy nastrój następnego dnia ({{strength}})",
+          "down": "Wyższa wartość {{scale}}, gorszy nastrój następnego dnia ({{strength}})"
+        }
+      },
+      "activities": {
+        "title": "Aktywności i {{name}}",
+        "higher": "Wyższa wartość {{scale}} z",
+        "lower": "Niższa wartość {{scale}} z"
+      },
+      "split": {
+        "title": "Skale w dobre i trudne dni",
+        "empty": "Jeszcze za mało dobrych lub trudnych dni z wartościami skal",
+        "hint": "Średnia w dni od {{good}} w porównaniu z dniami do {{hard}}."
+      },
+      "compare": {
+        "title": "Skale w te dni",
+        "row": "Średnio {{with}} zamiast {{without}} w inne dni (liczba dni: {{count}})"
+      },
+      "relations": {
+        "empty": "Powiązanie wymaga co najmniej tylu dni z obiema wartościami: {{count}}",
+        "mood": {
+          "title": "Skale i nastrój",
+          "same": "{{scale}} i nastrój tego samego dnia",
+          "next": "{{scale}} i nastrój następnego dnia"
+        },
+        "pairs": {
+          "title": "Skale między sobą",
+          "row": "{{a}} i {{b}}",
+          "up": "Wyższa wartość {{a}}, też wyższa {{b}} ({{strength}})",
+          "down": "Wyższa wartość {{a}}, niższa {{b}} ({{strength}})"
+        },
+        "body": {
+          "title": "Skale i ciało",
+          "row": {
+            "sleep": "{{scale}} i poprzednia noc",
+            "steps": "{{scale}} i kroki",
+            "restingHr": "{{scale}} i tętno spoczynkowe",
+            "exercise": "{{scale}} i trening"
+          },
+          "up": {
+            "sleep": "Więcej snu, wyższa wartość {{scale}} ({{strength}})",
+            "steps": "Więcej kroków, wyższa wartość {{scale}} ({{strength}})",
+            "restingHr": "Wyższe tętno spoczynkowe, wyższa wartość {{scale}} ({{strength}})",
+            "exercise": "Więcej treningu, wyższa wartość {{scale}} ({{strength}})"
+          },
+          "down": {
+            "sleep": "Więcej snu, niższa wartość {{scale}} ({{strength}})",
+            "steps": "Więcej kroków, niższa wartość {{scale}} ({{strength}})",
+            "restingHr": "Wyższe tętno spoczynkowe, niższa wartość {{scale}} ({{strength}})",
+            "exercise": "Więcej treningu, niższa wartość {{scale}} ({{strength}})"
+          }
+        }
+      }
+    }
+  },
+  "outlook": {
+    "show": "Pokazuj prognozę",
+    "showHint": "W zakładce Dziś i w kalendarzu",
+    "notify": {
+      "label": "Powiadomienie rano",
+      "hint": "Powiadomienie rano, gdy jest wskazówka na dobry dzień. Ekran blokady mówi tylko, że prognoza jest gotowa, a nie co zawiera.",
+      "time": "Godzina rano",
+      "permissionDenied": "Bez uprawnienia systemowego powiadomienie nie dotrze. Możesz na nie zezwolić w ustawieniach Androida."
+    },
+    "computing": "Obliczanie",
+    "between": "między {{low}} a {{high}}",
+    "hardChance": "Możliwy trudny dzień ({{percent}})",
+    "weekdayMean": "{{weekday}}: dotąd średnio {{mean}} (liczba dni: {{count}})",
+    "weekdayNone": "{{weekday}}: jeszcze bez wpisu",
+    "usual": "Często w ten dzień tygodnia: {{names}}",
+    "reasons": "Dlaczego",
+    "reasonWeekdayUp": "{{weekday}}: zwykle lepiej",
+    "reasonWeekdayDown": "{{weekday}}: zwykle gorzej",
+    "reasonCarryUp": "Ostatnie dni raczej dobre",
+    "reasonCarryDown": "Ostatnie dni raczej trudne",
+    "reasonPlannedUp": "Zaplanowane: {{name}}, takie dni są zwykle lepsze",
+    "reasonPlannedDown": "Zaplanowane: {{name}}, takie dni są zwykle gorsze",
+    "reasonRecurringUp": "Zwykle {{name}}, takie dni bywają lepsze",
+    "reasonRecurringDown": "Zwykle {{name}}, takie dni bywają gorsze",
+    "reasonSkippedUp": "Tym razem bez: {{name}}, zwykle raczej gorzej",
+    "reasonSkippedDown": "Tym razem bez: {{name}}, zwykle raczej lepiej",
+    "accuracy": "Dotychczasowa trafność",
+    "accuracyHint": "Dla każdego minionego dnia od 30. wpisu: prognoza tylko z danych do tamtej chwili, porównana z tym, co się wydarzyło. Średnie odchylenie w poziomach, im mniejsze, tym lepiej.",
+    "accuracyEmpty": "Potrzeba 30 dni z wpisem.",
+    "horizon_one": "Za {{count}} dzień",
+    "horizon_few": "Za {{count}} dni",
+    "horizon_many": "Za {{count}} dni",
+    "horizon_other": "Za {{count}} dnia",
+    "colModel": "Prognoza",
+    "colLongMean": "Średnia długoterminowa",
+    "colMode": "Zawsze {{mood}}",
+    "shown": "pokazywana",
+    "notShown": "niepokazywana",
+    "cases": "Liczba porównań na każdy horyzont: {{count}}",
+    "about": "Prognoza opisuje to, co często zdarzało się w Twoich dotychczasowych wpisach. Nie wie o Tobie nic, czego nie ma we wpisach.",
+    "tomorrow": {
+      "title": "Jutro może być dobry dzień",
+      "bodyLikely": "Po dniach takich jak dziś następny dzień był na poziomie {{mood}} lub wyżej w {{hit}} przypadków, zwykle średnio w {{usual}} (liczba przypadków: {{count}}).",
+      "bodyBetter": "Szansa na dzień od {{mood}} w górę jest większa niż zwykle: po dniach takich jak dziś {{hit}}, zwykle średnio {{usual}} (liczba przypadków: {{count}}).",
+      "bodyOpen": "Dziś jest jednym z dni, po których dzień od {{mood}} w górę jest u Ciebie najbardziej prawdopodobny. Jak często to się sprawdza, pokażą kolejne wpisy.",
+      "bodyAbove": "Twoje szanse na dzień od {{mood}} w górę są dziś trochę większe niż zwykle. Jak często to się sprawdza, pokażą kolejne wpisy.",
+      "reasons": "Powody: {{names}}",
+      "strip": "może być dobry dzień",
+      "reasonMood": "Twój dzisiejszy nastrój",
+      "reasonWeekday": "jutro jest {{weekday}}",
+      "reasonSleep": "sen: {{value}}",
+      "reasonSteps": "wczoraj kroki: {{value}}",
+      "morning": {
+        "title": "Dobre widoki na dziś",
+        "bodyLikely": "Po dniach takich jak wczoraj następny dzień był na poziomie {{mood}} lub wyżej w {{hit}} przypadków, zwykle średnio w {{usual}} (liczba przypadków: {{count}}).",
+        "bodyBetter": "Po dniach takich jak wczoraj następny dzień częściej niż zwykle był na poziomie {{mood}} lub wyżej: w {{hit}} przypadków zamiast {{usual}} (liczba przypadków: {{count}}).",
+        "bodyOpen": "U Ciebie po dniach takich jak wczoraj szczególnie często przychodził dzień od {{mood}} w górę. Na ile to pewne, pokażą kolejne wpisy.",
+        "bodyAbove": "U Ciebie po dniach takich jak wczoraj nieco częściej niż zwykle przychodził dzień od {{mood}} w górę. Na ile to pewne, pokażą kolejne wpisy.",
+        "reasonMood": "Twój wczorajszy nastrój",
+        "reasonWeekday": "dziś jest {{weekday}}",
+        "reasonSteps": "przedwczoraj kroki: {{value}}"
+      },
+      "status": {
+        "title": "Wskazówka na dobre dni",
+        "hint": "Po Twoim wpisie zakładka „Dziś” pokazuje wskazówkę, gdy następny dzień ma większą niż zwykle szansę być co najmniej tak dobry jak Twoja średnia. Mniej więcej od jednego do czterech razy na dwa tygodnie, nigdy jako ostrzeżenie przed złym dniem.",
+        "tooFew": "Potrzeba co najmniej {{count}} dni z wpisem, po których nastąpił kolejny, na razie: {{have}}.",
+        "proof": "Po takich dniach następny był dotąd na poziomie {{mood}} lub wyżej w {{hit}} przypadków, zwykle w {{usual}} (liczba przypadków: {{count}}).",
+        "noProof": "Dobry dzień to u Ciebie {{mood}} lub lepiej. Jak często wskazówka się sprawdza, pokażą kolejne wpisy.",
+        "shown_one": "{{count}} wskazówka w ostatnich 14 dniach.",
+        "shown_few": "{{count}} wskazówki w ostatnich 14 dniach.",
+        "shown_many": "{{count}} wskazówek w ostatnich 14 dniach.",
+        "shown_other": "{{count}} wskazówki w ostatnich 14 dniach.",
+        "alwaysGood": "Prawie każdy Twój dzień jest na poziomie {{mood}} lub wyżej. Nie ma tu miejsca na „lepiej niż zwykle”, więc wskazówka się nie pojawia."
+      }
+    }
+  },
+  "lowMood": {
+    "title": "Rozmowa pomaga",
+    "body": "Ostatnie dni często były trudne. Czasem dobrze jest z kimś porozmawiać.",
+    "lineAllDay": "Dostępny całą dobę: {{name}}, {{number}}.",
+    "lineHours": "Dostępny codziennie od {{from}}:00 do {{to}}:00: {{name}}, {{number}}.",
+    "noLine": "Pomóc może też telefon wsparcia w Twoim kraju albo ktoś, komu ufasz.",
+    "call": "Zadzwoń pod {{number}}",
+    "callLabel": "Zadzwoń: {{name}}, {{number}}",
+    "later": "Ukryj",
+    "laterHint": "Ukrywa tę informację na 14 dni"
+  },
+  "review": {
+    "title": "Czy Daylight Ci pomaga?",
+    "body": "Ocena w Play Store pomaga innym znaleźć aplikację.",
+    "rate": "Oceń",
+    "rateHint": "Otwiera Daylight w Play Store",
+    "later": "Nie teraz"
+  },
+  "backup": {
+    "title": "Czas na kopię zapasową",
+    "bodyNever": "Twoje wpisy są tylko na tym urządzeniu. Plik kopii zapasowej chroni je, jeśli urządzenie zginie lub zostanie wymienione.",
+    "bodyAgo_one": "Ostatnia kopia zapasowa: {{count}} dzień temu.",
+    "bodyAgo_few": "Ostatnia kopia zapasowa: {{count}} dni temu.",
+    "bodyAgo_many": "Ostatnia kopia zapasowa: {{count}} dni temu.",
+    "bodyAgo_other": "Ostatnia kopia zapasowa: {{count}} dnia temu.",
+    "now": "Utwórz kopię teraz"
+  },
+  "reminders": {
+    "title": "Przypomnienie",
+    "daily": "Codzienne przypomnienie",
+    "dailyHint": "Pomijane, gdy dzień ma już wpis",
+    "dailyHintAlways": "Każdego wieczoru o wybranej godzinie",
+    "always": "Przypominaj także po wpisie",
+    "alwaysHint": "Przychodzi, nawet gdy dzień ma już wpis",
+    "dailyTime": "Godzina codziennego przypomnienia",
+    "yesterdayTime": "Godzina porannego przypomnienia",
+    "permissionDenied": "Bez uprawnienia systemowego aplikacja nie ustawi przypomnienia. Możesz na nie zezwolić w ustawieniach Androida.",
+    "unavailable": "W Expo Go Android nie ustawia przypomnień. Ustawienie zostaje zapisane i zadziała w zainstalowanej aplikacji.",
+    "discreet": "Tekst podaje najwyżej długość Twojej serii albo to, że brakuje wczorajszego wpisu, nigdy nic z dziennika.",
+    "yesterday": "Przypomnienie następnego ranka",
+    "yesterdayHint": "Tylko gdy brakuje wczorajszego wpisu. Działa tylko z codziennym przypomnieniem"
+  },
+  "notify": {
+    "title": "Przypomnienie",
+    "channel": "Przypomnienie",
+    "body": "Jak minął Ci dzień?",
+    "bodyStreak": "Jak minął Ci dzień? Dzień {{value}} Twojej serii.",
+    "yesterday": "Brakuje jeszcze wczorajszego wpisu.",
+    "yesterdayStreak_one": "Brakuje jeszcze wczoraj. Uzupełnij, by nie przerwać serii.",
+    "yesterdayStreak_few": "Brakuje jeszcze wczoraj. Uzupełnij, by zachować serię {{value}} dni.",
+    "yesterdayStreak_many": "Brakuje jeszcze wczoraj. Uzupełnij, by zachować serię {{value}} dni.",
+    "yesterdayStreak_other": "Brakuje jeszcze wczoraj. Uzupełnij, by zachować serię {{value}} dnia.",
+    "outlook": "Twoja prognoza na dziś jest gotowa"
+  },
+  "reminderPrompt": {
+    "title": "Krótkie przypomnienie wieczorem?",
+    "body": "Wieczorne przypomnienie pomaga utrzymać serię. Jego tekst jest dyskretny, a wszystko zostaje na tym urządzeniu.",
+    "time": "Godzina wieczorem",
+    "morning": "Jeśli zabraknie dnia, przypomnę Ci o nim następnego ranka.",
+    "remind": "Przypominaj mi",
+    "remindHint": "Prosi o zgodę na powiadomienia",
+    "later": "Później",
+    "laterHint": "Więcej nie zapytam. Przypomnienie włączysz w Więcej › Przypomnienie",
+    "denied": "Możesz je włączyć w każdej chwili w Więcej › Przypomnienie.",
+    "ok": "OK"
+  },
+  "lock": {
+    "title": "Blokada aplikacji",
+    "prompt": "Potwierdź, aby odblokować",
+    "unlock": "Odblokuj",
+    "failed": "Nie odblokowano.",
+    "enable": "Blokada aplikacji",
+    "enableHint": "Wymagaj odblokowania przy otwieraniu",
+    "unavailable": "Nie ustawiono blokady ekranu. Ustaw PIN, wzór lub biometrię na urządzeniu.",
+    "delay": "Czas do blokady",
+    "delayImmediate": "Od razu",
+    "delayMinutes_one": "1 minuta",
+    "delayMinutes_few": "{{count}} minuty",
+    "delayMinutes_many": "{{count}} minut",
+    "delayMinutes_other": "{{count}} minuty",
+    "secure": "Gdy blokada jest włączona, podgląd w przeglądzie aplikacji pozostaje pusty, a zrzuty ekranu są zablokowane."
+  },
+  "privacy": {
+    "title": "Prywatność",
+    "intro": "Daylight zapisuje wszystko wyłącznie na tym urządzeniu.",
+    "stored": "Zapisywane są: wpisy z nastrojem, aktywnościami, skalami, notatkami i zdjęciami, Twoje nastroje, aktywności, grupy i skale, zaplanowane aktywności, punkty zwrotne i Twoje ustawienia.",
+    "network": "Bez kont, bez serwerów, bez analityki, bez reklam. Aplikacja nie prosi o uprawnienie do internetu i nie może niczego wysłać.",
+    "leave": "Dane opuszczają urządzenie tylko wtedy, gdy samodzielnie udostępnisz lub zapiszesz kopię zapasową albo eksport CSV.",
+    "noCloudBackup": "Aplikacja jest wyłączona z automatycznej kopii zapasowej Androida i z przenoszenia na nowy telefon. Twoje wpisy nie trafiają więc na konto Google ani nie są kopiowane przy konfiguracji nowego urządzenia. Cena: po odinstalowaniu lub zmianie urządzenia znikną, jeśli nie masz własnej kopii zapasowej. Po 60 dniach bez kopii zapasowej zakładka Dziś Ci o tym przypomni.",
+    "backup": "Kopia zapasowa to niezaszyfrowany plik ze wszystkimi wpisami, notatkami i zdjęciami. Przechowuj ją w miejscu, któremu ufasz.",
+    "computed": "Wgląd i prognoza są obliczane na urządzeniu z Twoich wpisów. Opisują Twoje dane i nie są stwierdzeniem medycznym.",
+    "reminders": "Przypomnienia to lokalne powiadomienia urządzenia: codzienne wieczorem i jedno rano, gdy brakuje wczorajszego wpisu. Ich tekst podaje najwyżej długość Twojej serii albo to, że brakuje wczoraj, nigdy nic z dziennika. Kto ma urządzenie w ręku, może więc z nich wywnioskować, że piszesz i jak regularnie.",
+    "lockNote": "Opcjonalna blokada aplikacji korzysta z odblokowania urządzenia. Gdy jest włączona, zrzuty ekranu są zablokowane.",
+    "deleteNote": "Usuń wszystkie dane usuwa z urządzenia wpisy, zdjęcia, aktywności, plany, dane o zdrowiu i ustawienia oraz oddaje dostęp do Health Connect.",
+    "photos": "Zdjęcia wybierasz za pomocą selektora zdjęć Androida. Daylight dostaje tylko ten jeden obraz, bez dostępu do galerii i bez aparatu. Pomniejszona kopia jest przechowywana w prywatnej pamięci aplikacji, nie w galerii.",
+    "health": "Gdy włączysz dane o zdrowiu, Daylight odczytuje z Health Connect kroki, sen, tętno spoczynkowe i ćwiczenia jako wartości dzienne. Dzieje się to na urządzeniu, bez internetu. Daylight niczego nie zapisuje w Health Connect. Wartości trafiają do kopii zapasowej tylko wtedy, gdy włączysz to w „Dane o zdrowiu”. Dostępem zarządzasz w Health Connect, „Rozłącz i usuń dane” usuwa wszystko, co zostało przejęte."
+  },
+  "about": {
+    "title": "O aplikacji",
+    "tagline": "Dziennik nastroju, lokalnie, offline, bez konta.",
+    "version": "Wersja {{version}}",
+    "copyright": "© 2026 Paul Behla, paul-behla.de",
+    "license": "Daylight to wolne oprogramowanie na licencji GNU General Public License w wersji 3 lub nowszej, z dodatkowym warunkiem dotyczącym uznania autorstwa. Bez jakiejkolwiek gwarancji. Licencja i kod źródłowy: github.com/Jurgler95/daylight",
+    "disclaimer": "Daylight nie jest wyrobem medycznym i nie zastępuje porady ani leczenia. Wgląd i prognoza opisują tylko Twoje własne wpisy."
+  },
+  "health": {
+    "title": "Dane o zdrowiu",
+    "enable": "Pobieraj z Health Connect",
+    "enableHint": "Kroki, sen, tętno spoczynkowe i ćwiczenia, na przykład z Samsung Health i Galaxy Watch. Tylko odczyt.",
+    "state": "Stan",
+    "running": "Trwa synchronizacja",
+    "never": "Jeszcze nie zsynchronizowano",
+    "lastSyncAt": "Ostatnia synchronizacja {{date}} o {{time}}",
+    "coverage_one": "{{count}} dzień z danymi, najstarszy z {{date}}",
+    "coverage_few": "{{count}} dni z danymi, najstarszy z {{date}}",
+    "coverage_many": "{{count}} dni z danymi, najstarszy z {{date}}",
+    "coverage_other": "{{count}} dnia z danymi, najstarszy z {{date}}",
+    "noDays": "Jeszcze brak dni z danymi",
+    "lastError": "Ostatni błąd: {{message}}",
+    "syncNow": "Synchronizuj teraz",
+    "reread": "Odczytaj wszystko ponownie",
+    "manage": "Zarządzaj w Health Connect",
+    "disconnect": "Rozłącz i usuń dane",
+    "disconnectBody": "Daylight oddaje dostęp do Health Connect i usuwa z tego urządzenia przejęte dane o zdrowiu. Wszystko w samym Health Connect pozostaje bez zmian.",
+    "disconnectConfirm": "Rozłącz",
+    "denied": "Bez zgody w Health Connect Daylight nie może niczego przejąć. Możesz jej udzielić w każdej chwili w „Zarządzaj w Health Connect”.",
+    "missing": "Health Connect nie jest zainstalowany na tym urządzeniu. Od Androida 14 jest wbudowany, wcześniej jest dostępna aplikacja Health Connect w Play Store.",
+    "needsUpdate": "Najpierw trzeba zaktualizować Health Connect.",
+    "unsupported": "Dane o zdrowiu są dostępne tylko w zainstalowanej aplikacji na Androidzie, nie w Expo Go.",
+    "historyHint": "Dla dni starszych niż 30 dni zezwól też w oknie Health Connect na dostęp do danych z przeszłości. Jeśli zezwolono na to dopiero później, „Odczytaj wszystko ponownie” pobierze starsze dni. Przejmowane jest tylko to, co Samsung Health przekazał do Health Connect.",
+    "readOnly": "Daylight tylko odczytuje i nigdy niczego nie zapisuje w Health Connect. Synchronizacja odbywa się przy otwarciu aplikacji, najwyżej co 15 minut. Dane o zdrowiu trafiają do kopii zapasowej tylko wtedy, gdy włączysz to powyżej. W przeciwnym razie po ponownej instalacji nowa synchronizacja przywróci to, co Health Connect jeszcze ma.",
+    "inBackup": "Dołącz do kopii zapasowej",
+    "inBackupHint": "Dni z danymi o zdrowiu też trafiają do kopii zapasowej. Dzięki temu sen i kroki wracają po ponownej instalacji, nawet gdy Health Connect nie ma już starych dni.",
+    "syncing": "Synchronizacja danych o zdrowiu",
+    "syncingMonth": "Synchronizacja danych o zdrowiu, {{month}}",
+    "day": {
+      "title": "Zdrowie",
+      "sleep": "Sen",
+      "steps": "Kroki",
+      "exercise": "Ćwiczenia",
+      "restingHr": "Tętno spoczynkowe",
+      "bpm": "{{value}} ud./min"
+    }
+  },
+  "achievements": {
+    "title": "Nagrody",
+    "intro": "Gwiazdki są za wytrwałość i zapisywanie, nigdy za to, jaki był dzień.",
+    "stars": "{{stars}} z {{max}} gwiazdek",
+    "starsShort": "{{stars}}/{{max}}",
+    "complete": "Ukończone: {{count}} z {{total}}",
+    "groups": {
+      "streaks": "Z rzędu",
+      "volume": "Ilość"
+    },
+    "best": "Rekord {{value}}",
+    "current": "Teraz {{value}}",
+    "lastWeek": "Ostatnie 7 dni {{value}}",
+    "total": "Dotąd {{value}}",
+    "next": "Następna gwiazdka: {{value}}",
+    "done": "Wszystkie pięć gwiazdek zdobyte",
+    "doneBadge": "Ukończone",
+    "upNext": "Następne",
+    "needsHealth": "Wymaga danych o zdrowiu z Health Connect",
+    "percent": "{{value}}%",
+    "overallLabel": "Łącznie ukończono {{value}} procent",
+    "progressLabel": "{{value}} procent drogi do piątej gwiazdki",
+    "starLabel": "{{stars}} z 5 gwiazdek",
+    "tiers": "Poziomy: {{tiers}}",
+    "units": {
+      "days_one": "{{value}} dzień",
+      "days_few": "{{value}} dni",
+      "days_many": "{{value}} dni",
+      "days_other": "{{value}} dnia",
+      "weeks_one": "{{value}} tydzień",
+      "weeks_few": "{{value}} tygodnie",
+      "weeks_many": "{{value}} tygodni",
+      "weeks_other": "{{value}} tygodnia",
+      "words_one": "{{value}} słowo",
+      "words_few": "{{value}} słowa",
+      "words_many": "{{value}} słów",
+      "words_other": "{{value}} słowa",
+      "activities_one": "{{value}} aktywność",
+      "activities_few": "{{value}} aktywności",
+      "activities_many": "{{value}} aktywności",
+      "activities_other": "{{value}} aktywności",
+      "photos_one": "{{value}} zdjęcie",
+      "photos_few": "{{value}} zdjęcia",
+      "photos_many": "{{value}} zdjęć",
+      "photos_other": "{{value}} zdjęcia",
+      "opens_one": "{{value}} raz",
+      "opens_few": "{{value}} razy",
+      "opens_many": "{{value}} razy",
+      "opens_other": "{{value}} razu",
+      "turningPoints_one": "{{value}} punkt zwrotny",
+      "turningPoints_few": "{{value}} punkty zwrotne",
+      "turningPoints_many": "{{value}} punktów zwrotnych",
+      "turningPoints_other": "{{value}} punktu zwrotnego"
+    },
+    "toGo": {
+      "days_one": "jeszcze <n>{{value}}</n> dzień",
+      "days_few": "jeszcze <n>{{value}}</n> dni",
+      "days_many": "jeszcze <n>{{value}}</n> dni",
+      "days_other": "jeszcze <n>{{value}}</n> dnia",
+      "weeks_one": "jeszcze <n>{{value}}</n> tydzień",
+      "weeks_few": "jeszcze <n>{{value}}</n> tygodnie",
+      "weeks_many": "jeszcze <n>{{value}}</n> tygodni",
+      "weeks_other": "jeszcze <n>{{value}}</n> tygodnia",
+      "words_one": "jeszcze <n>{{value}}</n> słowo",
+      "words_few": "jeszcze <n>{{value}}</n> słowa",
+      "words_many": "jeszcze <n>{{value}}</n> słów",
+      "words_other": "jeszcze <n>{{value}}</n> słowa",
+      "activities_one": "jeszcze <n>{{value}}</n> aktywność",
+      "activities_few": "jeszcze <n>{{value}}</n> aktywności",
+      "activities_many": "jeszcze <n>{{value}}</n> aktywności",
+      "activities_other": "jeszcze <n>{{value}}</n> aktywności",
+      "photos_one": "jeszcze <n>{{value}}</n> zdjęcie",
+      "photos_few": "jeszcze <n>{{value}}</n> zdjęcia",
+      "photos_many": "jeszcze <n>{{value}}</n> zdjęć",
+      "photos_other": "jeszcze <n>{{value}}</n> zdjęcia",
+      "opens_one": "jeszcze <n>{{value}}</n> raz",
+      "opens_few": "jeszcze <n>{{value}}</n> razy",
+      "opens_many": "jeszcze <n>{{value}}</n> razy",
+      "opens_other": "jeszcze <n>{{value}}</n> razu",
+      "turningPoints_one": "jeszcze <n>{{value}}</n> punkt zwrotny",
+      "turningPoints_few": "jeszcze <n>{{value}}</n> punkty zwrotne",
+      "turningPoints_many": "jeszcze <n>{{value}}</n> punktów zwrotnych",
+      "turningPoints_other": "jeszcze <n>{{value}}</n> punktu zwrotnego"
+    },
+    "items": {
+      "days": {
+        "title": "Dobra passa",
+        "text": "Dni z wpisem z rzędu"
+      },
+      "weeks": {
+        "title": "Wytrwałość",
+        "text": "Tygodnie z rzędu z wpisami w co najmniej 5 dniach"
+      },
+      "activityDays": {
+        "title": "Aktywne dni",
+        "text": "Dni z aktywnościami z rzędu"
+      },
+      "noteDays": {
+        "title": "Seria notatek",
+        "text": "Dni z notatką z rzędu"
+      },
+      "photoDays": {
+        "title": "Fotodziennik",
+        "text": "Dni ze zdjęciem z rzędu"
+      },
+      "sleepDays": {
+        "title": "Dziennik snu",
+        "text": "Dni z danymi o śnie z rzędu"
+      },
+      "stepDays": {
+        "title": "Krok po kroku",
+        "text": "Dni z krokami z rzędu"
+      },
+      "totalDays": {
+        "title": "Dni w dzienniku",
+        "text": "Łącznie dni z wpisem"
+      },
+      "weekWords": {
+        "title": "Złote pióro",
+        "text": "Słowa napisane w ciągu 7 dni"
+      },
+      "chips": {
+        "title": "Kolekcja",
+        "text": "Łącznie zapisane aktywności"
+      },
+      "weekChips": {
+        "title": "Pracowity tydzień",
+        "text": "Aktywności zapisane w ciągu 7 dni"
+      },
+      "variety": {
+        "title": "Różnorodność",
+        "text": "Różne zapisane aktywności"
+      },
+      "custom": {
+        "title": "Po swojemu",
+        "text": "Aktywności utworzone samodzielnie"
+      },
+      "photos": {
+        "title": "Album",
+        "text": "Łącznie zdjęcia we wpisach"
+      },
+      "scaleDays": {
+        "title": "Pomiary",
+        "text": "Dni z wartościami na skali"
+      },
+      "turningPoints": {
+        "title": "Punkty zwrotne",
+        "text": "Dni, które coś zmieniły"
+      },
+      "opens": {
+        "title": "Regularność",
+        "text": "Ile razy aplikacja została otwarta"
+      }
+    },
+    "toast": {
+      "welcomeEyebrow": "Nowość w Daylight",
+      "welcome": "Gwiazdki za wytrwałość, które już masz: {{stars}}. Zajrzyj.",
+      "newStars_one": "Nowa gwiazdka",
+      "newStars_few": "{{count}} nowe gwiazdki",
+      "newStars_many": "{{count}} nowych gwiazdek",
+      "newStars_other": "{{count}} nowej gwiazdki",
+      "allFive": "Wszystkie pięć gwiazdek",
+      "reached": "Osiągnięto {{value}}",
+      "more_one": "i jeszcze {{count}}",
+      "more_few": "i jeszcze {{count}}",
+      "more_many": "i jeszcze {{count}}",
+      "more_other": "i jeszcze {{count}}",
+      "open": "Zobacz",
+      "close": "Zamknij",
+      "across_one": "Postęp w {{count}} nagrodzie",
+      "across_few": "Postęp w {{count}} nagrodach",
+      "across_many": "Postęp w {{count}} nagrodach",
+      "across_other": "Postęp w {{count}} nagrody"
+    }
+  },
+  "streak": {
+    "days_one": "{{value}} dzień z rzędu",
+    "days_few": "{{value}} dni z rzędu",
+    "days_many": "{{value}} dni z rzędu",
+    "days_other": "{{value}} dnia z rzędu",
+    "chip": {
+      "atRisk": "Seria zagrożona, brakuje jeszcze wczoraj",
+      "broken": "Seria przerwana",
+      "hint": "Pokazuje serię w nagrodach"
+    },
+    "risk": {
+      "title": "Brakuje jeszcze wczoraj",
+      "body_one": "Uzupełnij dziś, by nie przerwać serii.",
+      "body_few": "Uzupełnij dziś, by zachować serię {{value}} dni.",
+      "body_many": "Uzupełnij dziś, by zachować serię {{value}} dni.",
+      "body_other": "Uzupełnij dziś, by zachować serię {{value}} dnia.",
+      "action": "Uzupełnij wczoraj"
+    },
+    "rescue": {
+      "title_one": "Brakuje {{count}} dnia",
+      "title_few": "Brakuje {{count}} dni",
+      "title_many": "Brakuje {{count}} dni",
+      "title_other": "Brakuje {{count}} dnia",
+      "body_one": "Uzupełnienie przywróci serię: {{value}} dzień.",
+      "body_few": "Uzupełnienie przywróci serię: {{value}} dni.",
+      "body_many": "Uzupełnienie przywróci serię: {{value}} dni.",
+      "body_other": "Uzupełnienie przywróci serię: {{value}} dnia.",
+      "action": "Uzupełnij {{date}}",
+      "later": "Później",
+      "laterHint": "Ukrywa tę informację do następnej luki"
+    },
+    "celebration": {
+      "eyebrow": "Seria",
+      "rescued_one": "Seria uratowana: {{value}} dzień",
+      "rescued_few": "Seria uratowana: {{value}} dni",
+      "rescued_many": "Seria uratowana: {{value}} dni",
+      "rescued_other": "Seria uratowana: {{value}} dnia",
+      "rescuedShort": "Seria uratowana",
+      "milestone": "Wpis w każdym z tych dni.",
+      "gapClosed": "Luka jest uzupełniona.",
+      "inARow_one": "dzień z rzędu",
+      "inARow_few": "dni z rzędu",
+      "inARow_many": "dni z rzędu",
+      "inARow_other": "dnia z rzędu",
+      "open": "Zobacz",
+      "openLabel": "Zobacz serię w nagrodach",
+      "close": "Zamknij"
+    }
+  },
+  "turning": {
+    "eyebrow": "Punkt zwrotny",
+    "title": "Punkt zwrotny",
+    "invalid": "Punkt zwrotny wymaga dnia z wpisem, dziś lub wcześniej.",
+    "discardTitle": "Odrzucić wpisany tekst?",
+    "room_one": "Wolne w {{year}}: {{count}} z {{max}}",
+    "room_few": "Wolne w {{year}}: {{count}} z {{max}}",
+    "room_many": "Wolne w {{year}}: {{count}} z {{max}}",
+    "room_other": "Wolne w {{year}}: {{count}} z {{max}}",
+    "full": "Wszystkie {{max}} na {{year}} ustawione",
+    "fullHint": "Wszystkie punkty zwrotne na {{year}} ({{max}}) są ustawione. Jeśli ten dzień jest ważniejszy, najpierw usuń inny.",
+    "already": "Ten dzień już jest punktem zwrotnym.",
+    "titleLabel": "Nazwa punktu zwrotnego",
+    "titlePlaceholder": "np. Przeprowadzka do Krakowa",
+    "noteLabel": "Notatka do punktu zwrotnego",
+    "notePlaceholder": "Kilka słów o nim, jeśli chcesz",
+    "before": "Przed",
+    "after": "Po",
+    "beforeShort": "Przed",
+    "afterShort": "Po",
+    "hold": "Naciśnij i przytrzymaj",
+    "holdA11y": "Ustaw punkt zwrotny",
+    "nameFirst": "Najpierw potrzebna jest nazwa: jak nazywa się ten dzień?",
+    "explain": "Daylight porówna potem dni przed z dniami po.",
+    "set": "Od tej chwili jest „po”.",
+    "save": "Zapisz",
+    "edit": "Edytuj",
+    "gone": "Ten punkt zwrotny już nie istnieje",
+    "delete": "Usuń punkt zwrotny",
+    "deleteTitle": "Usunąć punkt zwrotny?",
+    "deleteText": "„{{title}}” zostanie usunięty. Wpisy z tego dnia zostają.",
+    "mark": "Oznacz jako punkt zwrotny",
+    "markHint": "Dzień, który coś zmienił. Do czterech w roku.",
+    "compare": "Zobacz przed i po",
+    "cardA11y": "Punkt zwrotny: {{title}}. Zobacz przed i po",
+    "span": {
+      "label": "Dni po każdej stronie",
+      "30": "30",
+      "90": "90",
+      "180": "180",
+      "all": "Wszystko"
+    },
+    "tooSoon": "Nie ma jeszcze dni po tym dniu do porównania. Strona „po” wypełnia się z każdym wpisem.",
+    "few": "Jeszcze za mało dni do porównania: przed {{before}}, po {{after}} z wpisem. Każda strona wymaga co najmniej {{min}}.",
+    "daysWithEntries_one": "{{count}} dzień z wpisem",
+    "daysWithEntries_few": "{{count}} dni z wpisem",
+    "daysWithEntries_many": "{{count}} dni z wpisem",
+    "daysWithEntries_other": "{{count}} dnia z wpisem",
+    "sentence_one": "Dzień po punkcie zwrotnym Twój nastrój był na poziomie {{after}}, dzień przed nim: {{before}}.",
+    "sentence_few": "Przez {{count}} dni po punkcie zwrotnym Twój nastrój wynosił średnio {{after}}, przez {{count}} dni przed nim: {{before}}.",
+    "sentence_many": "Przez {{count}} dni po punkcie zwrotnym Twój nastrój wynosił średnio {{after}}, przez {{count}} dni przed nim: {{before}}.",
+    "sentence_other": "Przez {{count}} dnia po punkcie zwrotnym Twój nastrój wynosił średnio {{after}}, przez {{count}} dnia przed nim: {{before}}.",
+    "windows": "Przed: {{beforeFrom}} do {{beforeTo}}. Po: {{afterFrom}} do {{afterTo}}.",
+    "seasons": "Oba okresy przypadają na różne pory roku. Część różnicy może wynikać z tego.",
+    "noCause": "To opis Twoich wpisów, nie pokazuje przyczyny. Punkty zwrotne często przychodzą po trudnym okresie, więc już z tego powodu strona „po” zwykle wygląda lepiej.",
+    "trend": "Nastrój wokół punktu zwrotnego",
+    "levels": "Nastroje",
+    "activities": "Jak zmieniły się aktywności",
+    "activitiesSame": "Żadna aktywność nie pojawia się potem wyraźnie częściej ani rzadziej.",
+    "activityShift": "przed w {{before}} dni, po w {{after}}",
+    "health": "Zdrowie",
+    "healthShift": "{{before}} → {{after}}",
+    "nameLabel": "Nadaj temu dniu nazwę",
+    "setTitle": "Punkt zwrotny ustawiony"
+  }
+}

@@ -6,8 +6,12 @@ import de from './locales/de.json';
 import en from './locales/en.json';
 import es from './locales/es.json';
 import fr from './locales/fr.json';
+import id from './locales/id.json';
 import it from './locales/it.json';
+import nl from './locales/nl.json';
+import pl from './locales/pl.json';
 import pt from './locales/pt.json';
+import tr from './locales/tr.json';
 
 export const resources = {
   de: { translation: de },
@@ -16,6 +20,10 @@ export const resources = {
   pt: { translation: pt },
   fr: { translation: fr },
   it: { translation: it },
+  nl: { translation: nl },
+  pl: { translation: pl },
+  tr: { translation: tr },
+  id: { translation: id },
 } as const satisfies Record<Language, unknown>;
 
 void i18n.use(initReactI18next).init({

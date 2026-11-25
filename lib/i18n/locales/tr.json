@@ -1,0 +1,1161 @@
+{
+  "app": {
+    "name": "Daylight"
+  },
+  "tabs": {
+    "today": "Bugün",
+    "calendar": "Takvim",
+    "insights": "İçgörüler",
+    "achievements": "Ödüller",
+    "settings": "Diğer"
+  },
+  "lookback": {
+    "title": "Geriye bakış",
+    "week": "Bir hafta önce",
+    "month": "Bir ay önce",
+    "halfYear": "6 ay önce",
+    "year": "Bir yıl önce",
+    "none": "Kayıt yok",
+    "hint": "Bu günü açar"
+  },
+  "today": {
+    "empty": "Henüz kayıt yok",
+    "ask": "Peki, günün nasıl geçti? ☀️",
+    "future": "Bu gün henüz gelmedi. Şimdiden tadını çıkar! ✨",
+    "yesterday": "Dün",
+    "tomorrow": "Yarın",
+    "relPast_one": "{{count}} gün önce",
+    "relPast_other": "{{count}} gün önce",
+    "relFuture_one": "{{count}} gün sonra",
+    "relFuture_other": "{{count}} gün sonra",
+    "editHint": "Kaydı açar",
+    "planned": "Planlanan",
+    "plannedHint": "Bu günün aktiviteleri"
+  },
+  "settings": {
+    "title": "Diğer",
+    "data": "Veriler",
+    "import": "İçe aktar",
+    "exportJson": "Yedeği paylaş",
+    "saveJson": "Yedeği klasöre kaydet",
+    "exportCsv": "Daylio CSV olarak dışa aktar",
+    "deleteAll": "Tüm verileri sil",
+    "backupHint": "Her şeyi yalnızca yedek geri yükler. Fotoğraflarla birlikte bir ZIP dosyasıdır. CSV'de gruplar, simgeler, planlar, dönüm noktaları ve fotoğraflar yoktur.",
+    "backupNever": "Hiç",
+    "backupToday": "Bugün",
+    "backupAgo_one": "{{count}} gün önce",
+    "backupAgo_other": "{{count}} gün önce",
+    "saved": "Kaydedildi",
+    "changelog": "Güncelleme geçmişi",
+    "unknownFile": "Bu dosya ne bir Daylight yedeği ne de bir Daylio dışa aktarımı ya da Daylio yedeği.",
+    "invalidFile": "Dosya okunamıyor",
+    "deleteWord": "SIFIRLA",
+    "deleteBody": "Tüm kayıtlar, fotoğraflar, ruh halleri, aktiviteler, planlar, sağlık verileri ve ayarlar bu cihazdan silinir.",
+    "deleteBackupHint": "Verilerini saklamak için önce bir yedek paylaş.",
+    "deleteConfirm": "Onaylamak için {{word}} yaz",
+    "deleted": "Tüm veriler silindi",
+    "outlookSection": "Öngörü",
+    "calendarSection": "Takvim",
+    "weekStart": "Hafta başlangıcı",
+    "monday": "Pazartesi",
+    "sunday": "Pazar",
+    "outlook": "Öngörü",
+    "privacyLabel": "Gizlilik",
+    "reminders": "Hatırlatıcı",
+    "lock": "Uygulama kilidi",
+    "about": "Hakkında",
+    "rate": "Daylight'ı değerlendir",
+    "rateStore": "Play Store",
+    "protection": "Koruma",
+    "info": "Bilgi",
+    "healthSection": "Sağlık",
+    "health": "Sağlık verileri",
+    "languageSection": "Dil",
+    "language": "Uygulama dili",
+    "designSection": "Tasarım",
+    "designSeasons": "Mevsim tasarımı",
+    "designSeasonsHint": "Uygulamadaki renkler ve motifler ile ana ekrandaki simge ilkbahar, yaz, sonbahar ve kışa uyum sağlar. Simge, uygulama arka plana geçince değişir.",
+    "designFestivals": "Özel gün tasarımları",
+    "designFestivalsHint": "Paskalya, Cadılar Bayramı, Noel, yılbaşı gecesi ve Ay Yeni Yılı için ayrı bir tasarım var. Kapalıyken: yalnızca mevsim.",
+    "diarySection": "Günlük",
+    "history": "Geçmiş",
+    "turningPoints": "Dönüm noktaları"
+  },
+  "import": {
+    "title": "İçe aktar",
+    "noFile": "Dosya seçilmedi",
+    "entries_one": "{{count}} kayıt",
+    "entries_other": "{{count}} kayıt",
+    "moods_one": "{{count}} ruh hali",
+    "moods_other": "{{count}} ruh hali",
+    "activities_one": "{{count}} aktivite",
+    "activities_other": "{{count}} aktivite",
+    "summary": "{{from}} ile {{to}} arası {{entries}}, {{moods}}, {{activities}} (yeni olan: {{fresh}}).",
+    "summaryEmpty": "Dosyada kayıt yok.",
+    "mergeInfo_one": "Birleştirme {{count}} kayıt ekler, {{duplicates}}.",
+    "mergeInfo_other": "Birleştirme {{count}} kayıt ekler, {{duplicates}}.",
+    "duplicates_one": "{{count}} tanesi zaten var",
+    "duplicates_other": "{{count}} tanesi zaten var",
+    "photoInfo_one": "Ayrıca {{count}} fotoğraf, yeni olan: {{fresh}}.",
+    "photoInfo_other": "Ayrıca {{count}} fotoğraf, yeni olan: {{fresh}}.",
+    "healthInfo_one": "Ayrıca {{count}} günün sağlık verileri.",
+    "healthInfo_other": "Ayrıca {{count}} günün sağlık verileri.",
+    "newMoods": "Yeni ruh halleri",
+    "newActivities": "Yeni aktiviteler",
+    "level": "{{name}} ({{level}})",
+    "mode": "Mod",
+    "merge": "Birleştir",
+    "replace": "Değiştir",
+    "replaceWarningCsv": "Değiştirme tüm kayıtları, ruh hallerini, grupları ve aktiviteleri siler. Ayarlar kalır.",
+    "replaceWarningJson": "Değiştirme tüm verileri siler ve yedeği birebir geri yükler.",
+    "replaceConfirm": "Gerçekten her şey değiştirilsin mi?",
+    "errorsTitle_one": "{{count}} hatalı satır",
+    "errorsTitle_other": "{{count}} hatalı satır",
+    "skipErrors": "Hatalı satırları atla",
+    "warningsTitle_one": "{{count}} uyarı",
+    "warningsTitle_other": "{{count}} uyarı",
+    "more": "ve {{count}} tane daha",
+    "error": {
+      "columns": "Satır {{line}}: 9 sütun yerine {{value}}",
+      "date": "Satır {{line}}: tarih geçersiz: “{{value}}”",
+      "time": "Satır {{line}}: saat geçersiz: “{{value}}”",
+      "mood": "Satır {{line}}: ruh hali eksik",
+      "entry": "Kayıt {{line}}: okunamıyor"
+    },
+    "warning": {
+      "scales": "Satır {{line}}: ölçekler okunamadı, atlandı: “{{value}}”",
+      "duplicateActivity": "Satır {{line}}: “{{value}}” iki kez var, bir kez alındı",
+      "duplicateScale": "Satır {{line}}: “{{value}}” ölçeği iki kez var, son değer alındı",
+      "photoMissing": "{{value}} tarihli kayıt: fotoğraf dosyada yok"
+    },
+    "run": "İçe aktar",
+    "done_one": "{{count}} kayıt içe aktarıldı",
+    "done_other": "{{count}} kayıt içe aktarıldı",
+    "failed": "İçe aktarma başarısız"
+  },
+  "changelog": {
+    "title": "Güncelleme geçmişi",
+    "version": "Sürüm {{version}}"
+  },
+  "dev": {
+    "title": "Geliştirme",
+    "seed": "Örnek verileri yükle",
+    "wipe": "Veritabanını boşalt",
+    "sampleHint": "Denemek için uydurma bir yıl. İlk kendi kaydınla bu listeden kaybolur."
+  },
+  "calendar": {
+    "today": "Bugün",
+    "entries_one": "{{count}} kayıt",
+    "entries_other": "{{count}} kayıt",
+    "noEntry": "kayıt yok",
+    "legendSeveral": "birden fazla kayıt",
+    "outlook": "Öngörü {{mood}}",
+    "planned": "planlanan: {{names}}",
+    "legendOutlook": "Öngörü"
+  },
+  "entry": {
+    "newTitle": "Yeni kayıt",
+    "editTitle": "Kayıt",
+    "save": "Kaydet",
+    "delete": "Kaydı sil",
+    "deleteTitle": "Kayıt silinsin mi?",
+    "deleteBody": "Kayıt, notu ve aktiviteleriyle birlikte silinir.",
+    "unsavedTitle": "Değişiklikler kaydedilsin mi?",
+    "keepEditing": "Düzenlemeye devam et",
+    "discard": "Kaydetme",
+    "gone": "Bu kayıt artık yok",
+    "selected_one": "{{count}} seçildi",
+    "selected_other": "{{count}} seçildi",
+    "noActivities": "Henüz aktivite yok",
+    "addActivity": "Yeni aktivite, grup: {{group}}",
+    "note": "Not",
+    "date": "Gün",
+    "time": "Saat",
+    "scaleValue": "{{value}} / {{max}}",
+    "scaleLine": "{{name}} {{value}} / {{max}}",
+    "scaleEmpty": "Belirtilmedi",
+    "manageActivities": "Aktiviteleri ve grupları yönet",
+    "manageScales": "Ölçekleri yönet",
+    "dayTaken": "Bu gün için zaten bir kayıt var. Günde yalnızca bir kayıt olabilir.",
+    "turningLost": "Bu gün “{{title}}” dönüm noktası. Bu günde kayıt kalmazsa dönüm noktası da silinir.",
+    "turningMoveTitle": "Dönüm noktası kaybolacak",
+    "turningMoveConfirm": "Taşı ve sil"
+  },
+  "photo": {
+    "title": "Fotoğraf",
+    "add": "Fotoğraf ekle",
+    "remove": "Fotoğrafı kaldır",
+    "open": "Fotoğrafı tam boyutta göster",
+    "label": "Kaydın fotoğrafı",
+    "failed": "Fotoğraf eklenemedi"
+  },
+  "history": {
+    "title": "Geçmiş",
+    "search": "Kayıtlarda ara",
+    "placeholder": "Ara",
+    "clear": "Aramayı temizle",
+    "filters": "Filtreler",
+    "filtersActive_one": "Filtreler, {{count}} etkin",
+    "filtersActive_other": "Filtreler, {{count}} etkin",
+    "activitiesAll": "Seçili tüm aktiviteler",
+    "period": {
+      "all": "Tümü",
+      "30": "30 gün",
+      "90": "90 gün",
+      "365": "Yıl"
+    },
+    "results_one": "{{count}} kayıt bulundu",
+    "results_other": "{{count}} kayıt bulundu",
+    "reset": "Sıfırla",
+    "empty": "Henüz kayıt yok",
+    "noResults": "Hiçbir şey bulunamadı",
+    "count_one": "{{count}} kayıt",
+    "count_other": "{{count}} kayıt",
+    "turning_one": "Dönüm noktaları · {{count}}",
+    "turning_other": "Dönüm noktaları · {{count}}",
+    "turningEmpty": "Henüz dönüm noktası yok. “Bugün” ekranında, günün kaydının altında bir tane belirleyebilirsin.",
+    "turningYear": "{{count}} / {{max}}"
+  },
+  "manage": {
+    "title": "Yönet",
+    "moods": "Ruh halleri",
+    "activities": "Aktiviteler ve gruplar",
+    "groups": "Grupları sırala",
+    "sortGroups": "Grupları sırala",
+    "scales": "Ölçekler",
+    "group": "Grup",
+    "name": "Ad",
+    "icon": "Simge",
+    "iconOption": "{{section}}, simge {{index}} / {{count}}",
+    "level": "Seviye",
+    "add": "Ekle",
+    "newMood": "Yeni ruh hali",
+    "newActivity": "Yeni aktivite",
+    "newGroup": "Yeni grup",
+    "newScale": "Yeni ölçek",
+    "newScaleRange": "Yeni ölçeğin türü",
+    "range": "{{min}} ile {{max}} arası",
+    "duration": "Süre",
+    "durationHint": "Saat ve dakika, örneğin iş, antrenman ya da okuma için.",
+    "scaleInsights": "İçgörülere bak",
+    "archived": "Arşivlendi",
+    "archive": "Arşivle",
+    "archiveMoodHint": "Artık seçilemez, eski kayıtlarda kalır.",
+    "archiveActivityHint": "Artık seçilemez, eski kayıtlarda kalır.",
+    "archiveGroupHint": "Grup ve aktiviteleri artık seçilemez.",
+    "archiveScaleHint": "Artık kayıtta görünmez, eski değerler kalır.",
+    "usage_one": "{{count}} kayıt",
+    "usage_other": "{{count}} kayıt",
+    "levelUsage_one": "Seviye {{level}}, {{count}} kayıt",
+    "levelUsage_other": "Seviye {{level}}, {{count}} kayıt",
+    "activityCount_one": "{{count}} aktivite",
+    "activityCount_other": "{{count}} aktivite",
+    "editGroup": "Grubu düzenle: {{name}}",
+    "moveHandle": "Taşı: {{name}}",
+    "moveUp": "Yukarı taşı",
+    "moveDown": "Aşağı taşı",
+    "mergeWith": "Şununla birleştir",
+    "mergeChoose": "Seç",
+    "mergeSheet": "{{name}} ile birleştir",
+    "mergeTitle": "“{{from}}”, “{{into}}” ile birleştirilsin mi?",
+    "mergeBody_one": "{{count}} kayıtta artık “{{into}}” yer alır. Ardından “{{from}}” silinir.",
+    "mergeBody_other": "{{count}} kayıtta artık “{{into}}” yer alır. Ardından “{{from}}” silinir.",
+    "merge": "Birleştir",
+    "nameTaken": "“{{name}}” burada zaten var",
+    "nameTakenHint": "Aynı iki aktivite birleştirilebilir.",
+    "lastMood": "En az bir ruh hali kalmalı",
+    "gone": "Artık yok"
+  },
+  "icons": {
+    "moods": "Ruh hali",
+    "feelings": "Duygular",
+    "sleep": "Uyku",
+    "weather": "Hava durumu",
+    "people": "İnsanlar",
+    "work": "İş",
+    "leisure": "Boş zaman",
+    "health": "Sağlık",
+    "other": "Diğer"
+  },
+  "common": {
+    "error": "Bir şeyler ters gitti",
+    "retry": "Tekrar dene",
+    "back": "Geri",
+    "close": "Kapat",
+    "cancel": "İptal",
+    "on": "Açık",
+    "off": "Kapalı",
+    "increase": "Artır: {{label}}",
+    "decrease": "Azalt: {{label}}"
+  },
+  "insights": {
+    "empty": "İçgörüler, kayıtlar olunca görünür",
+    "emptyRange": "Bu dönemde kayıt yok",
+    "range": {
+      "label": "Dönem",
+      "30": "30 gün",
+      "90": "90 gün",
+      "365": "Yıl",
+      "all": "Tümü"
+    },
+    "tabs": {
+      "mood": "Ruh hali",
+      "patterns": "Kalıplar",
+      "activities": "Aktiviteler",
+      "scales": "Ölçekler",
+      "health": "Sağlık",
+      "links": "Bağlantılar",
+      "notes": "Notlar"
+    },
+    "days_one": "{{count}} gün",
+    "days_other": "{{count}} gün",
+    "tiles": {
+      "mean": "Ortalama",
+      "meanOf": "Ort. {{name}}",
+      "meanOfSpoken": "Ortalama {{name}}",
+      "coverage": "Kayıt oranı",
+      "coverageHint": "{{days}} / {{span}} gün"
+    },
+    "trend": {
+      "title": "Seyir",
+      "day": "Gün",
+      "week": "7 günlük ortalama",
+      "a11y": "{{from}} ile {{to}} arası ruh hali, {{count}} gün, ortalama {{mean}}, son 7 günlük ortalama {{last}}"
+    },
+    "distribution": {
+      "title": "Dağılım",
+      "before": "önceki: {{share}}",
+      "a11y_one": "{{mood}}: {{share}}, {{count}} gün",
+      "a11y_other": "{{mood}}: {{share}}, {{count}} gün",
+      "a11yBefore_one": "{{mood}}: {{share}}, {{count}} gün, önceki dönem {{before}}",
+      "a11yBefore_other": "{{mood}}: {{share}}, {{count}} gün, önceki dönem {{before}}"
+    },
+    "pixels": {
+      "title": "Piksellerle yıl",
+      "year": "Yıl",
+      "a11yMonth": "{{month}}: {{summary}}",
+      "a11yEmpty": "{{month}}: kayıt yok",
+      "a11yHint": "Dokunulan günü açar"
+    },
+    "weekdays": {
+      "title": "Haftanın günleri",
+      "overall": "Tüm günlerin ortalaması: {{mean}}",
+      "a11y": "{{day}}: {{mean}}, {{count}} gün, ortalamaya göre {{diff}}",
+      "none": "{{day}}: kayıt yok"
+    },
+    "months": {
+      "title": "Aylar",
+      "empty": "Henüz ay yok"
+    },
+    "trends": {
+      "title": "Eğilimler",
+      "hint": "Son birkaç haftadan, seçili dönemden bağımsız",
+      "mood": "Ruh hali",
+      "run": {
+        "up_one": "{{name}}: {{count}} haftadır yükseliyor",
+        "up_other": "{{name}}: {{count}} haftadır yükseliyor",
+        "down_one": "{{name}}: {{count}} haftadır düşüyor",
+        "down_other": "{{name}}: {{count}} haftadır düşüyor"
+      },
+      "shift": {
+        "up": "{{name}}: son 4 haftada daha yüksek",
+        "down": "{{name}}: son 4 haftada daha düşük"
+      },
+      "runDetail": "{{from}} ile {{to}} arası haftalık ortalama",
+      "shiftDetail": "Son 4 hafta {{recent}}, önceki çeyrek {{before}}",
+      "turning": "Başlangıç: “{{title}}” civarı"
+    },
+    "swings": {
+      "title": "Dalgalanmalar",
+      "typical": "Bir hafta içinde ruh halin genellikle {{value}} seviye oynuyor.",
+      "calm": "En sakin haftalar",
+      "rough": "En hareketli haftalar",
+      "week": "{{date}} haftası",
+      "row": "Ortalama {{mean}}, dalgalanma {{spread}}",
+      "empty": "Henüz en az dört kaydı olan bir hafta yok"
+    },
+    "streaks": {
+      "title": "Seriler",
+      "longest": "En uzun seri: {{mood}} veya daha iyi",
+      "current": "Güncel seri",
+      "none": "yok",
+      "range": "{{from}} ile {{to}} arası"
+    },
+    "frequency": {
+      "title": "Sıklık",
+      "before": "önceki: {{count}}",
+      "empty": "Bu dönemde aktivite yok"
+    },
+    "effects": {
+      "title": "Ruh hali: varken ve yokken",
+      "nextTitle": "Ertesi gün",
+      "higher": "Daha yüksek ortalama",
+      "lower": "Daha düşük ortalama",
+      "sentence": "{{name}} olan günlerde ortalama {{with}}, diğerlerinde {{without}} ({{count}} gün)",
+      "nextSentence": "{{name}} olan günün ertesinde ortalama {{with}}, diğerlerinde {{without}} ({{count}} gün)",
+      "empty": "Henüz belirgin fark gösteren bir aktivite yok",
+      "more": "Tümünü göster",
+      "less": "Daha az göster"
+    },
+    "pairs": {
+      "title": "Sık birlikte",
+      "pair": "{{a}} ve {{b}}",
+      "detail": "{{count}} gün, rastlantıya göre {{lift}} kat sık, ortalama {{mean}}",
+      "empty": "Henüz dikkat çekecek kadar sık birlikte görülen aktivite yok"
+    },
+    "beforeHard": {
+      "title": "Zor günlerden önce",
+      "row": "{{total}} zor günden {{count}} tanesinin öncesindeki iki günde ({{share}}), genel olarak tüm günlerin {{base}} kadarında",
+      "few": "Karşılaştırma için çok az zor gün var",
+      "nothing": "Zor günlerden önce dikkat çekecek kadar sık görülen aktivite yok"
+    },
+    "groups": {
+      "title": "Grup görünümü",
+      "none": "Bu gruptan hiçbiri",
+      "row": "ort. {{mean}}, {{count}} gün",
+      "rowSpoken": "ortalama {{mean}}, {{count}} gün",
+      "few": "{{count}} gün",
+      "empty": "Bu dönemde bu grupta kayıt yok",
+      "pick": "Grup",
+      "titleOf": "Grup görünümü: {{name}}"
+    },
+    "words": {
+      "title": "Kelimeler",
+      "good": "{{mood}} veya daha iyi günlerde daha sık",
+      "low": "Diğer günlerde daha sık",
+      "empty": "Henüz yeterince not yok",
+      "none": "Belirgin fark gösteren kelime yok",
+      "a11y": "{{word}}, {{count}} günde"
+    },
+    "coverage": {
+      "title": "Kapsam",
+      "entries": "Kayıtlar",
+      "days": "Kayıtlı günler",
+      "share": "Kayıt oranı",
+      "time": "Genellikle saat",
+      "hours": "Günün saatine göre kayıtlar",
+      "a11yHours": "Kayıtların çoğu {{from}} ile {{to}} arasında"
+    },
+    "activity": {
+      "days": "{{total}} günün {{count}} gününde ({{share}})",
+      "levels": "Ruh hali: varken ve yokken",
+      "with": "Varken",
+      "without": "Yokken",
+      "meanWith": "Ortalama {{with}}, diğer günlerde {{without}}",
+      "weekdays": "Haftanın günleri",
+      "companions": "Eşlik edenler",
+      "companion": "bu günlerin {{count}} tanesinde ({{share}})",
+      "months": "Aylara göre sıklık",
+      "allDays": "Tüm günler",
+      "showAll": "{{count}} günün tümünü göster",
+      "edit": "Aktiviteyi düzenle",
+      "insights": "İçgörüler",
+      "noDays": "Henüz hiçbir günde kaydedilmedi",
+      "few": "Karşılaştırma için henüz çok az gün var"
+    },
+    "level": {
+      "days": "{{total}} günün {{count}} gününde ({{share}})",
+      "typical": "Bu günlerde daha sık",
+      "rare": "Bu günlerde daha seyrek",
+      "row": "Bu günlerin {{share}} kadarında, diğerlerinde {{other}}",
+      "none": "Belirgin fark gösteren aktivite yok",
+      "noDays": "Henüz bu ruh halinde bir gün yok"
+    },
+    "health": {
+      "title": "Uyku ve harekete göre ruh hali",
+      "empty": "Bu dönemde hem kaydı hem sağlık verisi olan gün yok",
+      "sleep": "Önceki gece uyku",
+      "steps": "Adımlar",
+      "exercise": "Egzersiz",
+      "bands": {
+        "sleepUnder6": "6 sa altı",
+        "sleep6to7": "6 ile 7 sa",
+        "sleep7to8": "7 ile 8 sa",
+        "sleepOver8": "8 sa veya fazla",
+        "stepsUnder5k": "5.000 altı",
+        "steps5to10k": "5.000 ile 10.000",
+        "stepsOver10k": "10.000 veya fazla",
+        "exerciseWith": "egzersizli",
+        "exerciseWithout": "egzersizsiz",
+        "hrLow": "{{low}} bpm altı",
+        "hrUsual": "{{low}} ile {{high}} bpm",
+        "hrHigh": "{{high}} bpm üstü"
+      },
+      "a11y": "{{band}}: ortalama {{mean}}, {{count}} gün",
+      "a11yFew": "{{band}}: {{count}} gün, ortalama için çok az",
+      "hint_one": "Kaydı ve Health Connect verisi olan {{count}} günden. Bu, günlüğünü betimler, neden ve sonuç ilişkisini değil.",
+      "hint_other": "Kaydı ve Health Connect verisi olan {{count}} günden. Bu, günlüğünü betimler, neden ve sonuç ilişkisini değil.",
+      "restingHr": "Dinlenme nabzı"
+    },
+    "healthStats": {
+      "empty": "Bu dönemde sağlık verisi yok",
+      "emptyRange": "Bu dönemde sağlık verisi yok",
+      "metric": {
+        "sleep": "Uyku",
+        "steps": "Adımlar",
+        "restingHr": "Nabız",
+        "exercise": "Egzersiz"
+      },
+      "metricInText": {
+        "sleep": "uyku",
+        "steps": "adımlar",
+        "restingHr": "nabız",
+        "exercise": "egzersiz"
+      },
+      "tiles": {
+        "sleep": "Uyku",
+        "steps": "Adımlar",
+        "restingHr": "Dinlenme nabzı",
+        "exercise": "Haftalık egzersiz",
+        "before": "önceki: {{value}}",
+        "days_one": "{{count}} günde",
+        "days_other": "{{count}} günde",
+        "exerciseDays_one": "{{count}} günde",
+        "exerciseDays_other": "{{count}} günde"
+      },
+      "trend": {
+        "title": "Zaman içinde {{name}}",
+        "goal": "Hedef",
+        "mean": "Ortalama",
+        "median": "Medyan",
+        "min": "En düşük",
+        "max": "En yüksek",
+        "days_one": "{{count}} günden",
+        "days_other": "{{count}} günden",
+        "before_one": "{{count}} günden, önceki dönemde ortalama {{value}}",
+        "before_other": "{{count}} günden, önceki dönemde ortalama {{value}}",
+        "a11y": "{{from}} ile {{to}} arası {{metric}}, {{count}} gün, son 7 günlük ortalama {{last}}"
+      },
+      "goals": {
+        "title": "Hedefler ve seriler",
+        "sleep": "7 saat veya daha uzun geceler",
+        "steps": "10.000 veya daha fazla adımlı günler",
+        "exercise": "Egzersizli günler",
+        "share": "Verisi olan {{count}} günün {{hit}} tanesi",
+        "perWeek": "Haftada ortalama {{value}}",
+        "longest": "En uzun seri",
+        "current": "Güncel seri"
+      },
+      "weekdays": {
+        "title": "Haftanın günlerine göre {{name}}",
+        "a11y": "{{day}}: {{value}}, {{count}} gün"
+      },
+      "records": {
+        "title": "Rekorlar",
+        "mostSteps": "En çok adım",
+        "fewestSteps": "En az adım",
+        "longestSleep": "En uzun uyku",
+        "shortestSleep": "En kısa uyku",
+        "longestExercise": "En uzun egzersiz",
+        "lowestHr": "En düşük dinlenme nabzı",
+        "highestHr": "En yüksek dinlenme nabzı",
+        "mood": "Ruh hali {{mood}} ({{mean}})",
+        "noEntry": "kayıt yok"
+      },
+      "split": {
+        "title": "İyi ve zor günler",
+        "good": "{{mood}} veya daha iyi",
+        "hard": "{{mood}} veya daha kötü",
+        "diff": "İyi günlerde {{diff}}",
+        "few": "çok az gün",
+        "a11y": "{{metric}}: iyi günlerde {{good}}, zor günlerde {{hard}}",
+        "empty": "Henüz sağlık verisi olan yeterince iyi ya da zor gün yok",
+        "hint": "{{good}} veya daha iyi günlerdeki ortalama, {{hard}} veya daha kötü günlerle karşılaştırılır. Uyku, önceki gecenin uykusudur."
+      },
+      "links": {
+        "title": "Ruh hali ve beden",
+        "empty": "Bir bağlantı için hem kaydı hem sağlık verisi olan en az {{count}} gün gerekir",
+        "pairing": {
+          "sleep": {
+            "same": "Önceki gece uyku ve ruh hali",
+            "nightAfter": "Ruh hali ve sonraki gece uyku"
+          },
+          "steps": {
+            "same": "Aynı gün adımlar ve ruh hali",
+            "next": "Adımlar ve ertesi gün ruh hali"
+          },
+          "restingHr": {
+            "same": "Aynı gün dinlenme nabzı ve ruh hali",
+            "next": "Dinlenme nabzı ve ertesi gün ruh hali"
+          },
+          "exercise": {
+            "same": "Aynı gün egzersiz ve ruh hali",
+            "next": "Egzersiz ve ertesi gün ruh hali"
+          }
+        },
+        "sleep": {
+          "up": "Daha çok uyku, daha iyi ruh hali ({{strength}})",
+          "down": "Daha çok uyku, daha kötü ruh hali ({{strength}})"
+        },
+        "steps": {
+          "up": "Daha çok adım, daha iyi ruh hali ({{strength}})",
+          "down": "Daha çok adım, daha kötü ruh hali ({{strength}})"
+        },
+        "restingHr": {
+          "up": "Daha yüksek dinlenme nabzı, daha iyi ruh hali ({{strength}})",
+          "down": "Daha yüksek dinlenme nabzı, daha kötü ruh hali ({{strength}})"
+        },
+        "exercise": {
+          "up": "Daha çok egzersiz, daha iyi ruh hali ({{strength}})",
+          "down": "Daha çok egzersiz, daha kötü ruh hali ({{strength}})"
+        },
+        "nightAfter": {
+          "up": "Daha iyi ruh hali, ardından daha çok uyku ({{strength}})",
+          "down": "Daha iyi ruh hali, ardından daha az uyku ({{strength}})"
+        },
+        "none": "Neredeyse hiç bağlantı yok",
+        "strength": {
+          "weak": "zayıf",
+          "medium": "orta",
+          "strong": "belirgin"
+        },
+        "detail": "r = {{r}}, {{count}} gün",
+        "hint": "-1 ile 1 arasında korelasyon: ikisinin ne kadar birlikte yükselip düştüğü. Günlüğünü betimler, neden ve sonuç ilişkisini değil."
+      },
+      "activities": {
+        "title": "Aktiviteler ve {{name}}",
+        "sentence": "Bu günlerde ortalama {{with}}, diğer günlerde {{without}} ({{count}} gün)",
+        "nightSentence": "Sonraki gece ortalama {{with}}, diğer gecelerde {{without}} ({{count}} gece)",
+        "higher": {
+          "sleep": "Daha çok uyku",
+          "steps": "Daha çok adım",
+          "restingHr": "Daha yüksek dinlenme nabzı",
+          "exercise": "Daha çok egzersiz"
+        },
+        "lower": {
+          "sleep": "Daha az uyku",
+          "steps": "Daha az adım",
+          "restingHr": "Daha düşük dinlenme nabzı",
+          "exercise": "Daha az egzersiz"
+        },
+        "empty": "Henüz belirgin fark gösteren bir aktivite yok"
+      }
+    },
+    "scales": {
+      "label": "Ölçek",
+      "pick": "Bir ölçek seç",
+      "emptyRange": "Bu dönemde hiçbir ölçeğin değeri yok",
+      "trend": "Zaman içinde {{name}}",
+      "weekdays": "Haftanın günlerine göre {{name}}",
+      "mood": {
+        "title": "Ruh hali ve {{name}}",
+        "days_one": "{{count}} gün",
+        "days_other": "{{count}} gün",
+        "a11y": "{{value}}: ortalama ruh hali {{mood}}, {{count}} gün",
+        "hint": "Bu değerin olduğu günlerin ortalama ruh hali. Çubuk yoksa: {{count}} günden az."
+      },
+      "bucket": {
+        "over": "{{value}} veya üstü",
+        "under": "{{value}} altı",
+        "between": "{{from}} ile {{to}} arası"
+      },
+      "links": {
+        "few": "Ruh haliyle bir bağlantı için değeri olan en az {{count}} gün gerekir",
+        "same": {
+          "title": "Aynı gün",
+          "up": "Daha yüksek {{scale}}, daha iyi ruh hali ({{strength}})",
+          "down": "Daha yüksek {{scale}}, daha kötü ruh hali ({{strength}})"
+        },
+        "next": {
+          "title": "Ertesi gün",
+          "up": "Daha yüksek {{scale}}, ertesi gün daha iyi ruh hali ({{strength}})",
+          "down": "Daha yüksek {{scale}}, ertesi gün daha kötü ruh hali ({{strength}})"
+        }
+      },
+      "activities": {
+        "title": "Aktiviteler ve {{name}}",
+        "higher": "{{scale}} şunlarla daha yüksek",
+        "lower": "{{scale}} şunlarla daha düşük"
+      },
+      "split": {
+        "title": "İyi ve zor günlerde ölçekler",
+        "empty": "Henüz ölçek değeri olan yeterince iyi ya da zor gün yok",
+        "hint": "{{good}} ve üstü günlerdeki ortalama, {{hard}} ve altı günlerle karşılaştırılır."
+      },
+      "compare": {
+        "title": "Bu günlerde ölçekler",
+        "row": "Ortalama {{with}}, diğer günlerde {{without}} ({{count}} gün)"
+      },
+      "relations": {
+        "empty": "Bir bağlantı için iki değerin de olduğu en az {{count}} gün gerekir",
+        "mood": {
+          "title": "Ölçekler ve ruh hali",
+          "same": "Aynı gün {{scale}} ve ruh hali",
+          "next": "{{scale}} ve ertesi gün ruh hali"
+        },
+        "pairs": {
+          "title": "Ölçekler birbirleriyle",
+          "row": "{{a}} ve {{b}}",
+          "up": "Daha yüksek {{a}}, daha yüksek {{b}} ({{strength}})",
+          "down": "Daha yüksek {{a}}, daha düşük {{b}} ({{strength}})"
+        },
+        "body": {
+          "title": "Ölçekler ve beden",
+          "row": {
+            "sleep": "{{scale}} ve önceki gece",
+            "steps": "{{scale}} ve adımlar",
+            "restingHr": "{{scale}} ve dinlenme nabzı",
+            "exercise": "{{scale}} ve egzersiz"
+          },
+          "up": {
+            "sleep": "Daha çok uyku, daha yüksek {{scale}} ({{strength}})",
+            "steps": "Daha çok adım, daha yüksek {{scale}} ({{strength}})",
+            "restingHr": "Daha yüksek dinlenme nabzı, daha yüksek {{scale}} ({{strength}})",
+            "exercise": "Daha çok egzersiz, daha yüksek {{scale}} ({{strength}})"
+          },
+          "down": {
+            "sleep": "Daha çok uyku, daha düşük {{scale}} ({{strength}})",
+            "steps": "Daha çok adım, daha düşük {{scale}} ({{strength}})",
+            "restingHr": "Daha yüksek dinlenme nabzı, daha düşük {{scale}} ({{strength}})",
+            "exercise": "Daha çok egzersiz, daha düşük {{scale}} ({{strength}})"
+          }
+        }
+      }
+    }
+  },
+  "outlook": {
+    "show": "Öngörüyü göster",
+    "showHint": "“Bugün” ekranında ve takvimde",
+    "notify": {
+      "label": "Sabah bildirimi",
+      "hint": "İyi bir güne dair bir ipucu olduğunda sabah bir bildirim. Kilit ekranında yalnızca öngörünün hazır olduğu görünür, içeriği değil.",
+      "time": "Sabah saati",
+      "permissionDenied": "Sistem izni olmadan bildirim gelmez. Android ayarlarından izin verebilirsin."
+    },
+    "computing": "Hesaplanıyor",
+    "between": "{{low}} ile {{high}} arası",
+    "hardChance": "Zor bir gün olabilir ({{percent}})",
+    "weekdayMean": "{{weekday}} günleri şimdiye kadar ortalama {{mean}} ({{count}} gün)",
+    "weekdayNone": "{{weekday}} günleri için henüz kayıt yok",
+    "usual": "Haftanın bu gününde sık: {{names}}",
+    "reasons": "Neden",
+    "reasonWeekdayUp": "{{weekday}} günleri genelde daha iyi",
+    "reasonWeekdayDown": "{{weekday}} günleri genelde daha kötü",
+    "reasonCarryUp": "Son günler daha çok iyiydi",
+    "reasonCarryDown": "Son günler daha çok zordu",
+    "reasonPlannedUp": "Planlanan: {{name}}, böyle günler genelde daha iyi",
+    "reasonPlannedDown": "Planlanan: {{name}}, böyle günler genelde daha kötü",
+    "reasonRecurringUp": "Genelde {{name}} var, böyle günler daha iyi olma eğiliminde",
+    "reasonRecurringDown": "Genelde {{name}} var, böyle günler daha kötü olma eğiliminde",
+    "reasonSkippedUp": "Bu sefer {{name}} yok, olduğu günler genelde daha kötü",
+    "reasonSkippedDown": "Bu sefer {{name}} yok, olduğu günler genelde daha iyi",
+    "accuracy": "Şimdiye kadarki isabet",
+    "accuracyHint": "30. kayıttan itibaren geçmiş her gün için: yalnızca o güne kadarki verilerle yapılan öngörü, gerçekte olanla karşılaştırılır. Seviye cinsinden ortalama sapma, küçük olan daha iyi.",
+    "accuracyEmpty": "Kaydı olan 30 gün gerekir.",
+    "horizon_one": "{{count}} gün sonra",
+    "horizon_other": "{{count}} gün sonra",
+    "colModel": "Öngörü",
+    "colLongMean": "Uzun vadeli ortalama",
+    "colMode": "Hep {{mood}}",
+    "shown": "gösteriliyor",
+    "notShown": "gösterilmiyor",
+    "cases": "Uzaklık başına {{count}} karşılaştırma",
+    "about": "Öngörü, şimdiye kadarki kayıtlarında sık görüleni betimler. Kayıtlarında olmayan hiçbir şeyi senin hakkında bilmez.",
+    "tomorrow": {
+      "title": "Yarın iyi bir gün olabilir",
+      "bodyLikely": "Bugünkü gibi günlerden sonra ertesi gün {{hit}} oranında {{mood}} veya daha iyiydi, normalde ortalama {{usual}} ({{count}} durum).",
+      "bodyBetter": "{{mood}} ve üstü bir gün olma ihtimali normalden yüksek: bugünkü gibi günlerden sonra {{hit}}, normalde ortalama {{usual}} ({{count}} durum).",
+      "bodyOpen": "Bugün, ardından en sık {{mood}} ve üstü bir günün geldiği günlerden biri. Bunun ne kadar tuttuğunu daha fazla kayıt gösterecek.",
+      "bodyAbove": "Yarının {{mood}} ve üstü bir gün olma şansı bugün normalden biraz daha iyi. Bunun ne kadar tuttuğunu daha fazla kayıt gösterecek.",
+      "reasons": "Nedenler: {{names}}",
+      "strip": "iyi bir gün olabilir",
+      "reasonMood": "bugünkü ruh halin",
+      "reasonWeekday": "yarın {{weekday}}",
+      "reasonSleep": "{{value}} uyku",
+      "reasonSteps": "dün {{value}} adım",
+      "morning": {
+        "title": "Bugün için iyi beklentiler",
+        "bodyLikely": "Dünkü gibi günlerden sonra ertesi gün {{hit}} oranında {{mood}} veya daha iyiydi, normalde ortalama {{usual}} ({{count}} durum).",
+        "bodyBetter": "Dünkü gibi günlerden sonra ertesi gün normalden daha sık {{mood}} veya daha iyiydi: {{usual}} yerine {{hit}} ({{count}} durum).",
+        "bodyOpen": "Dünkü gibi günlerin ardından sende özellikle sık {{mood}} ve üstü bir gün geldi. Bunun ne kadar güvenilir olduğunu daha fazla kayıt gösterecek.",
+        "bodyAbove": "Dünkü gibi günlerin ardından sende normalden biraz daha sık {{mood}} ve üstü bir gün geldi. Bunun ne kadar güvenilir olduğunu daha fazla kayıt gösterecek.",
+        "reasonMood": "dünkü ruh halin",
+        "reasonWeekday": "bugün {{weekday}}",
+        "reasonSteps": "önceki gün {{value}} adım"
+      },
+      "status": {
+        "title": "İyi günler için ipucu",
+        "hint": "Kaydından sonra, ertesi günün en az ortalaman kadar iyi olma şansı normalden yüksekse “Bugün” bir ipucu gösterir. İki haftada yaklaşık bir ila dört kez, asla kötü bir güne dair uyarı olarak değil.",
+        "tooFew": "Kaydı olan ve ardından bir kayıt daha gelen en az {{count}} gün gerekir, şu ana kadar: {{have}}.",
+        "proof": "Böyle günlerden sonra ertesi gün şimdiye kadar {{hit}} oranında {{mood}} veya daha iyiydi, normalde {{usual}} ({{count}} durum).",
+        "noProof": "Senin için iyi bir gün: {{mood}} veya daha iyisi. İpucunun ne kadar tuttuğunu daha fazla kayıt gösterecek.",
+        "shown_one": "Son 14 günde {{count}} ipucu.",
+        "shown_other": "Son 14 günde {{count}} ipucu.",
+        "alwaysGood": "Günlerinin neredeyse hepsi {{mood}} veya daha iyi. Normalden daha iyiye pek yer kalmadığı için ipucu gelmez."
+      }
+    }
+  },
+  "lowMood": {
+    "title": "Konuşmak iyi gelir",
+    "body": "Son günler sık sık zor geçti. Bazen biriyle konuşmak iyi gelir.",
+    "lineAllDay": "Günün her saati ulaşılabilir: {{name}}, {{number}}.",
+    "lineHours": "Her gün {{from}}:00 ile {{to}}:00 arası ulaşılabilir: {{name}}, {{number}}.",
+    "noLine": "Ülkendeki bir destek hattı ya da güvendiğin biri de yardımcı olabilir.",
+    "call": "Ara: {{number}}",
+    "callLabel": "Ara: {{name}}, {{number}}",
+    "later": "Gizle",
+    "laterHint": "Bu notu 14 gün gizler"
+  },
+  "review": {
+    "title": "Daylight sana iyi geliyor mu?",
+    "body": "Play Store'da bir değerlendirme, başkalarının uygulamayı bulmasına yardımcı olur.",
+    "rate": "Değerlendir",
+    "rateHint": "Daylight'ı Play Store'da açar",
+    "later": "Şimdi değil"
+  },
+  "backup": {
+    "title": "Yedekleme zamanı",
+    "bodyNever": "Kayıtların yalnızca bu cihazda. Cihaz kaybolursa ya da değişirse bir yedek dosyası onları korur.",
+    "bodyAgo_one": "Son yedek {{count}} gün önceydi.",
+    "bodyAgo_other": "Son yedek {{count}} gün önceydi.",
+    "now": "Şimdi yedekle"
+  },
+  "reminders": {
+    "title": "Hatırlatıcı",
+    "daily": "Günlük hatırlatıcı",
+    "dailyHint": "Günün zaten bir kaydı varsa atlanır",
+    "dailyHintAlways": "Her akşam seçilen saatte",
+    "always": "Kayıt olsa da hatırlat",
+    "alwaysHint": "Güne zaten kayıt girmiş olsan da gelir",
+    "dailyTime": "Günlük hatırlatıcı saati",
+    "yesterdayTime": "Sabah hatırlatıcısı saati",
+    "permissionDenied": "Sistem izni olmadan uygulama hatırlatıcı kuramaz. Android ayarlarından izin verebilirsin.",
+    "unavailable": "Expo Go'da Android hatırlatıcı kurmaz. Ayar kaydedilir ve yüklü uygulamada geçerli olur.",
+    "discreet": "Metin en fazla serinin ne kadar sürdüğünü ya da dünün kaydının hâlâ eksik olduğunu söyler, günlükten asla bir şey göstermez.",
+    "yesterday": "Ertesi sabah hatırlatıcı",
+    "yesterdayHint": "Yalnızca dün eksikse. Yalnızca günlük hatırlatıcıyla birlikte gelir"
+  },
+  "notify": {
+    "title": "Hatırlatıcı",
+    "channel": "Hatırlatıcı",
+    "body": "Günün nasıl geçti?",
+    "bodyStreak": "Günün nasıl geçti? Serinin {{value}}. günü.",
+    "yesterday": "Dünün kaydı hâlâ eksik.",
+    "yesterdayStreak_one": "Dün hâlâ eksik. Serini sürdürmek için doldur.",
+    "yesterdayStreak_other": "Dün hâlâ eksik. {{value}} günlük serini korumak için doldur.",
+    "outlook": "Bugün için öngörün hazır"
+  },
+  "reminderPrompt": {
+    "title": "Akşamları kısa bir hatırlatıcı?",
+    "body": "Akşam hatırlatıcısı serini sürdürmene yardımcı olur. Metni hiçbir şey ele vermez ve her şey bu cihazda kalır.",
+    "time": "Akşam saati",
+    "morning": "Bir gün eksikse ertesi sabah sana hatırlatırım.",
+    "remind": "Hatırlat",
+    "remindHint": "Bildirim gösterme izni ister",
+    "later": "Sonra",
+    "laterHint": "Bir daha sormaz. Hatırlatıcıyı Diğer › Hatırlatıcı altından açabilirsin",
+    "denied": "İstediğin zaman Diğer › Hatırlatıcı altından açabilirsin.",
+    "ok": "Tamam"
+  },
+  "lock": {
+    "title": "Uygulama kilidi",
+    "prompt": "Kilidi açmak için onayla",
+    "unlock": "Kilidi aç",
+    "failed": "Kilit açılmadı.",
+    "enable": "Uygulama kilidi",
+    "enableHint": "Açılışta kilit açmayı iste",
+    "unavailable": "Ekran kilidi ayarlanmamış. Cihazda bir PIN, desen ya da biyometrik kilit ayarla.",
+    "delay": "Kilitleme süresi",
+    "delayImmediate": "Hemen",
+    "delayMinutes_one": "1 dakika",
+    "delayMinutes_other": "{{count}} dakika",
+    "secure": "Kilit etkinken son uygulamalar ekranındaki ön izleme boş kalır ve ekran görüntüleri engellenir."
+  },
+  "privacy": {
+    "title": "Gizlilik",
+    "intro": "Daylight her şeyi yalnızca bu cihazda saklar.",
+    "stored": "Saklananlar: ruh hali, aktiviteler, ölçekler, notlar ve fotoğraflarla kayıtlar; ruh hallerin, aktivitelerin, grupların ve ölçeklerin; planlanan aktiviteler, dönüm noktaları ve ayarların.",
+    "network": "Hesap yok, sunucu yok, analiz yok, reklam yok. Uygulama internet izni istemez ve hiçbir şey gönderemez.",
+    "leave": "Veriler yalnızca bir yedeği ya da CSV dışa aktarımını kendin paylaştığında veya kaydettiğinde cihazdan çıkar.",
+    "noCloudBackup": "Uygulama, otomatik Android yedeğinin ve yeni telefona aktarımın dışında tutulur. Böylece kayıtların ne Google hesabına gider ne de yeni bir cihaz kurarken kopyalanır. Bunun bedeli: uygulamayı kaldırırsan ya da cihaz değiştirirsen, kendi yedeğin yoksa kayıtlar kaybolur. 60 gün yedeksiz geçince “Bugün” ekranı sana hatırlatır.",
+    "backup": "Yedek, tüm kayıtları, notları ve fotoğrafları içeren şifrelenmemiş bir dosyadır. Güvendiğin bir yerde sakla.",
+    "computed": "İçgörüler ve öngörü, kayıtlarından cihazda hesaplanır. Verilerini betimler, tıbbi bir değerlendirme değildir.",
+    "reminders": "Hatırlatıcılar cihazın yerel bildirimleridir: günlük olanı akşam gelir, dünün kaydı eksikse bir tane de sabah. Metinleri en fazla serinin ne kadar sürdüğünü ya da dünün eksik olduğunu söyler, günlükten asla bir şey göstermez. Yine de cihazı elinde tutan biri bunlardan günlük tuttuğunu ve ne kadar düzenli yazdığını anlayabilir.",
+    "lockNote": "İsteğe bağlı uygulama kilidi cihazın kendi kilit açma yöntemini kullanır. Etkinken ekran görüntüleri engellenir.",
+    "deleteNote": "“Tüm verileri sil” kayıtları, fotoğrafları, aktiviteleri, planları, sağlık verilerini ve ayarları cihazdan kaldırır ve Health Connect erişimini geri verir.",
+    "photos": "Fotoğrafları Android fotoğraf seçicisiyle seçersin. Daylight yalnızca o tek görseli alır, galerine ve kameraya erişimi yoktur. Küçültülmüş bir kopya galeride değil, uygulamanın özel depolama alanında saklanır.",
+    "health": "Sağlık verilerini açtığında Daylight, Health Connect'ten adımları, uykuyu, dinlenme nabzını ve egzersizi günlük değerler olarak okur. Bu, cihazda ve internetsiz gerçekleşir. Daylight, Health Connect'e hiçbir şey yazmaz. Değerler yalnızca “Sağlık verileri” altında bunu açarsan yedeğe girer. Erişimi Health Connect'te yönetirsin, “Bağlantıyı kes ve verileri sil” aktarılan her şeyi kaldırır."
+  },
+  "about": {
+    "title": "Hakkında",
+    "tagline": "Ruh hali günlüğü: yerel, çevrimdışı, hesapsız.",
+    "version": "Sürüm {{version}}",
+    "copyright": "© 2026 Paul Behla, paul-behla.de",
+    "license": "Daylight, GNU Genel Kamu Lisansı sürüm 3 veya sonrası kapsamında, ek bir atıf koşuluyla özgür bir yazılımdır. Hiçbir garanti verilmez. Lisans ve kaynak kodu: github.com/Jurgler95/daylight",
+    "disclaimer": "Daylight tıbbi bir cihaz değildir ve tavsiye ya da tedavinin yerini tutmaz. İçgörüler ve öngörü yalnızca kendi kayıtlarını betimler."
+  },
+  "health": {
+    "title": "Sağlık verileri",
+    "enable": "Health Connect'ten al",
+    "enableHint": "Adımlar, uyku, dinlenme nabzı ve egzersiz, örneğin Samsung Health ve Galaxy Watch'tan. Yalnızca okuma.",
+    "state": "Durum",
+    "running": "Şimdi eşitleniyor",
+    "never": "Henüz eşitlenmedi",
+    "lastSyncAt": "Son eşitleme: {{date}}, {{time}}",
+    "coverage_one": "Verisi olan {{count}} gün, en eskisi: {{date}}",
+    "coverage_other": "Verisi olan {{count}} gün, en eskisi: {{date}}",
+    "noDays": "Henüz verisi olan gün yok",
+    "lastError": "Son hata: {{message}}",
+    "syncNow": "Şimdi eşitle",
+    "reread": "Her şeyi yeniden oku",
+    "manage": "Health Connect'te yönet",
+    "disconnect": "Bağlantıyı kes ve verileri sil",
+    "disconnectBody": "Daylight, Health Connect erişimini geri verir ve aktarılan sağlık verilerini bu cihazdan siler. Health Connect'in kendisindeki her şey olduğu gibi kalır.",
+    "disconnectConfirm": "Bağlantıyı kes",
+    "denied": "Health Connect'te izin olmadan Daylight hiçbir şey alamaz. İzni istediğin zaman “Health Connect'te yönet” altından verebilirsin.",
+    "missing": "Health Connect bu cihazda yüklü değil. Android 14'ten itibaren yerleşik gelir, daha önceki sürümler için Play Store'da Health Connect uygulaması var.",
+    "needsUpdate": "Önce Health Connect'in güncellenmesi gerekiyor.",
+    "unsupported": "Sağlık verileri yalnızca Android'de yüklü uygulamada kullanılabilir, Expo Go'da değil.",
+    "historyHint": "30 günden eski günler için Health Connect penceresinde geçmiş verilere erişime de izin ver. Buna sonradan izin verildiyse “Her şeyi yeniden oku” eski günleri getirir. Yalnızca Samsung Health'in Health Connect'e aktardıkları alınır.",
+    "readOnly": "Daylight yalnızca okur ve Health Connect'e asla bir şey yazmaz. Eşitleme uygulama açıldığında, en fazla 15 dakikada bir yapılır. Sağlık verileri yalnızca yukarıda bunu açarsan yedeğe girer. Aksi halde yeniden yüklemeden sonra yeni bir eşitleme, Health Connect'te hâlâ olanları geri getirir.",
+    "inBackup": "Yedeğe dahil et",
+    "inBackupHint": "Sağlık günleri de yedeğe girer. Böylece uyku ve adımlar, Health Connect eski günleri artık tutmasa bile yeniden yüklemeden sonra geri gelir.",
+    "syncing": "Sağlık verileri eşitleniyor",
+    "syncingMonth": "Sağlık verileri eşitleniyor, {{month}}",
+    "day": {
+      "title": "Sağlık",
+      "sleep": "Uyku",
+      "steps": "Adımlar",
+      "exercise": "Egzersiz",
+      "restingHr": "Dinlenme nabzı",
+      "bpm": "{{value}} bpm"
+    }
+  },
+  "achievements": {
+    "title": "Ödüller",
+    "intro": "Yıldızlar devam etmekten ve yazmaktan gelir, asla günün nasıl geçtiğinden değil.",
+    "stars": "{{stars}} / {{max}} yıldız",
+    "starsShort": "{{stars}}/{{max}}",
+    "complete": "{{count}} / {{total}} tamamlandı",
+    "groups": {
+      "streaks": "Art arda",
+      "volume": "Toplam"
+    },
+    "best": "En iyi {{value}}",
+    "current": "Şu an {{value}}",
+    "lastWeek": "Son 7 gün {{value}}",
+    "total": "Şimdiye kadar {{value}}",
+    "next": "Sonraki yıldız: {{value}}",
+    "done": "Beş yıldızın hepsi alındı",
+    "doneBadge": "Tamamlandı",
+    "upNext": "Sıradaki",
+    "needsHealth": "Health Connect'ten sağlık verisi gerekir",
+    "percent": "%{{value}}",
+    "overallLabel": "Toplamda yüzde {{value}} tamamlandı",
+    "progressLabel": "Beşinci yıldıza giden yolun yüzde {{value}} kadarı",
+    "starLabel": "{{stars}} / 5 yıldız",
+    "tiers": "Seviyeler: {{tiers}}",
+    "units": {
+      "days_one": "{{value}} gün",
+      "days_other": "{{value}} gün",
+      "weeks_one": "{{value}} hafta",
+      "weeks_other": "{{value}} hafta",
+      "words_one": "{{value}} kelime",
+      "words_other": "{{value}} kelime",
+      "activities_one": "{{value}} aktivite",
+      "activities_other": "{{value}} aktivite",
+      "photos_one": "{{value}} fotoğraf",
+      "photos_other": "{{value}} fotoğraf",
+      "opens_one": "{{value}} kez",
+      "opens_other": "{{value}} kez",
+      "turningPoints_one": "{{value}} dönüm noktası",
+      "turningPoints_other": "{{value}} dönüm noktası"
+    },
+    "toGo": {
+      "days_one": "<n>{{value}}</n> gün daha",
+      "days_other": "<n>{{value}}</n> gün daha",
+      "weeks_one": "<n>{{value}}</n> hafta daha",
+      "weeks_other": "<n>{{value}}</n> hafta daha",
+      "words_one": "<n>{{value}}</n> kelime daha",
+      "words_other": "<n>{{value}}</n> kelime daha",
+      "activities_one": "<n>{{value}}</n> aktivite daha",
+      "activities_other": "<n>{{value}}</n> aktivite daha",
+      "photos_one": "<n>{{value}}</n> fotoğraf daha",
+      "photos_other": "<n>{{value}}</n> fotoğraf daha",
+      "opens_one": "<n>{{value}}</n> kez daha",
+      "opens_other": "<n>{{value}}</n> kez daha",
+      "turningPoints_one": "<n>{{value}}</n> dönüm noktası daha",
+      "turningPoints_other": "<n>{{value}}</n> dönüm noktası daha"
+    },
+    "items": {
+      "days": {
+        "title": "Seri halinde",
+        "text": "Kaydı olan art arda günler"
+      },
+      "weeks": {
+        "title": "Azimli",
+        "text": "En az 5 günde kaydı olan art arda haftalar"
+      },
+      "activityDays": {
+        "title": "Aktivite takipçisi",
+        "text": "Aktivite girilen art arda günler"
+      },
+      "noteDays": {
+        "title": "Yazı serisi",
+        "text": "Not yazılan art arda günler"
+      },
+      "photoDays": {
+        "title": "Fotoğraf günlüğü",
+        "text": "Fotoğraf eklenen art arda günler"
+      },
+      "sleepDays": {
+        "title": "Uyku kaydı",
+        "text": "Uyku verisi olan art arda günler"
+      },
+      "stepDays": {
+        "title": "Adım adım",
+        "text": "Adım verisi olan art arda günler"
+      },
+      "totalDays": {
+        "title": "Günlük sayfaları",
+        "text": "Toplamda kaydı olan günler"
+      },
+      "weekWords": {
+        "title": "Kelime ustası",
+        "text": "7 gün içinde yazılan kelimeler"
+      },
+      "chips": {
+        "title": "Koleksiyon",
+        "text": "Toplamda girilen aktiviteler"
+      },
+      "weekChips": {
+        "title": "Dolu dolu hafta",
+        "text": "7 gün içinde girilen aktiviteler"
+      },
+      "variety": {
+        "title": "Çeşitlilik",
+        "text": "Girilen farklı aktiviteler"
+      },
+      "custom": {
+        "title": "Sana özel",
+        "text": "Kendi oluşturduğun aktiviteler"
+      },
+      "photos": {
+        "title": "Fotoğraf albümü",
+        "text": "Kayıtlardaki toplam fotoğraf"
+      },
+      "scaleDays": {
+        "title": "Ölçülü",
+        "text": "Bir ölçekte değeri olan günler"
+      },
+      "turningPoints": {
+        "title": "Dönüm noktaları",
+        "text": "Bir şeyleri değiştiren günler"
+      },
+      "opens": {
+        "title": "Müdavim",
+        "text": "Uygulamayı açma sayısı"
+      }
+    },
+    "toast": {
+      "welcomeEyebrow": "Daylight'ta yeni",
+      "welcome": "Devam ettiğin için şimdiden {{stars}} yıldız topladın. Bir göz at.",
+      "newStars_one": "Yeni yıldız",
+      "newStars_other": "{{count}} yeni yıldız",
+      "allFive": "Beş yıldızın hepsi",
+      "reached": "Ulaşıldı: {{value}}",
+      "more_one": "ve {{count}} tane daha",
+      "more_other": "ve {{count}} tane daha",
+      "open": "Göster",
+      "close": "Kapat",
+      "across_one": "{{count}} ödülde ilerleme",
+      "across_other": "{{count}} ödülde ilerleme"
+    }
+  },
+  "streak": {
+    "days_one": "art arda {{value}} gün",
+    "days_other": "art arda {{value}} gün",
+    "chip": {
+      "atRisk": "Seri tehlikede, dün hâlâ eksik",
+      "broken": "Seri kesildi",
+      "hint": "Seriyi ödüllerde gösterir"
+    },
+    "risk": {
+      "title": "Dün hâlâ eksik",
+      "body_one": "Serini sürdürmek için bugün doldur.",
+      "body_other": "{{value}} günlük serini korumak için bugün doldur.",
+      "action": "Dünü doldur"
+    },
+    "rescue": {
+      "title_one": "{{count}} gün eksik",
+      "title_other": "{{count}} gün eksik",
+      "body_one": "Doldurursan {{value}} günlük serin geri gelir.",
+      "body_other": "Doldurursan {{value}} günlük serin geri gelir.",
+      "action": "Doldur: {{date}}",
+      "later": "Sonra",
+      "laterHint": "Bu notu bir sonraki boşluğa kadar gizler"
+    },
+    "celebration": {
+      "eyebrow": "Seri",
+      "rescued_one": "Seri kurtarıldı: {{value}} gün",
+      "rescued_other": "Seri kurtarıldı: {{value}} gün",
+      "rescuedShort": "Seri kurtarıldı",
+      "milestone": "Bu günlerin her birinde bir kayıt.",
+      "gapClosed": "Boşluk dolduruldu.",
+      "inARow_one": "gün art arda",
+      "inARow_other": "gün art arda",
+      "open": "Göster",
+      "openLabel": "Seriyi ödüllerde göster",
+      "close": "Kapat"
+    }
+  },
+  "turning": {
+    "eyebrow": "Dönüm noktası",
+    "title": "Dönüm noktası",
+    "invalid": "Dönüm noktası için bugün ya da daha önce kaydı olan bir gün gerekir.",
+    "discardTitle": "Yazdıkların silinsin mi?",
+    "room_one": "{{year}} için kalan: {{count}} / {{max}}",
+    "room_other": "{{year}} için kalan: {{count}} / {{max}}",
+    "full": "{{year}} için {{max}} hakkın hepsi kullanıldı",
+    "fullHint": "{{year}} için {{max}} dönüm noktasının hepsi belirlendi. Bu gün daha önemliyse önce başka birini sil.",
+    "already": "Bu gün zaten bir dönüm noktası.",
+    "titleLabel": "Dönüm noktasının adı",
+    "titlePlaceholder": "örn. İzmir'e taşınma",
+    "noteLabel": "Dönüm noktası hakkında not",
+    "notePlaceholder": "İstersen birkaç kelime",
+    "before": "Önce",
+    "after": "Sonra",
+    "beforeShort": "Önce",
+    "afterShort": "Sonra",
+    "hold": "Basılı tut",
+    "holdA11y": "Dönüm noktası belirle",
+    "nameFirst": "Önce bir ad gerekiyor: bu günün adı ne?",
+    "explain": "Daylight ardından önceki günleri sonraki günlerle karşılaştırır.",
+    "set": "Buradan sonrası artık “Sonra”.",
+    "save": "Kaydet",
+    "edit": "Düzenle",
+    "gone": "Bu dönüm noktası artık yok",
+    "delete": "Dönüm noktasını sil",
+    "deleteTitle": "Dönüm noktası silinsin mi?",
+    "deleteText": "“{{title}}” kaldırılacak. Günün kayıtları kalır.",
+    "mark": "Dönüm noktası olarak işaretle",
+    "markHint": "Bir şeyleri değiştiren bir gün. Yılda en fazla dört.",
+    "compare": "Öncesi ve sonrası",
+    "cardA11y": "Dönüm noktası: {{title}}. Öncesi ve sonrası",
+    "span": {
+      "label": "Her yanda gün",
+      "30": "30",
+      "90": "90",
+      "180": "180",
+      "all": "Tümü"
+    },
+    "tooSoon": "Karşılaştırılacak sonraki gün henüz yok. “Sonra” tarafı her kayıtla dolar.",
+    "few": "Karşılaştırma için henüz çok az gün var: kaydı olan {{before}} gün önce, {{after}} gün sonra. Her taraf için en az {{min}} gerekir.",
+    "daysWithEntries_one": "Kaydı olan {{count}} gün",
+    "daysWithEntries_other": "Kaydı olan {{count}} gün",
+    "sentence_one": "Sonraki gün ruh halin {{after}}, önceki gün {{before}} idi.",
+    "sentence_other": "Sonraki {{count}} günde ruh halin ortalama {{after}}, önceki {{count}} günde {{before}} idi.",
+    "windows": "Önce: {{beforeFrom}} ile {{beforeTo}} arası. Sonra: {{afterFrom}} ile {{afterTo}} arası.",
+    "seasons": "İki dönem farklı mevsimlere denk geliyor. Farkın bir kısmı bundan kaynaklanıyor olabilir.",
+    "noCause": "Bu, kayıtlarını betimler, bir neden göstermez. Dönüm noktaları çoğu zaman zor bir dönemin ardından gelir, bu yüzden sonrası sırf bu nedenle daha iyi görünebilir.",
+    "trend": "Dönüm noktası çevresinde ruh hali",
+    "levels": "Ruh halleri",
+    "activities": "Aktiviteler nasıl değişti",
+    "activitiesSame": "Sonrasında belirgin şekilde daha sık ya da daha seyrek görülen aktivite yok.",
+    "activityShift": "önce günlerin {{before}} kadarında, sonra {{after}}",
+    "health": "Sağlık",
+    "healthShift": "{{before}} → {{after}}",
+    "nameLabel": "Bu güne bir ad ver",
+    "setTitle": "Dönüm noktası belirlendi"
+  }
+}

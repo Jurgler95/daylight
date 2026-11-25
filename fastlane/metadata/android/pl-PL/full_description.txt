@@ -35,7 +35,7 @@ Blokada aplikacji za pomocą blokady ekranu urządzenia, brak zrzutów ekranu, g
 📦 Twoje dane, Twoje pliki
 Udostępnij lub zapisz pełną kopię zapasową ze zdjęciami, przywróć ją w dowolnej chwili i eksportuj do CSV. Przechodzisz z innej aplikacji do dziennika nastroju? Daylight importuje istniejący dziennik w całości, jako eksport CSV lub kopię zapasową ze zdjęciami, i pokazuje podgląd, zanim cokolwiek się zmieni.
 
-Uwaga: sama aplikacja jest dostępna po angielsku, niemiecku, hiszpańsku, francusku, włosku i portugalsku (Brazylia), jeszcze nie po polsku.
+Dostępna po polsku, angielsku, niemiecku, hiszpańsku, francusku, włosku, niderlandzku, portugalsku (Brazylia), turecku i indonezyjsku.
 
 DARMOWA I OPEN SOURCE
 Daylight to wolne oprogramowanie na licencji GNU GPL w wersji 3 lub nowszej. Bez reklam, bez zakupów w aplikacji, bez śledzenia.

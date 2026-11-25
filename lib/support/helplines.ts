@@ -3,8 +3,9 @@ import type { Language } from '@/lib/i18n/language';
 /**
  * Crisis lines for the "Talking helps" note, by the device's region, not by the app's language: a
  * Spanish phone in Mexico needs a Mexican number. Only national lines whose service is free,
- * checked in October 2026; Italy's is a Milan number at the normal call rate. A region without an
- * entry gets the note without a number.
+ * checked in October 2026 (NL, PL and ID in November 2026); Italy's is a Milan number at the normal
+ * call rate. A region without an entry gets the note without a number: Turkey has no national crisis
+ * line to point to (Alo 183 is social services, 112 emergencies), so it stays without one.
  */
 export interface Helpline {
   name: string;
@@ -12,6 +13,8 @@ export interface Helpline {
   localNames?: Partial<Record<Language, string>>;
   /** As people write it in that country. */
   number: string;
+  /** What to dial when `number` holds more than digits, like the extension in "119 ext. 8". */
+  dial?: string;
   /** Daily hours, or null when the line answers around the clock. */
   hours: { from: number; to: number } | null;
 }
@@ -33,6 +36,12 @@ const HELPLINES: Record<string, Helpline> = {
   CA: { name: '9-8-8', number: '988', hours: ALL_DAY },
   GB: SAMARITANS,
   IE: SAMARITANS,
+  // 113.nl: 0800-0113 is free and around the clock, the short 113 costs the local rate on some lines.
+  NL: { name: '113 Zelfmoordpreventie', number: '0800-0113', hours: ALL_DAY },
+  // Centrum Wsparcia dla osób dorosłych w kryzysie psychicznym (Fundacja ITAKA), listed by gov.pl and the NFZ.
+  PL: { name: 'Centrum Wsparcia', number: '800 70 2222', hours: ALL_DAY },
+  // Healing119 of the Ministry of Health (Kemenkes): call 119, then choose 8.
+  ID: { name: 'Healing119', number: '119 ext. 8', dial: '119', hours: ALL_DAY },
 };
 
 /** The region of a locale like "pt-BR", "de_AT" or "zh-Hans-CN", upper case, or null. */
@@ -61,5 +70,5 @@ export function helplineName(helpline: Helpline, language: Language): string {
 
 /** "tel:08001110111". */
 export function dialUrl(helpline: Helpline): string {
-  return `tel:${helpline.number.replace(/\D/g, '')}`;
+  return `tel:${(helpline.dial ?? helpline.number).replace(/\D/g, '')}`;
 }

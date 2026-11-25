@@ -35,7 +35,7 @@ Blocco app con il blocco schermo del dispositivo, niente screenshot mentre il bl
 📦 I tuoi dati, i tuoi file
 Condividi o salva un backup completo con le foto, ripristinalo quando vuoi ed esporta in CSV. Arrivi da un'altra app di diario emotivo? Daylight importa per intero un diario esistente, come esportazione CSV o come backup con foto, e prima ti mostra un'anteprima.
 
-In italiano, inglese, tedesco, spagnolo, francese e portoghese.
+In italiano, inglese, tedesco, spagnolo, francese, olandese, polacco, portoghese, turco e indonesiano.
 
 LIBERO E OPEN SOURCE
 Daylight è software libero sotto la GNU GPL, versione 3 o successiva. Nessuna pubblicità, nessun acquisto in-app, nessun tracciamento.

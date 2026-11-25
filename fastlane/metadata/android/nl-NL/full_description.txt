@@ -35,7 +35,7 @@ App-vergrendeling met de schermvergrendeling van je toestel, geen screenshots zo
 📦 Jouw gegevens, jouw bestanden
 Deel of bewaar een volledige back-up met foto's, zet hem op elk moment terug en exporteer als CSV. Kom je van een andere stemmingsdagboek-app? Daylight importeert een bestaand dagboek volledig, als CSV-export of als back-up met foto's, en laat een voorbeeld zien voordat er iets verandert.
 
-Let op: de app zelf is beschikbaar in het Engels, Duits, Spaans, Frans, Italiaans en Portugees (Brazilië), nog niet in het Nederlands.
+Beschikbaar in het Nederlands, Engels, Duits, Spaans, Frans, Italiaans, Pools, Portugees (Brazilië), Turks en Indonesisch.
 
 GRATIS EN OPEN SOURCE
 Daylight is vrije software onder de GNU GPL, versie 3 of later. Geen reclame, geen in-app-aankopen, geen tracking.

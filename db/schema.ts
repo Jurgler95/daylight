@@ -151,7 +151,7 @@ export const settings = sqliteTable('settings', {
   app_lock_delay_seconds: integer('app_lock_delay_seconds').notNull().default(0),
   outlook_enabled: integer('outlook_enabled', { mode: 'boolean' }).notNull().default(true),
   /** A `Language` ("de", "en", ...); null follows the device. Device-local, never exported. */
-  language: text('language', { enum: ['de', 'en', 'es', 'pt', 'fr', 'it'] }),
+  language: text('language', { enum: ['de', 'en', 'es', 'pt', 'fr', 'it', 'nl', 'pl', 'tr', 'id'] }),
   /** ISO timestamp of the last full JSON backup. Device-local, never part of an export. */
   last_export_at: text('last_export_at'),
   /** Day the low mood note on "Heute" was last put away ("YYYY-MM-DD"). Device-local, never exported. */

@@ -31,6 +31,10 @@ const MOODS_BY_LANGUAGE: Record<Language, readonly DefaultMood[]> = {
   pt: moodSet(CONTENT.pt.moods),
   fr: moodSet(CONTENT.fr.moods),
   it: moodSet(CONTENT.it.moods),
+  nl: moodSet(CONTENT.nl.moods),
+  pl: moodSet(CONTENT.pl.moods),
+  tr: moodSet(CONTENT.tr.moods),
+  id: moodSet(CONTENT.id.moods),
 };
 
 export function defaultMoods(language: Language = currentLanguage()): readonly DefaultMood[] {
@@ -88,7 +92,7 @@ const GROUP_NAMES_DE_EN: Record<GroupKey, { de: string; en: string }> = {
 const GROUP_NAMES = Object.fromEntries(
   (Object.keys(GROUP_NAMES_DE_EN) as GroupKey[]).map((key) => [
     key,
-    { ...GROUP_NAMES_DE_EN[key], es: CONTENT.es.groups[key], pt: CONTENT.pt.groups[key], fr: CONTENT.fr.groups[key], it: CONTENT.it.groups[key] },
+    { ...GROUP_NAMES_DE_EN[key], ...Object.fromEntries(Object.entries(CONTENT).map(([language, content]) => [language, content.groups[key]])) },
   ]),
 ) as Record<GroupKey, Record<Language, string>>;
 

@@ -22,6 +22,9 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const PAGE = pathToFileURL(join(ROOT, 'store/graphics.html')).href;
 const ALL = [['de', 'de-DE'], ['en', 'en-US'], ['es', 'es-ES'], ['es', 'es-419'], ['pt', 'pt-BR'], ['fr', 'fr-FR'], ['it', 'it-IT']];
+// Übersetzt, aber noch ohne Screenshots in store/screens/<lang>/: erst nach den Aufnahmen in ALL aufnehmen
+// (und in store/locales.mjs streichen). Texte der Grafiken stehen schon in store/text/<lang>.js.
+// ['nl', 'nl-NL'], ['pl', 'pl-PL'], ['tr', 'tr-TR'], ['id', 'id']
 const ICON_ONLY = process.argv.includes('--icon');
 const ONLY = process.argv.slice(2).filter((arg) => !arg.startsWith('--'));
 const LOCALES = ONLY.length ? ALL.filter(([lang]) => ONLY.includes(lang)) : ALL;

@@ -1,0 +1,1161 @@
+{
+  "app": {
+    "name": "Daylight"
+  },
+  "tabs": {
+    "today": "Hari ini",
+    "calendar": "Kalender",
+    "insights": "Wawasan",
+    "achievements": "Penghargaan",
+    "settings": "Lainnya"
+  },
+  "lookback": {
+    "title": "Menengok ke belakang",
+    "week": "Seminggu lalu",
+    "month": "Sebulan lalu",
+    "halfYear": "6 bulan lalu",
+    "year": "Setahun lalu",
+    "none": "Tidak ada entri",
+    "hint": "Membuka hari ini"
+  },
+  "today": {
+    "empty": "Belum ada entri",
+    "ask": "Nah, bagaimana harimu? ☀️",
+    "future": "Hari ini masih akan datang. Nantikan saja! ✨",
+    "yesterday": "Kemarin",
+    "tomorrow": "Besok",
+    "relPast_one": "{{count}} hari lalu",
+    "relPast_other": "{{count}} hari lalu",
+    "relFuture_one": "Dalam {{count}} hari",
+    "relFuture_other": "Dalam {{count}} hari",
+    "editHint": "Membuka entri",
+    "planned": "Direncanakan",
+    "plannedHint": "Aktivitas untuk hari ini"
+  },
+  "settings": {
+    "title": "Lainnya",
+    "data": "Data",
+    "import": "Impor",
+    "exportJson": "Bagikan cadangan",
+    "saveJson": "Simpan cadangan ke folder",
+    "exportCsv": "Ekspor sebagai CSV Daylio",
+    "deleteAll": "Hapus semua data",
+    "backupHint": "Hanya cadangan yang memulihkan semuanya. Dengan foto, cadangan berupa file ZIP. CSV tidak berisi grup, ikon, rencana, titik balik, atau foto.",
+    "backupNever": "Belum pernah",
+    "backupToday": "Hari ini",
+    "backupAgo_one": "{{count}} hari lalu",
+    "backupAgo_other": "{{count}} hari lalu",
+    "saved": "Tersimpan",
+    "changelog": "Riwayat pembaruan",
+    "unknownFile": "File ini bukan cadangan Daylight, bukan ekspor Daylio, dan bukan cadangan Daylio.",
+    "invalidFile": "File tidak dapat dibaca",
+    "deleteWord": "HAPUS",
+    "deleteBody": "Semua entri, foto, suasana hati, aktivitas, rencana, data kesehatan, dan pengaturan akan dihapus dari perangkat ini.",
+    "deleteBackupHint": "Untuk menyimpan datamu, bagikan cadangan terlebih dahulu.",
+    "deleteConfirm": "Ketik {{word}} untuk mengonfirmasi",
+    "deleted": "Semua data dihapus",
+    "outlookSection": "Perkiraan",
+    "calendarSection": "Kalender",
+    "weekStart": "Minggu dimulai pada",
+    "monday": "Senin",
+    "sunday": "Minggu",
+    "outlook": "Perkiraan",
+    "privacyLabel": "Privasi",
+    "reminders": "Pengingat",
+    "lock": "Kunci aplikasi",
+    "about": "Tentang",
+    "rate": "Beri nilai Daylight",
+    "rateStore": "Play Store",
+    "protection": "Perlindungan",
+    "info": "Info",
+    "healthSection": "Kesehatan",
+    "health": "Data kesehatan",
+    "languageSection": "Bahasa",
+    "language": "Bahasa aplikasi",
+    "designSection": "Tampilan",
+    "designSeasons": "Tampilan musiman",
+    "designSeasonsHint": "Warna dan motif di aplikasi serta ikon di layar utama mengikuti musim semi, panas, gugur, dan dingin. Ikon berganti setelah aplikasi berada di latar belakang.",
+    "designFestivals": "Tampilan hari raya",
+    "designFestivalsHint": "Paskah, Halloween, Natal, malam Tahun Baru, dan Tahun Baru Imlek punya tampilan sendiri. Nonaktif: hanya musim.",
+    "diarySection": "Buku harian",
+    "history": "Riwayat",
+    "turningPoints": "Titik balik"
+  },
+  "import": {
+    "title": "Impor",
+    "noFile": "Tidak ada file yang dipilih",
+    "entries_one": "{{count}} entri",
+    "entries_other": "{{count}} entri",
+    "moods_one": "{{count}} suasana hati",
+    "moods_other": "{{count}} suasana hati",
+    "activities_one": "{{count}} aktivitas",
+    "activities_other": "{{count}} aktivitas",
+    "summary": "{{entries}} dari {{from}} sampai {{to}}, {{moods}}, {{activities}} ({{fresh}} di antaranya baru).",
+    "summaryEmpty": "File ini tidak berisi entri.",
+    "mergeInfo_one": "Penggabungan menambahkan {{count}} entri, {{duplicates}}.",
+    "mergeInfo_other": "Penggabungan menambahkan {{count}} entri, {{duplicates}}.",
+    "duplicates_one": "{{count}} sudah ada",
+    "duplicates_other": "{{count}} sudah ada",
+    "photoInfo_one": "Ditambah {{count}} foto, {{fresh}} di antaranya baru.",
+    "photoInfo_other": "Ditambah {{count}} foto, {{fresh}} di antaranya baru.",
+    "healthInfo_one": "Ditambah data kesehatan untuk {{count}} hari.",
+    "healthInfo_other": "Ditambah data kesehatan untuk {{count}} hari.",
+    "newMoods": "Suasana hati baru",
+    "newActivities": "Aktivitas baru",
+    "level": "{{name}} ({{level}})",
+    "mode": "Mode",
+    "merge": "Gabungkan",
+    "replace": "Ganti",
+    "replaceWarningCsv": "Mengganti akan menghapus semua entri, suasana hati, grup, dan aktivitas. Pengaturan tetap ada.",
+    "replaceWarningJson": "Mengganti akan menghapus semua data dan memulihkan cadangan persis seperti aslinya.",
+    "replaceConfirm": "Yakin ingin mengganti semuanya?",
+    "errorsTitle_one": "{{count}} baris bermasalah",
+    "errorsTitle_other": "{{count}} baris bermasalah",
+    "skipErrors": "Lewati baris bermasalah",
+    "warningsTitle_one": "{{count}} catatan",
+    "warningsTitle_other": "{{count}} catatan",
+    "more": "dan {{count}} lainnya",
+    "error": {
+      "columns": "Baris {{line}}: {{value}} kolom, bukan 9",
+      "date": "Baris {{line}}: tanggal “{{value}}” tidak valid",
+      "time": "Baris {{line}}: waktu “{{value}}” tidak valid",
+      "mood": "Baris {{line}}: suasana hati tidak ada",
+      "entry": "Entri {{line}}: tidak dapat dibaca"
+    },
+    "warning": {
+      "scales": "Baris {{line}}: skala “{{value}}” tidak dapat dibaca, dilewati",
+      "duplicateActivity": "Baris {{line}}: “{{value}}” muncul dua kali, diambil sekali",
+      "duplicateScale": "Baris {{line}}: skala “{{value}}” muncul dua kali, nilai terakhir diambil",
+      "photoMissing": "Entri dari {{value}}: foto tidak ada di file"
+    },
+    "run": "Impor",
+    "done_one": "{{count}} entri diimpor",
+    "done_other": "{{count}} entri diimpor",
+    "failed": "Impor gagal"
+  },
+  "changelog": {
+    "title": "Riwayat pembaruan",
+    "version": "Versi {{version}}"
+  },
+  "dev": {
+    "title": "Pengembangan",
+    "seed": "Muat data contoh",
+    "wipe": "Kosongkan database",
+    "sampleHint": "Satu tahun rekaan untuk mencoba-coba. Hilang dari daftar ini begitu kamu membuat entri pertamamu sendiri."
+  },
+  "calendar": {
+    "today": "Hari ini",
+    "entries_one": "{{count}} entri",
+    "entries_other": "{{count}} entri",
+    "noEntry": "tidak ada entri",
+    "legendSeveral": "beberapa entri",
+    "outlook": "Perkiraan {{mood}}",
+    "planned": "direncanakan: {{names}}",
+    "legendOutlook": "Perkiraan"
+  },
+  "entry": {
+    "newTitle": "Entri baru",
+    "editTitle": "Entri",
+    "save": "Simpan",
+    "delete": "Hapus entri",
+    "deleteTitle": "Hapus entri?",
+    "deleteBody": "Entri ini akan hilang bersama catatan dan aktivitasnya.",
+    "unsavedTitle": "Simpan perubahan?",
+    "keepEditing": "Lanjut mengedit",
+    "discard": "Buang",
+    "gone": "Entri ini sudah tidak ada",
+    "selected_one": "{{count}} dipilih",
+    "selected_other": "{{count}} dipilih",
+    "noActivities": "Belum ada aktivitas",
+    "addActivity": "Aktivitas baru di {{group}}",
+    "note": "Catatan",
+    "date": "Hari",
+    "time": "Waktu",
+    "scaleValue": "{{value}} dari {{max}}",
+    "scaleLine": "{{name}} {{value}} dari {{max}}",
+    "scaleEmpty": "Belum diisi",
+    "manageActivities": "Kelola aktivitas dan grup",
+    "manageScales": "Kelola skala",
+    "dayTaken": "Sudah ada entri untuk hari ini. Hanya bisa satu entri per hari.",
+    "turningLost": "Hari ini adalah titik balik \"{{title}}\". Tanpa entri di hari ini, titik balik itu juga akan dihapus.",
+    "turningMoveTitle": "Titik balik akan hilang",
+    "turningMoveConfirm": "Pindahkan dan hapus"
+  },
+  "photo": {
+    "title": "Foto",
+    "add": "Tambah foto",
+    "remove": "Hapus foto",
+    "open": "Lihat foto ukuran penuh",
+    "label": "Foto entri",
+    "failed": "Foto tidak dapat ditambahkan"
+  },
+  "history": {
+    "title": "Riwayat",
+    "search": "Cari entri",
+    "placeholder": "Cari",
+    "clear": "Hapus pencarian",
+    "filters": "Filter",
+    "filtersActive_one": "Filter, {{count}} aktif",
+    "filtersActive_other": "Filter, {{count}} aktif",
+    "activitiesAll": "Semua aktivitas yang dipilih",
+    "period": {
+      "all": "Semua",
+      "30": "30 hari",
+      "90": "90 hari",
+      "365": "Tahun"
+    },
+    "results_one": "{{count}} entri ditemukan",
+    "results_other": "{{count}} entri ditemukan",
+    "reset": "Atur ulang",
+    "empty": "Belum ada entri",
+    "noResults": "Tidak ada yang ditemukan",
+    "count_one": "{{count}} entri",
+    "count_other": "{{count}} entri",
+    "turning_one": "Titik balik · {{count}}",
+    "turning_other": "Titik balik · {{count}}",
+    "turningEmpty": "Belum ada titik balik. Kamu bisa menandainya di Hari ini, di bawah entri hari itu.",
+    "turningYear": "{{count}} dari {{max}}"
+  },
+  "manage": {
+    "title": "Kelola",
+    "moods": "Suasana hati",
+    "activities": "Aktivitas dan grup",
+    "groups": "Urutkan grup",
+    "sortGroups": "Urutkan grup",
+    "scales": "Skala",
+    "group": "Grup",
+    "name": "Nama",
+    "icon": "Ikon",
+    "iconOption": "{{section}}, ikon {{index}} dari {{count}}",
+    "level": "Tingkat",
+    "add": "Tambah",
+    "newMood": "Suasana hati baru",
+    "newActivity": "Aktivitas baru",
+    "newGroup": "Grup baru",
+    "newScale": "Skala baru",
+    "newScaleRange": "Jenis skala baru",
+    "range": "{{min}} sampai {{max}}",
+    "duration": "Durasi",
+    "durationHint": "Jam dan menit, misalnya untuk kerja, latihan, atau membaca.",
+    "scaleInsights": "Lihat wawasan",
+    "archived": "Diarsipkan",
+    "archive": "Arsipkan",
+    "archiveMoodHint": "Tidak bisa dipilih lagi, entri lama tetap menyimpannya.",
+    "archiveActivityHint": "Tidak bisa dipilih lagi, entri lama tetap menyimpannya.",
+    "archiveGroupHint": "Grup dan aktivitasnya tidak bisa dipilih lagi.",
+    "archiveScaleHint": "Tidak muncul lagi di entri, nilai lama tetap ada.",
+    "usage_one": "{{count}} entri",
+    "usage_other": "{{count}} entri",
+    "levelUsage_one": "Tingkat {{level}}, {{count}} entri",
+    "levelUsage_other": "Tingkat {{level}}, {{count}} entri",
+    "activityCount_one": "{{count}} aktivitas",
+    "activityCount_other": "{{count}} aktivitas",
+    "editGroup": "Edit grup {{name}}",
+    "moveHandle": "Pindahkan {{name}}",
+    "moveUp": "Pindah ke atas",
+    "moveDown": "Pindah ke bawah",
+    "mergeWith": "Gabungkan dengan",
+    "mergeChoose": "Pilih",
+    "mergeSheet": "Gabungkan {{name}} dengan",
+    "mergeTitle": "Gabungkan “{{from}}” ke “{{into}}”?",
+    "mergeBody_one": "{{count}} entri mendapat “{{into}}”. Setelah itu “{{from}}” dihapus.",
+    "mergeBody_other": "{{count}} entri mendapat “{{into}}”. Setelah itu “{{from}}” dihapus.",
+    "merge": "Gabungkan",
+    "nameTaken": "“{{name}}” sudah ada di sini",
+    "nameTakenHint": "Dua aktivitas yang sama bisa digabungkan.",
+    "lastMood": "Setidaknya satu suasana hati harus tetap ada",
+    "gone": "Sudah tidak ada"
+  },
+  "icons": {
+    "moods": "Suasana hati",
+    "feelings": "Perasaan",
+    "sleep": "Tidur",
+    "weather": "Cuaca",
+    "people": "Orang",
+    "work": "Kerja",
+    "leisure": "Santai",
+    "health": "Kesehatan",
+    "other": "Lainnya"
+  },
+  "common": {
+    "error": "Terjadi kesalahan",
+    "retry": "Coba lagi",
+    "back": "Kembali",
+    "close": "Tutup",
+    "cancel": "Batal",
+    "on": "Aktif",
+    "off": "Nonaktif",
+    "increase": "Tambah {{label}}",
+    "decrease": "Kurangi {{label}}"
+  },
+  "insights": {
+    "empty": "Wawasan muncul setelah ada entri",
+    "emptyRange": "Tidak ada entri dalam periode ini",
+    "range": {
+      "label": "Periode",
+      "30": "30 hari",
+      "90": "90 hari",
+      "365": "Tahun",
+      "all": "Semua"
+    },
+    "tabs": {
+      "mood": "Suasana hati",
+      "patterns": "Pola",
+      "activities": "Aktivitas",
+      "scales": "Skala",
+      "health": "Kesehatan",
+      "links": "Hubungan",
+      "notes": "Catatan"
+    },
+    "days_one": "{{count}} hari",
+    "days_other": "{{count}} hari",
+    "tiles": {
+      "mean": "Rata-rata",
+      "meanOf": "Rerata {{name}}",
+      "meanOfSpoken": "Rata-rata {{name}}",
+      "coverage": "Cakupan",
+      "coverageHint": "{{days}} dari {{span}} hari"
+    },
+    "trend": {
+      "title": "Tren",
+      "day": "Hari",
+      "week": "Rata-rata 7 hari",
+      "a11y": "Suasana hati dari {{from}} sampai {{to}}, {{count}} hari, rata-rata {{mean}}, rata-rata 7 hari terakhir {{last}}"
+    },
+    "distribution": {
+      "title": "Distribusi",
+      "before": "sebelumnya {{share}}",
+      "a11y_one": "{{mood}}: {{share}}, {{count}} hari",
+      "a11y_other": "{{mood}}: {{share}}, {{count}} hari",
+      "a11yBefore_one": "{{mood}}: {{share}}, {{count}} hari, sebelumnya {{before}}",
+      "a11yBefore_other": "{{mood}}: {{share}}, {{count}} hari, sebelumnya {{before}}"
+    },
+    "pixels": {
+      "title": "Tahun dalam piksel",
+      "year": "Tahun",
+      "a11yMonth": "{{month}}: {{summary}}",
+      "a11yEmpty": "{{month}}: tidak ada entri",
+      "a11yHint": "Membuka hari yang diketuk"
+    },
+    "weekdays": {
+      "title": "Hari dalam seminggu",
+      "overall": "Rata-rata semua hari: {{mean}}",
+      "a11y": "{{day}}: {{mean}}, {{count}} hari, {{diff}} dibanding rata-rata",
+      "none": "{{day}}: tidak ada entri"
+    },
+    "months": {
+      "title": "Bulan",
+      "empty": "Belum ada bulan"
+    },
+    "trends": {
+      "title": "Tren",
+      "hint": "Dari beberapa minggu terakhir, apa pun periodenya",
+      "mood": "Suasana hati",
+      "run": {
+        "up_one": "{{name}}: naik selama {{count}} minggu",
+        "up_other": "{{name}}: naik selama {{count}} minggu",
+        "down_one": "{{name}}: turun selama {{count}} minggu",
+        "down_other": "{{name}}: turun selama {{count}} minggu"
+      },
+      "shift": {
+        "up": "{{name}}: lebih tinggi dalam 4 minggu terakhir",
+        "down": "{{name}}: lebih rendah dalam 4 minggu terakhir"
+      },
+      "runDetail": "Rata-rata mingguan dari {{from}} sampai {{to}}",
+      "shiftDetail": "4 minggu terakhir {{recent}}, tiga bulan sebelumnya {{before}}",
+      "turning": "Dimulai sekitar “{{title}}”"
+    },
+    "swings": {
+      "title": "Naik turun",
+      "typical": "Dalam seminggu, suasana hatimu biasanya berubah sebesar {{value}} tingkat.",
+      "calm": "Minggu paling tenang",
+      "rough": "Minggu paling gelisah",
+      "week": "Minggu {{date}}",
+      "row": "Rata-rata {{mean}}, rentang {{spread}}",
+      "empty": "Belum ada minggu dengan setidaknya empat entri"
+    },
+    "streaks": {
+      "title": "Hari beruntun",
+      "longest": "Hari beruntun terpanjang dengan {{mood}} atau lebih baik",
+      "current": "Hari beruntun saat ini",
+      "none": "tidak ada",
+      "range": "{{from}} sampai {{to}}"
+    },
+    "frequency": {
+      "title": "Frekuensi",
+      "before": "sebelumnya {{count}}",
+      "empty": "Tidak ada aktivitas dalam periode ini"
+    },
+    "effects": {
+      "title": "Suasana hati dengan dan tanpa",
+      "nextTitle": "Pada hari berikutnya",
+      "higher": "Rata-rata lebih tinggi",
+      "lower": "Rata-rata lebih rendah",
+      "sentence": "Pada hari dengan {{name}}, rata-rata {{with}}, bukan {{without}} ({{count}} hari)",
+      "nextSentence": "Pada hari setelah {{name}}, rata-rata {{with}}, bukan {{without}} ({{count}} hari)",
+      "empty": "Belum ada aktivitas dengan perbedaan yang jelas",
+      "more": "Tampilkan semua",
+      "less": "Tampilkan lebih sedikit"
+    },
+    "pairs": {
+      "title": "Sering bersamaan",
+      "pair": "{{a}} dan {{b}}",
+      "detail": "{{count}} hari, {{lift}} kali lebih sering daripada kebetulan, rata-rata {{mean}}",
+      "empty": "Belum ada aktivitas yang mencolok sering muncul bersamaan"
+    },
+    "beforeHard": {
+      "title": "Sebelum hari berat",
+      "row": "Dalam dua hari sebelum {{count}} dari {{total}} hari berat ({{share}}), selain itu sebelum {{base}} dari semua hari",
+      "few": "Terlalu sedikit hari berat untuk dibandingkan",
+      "nothing": "Tidak ada aktivitas yang mencolok sering muncul sebelum hari berat"
+    },
+    "groups": {
+      "title": "Tampilan grup",
+      "none": "Tidak ada dari grup ini",
+      "row": "rerata {{mean}}, {{count}} hari",
+      "rowSpoken": "rata-rata {{mean}}, {{count}} hari",
+      "few": "{{count}} hari",
+      "empty": "Tidak ada entri di grup ini dalam periode ini",
+      "pick": "Grup",
+      "titleOf": "Tampilan grup: {{name}}"
+    },
+    "words": {
+      "title": "Kata",
+      "good": "Lebih sering pada hari {{mood}} atau lebih baik",
+      "low": "Lebih sering pada hari lainnya",
+      "empty": "Belum cukup catatan",
+      "none": "Tidak ada kata dengan perbedaan yang jelas",
+      "a11y": "{{word}}, pada {{count}} hari"
+    },
+    "coverage": {
+      "title": "Cakupan",
+      "entries": "Entri",
+      "days": "Hari dengan entri",
+      "share": "Cakupan",
+      "time": "Biasanya pukul",
+      "hours": "Entri menurut jam",
+      "a11yHours": "Sebagian besar entri antara {{from}} dan {{to}}"
+    },
+    "activity": {
+      "days": "Pada {{count}} dari {{total}} hari ({{share}})",
+      "levels": "Suasana hati dengan dan tanpa",
+      "with": "Dengan",
+      "without": "Tanpa",
+      "meanWith": "Rata-rata {{with}}, bukan {{without}}",
+      "weekdays": "Hari dalam seminggu",
+      "companions": "Sering menyertai",
+      "companion": "pada {{count}} dari hari-hari ini ({{share}})",
+      "months": "Frekuensi per bulan",
+      "allDays": "Semua hari",
+      "showAll": "Tampilkan semua {{count}} hari",
+      "edit": "Edit aktivitas",
+      "insights": "Wawasan",
+      "noDays": "Belum dicatat di hari mana pun",
+      "few": "Belum cukup hari untuk dibandingkan"
+    },
+    "level": {
+      "days": "Pada {{count}} dari {{total}} hari ({{share}})",
+      "typical": "Lebih sering pada hari-hari ini",
+      "rare": "Lebih jarang pada hari-hari ini",
+      "row": "pada {{share}} hari, bukan {{other}}",
+      "none": "Tidak ada aktivitas dengan perbedaan yang jelas",
+      "noDays": "Belum ada hari dengan suasana hati ini"
+    },
+    "health": {
+      "title": "Suasana hati menurut tidur dan olahraga",
+      "empty": "Tidak ada hari dengan entri dan data kesehatan dalam periode ini",
+      "sleep": "Tidur malam sebelumnya",
+      "steps": "Langkah",
+      "exercise": "Olahraga",
+      "bands": {
+        "sleepUnder6": "di bawah 6 jam",
+        "sleep6to7": "6 sampai 7 jam",
+        "sleep7to8": "7 sampai 8 jam",
+        "sleepOver8": "8 jam atau lebih",
+        "stepsUnder5k": "di bawah 5.000",
+        "steps5to10k": "5.000 sampai 10.000",
+        "stepsOver10k": "10.000 atau lebih",
+        "exerciseWith": "dengan olahraga",
+        "exerciseWithout": "tanpa olahraga",
+        "hrLow": "di bawah {{low}} bpm",
+        "hrUsual": "{{low}} sampai {{high}} bpm",
+        "hrHigh": "di atas {{high}} bpm"
+      },
+      "a11y": "{{band}}: rata-rata {{mean}}, {{count}} hari",
+      "a11yFew": "{{band}}: {{count}} hari, terlalu sedikit untuk rata-rata",
+      "hint_one": "Dari {{count}} hari dengan entri dan data dari Health Connect. Ini menggambarkan jurnalmu, bukan sebab dan akibat.",
+      "hint_other": "Dari {{count}} hari dengan entri dan data dari Health Connect. Ini menggambarkan jurnalmu, bukan sebab dan akibat.",
+      "restingHr": "Denyut jantung istirahat"
+    },
+    "healthStats": {
+      "empty": "Tidak ada data kesehatan dalam periode ini",
+      "emptyRange": "Tidak ada data kesehatan dalam periode ini",
+      "metric": {
+        "sleep": "Tidur",
+        "steps": "Langkah",
+        "restingHr": "Denyut",
+        "exercise": "Olahraga"
+      },
+      "metricInText": {
+        "sleep": "tidur",
+        "steps": "langkah",
+        "restingHr": "denyut",
+        "exercise": "olahraga"
+      },
+      "tiles": {
+        "sleep": "Tidur",
+        "steps": "Langkah",
+        "restingHr": "Denyut jantung istirahat",
+        "exercise": "Olahraga per minggu",
+        "before": "sebelumnya {{value}}",
+        "days_one": "pada {{count}} hari",
+        "days_other": "pada {{count}} hari",
+        "exerciseDays_one": "pada {{count}} hari",
+        "exerciseDays_other": "pada {{count}} hari"
+      },
+      "trend": {
+        "title": "{{name}} dari waktu ke waktu",
+        "goal": "Target",
+        "mean": "Rata-rata",
+        "median": "Median",
+        "min": "Terendah",
+        "max": "Tertinggi",
+        "days_one": "Dari {{count}} hari",
+        "days_other": "Dari {{count}} hari",
+        "before_one": "Dari {{count}} hari, rata-rata {{value}} pada periode sebelumnya",
+        "before_other": "Dari {{count}} hari, rata-rata {{value}} pada periode sebelumnya",
+        "a11y": "{{metric}} dari {{from}} sampai {{to}}, {{count}} hari, rata-rata 7 hari terakhir {{last}}"
+      },
+      "goals": {
+        "title": "Target dan hari beruntun",
+        "sleep": "Malam dengan tidur 7 jam atau lebih",
+        "steps": "Hari dengan 10.000 langkah atau lebih",
+        "exercise": "Hari dengan olahraga",
+        "share": "{{hit}} dari {{count}} hari dengan data",
+        "perWeek": "Rata-rata {{value}} per minggu",
+        "longest": "Hari beruntun terpanjang",
+        "current": "Hari beruntun saat ini"
+      },
+      "weekdays": {
+        "title": "{{name}} per hari dalam seminggu",
+        "a11y": "{{day}}: {{value}}, {{count}} hari"
+      },
+      "records": {
+        "title": "Rekor",
+        "mostSteps": "Langkah terbanyak",
+        "fewestSteps": "Langkah tersedikit",
+        "longestSleep": "Tidur terlama",
+        "shortestSleep": "Tidur tersingkat",
+        "longestExercise": "Olahraga terlama",
+        "lowestHr": "Denyut jantung istirahat terendah",
+        "highestHr": "Denyut jantung istirahat tertinggi",
+        "mood": "Suasana hati {{mood}} ({{mean}})",
+        "noEntry": "tidak ada entri"
+      },
+      "split": {
+        "title": "Hari baik dan hari berat",
+        "good": "{{mood}} atau lebih baik",
+        "hard": "{{mood}} atau lebih buruk",
+        "diff": "Pada hari baik {{diff}}",
+        "few": "terlalu sedikit hari",
+        "a11y": "{{metric}}: pada hari baik {{good}}, pada hari berat {{hard}}",
+        "empty": "Belum cukup hari baik atau berat dengan data kesehatan",
+        "hint": "Rata-rata pada hari {{good}} atau lebih baik dibanding hari {{hard}} atau lebih buruk. Tidur dihitung dari malam sebelumnya."
+      },
+      "links": {
+        "title": "Suasana hati dan tubuh",
+        "empty": "Sebuah hubungan butuh setidaknya {{count}} hari dengan entri dan data kesehatan",
+        "pairing": {
+          "sleep": {
+            "same": "Tidur malam sebelumnya dan suasana hati",
+            "nightAfter": "Suasana hati dan tidur malam setelahnya"
+          },
+          "steps": {
+            "same": "Langkah dan suasana hati di hari yang sama",
+            "next": "Langkah dan suasana hati di hari berikutnya"
+          },
+          "restingHr": {
+            "same": "Denyut jantung istirahat dan suasana hati di hari yang sama",
+            "next": "Denyut jantung istirahat dan suasana hati di hari berikutnya"
+          },
+          "exercise": {
+            "same": "Olahraga dan suasana hati di hari yang sama",
+            "next": "Olahraga dan suasana hati di hari berikutnya"
+          }
+        },
+        "sleep": {
+          "up": "Lebih banyak tidur, suasana hati lebih baik ({{strength}})",
+          "down": "Lebih banyak tidur, suasana hati lebih buruk ({{strength}})"
+        },
+        "steps": {
+          "up": "Lebih banyak langkah, suasana hati lebih baik ({{strength}})",
+          "down": "Lebih banyak langkah, suasana hati lebih buruk ({{strength}})"
+        },
+        "restingHr": {
+          "up": "Denyut jantung istirahat lebih tinggi, suasana hati lebih baik ({{strength}})",
+          "down": "Denyut jantung istirahat lebih tinggi, suasana hati lebih buruk ({{strength}})"
+        },
+        "exercise": {
+          "up": "Lebih banyak olahraga, suasana hati lebih baik ({{strength}})",
+          "down": "Lebih banyak olahraga, suasana hati lebih buruk ({{strength}})"
+        },
+        "nightAfter": {
+          "up": "Suasana hati lebih baik, tidur lebih lama setelahnya ({{strength}})",
+          "down": "Suasana hati lebih baik, tidur lebih singkat setelahnya ({{strength}})"
+        },
+        "none": "Hampir tidak ada hubungan",
+        "strength": {
+          "weak": "lemah",
+          "medium": "sedang",
+          "strong": "jelas"
+        },
+        "detail": "r = {{r}}, {{count}} hari",
+        "hint": "Korelasi dari -1 sampai 1: seberapa kuat keduanya naik atau turun bersama. Ini menggambarkan jurnalmu, bukan sebab dan akibat."
+      },
+      "activities": {
+        "title": "Aktivitas dan {{name}}",
+        "sentence": "Pada hari-hari ini, rata-rata {{with}}, bukan {{without}} ({{count}} hari)",
+        "nightSentence": "Pada malam setelahnya, rata-rata {{with}}, bukan {{without}} ({{count}} malam)",
+        "higher": {
+          "sleep": "Tidur lebih lama",
+          "steps": "Langkah lebih banyak",
+          "restingHr": "Denyut jantung istirahat lebih tinggi",
+          "exercise": "Olahraga lebih banyak"
+        },
+        "lower": {
+          "sleep": "Tidur lebih singkat",
+          "steps": "Langkah lebih sedikit",
+          "restingHr": "Denyut jantung istirahat lebih rendah",
+          "exercise": "Olahraga lebih sedikit"
+        },
+        "empty": "Belum ada aktivitas dengan perbedaan yang jelas"
+      }
+    },
+    "scales": {
+      "label": "Skala",
+      "pick": "Pilih skala",
+      "emptyRange": "Tidak ada skala dengan nilai dalam periode ini",
+      "trend": "{{name}} dari waktu ke waktu",
+      "weekdays": "{{name}} per hari dalam seminggu",
+      "mood": {
+        "title": "Suasana hati menurut {{name}}",
+        "days_one": "{{count}} hari",
+        "days_other": "{{count}} hari",
+        "a11y": "{{value}}: rata-rata suasana hati {{mood}}, {{count}} hari",
+        "hint": "Rata-rata suasana hati pada hari dengan nilai ini. Tanpa batang: kurang dari {{count}} hari."
+      },
+      "bucket": {
+        "over": "{{value}} atau lebih",
+        "under": "di bawah {{value}}",
+        "between": "{{from}} sampai {{to}}"
+      },
+      "links": {
+        "few": "Hubungan dengan suasana hati butuh setidaknya {{count}} hari dengan nilai",
+        "same": {
+          "title": "Hari yang sama",
+          "up": "{{scale}} lebih tinggi, suasana hati lebih baik ({{strength}})",
+          "down": "{{scale}} lebih tinggi, suasana hati lebih buruk ({{strength}})"
+        },
+        "next": {
+          "title": "Hari berikutnya",
+          "up": "{{scale}} lebih tinggi, suasana hati lebih baik keesokan harinya ({{strength}})",
+          "down": "{{scale}} lebih tinggi, suasana hati lebih buruk keesokan harinya ({{strength}})"
+        }
+      },
+      "activities": {
+        "title": "Aktivitas dan {{name}}",
+        "higher": "{{scale}} lebih tinggi dengan",
+        "lower": "{{scale}} lebih rendah dengan"
+      },
+      "split": {
+        "title": "Skala pada hari baik dan hari berat",
+        "empty": "Belum cukup hari baik atau berat dengan nilai skala",
+        "hint": "Rata-rata pada hari mulai {{good}} dibanding hari sampai {{hard}}."
+      },
+      "compare": {
+        "title": "Skala pada hari-hari ini",
+        "row": "Rata-rata {{with}}, pada hari lain {{without}} ({{count}} hari)"
+      },
+      "relations": {
+        "empty": "Sebuah hubungan butuh setidaknya {{count}} hari dengan kedua nilai",
+        "mood": {
+          "title": "Skala dan suasana hati",
+          "same": "{{scale}} dan suasana hati di hari yang sama",
+          "next": "{{scale}} dan suasana hati di hari berikutnya"
+        },
+        "pairs": {
+          "title": "Skala satu sama lain",
+          "row": "{{a}} dan {{b}}",
+          "up": "{{a}} lebih tinggi, {{b}} juga lebih tinggi ({{strength}})",
+          "down": "{{a}} lebih tinggi, {{b}} lebih rendah ({{strength}})"
+        },
+        "body": {
+          "title": "Skala dan tubuh",
+          "row": {
+            "sleep": "{{scale}} dan malam sebelumnya",
+            "steps": "{{scale}} dan langkah",
+            "restingHr": "{{scale}} dan denyut istirahat",
+            "exercise": "{{scale}} dan latihan"
+          },
+          "up": {
+            "sleep": "Lebih banyak tidur, {{scale}} lebih tinggi ({{strength}})",
+            "steps": "Lebih banyak langkah, {{scale}} lebih tinggi ({{strength}})",
+            "restingHr": "Denyut istirahat lebih tinggi, {{scale}} lebih tinggi ({{strength}})",
+            "exercise": "Lebih banyak latihan, {{scale}} lebih tinggi ({{strength}})"
+          },
+          "down": {
+            "sleep": "Lebih banyak tidur, {{scale}} lebih rendah ({{strength}})",
+            "steps": "Lebih banyak langkah, {{scale}} lebih rendah ({{strength}})",
+            "restingHr": "Denyut istirahat lebih tinggi, {{scale}} lebih rendah ({{strength}})",
+            "exercise": "Lebih banyak latihan, {{scale}} lebih rendah ({{strength}})"
+          }
+        }
+      }
+    }
+  },
+  "outlook": {
+    "show": "Tampilkan perkiraan",
+    "showHint": "Di Hari ini dan di kalender",
+    "notify": {
+      "label": "Notifikasi pagi",
+      "hint": "Notifikasi di pagi hari saat ada petunjuk tentang hari yang baik. Layar kunci hanya menyebut bahwa ada perkiraan, bukan isinya.",
+      "time": "Waktu pagi",
+      "permissionDenied": "Tanpa izin sistem, tidak ada notifikasi yang muncul. Kamu bisa mengizinkannya di pengaturan Android."
+    },
+    "computing": "Menghitung",
+    "between": "antara {{low}} dan {{high}}",
+    "hardChance": "Mungkin hari yang berat ({{percent}})",
+    "weekdayMean": "Sejauh ini {{weekday}} rata-rata {{mean}} ({{count}} hari)",
+    "weekdayNone": "Belum ada {{weekday}} yang dicatat",
+    "usual": "Sering di hari ini: {{names}}",
+    "reasons": "Alasan",
+    "reasonWeekdayUp": "{{weekday}} biasanya lebih baik",
+    "reasonWeekdayDown": "{{weekday}} biasanya lebih buruk",
+    "reasonCarryUp": "Beberapa hari terakhir cenderung baik",
+    "reasonCarryDown": "Beberapa hari terakhir cenderung berat",
+    "reasonPlannedUp": "{{name}} direncanakan, hari seperti itu biasanya lebih baik",
+    "reasonPlannedDown": "{{name}} direncanakan, hari seperti itu biasanya lebih buruk",
+    "reasonRecurringUp": "Biasanya ada {{name}}, hari seperti itu cenderung lebih baik",
+    "reasonRecurringDown": "Biasanya ada {{name}}, hari seperti itu cenderung lebih buruk",
+    "reasonSkippedUp": "Kali ini tanpa {{name}}, biasanya justru lebih buruk",
+    "reasonSkippedDown": "Kali ini tanpa {{name}}, biasanya justru lebih baik",
+    "accuracy": "Ketepatan sejauh ini",
+    "accuracyHint": "Untuk setiap hari yang sudah lewat mulai entri ke-30: perkiraan yang hanya memakai data sampai saat itu, dibandingkan dengan yang benar-benar terjadi. Rata-rata selisih dalam tingkat, makin kecil makin baik.",
+    "accuracyEmpty": "Butuh 30 hari dengan entri.",
+    "horizon_one": "Dalam {{count}} hari",
+    "horizon_other": "Dalam {{count}} hari",
+    "colModel": "Perkiraan",
+    "colLongMean": "Rata-rata jangka panjang",
+    "colMode": "Selalu {{mood}}",
+    "shown": "ditampilkan",
+    "notShown": "tidak ditampilkan",
+    "cases": "{{count}} perbandingan per jarak",
+    "about": "Perkiraan menggambarkan apa yang sering terjadi di entrimu sejauh ini. Perkiraan tidak tahu apa pun tentangmu yang tidak ada di entri.",
+    "tomorrow": {
+      "title": "Besok bisa jadi hari yang baik",
+      "bodyLikely": "Setelah hari seperti hari ini, hari berikutnya bagimu {{mood}} atau lebih baik pada {{hit}} kasus, biasanya rata-rata {{usual}} ({{count}} kasus).",
+      "bodyBetter": "Peluang hari mulai {{mood}} lebih baik dari biasanya: setelah hari seperti hari ini {{hit}}, biasanya rata-rata {{usual}} ({{count}} kasus).",
+      "bodyOpen": "Hari ini termasuk hari yang paling sering disusul hari mulai {{mood}} bagimu. Seberapa sering itu tepat akan terlihat dengan lebih banyak entri.",
+      "bodyAbove": "Peluangmu untuk hari mulai {{mood}} hari ini sedikit lebih baik dari biasanya. Seberapa sering itu tepat akan terlihat dengan lebih banyak entri.",
+      "reasons": "Alasan: {{names}}",
+      "strip": "bisa jadi hari yang baik",
+      "reasonMood": "suasana hatimu hari ini",
+      "reasonWeekday": "besok hari {{weekday}}",
+      "reasonSleep": "tidur {{value}}",
+      "reasonSteps": "{{value}} langkah kemarin",
+      "morning": {
+        "title": "Prospek baik untuk hari ini",
+        "bodyLikely": "Setelah hari seperti kemarin, hari berikutnya bagimu {{mood}} atau lebih baik pada {{hit}} kasus, biasanya rata-rata {{usual}} ({{count}} kasus).",
+        "bodyBetter": "Setelah hari seperti kemarin, hari berikutnya lebih sering dari biasanya {{mood}} atau lebih baik: pada {{hit}} kasus, bukan {{usual}} ({{count}} kasus).",
+        "bodyOpen": "Bagimu, hari seperti kemarin sangat sering disusul hari mulai {{mood}}. Seberapa andal itu akan terlihat dengan lebih banyak entri.",
+        "bodyAbove": "Bagimu, hari seperti kemarin sedikit lebih sering dari biasanya disusul hari mulai {{mood}}. Seberapa andal itu akan terlihat dengan lebih banyak entri.",
+        "reasonMood": "suasana hatimu kemarin",
+        "reasonWeekday": "hari ini hari {{weekday}}",
+        "reasonSteps": "{{value}} langkah kemarin lusa"
+      },
+      "status": {
+        "title": "Petunjuk hari yang baik",
+        "hint": "Setelah kamu mencatat, “Hari ini” menampilkan petunjuk jika hari berikutnya punya peluang lebih baik dari biasanya untuk setidaknya sebaik rata-ratamu. Sekitar satu sampai empat kali dalam dua minggu, tidak pernah sebagai peringatan tentang hari yang buruk.",
+        "tooFew": "Butuh setidaknya {{count}} hari dengan entri yang disusul entri berikutnya, sejauh ini {{have}}.",
+        "proof": "Setelah hari seperti itu, hari berikutnya sejauh ini {{mood}} atau lebih baik pada {{hit}} kasus, biasanya {{usual}} ({{count}} kasus).",
+        "noProof": "Hari yang baik bagimu adalah {{mood}} atau lebih baik. Seberapa sering petunjuk itu tepat akan terlihat dengan lebih banyak entri.",
+        "shown_one": "{{count}} petunjuk dalam 14 hari terakhir.",
+        "shown_other": "{{count}} petunjuk dalam 14 hari terakhir.",
+        "alwaysGood": "Hampir semua harimu {{mood}} atau lebih baik. Hampir tidak ada ruang untuk lebih baik dari biasanya, jadi petunjuk tidak muncul."
+      }
+    }
+  },
+  "lowMood": {
+    "title": "Bercerita bisa membantu",
+    "body": "Beberapa hari terakhir sering terasa berat. Kadang membantu untuk bicara dengan seseorang.",
+    "lineAllDay": "Bisa dihubungi kapan saja: {{name}}, {{number}}.",
+    "lineHours": "Bisa dihubungi setiap hari pukul {{from}}.00 sampai {{to}}.00: {{name}}, {{number}}.",
+    "noLine": "Layanan dukungan di negaramu atau orang yang kamu percaya juga bisa membantu.",
+    "call": "Telepon {{number}}",
+    "callLabel": "Telepon {{name}}, {{number}}",
+    "later": "Sembunyikan",
+    "laterHint": "Menyembunyikan pesan ini selama 14 hari"
+  },
+  "review": {
+    "title": "Apakah Daylight membantumu?",
+    "body": "Ulasan di Play Store membantu orang lain menemukan aplikasi ini.",
+    "rate": "Beri nilai",
+    "rateHint": "Membuka Daylight di Play Store",
+    "later": "Nanti saja"
+  },
+  "backup": {
+    "title": "Saatnya membuat cadangan",
+    "bodyNever": "Entrimu hanya ada di perangkat ini. File cadangan melindunginya jika perangkat hilang atau diganti.",
+    "bodyAgo_one": "Cadangan terakhir dibuat {{count}} hari lalu.",
+    "bodyAgo_other": "Cadangan terakhir dibuat {{count}} hari lalu.",
+    "now": "Cadangkan sekarang"
+  },
+  "reminders": {
+    "title": "Pengingat",
+    "daily": "Pengingat harian",
+    "dailyHint": "Dilewati jika hari itu sudah ada entri",
+    "dailyHintAlways": "Setiap malam pada waktu yang dipilih",
+    "always": "Ingatkan meski sudah ada entri",
+    "alwaysHint": "Tetap muncul meski kamu sudah mengisi hari itu",
+    "dailyTime": "Waktu pengingat harian",
+    "yesterdayTime": "Waktu pengingat pagi",
+    "permissionDenied": "Tanpa izin sistem, aplikasi tidak memasang pengingat. Kamu bisa mengizinkannya di pengaturan Android.",
+    "unavailable": "Di Expo Go, Android tidak memasang pengingat. Pengaturan disimpan dan berlaku di aplikasi yang terpasang.",
+    "discreet": "Teksnya paling banyak menyebut berapa lama hari beruntunmu berjalan, atau bahwa entri kemarin masih kosong, tidak pernah isi jurnalmu.",
+    "yesterday": "Pengingat keesokan paginya",
+    "yesterdayHint": "Hanya jika kemarin masih kosong. Hanya muncul bersama pengingat harian"
+  },
+  "notify": {
+    "title": "Pengingat",
+    "channel": "Pengingat",
+    "body": "Bagaimana harimu?",
+    "bodyStreak": "Bagaimana harimu? Hari ke-{{value}} beruntun.",
+    "yesterday": "Entri kemarin masih kosong.",
+    "yesterdayStreak_one": "Kemarin masih kosong. Isi agar hari beruntunmu tetap berlanjut.",
+    "yesterdayStreak_other": "Kemarin masih kosong. Isi agar {{value}} hari beruntunmu tetap terjaga.",
+    "outlook": "Perkiraanmu untuk hari ini sudah ada"
+  },
+  "reminderPrompt": {
+    "title": "Pengingat singkat di malam hari?",
+    "body": "Pengingat malam membantumu menjaga hari beruntun. Teksnya tidak membocorkan apa pun, dan semuanya tetap di perangkat ini.",
+    "time": "Waktu malam",
+    "morning": "Jika ada hari yang terlewat, aku akan mengingatkanmu keesokan paginya.",
+    "remind": "Ingatkan aku",
+    "remindHint": "Meminta izin untuk menampilkan notifikasi",
+    "later": "Nanti",
+    "laterHint": "Tidak akan bertanya lagi. Kamu bisa menyalakan pengingat di Lainnya › Pengingat",
+    "denied": "Kamu bisa menyalakannya kapan saja di Lainnya › Pengingat.",
+    "ok": "OK"
+  },
+  "lock": {
+    "title": "Kunci aplikasi",
+    "prompt": "Konfirmasi untuk membuka",
+    "unlock": "Buka kunci",
+    "failed": "Belum terbuka.",
+    "enable": "Kunci aplikasi",
+    "enableHint": "Minta buka kunci saat aplikasi dibuka",
+    "unavailable": "Belum ada kunci layar. Atur PIN, pola, atau biometrik di perangkat.",
+    "delay": "Kunci setelah",
+    "delayImmediate": "Langsung",
+    "delayMinutes_one": "1 menit",
+    "delayMinutes_other": "{{count}} menit",
+    "secure": "Selama kunci aktif, pratinjau di ikhtisar aplikasi tetap kosong dan tangkapan layar diblokir."
+  },
+  "privacy": {
+    "title": "Privasi",
+    "intro": "Daylight menyimpan semuanya hanya di perangkat ini.",
+    "stored": "Yang disimpan: entri dengan suasana hati, aktivitas, skala, catatan, dan foto, suasana hati, aktivitas, grup, dan skala buatanmu, aktivitas yang direncanakan, titik balik, serta pengaturanmu.",
+    "network": "Tanpa akun, tanpa server, tanpa analitik, tanpa iklan. Aplikasi ini tidak meminta izin internet dan tidak bisa mengirim apa pun.",
+    "leave": "Data hanya keluar dari perangkat saat kamu sendiri membagikan atau menyimpan cadangan atau ekspor CSV.",
+    "noCloudBackup": "Aplikasi ini dikecualikan dari cadangan otomatis Android dan dari pemindahan ke ponsel baru. Jadi entrimu tidak masuk ke akun Google dan tidak ikut tersalin saat kamu menyiapkan perangkat baru. Konsekuensinya: jika kamu mencopot aplikasi atau berganti perangkat, entrimu hilang kecuali kamu punya cadangan sendiri. Setelah 60 hari tanpa cadangan, Hari ini akan mengingatkanmu.",
+    "backup": "Cadangan adalah file tidak terenkripsi berisi semua entri, catatan, dan foto. Simpan di tempat yang kamu percaya.",
+    "computed": "Wawasan dan perkiraan dihitung di perangkat dari entrimu. Keduanya menggambarkan datamu dan bukan pernyataan medis.",
+    "reminders": "Pengingat adalah notifikasi lokal dari perangkat: pengingat harian di malam hari, dan satu di pagi hari jika entri kemarin masih kosong. Teksnya paling banyak menyebut berapa lama hari beruntunmu berjalan, atau bahwa kemarin masih kosong, tidak pernah isi jurnalmu. Jadi siapa pun yang memegang perangkat bisa melihat darinya bahwa kamu menulis, dan seberapa rutin.",
+    "lockNote": "Kunci aplikasi yang opsional memakai buka kunci perangkat. Selama aktif, tangkapan layar diblokir.",
+    "deleteNote": "Hapus semua data menghapus entri, foto, aktivitas, rencana, data kesehatan, dan pengaturan dari perangkat serta melepas akses ke Health Connect.",
+    "photos": "Kamu memilih foto dengan pemilih foto Android. Daylight hanya mendapat satu gambar itu, tanpa akses ke galeri dan tanpa kamera. Salinan yang diperkecil disimpan di penyimpanan pribadi aplikasi, bukan di galeri.",
+    "health": "Saat kamu menyalakan data kesehatan, Daylight membaca langkah, tidur, denyut jantung istirahat, dan olahraga dari Health Connect sebagai nilai harian. Ini terjadi di perangkat, tanpa internet. Daylight tidak menulis apa pun ke Health Connect. Nilai-nilai itu hanya masuk ke cadangan jika kamu menyalakannya di Data kesehatan. Kamu mengatur akses di Health Connect, “Putuskan dan hapus data” menghapus semua yang telah diambil."
+  },
+  "about": {
+    "title": "Tentang",
+    "tagline": "Jurnal suasana hati, lokal, offline, tanpa akun.",
+    "version": "Versi {{version}}",
+    "copyright": "© 2026 Paul Behla, paul-behla.de",
+    "license": "Daylight adalah perangkat lunak bebas di bawah GNU General Public License, versi 3 atau yang lebih baru, dengan ketentuan atribusi tambahan. Tanpa jaminan apa pun. Lisensi dan kode sumber: github.com/Jurgler95/daylight",
+    "disclaimer": "Daylight bukan perangkat medis dan tidak menggantikan saran atau perawatan. Wawasan dan perkiraan hanya menggambarkan entrimu sendiri."
+  },
+  "health": {
+    "title": "Data kesehatan",
+    "enable": "Ambil dari Health Connect",
+    "enableHint": "Langkah, tidur, denyut jantung istirahat, dan olahraga, misalnya dari Samsung Health dan Galaxy Watch. Hanya dibaca.",
+    "state": "Status",
+    "running": "Sedang menyinkronkan",
+    "never": "Belum disinkronkan",
+    "lastSyncAt": "Terakhir disinkronkan pada {{date}} pukul {{time}}",
+    "coverage_one": "{{count}} hari dengan data, paling lama {{date}}",
+    "coverage_other": "{{count}} hari dengan data, paling lama {{date}}",
+    "noDays": "Belum ada hari dengan data",
+    "lastError": "Kesalahan terakhir: {{message}}",
+    "syncNow": "Sinkronkan sekarang",
+    "reread": "Baca ulang semuanya",
+    "manage": "Kelola di Health Connect",
+    "disconnect": "Putuskan dan hapus data",
+    "disconnectBody": "Daylight melepas aksesnya ke Health Connect dan menghapus data kesehatan yang telah diambil dari perangkat ini. Semua yang ada di Health Connect sendiri tetap seperti semula.",
+    "disconnectConfirm": "Putuskan",
+    "denied": "Tanpa izin di Health Connect, Daylight tidak bisa mengambil apa pun. Kamu bisa memberikannya kapan saja di “Kelola di Health Connect”.",
+    "missing": "Health Connect tidak terpasang di perangkat ini. Sejak Android 14 sudah bawaan, sebelumnya tersedia aplikasi Health Connect di Play Store.",
+    "needsUpdate": "Health Connect perlu diperbarui terlebih dahulu.",
+    "unsupported": "Data kesehatan hanya tersedia di aplikasi yang terpasang di Android, tidak di Expo Go.",
+    "historyHint": "Untuk hari yang lebih lama dari 30 hari, izinkan juga akses ke data lama di dialog Health Connect. Jika baru diizinkan belakangan, “Baca ulang semuanya” mengambil hari-hari yang lebih lama. Hanya yang diteruskan Samsung Health ke Health Connect yang diambil.",
+    "readOnly": "Daylight hanya membaca dan tidak pernah menulis apa pun ke Health Connect. Sinkronisasi terjadi saat aplikasi dibuka, paling sering setiap 15 menit. Data kesehatan hanya masuk ke cadangan jika kamu menyalakannya di atas. Jika tidak, setelah pemasangan ulang, sinkronisasi baru mengembalikan apa yang masih ada di Health Connect.",
+    "inBackup": "Sertakan dalam cadangan",
+    "inBackupHint": "Hari-hari kesehatan ikut masuk ke cadangan. Dengan begitu tidur dan langkah kembali setelah pemasangan ulang, meski Health Connect sudah tidak menyimpan hari-hari lama.",
+    "syncing": "Menyinkronkan data kesehatan",
+    "syncingMonth": "Menyinkronkan data kesehatan, {{month}}",
+    "day": {
+      "title": "Kesehatan",
+      "sleep": "Tidur",
+      "steps": "Langkah",
+      "exercise": "Olahraga",
+      "restingHr": "Denyut jantung istirahat",
+      "bpm": "{{value}} bpm"
+    }
+  },
+  "achievements": {
+    "title": "Penghargaan",
+    "intro": "Bintang didapat dari konsistensi dan mencatat, tidak pernah dari bagaimana harimu berjalan.",
+    "stars": "{{stars}} dari {{max}} bintang",
+    "starsShort": "{{stars}}/{{max}}",
+    "complete": "{{count}} dari {{total}} selesai",
+    "groups": {
+      "streaks": "Beruntun",
+      "volume": "Jumlah"
+    },
+    "best": "Terbaik {{value}}",
+    "current": "Kini {{value}}",
+    "lastWeek": "7 hari terakhir {{value}}",
+    "total": "Sejauh ini {{value}}",
+    "next": "Bintang berikutnya: {{value}}",
+    "done": "Kelima bintang tercapai",
+    "doneBadge": "Selesai",
+    "upNext": "Berikutnya",
+    "needsHealth": "Butuh data kesehatan dari Health Connect",
+    "percent": "{{value}}%",
+    "overallLabel": "{{value}} persen selesai secara keseluruhan",
+    "progressLabel": "{{value}} persen menuju bintang kelima",
+    "starLabel": "{{stars}} dari 5 bintang",
+    "tiers": "Tingkat: {{tiers}}",
+    "units": {
+      "days_one": "{{value}} hari",
+      "days_other": "{{value}} hari",
+      "weeks_one": "{{value}} minggu",
+      "weeks_other": "{{value}} minggu",
+      "words_one": "{{value}} kata",
+      "words_other": "{{value}} kata",
+      "activities_one": "{{value}} aktivitas",
+      "activities_other": "{{value}} aktivitas",
+      "photos_one": "{{value}} foto",
+      "photos_other": "{{value}} foto",
+      "opens_one": "{{value}} kali",
+      "opens_other": "{{value}} kali",
+      "turningPoints_one": "{{value}} titik balik",
+      "turningPoints_other": "{{value}} titik balik"
+    },
+    "toGo": {
+      "days_one": "<n>{{value}}</n> hari lagi",
+      "days_other": "<n>{{value}}</n> hari lagi",
+      "weeks_one": "<n>{{value}}</n> minggu lagi",
+      "weeks_other": "<n>{{value}}</n> minggu lagi",
+      "words_one": "<n>{{value}}</n> kata lagi",
+      "words_other": "<n>{{value}}</n> kata lagi",
+      "activities_one": "<n>{{value}}</n> aktivitas lagi",
+      "activities_other": "<n>{{value}}</n> aktivitas lagi",
+      "photos_one": "<n>{{value}}</n> foto lagi",
+      "photos_other": "<n>{{value}}</n> foto lagi",
+      "opens_one": "<n>{{value}}</n> kali lagi",
+      "opens_other": "<n>{{value}}</n> kali lagi",
+      "turningPoints_one": "<n>{{value}}</n> titik balik lagi",
+      "turningPoints_other": "<n>{{value}}</n> titik balik lagi"
+    },
+    "items": {
+      "days": {
+        "title": "Terus berlanjut",
+        "text": "Hari berturut-turut dengan entri"
+      },
+      "weeks": {
+        "title": "Tetap konsisten",
+        "text": "Minggu berturut-turut dengan entri di setidaknya 5 hari"
+      },
+      "activityDays": {
+        "title": "Rajin mencatat",
+        "text": "Hari berturut-turut dengan aktivitas"
+      },
+      "noteDays": {
+        "title": "Rajin menulis",
+        "text": "Hari berturut-turut dengan catatan"
+      },
+      "photoDays": {
+        "title": "Buku harian foto",
+        "text": "Hari berturut-turut dengan foto"
+      },
+      "sleepDays": {
+        "title": "Catatan tidur",
+        "text": "Hari berturut-turut dengan data tidur"
+      },
+      "stepDays": {
+        "title": "Langkah demi langkah",
+        "text": "Hari berturut-turut dengan langkah"
+      },
+      "totalDays": {
+        "title": "Hari buku harian",
+        "text": "Total hari dengan entri"
+      },
+      "weekWords": {
+        "title": "Pandai merangkai kata",
+        "text": "Kata yang ditulis dalam 7 hari"
+      },
+      "chips": {
+        "title": "Koleksi",
+        "text": "Total aktivitas yang dicatat"
+      },
+      "weekChips": {
+        "title": "Minggu yang sibuk",
+        "text": "Aktivitas yang dicatat dalam 7 hari"
+      },
+      "variety": {
+        "title": "Ragam",
+        "text": "Aktivitas berbeda yang dicatat"
+      },
+      "custom": {
+        "title": "Buatan sendiri",
+        "text": "Aktivitas yang kamu buat sendiri"
+      },
+      "photos": {
+        "title": "Album foto",
+        "text": "Total foto di entri"
+      },
+      "scaleDays": {
+        "title": "Terukur",
+        "text": "Hari dengan nilai pada skala"
+      },
+      "turningPoints": {
+        "title": "Titik balik",
+        "text": "Hari yang mengubah sesuatu"
+      },
+      "opens": {
+        "title": "Pengunjung setia",
+        "text": "Berapa kali kamu membuka aplikasi"
+      }
+    },
+    "toast": {
+      "welcomeEyebrow": "Baru di Daylight",
+      "welcome": "Kamu sudah mengumpulkan {{stars}} bintang untuk konsistensimu. Coba lihat.",
+      "newStars_one": "Bintang baru",
+      "newStars_other": "{{count}} bintang baru",
+      "allFive": "Kelima bintang",
+      "reached": "Tercapai {{value}}",
+      "more_one": "dan {{count}} lainnya",
+      "more_other": "dan {{count}} lainnya",
+      "open": "Lihat",
+      "close": "Tutup",
+      "across_one": "Kemajuan di {{count}} penghargaan",
+      "across_other": "Kemajuan di {{count}} penghargaan"
+    }
+  },
+  "streak": {
+    "days_one": "{{value}} hari beruntun",
+    "days_other": "{{value}} hari beruntun",
+    "chip": {
+      "atRisk": "Hari beruntun terancam, kemarin masih kosong",
+      "broken": "Hari beruntun terputus",
+      "hint": "Menampilkan hari beruntun di penghargaan"
+    },
+    "risk": {
+      "title": "Kemarin masih kosong",
+      "body_one": "Isi hari ini agar hari beruntunmu tetap berlanjut.",
+      "body_other": "Isi hari ini agar {{value}} hari beruntunmu tetap terjaga.",
+      "action": "Isi kemarin"
+    },
+    "rescue": {
+      "title_one": "{{count}} hari terlewat",
+      "title_other": "{{count}} hari terlewat",
+      "body_one": "Mengisinya akan mengembalikan {{value}} hari beruntunmu.",
+      "body_other": "Mengisinya akan mengembalikan {{value}} hari beruntunmu.",
+      "action": "Isi {{date}}",
+      "later": "Nanti",
+      "laterHint": "Menyembunyikan pesan ini sampai celah berikutnya"
+    },
+    "celebration": {
+      "eyebrow": "Hari beruntun",
+      "rescued_one": "Hari beruntun terselamatkan: {{value}} hari",
+      "rescued_other": "Hari beruntun terselamatkan: {{value}} hari",
+      "rescuedShort": "Terselamatkan",
+      "milestone": "Ada entri di setiap hari ini.",
+      "gapClosed": "Celahnya sudah terisi.",
+      "inARow_one": "hari beruntun",
+      "inARow_other": "hari beruntun",
+      "open": "Lihat",
+      "openLabel": "Lihat hari beruntun di penghargaan",
+      "close": "Tutup"
+    }
+  },
+  "turning": {
+    "eyebrow": "Titik balik",
+    "title": "Titik balik",
+    "invalid": "Titik balik butuh hari dengan entri, hari ini atau sebelumnya.",
+    "discardTitle": "Buang yang sudah kamu ketik?",
+    "room_one": "Tersisa {{count}} dari {{max}} untuk {{year}}",
+    "room_other": "Tersisa {{count}} dari {{max}} untuk {{year}}",
+    "full": "Semua {{max}} untuk {{year}} sudah dipakai",
+    "fullHint": "Semua {{max}} titik balik untuk {{year}} sudah dipakai. Jika hari ini lebih penting, hapus salah satu yang lain dulu.",
+    "already": "Hari ini sudah menjadi titik balik.",
+    "titleLabel": "Nama titik balik",
+    "titlePlaceholder": "mis. Pindah ke Yogyakarta",
+    "noteLabel": "Catatan tentang titik balik",
+    "notePlaceholder": "Beberapa kata tentangnya, jika kamu mau",
+    "before": "Sebelum",
+    "after": "Sesudah",
+    "beforeShort": "Sebelum",
+    "afterShort": "Sesudah",
+    "hold": "Tekan dan tahan",
+    "holdA11y": "Tetapkan titik balik",
+    "nameFirst": "Beri nama dulu: apa nama hari ini?",
+    "explain": "Daylight lalu akan membandingkan hari-hari sebelum dengan hari-hari sesudahnya.",
+    "set": "Mulai dari sini, semuanya sesudah.",
+    "save": "Simpan",
+    "edit": "Edit",
+    "gone": "Titik balik ini sudah tidak ada",
+    "delete": "Hapus titik balik",
+    "deleteTitle": "Hapus titik balik?",
+    "deleteText": "\"{{title}}\" akan dihapus. Entri hari itu tetap ada.",
+    "mark": "Tandai sebagai titik balik",
+    "markHint": "Hari yang mengubah sesuatu. Hingga empat per tahun.",
+    "compare": "Lihat sebelum dan sesudah",
+    "cardA11y": "Titik balik: {{title}}. Lihat sebelum dan sesudah",
+    "span": {
+      "label": "Hari di tiap sisi",
+      "30": "30",
+      "90": "90",
+      "180": "180",
+      "all": "Semua"
+    },
+    "tooSoon": "Belum ada hari sesudahnya untuk dibandingkan. Sisi sesudah akan terisi dengan setiap entri.",
+    "few": "Belum cukup hari untuk dibandingkan: {{before}} sebelum, {{after}} sesudah dengan entri. Tiap sisi butuh setidaknya {{min}}.",
+    "daysWithEntries_one": "{{count}} hari dengan entri",
+    "daysWithEntries_other": "{{count}} hari dengan entri",
+    "sentence_one": "Sehari sesudahnya, suasana hatimu {{after}}; sehari sebelumnya, {{before}}.",
+    "sentence_other": "Dalam {{count}} hari sesudahnya, suasana hatimu rata-rata {{after}}; dalam {{count}} hari sebelumnya, {{before}}.",
+    "windows": "Sebelum: {{beforeFrom}} sampai {{beforeTo}}. Sesudah: {{afterFrom}} sampai {{afterTo}}.",
+    "seasons": "Kedua periode jatuh di musim yang berbeda. Sebagian perbedaannya mungkin berasal dari situ.",
+    "noCause": "Ini menggambarkan entrimu, bukan menunjukkan sebab. Titik balik sering datang setelah masa yang berat, sehingga sisi sesudah cenderung terlihat lebih baik karena alasan itu saja.",
+    "trend": "Suasana hati di sekitar titik balik",
+    "levels": "Suasana hati",
+    "activities": "Perubahan aktivitas",
+    "activitiesSame": "Tidak ada aktivitas yang muncul jelas lebih sering atau lebih jarang sesudahnya.",
+    "activityShift": "sebelumnya di {{before}} hari, sesudahnya di {{after}}",
+    "health": "Kesehatan",
+    "healthShift": "{{before}} → {{after}}",
+    "nameLabel": "Beri nama hari ini",
+    "setTitle": "Titik balik ditetapkan"
+  }
+}

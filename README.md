@@ -29,7 +29,7 @@ A mood journal for Android that doesn't know your data. No account, no servers, 
 - ❤️ **Health data, if you want.** Steps, sleep, resting heart rate and exercise from Health Connect, for example from a smartwatch. Read only, and only after you agree.
 - 🛡️ **Protected.** App lock with your device's screen lock, no screenshots while the lock is on, no Android cloud backup. The optional evening reminder reveals nothing from your journal.
 
-The app is available in English, German, Spanish, Portuguese (Brazil), French and Italian.
+The app is available in English, German, Spanish, Portuguese (Brazil), French, Italian, Dutch, Polish, Turkish and Indonesian.
 
 ## Install
 

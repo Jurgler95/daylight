@@ -35,7 +35,7 @@ Verrouillage de l'app par le verrouillage d'écran de ton appareil, captures d'�
 📦 Tes données, tes fichiers
 Partage ou enregistre une sauvegarde complète avec photos, restaure-la à tout moment et exporte en CSV. Tu viens d'une autre app de journal d'humeur ? Daylight reprend un journal existant en entier, sous forme d'export CSV ou de sauvegarde avec photos, et te montre un résumé avant de modifier quoi que ce soit.
 
-Disponible en français, allemand, anglais, espagnol, italien et portugais (Brésil).
+Disponible en français, allemand, anglais, espagnol, italien, néerlandais, polonais, portugais (Brésil), turc et indonésien.
 
 LIBRE ET OPEN SOURCE
 Daylight est un logiciel libre sous licence GNU GPL, version 3 ou ultérieure. Pas de publicité, pas d'achats intégrés, pas de pistage.

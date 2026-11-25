@@ -16,6 +16,8 @@ describe('helplines', () => {
     expect(helplineFor('es-ES')?.number).toBe('024');
     expect(helplineFor('pt-BR')?.number).toBe('188');
     expect(helplineFor('pt-PT')).toBeNull();
+    expect(helplineFor('pl-PL')?.number).toBe('800 70 2222');
+    expect(helplineFor('tr-TR')).toBeNull();
     expect(helplineFor('fr')).toBeNull();
   });
 
@@ -29,5 +31,7 @@ describe('helplines', () => {
   it('dials the digits only', () => {
     expect(dialUrl(helplineFor('de-DE')!)).toBe('tel:08001110111');
     expect(dialUrl(helplineFor('it-IT')!)).toBe('tel:0223272327');
+    expect(dialUrl(helplineFor('nl-NL')!)).toBe('tel:08000113');
+    expect(dialUrl(helplineFor('id-ID')!)).toBe('tel:119');
   });
 });

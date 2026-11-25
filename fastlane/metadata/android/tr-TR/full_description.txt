@@ -35,7 +35,7 @@ Cihazının ekran kilidiyle uygulama kilidi, kilit etkinken ekran görüntüsü 
 📦 Senin verilerin, senin dosyaların
 Fotoğraflarla birlikte tam bir yedeği paylaş ya da kaydet, istediğin zaman geri yükle ve CSV olarak dışa aktar. Başka bir ruh hali günlüğü uygulamasından mı geliyorsun? Daylight mevcut bir günlüğü CSV dışa aktarımı ya da fotoğraflı yedek olarak eksiksiz içe aktarır ve bir şey değişmeden önce ön izleme gösterir.
 
-Not: Uygulamanın kendisi İngilizce, Almanca, İspanyolca, Fransızca, İtalyanca ve Portekizce (Brezilya) olarak sunuluyor, henüz Türkçe değil.
+Türkçe, İngilizce, Almanca, İspanyolca, Fransızca, İtalyanca, Felemenkçe, Lehçe, Portekizce (Brezilya) ve Endonezce olarak kullanılabilir.
 
 ÜCRETSİZ VE AÇIK KAYNAK
 Daylight, GNU GPL sürüm 3 veya sonrası kapsamında özgür bir yazılımdır. Reklam yok, uygulama içi satın alma yok, takip yok.

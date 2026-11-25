@@ -35,7 +35,7 @@ Kunci aplikasi dengan kunci layar perangkatmu, tanpa tangkapan layar selama kunc
 📦 Datamu, filemu
 Bagikan atau simpan cadangan lengkap dengan foto, pulihkan kapan saja, dan ekspor sebagai CSV. Pindah dari aplikasi jurnal suasana hati lain? Daylight mengimpor jurnal yang sudah ada secara lengkap, sebagai ekspor CSV atau cadangan dengan foto, dan menampilkan pratinjau sebelum ada yang berubah.
 
-Catatan: aplikasinya sendiri tersedia dalam bahasa Inggris, Jerman, Spanyol, Prancis, Italia, dan Portugis (Brasil), belum dalam bahasa Indonesia.
+Tersedia dalam bahasa Indonesia, Inggris, Jerman, Spanyol, Prancis, Italia, Belanda, Polandia, Portugis (Brasil), dan Turki.
 
 GRATIS DAN OPEN SOURCE
 Daylight adalah perangkat lunak bebas di bawah GNU GPL, versi 3 atau yang lebih baru. Tanpa iklan, tanpa pembelian dalam aplikasi, tanpa pelacakan.

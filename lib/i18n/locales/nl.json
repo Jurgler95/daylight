@@ -1,0 +1,1161 @@
+{
+  "app": {
+    "name": "Daylight"
+  },
+  "tabs": {
+    "today": "Vandaag",
+    "calendar": "Kalender",
+    "insights": "Inzichten",
+    "achievements": "Beloningen",
+    "settings": "Meer"
+  },
+  "lookback": {
+    "title": "Terugblik",
+    "week": "Een week geleden",
+    "month": "Een maand geleden",
+    "halfYear": "6 maanden geleden",
+    "year": "Een jaar geleden",
+    "none": "Geen registratie",
+    "hint": "Opent deze dag"
+  },
+  "today": {
+    "empty": "Nog geen registraties",
+    "ask": "En, hoe was je dag? ☀️",
+    "future": "Deze dag moet nog komen. Kijk er maar naar uit! ✨",
+    "yesterday": "Gisteren",
+    "tomorrow": "Morgen",
+    "relPast_one": "{{count}} dag geleden",
+    "relPast_other": "{{count}} dagen geleden",
+    "relFuture_one": "Over {{count}} dag",
+    "relFuture_other": "Over {{count}} dagen",
+    "editHint": "Opent de registratie",
+    "planned": "Gepland",
+    "plannedHint": "Activiteiten voor deze dag"
+  },
+  "settings": {
+    "title": "Meer",
+    "data": "Gegevens",
+    "import": "Importeren",
+    "exportJson": "Back-up delen",
+    "saveJson": "Back-up in map opslaan",
+    "exportCsv": "Exporteren als Daylio-CSV",
+    "deleteAll": "Alle gegevens wissen",
+    "backupHint": "Alleen de back-up zet alles terug. Met foto's is het een ZIP-bestand. De CSV bevat geen groepen, iconen, plannen, keerpunten of foto's.",
+    "backupNever": "Nooit",
+    "backupToday": "Vandaag",
+    "backupAgo_one": "{{count}} dag geleden",
+    "backupAgo_other": "{{count}} dagen geleden",
+    "saved": "Opgeslagen",
+    "changelog": "Updategeschiedenis",
+    "unknownFile": "Dit bestand is geen Daylight-back-up en ook geen Daylio-export of Daylio-back-up.",
+    "invalidFile": "Bestand niet leesbaar",
+    "deleteWord": "WISSEN",
+    "deleteBody": "Alle registraties, foto's, stemmingen, activiteiten, plannen, gezondheidsgegevens en instellingen worden van dit toestel gewist.",
+    "deleteBackupHint": "Wil je je gegevens bewaren, deel dan eerst een back-up.",
+    "deleteConfirm": "Typ {{word}} om te bevestigen",
+    "deleted": "Alle gegevens gewist",
+    "outlookSection": "Vooruitblik",
+    "calendarSection": "Kalender",
+    "weekStart": "Week begint op",
+    "monday": "Maandag",
+    "sunday": "Zondag",
+    "outlook": "Vooruitblik",
+    "privacyLabel": "Privacy",
+    "reminders": "Herinnering",
+    "lock": "App-vergrendeling",
+    "about": "Over",
+    "rate": "Daylight beoordelen",
+    "rateStore": "Play Store",
+    "protection": "Bescherming",
+    "info": "Info",
+    "healthSection": "Gezondheid",
+    "health": "Gezondheidsgegevens",
+    "languageSection": "Taal",
+    "language": "Taal van de app",
+    "designSection": "Design",
+    "designSeasons": "Seizoensdesign",
+    "designSeasonsHint": "Kleuren en motieven in de app en het icoon op het startscherm volgen lente, zomer, herfst en winter. Het icoon wisselt zodra de app op de achtergrond staat.",
+    "designFestivals": "Feestdagdesigns",
+    "designFestivalsHint": "Pasen, Halloween, Kerstmis, oudejaarsavond en het maanjaar krijgen een eigen design. Uit: alleen het seizoen.",
+    "diarySection": "Dagboek",
+    "history": "Geschiedenis",
+    "turningPoints": "Keerpunten"
+  },
+  "import": {
+    "title": "Importeren",
+    "noFile": "Geen bestand gekozen",
+    "entries_one": "{{count}} registratie",
+    "entries_other": "{{count}} registraties",
+    "moods_one": "{{count}} stemming",
+    "moods_other": "{{count}} stemmingen",
+    "activities_one": "{{count}} activiteit",
+    "activities_other": "{{count}} activiteiten",
+    "summary": "{{entries}} van {{from}} tot {{to}}, {{moods}}, {{activities}} (waarvan {{fresh}} nieuw).",
+    "summaryEmpty": "Het bestand bevat geen registraties.",
+    "mergeInfo_one": "Samenvoegen voegt {{count}} registratie toe, {{duplicates}}.",
+    "mergeInfo_other": "Samenvoegen voegt {{count}} registraties toe, {{duplicates}}.",
+    "duplicates_one": "{{count}} bestaat al",
+    "duplicates_other": "{{count}} bestaan al",
+    "photoInfo_one": "Plus {{count}} foto, waarvan {{fresh}} nieuw.",
+    "photoInfo_other": "Plus {{count}} foto's, waarvan {{fresh}} nieuw.",
+    "healthInfo_one": "Plus gezondheidsgegevens voor {{count}} dag.",
+    "healthInfo_other": "Plus gezondheidsgegevens voor {{count}} dagen.",
+    "newMoods": "Nieuwe stemmingen",
+    "newActivities": "Nieuwe activiteiten",
+    "level": "{{name}} ({{level}})",
+    "mode": "Manier",
+    "merge": "Samenvoegen",
+    "replace": "Vervangen",
+    "replaceWarningCsv": "Vervangen wist alle registraties, stemmingen, groepen en activiteiten. Instellingen blijven.",
+    "replaceWarningJson": "Vervangen wist alle gegevens en zet de back-up precies terug.",
+    "replaceConfirm": "Echt alles vervangen?",
+    "errorsTitle_one": "{{count}} foutieve regel",
+    "errorsTitle_other": "{{count}} foutieve regels",
+    "skipErrors": "Foutieve regels overslaan",
+    "warningsTitle_one": "{{count}} opmerking",
+    "warningsTitle_other": "{{count}} opmerkingen",
+    "more": "en nog {{count}}",
+    "error": {
+      "columns": "Regel {{line}}: {{value}} in plaats van 9 kolommen",
+      "date": "Regel {{line}}: datum “{{value}}” ongeldig",
+      "time": "Regel {{line}}: tijd “{{value}}” ongeldig",
+      "mood": "Regel {{line}}: stemming ontbreekt",
+      "entry": "Registratie {{line}}: niet leesbaar"
+    },
+    "warning": {
+      "scales": "Regel {{line}}: schalen “{{value}}” niet leesbaar, overgeslagen",
+      "duplicateActivity": "Regel {{line}}: “{{value}}” dubbel, één keer overgenomen",
+      "duplicateScale": "Regel {{line}}: schaal “{{value}}” dubbel, laatste waarde overgenomen",
+      "photoMissing": "Registratie van {{value}}: foto ontbreekt in het bestand"
+    },
+    "run": "Importeren",
+    "done_one": "{{count}} registratie geïmporteerd",
+    "done_other": "{{count}} registraties geïmporteerd",
+    "failed": "Importeren mislukt"
+  },
+  "changelog": {
+    "title": "Updategeschiedenis",
+    "version": "Versie {{version}}"
+  },
+  "dev": {
+    "title": "Ontwikkeling",
+    "seed": "Voorbeeldgegevens laden",
+    "wipe": "Database leegmaken",
+    "sampleHint": "Een verzonnen jaar om dingen uit te proberen. Verdwijnt uit deze lijst bij je eerste eigen registratie."
+  },
+  "calendar": {
+    "today": "Vandaag",
+    "entries_one": "{{count}} registratie",
+    "entries_other": "{{count}} registraties",
+    "noEntry": "geen registratie",
+    "legendSeveral": "meerdere registraties",
+    "outlook": "Vooruitblik {{mood}}",
+    "planned": "gepland: {{names}}",
+    "legendOutlook": "Vooruitblik"
+  },
+  "entry": {
+    "newTitle": "Nieuwe registratie",
+    "editTitle": "Registratie",
+    "save": "Opslaan",
+    "delete": "Registratie wissen",
+    "deleteTitle": "Registratie wissen?",
+    "deleteBody": "De registratie verdwijnt, samen met de notitie en de activiteiten.",
+    "unsavedTitle": "Wijzigingen opslaan?",
+    "keepEditing": "Verder bewerken",
+    "discard": "Weggooien",
+    "gone": "Deze registratie bestaat niet meer",
+    "selected_one": "{{count}} gekozen",
+    "selected_other": "{{count}} gekozen",
+    "noActivities": "Nog geen activiteiten",
+    "addActivity": "Nieuwe activiteit in {{group}}",
+    "note": "Notitie",
+    "date": "Dag",
+    "time": "Tijd",
+    "scaleValue": "{{value}} van {{max}}",
+    "scaleLine": "{{name}} {{value}} van {{max}}",
+    "scaleEmpty": "Niet ingevuld",
+    "manageActivities": "Activiteiten en groepen beheren",
+    "manageScales": "Schalen beheren",
+    "dayTaken": "Voor deze dag is er al een registratie. Er kan één registratie per dag zijn.",
+    "turningLost": "Deze dag is het keerpunt “{{title}}”. Zonder registratie op deze dag wordt het ook gewist.",
+    "turningMoveTitle": "Keerpunt gaat verloren",
+    "turningMoveConfirm": "Verplaatsen en wissen"
+  },
+  "photo": {
+    "title": "Foto",
+    "add": "Foto toevoegen",
+    "remove": "Foto verwijderen",
+    "open": "Foto op volle grootte bekijken",
+    "label": "Foto bij de registratie",
+    "failed": "Foto kon niet worden toegevoegd"
+  },
+  "history": {
+    "title": "Geschiedenis",
+    "search": "Registraties doorzoeken",
+    "placeholder": "Zoeken",
+    "clear": "Zoekopdracht wissen",
+    "filters": "Filters",
+    "filtersActive_one": "Filters, {{count}} actief",
+    "filtersActive_other": "Filters, {{count}} actief",
+    "activitiesAll": "Alle gekozen activiteiten",
+    "period": {
+      "all": "Alles",
+      "30": "30 dagen",
+      "90": "90 dagen",
+      "365": "Jaar"
+    },
+    "results_one": "{{count}} registratie gevonden",
+    "results_other": "{{count}} registraties gevonden",
+    "reset": "Terugzetten",
+    "empty": "Nog geen registraties",
+    "noResults": "Niets gevonden",
+    "count_one": "{{count}} registratie",
+    "count_other": "{{count}} registraties",
+    "turning_one": "Keerpunten · {{count}}",
+    "turning_other": "Keerpunten · {{count}}",
+    "turningEmpty": "Nog geen keerpunten. Je zet er een op Vandaag, onder de registratie van de dag.",
+    "turningYear": "{{count}} van {{max}}"
+  },
+  "manage": {
+    "title": "Beheren",
+    "moods": "Stemmingen",
+    "activities": "Activiteiten en groepen",
+    "groups": "Groepen ordenen",
+    "sortGroups": "Groepen ordenen",
+    "scales": "Schalen",
+    "group": "Groep",
+    "name": "Naam",
+    "icon": "Icoon",
+    "iconOption": "{{section}}, icoon {{index}} van {{count}}",
+    "level": "Niveau",
+    "add": "Toevoegen",
+    "newMood": "Nieuwe stemming",
+    "newActivity": "Nieuwe activiteit",
+    "newGroup": "Nieuwe groep",
+    "newScale": "Nieuwe schaal",
+    "newScaleRange": "Soort van de nieuwe schaal",
+    "range": "{{min}} tot {{max}}",
+    "duration": "Duur",
+    "durationHint": "Uren en minuten, bijvoorbeeld voor werk, sporten of lezen.",
+    "scaleInsights": "Inzichten bekijken",
+    "archived": "Gearchiveerd",
+    "archive": "Archiveren",
+    "archiveMoodHint": "Niet meer te kiezen, oude registraties houden hem.",
+    "archiveActivityHint": "Niet meer te kiezen, oude registraties houden hem.",
+    "archiveGroupHint": "De groep en haar activiteiten zijn niet meer te kiezen.",
+    "archiveScaleHint": "Niet meer in de registratie, oude waarden blijven.",
+    "usage_one": "{{count}} registratie",
+    "usage_other": "{{count}} registraties",
+    "levelUsage_one": "Niveau {{level}}, {{count}} registratie",
+    "levelUsage_other": "Niveau {{level}}, {{count}} registraties",
+    "activityCount_one": "{{count}} activiteit",
+    "activityCount_other": "{{count}} activiteiten",
+    "editGroup": "Groep {{name}} bewerken",
+    "moveHandle": "{{name}} verplaatsen",
+    "moveUp": "Omhoog",
+    "moveDown": "Omlaag",
+    "mergeWith": "Samenvoegen met",
+    "mergeChoose": "Kiezen",
+    "mergeSheet": "{{name}} samenvoegen met",
+    "mergeTitle": "“{{from}}” samenvoegen met “{{into}}”?",
+    "mergeBody_one": "{{count}} registratie krijgt “{{into}}”. Daarna wordt “{{from}}” gewist.",
+    "mergeBody_other": "{{count}} registraties krijgen “{{into}}”. Daarna wordt “{{from}}” gewist.",
+    "merge": "Samenvoegen",
+    "nameTaken": "“{{name}}” bestaat hier al",
+    "nameTakenHint": "Twee gelijke activiteiten kun je samenvoegen.",
+    "lastMood": "Er moet minstens één stemming blijven",
+    "gone": "Bestaat niet meer"
+  },
+  "icons": {
+    "moods": "Stemming",
+    "feelings": "Gevoelens",
+    "sleep": "Slaap",
+    "weather": "Weer",
+    "people": "Mensen",
+    "work": "Werk",
+    "leisure": "Vrije tijd",
+    "health": "Gezondheid",
+    "other": "Overig"
+  },
+  "common": {
+    "error": "Er ging iets mis",
+    "retry": "Opnieuw proberen",
+    "back": "Terug",
+    "close": "Sluiten",
+    "cancel": "Annuleren",
+    "on": "Aan",
+    "off": "Uit",
+    "increase": "{{label}} verhogen",
+    "decrease": "{{label}} verlagen"
+  },
+  "insights": {
+    "empty": "Inzichten verschijnen zodra er registraties zijn",
+    "emptyRange": "In deze periode zijn er geen registraties",
+    "range": {
+      "label": "Periode",
+      "30": "30 dagen",
+      "90": "90 dagen",
+      "365": "Jaar",
+      "all": "Alles"
+    },
+    "tabs": {
+      "mood": "Stemming",
+      "patterns": "Patronen",
+      "activities": "Activiteiten",
+      "scales": "Schalen",
+      "health": "Gezondheid",
+      "links": "Verbanden",
+      "notes": "Notities"
+    },
+    "days_one": "{{count}} dag",
+    "days_other": "{{count}} dagen",
+    "tiles": {
+      "mean": "Gemiddelde",
+      "meanOf": "Gem. {{name}}",
+      "meanOfSpoken": "Gemiddelde {{name}}",
+      "coverage": "Dekking",
+      "coverageHint": "{{days}} van {{span}} dagen"
+    },
+    "trend": {
+      "title": "Verloop",
+      "day": "Dag",
+      "week": "7-daags gemiddelde",
+      "a11y": "Stemming van {{from}} tot {{to}}, {{count}} dagen, gemiddelde {{mean}}, laatste 7-daags gemiddelde {{last}}"
+    },
+    "distribution": {
+      "title": "Verdeling",
+      "before": "eerder {{share}}",
+      "a11y_one": "{{mood}}: {{share}}, {{count}} dag",
+      "a11y_other": "{{mood}}: {{share}}, {{count}} dagen",
+      "a11yBefore_one": "{{mood}}: {{share}}, {{count}} dag, eerder {{before}}",
+      "a11yBefore_other": "{{mood}}: {{share}}, {{count}} dagen, eerder {{before}}"
+    },
+    "pixels": {
+      "title": "Jaar in pixels",
+      "year": "Jaar",
+      "a11yMonth": "{{month}}: {{summary}}",
+      "a11yEmpty": "{{month}}: geen registraties",
+      "a11yHint": "Opent de aangetikte dag"
+    },
+    "weekdays": {
+      "title": "Weekdagen",
+      "overall": "Gemiddelde over alle dagen: {{mean}}",
+      "a11y": "{{day}}: {{mean}}, {{count}} dagen, {{diff}} ten opzichte van het gemiddelde",
+      "none": "{{day}}: geen registraties"
+    },
+    "months": {
+      "title": "Maanden",
+      "empty": "Nog geen maanden"
+    },
+    "trends": {
+      "title": "Trends",
+      "hint": "Uit de laatste weken, los van de gekozen periode",
+      "mood": "Stemming",
+      "run": {
+        "up_one": "{{name}}: al {{count}} week omhoog",
+        "up_other": "{{name}}: al {{count}} weken omhoog",
+        "down_one": "{{name}}: al {{count}} week omlaag",
+        "down_other": "{{name}}: al {{count}} weken omlaag"
+      },
+      "shift": {
+        "up": "{{name}}: hoger in de laatste 4 weken",
+        "down": "{{name}}: lager in de laatste 4 weken"
+      },
+      "runDetail": "Weekgemiddelde van {{from}} tot {{to}}",
+      "shiftDetail": "Laatste 4 weken {{recent}}, het kwartaal ervoor {{before}}",
+      "turning": "Begonnen rond “{{title}}”"
+    },
+    "swings": {
+      "title": "Schommelingen",
+      "typical": "Binnen een week schommelt je stemming meestal {{value}} niveaus.",
+      "calm": "Rustigste weken",
+      "rough": "Onrustigste weken",
+      "week": "Week van {{date}}",
+      "row": "Gemiddelde {{mean}}, schommeling {{spread}}",
+      "empty": "Nog geen week met minstens vier registraties"
+    },
+    "streaks": {
+      "title": "Reeksen",
+      "longest": "Langste reeks van {{mood}} of beter",
+      "current": "Huidige reeks",
+      "none": "geen",
+      "range": "{{from}} tot {{to}}"
+    },
+    "frequency": {
+      "title": "Frequentie",
+      "before": "eerder {{count}}",
+      "empty": "Geen activiteiten in deze periode"
+    },
+    "effects": {
+      "title": "Stemming met en zonder",
+      "nextTitle": "Op de dag erna",
+      "higher": "Hoger gemiddelde",
+      "lower": "Lager gemiddelde",
+      "sentence": "Op dagen met {{name}} gemiddeld {{with}} in plaats van {{without}} ({{count}} dagen)",
+      "nextSentence": "Op de dag na {{name}} gemiddeld {{with}} in plaats van {{without}} ({{count}} dagen)",
+      "empty": "Nog geen activiteit met een duidelijk verschil",
+      "more": "Alles tonen",
+      "less": "Minder tonen"
+    },
+    "pairs": {
+      "title": "Vaak samen",
+      "pair": "{{a}} en {{b}}",
+      "detail": "{{count}} dagen, {{lift}} keer zo vaak als bij toeval, gemiddelde {{mean}}",
+      "empty": "Nog geen activiteiten die opvallend vaak samen voorkomen"
+    },
+    "beforeHard": {
+      "title": "Voor zware dagen",
+      "row": "In de twee dagen voor {{count}} van {{total}} zware dagen ({{share}}), verder voor {{base}} van alle dagen",
+      "few": "Te weinig zware dagen voor een vergelijking",
+      "nothing": "Geen activiteit kwam opvallend vaak voor zware dagen voor"
+    },
+    "groups": {
+      "title": "Groepsoverzicht",
+      "none": "Niets uit deze groep",
+      "row": "gem. {{mean}}, {{count}} dagen",
+      "rowSpoken": "gemiddeld {{mean}}, {{count}} dagen",
+      "few": "{{count}} dagen",
+      "empty": "In deze periode zijn er geen registraties in deze groep",
+      "pick": "Groep",
+      "titleOf": "Groepsoverzicht: {{name}}"
+    },
+    "words": {
+      "title": "Woorden",
+      "good": "Vaker op dagen van {{mood}} of beter",
+      "low": "Vaker op de andere dagen",
+      "empty": "Nog niet genoeg notities",
+      "none": "Geen woorden met een duidelijk verschil",
+      "a11y": "{{word}}, op {{count}} dagen"
+    },
+    "coverage": {
+      "title": "Omvang",
+      "entries": "Registraties",
+      "days": "Dagen met registratie",
+      "share": "Dekking",
+      "time": "Meestal om",
+      "hours": "Registraties per tijdstip",
+      "a11yHours": "De meeste registraties tussen {{from}} en {{to}}"
+    },
+    "activity": {
+      "days": "Op {{count}} van {{total}} dagen ({{share}})",
+      "levels": "Stemming met en zonder",
+      "with": "Met",
+      "without": "Zonder",
+      "meanWith": "Gemiddeld {{with}} in plaats van {{without}}",
+      "weekdays": "Weekdagen",
+      "companions": "Gaat samen met",
+      "companion": "op {{count}} van deze dagen ({{share}})",
+      "months": "Frequentie per maand",
+      "allDays": "Alle dagen",
+      "showAll": "Alle {{count}} dagen tonen",
+      "edit": "Activiteit bewerken",
+      "insights": "Inzichten",
+      "noDays": "Nog op geen enkele dag geregistreerd",
+      "few": "Nog te weinig dagen voor een vergelijking"
+    },
+    "level": {
+      "days": "Op {{count}} van {{total}} dagen ({{share}})",
+      "typical": "Vaker op deze dagen",
+      "rare": "Minder vaak op deze dagen",
+      "row": "{{share}} van de dagen in plaats van {{other}}",
+      "none": "Geen activiteit met een duidelijk verschil",
+      "noDays": "Nog geen dag met deze stemming"
+    },
+    "health": {
+      "title": "Stemming naar slaap en beweging",
+      "empty": "In deze periode zijn er geen dagen met registratie en gezondheidsgegevens",
+      "sleep": "Slaap de nacht ervoor",
+      "steps": "Stappen",
+      "exercise": "Beweging",
+      "bands": {
+        "sleepUnder6": "minder dan 6 u",
+        "sleep6to7": "6 tot 7 u",
+        "sleep7to8": "7 tot 8 u",
+        "sleepOver8": "8 u of meer",
+        "stepsUnder5k": "minder dan 5.000",
+        "steps5to10k": "5.000 tot 10.000",
+        "stepsOver10k": "10.000 of meer",
+        "exerciseWith": "met beweging",
+        "exerciseWithout": "zonder beweging",
+        "hrLow": "onder {{low}} spm",
+        "hrUsual": "{{low}} tot {{high}} spm",
+        "hrHigh": "boven {{high}} spm"
+      },
+      "a11y": "{{band}}: gemiddeld {{mean}}, {{count}} dagen",
+      "a11yFew": "{{band}}: {{count}} dagen, te weinig voor een gemiddelde",
+      "hint_one": "Uit {{count}} dag met registratie en gegevens uit Health Connect. Dit beschrijft je dagboek, geen oorzaak en gevolg.",
+      "hint_other": "Uit {{count}} dagen met registratie en gegevens uit Health Connect. Dit beschrijft je dagboek, geen oorzaak en gevolg.",
+      "restingHr": "Hartslag in rust"
+    },
+    "healthStats": {
+      "empty": "In deze periode zijn er geen gezondheidsgegevens",
+      "emptyRange": "In deze periode zijn er geen gezondheidsgegevens",
+      "metric": {
+        "sleep": "Slaap",
+        "steps": "Stappen",
+        "restingHr": "Hartslag",
+        "exercise": "Beweging"
+      },
+      "metricInText": {
+        "sleep": "slaap",
+        "steps": "stappen",
+        "restingHr": "hartslag",
+        "exercise": "beweging"
+      },
+      "tiles": {
+        "sleep": "Slaap",
+        "steps": "Stappen",
+        "restingHr": "Hartslag in rust",
+        "exercise": "Beweging per week",
+        "before": "eerder {{value}}",
+        "days_one": "op {{count}} dag",
+        "days_other": "op {{count}} dagen",
+        "exerciseDays_one": "op {{count}} dag",
+        "exerciseDays_other": "op {{count}} dagen"
+      },
+      "trend": {
+        "title": "{{name}} in de tijd",
+        "goal": "Doel",
+        "mean": "Gemiddelde",
+        "median": "Mediaan",
+        "min": "Laagste",
+        "max": "Hoogste",
+        "days_one": "Uit {{count}} dag",
+        "days_other": "Uit {{count}} dagen",
+        "before_one": "Uit {{count}} dag, gemiddeld {{value}} in de periode ervoor",
+        "before_other": "Uit {{count}} dagen, gemiddeld {{value}} in de periode ervoor",
+        "a11y": "{{metric}} van {{from}} tot {{to}}, {{count}} dagen, laatste 7-daags gemiddelde {{last}}"
+      },
+      "goals": {
+        "title": "Doelen en reeksen",
+        "sleep": "Nachten van 7 uur of meer",
+        "steps": "Dagen met 10.000 stappen of meer",
+        "exercise": "Dagen met beweging",
+        "share": "{{hit}} van {{count}} dagen met gegevens",
+        "perWeek": "Gemiddeld {{value}} per week",
+        "longest": "Langste reeks",
+        "current": "Huidige reeks"
+      },
+      "weekdays": {
+        "title": "{{name}} per weekdag",
+        "a11y": "{{day}}: {{value}}, {{count}} dagen"
+      },
+      "records": {
+        "title": "Records",
+        "mostSteps": "Meeste stappen",
+        "fewestSteps": "Minste stappen",
+        "longestSleep": "Langste slaap",
+        "shortestSleep": "Kortste slaap",
+        "longestExercise": "Langste beweging",
+        "lowestHr": "Laagste hartslag in rust",
+        "highestHr": "Hoogste hartslag in rust",
+        "mood": "Stemming {{mood}} ({{mean}})",
+        "noEntry": "geen registratie"
+      },
+      "split": {
+        "title": "Goede en zware dagen",
+        "good": "{{mood}} of beter",
+        "hard": "{{mood}} of slechter",
+        "diff": "Op goede dagen {{diff}}",
+        "few": "te weinig dagen",
+        "a11y": "{{metric}}: op goede dagen {{good}}, op zware dagen {{hard}}",
+        "empty": "Nog niet genoeg goede of zware dagen met gezondheidsgegevens",
+        "hint": "Gemiddelde op dagen van {{good}} of beter tegenover dagen van {{hard}} of slechter. Slaap is de nacht ervoor."
+      },
+      "links": {
+        "title": "Stemming en lichaam",
+        "empty": "Voor een verband zijn minstens {{count}} dagen met registratie en gezondheidsgegevens nodig",
+        "pairing": {
+          "sleep": {
+            "same": "Slaap de nacht ervoor en stemming",
+            "nightAfter": "Stemming en slaap de nacht erna"
+          },
+          "steps": {
+            "same": "Stappen en stemming op dezelfde dag",
+            "next": "Stappen en stemming op de dag erna"
+          },
+          "restingHr": {
+            "same": "Hartslag in rust en stemming op dezelfde dag",
+            "next": "Hartslag in rust en stemming op de dag erna"
+          },
+          "exercise": {
+            "same": "Beweging en stemming op dezelfde dag",
+            "next": "Beweging en stemming op de dag erna"
+          }
+        },
+        "sleep": {
+          "up": "Meer slaap, betere stemming ({{strength}})",
+          "down": "Meer slaap, slechtere stemming ({{strength}})"
+        },
+        "steps": {
+          "up": "Meer stappen, betere stemming ({{strength}})",
+          "down": "Meer stappen, slechtere stemming ({{strength}})"
+        },
+        "restingHr": {
+          "up": "Hogere hartslag in rust, betere stemming ({{strength}})",
+          "down": "Hogere hartslag in rust, slechtere stemming ({{strength}})"
+        },
+        "exercise": {
+          "up": "Meer beweging, betere stemming ({{strength}})",
+          "down": "Meer beweging, slechtere stemming ({{strength}})"
+        },
+        "nightAfter": {
+          "up": "Betere stemming, daarna meer slaap ({{strength}})",
+          "down": "Betere stemming, daarna minder slaap ({{strength}})"
+        },
+        "none": "Nauwelijks verband",
+        "strength": {
+          "weak": "zwak",
+          "medium": "matig",
+          "strong": "duidelijk"
+        },
+        "detail": "r = {{r}}, {{count}} dagen",
+        "hint": "Correlatie van -1 tot 1: hoe sterk beide samen stijgen of dalen. Het beschrijft je dagboek, geen oorzaak en gevolg."
+      },
+      "activities": {
+        "title": "Activiteiten en {{name}}",
+        "sentence": "Op deze dagen gemiddeld {{with}} in plaats van {{without}} ({{count}} dagen)",
+        "nightSentence": "In de nacht erna gemiddeld {{with}} in plaats van {{without}} ({{count}} nachten)",
+        "higher": {
+          "sleep": "Meer slaap",
+          "steps": "Meer stappen",
+          "restingHr": "Hogere hartslag in rust",
+          "exercise": "Meer beweging"
+        },
+        "lower": {
+          "sleep": "Minder slaap",
+          "steps": "Minder stappen",
+          "restingHr": "Lagere hartslag in rust",
+          "exercise": "Minder beweging"
+        },
+        "empty": "Nog geen activiteit met een duidelijk verschil"
+      }
+    },
+    "scales": {
+      "label": "Schaal",
+      "pick": "Kies een schaal",
+      "emptyRange": "Geen enkele schaal heeft een waarde in deze periode",
+      "trend": "{{name}} in de tijd",
+      "weekdays": "{{name}} per weekdag",
+      "mood": {
+        "title": "Stemming naar {{name}}",
+        "days_one": "{{count}} dag",
+        "days_other": "{{count}} dagen",
+        "a11y": "{{value}}: gemiddelde stemming {{mood}}, {{count}} dagen",
+        "hint": "Gemiddelde stemming op de dagen met deze waarde. Geen balk: minder dan {{count}} dagen."
+      },
+      "bucket": {
+        "over": "{{value}} of meer",
+        "under": "onder {{value}}",
+        "between": "{{from}} tot {{to}}"
+      },
+      "links": {
+        "few": "Voor een verband met de stemming zijn minstens {{count}} dagen met een waarde nodig",
+        "same": {
+          "title": "Dezelfde dag",
+          "up": "Hogere {{scale}}, betere stemming ({{strength}})",
+          "down": "Hogere {{scale}}, slechtere stemming ({{strength}})"
+        },
+        "next": {
+          "title": "Dag erna",
+          "up": "Hogere {{scale}}, betere stemming de dag erna ({{strength}})",
+          "down": "Hogere {{scale}}, slechtere stemming de dag erna ({{strength}})"
+        }
+      },
+      "activities": {
+        "title": "Activiteiten en {{name}}",
+        "higher": "Hogere {{scale}} met",
+        "lower": "Lagere {{scale}} met"
+      },
+      "split": {
+        "title": "Schalen op goede en zware dagen",
+        "empty": "Nog niet genoeg goede of zware dagen met schaalwaarden",
+        "hint": "Gemiddelde op dagen vanaf {{good}} tegenover dagen tot en met {{hard}}."
+      },
+      "compare": {
+        "title": "Schalen op deze dagen",
+        "row": "Gemiddeld {{with}} in plaats van {{without}} op andere dagen ({{count}} dagen)"
+      },
+      "relations": {
+        "empty": "Voor een verband zijn minstens {{count}} dagen met beide waarden nodig",
+        "mood": {
+          "title": "Schalen en stemming",
+          "same": "{{scale}} en stemming op dezelfde dag",
+          "next": "{{scale}} en stemming de dag erna"
+        },
+        "pairs": {
+          "title": "Schalen onderling",
+          "row": "{{a}} en {{b}}",
+          "up": "Hogere {{a}}, ook hogere {{b}} ({{strength}})",
+          "down": "Hogere {{a}}, lagere {{b}} ({{strength}})"
+        },
+        "body": {
+          "title": "Schalen en lichaam",
+          "row": {
+            "sleep": "{{scale}} en de nacht ervoor",
+            "steps": "{{scale}} en stappen",
+            "restingHr": "{{scale}} en hartslag in rust",
+            "exercise": "{{scale}} en beweging"
+          },
+          "up": {
+            "sleep": "Meer slaap, hogere {{scale}} ({{strength}})",
+            "steps": "Meer stappen, hogere {{scale}} ({{strength}})",
+            "restingHr": "Hogere hartslag in rust, hogere {{scale}} ({{strength}})",
+            "exercise": "Meer beweging, hogere {{scale}} ({{strength}})"
+          },
+          "down": {
+            "sleep": "Meer slaap, lagere {{scale}} ({{strength}})",
+            "steps": "Meer stappen, lagere {{scale}} ({{strength}})",
+            "restingHr": "Hogere hartslag in rust, lagere {{scale}} ({{strength}})",
+            "exercise": "Meer beweging, lagere {{scale}} ({{strength}})"
+          }
+        }
+      }
+    }
+  },
+  "outlook": {
+    "show": "Vooruitblik tonen",
+    "showHint": "Op Vandaag en in de kalender",
+    "notify": {
+      "label": "Melding 's ochtends",
+      "hint": "Een melding 's ochtends als er een hint over een goede dag is. Het vergrendelscherm zegt alleen dat de vooruitblik er is, niet wat erin staat.",
+      "time": "Tijd 's ochtends",
+      "permissionDenied": "Zonder toestemming van het systeem komt er geen melding. Je kunt het toestaan in de Android-instellingen."
+    },
+    "computing": "Wordt berekend",
+    "between": "tussen {{low}} en {{high}}",
+    "hardChance": "Zware dag mogelijk ({{percent}})",
+    "weekdayMean": "{{weekday}} tot nu toe gemiddeld {{mean}} ({{count}} dagen)",
+    "weekdayNone": "Nog geen {{weekday}} geregistreerd",
+    "usual": "Vaak op deze weekdag: {{names}}",
+    "reasons": "Waarom",
+    "reasonWeekdayUp": "{{weekday}} meestal beter",
+    "reasonWeekdayDown": "{{weekday}} meestal slechter",
+    "reasonCarryUp": "Afgelopen dagen eerder goed",
+    "reasonCarryDown": "Afgelopen dagen eerder zwaar",
+    "reasonPlannedUp": "{{name}} gepland, zulke dagen zijn meestal beter",
+    "reasonPlannedDown": "{{name}} gepland, zulke dagen zijn meestal slechter",
+    "reasonRecurringUp": "Meestal {{name}}, zulke dagen zijn vaak beter",
+    "reasonRecurringDown": "Meestal {{name}}, zulke dagen zijn vaak slechter",
+    "reasonSkippedUp": "Deze keer zonder {{name}}, anders eerder slechter",
+    "reasonSkippedDown": "Deze keer zonder {{name}}, anders eerder beter",
+    "accuracy": "Nauwkeurigheid tot nu toe",
+    "accuracyHint": "Voor elke afgelopen dag vanaf de 30e registratie: de vooruitblik met alleen de gegevens tot dan, vergeleken met wat er gebeurde. Gemiddelde afwijking in niveaus, kleiner is beter.",
+    "accuracyEmpty": "Heeft 30 dagen met een registratie nodig.",
+    "horizon_one": "Over {{count}} dag",
+    "horizon_other": "Over {{count}} dagen",
+    "colModel": "Vooruitblik",
+    "colLongMean": "Langetermijngemiddelde",
+    "colMode": "Altijd {{mood}}",
+    "shown": "getoond",
+    "notShown": "niet getoond",
+    "cases": "{{count}} vergelijkingen per afstand",
+    "about": "De vooruitblik beschrijft wat in je registraties tot nu toe vaak zo was. Hij weet niets over jou dat niet in de registraties staat.",
+    "tomorrow": {
+      "title": "Morgen kan een goede dag worden",
+      "bodyLikely": "Na dagen zoals vandaag was je volgende dag {{hit}} van de keren {{mood}} of beter, gemiddeld anders {{usual}} ({{count}} gevallen).",
+      "bodyBetter": "De kans op een dag vanaf {{mood}} is groter dan gewoonlijk: na dagen zoals vandaag {{hit}}, gemiddeld anders {{usual}} ({{count}} gevallen).",
+      "bodyOpen": "Vandaag is een van de dagen waarna een dag vanaf {{mood}} voor jou het waarschijnlijkst is. Hoe vaak dat klopt, zie je met meer registraties.",
+      "bodyAbove": "Je kans op een dag vanaf {{mood}} is vandaag iets groter dan gewoonlijk. Hoe vaak dat klopt, zie je met meer registraties.",
+      "reasons": "Redenen: {{names}}",
+      "strip": "kan een goede dag worden",
+      "reasonMood": "je stemming vandaag",
+      "reasonWeekday": "morgen is het {{weekday}}",
+      "reasonSleep": "{{value}} slaap",
+      "reasonSteps": "{{value}} stappen gisteren",
+      "morning": {
+        "title": "Goede vooruitzichten voor vandaag",
+        "bodyLikely": "Na dagen zoals gisteren was je volgende dag {{hit}} van de keren {{mood}} of beter, gemiddeld anders {{usual}} ({{count}} gevallen).",
+        "bodyBetter": "Na dagen zoals gisteren was je volgende dag vaker dan gewoonlijk {{mood}} of beter: {{hit}} van de keren in plaats van {{usual}} ({{count}} gevallen).",
+        "bodyOpen": "Bij jou kwam na dagen zoals gisteren bijzonder vaak een dag vanaf {{mood}}. Hoe betrouwbaar dat is, zie je met meer registraties.",
+        "bodyAbove": "Bij jou kwam na dagen zoals gisteren iets vaker dan gewoonlijk een dag vanaf {{mood}}. Hoe betrouwbaar dat is, zie je met meer registraties.",
+        "reasonMood": "je stemming gisteren",
+        "reasonWeekday": "vandaag is het {{weekday}}",
+        "reasonSteps": "{{value}} stappen eergisteren"
+      },
+      "status": {
+        "title": "Hint voor goede dagen",
+        "hint": "Na je registratie toont “Vandaag” een hint als de volgende dag een grotere kans dan gewoonlijk heeft om minstens zo goed te worden als je gemiddelde. Ongeveer een tot vier keer in twee weken, nooit als waarschuwing voor een slechte dag.",
+        "tooFew": "Heeft minstens {{count}} dagen met een registratie nodig waarop nog een volgt, tot nu toe {{have}}.",
+        "proof": "Na zulke dagen was de volgende tot nu toe {{hit}} van de keren {{mood}} of beter, anders {{usual}} ({{count}} gevallen).",
+        "noProof": "Een goede dag is voor jou {{mood}} of beter. Hoe vaak de hint klopt, zie je met meer registraties.",
+        "shown_one": "{{count}} hint in de laatste 14 dagen.",
+        "shown_other": "{{count}} hints in de laatste 14 dagen.",
+        "alwaysGood": "Bijna al je dagen zijn {{mood}} of beter. Er is nauwelijks ruimte voor beter dan gewoonlijk, dus de hint komt niet."
+      }
+    }
+  },
+  "lowMood": {
+    "title": "Praten helpt",
+    "body": "De afgelopen dagen waren vaak zwaar. Soms helpt het om met iemand te praten.",
+    "lineAllDay": "Dag en nacht bereikbaar: {{name}}, {{number}}.",
+    "lineHours": "Elke dag bereikbaar van {{from}}:00 tot {{to}}:00: {{name}}, {{number}}.",
+    "noLine": "Een hulplijn in jouw land of iemand die je vertrouwt, kan ook helpen.",
+    "call": "{{number}} bellen",
+    "callLabel": "{{name}} bellen, {{number}}",
+    "later": "Verbergen",
+    "laterHint": "Verbergt deze melding 14 dagen"
+  },
+  "review": {
+    "title": "Heb je iets aan Daylight?",
+    "body": "Een beoordeling in de Play Store helpt anderen de app te vinden.",
+    "rate": "Beoordelen",
+    "rateHint": "Opent Daylight in de Play Store",
+    "later": "Niet nu"
+  },
+  "backup": {
+    "title": "Tijd voor een back-up",
+    "bodyNever": "Je registraties staan alleen op dit toestel. Een back-upbestand beschermt ze als het toestel kwijtraakt of wordt vervangen.",
+    "bodyAgo_one": "De laatste back-up was {{count}} dag geleden.",
+    "bodyAgo_other": "De laatste back-up was {{count}} dagen geleden.",
+    "now": "Nu back-up maken"
+  },
+  "reminders": {
+    "title": "Herinnering",
+    "daily": "Dagelijkse herinnering",
+    "dailyHint": "Vervalt als de dag al een registratie heeft",
+    "dailyHintAlways": "Elke avond op het gekozen tijdstip",
+    "always": "Ook herinneren met registratie",
+    "alwaysHint": "Komt ook als je de dag al hebt ingevuld",
+    "dailyTime": "Tijd van de dagelijkse herinnering",
+    "yesterdayTime": "Tijd van de ochtendherinnering",
+    "permissionDenied": "Zonder toestemming van het systeem zet de app geen herinnering. Je kunt het toestaan in de Android-instellingen.",
+    "unavailable": "In Expo Go zet Android geen herinneringen. De instelling wordt opgeslagen en werkt in de geïnstalleerde app.",
+    "discreet": "De tekst noemt hooguit hoe lang je reeks loopt of dat gisteren nog een registratie mist, nooit iets uit het dagboek.",
+    "yesterday": "Herinnering de volgende ochtend",
+    "yesterdayHint": "Alleen als gisteren nog ontbreekt. Komt alleen samen met de dagelijkse herinnering"
+  },
+  "notify": {
+    "title": "Herinnering",
+    "channel": "Herinnering",
+    "body": "Hoe was je dag?",
+    "bodyStreak": "Hoe was je dag? Dag {{value}} van je reeks.",
+    "yesterday": "De registratie van gisteren ontbreekt nog.",
+    "yesterdayStreak_one": "Gisteren ontbreekt nog. Vul het in, dan blijft je reeks staan.",
+    "yesterdayStreak_other": "Gisteren ontbreekt nog. Vul het in, dan houd je je {{value}} dagen.",
+    "outlook": "Je vooruitblik voor vandaag staat klaar"
+  },
+  "reminderPrompt": {
+    "title": "'s Avonds een korte herinnering?",
+    "body": "Een herinnering 's avonds helpt je je reeks vol te houden. De tekst is discreet en alles blijft op dit toestel.",
+    "time": "Tijd 's avonds",
+    "morning": "Ontbreekt er een dag, dan herinner ik je de volgende ochtend.",
+    "remind": "Herinner me",
+    "remindHint": "Vraagt toestemming om meldingen te tonen",
+    "later": "Later",
+    "laterHint": "Vraagt het niet opnieuw. Je kunt de herinnering aanzetten onder Meer › Herinnering",
+    "denied": "Je kunt het altijd aanzetten onder Meer › Herinnering.",
+    "ok": "OK"
+  },
+  "lock": {
+    "title": "App-vergrendeling",
+    "prompt": "Bevestig om te ontgrendelen",
+    "unlock": "Ontgrendelen",
+    "failed": "Niet ontgrendeld.",
+    "enable": "App-vergrendeling",
+    "enableHint": "Ontgrendelen vragen bij het openen",
+    "unavailable": "Geen schermvergrendeling ingesteld. Stel op het toestel een pincode, patroon of biometrie in.",
+    "delay": "Vergrendelen na",
+    "delayImmediate": "Meteen",
+    "delayMinutes_one": "1 minuut",
+    "delayMinutes_other": "{{count}} minuten",
+    "secure": "Zolang de vergrendeling aan staat, blijft het voorbeeld in het app-overzicht leeg en zijn screenshots geblokkeerd."
+  },
+  "privacy": {
+    "title": "Privacy",
+    "intro": "Daylight bewaart alles alleen op dit toestel.",
+    "stored": "Bewaard worden: registraties met stemming, activiteiten, schalen, notities en foto's, je stemmingen, activiteiten, groepen en schalen, geplande activiteiten, keerpunten en je instellingen.",
+    "network": "Geen accounts, geen servers, geen analytics, geen reclame. De app vraagt geen internettoestemming en kan niets versturen.",
+    "leave": "Gegevens verlaten het toestel alleen als je zelf een back-up of een CSV-export deelt of opslaat.",
+    "noCloudBackup": "De app is uitgesloten van de automatische Android-back-up en van overdracht naar een nieuwe telefoon. Je registraties komen dus niet in je Google-account terecht en worden ook niet gekopieerd als je een nieuw toestel instelt. De keerzijde: verwijder je de app of wissel je van toestel, dan zijn ze weg, tenzij je een eigen back-up hebt. Na 60 dagen zonder back-up herinnert Vandaag je eraan.",
+    "backup": "Een back-up is een onversleuteld bestand met alle registraties, notities en foto's. Bewaar het op een plek die je vertrouwt.",
+    "computed": "Inzichten en vooruitblik worden op het toestel berekend uit je registraties. Ze beschrijven je gegevens en zijn geen medische uitspraak.",
+    "reminders": "Herinneringen zijn lokale meldingen van het toestel: de dagelijkse 's avonds, en een 's ochtends als gisteren nog een registratie mist. De tekst noemt hooguit hoe lang je reeks loopt of dat gisteren ontbreekt, nooit iets uit het dagboek. Wie het toestel in handen heeft, kan er dus wel aan zien dat, en hoe regelmatig, je schrijft.",
+    "lockNote": "De optionele app-vergrendeling gebruikt de ontgrendeling van het toestel. Zolang die aan staat, zijn screenshots geblokkeerd.",
+    "deleteNote": "Alle gegevens wissen verwijdert registraties, foto's, activiteiten, plannen, gezondheidsgegevens en instellingen van het toestel en geeft de toegang tot Health Connect terug.",
+    "photos": "Je kiest foto's met de fotokiezer van Android. Daylight krijgt alleen die ene afbeelding, geen toegang tot je galerij en geen camera. Een verkleinde kopie wordt bewaard in de privéopslag van de app, niet in de galerij.",
+    "health": "Als je gezondheidsgegevens aanzet, leest Daylight stappen, slaap, hartslag in rust en beweging uit Health Connect als dagwaarden. Dat gebeurt op het toestel, zonder internet. Daylight schrijft niets naar Health Connect. De waarden komen alleen in de back-up als je dat aanzet onder Gezondheidsgegevens. Je beheert de toegang in Health Connect, “Loskoppelen en gegevens wissen” verwijdert alles wat is overgenomen."
+  },
+  "about": {
+    "title": "Over",
+    "tagline": "Stemmingsdagboek, lokaal, offline, zonder account.",
+    "version": "Versie {{version}}",
+    "copyright": "© 2026 Paul Behla, paul-behla.de",
+    "license": "Daylight is vrije software onder de GNU General Public License, versie 3 of later, met een aanvullende voorwaarde voor naamsvermelding. Zonder enige garantie. Licentie en broncode: github.com/Jurgler95/daylight",
+    "disclaimer": "Daylight is geen medisch hulpmiddel en vervangt geen advies of behandeling. Inzichten en vooruitblik beschrijven alleen je eigen registraties."
+  },
+  "health": {
+    "title": "Gezondheidsgegevens",
+    "enable": "Overnemen uit Health Connect",
+    "enableHint": "Stappen, slaap, hartslag in rust en beweging, bijvoorbeeld uit Samsung Health en de Galaxy Watch. Alleen lezen.",
+    "state": "Status",
+    "running": "Bezig met synchroniseren",
+    "never": "Nog niet gesynchroniseerd",
+    "lastSyncAt": "Laatst gesynchroniseerd op {{date}} om {{time}}",
+    "coverage_one": "{{count}} dag met gegevens, oudste op {{date}}",
+    "coverage_other": "{{count}} dagen met gegevens, oudste op {{date}}",
+    "noDays": "Nog geen dagen met gegevens",
+    "lastError": "Laatste fout: {{message}}",
+    "syncNow": "Nu synchroniseren",
+    "reread": "Alles opnieuw inlezen",
+    "manage": "Beheren in Health Connect",
+    "disconnect": "Loskoppelen en gegevens wissen",
+    "disconnectBody": "Daylight geeft zijn toegang tot Health Connect terug en wist de overgenomen gezondheidsgegevens van dit toestel. Alles in Health Connect zelf blijft zoals het is.",
+    "disconnectConfirm": "Loskoppelen",
+    "denied": "Zonder toestemming in Health Connect kan Daylight niets overnemen. Je kunt die altijd geven onder “Beheren in Health Connect”.",
+    "missing": "Health Connect is niet geïnstalleerd op dit toestel. Vanaf Android 14 is het ingebouwd, daarvoor is er de Health Connect-app in de Play Store.",
+    "needsUpdate": "Health Connect moet eerst worden bijgewerkt.",
+    "unsupported": "Gezondheidsgegevens zijn alleen beschikbaar in de geïnstalleerde app op Android, niet in Expo Go.",
+    "historyHint": "Sta voor dagen ouder dan 30 dagen in het Health Connect-venster ook toegang tot eerdere gegevens toe. Is dat pas later toegestaan, dan haalt “Alles opnieuw inlezen” de oudere dagen op. Alleen wat Samsung Health aan Health Connect heeft doorgegeven, wordt overgenomen.",
+    "readOnly": "Daylight leest alleen en schrijft nooit iets naar Health Connect. Synchroniseren gebeurt bij het openen van de app, hooguit elke 15 minuten. Gezondheidsgegevens komen alleen in de back-up als je dat hierboven aanzet. Anders haalt een nieuwe synchronisatie na een herinstallatie terug wat Health Connect nog heeft.",
+    "inBackup": "Meenemen in back-up",
+    "inBackupHint": "De gezondheidsdagen gaan ook in de back-up. Zo komen slaap en stappen terug na een herinstallatie, ook als Health Connect de oude dagen niet meer heeft.",
+    "syncing": "Gezondheidsgegevens synchroniseren",
+    "syncingMonth": "Gezondheidsgegevens synchroniseren, {{month}}",
+    "day": {
+      "title": "Gezondheid",
+      "sleep": "Slaap",
+      "steps": "Stappen",
+      "exercise": "Beweging",
+      "restingHr": "Hartslag in rust",
+      "bpm": "{{value}} spm"
+    }
+  },
+  "achievements": {
+    "title": "Beloningen",
+    "intro": "Sterren krijg je voor volhouden en opschrijven, nooit voor hoe een dag was.",
+    "stars": "{{stars}} van {{max}} sterren",
+    "starsShort": "{{stars}}/{{max}}",
+    "complete": "{{count}} van {{total}} compleet",
+    "groups": {
+      "streaks": "Op rij",
+      "volume": "Hoeveelheid"
+    },
+    "best": "Beste {{value}}",
+    "current": "Nu {{value}}",
+    "lastWeek": "Laatste 7 dagen {{value}}",
+    "total": "Tot nu toe {{value}}",
+    "next": "Volgende ster: {{value}}",
+    "done": "Alle vijf sterren behaald",
+    "doneBadge": "Compleet",
+    "upNext": "Als volgende",
+    "needsHealth": "Heeft gezondheidsgegevens uit Health Connect nodig",
+    "percent": "{{value}}%",
+    "overallLabel": "{{value}} procent in totaal behaald",
+    "progressLabel": "{{value}} procent van de weg naar de vijfde ster",
+    "starLabel": "{{stars}} van 5 sterren",
+    "tiers": "Niveaus: {{tiers}}",
+    "units": {
+      "days_one": "{{value}} dag",
+      "days_other": "{{value}} dagen",
+      "weeks_one": "{{value}} week",
+      "weeks_other": "{{value}} weken",
+      "words_one": "{{value}} woord",
+      "words_other": "{{value}} woorden",
+      "activities_one": "{{value}} activiteit",
+      "activities_other": "{{value}} activiteiten",
+      "photos_one": "{{value}} foto",
+      "photos_other": "{{value}} foto's",
+      "opens_one": "{{value}} keer",
+      "opens_other": "{{value}} keer",
+      "turningPoints_one": "{{value}} keerpunt",
+      "turningPoints_other": "{{value}} keerpunten"
+    },
+    "toGo": {
+      "days_one": "nog <n>{{value}}</n> dag",
+      "days_other": "nog <n>{{value}}</n> dagen",
+      "weeks_one": "nog <n>{{value}}</n> week",
+      "weeks_other": "nog <n>{{value}}</n> weken",
+      "words_one": "nog <n>{{value}}</n> woord",
+      "words_other": "nog <n>{{value}}</n> woorden",
+      "activities_one": "nog <n>{{value}}</n> activiteit",
+      "activities_other": "nog <n>{{value}}</n> activiteiten",
+      "photos_one": "nog <n>{{value}}</n> foto",
+      "photos_other": "nog <n>{{value}}</n> foto's",
+      "opens_one": "nog <n>{{value}}</n> keer",
+      "opens_other": "nog <n>{{value}}</n> keer",
+      "turningPoints_one": "nog <n>{{value}}</n> keerpunt",
+      "turningPoints_other": "nog <n>{{value}}</n> keerpunten"
+    },
+    "items": {
+      "days": {
+        "title": "Lekker bezig",
+        "text": "Dagen op rij met een registratie"
+      },
+      "weeks": {
+        "title": "Volhouder",
+        "text": "Weken op rij met registraties op minstens 5 dagen"
+      },
+      "activityDays": {
+        "title": "Actief bijgehouden",
+        "text": "Dagen op rij met activiteiten"
+      },
+      "noteDays": {
+        "title": "Schrijfreeks",
+        "text": "Dagen op rij met een notitie"
+      },
+      "photoDays": {
+        "title": "Fotodagboek",
+        "text": "Dagen op rij met een foto"
+      },
+      "sleepDays": {
+        "title": "Slaaplogboek",
+        "text": "Dagen op rij met slaapgegevens"
+      },
+      "stepDays": {
+        "title": "Stap voor stap",
+        "text": "Dagen op rij met stappen"
+      },
+      "totalDays": {
+        "title": "Dagboekdagen",
+        "text": "Dagen met een registratie in totaal"
+      },
+      "weekWords": {
+        "title": "Woordkunstenaar",
+        "text": "Woorden geschreven binnen 7 dagen"
+      },
+      "chips": {
+        "title": "Verzameling",
+        "text": "Activiteiten geregistreerd in totaal"
+      },
+      "weekChips": {
+        "title": "Drukke week",
+        "text": "Activiteiten geregistreerd binnen 7 dagen"
+      },
+      "variety": {
+        "title": "Afwisseling",
+        "text": "Verschillende activiteiten geregistreerd"
+      },
+      "custom": {
+        "title": "Helemaal van jou",
+        "text": "Activiteiten die je zelf hebt gemaakt"
+      },
+      "photos": {
+        "title": "Fotoalbum",
+        "text": "Foto's in registraties in totaal"
+      },
+      "scaleDays": {
+        "title": "Gemeten",
+        "text": "Dagen met waarden op een schaal"
+      },
+      "turningPoints": {
+        "title": "Keerpunten",
+        "text": "Dagen die iets hebben veranderd"
+      },
+      "opens": {
+        "title": "Vaste gast",
+        "text": "Keren dat je de app hebt geopend"
+      }
+    },
+    "toast": {
+      "welcomeEyebrow": "Nieuw in Daylight",
+      "welcome": "Je hebt al {{stars}} sterren verzameld voor volhouden. Neem een kijkje.",
+      "newStars_one": "Nieuwe ster",
+      "newStars_other": "{{count}} nieuwe sterren",
+      "allFive": "Alle vijf sterren",
+      "reached": "{{value}} behaald",
+      "more_one": "en nog {{count}}",
+      "more_other": "en nog {{count}}",
+      "open": "Bekijken",
+      "close": "Sluiten",
+      "across_one": "Vooruitgang bij {{count}} beloning",
+      "across_other": "Vooruitgang bij {{count}} beloningen"
+    }
+  },
+  "streak": {
+    "days_one": "{{value}} dag op rij",
+    "days_other": "{{value}} dagen op rij",
+    "chip": {
+      "atRisk": "Reeks in gevaar, gisteren ontbreekt nog",
+      "broken": "Reeks onderbroken",
+      "hint": "Toont de reeks bij de beloningen"
+    },
+    "risk": {
+      "title": "Gisteren ontbreekt nog",
+      "body_one": "Vul het vandaag in, dan blijft je reeks staan.",
+      "body_other": "Vul het vandaag in, dan houd je je {{value}} dagen.",
+      "action": "Gisteren invullen"
+    },
+    "rescue": {
+      "title_one": "Er ontbreekt {{count}} dag",
+      "title_other": "Er ontbreken {{count}} dagen",
+      "body_one": "Invullen brengt je {{value}} dag terug.",
+      "body_other": "Invullen brengt je {{value}} dagen terug.",
+      "action": "{{date}} invullen",
+      "later": "Later",
+      "laterHint": "Verbergt deze melding tot het volgende gat"
+    },
+    "celebration": {
+      "eyebrow": "Reeks",
+      "rescued_one": "Reeks gered: {{value}} dag",
+      "rescued_other": "Reeks gered: {{value}} dagen",
+      "rescuedShort": "Reeks gered",
+      "milestone": "Op elk van deze dagen een registratie.",
+      "gapClosed": "Het gat is ingevuld.",
+      "inARow_one": "dag op rij",
+      "inARow_other": "dagen op rij",
+      "open": "Bekijken",
+      "openLabel": "De reeks bij de beloningen bekijken",
+      "close": "Sluiten"
+    }
+  },
+  "turning": {
+    "eyebrow": "Keerpunt",
+    "title": "Keerpunt",
+    "invalid": "Een keerpunt heeft een dag met een registratie nodig, vandaag of eerder.",
+    "discardTitle": "Wat je hebt getypt weggooien?",
+    "room_one": "Nog {{count}} van {{max}} over voor {{year}}",
+    "room_other": "Nog {{count}} van {{max}} over voor {{year}}",
+    "full": "Alle {{max}} gezet voor {{year}}",
+    "fullHint": "Alle {{max}} keerpunten voor {{year}} zijn gezet. Is deze dag belangrijker, wis dan eerst een ander.",
+    "already": "Deze dag is al een keerpunt.",
+    "titleLabel": "Naam van het keerpunt",
+    "titlePlaceholder": "bijv. Verhuizing naar Utrecht",
+    "noteLabel": "Notitie bij het keerpunt",
+    "notePlaceholder": "Een paar woorden erover, als je wilt",
+    "before": "Ervoor",
+    "after": "Erna",
+    "beforeShort": "Voor",
+    "afterShort": "Na",
+    "hold": "Ingedrukt houden",
+    "holdA11y": "Keerpunt zetten",
+    "nameFirst": "Eerst een naam: hoe heet deze dag?",
+    "explain": "Daylight vergelijkt daarna de dagen ervoor met de dagen erna.",
+    "set": "Vanaf hier is het erna.",
+    "save": "Opslaan",
+    "edit": "Bewerken",
+    "gone": "Dit keerpunt bestaat niet meer",
+    "delete": "Keerpunt wissen",
+    "deleteTitle": "Keerpunt wissen?",
+    "deleteText": "“{{title}}” wordt verwijderd. De registraties van de dag blijven.",
+    "mark": "Markeren als keerpunt",
+    "markHint": "Een dag die iets heeft veranderd. Tot vier per jaar.",
+    "compare": "Ervoor en erna bekijken",
+    "cardA11y": "Keerpunt: {{title}}. Ervoor en erna bekijken",
+    "span": {
+      "label": "Dagen aan elke kant",
+      "30": "30",
+      "90": "90",
+      "180": "180",
+      "all": "Alles"
+    },
+    "tooSoon": "Er zijn nog geen dagen na deze om te vergelijken. De kant erna vult zich met elke registratie.",
+    "few": "Nog te weinig dagen om te vergelijken: {{before}} ervoor, {{after}} erna met een registratie. Elke kant heeft er minstens {{min}} nodig.",
+    "daysWithEntries_one": "{{count}} dag met een registratie",
+    "daysWithEntries_other": "{{count}} dagen met een registratie",
+    "sentence_one": "De dag erna was je stemming {{after}}, de dag ervoor {{before}}.",
+    "sentence_other": "In de {{count}} dagen erna was je stemming gemiddeld {{after}}, in de {{count}} dagen ervoor {{before}}.",
+    "windows": "Ervoor: {{beforeFrom}} tot {{beforeTo}}. Erna: {{afterFrom}} tot {{afterTo}}.",
+    "seasons": "De twee periodes vallen in verschillende seizoenen. Een deel van het verschil kan daarvan komen.",
+    "noCause": "Dit beschrijft je registraties, het toont geen oorzaak. Keerpunten komen vaak na een zware periode, dus alleen al daardoor ziet de kant erna er vaak beter uit.",
+    "trend": "Stemming rond het keerpunt",
+    "levels": "Stemmingen",
+    "activities": "Hoe activiteiten veranderden",
+    "activitiesSame": "Geen activiteit komt erna duidelijk vaker of minder vaak voor.",
+    "activityShift": "ervoor op {{before}} van de dagen, erna op {{after}}",
+    "health": "Gezondheid",
+    "healthShift": "{{before}} → {{after}}",
+    "nameLabel": "Geef deze dag een naam",
+    "setTitle": "Keerpunt gezet"
+  }
+}

@@ -59,6 +59,26 @@ export const RELEASES: Release[] = [
         'In “Altro” puoi valutare Daylight in qualsiasi momento',
         'Dalla voce puoi segnare il giorno come svolta',
       ],
+      nl: [
+        'Na een week met registraties vraagt Daylight op “Vandaag” één keer om een beoordeling in de Play Store',
+        'Onder “Meer” kun je Daylight op elk moment beoordelen',
+        'In de registratie kun je de dag direct als keerpunt markeren',
+      ],
+      pl: [
+        'Po tygodniu z wpisami Daylight jeden raz prosi w zakładce „Dziś” o ocenę w Play Store',
+        'W „Więcej” możesz ocenić Daylight w każdej chwili',
+        'We wpisie możesz od razu oznaczyć dzień jako punkt zwrotny',
+      ],
+      tr: [
+        'Bir hafta kayıttan sonra Daylight, “Bugün” ekranında bir kez Play Store\'da değerlendirme ister',
+        'Daylight\'ı istediğin zaman “Diğer” altından değerlendirebilirsin',
+        'Günü doğrudan kayıt içinden dönüm noktası olarak işaretleyebilirsin',
+      ],
+      id: [
+        'Setelah seminggu mencatat, Daylight sekali meminta ulasan di Play Store pada “Hari ini”',
+        'Kamu bisa memberi nilai Daylight kapan saja di “Lainnya”',
+        'Kamu bisa menandai hari sebagai titik balik langsung di entri',
+      ],
     },
   },
   {
@@ -71,6 +91,10 @@ export const RELEASES: Release[] = [
       pt: ['O Daylight não precisa mais da permissão para ver as conexões de rede'],
       fr: ['Daylight n’a plus besoin de l’autorisation d’afficher les connexions réseau'],
       it: ['Daylight non ha più bisogno dell’autorizzazione per visualizzare le connessioni di rete'],
+      nl: ['Daylight heeft geen toestemming meer nodig om netwerkverbindingen te bekijken'],
+      pl: ['Daylight nie potrzebuje już uprawnienia do sprawdzania połączeń sieciowych'],
+      tr: ['Daylight artık ağ bağlantılarını görme iznine ihtiyaç duymuyor'],
+      id: ['Daylight tidak lagi butuh izin untuk melihat koneksi jaringan'],
     },
   },
   {
@@ -83,6 +107,16 @@ export const RELEASES: Release[] = [
       pt: ['Em “Análises” os cartões ficam mais afastados do período e da escolha de escala no cabeçalho fixo'],
       fr: ['Dans « Aperçus », les cartes laissent plus d’espace sous la période et le choix d’échelle de l’en-tête fixe'],
       it: ['In «Analisi» le schede lasciano più spazio sotto il periodo e la scelta della scala nell’intestazione fissa'],
+      nl: [
+        'In “Inzichten” houden de kaarten meer afstand tot de periode- en schaalkeuze in de vaste kop',
+      ],
+      pl: ['W „Wgląd” karty mają większy odstęp od wyboru okresu i skali w stałym nagłówku'],
+      tr: [
+        '“İçgörüler” ekranında kartlar, sabit üst alandaki dönem ve ölçek seçiminden daha fazla aralıklı',
+      ],
+      id: [
+        'Di “Wawasan”, kartu kini berjarak lebih lega dari pilihan periode dan skala di kepala yang tetap',
+      ],
     },
   },
   {
@@ -125,6 +159,30 @@ export const RELEASES: Release[] = [
         'Se la sera è arrivato l’avviso di una bella giornata, “Oggi” lo mostra al mattino come “Buone prospettive per oggi”',
         'In “Previsione” puoi ricevere una notifica al mattino che non rivela nulla',
       ],
+      nl: [
+        'Onder “Schalen” kies je de schaal bovenaan in de vaste kop of met een tik op de tegel, en elke kaart noemt de gekozen schaal',
+        'Kaarten over gezondheid en groepen noemen in hun titel wat ze tonen, en gemiddelden zijn als zodanig gemarkeerd',
+        'Kwam de hint over een goede dag \'s avonds, dan staat hij \'s ochtends als “Goede vooruitzichten voor vandaag” op “Vandaag”',
+        'Onder “Vooruitblik” kun je daarvoor \'s ochtends een melding krijgen die niets verraadt',
+      ],
+      pl: [
+        'W „Skale” wybierasz skalę w stałym nagłówku lub stuknięciem w jej kafelek, a każda karta podaje wybraną skalę',
+        'Karty zdrowia i grup podają w tytule, co pokazują, a średnie są oznaczone jako średnie',
+        'Jeśli wskazówka na dobry dzień pojawiła się wieczorem, rano zakładka „Dziś” pokazuje ją jako „Dobre widoki na dziś”',
+        'W „Prognoza” możesz włączyć poranne powiadomienie o tym, które niczego nie zdradza',
+      ],
+      tr: [
+        '“Ölçekler” altında ölçeği sabit üst alandan ya da kutucuğuna dokunarak seçersin, her kart seçili ölçeği belirtir',
+        'Sağlık ve grup kartları başlıklarında neyi gösterdiklerini belirtir, ortalamalar da öyle işaretlenir',
+        'İyi bir güne dair ipucu akşam geldiyse, “Bugün” onu sabah “Bugün için iyi beklentiler” olarak gösterir',
+        '“Öngörü” altında bunun için hiçbir şey ele vermeyen bir sabah bildirimi alabilirsin',
+      ],
+      id: [
+        'Di “Skala”, kamu memilih skala di kepala yang tetap atau dengan mengetuk kotaknya, dan setiap kartu menyebut skala yang dipilih',
+        'Kartu kesehatan dan grup menyebut di judulnya apa yang sedang ditampilkan, dan rata-rata ditandai dengan jelas',
+        'Jika petunjuk tentang hari yang baik muncul di malam hari, “Hari ini” menampilkannya di pagi hari sebagai “Prospek baik untuk hari ini”',
+        'Di “Perkiraan”, kamu bisa mendapat notifikasi pagi untuk itu yang tidak membocorkan apa pun',
+      ],
     },
   },
   {
@@ -161,6 +219,26 @@ export const RELEASES: Release[] = [
         'Una piccola freccia nella striscia dei giorni segna il giorno che potrebbe andare bene',
         'L’avviso di un buon giorno successivo è formulato in modo più chiaro',
       ],
+      nl: [
+        'De nieuwe kaart “Trends” onder “Inzichten” toont waar stemming, schalen, slaap en stappen de laatste weken naartoe gaan',
+        'Een klein pijltje in de dagstrook markeert de dag die goed kan worden',
+        'De hint over een goede volgende dag is duidelijker verwoord',
+      ],
+      pl: [
+        'Nowa karta „Tendencje” w „Wgląd” pokazuje, w którą stronę zmieniały się w ostatnich tygodniach nastrój, skale, sen i kroki',
+        'Mała strzałka na pasku dni oznacza dzień, który może być dobry',
+        'Wskazówka na dobry następny dzień jest sformułowana jaśniej',
+      ],
+      tr: [
+        '“İçgörüler” altındaki yeni “Eğilimler” kartı, ruh hali, ölçekler, uyku ve adımların son haftalarda nereye gittiğini gösterir',
+        'Gün şeridindeki küçük bir ok, iyi geçebilecek günü işaretler',
+        'İyi bir sonraki güne dair ipucu daha anlaşılır yazıldı',
+      ],
+      id: [
+        'Kartu baru “Tren” di “Wawasan” menunjukkan ke mana arah suasana hati, skala, tidur, dan langkah dalam beberapa minggu terakhir',
+        'Panah kecil di strip hari menandai hari yang bisa jadi baik',
+        'Petunjuk tentang hari berikutnya yang baik kini dirumuskan lebih jelas',
+      ],
     },
   },
   {
@@ -196,6 +274,26 @@ export const RELEASES: Release[] = [
         'In «Relazioni» vedi come le tue scale si collegano all’umore, tra loro e al tuo corpo',
         'Dopo la tua voce, «Oggi» mostra ogni tanto se il giorno dopo ha più probabilità di essere buono',
         'La pagina «Previsione» spiega quando compare questo avviso e quanto ha indovinato finora',
+      ],
+      nl: [
+        'Onder “Verbanden” zie je hoe je schalen samenhangen met je stemming, met elkaar en met je lichaam',
+        'Na je registratie toont “Vandaag” af en toe wanneer de volgende dag een grotere kans dan gewoonlijk heeft om goed te worden',
+        'De pagina “Vooruitblik” legt uit wanneer deze hint komt en hoe vaak hij tot nu toe klopte',
+      ],
+      pl: [
+        'W „Powiązania” widzisz, jak Twoje skale wiążą się z nastrojem, ze sobą nawzajem i z Twoim ciałem',
+        'Po Twoim wpisie zakładka „Dziś” od czasu do czasu pokazuje, że następny dzień ma większą niż zwykle szansę być dobry',
+        'Strona „Prognoza” wyjaśnia, kiedy pojawia się ta wskazówka i jak często się dotąd sprawdzała',
+      ],
+      tr: [
+        '“Bağlantılar” altında ölçeklerinin ruh haliyle, birbiriyle ve bedeninle nasıl ilişkili olduğunu görürsün',
+        'Kaydından sonra “Bugün”, ertesi günün iyi geçme şansı normalden yüksekse zaman zaman bunu gösterir',
+        '“Öngörü” sayfası bu ipucunun ne zaman geldiğini ve şimdiye kadar ne sıklıkla tuttuğunu açıklar',
+      ],
+      id: [
+        'Di “Hubungan”, kamu bisa melihat bagaimana skalamu berkaitan dengan suasana hati, satu sama lain, dan tubuhmu',
+        'Setelah kamu mencatat, “Hari ini” sesekali menunjukkan saat hari berikutnya punya peluang lebih baik dari biasanya untuk menjadi hari yang baik',
+        'Halaman “Perkiraan” menjelaskan kapan petunjuk ini muncul dan seberapa sering petunjuk itu tepat sejauh ini',
       ],
     },
   },
@@ -245,6 +343,34 @@ export const RELEASES: Release[] = [
         'Una nuova scala può registrare una durata in ore e minuti, per esempio per il lavoro o la lettura',
         'In fondo a una voce, due righe portano direttamente ad attività e scale',
       ],
+      nl: [
+        'De inzichten hebben een eigen onderdeel “Schalen” met verloop, weekdagen en de stemming per waarde',
+        'Daar staat ook welke activiteiten samengaan met hogere of lagere waarden en hoe goede en zware dagen verschillen',
+        'De pagina\'s over activiteiten en stemmingen vergelijken je schalen met de overige dagen',
+        'Een nieuwe schaal kan een duur in uren en minuten bijhouden, bijvoorbeeld voor werk of lezen',
+        'Onderaan in de registratie leiden twee regels direct naar activiteiten en schalen',
+      ],
+      pl: [
+        'Wgląd ma własną sekcję „Skale” z przebiegiem, dniami tygodnia i nastrojem dla każdej wartości',
+        'Widać tam też, które aktywności idą w parze z wyższymi lub niższymi wartościami i czym różnią się dobre i trudne dni',
+        'Strony aktywności i nastrojów porównują Twoje skale z pozostałymi dniami',
+        'Nowa skala może zapisywać czas trwania w godzinach i minutach, na przykład pracy lub czytania',
+        'Na dole wpisu dwa wiersze prowadzą prosto do aktywności i skal',
+      ],
+      tr: [
+        'İçgörülerde seyir, haftanın günleri ve her değere göre ruh haliyle ayrı bir “Ölçekler” bölümü var',
+        'Orada hangi aktivitelerin daha yüksek ya da düşük değerlerle birlikte geldiği ve iyi ile zor günlerin nasıl ayrıştığı da görünür',
+        'Aktivite ve ruh hali sayfaları ölçeklerini diğer tüm günlerle karşılaştırır',
+        'Yeni bir ölçek saat ve dakika olarak bir süre kaydedebilir, örneğin iş ya da okuma için',
+        'Kaydın altındaki iki satır doğrudan aktivitelere ve ölçeklere götürür',
+      ],
+      id: [
+        'Wawasan punya bagian “Skala” sendiri dengan perkembangan dari waktu ke waktu, hari dalam seminggu, dan suasana hati untuk setiap nilai',
+        'Di sana juga terlihat aktivitas mana yang menyertai nilai lebih tinggi atau lebih rendah dan bagaimana hari baik dan hari berat berbeda',
+        'Halaman aktivitas dan suasana hati membandingkan skalamu dengan hari-hari lainnya',
+        'Skala baru bisa mencatat durasi dalam jam dan menit, misalnya untuk kerja atau membaca',
+        'Di bagian bawah entri, dua baris langsung menuju aktivitas dan skala',
+      ],
     },
   },
   {
@@ -293,6 +419,34 @@ export const RELEASES: Release[] = [
         'Una piccola nota in fondo alla voce porta alle tue scale, attività e gruppi',
         'I traguardi mostrano quanto manca alla prossima stella come frazione, ad esempio 27/30',
       ],
+      nl: [
+        'Achtergrond en app-icoon wisselen met de seizoenen en bij feestdagen zoals Kerstmis of oudejaarsavond',
+        'Onder “Meer” kun je “Seizoensdesign” en “Feestdagdesigns” uitzetten',
+        'De dagelijkse herinnering komt als je wilt elke avond, ook als de dag al een registratie heeft',
+        'Onderaan in de registratie leidt een kleine hint naar je eigen schalen, activiteiten en groepen',
+        'De beloningen tonen de weg naar de volgende ster kort als breuk, bijvoorbeeld 27/30',
+      ],
+      pl: [
+        'Tło i ikona aplikacji zmieniają się z porami roku i na święta, takie jak Boże Narodzenie czy sylwester',
+        'W „Więcej” można wyłączyć „Wygląd sezonowy” i „Wygląd świąteczny”',
+        'Jeśli chcesz, codzienne przypomnienie przychodzi każdego wieczoru, nawet gdy dzień ma już wpis',
+        'Mała wskazówka na dole wpisu prowadzi do własnych skal, aktywności i grup',
+        'Nagrody pokazują drogę do następnej gwiazdki krótko jako ułamek, na przykład 27/30',
+      ],
+      tr: [
+        'Arka plan ve uygulama simgesi mevsimlerle ve Noel ya da yılbaşı gecesi gibi özel günlerde değişir',
+        '“Diğer” altında “Mevsim tasarımı” ve “Özel gün tasarımları” kapatılabilir',
+        'Günlük hatırlatıcı istersen, günün zaten bir kaydı olsa bile her akşam gelir',
+        'Kaydın altındaki küçük bir not kendi ölçeklerine, aktivitelerine ve gruplarına götürür',
+        'Ödüller sonraki yıldıza giden yolu 27/30 gibi kısa bir kesirle gösterir',
+      ],
+      id: [
+        'Latar belakang dan ikon aplikasi berganti mengikuti musim dan hari raya seperti Natal atau malam Tahun Baru',
+        'Di “Lainnya”, kamu bisa mematikan “Tampilan musiman” dan “Tampilan hari raya”',
+        'Jika kamu mau, pengingat harian muncul setiap malam, meski hari itu sudah ada entri',
+        'Catatan kecil di bagian bawah entri menuju skala, aktivitas, dan grup buatanmu sendiri',
+        'Penghargaan menunjukkan jarak ke bintang berikutnya sebagai pecahan singkat, misalnya 27/30',
+      ],
     },
   },
   {
@@ -305,6 +459,10 @@ export const RELEASES: Release[] = [
       pt: ['O ícone do app ganhou folhas e cores de outono'],
       fr: ['L\'icône de l\'app se pare de feuilles et de couleurs d\'automne'],
       it: ['L\'icona dell\'app si veste di foglie e colori autunnali'],
+      nl: ['Het app-icoon draagt in de herfst bladeren en herfstkleuren'],
+      pl: ['Jesienią ikona aplikacji nosi liście i jesienne kolory'],
+      tr: ['Uygulama simgesi sonbaharda yapraklar ve sonbahar renkleriyle süslenir'],
+      id: ['Ikon aplikasi memakai daun dan warna musim gugur'],
     },
   },
   {
@@ -334,6 +492,22 @@ export const RELEASES: Release[] = [
       it: [
         'In “Traguardi” compaiono per primi i traguardi con la prossima stella più vicina',
         'Il trofeo di “Traguardi” appare con più calma quando si apre la pagina',
+      ],
+      nl: [
+        'Onder “Beloningen” staan de beloningen waarvan de volgende ster het dichtstbij is nu bovenaan',
+        'De beker onder “Beloningen” verschijnt rustiger bij het openen',
+      ],
+      pl: [
+        'W „Nagrody” na górze są teraz nagrody, którym najmniej brakuje do następnej gwiazdki',
+        'Puchar w „Nagrody” pojawia się spokojniej przy otwieraniu',
+      ],
+      tr: [
+        '“Ödüller” altında sonraki yıldızı en yakın olan ödüller artık en üstte',
+        '“Ödüller” altındaki kupa, sayfa açılırken daha sakin beliriyor',
+      ],
+      id: [
+        'Di “Penghargaan”, penghargaan yang bintang berikutnya paling dekat kini ada di atas',
+        'Piala di “Penghargaan” muncul lebih tenang saat halaman dibuka',
       ],
     },
   },
@@ -371,6 +545,26 @@ export const RELEASES: Release[] = [
         'In cima a “Traguardi” compare la prossima stella a portata di mano, un tocco ti ci porta',
         'La pagina “Traguardi” è più colorata, con trofeo, barra di avanzamento dorata e stelle per sezione',
       ],
+      nl: [
+        'Elke beloning toont groot hoeveel er nog ontbreekt tot de volgende ster',
+        'Bovenaan bij “Beloningen” staat welke ster als volgende binnen bereik is, een tik springt ernaartoe',
+        'De pagina “Beloningen” is kleurrijker, met een beker, een gouden voortgangsbalk en sterren per onderdeel',
+      ],
+      pl: [
+        'Każda nagroda pokazuje dużymi cyframi, ile jeszcze brakuje do następnej gwiazdki',
+        'Na górze „Nagrody” widać, która gwiazdka jest najbliżej, a stuknięcie do niej przenosi',
+        'Strona „Nagrody” jest bardziej kolorowa, z pucharem, złotym paskiem postępu i gwiazdkami dla każdej sekcji',
+      ],
+      tr: [
+        'Her ödül, sonraki yıldıza ne kadar kaldığını büyük rakamlarla gösterir',
+        '“Ödüller” sayfasının üstü ulaşılabilecek sonraki yıldızı gösterir, bir dokunuş oraya götürür',
+        '“Ödüller” sayfası daha renkli: kupa, altın renkli ilerleme çubuğu ve her bölüm için yıldızlar',
+      ],
+      id: [
+        'Setiap penghargaan menunjukkan dengan angka besar berapa yang masih kurang untuk bintang berikutnya',
+        'Bagian atas “Penghargaan” menunjukkan bintang berikutnya yang sudah dekat, satu ketukan langsung menuju ke sana',
+        'Halaman “Penghargaan” lebih berwarna, dengan piala, bilah kemajuan emas, dan bintang per bagian',
+      ],
     },
   },
   {
@@ -406,6 +600,26 @@ export const RELEASES: Release[] = [
         'Daylight ora è disponibile anche in spagnolo, portoghese, francese e italiano, cambia lingua in “Altro” alla voce “Lingua”',
         'L\'avviso “Parlarne aiuta” indica la linea di ascolto del tuo paese invece di quella tedesca',
         'Le etichette brevi come i giorni della settimana non vengono più tagliate',
+      ],
+      nl: [
+        'Daylight is nu ook beschikbaar in het Spaans, Portugees, Frans en Italiaans, wisselen kan onder “Meer” bij “Taal”',
+        'De hint “Praten helpt” noemt de hulplijn van jouw land in plaats van altijd de Duitse',
+        'Korte labels zoals weekdagen worden niet meer afgekapt',
+      ],
+      pl: [
+        'Daylight jest teraz dostępny także po hiszpańsku, portugalsku, francusku i włosku, język zmienisz w „Więcej” w sekcji „Język”',
+        'Informacja „Rozmowa pomaga” podaje telefon wsparcia w Twoim kraju zamiast zawsze niemieckiego',
+        'Krótkie etykiety, takie jak dni tygodnia, nie są już ucinane',
+      ],
+      tr: [
+        'Daylight artık İspanyolca, Portekizce, Fransızca ve İtalyanca olarak da kullanılabilir, “Diğer” altında “Dil” bölümünden değiştirebilirsin',
+        '“Konuşmak iyi gelir” notu her zaman Almanya\'dakini değil, ülkendeki kriz hattını gösterir',
+        'Haftanın günleri gibi kısa etiketler artık kesilmiyor',
+      ],
+      id: [
+        'Daylight kini juga tersedia dalam bahasa Spanyol, Portugis, Prancis, dan Italia, ganti di “Lainnya” pada “Bahasa”',
+        'Pesan “Bercerita bisa membantu” menyebut layanan krisis di negaramu, tidak lagi selalu layanan Jerman',
+        'Label pendek seperti nama hari tidak lagi terpotong',
       ],
     },
   },

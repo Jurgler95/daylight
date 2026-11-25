@@ -1,5 +1,5 @@
 import { addDays, addMonths, eachDayOfInterval, endOfMonth, endOfWeek, format, isMatch, isValid, parseISO, startOfMonth, startOfWeek } from 'date-fns';
-import { de, enUS, es, fr, it, ptBR, type Locale } from 'date-fns/locale';
+import { de, enUS, es, fr, id, it, nl, pl, ptBR, tr, type Locale } from 'date-fns/locale';
 
 import { currentLanguage, type Language } from '@/lib/i18n/language';
 
@@ -11,7 +11,9 @@ const PATTERN = 'yyyy-MM-dd';
 
 /**
  * Display patterns per language. English keeps the house style: written out, no dash. `to` joins
- * the two ends of a range; English names the month first, every other language the day.
+ * the two ends of a range, `toEnd` closes it where the language needs a word after it ("arası");
+ * English names the month first, every other language the day. Polish months take the genitive
+ * after a day ("14 marca"), which `MMMM` gives; `LLLL` is the nominative for a month on its own.
  */
 const PATTERNS = {
   de: { long: 'EEEE, d. MMMM', short: 'd. MMM', shortWithYear: 'd. MMM yy', numeric: 'dd.MM.yyyy', dayMonth: 'd. MMMM', dayOnly: 'd.', monthYear: 'MMMM yyyy', to: 'bis' },
@@ -20,9 +22,13 @@ const PATTERNS = {
   pt: { long: "EEEE, d 'de' MMMM", short: 'd MMM', shortWithYear: 'd MMM yyyy', numeric: 'dd/MM/yyyy', dayMonth: "d 'de' MMMM", dayOnly: 'd', monthYear: "MMMM 'de' yyyy", to: 'a' },
   fr: { long: 'EEEE d MMMM', short: 'd MMM', shortWithYear: 'd MMM yyyy', numeric: 'dd/MM/yyyy', dayMonth: 'd MMMM', dayOnly: 'd', monthYear: 'MMMM yyyy', to: 'au' },
   it: { long: 'EEEE d MMMM', short: 'd MMM', shortWithYear: 'd MMM yyyy', numeric: 'dd/MM/yyyy', dayMonth: 'd MMMM', dayOnly: 'd', monthYear: 'MMMM yyyy', to: 'al' },
+  nl: { long: 'EEEE d MMMM', short: 'd MMM', shortWithYear: 'd MMM yyyy', numeric: 'dd-MM-yyyy', dayMonth: 'd MMMM', dayOnly: 'd', monthYear: 'MMMM yyyy', to: 'tot' },
+  pl: { long: 'EEEE, d MMMM', short: 'd MMM', shortWithYear: 'd MMM yyyy', numeric: 'dd.MM.yyyy', dayMonth: 'd MMMM', dayOnly: 'd', monthYear: 'LLLL yyyy', to: 'do' },
+  tr: { long: 'd MMMM EEEE', short: 'd MMM', shortWithYear: 'd MMM yyyy', numeric: 'dd.MM.yyyy', dayMonth: 'd MMMM', dayOnly: 'd', monthYear: 'MMMM yyyy', to: 'ile', toEnd: 'arası' },
+  id: { long: 'EEEE, d MMMM', short: 'd MMM', shortWithYear: 'd MMM yyyy', numeric: 'dd/MM/yyyy', dayMonth: 'd MMMM', dayOnly: 'd', monthYear: 'MMMM yyyy', to: 'sampai' },
 } as const satisfies Record<Language, Record<string, string>>;
 
-const LOCALES: Record<Language, Locale> = { de, en: enUS, es, pt: ptBR, fr, it };
+const LOCALES: Record<Language, Locale> = { de, en: enUS, es, pt: ptBR, fr, it, nl, pl, tr, id };
 
 function locale(language: Language = currentLanguage()) {
   return LOCALES[language];
@@ -33,7 +39,7 @@ function patterns(language: Language = currentLanguage()) {
 }
 
 /**
- * Spanish, Portuguese, French and Italian write weekdays and months in lower case. Where a name
+ * Spanish, Portuguese, French, Italian, Dutch and Polish write weekdays and months in lower case. Where a name
  * stands alone, as a heading, an axis label or a column of the day strip, it starts upper case.
  */
 function capitalized(text: string): string {
@@ -103,15 +109,17 @@ export function formatRange(from: DateString, to: DateString): string {
   if (from === to) return formatShort(from);
   const a = parseDateString(from);
   const b = parseDateString(to);
-  const { to: word, dayOnly, short } = patterns();
-  if (a.getFullYear() !== b.getFullYear()) return `${formatShortWithYear(from)} ${word} ${formatShortWithYear(to)}`;
+  const style = patterns();
+  const { to: word, dayOnly, short } = style;
+  const end = 'toEnd' in style ? ` ${style.toEnd}` : '';
+  if (a.getFullYear() !== b.getFullYear()) return `${formatShortWithYear(from)} ${word} ${formatShortWithYear(to)}${end}`;
   if (a.getMonth() === b.getMonth()) {
     // "14. bis 17. März", but "Mar 14 to 17": English names the month first.
     return currentLanguage() === 'en'
       ? `${format(a, short, { locale: enUS })} ${word} ${format(b, dayOnly)}`
-      : `${format(a, dayOnly)} ${word} ${format(b, short, { locale: locale() })}`;
+      : `${format(a, dayOnly)} ${word} ${format(b, short, { locale: locale() })}${end}`;
   }
-  return `${formatShort(from)} ${word} ${formatShort(to)}`;
+  return `${formatShort(from)} ${word} ${formatShort(to)}${end}`;
 }
 
 /** "14. Sep. 26", for compact lists that span years. */

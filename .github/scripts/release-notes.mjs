@@ -46,11 +46,13 @@ const release = RELEASES[0];
 const PLAY_LIMIT = 500;
 /**
  * Store-Sprachen je Sprache der App, wie in fastlane/metadata/android. Spanisch für Spanien und Lateinamerika.
- * Dazu die Store-Sprachen ohne eigene Bilder aus store/locales.mjs in der Sprache ihrer Bilder, etwa nl-NL auf
+ * Dazu die Store-Sprachen ohne eigene Bilder aus store/locales.mjs in der Sprache ihrer Bilder, etwa en-GB auf
  * Englisch, sonst stünde dort die Standardsprache des Eintrags.
  */
-const PLAY_LOCALES = { de: ['de-DE'], en: ['en-US'], es: ['es-ES', 'es-419'], pt: ['pt-BR'], fr: ['fr-FR'], it: ['it-IT'] };
+const PLAY_LOCALES = { de: ['de-DE'], en: ['en-US'], es: ['es-ES', 'es-419'], pt: ['pt-BR'], fr: ['fr-FR'], it: ['it-IT'], nl: ['nl-NL'], pl: ['pl-PL'], tr: ['tr-TR'], id: ['id'] };
 for (const [locale, source] of Object.entries(BORROWED_IMAGES)) {
+  // Übersetzte Sprachen, die nur noch die Bilder leihen (nl-NL …), bekommen den Text in ihrer eigenen Sprache.
+  if (Object.values(PLAY_LOCALES).some((locales) => locales.includes(locale))) continue;
   const language = Object.keys(PLAY_LOCALES).find((key) => PLAY_LOCALES[key].includes(source));
   if (!language) {
     console.error(`${locale} soll die Bilder von ${source} bekommen, das ist keine Store-Sprache in PLAY_LOCALES`);
