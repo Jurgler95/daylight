@@ -4,4 +4,4 @@
 // Das Icon auf dem Startbildschirm hängt nicht mehr hieran, das wählt das Gerät selbst nach dem Datum.
 // Die geplante Action .github/workflows/store-icon.yml setzt den Wert jeden Tag nach dem Kalender in
 // lib/seasons/calendar.ts und lädt das neue Icon hoch (docs/development.md, Store-Grafiken).
-window.SEASON = 'herbst';
+window.SEASON = null;
