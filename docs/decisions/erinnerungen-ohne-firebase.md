@@ -69,4 +69,4 @@ Seit 2026-10-15 behält eine Erinnerung ihre Uhrzeit, wenn sich die Zeitzone än
 
 - **Einmalig beim Update auf diese Version:** Die bis dahin von expo-notifications gestellten Erinnerungen verfallen, weil dessen Empfänger fehlt. Neu gestellt werden sie beim nächsten Öffnen der App. Wer nach dem Update die App gar nicht öffnet, bekommt bis dahin keine Erinnerung.
 - iOS stellt keine Erinnerungen mehr. Daylight wird nur für Android gebaut.
-- Für F-Droid fehlt noch: Abhängigkeitsbaum mit dem F-Droid-Scanner prüfen, Build-Rezept, Entscheidung zur Signatur.
+- F-Droid: Abhängigkeitsbaum, Scanner, Rezept und Signatur sind in `docs/decisions/f-droid.md` geklärt.

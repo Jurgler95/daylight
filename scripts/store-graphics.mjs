@@ -8,6 +8,7 @@
  *   node scripts/store-graphics.mjs          # alle Sprachen
  *   node scripts/store-graphics.mjs es fr    # nur diese
  *   node scripts/store-graphics.mjs --icon   # nur das Icon, etwa beim Wechsel des Designs zur Jahreszeit
+ *   node scripts/store-graphics.mjs --social # nur das Vorschaubild des GitHub-Repos, store/social-preview.png (Englisch)
  *
  * Braucht Google Chrome (oder CHROME=/pfad/zu/chrome) und Netz für die Schrift von Google Fonts.
  * Die Screenshots der App liegen in `store/screens/<lang>/` und stammen aus einem Pixel-9-Emulator mit den
@@ -49,6 +50,11 @@ function render(lang, asset, file, [width, height]) {
     `${PAGE}?asset=${asset}&lang=${lang}`,
   ], { stdio: 'ignore' });
   console.log(file.replace(ROOT + '/', ''));
+}
+
+if (process.argv.includes('--social')) {
+  render('en', 'social', join(ROOT, 'store/social-preview.png'), [1280, 640]);
+  process.exit(0);
 }
 
 for (const [lang, locale] of LOCALES) {

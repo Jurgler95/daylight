@@ -14,6 +14,11 @@
  * die der Eintrag hat. Play nimmt höchstens 500 Zeichen je Sprache, das prüft auch der normale
  * Aufruf, damit es vor dem Build auffällt.
  *
+ * Mit `--changelogs` schreibt es dieselben Texte nach
+ * `fastlane/metadata/android/<store-sprache>/changelogs/<versionCode>.txt`. Dort liest F-Droid
+ * „Neu in dieser Version" aus dem Stand des Versions-Tags, die Dateien müssen also mit dem
+ * Release-Commit ins Repo (Deploy-Skill, Schritt 5). store.yml lädt sie nicht hoch.
+ *
  * Braucht Node 22.18 oder neuer, weil die Updatehistorie direkt als TypeScript geladen wird, und
  * die Versions-Tags im lokalen Klon. Übernommen aus der Zyklus-App.
  */
@@ -27,8 +32,9 @@ import { BORROWED_IMAGES } from '../../store/locales.mjs';
 
 const version = process.argv[2]?.replace(/^v/, '');
 const whatsnewAt = process.argv[3] === '--whatsnew' ? process.argv[4] : null;
+const changelogs = process.argv[3] === '--changelogs';
 if (!version) {
-  console.error('Aufruf: release-notes.mjs <version> [--whatsnew <ordner>]');
+  console.error('Aufruf: release-notes.mjs <version> [--whatsnew <ordner> | --changelogs]');
   process.exit(1);
 }
 
@@ -117,6 +123,17 @@ if (problems.length > 0) {
 if (whatsnewAt) {
   mkdirSync(whatsnewAt, { recursive: true });
   for (const [language, text] of Object.entries(whatsnew(release))) writeFileSync(join(whatsnewAt, `whatsnew-${language}`), `${text}\n`);
+  process.exit(0);
+}
+
+if (changelogs) {
+  const root = new URL('../../fastlane/metadata/android/', import.meta.url);
+  for (const [locale, text] of Object.entries(whatsnew(release))) {
+    const dir = new URL(`${locale}/changelogs/`, root);
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(new URL(`${app.expo.android.versionCode}.txt`, dir), `${text}\n`);
+  }
+  console.error(`changelogs/${app.expo.android.versionCode}.txt für ${Object.keys(whatsnew(release)).join(', ')} geschrieben`);
   process.exit(0);
 }
 

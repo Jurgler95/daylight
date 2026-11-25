@@ -1,55 +1,64 @@
 # Daylight
 
-Ein Stimmungstagebuch für Android, das deine Daten nicht kennt. Keine Konten, keine Server, keine Analytics, keine Werbung und keine Internet-Berechtigung. Alles bleibt auf deinem Gerät.
+**English** | [Deutsch](README.de.md)
 
-> **English:** Daylight is a mood journal for Android that doesn't know your data. No account, no servers, no analytics, no ads and no internet permission: every entry stays on your device. Tap a mood, pick what you did, and see your patterns in a calendar, insights and an honest 7-day outlook. Optional read-only Health Connect data, app lock, CSV import and export, available in English, German, Spanish, French, Italian and Portuguese (Brazil). Free and open source under the GPL. Get it on [Google Play](https://play.google.com/store/apps/details?id=de.behla.daylight) or as a signed APK from the [releases](https://github.com/Jurgler95/daylight/releases/latest). Most of the code was written with an AI coding agent (Claude Code) under my direction; I review, test and maintain it.
+A mood journal for Android that doesn't know your data. No account, no servers, no analytics, no ads and no internet permission. Everything stays on your device.
 
 <p align="center">
-  <img src="docs/screenshots/heute.png" width="30%" alt="Heute: Stimmung wählen und Rückblick auf frühere Tage">
-  <img src="docs/screenshots/editor.png" width="30%" alt="Eintrag: Stimmung und Aktivitäten in Gruppen">
-  <img src="docs/screenshots/kalender.png" width="30%" alt="Kalender mit einer Stimmung pro Tag">
+  <img src="docs/screenshots/en/heute.png" width="30%" alt="Today: pick a mood and look back at earlier days">
+  <img src="docs/screenshots/en/editor.png" width="30%" alt="Entry: mood and activities in groups">
+  <img src="docs/screenshots/en/kalender.png" width="30%" alt="Calendar with one mood per day">
 </p>
 <p align="center">
-  <img src="docs/screenshots/einblicke.png" width="30%" alt="Einblicke: Schnitt, Verlauf und Verteilung der Stimmung">
-  <img src="docs/screenshots/aktivitaeten.png" width="30%" alt="Einblicke: Häufigkeit der Aktivitäten im Vergleich zum Zeitraum davor">
-  <img src="docs/screenshots/verlauf.png" width="30%" alt="Verlauf mit Suche über alle Einträge">
+  <img src="docs/screenshots/en/einblicke.png" width="30%" alt="Insights: average, trend and distribution of your mood">
+  <img src="docs/screenshots/en/pixel.png" width="30%" alt="Insights: year in pixels">
+  <img src="docs/screenshots/en/verlauf.png" width="30%" alt="History with search across all entries">
 </p>
 
-<sub>Alle Screenshots zeigen die eingebauten Beispieldaten.</sub>
+<sub>All screenshots show the built-in sample data.</sub>
 
 ## Highlights
 
-- 🔒 **Komplett offline.** Daylight hat keine Internet-Berechtigung. Deine Einträge liegen in einer Datenbank auf dem Gerät und verlassen es nur, wenn du selbst eine Sicherung teilst. Der [Bericht von Exodus Privacy](https://reports.exodus-privacy.eu.org/de/reports/de.behla.daylight/latest/) findet in der Play-Version keinen Tracker.
-- ⚡ **In Sekunden eingetragen.** Stimmung antippen, Aktivitäten wählen, fertig. Notiz, eigene Skalen und ein Foto pro Tag sind optional.
-- 📦 **Einfacher Umstieg.** Daylight übernimmt ein bestehendes Stimmungstagebuch aus einer anderen App vollständig, als CSV-Export oder als Sicherung mit Fotos. Exportieren kannst du auch wieder als CSV.
-- 📊 **Einblicke in deine Muster.** Verlauf, Wochentage, Monate, Jahr in Pixeln, welche Aktivitäten mit besseren oder schlechteren Tagen zusammenfallen, was am Folgetag passiert, häufige Wörter in deinen Notizen. Immer als Beschreibung deiner Einträge, nie als Diagnose.
-- 🏆 **Erfolge fürs Dranbleiben.** Sterne für Tage und Wochen am Stück, für Notizen, Fotos, Aktivitäten, Schlaf und Schritte. Belohnt wird nur das Festhalten, nie wie ein Tag war.
-- 🔭 **Ein ehrlicher Ausblick.** Daylight schätzt die nächsten sieben Tage, aber nur dort, wo das auf deinen eigenen Daten nachweislich besser funktioniert als simples Raten. Sonst tritt der Ausblick zurück und sagt das auch.
-- ❤️ **Gesundheitsdaten, wenn du willst.** Schritte, Schlaf, Ruhepuls und Training aus Health Connect, etwa von einer Smartwatch. Nur lesend und nur nach deiner Zustimmung.
-- 🛡️ **Geschützt.** App-Sperre über die Displaysperre des Geräts, keine Screenshots bei aktiver Sperre, kein Android-Cloud-Backup. Eine Erinnerung am Abend verrät im Text nichts aus dem Tagebuch.
+- 🔒 **Completely offline.** Daylight has no internet permission. Your entries live in a database on your device and only leave it when you share a backup yourself. The [Exodus Privacy report](https://reports.exodus-privacy.eu.org/en/reports/de.behla.daylight/latest/) finds no trackers in the Play version.
+- ⚡ **Logged in seconds.** Tap a mood, pick what you did, done. A note, your own scales and a photo per day are optional.
+- 📦 **Easy to switch.** Daylight imports an existing mood journal from another app completely, as a CSV export or as a backup with photos. You can export to CSV as well.
+- 📊 **Insights into your patterns.** Trend, weekdays, months, year in pixels, which activities go along with better or worse days, what tends to follow the next day, frequent words in your notes. Always a description of your entries, never a diagnosis.
+- 🌅 **Turning points.** Mark days that changed something, like a new job or a move, and compare the time before with the time after.
+- 🏆 **Awards for keeping at it.** Stars for days and weeks in a row, for notes, photos, activities, sleep and steps. Only the journaling is rewarded, never how a day went.
+- 🔭 **An honest outlook.** Daylight estimates the next seven days, but only where that measurably works better on your own data than simple guessing. Otherwise the outlook steps back and says so.
+- ❤️ **Health data, if you want.** Steps, sleep, resting heart rate and exercise from Health Connect, for example from a smartwatch. Read only, and only after you agree.
+- 🛡️ **Protected.** App lock with your device's screen lock, no screenshots while the lock is on, no Android cloud backup. The optional evening reminder reveals nothing from your journal.
 
-Die Oberfläche gibt es auf Deutsch, Englisch, Spanisch, Portugiesisch (Brasilien), Französisch und Italienisch.
+The app is available in English, German, Spanish, Portuguese (Brazil), French and Italian.
 
-## Installieren
+## Install
 
-Am einfachsten über [Google Play](https://play.google.com/store/apps/details?id=de.behla.daylight).
+The easiest way is [Google Play](https://play.google.com/store/apps/details?id=de.behla.daylight).
 
-Ohne Google-Konto geht es mit der APK, die bei jedem [Release](https://github.com/Jurgler95/daylight/releases/latest) liegt. Auf dem Handy herunterladen und öffnen; Android fragt einmalig, ob der Browser Apps installieren darf. Play-Version und APK sind mit demselben Schlüssel signiert und lassen sich übereinander installieren.
+Without a Google account, use the APK attached to every [release](https://github.com/Jurgler95/daylight/releases/latest). Download it on your phone and open it; Android asks once whether your browser may install apps. The Play version and the APK are signed with the same key, so you can install one over the other.
 
-Jede APK ist mit demselben Schlüssel signiert. Wer das prüfen will, vergleicht den SHA-256-Fingerabdruck des Zertifikats (`apksigner verify --print-certs daylight-X.Y.Z.apk`):
+To keep the APK up to date automatically, get it straight from the releases with [Obtainium](https://github.com/ImranR98/Obtainium):
+
+[<img src="docs/badges/obtainium.png" alt="Get it on Obtainium" height="48">](https://apps.obtainium.imranr.dev/redirect?r=obtainium://app/%7B%22id%22%3A%22de.behla.daylight%22%2C%22url%22%3A%22https%3A%2F%2Fgithub.com%2FJurgler95%2Fdaylight%22%2C%22author%22%3A%22Paul%20Behla%22%2C%22name%22%3A%22Daylight%22%7D)
+
+Every APK is signed with the same key. To check it, compare the SHA-256 fingerprint of the certificate (`apksigner verify --print-certs daylight-X.Y.Z.apk`):
 
 ```
 9D:5E:FF:54:19:70:F6:09:85:7F:B6:F8:43:1C:E8:62:74:B4:6E:FB:2E:1B:56:A5:9B:63:CC:87:04:1F:C9:8A
 ```
 
-Daylight ist kein Medizinprodukt und ersetzt keine Beratung oder Behandlung. Wem es länger schlecht geht: Die [Telefonseelsorge](https://www.telefonseelsorge.de/) ist unter 0800 111 0 111 rund um die Uhr erreichbar.
+Daylight is not a medical device and does not replace advice or treatment. If you have been feeling low for a while, please reach out to someone you trust or a local support line; [findahelpline.com](https://findahelpline.com/) lists free helplines by country.
 
-## Entwicklung
+## How it was built
 
-Setup, Architektur und Release-Ablauf stehen in [`docs/development.md`](docs/development.md). Pull Requests nehme ich in der Regel nicht an, Fehlermeldungen als Issue sind willkommen, siehe [`CONTRIBUTING.md`](CONTRIBUTING.md).
+Most of the code was written with an AI coding agent (Claude Code) under my direction. I decide what gets built, review and test every change and maintain the app.
 
-## Lizenz
+## Development
+
+Setup, architecture and the release process are described in [`docs/development.md`](docs/development.md) (German). I usually don't accept pull requests, but bug reports as issues are welcome, see [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+## License
 
 Copyright © 2026 Paul Behla, [paul-behla.de](https://paul-behla.de).
 
-Daylight ist freie Software unter der [GNU General Public License, Version 3 oder später](LICENSE), mit einer Zusatzbedingung nach Abschnitt 7(b): Wer die App oder eine darauf aufbauende Version weitergibt, muss den Vermerk „Basiert auf Daylight von Paul Behla (paul-behla.de)“ in der App sichtbar lassen, etwa auf dem Über-Screen. Der genaue Wortlaut steht in [`NOTICE`](NOTICE).
+Daylight is free software under the [GNU General Public License, version 3 or later](LICENSE), with an additional term under section 7(b): anyone who distributes the app or a version based on it must keep the notice "Based on Daylight by Paul Behla (paul-behla.de)" visible in the app, for example on the About screen. The exact wording is in [`NOTICE`](NOTICE).

@@ -122,7 +122,12 @@ bekommen die Sprache ihrer Bilder, etwa `nl-NL` Englisch und `pt-PT` Portugiesis
 ```bash
 npm run typecheck && npm test
 node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON .github/scripts/release-notes.mjs "$VERSION"
+node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON .github/scripts/release-notes.mjs "$VERSION" --changelogs
 ```
+
+Der zweite Aufruf schreibt die Stichpunkte je Store-Sprache nach
+`fastlane/metadata/android/<sprache>/changelogs/<versionCode>.txt`. Die Dateien gehören in den
+Release-Commit, F-Droid liest sie aus dem Stand des Tags.
 
 Die Pipeline prüft dasselbe noch einmal, aber lokal fällt ein Fehler in Sekunden auf statt nach
 Minuten. Das Skript gibt die Release-Notes aus und bricht ab, wenn `app.json`, `package.json`,

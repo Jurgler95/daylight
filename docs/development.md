@@ -1,6 +1,6 @@
 # Daylight: Entwicklung
 
-Technische Doku zu Daylight: Setup, Architektur, Logo und Release. Was die App kann, steht im [README](../README.md).
+Technische Doku zu Daylight: Setup, Architektur, Logo und Release. Was die App kann, steht im README, auf Englisch in [`README.md`](../README.md) und auf Deutsch in [`README.de.md`](../README.de.md). Beide gleich halten.
 
 ## Setup
 
@@ -123,6 +123,8 @@ Auf dem Emulator (Android 37) zeichnet der Tagesstreifen unter „Heute“ die A
 ## Release
 
 Der ganze Ablauf steckt im Skill `deploy` (`.claude/skills/deploy/SKILL.md`): er hebt `version` und `versionCode`, schreibt einen kurzen Eintrag in allen Sprachen der App in `lib/changelog/index.ts`, committet, pusht und startet die GitHub-Action `.github/workflows/release.yml` auf `main`. Die baut die APK (nur `arm64-v8a`) und das App Bundle für den Play Store (`arm64-v8a` und `armeabi-v7a`), prüft das Manifest der APK und des App Bundles (`.github/scripts/check-manifest.mjs`, für das Bundle über eine mit `bundletool` gebaute Universal-APK: kein `INTERNET` und kein `ACCESS_NETWORK_STATE`, `allowBackup=false`, keine Übertragung von Gerät zu Gerät, Health Connect nur lesend, weder Firebase noch Play Services im Code, auch nicht unter gekürztem Namen laut R8-Zuordnung), prüft die Signatur beider Dateien, legt sie zusammen mit der R8-Zuordnung `daylight-X.Y.Z-mapping.txt` mit den Stichpunkten aus der Updatehistorie (Deutsch, darunter Englisch) als GitHub-Release ab und setzt dabei den Tag `vX.Y.Z`. Zuletzt lädt `.github/workflows/play.yml` die `.aab` aus dem Release in den Play Store (siehe unten). Aufs Handy kommt die APK direkt aus dem GitHub-Release. Release-Builds laufen durch R8 (`enableMinifyInReleaseBuilds` und `enableShrinkResourcesInReleaseBuilds` in `app.json`), das verlangt Play. Fehlt nach einer neuen Abhängigkeit im Release etwas, das in der Entwicklung lief, fehlt meist eine Keep-Regel, die über `extraProguardRules` derselben Plugin-Einstellung dazukommt. Der Daylight-Schlüssel ist dort als App-Signaturschlüssel hinterlegt, Play-Version und APK lassen sich also übereinander installieren.
+
+Für F-Droid baut Daylight alle Expo-Module aus dem Quellcode statt aus den vorkompilierten AARs in `node_modules` (`expo.autolinking.android.buildFromSource` in `package.json`) und lässt das Baseline-Profil weg (`plugins/withoutBaselineProfile.js`). Beides hält die APK aus dem GitHub-Release byte-gleich mit dem Build, den F-Droid selbst macht. Hintergrund und Rezept in [`docs/decisions/f-droid.md`](decisions/f-droid.md). Die Stichpunkte der Updatehistorie landen je Store-Sprache in `fastlane/metadata/android/<sprache>/changelogs/<versionCode>.txt` (`release-notes.mjs --changelogs`, im Deploy-Skill).
 
 ### Play Store
 

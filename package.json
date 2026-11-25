@@ -87,5 +87,14 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Jurgler95/daylight.git"
+  },
+  "expo": {
+    "autolinking": {
+      "android": {
+        "buildFromSource": [
+          ".*"
+        ]
+      }
+    }
   }
 }

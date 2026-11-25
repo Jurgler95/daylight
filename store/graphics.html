@@ -374,8 +374,8 @@ const ASSETS = {
     : el('img', { src: '../assets/logo.svg', style: { position: 'absolute', left: px(-512 * 18 / 72), top: px(-512 * 18 / 72), width: px(512 * 108 / 72), height: px(512 * 108 / 72) } })],
 
   // Feature Graphic 1024 × 500. Wichtiges bleibt mittig, Ränder dürfen beschnitten werden.
-  feature: () => {
-    const c = { w: 1024, h: 500 };
+  feature: (h = 500) => {
+    const c = { w: 1024, h };
     const icon = el('div', { style: { width: '120px', height: '120px', borderRadius: '30px', overflow: 'hidden', position: 'relative', boxShadow: '0 20px 40px -10px rgba(3,12,35,.6)' } });
     icon.append(el('img', { src: '../assets/logo.svg', style: { position: 'absolute', left: px(-120 * 18 / 72), top: px(-120 * 18 / 72), width: px(120 * 108 / 72) } }));
     const wm = el('div', { class: 'wordmark', style: { left: '80px', top: '130px' } });
@@ -396,6 +396,14 @@ const ASSETS = {
       small('heute.png', { x: 770, y: 40, w: 240, rot: 6 }),
       bubble(5, { x: 560, y: 330, size: 78, rot: -10 }),
     ];
+  },
+
+  // Vorschaubild des GitHub-Repos 1280 × 640 (Settings → Social preview), erscheint beim Teilen des
+  // Links. Die Feature Graphic auf 1024 × 512 und um den Faktor 1,25 vergrößert.
+  social: () => {
+    const inner = el('div', { style: { position: 'absolute', left: 0, top: 0, width: '1024px', height: '512px', transform: 'scale(1.25)', transformOrigin: '0 0' } });
+    inner.append(...ASSETS.feature(512));
+    return [inner];
   },
 
   // WhatsApp-Status 1080 × 1920. Oben und unten legt WhatsApp Profilzeile und Antwortfeld darüber.
@@ -430,7 +438,7 @@ const ASSETS = {
   },
 };
 
-const SIZE = { icon: [512, 512], feature: [1024, 500] };
+const SIZE = { icon: [512, 512], feature: [1024, 500], social: [1280, 640] };
 const name = params.get('asset') || 'shot-1';
 document.documentElement.lang = LANG;
 const [w, h] = SIZE[name] || [W, H];
