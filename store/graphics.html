@@ -368,7 +368,7 @@ const ASSETS = {
   },
 
   // App-Icon 512 × 512: sichtbarer Bereich des Adaptive Icons, vollflächig (Google rundet selbst ab).
-  // Ein Design zur Jahreszeit ersetzt es ganz, mit seinem vollen Raster.
+  // Ein Design zur Jahreszeit ersetzt es ganz, schon auf denselben Ausschnitt zugeschnitten (scripts/logo.mjs).
   icon: () => [SEASON_ICON
     ? el('img', { src: SEASON_ICON, style: { position: 'absolute', left: 0, top: 0, width: px(512), height: px(512) } })
     : el('img', { src: '../assets/logo.svg', style: { position: 'absolute', left: px(-512 * 18 / 72), top: px(-512 * 18 / 72), width: px(512 * 108 / 72), height: px(512 * 108 / 72) } })],

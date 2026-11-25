@@ -127,13 +127,14 @@ function mark(mono, weight = 1) {
 const { DESIGNS, DESIGN_KEYS, compose } = designs;
 
 /**
- * The store icon of a design, `store/icon-<key>.svg`: the whole 108 grid on the design's ground,
- * shown by `store/graphics.html` while `store/season.js` names that design.
+ * The store icon of a design, `store/icon-<key>.svg`: the visible 72 of the 108 grid, cropped like the logo
+ * in `store/graphics.html`, which shows it while `store/season.js` names that design. The full grid would
+ * show the mark at two thirds of the logo's size, since Play does not crop the store icon like a launcher.
  */
 function writeStoreIcons() {
   for (const key of DESIGN_KEYS) {
     const design = DESIGNS[key];
-    const source = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" width="512" height="512">
+    const source = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="18 18 72 72" width="512" height="512">
   <!-- Store-Icon ${design.name} (${key}), erzeugt von node scripts/logo.mjs aus lib/seasons/designs.ts; nicht von Hand bearbeiten. -->
   ${compose(design, logo)}
 </svg>
