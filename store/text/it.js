@@ -9,6 +9,8 @@ window.STORE_TEXT = {
   6: ['Previsione', 'Una previsione<br><em>onesta</em>', 'Solo dove la stima sui tuoi dati batte il tirare a indovinare. Altrimenti Daylight lo dice.'],
   7: ['Svolte', 'Il giorno che<br><em>cambia tutto</em>', 'Dai un nome al giorno. Daylight confronta il periodo prima con quello dopo.'],
   8: ['Privato', 'Resta sul<br><em>tuo telefono</em>', 'Le tue voci stanno solo sul dispositivo. I backup li condividi tu, se vuoi.'],
+  // Dunkles Erscheinungsbild (Asset shot-dark)
+  dark: ['Tema scuro', 'Pensato per<br>la <em>sera</em>', 'Segue il telefono o resta chiaro o scuro. I colori dell’umore restano leggibili sullo sfondo scuro.'],
   badges: ['Senza Internet', 'Senza account', 'Senza pubblicità', 'Blocco app'],
   tagline: "Il tuo diario dell'umore.<br>Privato, offline, sul dispositivo.",
   // WhatsApp-Status: Zeile unter der Sonne und Hinweis auf den Link in der Bildunterschrift darunter

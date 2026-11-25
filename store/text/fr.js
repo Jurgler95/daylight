@@ -9,6 +9,8 @@ window.STORE_TEXT = {
   6: ['Prévision', 'Une prévision<br><em>honnête</em>', 'Seulement si, sur tes données, l\'estimation fait mieux que le hasard. Sinon, Daylight le dit.'],
   7: ['Tournants', 'Le jour qui a<br><em>tout changé</em>', 'Donne un nom au jour. Daylight compare l\'avant et l\'après.'],
   8: ['Privé', 'Reste sur<br><em>ton téléphone</em>', 'Tes entrées restent sur l\'appareil. Tes sauvegardes, tu les partages toi-même.'],
+  // Dunkles Erscheinungsbild (Asset shot-dark)
+  dark: ['Mode sombre', 'Pensé pour<br>le <em>soir</em>', 'Suit ton téléphone ou reste clair ou sombre. Les couleurs d’humeur restent lisibles sur fond sombre.'],
   badges: ['Sans Internet', 'Sans compte', 'Sans pub', 'Verrouillage'],
   tagline: 'Ton journal d\'humeur.<br>Privé, hors ligne, sur ton appareil.',
   // WhatsApp-Status: Zeile unter der Sonne und Hinweis auf den Link in der Bildunterschrift darunter

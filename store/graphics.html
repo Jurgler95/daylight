@@ -33,6 +33,13 @@
       radial-gradient(120% 70% at 50% 110%, rgba(17,120,106,.95) 0%, rgba(17,120,106,0) 70%),
       linear-gradient(170deg, var(--night) 0%, #123A86 38%, var(--blue) 62%, #0F6F74 100%);
   }
+  /* Nachthimmel für das dunkle Erscheinungsbild: Nachtblau oben, ein Hauch Petrol am Horizont */
+  .sky.night {
+    background:
+      radial-gradient(120% 60% at 50% 115%, rgba(17,120,106,.45) 0%, rgba(17,120,106,0) 70%),
+      linear-gradient(175deg, #050A18 0%, #0B1633 40%, #13224A 75%, #0F3A4A 100%);
+  }
+  .star { position: absolute; border-radius: 50%; background: #FFF6DC; pointer-events: none; }
   .glow { position: absolute; border-radius: 50%; pointer-events: none; }
   /* Sonne: weißglühender Kern, weicher Rand ohne Kante, Korona, feine Strahlen und ein Hauch Linsenreflex */
   .sun-part { position: absolute; border-radius: 50%; pointer-events: none; mix-blend-mode: screen; }
@@ -223,6 +230,24 @@ function sky(canvas, { sunX, sunY, sunR = 120 }) {
   return frag;
 }
 
+/** Nachthimmel mit Mond und ein paar Sternen, als Gegenstück zur Sonne der anderen Bilder. */
+function night(canvas, { moonX, moonY, moonR = 80 }) {
+  const frag = document.createDocumentFragment();
+  frag.append(el('div', { class: 'sky night' }));
+  frag.append(el('div', { class: 'glow', style: { left: px(moonX - moonR * 6), top: px(moonY - moonR * 6), width: px(moonR * 12), height: px(moonR * 12), background: 'radial-gradient(circle, rgba(200,220,255,.22) 0%, rgba(140,182,255,.08) 35%, rgba(140,182,255,0) 65%)' } }));
+  // Sichel: ein heller Kreis, aus dem eine Maske oben rechts einen zweiten Kreis schneidet
+  const crescent = 'radial-gradient(circle at 80% 22%, transparent 0, transparent 52%, #000 53%)';
+  frag.append(el('div', { class: 'glow', style: {
+    left: px(moonX - moonR), top: px(moonY - moonR), width: px(moonR * 2), height: px(moonR * 2),
+    background: 'radial-gradient(circle at 40% 55%, #FFFBEA 0%, #FFE7A8 70%, #F7D27E 100%)',
+    filter: 'drop-shadow(0 0 24px rgba(255,231,168,.55))', WebkitMaskImage: crescent, maskImage: crescent,
+  } }));
+  // Feste Sterne, damit jedes Rendern gleich aussieht
+  const STARS = [[90, 80, 3], [260, 40, 2], [420, 110, 2.5], [610, 60, 2], [700, 150, 3], [980, 330, 2], [60, 420, 2], [150, 600, 2.5], [1010, 560, 2], [870, 470, 3], [330, 700, 2], [40, 980, 2]];
+  for (const [x, y, r] of STARS) frag.append(el('div', { class: 'star', style: { left: px(x), top: px(y), width: px(r * 2), height: px(r * 2), opacity: .85, boxShadow: `0 0 ${r * 4}px rgba(255,246,220,.8)` } }));
+  return frag;
+}
+
 function phone(src, { x, y, w, rot = 0, persp = '' }) {
   const h = Math.round((w - 32) * RAW.h / RAW.w) + 32;
   const p = el('div', { class: 'phone', style: { left: px(x), top: px(y), width: px(w), height: px(h), transform: `${persp} rotate(${rot}deg)` } });
@@ -332,6 +357,18 @@ const ASSETS = {
       head(150, ...TEXT[5]),
       phone('pixel.png', { x: 200, y: 700, w: 680, rot: -3 }),
       pop('pixel.png', [100, 1520, 880, 410], { x: 20, y: 1150, w: 1040, rot: 2, radius: 40 }),
+    ];
+  },
+  // Dunkles Erscheinungsbild: Jahr in Pixeln unter dem Nachthimmel. Noch nicht in
+  // scripts/store-graphics.mjs, denn Play nimmt höchstens acht Screenshots. Screenshot bisher nur auf Deutsch.
+  'shot-dark': () => {
+    const c = { w: W, h: H };
+    return [
+      night(c, { moonX: 930, moonY: 250, moonR: 70 }),
+      deco(c, { cx: 940, cy: 820, r: 400, opacity: .08 }),
+      head(150, ...TEXT.dark),
+      phone('pixel-dark.png', { x: 200, y: 700, w: 680, rot: -3 }),
+      pop('pixel-dark.png', [100, 1520, 880, 410], { x: 20, y: 1150, w: 1040, rot: 2, radius: 40 }),
     ];
   },
   'shot-6': () => {

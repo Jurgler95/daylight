@@ -9,6 +9,8 @@ window.STORE_TEXT = {
   6: ['Previsão', 'Um olhar <em>honesto</em><br>para a frente', 'Só onde a estimativa supera o chute nos seus próprios dados. Senão, o Daylight avisa.'],
   7: ['Pontos de virada', 'O dia que<br><em>mudou tudo</em>', 'Dê um nome ao dia. O Daylight compara o período antes com o período depois.'],
   8: ['Privado', 'Fica no<br><em>seu celular</em>', 'Seus registros só existem no aparelho. Um backup só sai dele se você compartilhar.'],
+  // Dunkles Erscheinungsbild (Asset shot-dark)
+  dark: ['Modo escuro', 'Feito para<br>a <em>noite</em>', 'Segue o seu celular ou fica sempre claro ou escuro. As cores de humor continuam fáceis de ler no fundo escuro.'],
   badges: ['Sem internet', 'Sem conta', 'Sem anúncios', 'Bloqueio do app'],
   tagline: 'Seu diário de humor.<br>Privado, offline, no seu aparelho.',
   // WhatsApp-Status: Zeile unter der Sonne und Hinweis auf den Link in der Bildunterschrift darunter
