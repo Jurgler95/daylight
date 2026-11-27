@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 
 import '@/lib/i18n';
 import type { Database } from '@/db';
-import { createEntry, createExperiment, endExperiment, getExperiment, listExperiments, listMoods, setExperimentDays } from '@/db/repositories';
+import { createEntry, createExperiment, createScale, endExperiment, getExperiment, listExperiments, listMoods, setExperimentDays } from '@/db/repositories';
 import { createTestDb } from '@/db/testDb';
 import { addDaysToDateString, type DateString } from '@/lib/dates';
 import { buildExport } from '@/lib/export';
@@ -242,6 +242,34 @@ describe('the comparison', () => {
     expect(screen.queryByText('Jetzt beenden')).toBeNull();
     expect(screen.queryByText(BROKEN)).toBeNull();
     expect(getExperiment(db, over.id)!.result_seen).toBe(true);
+  });
+
+  it('names overlaps, seasons, the return to the usual and the many values', async () => {
+    // A year of 3 and 4, then eight weeks of 2 right before the start, 5 in the experiment; an
+    // energy scale that rises with it. Spring before, summer in it.
+    const db = createTestDb();
+    const moods = listMoods(db);
+    const energy = createScale(db, { name: 'Energie' });
+    for (let i = 0; ; i++) {
+      const date = addDaysToDateString('2025-06-01' as DateString, i);
+      if (date > today) break;
+      const level = date >= '2026-06-15' && date <= '2026-08-09' ? 5 : date >= '2026-04-20' && date < '2026-06-15' ? 2 : 3 + (i % 2);
+      createEntry(db, { date, time: '20:00', mood_id: moods[5 - level]!.id, scales: [{ scale_id: energy.id, value: level >= 5 ? 5 : 1 + (i % 3) }] });
+    }
+    mockDb = db;
+    const over = createExperiment(db, { title: 'Kein Kaffee', start_date: '2026-06-15', days: 56 }, today);
+    createExperiment(db, { title: 'Abendspaziergang', start_date: '2026-07-01', days: 14 }, today);
+    createExperiment(db, { title: 'Früher schlafen', start_date: '2026-05-01', days: 7 }, today);
+    useDataVersion.getState().bump();
+    useSettingsStore.getState().load();
+    mockParams = { id: String(over.id) };
+    await render(<ExperimentDetailScreen />);
+    expect(screen.getByText('Lief gleichzeitig mit: Abendspaziergang.')).toBeTruthy();
+    expect(screen.getByText('Im Zeitraum davor lief: Früher schlafen.')).toBeTruthy();
+    expect(screen.getByText(/verschiedenen Jahreszeiten/)).toBeTruthy();
+    expect(screen.getByText(/Rückkehr zum Gewohnten/)).toBeTruthy();
+    expect(screen.getByText('Je mehr Werte verglichen werden, desto eher fällt einer zufällig auf.')).toBeTruthy();
+    expect(screen.queryByText(BROKEN)).toBeNull();
   });
 
   it('says when the history before it is too short to judge', async () => {

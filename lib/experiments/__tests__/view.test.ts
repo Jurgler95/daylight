@@ -1,0 +1,43 @@
+import i18n from '@/lib/i18n';
+import type { DateString } from '@/lib/dates';
+
+import { experimentSections, lengthChoices, verdictSentences, verdictShort } from '../view';
+
+const today = '2026-11-27' as DateString;
+const t = i18n.getFixedT('de');
+
+describe('experiment view helpers', () => {
+  it('sorts running and planned by start and the ones that are over by the latest end', () => {
+    const list = [
+      { id: 1, start_date: '2026-11-20', end_date: '2026-12-17' },
+      { id: 2, start_date: '2026-12-01', end_date: '2026-12-07' },
+      { id: 3, start_date: '2026-11-10', end_date: '2026-12-07' },
+      { id: 4, start_date: '2026-11-28', end_date: '2026-12-25' },
+      { id: 5, start_date: '2026-08-01', end_date: '2026-08-28' },
+      { id: 6, start_date: '2026-09-01', end_date: '2026-09-07' },
+      // Ended by a "no" on its start day, today.
+      { id: 7, start_date: today, end_date: today },
+    ];
+    const sections = experimentSections(list, today);
+    expect(sections.running.map((row) => row.id)).toEqual([3, 1]);
+    expect(sections.planned.map((row) => row.id)).toEqual([4, 2]);
+    expect(sections.over.map((row) => row.id)).toEqual([7, 6, 5]);
+  });
+
+  it('offers the weeks in days, plus a stored length that is no whole choice', () => {
+    expect(lengthChoices(null)).toEqual([7, 14, 21, 28, 42, 56, 84]);
+    expect(lengthChoices(28)).toEqual([7, 14, 21, 28, 42, 56, 84]);
+    expect(lengthChoices(30)).toEqual([7, 14, 21, 28, 30, 42, 56, 84]);
+  });
+
+  it('puts the verdict into words, "vorläufig" included', () => {
+    expect(verdictShort(t, null)).toBeNull();
+    expect(verdictSentences(t, null)).toEqual([]);
+    expect(verdictShort(t, { kind: 'unjudgeable' })).toBe('nicht beurteilbar');
+    const larger = { kind: 'larger' as const, share: 0.06, preliminary: false, pairs: 400 };
+    expect(verdictShort(t, larger)).toMatch(/^größer als üblich, 6\s?%$/);
+    expect(verdictShort(t, { ...larger, kind: 'usual', share: 0.34, preliminary: true })).toMatch(/^im Rahmen, 34\s?%, vorläufig$/);
+    expect(verdictSentences(t, { ...larger, preliminary: true })).toEqual([expect.stringMatching(/nur an 6\s?% der Stichtage/), expect.stringMatching(/^Vorläufig/)]);
+    expect(verdictSentences(t, { kind: 'unjudgeable' })).toEqual([expect.stringMatching(/reicht die Zeit vor dem Experiment noch nicht/)]);
+  });
+});
