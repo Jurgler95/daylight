@@ -52,6 +52,8 @@ describe('automatic backup settings', () => {
   it('picks a folder and writes the first backup there right away', async () => {
     await render(<AutoBackupScreen />);
     expect(screen.getByText('Noch kein Ordner gewählt')).toBeTruthy();
+    expect(screen.getByText(/Die letzten 7 bleiben/)).toBeTruthy();
+    expect(screen.queryByText(/\{\{/)).toBeNull();
     await act(async () => fireEvent.press(screen.getByRole('button', { name: 'Ordner wählen' })));
     expect(useSettingsStore.getState().settings?.auto_backup_dir).toBe(DIR);
     expect(screen.getByText('Documents/Daylight')).toBeTruthy();

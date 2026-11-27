@@ -88,7 +88,7 @@ export default function AutoBackupScreen() {
         ) : null}
       </Card>
       <AppText variant="caption" muted>
-        {t('autoBackup.howItWorks', { count: AUTO_BACKUP_KEEP })}
+        {t('autoBackup.howItWorks', { keep: AUTO_BACKUP_KEEP })}
       </AppText>
       <AppText variant="caption" muted>
         {t('autoBackup.restore')}
