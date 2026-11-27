@@ -48,8 +48,15 @@ class DaylightRemindersModule : Module() {
     }
 
     // `local` is the wall-clock time "YYYY-MM-DDTHH:mm" behind `at`, kept for a change of time zone.
-    Function("schedule") { id: String, at: Double, channelId: String, title: String, body: String, url: String?, local: String? ->
-      Reminders.schedule(context, Reminder(id, at.toLong(), channelId, title, body, url, LocalTrigger.parse(local)))
+    // `moodUrl` is the link the mood buttons open with `&mood=<id>` added; null shows no buttons.
+    // Eight arguments, the most an Expo module function takes.
+    Function("schedule") { id: String, at: Double, channelId: String, title: String, body: String, url: String?, local: String?, moodUrl: String? ->
+      Reminders.schedule(context, Reminder(id, at.toLong(), channelId, title, body, url, LocalTrigger.parse(local), moodUrl))
+    }
+
+    // The moods the buttons show, as JSON from `lib/notifications/moods.ts`; read when a reminder shows.
+    Function("setMoods") { json: String ->
+      MoodButtons.store(context, json)
     }
 
     Function("cancelAll") {

@@ -865,6 +865,7 @@
     "permissionDenied": "Sistem izni olmadan uygulama hatırlatıcı kuramaz. Android ayarlarından izin verebilirsin.",
     "unavailable": "Expo Go'da Android hatırlatıcı kurmaz. Ayar kaydedilir ve yüklü uygulamada geçerli olur.",
     "discreet": "Metin en fazla serinin ne kadar sürdüğünü ya da dünün kaydının hâlâ eksik olduğunu söyler, günlükten asla bir şey göstermez.",
+    "moodButtons": "Bir ruh haline hemen dokunmak için hatırlatıcıyı genişlet. Bu, o ruh haliyle yeni bir kayıt açar.",
     "yesterday": "Ertesi sabah hatırlatıcı",
     "yesterdayHint": "Yalnızca dün eksikse. Yalnızca günlük hatırlatıcıyla birlikte gelir"
   },

@@ -1,4 +1,5 @@
-export { cancelAll, dismissReminders, hasPermission, notificationsAvailable, requestPermission, syncReminders } from './client';
+export { cancelAll, dismissReminders, hasPermission, notificationsAvailable, requestPermission, setReminderMoods, syncReminders } from './client';
+export { buildReminderMoods, REMINDER_MOOD_SLOTS, type ReminderMoods } from './moods';
 export {
   ANDROID_ALARM_LIMIT,
   answered,
@@ -8,6 +9,7 @@ export {
   entryLink,
   formatTime,
   localTrigger,
+  moodLink,
   parseTime,
   planReminders,
   planSignature,

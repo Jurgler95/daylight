@@ -42,6 +42,11 @@ internal data class Reminder(
    * stays 20:30 where the phone is now. Null for reminders stored before, those keep their `at`.
    */
   val local: LocalTrigger? = null,
+  /**
+   * Link for the mood buttons: each button opens it with `&mood=<id>` added, e.g.
+   * `daylight://entry/new?date=2026-10-13&mood=3`. Null shows no buttons.
+   */
+  val moodUrl: String? = null,
 ) {
   fun toJson(): String = JSONObject()
     .put("at", at)
@@ -49,6 +54,7 @@ internal data class Reminder(
     .put("title", title)
     .put("body", body)
     .apply { if (url != null) put("url", url) }
+    .apply { if (moodUrl != null) put("moodUrl", moodUrl) }
     .apply {
       if (local != null) {
         put("date", local.date)
@@ -74,7 +80,8 @@ internal data class Reminder(
       } else {
         null
       }
-      Reminder(id, o.getLong("at"), o.getString("channelId"), o.getString("title"), o.getString("body"), url, local)
+      val moodUrl = if (o.has("moodUrl")) o.getString("moodUrl") else null
+      Reminder(id, o.getLong("at"), o.getString("channelId"), o.getString("title"), o.getString("body"), url, local, moodUrl)
     } catch (e: Exception) {
       null
     }
@@ -111,7 +118,7 @@ internal object Reminders {
   private const val PREFS = "daylight_reminders"
   const val ACTION_FIRE = "de.behla.daylight.reminders.FIRE"
   /** Notifications are told apart by their tag (the reminder id), so the numeric id is always the same. */
-  private const val NOTIFICATION_ID = 0
+  const val NOTIFICATION_ID = 0
 
   private fun prefs(context: Context) = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
 
@@ -203,9 +210,15 @@ internal object Reminders {
       .setAutoCancel(true)
       .setContentTitle(reminder.title)
       .setContentText(reminder.body)
-      .setStyle(NotificationCompat.BigTextStyle().bigText(reminder.body))
       // Like expo-notifications with shouldPlaySound: false while the app is open.
       .setSilent(isAppInForeground())
+    // Collapsed it stays the standard notification; expanded it adds a button per mood (`MoodButtons`).
+    val moods = reminder.moodUrl?.let { MoodButtons.views(context, reminder) }
+    if (moods != null) {
+      builder.setStyle(NotificationCompat.DecoratedCustomViewStyle()).setCustomBigContentView(moods)
+    } else {
+      builder.setStyle(NotificationCompat.BigTextStyle().bigText(reminder.body))
+    }
     openAppIntent(context, reminder)?.let { builder.setContentIntent(it) }
     try {
       manager.notify(reminder.id, NOTIFICATION_ID, builder.build())

@@ -865,6 +865,7 @@
     "permissionDenied": "Without system permission the app sets no reminder. You can allow it in the Android settings.",
     "unavailable": "In Expo Go, Android sets no reminders. The setting is saved and takes effect in the installed app.",
     "discreet": "The text names at most how long your streak runs, or that yesterday is still missing an entry, never anything from the journal.",
+    "moodButtons": "Expand the reminder to tap a mood right away. This opens a new entry with that mood.",
     "yesterday": "Reminder the next morning",
     "yesterdayHint": "Only when yesterday is still missing. Comes only with the daily reminder"
   },

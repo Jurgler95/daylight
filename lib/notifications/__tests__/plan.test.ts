@@ -8,6 +8,7 @@ import {
   entryLink,
   formatTime,
   localTrigger,
+  moodLink,
   parseTime,
   planReminders,
   planSignature,
@@ -584,6 +585,25 @@ describe('a single time, as before', () => {
 
   it('opens a new entry for its day', () => {
     expect(reminderLink(daily()[0]!)).toBe('daylight://entry/new?date=2026-09-26');
+  });
+});
+
+describe('moodLink', () => {
+  it('gives every daily reminder buttons for a new entry on its own day', () => {
+    const plan = planReminders(input({ times: ['09:00', '20:30'] })).filter((r) => r.kind === 'daily');
+    expect(plan.length).toBeGreaterThan(2);
+    for (const reminder of plan) expect(moodLink(reminder)).toBe(entryLink(reminder.date));
+  });
+
+  it('gives the morning reminder buttons for yesterday, the day it asks about', () => {
+    const morning = planReminders(input({ yesterdayEnabled: true, entryDays: entries(-3, -2), nowMinutes: 9 * 60 })).find((r) => r.kind === 'yesterday')!;
+    expect(moodLink(morning)).toBe('daylight://entry/new?date=2026-09-25');
+  });
+
+  it('gives the outlook none', () => {
+    const outlook = planReminders(input({ enabled: false, outlook: { time: '08:00', hintDays: entries(0) }, entryDays: entries(0) }))[0]!;
+    expect(outlook.kind).toBe('outlook');
+    expect(moodLink(outlook)).toBeNull();
   });
 });
 

@@ -865,6 +865,7 @@
     "permissionDenied": "Zonder toestemming van het systeem zet de app geen herinnering. Je kunt het toestaan in de Android-instellingen.",
     "unavailable": "In Expo Go zet Android geen herinneringen. De instelling wordt opgeslagen en werkt in de geïnstalleerde app.",
     "discreet": "De tekst noemt hooguit hoe lang je reeks loopt of dat gisteren nog een registratie mist, nooit iets uit het dagboek.",
+    "moodButtons": "Klap de herinnering uit om meteen een stemming aan te tikken. Dat opent een nieuwe registratie met die stemming.",
     "yesterday": "Herinnering de volgende ochtend",
     "yesterdayHint": "Alleen als gisteren nog ontbreekt. Komt alleen samen met de dagelijkse herinnering"
   },

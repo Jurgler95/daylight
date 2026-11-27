@@ -865,6 +865,7 @@
     "permissionDenied": "Ohne Systemberechtigung stellt die App keine Erinnerung. Du kannst sie in den Android-Einstellungen erlauben.",
     "unavailable": "In Expo Go stellt Android keine Erinnerungen. Die Einstellung wird gespeichert und greift in der installierten App.",
     "discreet": "Der Text nennt höchstens, wie lange deine Serie läuft, oder dass gestern noch ein Eintrag fehlt, nie Inhalte aus dem Tagebuch.",
+    "moodButtons": "Klapp die Erinnerung auf, um direkt eine Stimmung anzutippen. Das öffnet einen neuen Eintrag mit dieser Stimmung.",
     "yesterday": "Erinnerung am nächsten Morgen",
     "yesterdayHint": "Nur wenn gestern noch fehlt. Kommt nur zusammen mit der täglichen Erinnerung"
   },

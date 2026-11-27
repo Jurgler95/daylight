@@ -902,6 +902,7 @@
     "permissionDenied": "Sem a permissão do sistema, o app não cria lembretes. Você pode permitir nas configurações do Android.",
     "unavailable": "No Expo Go, o Android não cria lembretes. A configuração fica salva e passa a valer no app instalado.",
     "discreet": "O texto diz no máximo quantos dias sua sequência tem, ou que ainda falta o registro de ontem, nunca nada do diário.",
+    "moodButtons": "Expanda o lembrete para tocar em um humor direto. Isso abre um novo registro com esse humor.",
     "yesterday": "Lembrete na manhã seguinte",
     "yesterdayHint": "Só quando ainda falta ontem. Vem só junto com o lembrete diário"
   },

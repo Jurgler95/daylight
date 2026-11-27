@@ -865,6 +865,7 @@
     "permissionDenied": "Tanpa izin sistem, aplikasi tidak memasang pengingat. Kamu bisa mengizinkannya di pengaturan Android.",
     "unavailable": "Di Expo Go, Android tidak memasang pengingat. Pengaturan disimpan dan berlaku di aplikasi yang terpasang.",
     "discreet": "Teksnya paling banyak menyebut berapa lama hari beruntunmu berjalan, atau bahwa entri kemarin masih kosong, tidak pernah isi jurnalmu.",
+    "moodButtons": "Buka pengingat untuk langsung mengetuk suasana hati. Ini membuka entri baru dengan suasana hati tersebut.",
     "yesterday": "Pengingat keesokan paginya",
     "yesterdayHint": "Hanya jika kemarin masih kosong. Hanya muncul bersama pengingat harian"
   },

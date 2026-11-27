@@ -4,14 +4,17 @@ import { AppState } from 'react-native';
 
 import { getDb } from '@/db';
 import { listTomorrowSnapshots } from '@/db/repositories/tomorrowHints';
+import { useCatalog } from '@/lib/catalog/useCatalog';
 import { addDaysToDateString } from '@/lib/dates';
 import { useToday } from '@/lib/dates/useToday';
+import { iconFont, iconGlyphs } from '@/lib/icons/font';
 import { formatCount } from '@/lib/insights';
 import { useQuery } from '@/lib/store/dataVersion';
 import { useSettingsStore } from '@/lib/store/settingsStore';
 import { readEntryDays, readEntryTimes, readEntryWritten } from '@/lib/streak/celebrate';
 
-import { cancelAll, dismissReminders, hasPermission, syncReminders } from './client';
+import { cancelAll, dismissReminders, hasPermission, setReminderMoods, syncReminders } from './client';
+import { buildReminderMoods } from './moods';
 import { dailyKeysOfTimes, doneReminderKeys, planReminders, planSignature, timeZoneKey, type PlannedReminder, type ReminderWording } from './plan';
 import { createSerialQueue } from './serial';
 import { DEFAULT_REMINDER_TIME, reminderTimesOr } from './times';
@@ -48,6 +51,9 @@ export function useReminderSync(): void {
   // Yesterday's and today's hint are all the plan looks at, and only while still stored: a hint
   // that went away again that evening sends nothing the morning after.
   const stored = useQuery(() => listTomorrowSnapshots(getDb(), addDaysToDateString(today, -1)), [today]);
+  const catalog = useCatalog();
+  const moods = useMemo(() => buildReminderMoods(catalog.moods, iconGlyphs(), iconFont()), [catalog.moods]);
+  const moodsSignature = JSON.stringify(moods);
   const outlook = useMemo(() => (outlookOn ? { time: outlookTime, hintDays: new Set(stored.keys()) } : null), [outlookOn, outlookTime, stored]);
 
   useEffect(() => {
@@ -79,6 +85,13 @@ export function useReminderSync(): void {
   const signature = planSignature(plan, timeZoneKey());
   const done = useMemo(() => doneReminderKeys(entryDays, today, { times, entryTimes, written }), [entryDays, today, times, entryTimes, written]);
   const doneSignature = done.join('|');
+
+  // The mood buttons show the moods as they are when a reminder fires: renamed, archived or new ones
+  // reach the module after every change, without rescheduling anything.
+  useEffect(() => {
+    void setReminderMoods(moods).catch(() => undefined);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [moodsSignature]);
 
   // A time that left the list (removed, or moved to another minute) takes what it still shows along:
   // `done` only knows the list as it is now. Not before the settings are read, the list is a stand-in until then.
