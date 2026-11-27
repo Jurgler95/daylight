@@ -19,10 +19,12 @@ describe('parseNumberInput', () => {
     expect(parseNumberInput('   ', 1)).toBeNull();
   });
 
-  it('rounds to the decimals of the scale', () => {
-    expect(parseNumberInput('72,46', 1)).toBe(72.5);
-    expect(parseNumberInput('2,5', 0)).toBe(3);
-    expect(parseNumberInput('1,005', 2)).toBe(1.01);
+  it('refuses more decimals than the scale has, so a thousands separator never shrinks a value', () => {
+    expect(parseNumberInput('72,46', 1)).toBe('tooPrecise');
+    expect(parseNumberInput('1.500', 0)).toBe('tooPrecise');
+    expect(parseNumberInput('2,5', 0)).toBe('tooPrecise');
+    expect(parseNumberInput('1,05', 2)).toBe(1.05);
+    expect(parseNumberInput('-0', 0)).toBe(0);
   });
 
   it('refuses what is not a number or out of range', () => {

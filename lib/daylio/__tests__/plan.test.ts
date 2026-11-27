@@ -158,8 +158,8 @@ describe('buildImportPlan', () => {
   it('plans a number scale for values with decimals', () => {
     const entries = [
       { ...raw('2026-03-01', 'Gut'), scales: [{ name: 'Gewicht', value: 72 }] },
-      { ...raw('2026-03-02', 'Gut'), scales: [{ name: 'Gewicht', value: 72.45 }] },
-      { ...raw('2026-03-03', 'Gut'), scales: [{ name: 'Gewicht', value: 72.125 }] },
+      { ...raw('2026-03-02', 'Gut'), scales: [{ name: 'Gewicht', value: 72.45, decimals: 2 }] },
+      { ...raw('2026-03-03', 'Gut'), scales: [{ name: 'Gewicht', value: 72.125, decimals: 3 }] },
     ];
     expect(buildImportPlan(entries, fresh()).newScales).toEqual([{ name: 'Gewicht', min: 0, max: 0, kind: 'number', decimals: 2 }]);
   });

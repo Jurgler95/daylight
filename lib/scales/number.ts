@@ -21,15 +21,18 @@ export function clampDecimals(decimals: number): number {
 
 /**
  * What was typed: "72,4", "72.4", "-3" or " 1 200,5 ". Comma and dot both mean the decimal point,
- * spaces are ignored. Empty is null (no value); anything else unreadable or out of range is
- * `invalid`. More decimals than the scale has are rounded.
+ * spaces are ignored. Empty is null (no value); anything unreadable or out of range is `invalid`.
+ * More decimals than the scale has are `tooPrecise` rather than rounded: "1.500" on a whole-number
+ * scale is a thousands separator, and silently saving 2 would be wrong.
  */
-export function parseNumberInput(text: string, decimals: number): number | null | 'invalid' {
+export function parseNumberInput(text: string, decimals: number): number | null | 'invalid' | 'tooPrecise' {
   const clean = text.replace(/\s/g, '').replace(',', '.');
   if (clean === '') return null;
   if (!/^-?(\d+\.?\d*|\.\d+)$/.test(clean)) return 'invalid';
-  const value = roundToDecimals(Number(clean), clampDecimals(decimals));
-  return Number.isFinite(value) && Math.abs(value) < NUMBER_LIMIT ? value : 'invalid';
+  const point = clean.indexOf('.');
+  if (point >= 0 && clean.length - point - 1 > clampDecimals(decimals)) return 'tooPrecise';
+  const value = Number(clean);
+  return Number.isFinite(value) && Math.abs(value) < NUMBER_LIMIT ? (Object.is(value, -0) ? 0 : value) : 'invalid';
 }
 
 /** A unit as stored: trimmed, inner spaces collapsed, cut to `UNIT_MAX_LENGTH`. */

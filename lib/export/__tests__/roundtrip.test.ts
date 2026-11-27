@@ -204,6 +204,25 @@ describe('number scales in the backup', () => {
     expect(buildExport(target, '1.0.0').entry_scales).toContainEqual(expect.objectContaining({ scale_id: weight.id, value: 72.4 }));
   });
 
+  it('merge onto a number scale of the same name, never onto a rating, and arrive with unit and decimals', () => {
+    const source = createTestDb();
+    const weight = createScale(source, { name: 'Gewicht', kind: 'number', unit: 'kg', decimals: 1 });
+    const water = createScale(source, { name: 'Wasser', kind: 'number', unit: 'l', decimals: 2 });
+    const mood = listMoods(source)[0]!;
+    createEntry(source, { date: '2026-09-27', time: '07:00', mood_id: mood.id, scales: [{ scale_id: weight.id, value: 72.4 }, { scale_id: water.id, value: 1.25 }] });
+    const target = createTestDb();
+    const local = createScale(target, { name: 'gewicht', kind: 'number', unit: 'kg', decimals: 0 });
+    createScale(target, { name: 'Wasser', min: 1, max: 5 });
+    applyImport(target, parseImport(JSON.stringify(buildExport(source, '1.0.0'))), 'merge');
+    const scales = listScales(target);
+    expect(scales.filter((scale) => scale.name.toLowerCase() === 'gewicht')).toHaveLength(1);
+    const newWater = scales.find((scale) => scale.name === 'Wasser' && scale.kind === 'number');
+    expect(newWater).toMatchObject({ unit: 'l', decimals: 2 });
+    const values = buildExport(target, '1.0.0').entry_scales;
+    expect(values).toContainEqual(expect.objectContaining({ scale_id: local.id, value: 72.4 }));
+    expect(values).toContainEqual(expect.objectContaining({ scale_id: newWater!.id, value: 1.25 }));
+  });
+
   it('a file from before them has no unit and no decimals', () => {
     const file = buildExport(sampled(), '1.0.0');
     const old = { ...file, scales: file.scales.map(({ unit: _unit, decimals: _decimals, ...scale }) => scale) };

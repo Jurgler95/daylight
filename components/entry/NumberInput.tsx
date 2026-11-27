@@ -12,8 +12,9 @@ interface Props {
   value: number | null;
   unit: string;
   decimals: number;
-  /** Shown under the field while the text is not a number. */
+  /** Shown under the field while the text is not a number, or has more decimals than the scale. */
   invalidLabel: string;
+  tooPreciseLabel: string;
   onChange: (value: number | null) => void;
 }
 
@@ -22,11 +23,11 @@ function textOf(value: number | null, decimals: number): string {
 }
 
 /**
- * A number scale, typed in: comma or dot, as many decimals as the scale has (more are rounded).
- * Emptying the field clears the value. While the text is unreadable the last good value stays and
- * a line under the field says so, so nothing half typed gets saved.
+ * A number scale, typed in: comma or dot, up to as many decimals as the scale has. Emptying the
+ * field clears the value. While the text is unreadable or has too many decimals the last good value
+ * stays and a line under the field says so, so nothing half typed gets saved.
  */
-export function NumberInput({ label, value, unit, decimals, invalidLabel, onChange }: Props) {
+export function NumberInput({ label, value, unit, decimals, invalidLabel, tooPreciseLabel, onChange }: Props) {
   const { colors } = useTheme();
   const [text, setText] = useState(() => textOf(value, decimals));
   const parsed = parseNumberInput(text, decimals);
@@ -41,7 +42,7 @@ export function NumberInput({ label, value, unit, decimals, invalidLabel, onChan
   const change = (next: string) => {
     setText(next);
     const result = parseNumberInput(next, decimals);
-    if (result !== 'invalid' && result !== value) onChange(result);
+    if (typeof result !== 'string' && result !== value) onChange(result);
   };
 
   return (
@@ -54,7 +55,7 @@ export function NumberInput({ label, value, unit, decimals, invalidLabel, onChan
           <TextInput
             value={text}
             onChangeText={change}
-            onBlur={() => parsed !== 'invalid' && setText(textOf(parsed, decimals))}
+            onBlur={() => typeof parsed !== 'string' && setText(textOf(parsed, decimals))}
             keyboardType={decimals > 0 ? 'decimal-pad' : 'numeric'}
             placeholder={formatDecimal(0, decimals)}
             placeholderTextColor={colors.textMuted}
@@ -69,9 +70,9 @@ export function NumberInput({ label, value, unit, decimals, invalidLabel, onChan
           ) : null}
         </View>
       </View>
-      {parsed === 'invalid' ? (
+      {typeof parsed === 'string' ? (
         <AppText variant="caption" color={colors.danger} accessibilityLiveRegion="polite">
-          {invalidLabel}
+          {parsed === 'tooPrecise' ? tooPreciseLabel : invalidLabel}
         </AppText>
       ) : null}
     </View>

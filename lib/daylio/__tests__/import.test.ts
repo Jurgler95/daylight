@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
-import { createScale, listActivities, listGroups, listMoods, listScales } from '@/db/repositories';
+import { createEntry, createScale, listActivities, listGroups, listMoods, listScales } from '@/db/repositories';
 import { countRows } from '@/db/repositories/maintenance';
 import { createTestDb } from '@/db/testDb';
 
@@ -35,11 +35,30 @@ describe('number scales in the CSV', () => {
     const rows = readDaylioRows(db);
     expect(rows.map((row) => row.scales)).toEqual(
       expect.arrayContaining([
-        [{ name: 'Energie', value: 4 }, { name: 'Gewicht', value: 72.4 }],
-        [{ name: 'Gewicht', value: 73 }],
+        [{ name: 'Energie', value: 4 }, { name: 'Gewicht', value: 72.4, decimals: 1 }],
+        [{ name: 'Gewicht', value: 73, decimals: 1 }],
       ]),
     );
     expect(writeDaylioCsv(rows)).toContain('Gewicht: 72.4');
+  });
+
+  it('keep a number scale with whole values a number on a fresh device', () => {
+    const db = createTestDb();
+    const glasses = createScale(db, { name: 'Gläser', kind: 'number', decimals: 0 });
+    const mood = listMoods(db)[0]!;
+    createEntry(db, { date: '2026-01-01', time: '07:00', mood_id: mood.id, scales: [{ scale_id: glasses.id, value: 6 }] });
+    const csv = writeDaylioCsv(readDaylioRows(db));
+    expect(csv).toContain('Gläser: 6.0');
+    const target = createTestDb();
+    applyDaylioImport(target, parseDaylioCsv(csv), { mode: 'merge' });
+    expect(listScales(target).find((scale) => scale.name === 'Gläser')).toMatchObject({ kind: 'number', decimals: 1 });
+  });
+
+  it('keep every decimal on an existing number scale set to fewer', () => {
+    const db = createTestDb();
+    createScale(db, { name: 'Gewicht', kind: 'number', decimals: 0 });
+    applyDaylioImport(db, parseDaylioCsv(file), { mode: 'merge' });
+    expect(readDaylioRows(db).flatMap((row) => row.scales).find((scale) => scale.value !== 73)).toMatchObject({ name: 'Gewicht', value: 72.4 });
   });
 });
 

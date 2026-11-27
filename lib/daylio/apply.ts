@@ -9,7 +9,7 @@ import { createScale, listScales } from '@/db/repositories/scales';
 import type { EntrySource, Scale } from '@/db/schema';
 import type { Database } from '@/db/types';
 import { sweepPhotos, writePhotos, type PhotoStore } from '@/lib/photos/store';
-import { roundToDecimals } from '@/lib/scales/number';
+import { NUMBER_MAX_DECIMALS, roundToDecimals } from '@/lib/scales/number';
 import { fold } from '@/lib/search/fold';
 
 import type { ParsedDaylio, RawEntry } from './parse';
@@ -92,8 +92,9 @@ function carryOut(tx: Database, plan: ImportPlan, source: EntrySource): number {
 
   const scaleByName = new Map(listScales(tx, { includeArchived: true }).map((scale) => [fold(scale.name), scale]));
   for (const scale of plan.newScales) scaleByName.set(fold(scale.name), createScale(tx, scale));
-  // A decimal only fits a number scale; on a rating or a duration it becomes the nearest whole step.
-  const fit = (scale: Scale, value: number) => (scale.kind === 'number' ? roundToDecimals(value, scale.decimals) : Math.round(value));
+  // A decimal only fits a number scale (kept to the most it can hold, the decimals setting only rounds
+  // the display); on a rating or a duration it becomes the nearest whole step.
+  const fit = (scale: Scale, value: number) => (scale.kind === 'number' ? roundToDecimals(value, NUMBER_MAX_DECIMALS) : Math.round(value));
 
   for (const { raw } of plan.entries) {
     const moodId = moodIds.get(fold(raw.mood));

@@ -45,10 +45,11 @@ describe('parseScales', () => {
   });
 
   it('reads decimals with dot or comma', () => {
-    expect(parseScales('Gewicht: 72.4 | Zucker: 5,25 | Temperatur: -1.5').scales).toEqual([
-      { name: 'Gewicht', value: 72.4 },
-      { name: 'Zucker', value: 5.25 },
-      { name: 'Temperatur', value: -1.5 },
+    expect(parseScales('Gewicht: 72.4 | Zucker: 5,25 | Temperatur: -1.0 | Energie: 3').scales).toEqual([
+      { name: 'Gewicht', value: 72.4, decimals: 1 },
+      { name: 'Zucker', value: 5.25, decimals: 2 },
+      { name: 'Temperatur', value: -1, decimals: 1 },
+      { name: 'Energie', value: 3 },
     ]);
     expect(parseScales('Gewicht: 72.').unreadable).toBe(true);
   });

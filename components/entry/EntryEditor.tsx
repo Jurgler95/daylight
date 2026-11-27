@@ -205,6 +205,7 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
                     unit={scale.unit}
                     decimals={scale.decimals}
                     invalidLabel={t('entry.numberInvalid')}
+                    tooPreciseLabel={scale.decimals === 0 ? t('entry.numberWhole') : t('entry.numberDecimals', { count: scale.decimals })}
                     onChange={(value) => editor.update({ scales: setScale(draft.scales, scale.id, value) })}
                   />
                 ) : (

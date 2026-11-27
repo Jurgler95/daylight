@@ -18,6 +18,8 @@ export const ACTIVITY_SEPARATOR = ' | ';
 export interface RawScale {
   name: string;
   value: number;
+  /** Digits after the point as written: "72.0" has one, so a number scale with whole values comes back as one. */
+  decimals?: number;
 }
 
 /** One Daylio row, cleaned up: 24h time, text notes, activity names in file order. */
@@ -143,7 +145,9 @@ export function parseScales(value: string): { scales: RawScale[]; unreadable: bo
       unreadable = true;
       continue;
     }
-    const scale = { name: match[1] as string, value: Number((match[2] as string).replace(',', '.')) };
+    const text = (match[2] as string).replace(',', '.');
+    const point = text.indexOf('.');
+    const scale: RawScale = { name: match[1] as string, value: Number(text), ...(point >= 0 ? { decimals: text.length - point - 1 } : {}) };
     if (byName.has(fold(scale.name))) repeated.push(scale.name);
     byName.set(fold(scale.name), scale);
   }

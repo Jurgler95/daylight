@@ -194,13 +194,6 @@ function resolveActivity(name: string, catalog: Catalog, choices: ImportChoices)
   return { key, name, existingId: null, group, icon: known?.icon ?? FALLBACK_ACTIVITY_ICON };
 }
 
-/** Digits after the point: 72.4 has one, 72 none. Twelve significant digits drop the binary noise. */
-function decimalsOf(value: number): number {
-  const text = String(Number(value.toPrecision(12)));
-  const point = text.indexOf('.');
-  return point < 0 ? 0 : text.length - point - 1;
-}
-
 export function buildImportPlan(records: readonly RawEntry[], catalog: Catalog, choices: ImportChoices = {}): ImportPlan {
   const moods = new Map<string, PlannedMood>();
   const activities = new Map<string, Omit<PlannedActivity, 'rank'>>();
@@ -222,7 +215,7 @@ export function buildImportPlan(records: readonly RawEntry[], catalog: Catalog, 
         ...range,
         min: Math.min(range.min, scale.value),
         max: Math.max(range.max, scale.value),
-        decimals: Math.max(range.decimals, decimalsOf(scale.value)),
+        decimals: Math.max(range.decimals, scale.decimals ?? 0),
       });
     }
   }

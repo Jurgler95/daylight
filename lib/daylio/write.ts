@@ -39,7 +39,7 @@ export function writeDaylioCsv(rows: readonly DaylioRow[]): string {
         row.time,
         row.mood,
         row.activities.join(ACTIVITY_SEPARATOR),
-        row.scales.map((scale) => `${scale.name}: ${scale.value}`).join(ACTIVITY_SEPARATOR),
+        row.scales.map((scale) => `${scale.name}: ${scale.decimals === undefined ? scale.value : scale.value.toFixed(scale.decimals)}`).join(ACTIVITY_SEPARATOR),
         encodeNote(row.noteTitle),
         encodeNote(row.note),
       ],
