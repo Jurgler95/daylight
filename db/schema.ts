@@ -234,6 +234,38 @@ export const turningPoints = sqliteTable('turning_points', {
 });
 
 /**
+ * Something the user tries for a while ("no coffee after 2 pm"), to compare the days before it with
+ * the days during it. The state (planned, running, over) is never stored but follows from the dates.
+ * There is no column for the planned length: `end_date` (inclusive) is set from start and length on
+ * creation and moved when the experiment is ended early.
+ */
+export const experiments = sqliteTable('experiments', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  title: text('title').notNull(),
+  note: text('note'),
+  start_date: text('start_date').notNull(),
+  end_date: text('end_date').notNull(),
+  /** Ask "kept today?" in the entry editor. */
+  check_in: integer('check_in', { mode: 'boolean' }).notNull().default(false),
+  /** The card on "Heute" after the end was opened or put away (or never needed). */
+  result_seen: integer('result_seen', { mode: 'boolean' }).notNull().default(false),
+  ...timestamps,
+});
+
+/** The answer to "kept today?" for one day of an experiment. Belongs to the day, not to an entry. */
+export const experimentDays = sqliteTable(
+  'experiment_days',
+  {
+    experiment_id: integer('experiment_id')
+      .notNull()
+      .references(() => experiments.id, { onDelete: 'cascade' }),
+    date: text('date').notNull(),
+    kept: integer('kept', { mode: 'boolean' }).notNull(),
+  },
+  (t) => [primaryKey({ columns: [t.experiment_id, t.date] })],
+);
+
+/**
  * Days on which "Heute" showed the hint for a good next day, so it comes about once to four times
  * in two weeks however long the app was closed. Not part of exports: it only paces the hint.
  */
@@ -261,6 +293,8 @@ export type PlannedActivity = typeof plannedActivities.$inferSelect;
 export type Settings = typeof settings.$inferSelect;
 export type HealthDay = typeof healthDays.$inferSelect;
 export type TurningPoint = typeof turningPoints.$inferSelect;
+export type Experiment = typeof experiments.$inferSelect;
+export type ExperimentDay = typeof experimentDays.$inferSelect;
 export type EntrySource = (typeof ENTRY_SOURCES)[number];
 export type ScaleKind = (typeof SCALE_KINDS)[number];
 export type MoodLevel = (typeof MOOD_LEVELS)[number];
