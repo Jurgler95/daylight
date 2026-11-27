@@ -1233,8 +1233,8 @@
     "interim": "Hasil sementara. Apakah perbedaannya melampaui naik turunmu yang biasa, Daylight tunjukkan di akhir.",
     "noise": {
       "unjudgeable": "Waktu sebelum eksperimen tidak cukup untuk dibandingkan dengan naik turunmu yang biasa.",
-      "larger": "Perbedaan sebesar ini dalam riwayatmu hanya muncul pada {{share}} hari acuan antara dua periode yang sama panjang.",
-      "usual": "Perbedaan sebesar ini dalam riwayatmu muncul pada {{share}} hari acuan. Itu masih dalam naik turunmu yang biasa.",
+      "larger": "Dalam riwayatmu, dua periode berurutan seperti ini hanya berbeda sebesar ini pada {{share}} kasus.",
+      "usual": "Dalam riwayatmu, dua periode berurutan seperti ini berbeda sebesar ini pada {{share}} kasus. Itu masih dalam naik turunmu yang biasa.",
       "preliminary": "Sementara: riwayatmu masih cukup pendek untuk ini.",
       "many": "Makin banyak nilai yang dibandingkan, makin mungkin ada yang menonjol secara kebetulan."
     },

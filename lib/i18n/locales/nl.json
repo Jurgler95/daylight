@@ -1239,8 +1239,8 @@
     "interim": "Tussenstand. Of het verschil buiten je gewone schommelingen valt, laat Daylight aan het eind zien.",
     "noise": {
       "unjudgeable": "De tijd vóór het experiment is te kort voor een vergelijking met je gewone schommelingen.",
-      "larger": "Zo'n groot verschil kwam in je geschiedenis maar op {{share}} van de peildagen voor tussen twee even lange periodes.",
-      "usual": "Zo'n groot verschil kwam in je geschiedenis op {{share}} van de peildagen voor. Het valt binnen je gewone schommelingen.",
+      "larger": "In je geschiedenis verschilden twee opeenvolgende periodes zoals deze maar in {{share}} van de gevallen zo sterk.",
+      "usual": "In je geschiedenis verschilden twee opeenvolgende periodes zoals deze in {{share}} van de gevallen zo sterk. Het valt binnen je gewone schommelingen.",
       "preliminary": "Voorlopig: je geschiedenis is hiervoor nog vrij kort.",
       "many": "Hoe meer waarden je vergelijkt, hoe eerder er toevallig een opvalt."
     },

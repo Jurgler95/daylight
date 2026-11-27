@@ -1239,8 +1239,8 @@
     "interim": "Zwischenstand. Ob der Unterschied über deine üblichen Schwankungen hinausgeht, zeigt Daylight am Ende.",
     "noise": {
       "unjudgeable": "Für einen Vergleich mit deinen üblichen Schwankungen reicht die Zeit vor dem Experiment nicht.",
-      "larger": "Ein so großer Unterschied kam in deiner Vorgeschichte nur an {{share}} der Stichtage zwischen zwei gleich langen Zeiträumen vor.",
-      "usual": "Ein so großer Unterschied kam in deiner Vorgeschichte an {{share}} der Stichtage vor. Er liegt im Rahmen deiner üblichen Schwankungen.",
+      "larger": "In deiner Vorgeschichte gab es einen so großen Unterschied zwischen zwei aufeinanderfolgenden Zeiträumen wie diesen nur in {{share}} der Fälle.",
+      "usual": "In deiner Vorgeschichte gab es einen so großen Unterschied zwischen zwei aufeinanderfolgenden Zeiträumen wie diesen in {{share}} der Fälle. Er liegt im Rahmen deiner üblichen Schwankungen.",
       "preliminary": "Vorläufig: Deine Vorgeschichte ist dafür noch recht kurz.",
       "many": "Je mehr Werte verglichen werden, desto eher fällt einer zufällig auf."
     },

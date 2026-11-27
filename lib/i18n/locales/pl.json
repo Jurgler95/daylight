@@ -1383,8 +1383,8 @@
     "interim": "Stan pośredni. Czy różnica wykracza poza Twoje zwykłe wahania, Daylight pokaże na końcu.",
     "noise": {
       "unjudgeable": "Czas przed eksperymentem jest za krótki, by porównać różnicę z Twoimi zwykłymi wahaniami.",
-      "larger": "Tak duża różnica pojawiła się w Twojej historii tylko w {{share}} dni odniesienia między dwoma równie długimi okresami.",
-      "usual": "Tak duża różnica pojawiła się w Twojej historii w {{share}} dni odniesienia. Mieści się w Twoich zwykłych wahaniach.",
+      "larger": "W Twojej historii dwa następujące po sobie okresy takie jak te różniły się tak bardzo tylko w {{share}} przypadków.",
+      "usual": "W Twojej historii dwa następujące po sobie okresy takie jak te różniły się tak bardzo w {{share}} przypadków. Mieści się to w Twoich zwykłych wahaniach.",
       "preliminary": "Wstępnie: Twoja historia jest do tego jeszcze dość krótka.",
       "many": "Im więcej wartości się porównuje, tym łatwiej któraś wyróżni się przypadkiem."
     },

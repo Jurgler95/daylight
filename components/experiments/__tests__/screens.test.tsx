@@ -246,7 +246,7 @@ describe('the comparison', () => {
     mockParams = { id: String(over.id) };
     await render(<ExperimentDetailScreen />);
     expect(screen.getByText(/^Im Experiment lag deine Stimmung im Schnitt bei 5,0, in den 28 Tagen davor bei/)).toBeTruthy();
-    expect(screen.getByText(/kam in deiner Vorgeschichte nur an .* der Stichtage zwischen zwei gleich langen Zeiträumen vor/)).toBeTruthy();
+    expect(screen.getByText(/^In deiner Vorgeschichte gab es einen so großen Unterschied zwischen zwei aufeinanderfolgenden Zeiträumen wie diesen nur in .* der Fälle\.$/)).toBeTruthy();
     expect(screen.queryByText(/Vorläufig/)).toBeNull();
     expect(screen.queryByText(/Zwischenstand/)).toBeNull();
     expect(screen.getByText(/es zeigt keine Ursache/)).toBeTruthy();

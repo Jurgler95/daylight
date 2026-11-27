@@ -1239,8 +1239,8 @@
     "interim": "Interim result. Daylight shows at the end whether the difference goes beyond your usual ups and downs.",
     "noise": {
       "unjudgeable": "The time before the experiment is not long enough to compare with your usual ups and downs.",
-      "larger": "A difference this large came up in your history on only {{share}} of the reference days between two stretches of the same length.",
-      "usual": "A difference this large came up in your history on {{share}} of the reference days. It lies within your usual ups and downs.",
+      "larger": "In your history, two back-to-back stretches like these differed this much in only {{share}} of cases.",
+      "usual": "In your history, two back-to-back stretches like these differed this much in {{share}} of cases. It lies within your usual ups and downs.",
       "preliminary": "Preliminary: your history is still fairly short for this.",
       "many": "The more values are compared, the likelier one stands out by chance."
     },

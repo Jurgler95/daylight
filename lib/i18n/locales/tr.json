@@ -1239,8 +1239,8 @@
     "interim": "Ara durum. Farkın olağan iniş çıkışlarının ötesine geçip geçmediğini Daylight sonunda gösterir.",
     "noise": {
       "unjudgeable": "Deneyden önceki süre, olağan iniş çıkışlarınla karşılaştırmak için yetmiyor.",
-      "larger": "Bu kadar büyük bir fark geçmişinde, aynı uzunluktaki iki dönem arasında referans günlerinin yalnızca {{share}} kadarında görüldü.",
-      "usual": "Bu kadar büyük bir fark geçmişinde referans günlerinin {{share}} kadarında görüldü. Olağan iniş çıkışlarının içinde kalıyor.",
+      "larger": "Geçmişinde bunlar gibi art arda iki dönem arasında bu kadar büyük bir fark, durumların yalnızca {{share}} kadarında görüldü.",
+      "usual": "Geçmişinde bunlar gibi art arda iki dönem arasında bu kadar büyük bir fark, durumların {{share}} kadarında görüldü. Olağan iniş çıkışlarının içinde kalıyor.",
       "preliminary": "Ön sonuç: Geçmişin bunun için henüz oldukça kısa.",
       "many": "Ne kadar çok değer karşılaştırılırsa, birinin tesadüfen göze çarpması o kadar olasıdır."
     },

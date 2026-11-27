@@ -1311,8 +1311,8 @@
     "interim": "Resultado parcial. Se a diferença vai além dos seus altos e baixos habituais, Daylight mostra no fim.",
     "noise": {
       "unjudgeable": "Não há tempo suficiente antes do experimento para comparar com seus altos e baixos habituais.",
-      "larger": "Uma diferença tão grande apareceu no seu histórico em apenas {{share}} dos dias de referência entre dois períodos de mesma duração.",
-      "usual": "Uma diferença tão grande apareceu no seu histórico em {{share}} dos dias de referência. Ela está dentro dos seus altos e baixos habituais.",
+      "larger": "No seu histórico, dois períodos seguidos como estes tiveram uma diferença tão grande em apenas {{share}} dos casos.",
+      "usual": "No seu histórico, dois períodos seguidos como estes tiveram uma diferença tão grande em {{share}} dos casos. Ela está dentro dos seus altos e baixos habituais.",
       "preliminary": "Provisório: seu histórico ainda é bem curto para isso.",
       "many": "Quanto mais valores são comparados, mais fácil um deles se destacar por acaso."
     },

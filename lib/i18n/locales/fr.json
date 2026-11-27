@@ -1311,8 +1311,8 @@
     "interim": "Point d'étape. Daylight montre à la fin si l'écart dépasse tes variations habituelles.",
     "noise": {
       "unjudgeable": "La période avant l'expérience ne suffit pas pour comparer avec tes variations habituelles.",
-      "larger": "Un écart aussi grand n'est apparu dans ton historique que pour {{share}} des jours de référence entre deux périodes de même durée.",
-      "usual": "Un écart aussi grand est apparu dans ton historique pour {{share}} des jours de référence. Il reste dans tes variations habituelles.",
+      "larger": "Dans ton historique, deux périodes consécutives comme celles-ci n'ont présenté un écart aussi grand que dans {{share}} des cas.",
+      "usual": "Dans ton historique, deux périodes consécutives comme celles-ci ont présenté un écart aussi grand dans {{share}} des cas. Il reste dans tes variations habituelles.",
       "preliminary": "Provisoire : ton historique est encore assez court pour cela.",
       "many": "Plus on compare de valeurs, plus l'une d'elles risque de ressortir par hasard."
     },
