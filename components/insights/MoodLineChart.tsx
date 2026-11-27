@@ -54,7 +54,8 @@ export function MoodLineChart({ points, window, mean, iconFor, marks = [] }: Pro
   });
   const shownMarks = marks.filter((date) => date >= window.from && date <= window.to);
   const last = points[points.length - 1];
-  const label = t('insights.trend.a11y', {
+  // Without a mean (turning points, experiments) the label leaves that part out rather than saying "Schnitt ,".
+  const label = t(mean === null ? 'insights.trend.a11yNoMean' : 'insights.trend.a11y', {
     from: formatShort(window.from),
     to: formatShort(window.to),
     count: points.length,

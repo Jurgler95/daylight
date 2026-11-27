@@ -325,7 +325,8 @@
       "title": "Verloop",
       "day": "Dag",
       "week": "7-daags gemiddelde",
-      "a11y": "Stemming van {{from}} tot {{to}}, {{count}} dagen, gemiddelde {{mean}}, laatste 7-daags gemiddelde {{last}}"
+      "a11y": "Stemming van {{from}} tot {{to}}, {{count}} dagen, gemiddelde {{mean}}, laatste 7-daags gemiddelde {{last}}",
+      "a11yNoMean": "Stemming van {{from}} tot {{to}}, {{count}} dagen, laatste 7-daags gemiddelde {{last}}"
     },
     "distribution": {
       "title": "Verdeling",

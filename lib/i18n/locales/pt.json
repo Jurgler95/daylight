@@ -349,7 +349,8 @@
       "title": "Evolução",
       "day": "Dia",
       "week": "Média de 7 dias",
-      "a11y": "Humor de {{from}} a {{to}}, {{count}} dias, média {{mean}}, última média de 7 dias {{last}}"
+      "a11y": "Humor de {{from}} a {{to}}, {{count}} dias, média {{mean}}, última média de 7 dias {{last}}",
+      "a11yNoMean": "Humor de {{from}} a {{to}}, {{count}} dias, última média de 7 dias {{last}}"
     },
     "distribution": {
       "title": "Distribuição",

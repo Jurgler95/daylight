@@ -325,7 +325,8 @@
       "title": "Trend",
       "day": "Day",
       "week": "7-day average",
-      "a11y": "Mood from {{from}} to {{to}}, {{count}} days, average {{mean}}, latest 7-day average {{last}}"
+      "a11y": "Mood from {{from}} to {{to}}, {{count}} days, average {{mean}}, latest 7-day average {{last}}",
+      "a11yNoMean": "Mood from {{from}} to {{to}}, {{count}} days, latest 7-day average {{last}}"
     },
     "distribution": {
       "title": "Distribution",

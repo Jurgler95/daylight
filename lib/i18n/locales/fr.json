@@ -349,7 +349,8 @@
       "title": "Évolution",
       "day": "Jour",
       "week": "Moyenne sur 7 jours",
-      "a11y": "Humeur du {{from}} au {{to}}, {{count}} jours, moyenne {{mean}}, dernière moyenne sur 7 jours {{last}}"
+      "a11y": "Humeur du {{from}} au {{to}}, {{count}} jours, moyenne {{mean}}, dernière moyenne sur 7 jours {{last}}",
+      "a11yNoMean": "Humeur du {{from}} au {{to}}, {{count}} jours, dernière moyenne sur 7 jours {{last}}"
     },
     "distribution": {
       "title": "Répartition",

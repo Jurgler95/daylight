@@ -349,7 +349,8 @@
       "title": "Evolución",
       "day": "Día",
       "week": "Promedio de 7 días",
-      "a11y": "Ánimo del {{from}} al {{to}}, {{count}} días, promedio {{mean}}, último promedio de 7 días {{last}}"
+      "a11y": "Ánimo del {{from}} al {{to}}, {{count}} días, promedio {{mean}}, último promedio de 7 días {{last}}",
+      "a11yNoMean": "Ánimo del {{from}} al {{to}}, {{count}} días, último promedio de 7 días {{last}}"
     },
     "distribution": {
       "title": "Distribución",

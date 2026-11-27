@@ -325,7 +325,8 @@
       "title": "Verlauf",
       "day": "Tag",
       "week": "7-Tage-Mittel",
-      "a11y": "Stimmung vom {{from}} bis {{to}}, {{count}} Tage, Schnitt {{mean}}, zuletzt im 7-Tage-Mittel {{last}}"
+      "a11y": "Stimmung vom {{from}} bis {{to}}, {{count}} Tage, Schnitt {{mean}}, zuletzt im 7-Tage-Mittel {{last}}",
+      "a11yNoMean": "Stimmung vom {{from}} bis {{to}}, {{count}} Tage, zuletzt im 7-Tage-Mittel {{last}}"
     },
     "distribution": {
       "title": "Verteilung",

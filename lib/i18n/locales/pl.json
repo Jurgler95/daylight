@@ -373,7 +373,8 @@
       "title": "Przebieg",
       "day": "Dzień",
       "week": "Średnia z 7 dni",
-      "a11y": "Nastrój od {{from}} do {{to}}, liczba dni: {{count}}, średnia {{mean}}, ostatnia średnia z 7 dni {{last}}"
+      "a11y": "Nastrój od {{from}} do {{to}}, liczba dni: {{count}}, średnia {{mean}}, ostatnia średnia z 7 dni {{last}}",
+      "a11yNoMean": "Nastrój od {{from}} do {{to}}, liczba dni: {{count}}, ostatnia średnia z 7 dni {{last}}"
     },
     "distribution": {
       "title": "Rozkład",

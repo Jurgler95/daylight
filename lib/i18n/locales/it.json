@@ -349,7 +349,8 @@
       "title": "Andamento",
       "day": "Giorno",
       "week": "Media su 7 giorni",
-      "a11y": "Umore dal {{from}} al {{to}}, {{count}} giorni, media {{mean}}, ultima media su 7 giorni {{last}}"
+      "a11y": "Umore dal {{from}} al {{to}}, {{count}} giorni, media {{mean}}, ultima media su 7 giorni {{last}}",
+      "a11yNoMean": "Umore dal {{from}} al {{to}}, {{count}} giorni, ultima media su 7 giorni {{last}}"
     },
     "distribution": {
       "title": "Distribuzione",

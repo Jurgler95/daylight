@@ -290,6 +290,8 @@ describe('the comparison', () => {
     expect(screen.getByText(/verschiedenen Jahreszeiten/)).toBeTruthy();
     expect(screen.getByText(/Rückkehr zum Gewohnten/)).toBeTruthy();
     expect(screen.getByText('Je mehr Werte verglichen werden, desto eher fällt einer zufällig auf.')).toBeTruthy();
+    // The chart has no mean here, so its label does not say "Schnitt ,".
+    expect(screen.getByLabelText(/^Stimmung vom .+, \d+ Tage, zuletzt im 7-Tage-Mittel \d,\d$/)).toBeTruthy();
     // The verdict of a scale stands in its own line under the values, so the name keeps its room.
     expect(screen.getByText(/^(größer als üblich|im Rahmen), /)).toBeTruthy();
     expect(screen.getByLabelText(/^Energie: .+ → .+, (größer als üblich|im Rahmen), /)).toBeTruthy();

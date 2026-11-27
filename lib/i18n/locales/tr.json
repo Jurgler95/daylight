@@ -325,7 +325,8 @@
       "title": "Seyir",
       "day": "Gün",
       "week": "7 günlük ortalama",
-      "a11y": "{{from}} ile {{to}} arası ruh hali, {{count}} gün, ortalama {{mean}}, son 7 günlük ortalama {{last}}"
+      "a11y": "{{from}} ile {{to}} arası ruh hali, {{count}} gün, ortalama {{mean}}, son 7 günlük ortalama {{last}}",
+      "a11yNoMean": "{{from}} ile {{to}} arası ruh hali, {{count}} gün, son 7 günlük ortalama {{last}}"
     },
     "distribution": {
       "title": "Dağılım",

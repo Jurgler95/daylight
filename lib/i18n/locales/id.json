@@ -325,7 +325,8 @@
       "title": "Tren",
       "day": "Hari",
       "week": "Rata-rata 7 hari",
-      "a11y": "Suasana hati dari {{from}} sampai {{to}}, {{count}} hari, rata-rata {{mean}}, rata-rata 7 hari terakhir {{last}}"
+      "a11y": "Suasana hati dari {{from}} sampai {{to}}, {{count}} hari, rata-rata {{mean}}, rata-rata 7 hari terakhir {{last}}",
+      "a11yNoMean": "Suasana hati dari {{from}} sampai {{to}}, {{count}} hari, rata-rata 7 hari terakhir {{last}}"
     },
     "distribution": {
       "title": "Distribusi",
