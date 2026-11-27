@@ -4,7 +4,6 @@ import { experimentState } from '@/lib/experiments/rules';
 
 import {
   clearJournal,
-  countExperiments,
   createExperiment,
   deleteExperiment,
   endExperiment,
@@ -26,7 +25,6 @@ describe('experiments', () => {
     const experiment = createExperiment(db, { title: '  Kein Kaffee nach 14 Uhr ', note: ' ', start_date: '2026-12-01', days: 28 }, today);
     expect(experiment).toMatchObject({ title: 'Kein Kaffee nach 14 Uhr', note: null, start_date: '2026-12-01', end_date: '2026-12-28', check_in: false, result_seen: false });
     expect(listExperiments(db)).toHaveLength(1);
-    expect(countExperiments(db)).toBe(1);
   });
 
   it('refuses titles, lengths and starts outside the rules', () => {
@@ -38,7 +36,7 @@ describe('experiments', () => {
     expect(() => createExperiment(db, { title: 'A', start_date: '2025-11-26', days: 28 }, today)).toThrow('startTooEarly');
     expect(() => createExperiment(db, { title: 'A', start_date: '2027-01-27', days: 28 }, today)).toThrow('startTooLate');
     expect(() => createExperiment(db, { title: 'A', start_date: '2026-13-01', days: 28 }, today)).toThrow();
-    expect(countExperiments(db)).toBe(0);
+    expect(listExperiments(db)).toEqual([]);
   });
 
   it('counts one that is already over as seen, so "Heute" shows no card for it', () => {

@@ -1,4 +1,4 @@
-import { and, asc, count, eq, gt, lt, ne, or } from 'drizzle-orm';
+import { and, asc, eq, gt, lt, ne, or } from 'drizzle-orm';
 
 import { today as todayDate, type DateString } from '@/lib/dates';
 import {
@@ -23,10 +23,6 @@ export function listExperiments(db: Database): Experiment[] {
 
 export function getExperiment(db: Database, id: number): Experiment | undefined {
   return db.select().from(experiments).where(eq(experiments.id, id)).get();
-}
-
-export function countExperiments(db: Database): number {
-  return db.select({ n: count() }).from(experiments).get()?.n ?? 0;
 }
 
 function found(db: Database, id: number): Experiment {

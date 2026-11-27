@@ -27,45 +27,44 @@ describe('noiseCheck', () => {
   it('calls a difference like the usual ups and downs "usual"', () => {
     const next = random(7);
     const result = noiseCheck({ series: series(600, 28, () => 3 + (next() - 0.5) * 2), start, beforeLength: 28, duringLength: 28, minDays: 7 })!;
-    expect(result.verdict).toMatchObject({ kind: 'usual', preliminary: false });
+    expect(result).toMatchObject({ kind: 'usual', preliminary: false });
   });
 
   it('calls a clear jump exactly at the start "larger than usual"', () => {
     const next = random(11);
     const result = noiseCheck({ series: series(600, 28, (_, inside) => (inside ? 4.5 : 3) + (next() - 0.5)), start, beforeLength: 28, duringLength: 28, minDays: 7 })!;
-    expect(result.difference).toBeGreaterThan(1);
-    expect(result.verdict).toMatchObject({ kind: 'larger', share: 0, preliminary: false });
+    expect(result).toMatchObject({ kind: 'larger', share: 0, preliminary: false });
   });
 
   it('cannot judge with a short history', () => {
     const result = noiseCheck({ series: series(60, 28, () => 3), start, beforeLength: 28, duringLength: 28, minDays: 7 })!;
-    expect(result.verdict).toEqual({ kind: 'unjudgeable' });
+    expect(result).toEqual({ kind: 'unjudgeable' });
   });
 
   it('marks a medium history as preliminary', () => {
     const next = random(3);
     // Days s from 28 to 172 before the start: 145 days, between 2 and 4 times 56.
     const result = noiseCheck({ series: series(200, 28, (_, inside) => (inside ? 5 : 2) + next()), start, beforeLength: 28, duringLength: 28, minDays: 7 })!;
-    expect(result.verdict).toMatchObject({ kind: 'larger', preliminary: true, pairs: 145 });
+    expect(result).toMatchObject({ kind: 'larger', preliminary: true, pairs: 145 });
   });
 
   it('never lets a pair reach into the experiment', () => {
     // Flat before, a jump in the experiment only: any pair touching it would differ as much.
     const result = noiseCheck({ series: series(400, 28, (_, inside) => (inside ? 5 : 3)), start, beforeLength: 28, duringLength: 28, minDays: 7 })!;
-    expect(result.verdict).toMatchObject({ kind: 'larger', share: 0, pairs: 400 - 28 - 28 + 1 });
+    expect(result).toMatchObject({ kind: 'larger', share: 0, pairs: 400 - 28 - 28 + 1 });
   });
 
   it('works with a shortened "Davor" and caps the days s', () => {
     const next = random(5);
     const result = noiseCheck({ series: series(1200, 28, () => 3 + next()), start, beforeLength: 10, duringLength: 28, minDays: 7 })!;
-    expect(result.verdict).toMatchObject({ kind: 'usual', pairs: NOISE_MAX_DAYS });
+    expect(result).toMatchObject({ kind: 'usual', pairs: NOISE_MAX_DAYS });
   });
 
   it('skips gaps and leaves a value out when the real pair has too few days', () => {
     const next = random(9);
     // Every third day missing: windows of 28 days still hold about 18 values.
     const gappy = noiseCheck({ series: series(600, 28, (i) => (((i % 3) + 3) % 3 === 0 ? null : 3 + next())), start, beforeLength: 28, duringLength: 28, minDays: 7 })!;
-    expect(gappy.verdict.kind).toBe('usual');
+    expect(gappy.kind).toBe('usual');
     // Only five values in the experiment.
     expect(noiseCheck({ series: series(600, 28, (i, inside) => (inside && i >= 5 ? null : 3)), start, beforeLength: 28, duringLength: 28, minDays: 7 })).toBeNull();
     // Nothing before the start.
@@ -78,7 +77,7 @@ describe('noiseCheck', () => {
     // of 245 days. Only the valid days count, so this is too little for any verdict.
     const value = (i: number, inside: boolean) => (i >= -300 && i < -240) || i >= -60 ? (inside ? 3.4 : 3) + (next() - 0.5) : null;
     const result = noiseCheck({ series: series(300, 28, value), start, beforeLength: 28, duringLength: 28, minDays: 7 })!;
-    expect(result.verdict).toEqual({ kind: 'unjudgeable' });
+    expect(result).toEqual({ kind: 'unjudgeable' });
   });
 
   it('ignores days after the experiment', () => {

@@ -49,19 +49,11 @@ export interface NoiseInput {
   minDays: number;
 }
 
-export interface NoiseResult {
-  /** Mean in the experiment minus mean before. */
-  difference: number;
-  before: number;
-  during: number;
-  verdict: NoiseVerdict;
-}
-
 /**
  * Null when the real pair already has fewer than `minDays` days with a value on a side: then the
  * value is not compared at all. Linear in the length of the history (running sums).
  */
-export function noiseCheck({ series, start, beforeLength: lb, duringLength: le, minDays }: NoiseInput): NoiseResult | null {
+export function noiseCheck({ series, start, beforeLength: lb, duringLength: le, minDays }: NoiseInput): NoiseVerdict | null {
   if (lb <= 0 || le <= 0) return null;
   let first: string | null = null;
   for (const date of series.keys()) if (first === null || date < first) first = date;
@@ -87,7 +79,6 @@ export function noiseCheck({ series, start, beforeLength: lb, duringLength: le, 
   const before = meanOf(Math.max(0, startIndex - lb), startIndex);
   const during = meanOf(startIndex, startIndex + le);
   if (before === null || during === null) return null;
-  const difference = during - before;
 
   // A day `s` counts when its first stretch starts on or after the first value and its second ends
   // on the day before the start at the latest, so no pair ever reaches into the experiment.
@@ -95,7 +86,7 @@ export function noiseCheck({ series, start, beforeLength: lb, duringLength: le, 
   const firstDay = Math.max(lb, last - NOISE_MAX_DAYS + 1);
   let valid = 0;
   let asLarge = 0;
-  const threshold = Math.abs(difference) - 1e-9;
+  const threshold = Math.abs(during - before) - 1e-9;
   for (let s = firstDay; s <= last; s++) {
     const a = meanOf(s - lb, s);
     const b = meanOf(s, s + le);
@@ -105,12 +96,7 @@ export function noiseCheck({ series, start, beforeLength: lb, duringLength: le, 
   }
 
   const unit = lb + le;
-  if (valid < NOISE_SPAN_PRELIMINARY * unit) return { difference, before, during, verdict: { kind: 'unjudgeable' } };
+  if (valid < NOISE_SPAN_PRELIMINARY * unit) return { kind: 'unjudgeable' };
   const share = asLarge / valid;
-  return {
-    difference,
-    before,
-    during,
-    verdict: { kind: share <= NOISE_SHARE ? 'larger' : 'usual', share, preliminary: valid < NOISE_SPAN_FULL * unit, pairs: valid },
-  };
+  return { kind: share <= NOISE_SHARE ? 'larger' : 'usual', share, preliminary: valid < NOISE_SPAN_FULL * unit, pairs: valid };
 }

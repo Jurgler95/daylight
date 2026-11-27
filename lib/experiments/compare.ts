@@ -125,7 +125,7 @@ export function compareExperiment({ experiment, experiments, days, health, scale
   const lb = before ? windowLength(before) : 0;
 
   const verdictOf = (series: Map<string, number>, minDays: number): NoiseVerdict | null =>
-    judge ? (noiseCheck({ series, start, beforeLength: lb, duringLength: elapsed, minDays })?.verdict ?? null) : null;
+    judge ? noiseCheck({ series, start, beforeLength: lb, duringLength: elapsed, minDays }) : null;
 
   const beforeMean = mean(beforeList.map((day) => day.mean));
   const duringMean = mean(duringList.map((day) => day.mean));

@@ -215,5 +215,3 @@ export type ExportSettings = z.infer<typeof settingsSchema>;
 export type ExportPhoto = ExportPayload['entry_photos'][number];
 export type ExportHealthDay = z.infer<typeof healthDaySchema>;
 export type ExportTurningPoint = z.infer<typeof turningPointSchema>;
-export type ExportExperiment = z.infer<typeof experimentSchema>;
-export type ExportExperimentDay = z.infer<typeof experimentDaySchema>;
