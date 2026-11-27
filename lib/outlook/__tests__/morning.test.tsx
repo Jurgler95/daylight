@@ -11,6 +11,7 @@ import { buildCatalog } from '@/lib/catalog/catalog';
 import { addDaysToDateString, type DateString } from '@/lib/dates';
 import { useDataVersion } from '@/lib/store/dataVersion';
 
+import type { Outlook, OutlookRange } from '../outlook';
 import type { GoodTomorrow, TomorrowInput, TomorrowResult } from '../tomorrow';
 import { parseStoredHint, resetTomorrow, useHintOnToday } from '../useGoodTomorrow';
 
@@ -52,15 +53,34 @@ function diary(...dates: string[]): Database {
   return db;
 }
 
-async function hintOn(db: Database, finds = true) {
+/** An outlook for tomorrow with this range, or one still too short to say anything. */
+const quiet: Outlook = { status: 'tooFew', days: 10, needed: 30 };
+function outlookWith(range: Partial<OutlookRange>): Outlook {
+  const full: OutlookRange = { expected: 4, low: 3.5, high: 4.5, mid: 4, lowLevel: 4, highLevel: 5, hardChance: null, confidence: 0.5, reasons: [], ...range };
+  const day = { date: addDaysToDateString(today, 1), horizon: 1, weekday: 0, range: full, planned: [], recurring: [], weekdayMean: 4, weekdayDays: 10 };
+  return { status: 'ready', days: [day], backtest: { horizons: [] }, shownHorizons: [1] } as unknown as Outlook;
+}
+
+async function mount(db: Database, finds: boolean) {
   mockDb = db;
   mockFinds = finds;
   await act(async () => {
     resetTomorrow();
     useDataVersion.getState().bump();
   });
-  const view = await renderHook(() => useHintOnToday(today, []));
+  const view = await renderHook(({ outlook }: { outlook: Outlook | null }) => useHintOnToday(today, [], outlook), { initialProps: { outlook: quiet } });
   await waitFor(() => expect(view.result.current.hint !== null || !finds).toBe(true));
+  return view;
+}
+
+async function hintOn(db: Database, finds = true) {
+  return (await mount(db, finds)).result;
+}
+
+/** The hint once it was found with a quiet outlook, then with `outlook` instead. */
+async function hintWith(db: Database, outlook: Outlook | null) {
+  const view = await mount(db, true);
+  await act(async () => view.rerender({ outlook }));
   return view.result;
 }
 
@@ -96,6 +116,35 @@ describe('the hint on "Heute"', () => {
     await hintOn(db, false);
     await waitFor(() => expect(listTomorrowSnapshots(db, today).size).toBe(0));
     expect(listTomorrowHints(db, today)).toEqual([today]);
+  });
+
+  it('gives way where the outlook for tomorrow names a hard day or stays below good', async () => {
+    for (const range of [{ hardChance: 0.2 }, { mid: 3, highLevel: 3 }] as const) {
+      const db = diary(today);
+      const result = await hintWith(db, outlookWith(range));
+      expect(result.current.hint).toBeNull();
+      await act(async () => result.current.markShown());
+      expect(listTomorrowHints(db, today)).toEqual([]);
+    }
+  });
+
+  it('stays where the outlook agrees, and waits while it is still being worked out', async () => {
+    expect((await hintWith(diary(today), outlookWith({}))).current.hint).toMatchObject({ date: addDaysToDateString(today, 1) });
+    expect((await hintWith(diary(today), null)).current.hint).toBeNull();
+  });
+
+  it('forgets today’s stored hint once the outlook turns against it', async () => {
+    const db = diary(today);
+    markTomorrowHint(db, today, JSON.stringify({ ...evening, date: addDaysToDateString(today, 1) }));
+    await hintWith(db, outlookWith({ hardChance: 0.3 }));
+    await waitFor(() => expect(listTomorrowSnapshots(db, today).size).toBe(0));
+    expect(listTomorrowHints(db, today)).toEqual([today]);
+  });
+
+  it('leaves the morning’s hint as it was last night', async () => {
+    const db = diary(yesterday);
+    markTomorrowHint(db, yesterday, JSON.stringify(evening));
+    expect((await hintWith(db, outlookWith({ hardChance: 0.4 }))).current).toMatchObject({ morning: true, hint: evening });
   });
 
   it('reads nothing but a stored hint back', () => {
