@@ -51,7 +51,7 @@
     "unknownFile": "Bu dosya ne bir Daylight yedeği ne de bir Daylio dışa aktarımı ya da Daylio yedeği.",
     "invalidFile": "Dosya okunamıyor",
     "deleteWord": "SIFIRLA",
-    "deleteBody": "Tüm kayıtlar, fotoğraflar, ruh halleri, aktiviteler, planlar, sağlık verileri ve ayarlar bu cihazdan silinir.",
+    "deleteBody": "Tüm kayıtlar, fotoğraflar, ruh halleri, aktiviteler, planlar, dönüm noktaları, deneyler, sağlık verileri ve ayarlar bu cihazdan silinir.",
     "deleteBackupHint": "Verilerini saklamak için önce bir yedek paylaş.",
     "deleteConfirm": "Onaylamak için {{word}} yaz",
     "deleted": "Tüm veriler silindi",

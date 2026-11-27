@@ -54,7 +54,7 @@
     "unknownFile": "Este archivo no es una copia de seguridad de Daylight, ni una exportación o copia de seguridad de Daylio.",
     "invalidFile": "No se puede leer el archivo",
     "deleteWord": "BORRAR",
-    "deleteBody": "Se borrarán de este dispositivo todas las entradas, fotos, estados de ánimo, actividades, planes, datos de salud y ajustes.",
+    "deleteBody": "Se borrarán de este dispositivo todas las entradas, fotos, estados de ánimo, actividades, planes, puntos de inflexión, experimentos, datos de salud y ajustes.",
     "deleteBackupHint": "Si quieres conservar tus datos, comparte antes una copia de seguridad.",
     "deleteConfirm": "Escribe {{word}} para confirmar",
     "deleted": "Todos los datos borrados",

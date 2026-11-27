@@ -54,7 +54,7 @@
     "unknownFile": "Este arquivo não é um backup do Daylight, nem uma exportação ou um backup do Daylio.",
     "invalidFile": "Arquivo ilegível",
     "deleteWord": "APAGAR",
-    "deleteBody": "Todos os registros, fotos, humores, atividades, planos, dados de saúde e configurações serão apagados deste aparelho.",
+    "deleteBody": "Todos os registros, fotos, humores, atividades, planos, pontos de virada, experimentos, dados de saúde e configurações serão apagados deste aparelho.",
     "deleteBackupHint": "Para manter seus dados, compartilhe um backup antes.",
     "deleteConfirm": "Digite {{word}} para confirmar",
     "deleted": "Todos os dados apagados",

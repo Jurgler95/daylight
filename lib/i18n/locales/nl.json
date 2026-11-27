@@ -51,7 +51,7 @@
     "unknownFile": "Dit bestand is geen Daylight-back-up en ook geen Daylio-export of Daylio-back-up.",
     "invalidFile": "Bestand niet leesbaar",
     "deleteWord": "WISSEN",
-    "deleteBody": "Alle registraties, foto's, stemmingen, activiteiten, plannen, gezondheidsgegevens en instellingen worden van dit toestel gewist.",
+    "deleteBody": "Alle registraties, foto's, stemmingen, activiteiten, plannen, keerpunten, experimenten, gezondheidsgegevens en instellingen worden van dit toestel gewist.",
     "deleteBackupHint": "Wil je je gegevens bewaren, deel dan eerst een back-up.",
     "deleteConfirm": "Typ {{word}} om te bevestigen",
     "deleted": "Alle gegevens gewist",

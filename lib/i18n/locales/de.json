@@ -51,7 +51,7 @@
     "unknownFile": "Diese Datei ist weder eine Daylight-Sicherung noch ein Daylio-Export oder eine Daylio-Sicherung.",
     "invalidFile": "Datei nicht lesbar",
     "deleteWord": "LÖSCHEN",
-    "deleteBody": "Alle Einträge, Fotos, Stimmungen, Aktivitäten, Pläne, Gesundheitsdaten und Einstellungen werden von diesem Gerät gelöscht.",
+    "deleteBody": "Alle Einträge, Fotos, Stimmungen, Aktivitäten, Pläne, Wendepunkte, Experimente, Gesundheitsdaten und Einstellungen werden von diesem Gerät gelöscht.",
     "deleteBackupHint": "Wer die Daten behalten will, teilt vorher eine Sicherung.",
     "deleteConfirm": "Zum Bestätigen {{word}} eintippen",
     "deleted": "Alle Daten gelöscht",

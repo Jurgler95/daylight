@@ -54,7 +54,7 @@
     "unknownFile": "Ce fichier n'est ni une sauvegarde Daylight, ni un export ou une sauvegarde Daylio.",
     "invalidFile": "Fichier illisible",
     "deleteWord": "SUPPRIMER",
-    "deleteBody": "Toutes les entrées, photos, humeurs, activités, activités prévues, données de santé et réglages seront supprimés de cet appareil.",
+    "deleteBody": "Toutes les entrées, photos, humeurs, activités, activités prévues, tournants, expériences, données de santé et réglages seront supprimés de cet appareil.",
     "deleteBackupHint": "Pour garder tes données, partage d'abord une sauvegarde.",
     "deleteConfirm": "Tape {{word}} pour confirmer",
     "deleted": "Toutes les données ont été supprimées",

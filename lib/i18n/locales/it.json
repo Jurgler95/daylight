@@ -54,7 +54,7 @@
     "unknownFile": "Questo file non è né un backup di Daylight né un'esportazione o un backup di Daylio.",
     "invalidFile": "File non leggibile",
     "deleteWord": "ELIMINA",
-    "deleteBody": "Tutte le voci, le foto, gli umori, le attività, i piani, i dati sulla salute e le impostazioni verranno eliminati da questo dispositivo.",
+    "deleteBody": "Tutte le voci, le foto, gli umori, le attività, i piani, le svolte, gli esperimenti, i dati sulla salute e le impostazioni verranno eliminati da questo dispositivo.",
     "deleteBackupHint": "Per conservare i tuoi dati, condividi prima un backup.",
     "deleteConfirm": "Scrivi {{word}} per confermare",
     "deleted": "Tutti i dati eliminati",

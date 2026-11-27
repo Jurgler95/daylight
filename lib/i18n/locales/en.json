@@ -51,7 +51,7 @@
     "unknownFile": "This file is neither a Daylight backup nor a Daylio export or Daylio backup.",
     "invalidFile": "File not readable",
     "deleteWord": "DELETE",
-    "deleteBody": "All entries, photos, moods, activities, plans, health data and settings will be deleted from this device.",
+    "deleteBody": "All entries, photos, moods, activities, plans, turning points, experiments, health data and settings will be deleted from this device.",
     "deleteBackupHint": "To keep your data, share a backup first.",
     "deleteConfirm": "Type {{word}} to confirm",
     "deleted": "All data deleted",

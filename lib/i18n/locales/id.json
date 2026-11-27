@@ -51,7 +51,7 @@
     "unknownFile": "File ini bukan cadangan Daylight, bukan ekspor Daylio, dan bukan cadangan Daylio.",
     "invalidFile": "File tidak dapat dibaca",
     "deleteWord": "HAPUS",
-    "deleteBody": "Semua entri, foto, suasana hati, aktivitas, rencana, data kesehatan, dan pengaturan akan dihapus dari perangkat ini.",
+    "deleteBody": "Semua entri, foto, suasana hati, aktivitas, rencana, titik balik, eksperimen, data kesehatan, dan pengaturan akan dihapus dari perangkat ini.",
     "deleteBackupHint": "Untuk menyimpan datamu, bagikan cadangan terlebih dahulu.",
     "deleteConfirm": "Ketik {{word}} untuk mengonfirmasi",
     "deleted": "Semua data dihapus",

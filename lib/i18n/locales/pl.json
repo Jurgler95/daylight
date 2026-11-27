@@ -57,7 +57,7 @@
     "unknownFile": "Ten plik nie jest ani kopią zapasową Daylight, ani eksportem lub kopią zapasową Daylio.",
     "invalidFile": "Nie można odczytać pliku",
     "deleteWord": "USUŃ",
-    "deleteBody": "Wszystkie wpisy, zdjęcia, nastroje, aktywności, plany, dane o zdrowiu i ustawienia zostaną usunięte z tego urządzenia.",
+    "deleteBody": "Wszystkie wpisy, zdjęcia, nastroje, aktywności, plany, punkty zwrotne, eksperymenty, dane o zdrowiu i ustawienia zostaną usunięte z tego urządzenia.",
     "deleteBackupHint": "Aby zachować swoje dane, najpierw udostępnij kopię zapasową.",
     "deleteConfirm": "Wpisz {{word}}, aby potwierdzić",
     "deleted": "Wszystkie dane usunięte",
