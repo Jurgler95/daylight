@@ -57,14 +57,30 @@ describe('experiment rules', () => {
     expect(newDatesProblem({ start_date: '2026-10-01', end_date: '2026-10-28' }, { start: today, days: 7 }, today)).toBe('over');
   });
 
-  it('ends early only while running, yesterday or on the start day', () => {
+  it('ends early only while running and after the start day, on the day before', () => {
     expect(canEndEarly(span, today)).toBe(true);
     expect(canEndEarly(span, d('2026-11-19'))).toBe(false);
+    expect(canEndEarly(span, d('2026-11-20'))).toBe(false);
+    expect(canEndEarly(span, d('2026-11-21'))).toBe(true);
     expect(canEndEarly(span, d('2026-12-18'))).toBe(false);
     expect(earlyEndDate(span, today)).toBe('2026-11-26');
-    expect(earlyEndDate(span, d('2026-11-20'))).toBe('2026-11-20');
+    expect(earlyEndDate(span, d('2026-11-21'))).toBe('2026-11-20');
     expect(endDateAfterNo(span, d('2026-11-21'))).toBe('2026-11-20');
     expect(endDateAfterNo(span, d('2026-11-20'))).toBe('2026-11-20');
+  });
+
+  it('treats an experiment a "no" ended on its start day as over at once', () => {
+    // A "no" on the start day ends it there: one day, the start day, which is today.
+    const ended = { start_date: '2026-11-27', end_date: '2026-11-27', check_in: true };
+    expect(endDateAfterNo({ start_date: '2026-11-27', end_date: '2026-12-24' }, today)).toBe('2026-11-27');
+    expect(experimentState(ended, d('2026-11-26'))).toBe('planned');
+    expect(experimentState(ended, today)).toBe('over');
+    expect(canEndEarly(ended, today)).toBe(false);
+    expect(canAnswer(ended, today, today)).toBe(false);
+    expect(askingOn([ended], today, today)).toEqual([]);
+    expect(newDatesProblem(ended, { start: today, days: 28 }, today)).toBe('over');
+    // Any longer experiment still runs on its last day.
+    expect(experimentState({ start_date: '2026-11-26', end_date: '2026-11-27' }, today)).toBe('running');
   });
 
   it('finds overlaps of at least one day', () => {

@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 
 import '@/lib/i18n';
 import type { Database } from '@/db';
-import { createEntry, createExperiment, endExperiment, getExperiment, listExperiments, listMoods } from '@/db/repositories';
+import { createEntry, createExperiment, endExperiment, getExperiment, listExperiments, listMoods, setExperimentDays } from '@/db/repositories';
 import { createTestDb } from '@/db/testDb';
 import { addDaysToDateString, type DateString } from '@/lib/dates';
 import { buildExport } from '@/lib/export';
@@ -177,6 +177,23 @@ describe('the comparison', () => {
     mockParams = { id: String(short.id) };
     await render(<ExperimentDetailScreen />);
     expect(screen.getByText('Das Experiment lief nur 3 Tage. Für einen Vergleich braucht es mindestens 7 Tage.')).toBeTruthy();
+  });
+
+  it('offers no "Jetzt beenden" on the start day, and one a "no" ended there is over', async () => {
+    const db = diary('2026-06-01');
+    const fresh = add(db, 'Kein Kaffee', today);
+    mockParams = { id: String(fresh.id) };
+    await render(<ExperimentDetailScreen />);
+    expect(screen.queryByText('Jetzt beenden')).toBeNull();
+    expect(screen.getByText('Experiment löschen')).toBeTruthy();
+
+    setExperimentDays(db, today, { [fresh.id]: false }, today);
+    await act(async () => useDataVersion.getState().bump());
+    expect(screen.getByText('Das Experiment lief nur 1 Tag. Für einen Vergleich braucht es mindestens 7 Tage.')).toBeTruthy();
+    expect(screen.queryByText('Jetzt beenden')).toBeNull();
+    await render(<ExperimentsScreen />);
+    expect(screen.getByText('VORBEI')).toBeTruthy();
+    expect(screen.queryByText('LÄUFT')).toBeNull();
   });
 
   it('shows the interim numbers without a verdict while it runs, and ends it on request', async () => {

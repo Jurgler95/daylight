@@ -1,4 +1,6 @@
 import type { DateString } from '@/lib/dates';
+import { checkInCounts } from '@/lib/experiments/compare';
+import { experimentState } from '@/lib/experiments/rules';
 
 import {
   clearJournal,
@@ -68,7 +70,7 @@ describe('experiments', () => {
     expect(listExperimentDays(db, experiment.id).map((row) => row.date)).toEqual(['2026-11-25']);
   });
 
-  it('ends a running one yesterday and drops later answers, on the start day on the start day', () => {
+  it('ends a running one yesterday and drops later answers, not on the start day', () => {
     const db = createTestDb();
     const running = createExperiment(db, { title: 'A', start_date: '2026-11-20', days: 28, check_in: true }, today);
     setExperimentDays(db, '2026-11-26', { [running.id]: true }, today);
@@ -76,8 +78,9 @@ describe('experiments', () => {
     expect(endExperiment(db, running.id, today).end_date).toBe('2026-11-26');
     expect(listExperimentDays(db, running.id).map((row) => row.date)).toEqual(['2026-11-26']);
 
+    // On the start day there is nothing to end; it is deleted instead.
     const fresh = createExperiment(db, { title: 'B', start_date: today, days: 7 }, today);
-    expect(endExperiment(db, fresh.id, today).end_date).toBe(today);
+    expect(() => endExperiment(db, fresh.id, today)).toThrow('not running');
 
     const planned = createExperiment(db, { title: 'C', start_date: '2026-12-01', days: 7 }, today);
     expect(() => endExperiment(db, planned.id, today)).toThrow('not running');
@@ -135,8 +138,15 @@ describe('experiments', () => {
       const db = createTestDb();
       const experiment = createExperiment(db, { title: 'A', start_date: today, days: 14, check_in: true }, today);
       setExperimentDays(db, today, { [experiment.id]: false }, today);
-      expect(getExperiment(db, experiment.id)!.end_date).toBe(today);
+      const ended = getExperiment(db, experiment.id)!;
+      expect(ended.end_date).toBe(today);
       expect(listExperimentDays(db, experiment.id)).toHaveLength(1);
+      // Over at once: no more answers, no "Jetzt beenden", no new dates.
+      expect(experimentState(ended, today)).toBe('over');
+      expect(() => setExperimentDays(db, today, { [experiment.id]: true }, today)).toThrow('no answer');
+      expect(() => endExperiment(db, experiment.id, today)).toThrow('not running');
+      expect(() => updateExperiment(db, experiment.id, { dates: { start_date: today, days: 14 } }, today)).toThrow('over');
+      expect(checkInCounts(ended, listExperimentDays(db, experiment.id)).endedByNo).toBe(today);
     });
   });
 

@@ -34,9 +34,15 @@ export function experimentLength(experiment: ExperimentSpan): number {
   return daysBetween(experiment.start_date as DateString, experiment.end_date as DateString) + 1;
 }
 
+/**
+ * Planned before the start, running up to the end, over after it. One exception: an experiment of a
+ * single day can only come from a "no" on its start day (or the day after), because the shortest
+ * choice is a week. It is over from that day on, so the "no" ends it at once.
+ */
 export function experimentState(experiment: ExperimentSpan, today: DateString): ExperimentState {
   if (today < experiment.start_date) return 'planned';
-  if (today <= experiment.end_date) return 'running';
+  if (today < experiment.end_date) return 'running';
+  if (today === experiment.end_date && experiment.end_date !== experiment.start_date) return 'running';
   return 'over';
 }
 
@@ -83,12 +89,15 @@ export function newDatesProblem(experiment: ExperimentSpan, input: { start: Date
   return null;
 }
 
-/** Only a running experiment ends early. A planned one is deleted instead. */
+/**
+ * Only a running experiment ends early, and not on its start day: it would end on that day with
+ * nothing to compare. A planned one, or one on its start day, is deleted instead.
+ */
 export function canEndEarly(experiment: ExperimentSpan, today: DateString): boolean {
-  return experimentState(experiment, today) === 'running';
+  return experimentState(experiment, today) === 'running' && today > experiment.start_date;
 }
 
-/** The new last day when it is ended today: yesterday, on the start day the start day itself. */
+/** The new last day when it is ended today: yesterday (never before the start day). */
 export function earlyEndDate(experiment: ExperimentSpan, today: DateString): DateString {
   return dayBeforeOrStart(experiment, today);
 }
@@ -111,9 +120,12 @@ export function overlaps(a: ExperimentSpan, b: ExperimentSpan): boolean {
   return a.start_date <= b.end_date && b.start_date <= a.end_date;
 }
 
-/** "Kept today?" can be answered for days in the span and not after today. */
+/**
+ * "Kept today?" can be answered for days on which the experiment runs and not after today. So an
+ * experiment a "no" ended on its start day asks no more, not even on that day.
+ */
 export function canAnswer(experiment: ExperimentSpan, date: DateString, today: DateString): boolean {
-  return date >= experiment.start_date && date <= experiment.end_date && date <= today;
+  return date <= today && experimentState(experiment, date) === 'running';
 }
 
 /** The experiments that ask "kept today?" in the editor for `date`. */
