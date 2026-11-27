@@ -115,11 +115,14 @@ export function useEntryEditor(target: EditorTarget): EntryEditor {
       // Only for experiments that still ask on this day; a "no" ends its experiment here.
       const answers = Object.fromEntries(asking.filter((experiment) => experiment.id in draft.check_ins).map((experiment) => [experiment.id, draft.check_ins[experiment.id] ?? null]));
       const celebration = celebrateSave(() =>
-        mutate(() => {
-          const entry = saveEntry(getDb(), id, input);
-          if (Object.keys(answers).length > 0) setExperimentDays(getDb(), input.date, answers, now);
-          return entry;
-        }),
+        // One transaction: when the answers fail, the entry is not saved either.
+        mutate(() =>
+          getDb().transaction((tx) => {
+            const entry = saveEntry(tx, id, input);
+            if (Object.keys(answers).length > 0) setExperimentDays(tx, input.date, answers, now);
+            return entry;
+          }),
+        ),
       );
       noteSaveForReview();
       done.current = true;

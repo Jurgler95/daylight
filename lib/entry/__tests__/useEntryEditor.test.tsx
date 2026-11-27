@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react-native';
 
 import type { Database } from '@/db';
-import { createEntry, createExperiment, listEntries, listExperimentDays, listMoods } from '@/db/repositories';
+import { createEntry, createExperiment, deleteExperiment, listEntries, listExperimentDays, listMoods } from '@/db/repositories';
 import { createTestDb } from '@/db/testDb';
 import type { DateString } from '@/lib/dates';
 import { mutate, useDataVersion } from '@/lib/store/dataVersion';
@@ -129,5 +129,16 @@ describe('entry editor', () => {
       result.current.save();
     });
     expect(listExperimentDays(mockDb!)).toEqual([]);
+  });
+
+  it('saves the entry and the answers together: when the answers fail, the entry stays unsaved', async () => {
+    const running = createExperiment(mockDb!, { title: 'Kein Kaffee', start_date: '2026-09-15', days: 28, check_in: true }, '2026-09-26' as DateString);
+    await act(async () => useDataVersion.getState().bump());
+    const { result } = await open({ kind: 'new', date: day, moodId: mood });
+    await act(async () => result.current.tapCheckIn(running.id, true));
+    // Gone behind the editor's back, so writing its answer fails.
+    deleteExperiment(mockDb!, running.id);
+    expect(() => result.current.save()).toThrow('not found');
+    expect(on(day)).toEqual([]);
   });
 });
