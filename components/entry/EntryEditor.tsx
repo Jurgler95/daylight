@@ -7,6 +7,7 @@ import { Alert, Pressable, StyleSheet, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { CheckInCard } from '@/components/experiments/CheckInCard';
 import { MoodPicker } from '@/components/mood/MoodPicker';
 import { TurningDayCard } from '@/components/turning/TurningDayCard';
 import { AppText, Button, Card, CardMotion, EmptyState, ListRow, LogoBackdrop, TextField } from '@/components/ui';
@@ -210,6 +211,8 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
               )}
             </Card>
           ) : null}
+
+          <CheckInCard rows={editor.checkIns} date={draft.date} onTap={editor.tapCheckIn} />
 
           <Card>
             <TextField label={t('entry.note')} value={draft.note} multiline onChangeText={(note) => editor.update({ note })} />

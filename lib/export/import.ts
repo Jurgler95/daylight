@@ -4,7 +4,22 @@ import { restoreHealthDays } from '@/db/repositories/health';
 import { updateSettings } from '@/db/repositories/settings';
 import { clearJournal } from '@/db/repositories/maintenance';
 import { allPhotoFileNames } from '@/db/repositories/photos';
-import { activities, activityGroups, entries, entryActivities, entryPhotos, entryScales, moods, plannedActivities, scales, settings, turningPoints } from '@/db/schema';
+import { listExperiments } from '@/db/repositories/experiments';
+import {
+  activities,
+  activityGroups,
+  entries,
+  entryActivities,
+  entryPhotos,
+  entryScales,
+  experimentDays,
+  experiments,
+  moods,
+  plannedActivities,
+  scales,
+  settings,
+  turningPoints,
+} from '@/db/schema';
 import type { Database } from '@/db/types';
 import type { DateString } from '@/lib/dates';
 import type { ImportMode } from '@/lib/daylio/apply';
@@ -14,6 +29,7 @@ import { onEntryDays } from '@/lib/turning/rules';
 import { matchPayload, mergeImport } from './merge';
 import { migrateExportFormat } from './migrateFormat';
 import { exportSchema, type ExportPayload } from './schema';
+import { experimentsLost } from './summary';
 
 /** What the preview says about a file, the same shape for JSON and CSV. */
 export interface ImportSummary {
@@ -32,6 +48,10 @@ export interface ImportSummary {
   newPhotos: number;
   /** Days with health data in the file (only when it was saved with them). */
   healthDays: number;
+  /** Experiments in the file (always 0 for a CSV). */
+  experiments: number;
+  /** Stored experiments a replace would delete: those the file does not bring again. */
+  experimentsLost: number;
 }
 
 /** Photo files that came with a backup (ZIP), and where they go. */
@@ -69,6 +89,8 @@ export function previewImport(db: Database, payload: ExportPayload, photos: Phot
     photos: usable.length,
     newPhotos: usable.filter((photo) => !stored.has(photo.file_name)).length,
     healthDays: payload.health_days?.length ?? 0,
+    experiments: payload.experiments?.length ?? 0,
+    experimentsLost: experimentsLost(listExperiments(db), payload.experiments ?? []),
   };
 }
 
@@ -119,6 +141,8 @@ function replaceAll(tx: Database, payload: ExportPayload): { added: number; dupl
   insert(payload.planned_activities, (rows) => tx.insert(plannedActivities).values(rows).run());
   insert(payload.entry_photos, (rows) => tx.insert(entryPhotos).values(rows).run());
   insert(onEntryDays(payload.turning_points ?? [], payload.entries), (rows) => tx.insert(turningPoints).values(rows).run());
+  insert(payload.experiments ?? [], (rows) => tx.insert(experiments).values(rows).run());
+  insert(payload.experiment_days ?? [], (rows) => tx.insert(experimentDays).values(rows).run());
   ensureDefaults(tx);
   return { added: payload.entries.length, duplicates: 0 };
 }

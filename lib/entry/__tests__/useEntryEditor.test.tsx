@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react-native';
 
 import type { Database } from '@/db';
-import { createEntry, listEntries, listMoods } from '@/db/repositories';
+import { createEntry, createExperiment, deleteExperiment, listEntries, listExperimentDays, listMoods } from '@/db/repositories';
 import { createTestDb } from '@/db/testDb';
 import type { DateString } from '@/lib/dates';
 import { mutate, useDataVersion } from '@/lib/store/dataVersion';
@@ -12,6 +12,7 @@ import { useEntryEditor, type EditorTarget } from '../useEntryEditor';
 /** Saving from the editor: once per editor, and onto any day, however many entries it already has. */
 let mockDb: Database | null = null;
 jest.mock('@/db/client', () => ({ getDb: () => mockDb, DATABASE_NAME: 'test.db' }));
+jest.mock('@/lib/dates/useToday', () => ({ useToday: () => '2026-09-26' }));
 
 const day = '2026-09-20' as DateString;
 const other = '2026-09-18' as DateString;
@@ -108,5 +109,36 @@ describe('entry editor', () => {
       result.current.save();
     });
     expect(on(day).map((entry) => entry.time)).toEqual(['06:10']);
+  });
+
+  it('drops changed answers when the day changes, and asks again for the new day', async () => {
+    const running = createExperiment(mockDb!, { title: 'Kein Kaffee', start_date: '2026-09-15', days: 28, check_in: true }, '2026-09-26' as DateString);
+    await act(async () => useDataVersion.getState().bump());
+    const { result } = await open({ kind: 'new', date: day, moodId: mood });
+    expect(result.current.checkIns.map((row) => row.experiment.id)).toEqual([running.id]);
+    await act(async () => result.current.tapCheckIn(running.id, true));
+    expect(result.current.dirty).toBe(true);
+    expect(result.current.checkIns[0]!.answer).toBe(true);
+    await act(async () => result.current.update({ date: '2026-09-19' as DateString }));
+    expect(result.current.draft?.check_ins).toEqual({});
+    expect(result.current.checkIns[0]!.answer).toBeNull();
+    // Before the start nothing is asked, and nothing is written.
+    await act(async () => result.current.update({ date: '2026-09-10' as DateString }));
+    expect(result.current.checkIns).toEqual([]);
+    await act(async () => {
+      result.current.save();
+    });
+    expect(listExperimentDays(mockDb!)).toEqual([]);
+  });
+
+  it('saves the entry and the answers together: when the answers fail, the entry stays unsaved', async () => {
+    const running = createExperiment(mockDb!, { title: 'Kein Kaffee', start_date: '2026-09-15', days: 28, check_in: true }, '2026-09-26' as DateString);
+    await act(async () => useDataVersion.getState().bump());
+    const { result } = await open({ kind: 'new', date: day, moodId: mood });
+    await act(async () => result.current.tapCheckIn(running.id, true));
+    // Gone behind the editor's back, so writing its answer fails.
+    deleteExperiment(mockDb!, running.id);
+    expect(() => result.current.save()).toThrow('not found');
+    expect(on(day)).toEqual([]);
   });
 });

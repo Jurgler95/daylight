@@ -65,6 +65,11 @@ function middle(window: DayWindow): DateString {
   return addDaysToDateString(window.from, Math.floor(daysBetween(window.from, window.to) / 2));
 }
 
+/** The middles of the two windows sit in different seasons, so part of any difference may simply be the time of year. */
+export function differentSeasons(before: DayWindow, after: DayWindow): boolean {
+  return seasonOf(middle(before)) !== seasonOf(middle(after));
+}
+
 export interface TurningInput {
   /** Every day of the diary, oldest first. */
   days: readonly InsightDay[];
@@ -96,7 +101,7 @@ export function compareTurningPoint({ days, health, date, span, today }: Turning
     distribution: { before: moodDistribution(beforeDays, null), after: moodDistribution(afterDays, null) },
     activities: enough ? activityShifts(beforeDays, afterDays) : [],
     health: before && after ? healthShifts(health, before, after, today) : [],
-    seasons: !!before && !!after && seasonOf(middle(before)) !== seasonOf(middle(after)),
+    seasons: !!before && !!after && differentSeasons(before, after),
   };
 }
 

@@ -1,7 +1,7 @@
 import type { EntryDetails } from '@/db/repositories/entries';
 import type { DateString } from '@/lib/dates';
 
-import { defaultTime, draftFromEntry, draftToInput, newDraft, sameDraft, setScale, toggleId } from '../draft';
+import { checkInAnswer, defaultTime, draftFromEntry, draftToInput, newDraft, sameDraft, setScale, tapCheckIn, toggleId } from '../draft';
 
 const d = (s: string) => s as DateString;
 
@@ -24,7 +24,7 @@ const saved: EntryDetails = {
 describe('entry draft', () => {
   it('reads a saved entry and gives it back unchanged', () => {
     const draft = draftFromEntry(saved);
-    expect(draft).toEqual({ date: '2026-09-20', time: '20:15', mood_id: 2, activity_ids: [3, 1], scales: { 5: 2 }, note_title: '', note: 'Spaziergang', photos: [] });
+    expect(draft).toEqual({ date: '2026-09-20', time: '20:15', mood_id: 2, activity_ids: [3, 1], scales: { 5: 2 }, note_title: '', note: 'Spaziergang', photos: [], check_ins: {} });
     expect(draftToInput(draft)).toEqual({
       date: '2026-09-20',
       time: '20:15',
@@ -51,6 +51,29 @@ describe('entry draft', () => {
     expect(sameDraft(draft, { ...draft, activity_ids: toggleId(draft.activity_ids, 4) })).toBe(false);
     expect(sameDraft(draft, { ...draft, scales: setScale(draft.scales, 5, null) })).toBe(false);
     expect(sameDraft(draft, { ...draft, time: '20:16' })).toBe(false);
+  });
+
+  it('holds only the answers that differ from the stored ones', () => {
+    const none = new Map<number, boolean>();
+    const kept = new Map<number, boolean>([[1, true]]);
+    // A first tap picks, the same tap again takes it back to open, which is no change any more.
+    expect(tapCheckIn({}, none, 1, true)).toEqual({ 1: true });
+    expect(tapCheckIn({ 1: true }, none, 1, true)).toEqual({});
+    expect(tapCheckIn({ 1: true }, none, 1, false)).toEqual({ 1: false });
+    // A stored "kept" is shown, a tap on it takes it back, a second tap brings it back unchanged.
+    expect(checkInAnswer({}, kept, 1)).toBe(true);
+    expect(tapCheckIn({}, kept, 1, true)).toEqual({ 1: null });
+    expect(checkInAnswer({ 1: null }, kept, 1)).toBeNull();
+    expect(tapCheckIn({ 1: null }, kept, 1, true)).toEqual({});
+    expect(tapCheckIn({}, kept, 1, false)).toEqual({ 1: false });
+  });
+
+  it('is dirty when an answer changed', () => {
+    const draft = draftFromEntry(saved);
+    expect(sameDraft(draft, { ...draft, check_ins: {} })).toBe(true);
+    expect(sameDraft(draft, { ...draft, check_ins: { 1: true } })).toBe(false);
+    expect(sameDraft(draft, { ...draft, check_ins: { 1: null } })).toBe(false);
+    expect(sameDraft({ ...draft, check_ins: { 1: true } }, { ...draft, check_ins: { 1: false } })).toBe(false);
   });
 
   it('cannot be saved without a mood', () => {

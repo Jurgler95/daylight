@@ -60,6 +60,7 @@ export default function MoreScreen() {
         </AppText>
         <ListRow icon="list-outline" label={t('settings.history')} onPress={go('/more/history')} />
         <ListRow icon="flag-outline" label={t('settings.turningPoints')} onPress={go('/more/history?turning=1')} />
+        <ListRow icon="flask-outline" label={t('experiments.title')} onPress={go('/experiments')} />
       </Card>
       <Card>
         <AppText variant="caption" muted>
