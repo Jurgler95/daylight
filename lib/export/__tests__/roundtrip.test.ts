@@ -60,13 +60,19 @@ describe('JSON round trip', () => {
       streak_rescue_dismissed: '2026-09-20',
       review_prompt_done: true,
       color_scheme: 'dark' as const,
+      auto_backup_dir: 'content://com.android.externalstorage.documents/tree/primary%3ADaylight',
+      auto_backup_at: '2026-09-20T08:00:00.000Z',
+      auto_backup_tried_at: '2026-09-20T08:00:00.000Z',
+      auto_backup_error: 'gone',
+      auto_backup_hash: 'abc',
+      backup_hint_dismissed_on: '2026-09-20',
     };
     updateSettings(db, local);
     const payload = buildExport(db, '1.0.0');
     for (const key of Object.keys(local)) expect(key in payload.settings).toBe(false);
     const target = createTestDb();
     applyImport(target, parseImport(JSON.stringify(payload)), 'replace');
-    expect(getSettings(target)).toMatchObject({ reminder_prompt_done: false, streak_celebrated: null, streak_rescue_dismissed: null, review_prompt_done: false, color_scheme: null });
+    expect(getSettings(target)).toMatchObject({ reminder_prompt_done: false, streak_celebrated: null, streak_rescue_dismissed: null, review_prompt_done: false, color_scheme: null, auto_backup_dir: null, auto_backup_at: null, backup_hint_dismissed_on: null });
   });
 
   it('carries the morning outlook notification, and a backup from before it leaves the choice here alone', () => {

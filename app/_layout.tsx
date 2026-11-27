@@ -16,6 +16,7 @@ import { StreakCelebration } from '@/components/streak/StreakCelebration';
 import { AppText, Button, LogoBackdrop } from '@/components/ui';
 import { useOpenCounter } from '@/lib/achievements/useOpenCounter';
 import { today } from '@/lib/dates';
+import { useAutoBackup } from '@/lib/export/useAutoBackup';
 import { useHealthSync } from '@/lib/health/useHealthSync';
 import { useAppLock } from '@/lib/lock';
 import { useReminderSync } from '@/lib/notifications';
@@ -100,6 +101,7 @@ function AppShell() {
       <HealthSync />
       <LauncherIcon />
       <WidgetSync />
+      <AutoBackup />
       <View style={styles.flex} importantForAccessibility={locked ? 'no-hide-descendants' : 'auto'} accessibilityElementsHidden={locked}>
         <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.background } }}>
           <Stack.Screen name="(tabs)" />
@@ -161,6 +163,12 @@ function LauncherIcon() {
 /** Keeps the mood widget on the home screen up to date; its own component for the same reason as `ReminderSync`. */
 function WidgetSync() {
   useWidgetSync();
+  return null;
+}
+
+/** Writes the automatic backup on start and after changes; its own component for the same reason as `ReminderSync`. */
+function AutoBackup() {
+  useAutoBackup();
   return null;
 }
 
