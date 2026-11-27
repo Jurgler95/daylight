@@ -16,8 +16,11 @@ const timestamps = {
 };
 
 export const ENTRY_SOURCES = ['app', 'daylio_csv', 'json'] as const;
-/** `rating` is a row of steps from min to max; `duration` holds minutes (0 to a day). */
-export const SCALE_KINDS = ['rating', 'duration'] as const;
+/**
+ * `rating` is a row of steps from min to max; `duration` holds minutes (0 to a day); `number` is any
+ * measured value like a weight, with a unit and up to two decimals and no fixed range.
+ */
+export const SCALE_KINDS = ['rating', 'duration', 'number'] as const;
 export const MOOD_LEVELS = [1, 2, 3, 4, 5] as const;
 
 /** Every mood hangs on a level 1 (worst) to 5 (best), so every analysis can do arithmetic on it. */
@@ -91,6 +94,9 @@ export const scales = sqliteTable('scales', {
   min: integer('min').notNull().default(0),
   max: integer('max').notNull().default(10),
   kind: text('kind', { enum: SCALE_KINDS }).notNull().default('rating'),
+  /** Only for `number`: what is measured in, like "kg", and how many decimals are entered (0 to 2). */
+  unit: text('unit').notNull().default(''),
+  decimals: integer('decimals').notNull().default(0),
   sort_order: integer('sort_order').notNull().default(0),
   archived: integer('archived', { mode: 'boolean' }).notNull().default(false),
 });
@@ -104,6 +110,8 @@ export const entryScales = sqliteTable(
     scale_id: integer('scale_id')
       .notNull()
       .references(() => scales.id, { onDelete: 'cascade' }),
+    // Whole numbers for ratings and durations. A `number` scale may hold a decimal like 72.4: SQLite
+    // keeps it as REAL in this column (integer affinity only converts what fits without loss).
     value: integer('value').notNull(),
   },
   (t) => [primaryKey({ columns: [t.entry_id, t.scale_id] })],

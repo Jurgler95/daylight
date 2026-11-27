@@ -1,6 +1,7 @@
 import type { HealthDay, Scale } from '@/db/schema';
 import { addDaysToDateString, weekdayOf, type DateString } from '@/lib/dates';
 import { DURATION_MAX_MINUTES } from '@/lib/scales/duration';
+import { roundToDecimals } from '@/lib/scales/number';
 
 import { byDate, type InsightDay } from './days';
 import { MIN_SIDE_DAYS } from './effects';
@@ -28,12 +29,13 @@ import { mean, median } from './stats';
  * insight it describes the diary and says nothing about cause and effect.
  */
 
-/** What the insights need from a scale; `Scale` fits as it is. */
-export type ScaleFacts = Pick<Scale, 'id' | 'name' | 'min' | 'max' | 'kind'>;
+/** What the insights need from a scale; `Scale` fits as it is. Unit and decimals only matter for a number. */
+export type ScaleFacts = Pick<Scale, 'id' | 'name' | 'min' | 'max' | 'kind'> & Partial<Pick<Scale, 'unit' | 'decimals'>>;
 
 /**
- * A scale's value on one day, null without one. Ratings of several entries average like the mood;
- * durations add up, since two entries with an hour of reading each make two hours, capped at a day.
+ * A scale's value on one day, null without one. Ratings and numbers of several entries average like
+ * the mood (two weighings in a day give their mean); durations add up, since two entries with an
+ * hour of reading each make two hours, capped at a day.
  */
 export function scaleDayValue(day: InsightDay, scale: ScaleFacts): number | null {
   const values = day.scales.get(scale.id);
@@ -52,7 +54,10 @@ export interface ScaleSummary {
   previousMean: number | null;
 }
 
-/** Days whose value falls into `from..to` (both included; `to` null is open), and their mean mood. */
+/**
+ * Days whose value falls into `from..to`, and their mean mood. Ratings and durations include both
+ * ends (`to` null is open); a number bucket runs from `from` up to below `to`.
+ */
 export interface ScaleBucket {
   from: number;
   to: number | null;
@@ -96,8 +101,31 @@ export const DURATION_BUCKETS: readonly (readonly [number, number | null])[] = [
   [480, null],
 ];
 
-function bucketsFor(scale: ScaleFacts): (readonly [number, number | null])[] {
+/**
+ * A number has no steps to group by, so its days are split at the quartiles of the window's values,
+ * rounded to the scale's decimals: about a quarter of the days each, "unter 71,2 kg" up to
+ * "ab 73,0 kg". Fewer buckets when values repeat; one when they are all the same.
+ */
+export function numberBuckets(values: readonly number[], decimals: number): (readonly [number, number | null])[] {
+  if (values.length === 0) return [];
+  const sorted = [...values].sort((a, b) => a - b);
+  const low = sorted[0]!;
+  const at = (share: number) => roundToDecimals(sorted[Math.min(sorted.length - 1, Math.floor(share * sorted.length))]!, decimals);
+  const cuts = [...new Set([0.25, 0.5, 0.75].map(at))].filter((cut) => cut > low);
+  const starts = [low, ...cuts];
+  return starts.map((from, i) => [from, starts[i + 1] ?? null] as const);
+}
+
+function inBucket(scale: ScaleFacts, value: number, [from, to]: readonly [number, number | null]): boolean {
+  if (scale.kind === 'number') return value >= from && (to === null || value < to);
+  // A day mean of 3.5 from two entries sits with the 4s, as the day's mood level does.
+  const rounded = scale.kind === 'duration' ? value : Math.floor(value + 0.5);
+  return rounded >= from && (to === null || rounded <= to);
+}
+
+function bucketsFor(scale: ScaleFacts, values: readonly number[]): (readonly [number, number | null])[] {
   if (scale.kind === 'duration') return [...DURATION_BUCKETS];
+  if (scale.kind === 'number') return numberBuckets(values, scale.decimals ?? 0);
   return Array.from({ length: scale.max - scale.min + 1 }, (_, i) => [scale.min + i, scale.min + i] as const);
 }
 
@@ -144,7 +172,7 @@ function insight(scale: ScaleFacts, allDays: readonly InsightDay[], days: readon
   const good: number[] = [];
   const hard: number[] = [];
   const pairs: { activities: ReadonlySet<number>; value: number }[] = [];
-  const ranges = bucketsFor(scale);
+  const ranges = bucketsFor(scale, values);
   const bucketMoods: number[][] = ranges.map(() => []);
   for (const day of days) {
     const value = scaleDayValue(day, scale);
@@ -153,9 +181,7 @@ function insight(scale: ScaleFacts, allDays: readonly InsightDay[], days: readon
     if (day.mean >= GOOD_MIN) good.push(value);
     else if (day.mean <= HARD_MAX) hard.push(value);
     pairs.push({ activities: day.activities, value });
-    // A day mean of 3.5 from two entries sits with the 4s, as the day's mood level does.
-    const rounded = scale.kind === 'duration' ? value : Math.floor(value + 0.5);
-    const index = ranges.findIndex(([from, to]) => rounded >= from && (to === null || rounded <= to));
+    const index = ranges.findIndex((range) => inBucket(scale, value, range));
     if (index >= 0) bucketMoods[index]!.push(day.mean);
   }
   return {

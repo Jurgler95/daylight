@@ -82,6 +82,9 @@ export interface ReportScale {
   min: number;
   max: number;
   kind: ScaleFacts['kind'];
+  /** Only for a number scale: "kg" and the decimals it is entered with. */
+  unit: string;
+  decimals: number;
   mean: number | null;
   days: number;
 }
@@ -283,7 +286,17 @@ export function buildReport(source: ReportSource, options: ReportOptions): Repor
 
   const reportScales: ReportScale[] = scales.map((scale) => {
     const values = days.map((day) => day.scales.get(scale.id)).filter((value): value is number => value !== undefined);
-    return { id: scale.id, name: scale.name, min: scale.min, max: scale.max, kind: scale.kind, mean: meanOrNull(values), days: values.length };
+    return {
+      id: scale.id,
+      name: scale.name,
+      min: scale.min,
+      max: scale.max,
+      kind: scale.kind,
+      unit: scale.unit ?? '',
+      decimals: scale.decimals ?? 0,
+      mean: meanOrNull(values),
+      days: values.length,
+    };
   });
 
   const monthKeys = [...new Set(days.map((day) => day.date.slice(0, 7)))];

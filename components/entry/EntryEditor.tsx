@@ -27,6 +27,7 @@ import { ActivityGroupCard } from './ActivityGroupCard';
 import { DateTimeRows } from './DateTimeRows';
 import { PhotoField } from './PhotoField';
 import { DurationInput } from './DurationInput';
+import { NumberInput } from './NumberInput';
 import { ScaleInput } from './ScaleInput';
 
 /**
@@ -194,6 +195,16 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
                     label={scale.name}
                     value={draft.scales[scale.id] ?? null}
                     emptyLabel={t('entry.scaleEmpty')}
+                    onChange={(value) => editor.update({ scales: setScale(draft.scales, scale.id, value) })}
+                  />
+                ) : scale.kind === 'number' ? (
+                  <NumberInput
+                    key={scale.id}
+                    label={scale.name}
+                    value={draft.scales[scale.id] ?? null}
+                    unit={scale.unit}
+                    decimals={scale.decimals}
+                    invalidLabel={t('entry.numberInvalid')}
                     onChange={(value) => editor.update({ scales: setScale(draft.scales, scale.id, value) })}
                   />
                 ) : (

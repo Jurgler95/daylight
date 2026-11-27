@@ -5,6 +5,7 @@ import { addDaysToDateString, daysBetween, isDateString, type DateString } from 
 import { MAX_EXPERIMENT_DAYS, TITLE_MAX_LENGTH } from '@/lib/experiments/rules';
 import { latestReminderTime, reminderTimesOr } from '@/lib/notifications/times';
 import { isPhotoName } from '@/lib/photos/store';
+import { NUMBER_MAX_DECIMALS, UNIT_MAX_LENGTH } from '@/lib/scales/number';
 import { countByYear, TURNING_POINTS_PER_YEAR } from '@/lib/turning/rules';
 
 /**
@@ -14,7 +15,7 @@ import { countByYear, TURNING_POINTS_PER_YEAR } from '@/lib/turning/rules';
  * Version 2 added `entry_photos`; the photo files themselves travel next to the JSON in a ZIP.
  * `health_days` is optional and only there when the user opted in; older app versions skip it.
  * `turning_points` is optional too: backups from before they existed simply have none. A scale's
- * `kind` likewise: older backups hold ratings only. `settings.reminder_times` is optional as well:
+ * `kind` likewise: older backups hold ratings only; `unit` and `decimals` came with number scales. `settings.reminder_times` is optional as well:
  * a backup from before several reminders a day has the one `reminder_time`, which becomes the list.
  * `experiments` and `experiment_days` are optional the same way (no version bump): older app
  * versions drop them, and a replace with a backup without them leaves no experiments behind.
@@ -56,6 +57,9 @@ export const scaleSchema = z.object({
   max: z.number().int(),
   // Backups from before durations have no kind; their scales are all ratings.
   kind: z.enum(SCALE_KINDS).default('rating'),
+  // Backups from before number scales have neither; only a number scale uses them.
+  unit: z.string().max(UNIT_MAX_LENGTH).default(''),
+  decimals: z.number().int().min(0).max(NUMBER_MAX_DECIMALS).default(0),
   sort_order: z.number().int(),
   archived: z.boolean(),
 });
@@ -148,7 +152,8 @@ export const exportSchema = z
     scales: z.array(scaleSchema),
     entries: z.array(entrySchema),
     entry_activities: z.array(z.object({ entry_id: id, activity_id: id })),
-    entry_scales: z.array(z.object({ entry_id: id, scale_id: id, value: z.number().int() })),
+    // Whole numbers, except on a number scale (checked below), which may hold a decimal like 72.4.
+    entry_scales: z.array(z.object({ entry_id: id, scale_id: id, value: z.number().finite() })),
     planned_activities: z.array(z.object({ date: dateString, activity_id: id })),
     entry_photos: z.array(
       z.object({
@@ -181,6 +186,8 @@ export const exportSchema = z
     for (const entry of payload.entries) check(moods.has(entry.mood_id), `Eintrag ${entry.id}: Stimmung fehlt`);
     for (const link of payload.entry_activities) check(entries.has(link.entry_id) && activities.has(link.activity_id), 'Verweis in entry_activities ungültig');
     for (const value of payload.entry_scales) check(entries.has(value.entry_id) && scales.has(value.scale_id), 'Verweis in entry_scales ungültig');
+    const numberScales = new Set(payload.scales.filter((scale) => scale.kind === 'number').map((scale) => scale.id));
+    for (const value of payload.entry_scales) check(numberScales.has(value.scale_id) || Number.isInteger(value.value), 'Kommazahl in entry_scales nur bei Zahl-Skalen');
     for (const plan of payload.planned_activities) check(activities.has(plan.activity_id), 'Verweis in planned_activities ungültig');
     for (const photo of payload.entry_photos) check(entries.has(photo.entry_id), 'Verweis in entry_photos ungültig');
     check(new Set(payload.entry_photos.map((photo) => photo.file_name)).size === payload.entry_photos.length, 'doppelte Fotonamen');

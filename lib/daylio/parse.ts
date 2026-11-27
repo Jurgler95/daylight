@@ -137,12 +137,13 @@ export function parseScales(value: string): { scales: RawScale[]; unreadable: bo
   const repeated: string[] = [];
   let unreadable = false;
   for (const part of value.split('|')) {
-    const match = /^\s*(.+?)\s*:\s*(-?\d+)\s*$/.exec(part);
+    // Whole numbers for ratings and durations; a number scale (a weight) may carry a decimal, with dot or comma.
+    const match = /^\s*(.+?)\s*:\s*(-?\d+(?:[.,]\d+)?)\s*$/.exec(part);
     if (!match) {
       unreadable = true;
       continue;
     }
-    const scale = { name: match[1] as string, value: Number(match[2]) };
+    const scale = { name: match[1] as string, value: Number((match[2] as string).replace(',', '.')) };
     if (byName.has(fold(scale.name))) repeated.push(scale.name);
     byName.set(fold(scale.name), scale);
   }

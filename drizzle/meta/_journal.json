@@ -141,6 +141,13 @@
       "when": 1795781966229,
       "tag": "0019_shiny_skin",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "6",
+      "when": 1795782544996,
+      "tag": "0020_number_scales",
+      "breakpoints": true
     }
   ]
 }

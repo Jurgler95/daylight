@@ -44,6 +44,15 @@ describe('parseScales', () => {
     expect(parseScales('Energie: viel').unreadable).toBe(true);
   });
 
+  it('reads decimals with dot or comma', () => {
+    expect(parseScales('Gewicht: 72.4 | Zucker: 5,25 | Temperatur: -1.5').scales).toEqual([
+      { name: 'Gewicht', value: 72.4 },
+      { name: 'Zucker', value: 5.25 },
+      { name: 'Temperatur', value: -1.5 },
+    ]);
+    expect(parseScales('Gewicht: 72.').unreadable).toBe(true);
+  });
+
   it('keeps the last value of a scale named twice', () => {
     expect(parseScales('Stress: 2 | Energie: 4 | stress: 3')).toEqual({
       scales: [

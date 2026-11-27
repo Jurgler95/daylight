@@ -1,7 +1,7 @@
 import { buildDays, type EntryFacts } from '../days';
 import type { HealthDay } from '@/db/schema';
 
-import { compareScales, scaleDayValue, scaleHealthLinks, scalePairLinks, scaleStats, type ScaleFacts } from '../scales';
+import { compareScales, numberBuckets, scaleDayValue, scaleHealthLinks, scalePairLinks, scaleStats, type ScaleFacts } from '../scales';
 import { d } from './fixtures';
 
 const energy: ScaleFacts = { id: 1, name: 'Energie', min: 1, max: 5, kind: 'rating' };
@@ -104,5 +104,44 @@ describe('scalePairLinks and scaleHealthLinks', () => {
     expect(scalePairLinks(flat, [energy, calm])).toEqual([]);
     const sameSleep = health.map((row) => ({ ...row, sleep_minutes: 420 }));
     expect(scaleHealthLinks(days, [energy], sameSleep, d('2026-02-01'))).toEqual([]);
+  });
+});
+
+describe('number scales', () => {
+  const weight: ScaleFacts = { id: 3, name: 'Gewicht', min: 0, max: 0, kind: 'number', unit: 'kg', decimals: 1 };
+  // 20 days, weight between 70 and 73.8, lighter on the good days.
+  const facts: EntryFacts[] = Array.from({ length: 20 }, (_, i) => ({
+    date: new Date(Date.UTC(2026, 0, 1 + i)).toISOString().slice(0, 10),
+    time: '07:00',
+    level: 1 + (i % 5),
+    activity_ids: [],
+    scales: [{ scale_id: weight.id, value: 74 - (1 + (i % 5)) * 0.8 + (i % 2) * 0.2 }],
+  }));
+  const days = buildDays(facts);
+  const window = { from: d('2026-01-01'), to: d('2026-01-20') };
+
+  it('average several entries of a day', () => {
+    const [day] = buildDays([
+      { date: '2026-01-01', time: '07:00', level: 3, activity_ids: [], scales: [{ scale_id: 3, value: 72.4 }] },
+      { date: '2026-01-01', time: '21:00', level: 3, activity_ids: [], scales: [{ scale_id: 3, value: 73 }] },
+    ]);
+    expect(scaleDayValue(day!, weight)).toBeCloseTo(72.7);
+  });
+
+  it('split the days at the quartiles, every day in exactly one bucket', () => {
+    const [stats] = scaleStats({ scales: [weight], allDays: days, window, previous: null });
+    const buckets = stats!.buckets;
+    expect(buckets.length).toBeGreaterThan(1);
+    expect(buckets[buckets.length - 1]!.to).toBeNull();
+    for (let i = 1; i < buckets.length; i++) expect(buckets[i]!.from).toBe(buckets[i - 1]!.to);
+    expect(buckets.reduce((sum, bucket) => sum + bucket.days, 0)).toBe(20);
+    // Lighter days are the good ones here.
+    expect(buckets[0]!.mood!).toBeGreaterThan(buckets[buckets.length - 1]!.mood!);
+    expect(stats!.links.find((link) => link.pairing === 'same')!.r).toBeLessThan(-0.9);
+  });
+
+  it('give one bucket when every value is the same', () => {
+    expect(numberBuckets([5, 5, 5], 0)).toEqual([[5, null]]);
+    expect(numberBuckets([], 1)).toEqual([]);
   });
 });

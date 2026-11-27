@@ -7,6 +7,7 @@ import { AppText } from '@/components/ui';
 import { formatShort } from '@/lib/dates';
 import type { DayWindow, ScaleInsight } from '@/lib/insights';
 import { formatScaleValue } from '@/lib/scales/format';
+import { numberChartRange } from '@/lib/scales/range';
 import { spacing } from '@/lib/theme';
 
 /**
@@ -17,8 +18,12 @@ export function ScaleTrendCard({ insight, window }: { insight: ScaleInsight; win
   const { t } = useTranslation();
   const { scale, summary, series } = insight;
   const format = (value: number) => formatScaleValue(scale, value);
-  const lo = scale.kind === 'duration' ? 0 : scale.min;
-  const hi = scale.kind === 'duration' ? Math.max(60, summary.max * 1.05) : scale.max;
+  const [lo, hi] =
+    scale.kind === 'number'
+      ? numberChartRange([summary.min, summary.max, ...series.map((point) => point.rolling)], scale.decimals)
+      : scale.kind === 'duration'
+        ? [0, Math.max(60, summary.max * 1.05)]
+        : [scale.min, scale.max];
   const last = series[series.length - 1];
   const label = t('insights.healthStats.trend.a11y', {
     metric: scale.name,
@@ -29,7 +34,7 @@ export function ScaleTrendCard({ insight, window }: { insight: ScaleInsight; win
   });
   return (
     <InsightCard title={t('insights.scales.trend', { name: scale.name })}>
-      <ValueLineChart points={series} window={window} lo={lo} hi={hi} format={scale.kind === 'duration' ? format : (value) => String(value)} accessibilityLabel={label} />
+      <ValueLineChart points={series} window={window} lo={lo} hi={hi} format={scale.kind === 'rating' ? (value) => String(value) : format} accessibilityLabel={label} />
       <View style={styles.facts}>
         {(
           [

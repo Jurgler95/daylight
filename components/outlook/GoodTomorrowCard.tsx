@@ -10,7 +10,8 @@ import { formatDurationShort, formatSteps } from '@/lib/health/format';
 import { upper } from '@/lib/i18n/language';
 import { formatPercent } from '@/lib/insights/format';
 import type { GoodTomorrow, TomorrowReason } from '@/lib/outlook/tomorrow';
-import { formatScaleValue } from '@/lib/scales/format';
+import { formatEntryValue, formatScaleValue } from '@/lib/scales/format';
+import { roundToDecimals } from '@/lib/scales/number';
 import { spacing, useTheme } from '@/lib/theme';
 
 /** Only a hit rate above this is worded "wahrscheinlich"; below it the card says "better than usual". */
@@ -42,8 +43,10 @@ export function GoodTomorrowCard({ hint, catalog, morning = false }: { hint: Goo
         return activityLabel(catalog, value.activityId);
       case 'scale': {
         const scale = catalog.scaleById.get(value.scaleId);
-        // A rating averaged over two entries is 3.5, not a whole step.
-        return scale ? `${scale.name} ${scale.kind === 'rating' && Number.isInteger(value.value) ? value.value : formatScaleValue(scale, value.value)}` : '';
+        // A rating averaged over two entries is 3.5, not a whole step; a single weighing shows as entered.
+        if (!scale) return '';
+        const exact = scale.kind === 'rating' ? Number.isInteger(value.value) : scale.kind === 'number' && roundToDecimals(value.value, scale.decimals) === value.value;
+        return `${scale.name} ${exact ? formatEntryValue(scale, value.value) : formatScaleValue(scale, value.value)}`;
       }
       case 'weekday':
         return t(key('reasonWeekday'), { weekday: formatWeekdayLong(date) });

@@ -168,3 +168,31 @@ describe('saveEntry', () => {
     expect(listEntryDetails(db)).toHaveLength(0);
   });
 });
+
+describe('number scales', () => {
+  it('have no range, a clean unit and 0 to 2 decimals', () => {
+    const { db } = setup();
+    expect(createScale(db, { name: 'Gewicht', kind: 'number', unit: '  kg ', decimals: 1, min: 3, max: 9 })).toMatchObject({
+      kind: 'number',
+      min: 0,
+      max: 0,
+      unit: 'kg',
+      decimals: 1,
+    });
+    expect(createScale(db, { name: 'Wasser', kind: 'number', decimals: 5 })).toMatchObject({ unit: '', decimals: 2 });
+    expect(createScale(db, { name: 'Energie', min: 1, max: 5 })).toMatchObject({ unit: '', decimals: 0 });
+  });
+
+  it('change unit and decimals later', () => {
+    const { db } = setup();
+    const weight = createScale(db, { name: 'Gewicht', kind: 'number', unit: 'kg', decimals: 1 });
+    expect(updateScale(db, weight.id, { unit: ' lb ', decimals: -1 })).toMatchObject({ unit: 'lb', decimals: 0 });
+  });
+
+  it('keep a decimal value as entered', () => {
+    const { db, mood } = setup();
+    const weight = createScale(db, { name: 'Gewicht', kind: 'number', unit: 'kg', decimals: 1 });
+    const entry = saveEntry(db, null, { date: '2026-09-01', time: '07:00', mood_id: mood.id, scales: [{ scale_id: weight.id, value: 72.4 }] });
+    expect(getEntryDetails(db, entry.id)?.scales).toEqual([{ scale_id: weight.id, value: 72.4 }]);
+  });
+});

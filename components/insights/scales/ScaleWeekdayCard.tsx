@@ -5,6 +5,7 @@ import { InsightCard } from '@/components/insights/InsightCard';
 import { AppText } from '@/components/ui';
 import { orderWeekdays, type ScaleInsight } from '@/lib/insights';
 import { formatScaleValue } from '@/lib/scales/format';
+import { numberChartRange } from '@/lib/scales/range';
 import { radius, spacing, useTheme } from '@/lib/theme';
 
 interface Props {
@@ -20,8 +21,8 @@ export function ScaleWeekdayCard({ insight, names, firstDay }: Props) {
   const { colors } = useTheme();
   const { scale } = insight;
   const rows = orderWeekdays(insight.weekdays, firstDay);
-  const lo = scale.kind === 'duration' ? 0 : scale.min;
-  const hi = scale.kind === 'duration' ? Math.max(1, ...rows.flatMap((row) => (row.mean === null ? [] : [row.mean]))) : scale.max;
+  const means = rows.flatMap((row) => (row.mean === null ? [] : [row.mean]));
+  const [lo, hi] = scale.kind === 'number' ? numberChartRange(means, scale.decimals) : scale.kind === 'duration' ? [0, Math.max(1, ...means)] : [scale.min, scale.max];
   return (
     <InsightCard title={t('insights.scales.weekdays', { name: scale.name })}>
       {rows.map((row) => {

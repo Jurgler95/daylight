@@ -19,7 +19,7 @@ export function tomorrowSignature(days: readonly InsightDay[], scales: readonly 
     .join('|');
   // Today's steps still grow with every sync and are not used until tomorrow, so they stay out.
   const bodyPart = [...body].map(([date, b]) => `${date}:${b.sleep}:${date >= today ? '' : b.steps}`).join('|');
-  return `${today}#${shown.join(',')}#${scales.map((scale) => `${scale.id}:${scale.kind}:${scale.min}:${scale.max}`).join(',')}#${bodyPart}#${dayPart}`;
+  return `${today}#${shown.join(',')}#${scales.map((scale) => `${scale.id}:${scale.kind}:${scale.min}:${scale.max}:${scale.decimals ?? 0}`).join(',')}#${bodyPart}#${dayPart}`;
 }
 
 interface Finished {

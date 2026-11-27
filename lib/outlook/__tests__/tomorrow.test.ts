@@ -1,7 +1,7 @@
 import { addDaysToDateString, type DateString } from '@/lib/dates';
 import { buildDays, type EntryFacts, type InsightDay } from '@/lib/insights';
 
-import { goodLevel, goodTomorrow, MAX_IN_WINDOW, MIN_PAIRS, resetTomorrowCache, tomorrowBacktest, WINDOW_DAYS, type BodyByDate } from '../tomorrow';
+import { goodLevel, goodTomorrow, MAX_IN_WINDOW, MIN_PAIRS, resetTomorrowCache, tomorrowBacktest, WINDOW_DAYS, withNumberSpans, type BodyByDate } from '../tomorrow';
 
 const start = '2026-01-01' as DateString;
 /** Activities 100 to 129, ticked every day, as some people do with places or weather. */
@@ -149,5 +149,28 @@ describe('goodTomorrow', () => {
     const longNight = diary.filter((_, i) => nights[i] === 540).pop()!.date;
     const { hint } = goodTomorrow({ days: diary.filter((day) => day.date <= longNight), scales: [], today: longNight, shown: [], body });
     expect(hint?.reasons).toContainEqual({ kind: 'sleep', minutes: 540 });
+  });
+});
+
+describe('withNumberSpans', () => {
+  const weight = { id: 3, name: 'Gewicht', min: 0, max: 0, kind: 'number' as const, unit: 'kg', decimals: 1 };
+  const energy = { id: 1, name: 'Energie', min: 1, max: 5, kind: 'rating' as const };
+
+  it('gives a number scale the 10th to 90th percentile of its day values, other scales stay', () => {
+    const facts: EntryFacts[] = Array.from({ length: 10 }, (_, i) => ({
+      date: addDaysToDateString('2026-01-01' as DateString, i),
+      time: '07:00',
+      level: 3,
+      activity_ids: [],
+      scales: [{ scale_id: 3, value: 70 + i }],
+    }));
+    const [spanned, rating] = withNumberSpans([weight, energy], buildDays(facts));
+    expect(spanned).toMatchObject({ min: 71, max: 79 });
+    expect(rating).toBe(energy);
+  });
+
+  it('keeps a range for equal values, so no feature divides by zero', () => {
+    const facts: EntryFacts[] = [{ date: '2026-01-01', time: '07:00', level: 3, activity_ids: [], scales: [{ scale_id: 3, value: 72 }] }];
+    expect(withNumberSpans([weight], buildDays(facts))[0]).toMatchObject({ min: 72, max: 72.1 });
   });
 });

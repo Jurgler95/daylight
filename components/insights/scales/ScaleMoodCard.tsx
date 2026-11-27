@@ -19,7 +19,16 @@ export function ScaleMoodCard({ insight }: { insight: ScaleInsight }) {
   const { colors, mood: moodColors } = useTheme();
   const { scale } = insight;
   const rows = insight.buckets.filter((bucket) => bucket.days > 0);
+  const first = insight.buckets[0];
   const label = (bucket: ScaleBucket) => {
+    if (scale.kind === 'number') {
+      // Split at the quartiles, so "unter" the first cut, "ab" the last, ranges between. Without the
+      // unit, the title names the scale and the row stays short.
+      const value = (n: number) => formatDecimal(n, scale.decimals ?? 0);
+      if (bucket.to === null) return bucket === first ? value(bucket.from) : t('insights.scales.bucket.over', { value: value(bucket.from) });
+      if (bucket === first) return t('insights.scales.bucket.under', { value: value(bucket.to) });
+      return t('insights.scales.bucket.between', { from: value(bucket.from), to: value(bucket.to) });
+    }
     if (scale.kind !== 'duration') return String(bucket.from);
     if (bucket.to === null) return t('insights.scales.bucket.over', { value: formatDuration(bucket.from) });
     if (bucket.from === 0) return formatDuration(0);
@@ -38,7 +47,7 @@ export function ScaleMoodCard({ insight }: { insight: ScaleInsight }) {
             : t('insights.scales.mood.a11y', { value: name, mood: formatDecimal(bucket.mood), count: bucket.days });
         return (
           <View key={bucket.from} style={styles.row} accessible accessibilityLabel={a11y}>
-            <AppText variant="label" style={styles.name} numberOfLines={1}>
+            <AppText variant="label" style={[styles.name, scale.kind === 'number' && styles.wideName]} numberOfLines={1}>
               {name}
             </AppText>
             <View style={[styles.track, { backgroundColor: colors.surfaceMuted }]}>
@@ -91,6 +100,7 @@ export function ScaleMoodCard({ insight }: { insight: ScaleInsight }) {
 const styles = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, minHeight: 28 },
   name: { width: 84 },
+  wideName: { width: 120 },
   track: { flex: 1, height: 12, borderRadius: radius.pill, overflow: 'hidden' },
   bar: { height: '100%', borderRadius: radius.pill },
   mood: { width: 32, textAlign: 'right' },

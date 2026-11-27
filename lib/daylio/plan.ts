@@ -4,6 +4,7 @@ import { FALLBACK_ACTIVITY_ICON, type IconName } from '@/lib/icons';
 import { fold } from '@/lib/search/fold';
 
 import type { Language } from '@/lib/i18n/language';
+import { NUMBER_MAX_DECIMALS } from '@/lib/scales/number';
 
 import { defaultGroups, defaultMoods, knownActivity, knownMoodLevel, resolveGroupName } from './known';
 import type { RawEntry } from './parse';
@@ -65,7 +66,8 @@ export interface ImportPlan {
   /** Groups that have to be created, in the order they are first needed. */
   newGroups: string[];
   /** Scales to create, with a range wide enough for every value in the file (at least 0 to 10). */
-  newScales: { name: string; min: number; max: number }[];
+  /** A scale whose values carry decimals becomes a number scale, the others ratings over the range seen. */
+  newScales: { name: string; min: number; max: number; kind: 'rating' | 'number'; decimals: number }[];
   /** Records that would be added, file order. */
   entries: { raw: RawEntry; key: string }[];
   /** Records already stored. Rows repeated inside the file are all kept, as often as the file has them. */
@@ -192,10 +194,17 @@ function resolveActivity(name: string, catalog: Catalog, choices: ImportChoices)
   return { key, name, existingId: null, group, icon: known?.icon ?? FALLBACK_ACTIVITY_ICON };
 }
 
+/** Digits after the point: 72.4 has one, 72 none. Twelve significant digits drop the binary noise. */
+function decimalsOf(value: number): number {
+  const text = String(Number(value.toPrecision(12)));
+  const point = text.indexOf('.');
+  return point < 0 ? 0 : text.length - point - 1;
+}
+
 export function buildImportPlan(records: readonly RawEntry[], catalog: Catalog, choices: ImportChoices = {}): ImportPlan {
   const moods = new Map<string, PlannedMood>();
   const activities = new Map<string, Omit<PlannedActivity, 'rank'>>();
-  const scaleRanges = new Map<string, { name: string; min: number; max: number }>();
+  const scaleRanges = new Map<string, { name: string; min: number; max: number; decimals: number }>();
   for (const record of records) {
     const moodKey = fold(record.mood);
     const mood = moods.get(moodKey) ?? { ...resolveMood(record.mood, catalog, choices), count: 0 };
@@ -208,8 +217,13 @@ export function buildImportPlan(records: readonly RawEntry[], catalog: Catalog, 
       activities.set(key, activity);
     }
     for (const scale of record.scales) {
-      const range = scaleRanges.get(fold(scale.name)) ?? { name: scale.name, min: 0, max: 10 };
-      scaleRanges.set(fold(scale.name), { ...range, min: Math.min(range.min, scale.value), max: Math.max(range.max, scale.value) });
+      const range = scaleRanges.get(fold(scale.name)) ?? { name: scale.name, min: 0, max: 10, decimals: 0 };
+      scaleRanges.set(fold(scale.name), {
+        ...range,
+        min: Math.min(range.min, scale.value),
+        max: Math.max(range.max, scale.value),
+        decimals: Math.max(range.decimals, decimalsOf(scale.value)),
+      });
     }
   }
 
@@ -247,7 +261,11 @@ export function buildImportPlan(records: readonly RawEntry[], catalog: Catalog, 
     moods: [...moods.values()],
     activities: planned,
     newGroups,
-    newScales: [...scaleRanges].filter(([key]) => !existingScales.has(key)).map(([, range]) => range),
+    newScales: [...scaleRanges]
+      .filter(([key]) => !existingScales.has(key))
+      .map(([, { name, min, max, decimals }]) =>
+        decimals > 0 ? { name, min: 0, max: 0, kind: 'number' as const, decimals: Math.min(decimals, NUMBER_MAX_DECIMALS) } : { name, min, max, kind: 'rating' as const, decimals: 0 },
+      ),
     entries: toAdd,
     duplicates,
     photos: photoNames.length,

@@ -26,7 +26,7 @@ function catalog(): Catalog {
     { id: 11, group_id: 1, name: 'Entspannt <b>', icon: 'x', sort_order: 1, archived: false, ...stamp } as Activity,
     { id: 20, group_id: 2, name: 'Arbeit', icon: 'x', sort_order: 0, archived: false, ...stamp } as Activity,
   ];
-  const scales: Scale[] = [{ id: 3, name: 'Stress', min: 1, max: 5, kind: 'rating', sort_order: 0, archived: false, ...stamp } as Scale];
+  const scales: Scale[] = [{ id: 3, name: 'Stress', min: 1, max: 5, kind: 'rating', unit: '', decimals: 0, sort_order: 0, archived: false, ...stamp } as Scale];
   return buildCatalog({ moods, groups, activities, scales });
 }
 
@@ -159,6 +159,28 @@ describe('renderReportHtml', () => {
   it('has no script, no external resource and no NaN', () => {
     const html = renderReportHtml(buildReport(source(), options({ notes: true })), de, name, 'de');
     expect(html).not.toMatch(/<script|https?:\/\/(?!www\.w3\.org\/2000\/svg)|NaN|undefined|Infinity|\{\{/);
+  });
+});
+
+describe('a number scale in the report', () => {
+  /** The ten days with a weight each, two weighings on the 20th, and a unit that needs escaping. */
+  function weighed(): ReportSource {
+    const base = source();
+    const weight = { id: 4, name: 'Gewicht', min: 0, max: 0, kind: 'number', unit: '<kg>', decimals: 1, sort_order: 1, archived: false, ...stamp } as Scale;
+    const scales = [...base.catalog.scales, weight];
+    const catalog = buildCatalog({ moods: [...base.catalog.moods], groups: [...base.catalog.groups], activities: [...base.catalog.activities], scales });
+    const entries = base.entries.map((e, i) => ({ ...e, scales: [...(e.scales ?? []), { scale_id: 4, value: 72 + i * 0.3 }] }));
+    return { ...base, catalog, entries };
+  }
+
+  it('prints values with unit and decimals, escaped, and no NaN on the chart', () => {
+    const src = weighed();
+    const report = buildReport(src, { ...defaultReportOptions(src), scaleIds: [4] });
+    expect(report.scales[0]).toMatchObject({ kind: 'number', unit: '<kg>', decimals: 1 });
+    const html = renderReportHtml(report, de, (id) => src.catalog.activityById.get(id)?.name ?? '', 'de');
+    expect(html).toContain('72,0 &lt;kg&gt;');
+    expect(html).not.toContain('<kg>');
+    expect(html).not.toMatch(/NaN|undefined|Infinity/);
   });
 });
 

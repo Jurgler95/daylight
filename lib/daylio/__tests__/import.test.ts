@@ -1,13 +1,14 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
-import { listActivities, listGroups, listMoods } from '@/db/repositories';
+import { createScale, listActivities, listGroups, listMoods, listScales } from '@/db/repositories';
 import { countRows } from '@/db/repositories/maintenance';
 import { createTestDb } from '@/db/testDb';
 
 import { applyDaylioImport, ImportHasErrorsError, previewDaylioImport } from '../apply';
 import { parseDaylioCsv } from '../parse';
 import { readDaylioRows } from '../rows';
+import { writeDaylioCsv } from '../write';
 
 const sample = parseDaylioCsv(readFileSync(path.join(__dirname, 'fixtures', 'sample.csv'), 'utf8'));
 const HEADER = 'full_date,date,weekday,time,mood,activities,scales,note_title,note';
@@ -21,6 +22,26 @@ function fileWithErrorOnLine17(): string {
   });
   return [HEADER, ...rows].join('\n');
 }
+
+describe('number scales in the CSV', () => {
+  const file = [HEADER, '2026-01-02,x,x,07:00,Gut,"","Gewicht: 72.4 | Energie: 3.6","",""', '2026-01-01,x,x,07:00,Gut,"","Gewicht: 73","",""'].join('\n');
+
+  it('come back as number scales with their decimals, a decimal on a rating is rounded', () => {
+    const db = createTestDb();
+    createScale(db, { name: 'Energie', min: 1, max: 5 });
+    applyDaylioImport(db, parseDaylioCsv(file), { mode: 'merge' });
+    const weight = listScales(db).find((scale) => scale.name === 'Gewicht');
+    expect(weight).toMatchObject({ kind: 'number', decimals: 1 });
+    const rows = readDaylioRows(db);
+    expect(rows.map((row) => row.scales)).toEqual(
+      expect.arrayContaining([
+        [{ name: 'Energie', value: 4 }, { name: 'Gewicht', value: 72.4 }],
+        [{ name: 'Gewicht', value: 73 }],
+      ]),
+    );
+    expect(writeDaylioCsv(rows)).toContain('Gewicht: 72.4');
+  });
+});
 
 describe('Daylio import', () => {
   it('previews the sample against a fresh database', () => {

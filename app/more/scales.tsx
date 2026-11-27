@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { AddRow } from '@/components/manage/AddRow';
+import { NumberSettings } from '@/components/manage/NumberSettings';
 import { MANAGE_ROW_HEIGHT, ManageRow } from '@/components/manage/ManageRow';
 import { SortableList } from '@/components/manage/SortableList';
 import { AppText, Card, Screen, Segmented } from '@/components/ui';
@@ -14,11 +15,12 @@ import { upper } from '@/lib/i18n/language';
 import { useManageWrite } from '@/lib/manage/useManageWrite';
 import { useQuery } from '@/lib/store/dataVersion';
 
-/** What a new scale can be: a short rating like Daylio's, the 0 to 10 Zyklus uses, or hours and minutes. */
+/** What a new scale can be: a short rating, the 0 to 10 Zyklus uses, hours and minutes, or a number like a weight. */
 const KINDS = [
   { key: '1-5', kind: 'rating', min: 1, max: 5 },
   { key: '0-10', kind: 'rating', min: 0, max: 10 },
   { key: 'duration', kind: 'duration', min: 0, max: 0 },
+  { key: 'number', kind: 'number', min: 0, max: 0 },
 ] as const;
 
 type KindKey = (typeof KINDS)[number]['key'];
@@ -28,10 +30,14 @@ export default function ScalesScreen() {
   const { t } = useTranslation();
   const write = useManageWrite();
   const [choice, setChoice] = useState<KindKey>('1-5');
+  const [unit, setUnit] = useState('');
+  const [decimals, setDecimals] = useState(1);
   const all = useQuery(() => listScales(getDb(), { includeArchived: true }), []);
   const active = all.filter((scale) => !scale.archived);
   const archived = all.filter((scale) => scale.archived);
-  const scaleMeta = (scale: Scale) => (scale.kind === 'duration' ? t('manage.duration') : t('manage.range', { min: scale.min, max: scale.max }));
+  const kindLabel = (option: Pick<Scale, 'kind' | 'min' | 'max'>) =>
+    option.kind === 'duration' ? t('manage.duration') : option.kind === 'number' ? t('manage.number') : t('manage.range', { min: option.min, max: option.max });
+  const scaleMeta = (scale: Scale) => (scale.kind === 'number' && scale.unit ? `${kindLabel(scale)} · ${scale.unit}` : kindLabel(scale));
   const open = (id: number) => router.push({ pathname: '/more/scale/[id]', params: { id: String(id) } });
   const row = (scale: Scale) => (
     <ManageRow key={scale.id} label={scale.name} meta={scaleMeta(scale)} onPress={() => open(scale.id)} />
@@ -52,19 +58,19 @@ export default function ScalesScreen() {
         />
         <Segmented
           label={t('manage.newScaleRange')}
-          options={KINDS.map((option) => ({
-            value: option.key,
-            label: option.kind === 'duration' ? t('manage.duration') : t('manage.range', { min: option.min, max: option.max }),
-          }))}
+          options={KINDS.map((option) => ({ value: option.key, label: kindLabel(option) }))}
           value={choice}
           onChange={setChoice}
         />
+        {choice === 'number' ? <NumberSettings unit={unit} decimals={decimals} onUnit={setUnit} onDecimals={setDecimals} /> : null}
         <AddRow
           placeholder={t('manage.newScale')}
           addLabel={t('manage.add')}
           onAdd={(name) => {
             const { kind, min, max } = KINDS.find((option) => option.key === choice) ?? KINDS[0];
-            return write(() => createScale(getDb(), { name, kind, min, max }));
+            const created = write(() => createScale(getDb(), { name, kind, min, max, unit, decimals }));
+            if (created) setUnit('');
+            return created;
           }}
         />
       </Card>

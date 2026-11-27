@@ -2,6 +2,9 @@ import type { MoodLevel } from '@/db/schema';
 import { formatMonthLong, formatMonthShort, formatNumeric, formatRange, formatShort, formatWeekdayShort } from '@/lib/dates';
 import { formatDuration } from '@/lib/health/format';
 import { formatDecimal } from '@/lib/insights/format';
+import { formatEntryValue, formatScaleValue } from '@/lib/scales/format';
+import { roundToDecimals } from '@/lib/scales/number';
+import { numberChartRange } from '@/lib/scales/range';
 import { moodColors } from '@/lib/theme/tokens';
 
 import { FEW_DAYS, MIN_MONTH_VALUES, type Report, type ReportScale } from './model';
@@ -38,8 +41,10 @@ function dot(level: MoodLevel): string {
   return `<span class="dot" style="background:${color(level)}">${level}</span>`;
 }
 
-function scaleValue(scale: Pick<ReportScale, 'kind'>, value: number): string {
+function scaleValue(scale: Pick<ReportScale, 'kind' | 'unit' | 'decimals'>, value: number): string {
   if (scale.kind === 'duration') return formatDuration(value);
+  // A number as entered, with its unit; a mean of several with at least one decimal.
+  if (scale.kind === 'number') return roundToDecimals(value, scale.decimals) === value ? formatEntryValue(scale, value) : formatScaleValue(scale, value);
   // One entry gives a whole number; a mean of several keeps its decimal.
   return Number.isInteger(value) ? String(value) : formatDecimal(value);
 }
@@ -105,15 +110,22 @@ function chart(report: Report, t: Translate): string {
   }
   for (const scale of report.scales) {
     const height = 18;
-    const span = Math.max(1, scale.max - scale.min);
+    const values = days.flatMap((day) => day.scales.get(scale.id) ?? []);
+    // A number has no range of its own; the axis hugs the period's values, and the label says which.
+    const [low, high] = scale.kind === 'number' ? numberChartRange(values, scale.decimals) : [scale.min, scale.max];
+    const span = scale.kind === 'number' ? high - low : Math.max(1, scale.max - scale.min);
     parts.push(label(scale.name, row + 8));
-    if (scale.kind !== 'duration') parts.push(label(t('report.scaleRange', { min: scale.min, max: scale.max }), row + 17, 7, FAINT));
+    if (scale.kind === 'rating') parts.push(label(t('report.scaleRange', { min: scale.min, max: scale.max }), row + 17, 7, FAINT));
+    if (scale.kind === 'number' && values.length > 0) {
+      const range = t('report.scaleRange', { min: formatEntryValue(scale, Math.min(...values)), max: formatEntryValue(scale, Math.max(...values)) });
+      parts.push(label(range, row + 17, 7, FAINT));
+    }
     // Durations have no useful upper end; the longest day in the period fills the row.
     const longest = Math.max(60, ...days.map((day) => day.scales.get(scale.id) ?? 0));
     days.forEach((day, index) => {
       const value = day.scales.get(scale.id);
       if (value === undefined) return;
-      const share = scale.kind === 'duration' ? Math.min(1, value / longest) : (value - scale.min) / span;
+      const share = scale.kind === 'duration' ? Math.min(1, value / longest) : (value - low) / span;
       const h = Math.max(1, share * height);
       parts.push(`<rect x="${n(left + step * index + (step - bar) / 2)}" y="${n(row + height - h)}" width="${n(bar)}" height="${n(h)}" fill="${FAINT}"/>`);
     });
@@ -179,7 +191,7 @@ function firstPage(report: Report, t: Translate): string {
         ...(report.sleep ? [month.sleep === null ? tooFew : sleepValue(month.sleep)] : []),
         ...report.scales.map((scale, index) => {
           const value = month.scales[index];
-          return value === null || value === undefined ? tooFew : scaleValue(scale, value);
+          return value === null || value === undefined ? tooFew : escapeHtml(scaleValue(scale, value));
         }),
       ];
       return `<tr>${cells.map((cell, index) => `<td${index ? ' class="num"' : ''}>${cell}</td>`).join('')}</tr>`;
@@ -248,7 +260,7 @@ function dayListPage(report: Report, t: Translate, activityName: (id: number) =>
         ...(report.sleep ? [`<td class="num">${day.sleep === null ? '' : sleepValue(day.sleep)}</td>`] : []),
         ...report.scales.map((scale) => {
           const value = day.scales.get(scale.id);
-          return `<td class="num">${value === undefined ? '' : scaleValue(scale, value)}</td>`;
+          return `<td class="num">${value === undefined ? '' : escapeHtml(scaleValue(scale, value))}</td>`;
         }),
         `<td>${escapeHtml(day.activities.map(activityName).filter(Boolean).join(', '))}</td>`,
       ];

@@ -80,9 +80,13 @@ export const HEALTH_MIN_CHANGE: Record<(typeof TREND_METRICS)[number], MinChange
   restingHr: () => 2,
 };
 
-/** Ratings as the mood, scaled to their span (0.3 on 1..5); durations like exercise. */
+/**
+ * Ratings as the mood, scaled to their span (0.3 on 1..5); durations like exercise. A number has no
+ * span: 2 % of its level (1,4 kg at 72 kg), at least one step of its last decimal (one glass).
+ */
 export function scaleMinChange(scale: ScaleFacts): MinChange {
   if (scale.kind === 'duration') return (base) => Math.max(15, 0.1 * base);
+  if (scale.kind === 'number') return (base) => Math.max(10 ** -(scale.decimals ?? 0), 0.02 * Math.abs(base));
   return () => 0.075 * (scale.max - scale.min);
 }
 

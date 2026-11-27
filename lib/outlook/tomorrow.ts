@@ -100,8 +100,11 @@ function features(pair: Pick<Pair, 'day' | 'previous' | 'next'>, scales: readonl
     const value = scaleDayValue(day, scale);
     if (value === null) continue;
     f.set(`p${scale.id}`, 1);
-    // Ratings around their middle, durations in working days, so every weight speaks about the same size.
-    f.set(`s${scale.id}`, scale.kind === 'duration' ? Math.min(2, value / 480) : (value - (scale.min + scale.max) / 2) / Math.max(1, scale.max - scale.min));
+    // Ratings around their middle, durations in working days, numbers around the middle of their usual
+    // values (see `withNumberSpans`), so every weight speaks about the same size.
+    if (scale.kind === 'duration') f.set(`s${scale.id}`, Math.min(2, value / 480));
+    else if (scale.kind === 'number') f.set(`s${scale.id}`, Math.max(-2, Math.min(2, (value - (scale.min + scale.max) / 2) / (scale.max - scale.min))));
+    else f.set(`s${scale.id}`, (value - (scale.min + scale.max) / 2) / Math.max(1, scale.max - scale.min));
   }
   // Hours from seven, thousands of steps from eight thousand, capped, so one marathon does not tip it.
   const sleep = body.get(day.date)?.sleep;
@@ -323,8 +326,26 @@ function* encodeSteps(pairs: readonly Pair[], scales: readonly ScaleFacts[], bod
   return { encoder, rows };
 }
 
+/**
+ * A number scale has no range of its own, so for the features it gets one from the diary: from the
+ * 10th to the 90th percentile of its day values. A weight that moves between 71 and 74 kg is then
+ * as loud as an energy rating moving between 1 and 5.
+ */
+export function withNumberSpans(scales: readonly ScaleFacts[], days: readonly InsightDay[]): ScaleFacts[] {
+  return scales.map((scale) => {
+    if (scale.kind !== 'number') return scale;
+    const values = days.flatMap((day) => scaleDayValue(day, scale) ?? []).sort((a, b) => a - b);
+    if (values.length === 0) return scale;
+    const at = (share: number) => values[Math.min(values.length - 1, Math.floor(share * values.length))]!;
+    const min = at(0.1);
+    const max = Math.max(at(0.9), min + 10 ** -(scale.decimals ?? 0));
+    return { ...scale, min, max };
+  });
+}
+
 /** The backtest on its own, for tests and scripts. */
-export function tomorrowBacktest(days: readonly InsightDay[], scales: readonly ScaleFacts[], body: BodyByDate = new Map()): TomorrowCase[] {
+export function tomorrowBacktest(days: readonly InsightDay[], given: readonly ScaleFacts[], body: BodyByDate = new Map()): TomorrowCase[] {
+  const scales = withNumberSpans(given, days);
   const pairs = pairsOf(days);
   const { encoder, rows } = finish(encodeSteps(pairs, scales, body));
   return finish(backtestSteps(pairs, rows, encoder.keys.length)).cases;
@@ -393,8 +414,9 @@ export interface TomorrowInput {
 }
 
 /** Backtest, rank and the hint for the day after `today`, a few fitting steps per step. */
-export function* tomorrowSteps({ days, scales, today, shown, body = new Map() }: TomorrowInput): Generator<void, TomorrowResult> {
+export function* tomorrowSteps({ days, scales: given, today, shown, body = new Map() }: TomorrowInput): Generator<void, TomorrowResult> {
   const recorded = days.filter((day) => day.date <= today);
+  const scales = withNumberSpans(given, recorded);
   const pairs = pairsOf(recorded);
   if (pairs.length < MIN_PAIRS) return { status: { kind: 'tooFew', pairs: pairs.length, needed: MIN_PAIRS }, hint: null };
 

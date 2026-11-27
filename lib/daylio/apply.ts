@@ -6,9 +6,10 @@ import { clearJournal } from '@/db/repositories/maintenance';
 import { createMood, listMoods } from '@/db/repositories/moods';
 import { addPhotos, allPhotoFileNames } from '@/db/repositories/photos';
 import { createScale, listScales } from '@/db/repositories/scales';
-import type { EntrySource } from '@/db/schema';
+import type { EntrySource, Scale } from '@/db/schema';
 import type { Database } from '@/db/types';
 import { sweepPhotos, writePhotos, type PhotoStore } from '@/lib/photos/store';
+import { roundToDecimals } from '@/lib/scales/number';
 import { fold } from '@/lib/search/fold';
 
 import type { ParsedDaylio, RawEntry } from './parse';
@@ -89,8 +90,10 @@ function carryOut(tx: Database, plan: ImportPlan, source: EntrySource): number {
     activityIds.set(activity.key, createActivity(tx, { group_id: groupId, name: activity.name, icon: activity.icon }).id);
   }
 
-  const scaleIds = new Map(listScales(tx, { includeArchived: true }).map((scale) => [fold(scale.name), scale.id]));
-  for (const scale of plan.newScales) scaleIds.set(fold(scale.name), createScale(tx, scale).id);
+  const scaleByName = new Map(listScales(tx, { includeArchived: true }).map((scale) => [fold(scale.name), scale]));
+  for (const scale of plan.newScales) scaleByName.set(fold(scale.name), createScale(tx, scale));
+  // A decimal only fits a number scale; on a rating or a duration it becomes the nearest whole step.
+  const fit = (scale: Scale, value: number) => (scale.kind === 'number' ? roundToDecimals(value, scale.decimals) : Math.round(value));
 
   for (const { raw } of plan.entries) {
     const moodId = moodIds.get(fold(raw.mood));
@@ -104,8 +107,8 @@ function carryOut(tx: Database, plan: ImportPlan, source: EntrySource): number {
       source,
       activity_ids: raw.activities.map((name) => activityIds.get(fold(name))).filter((id): id is number => id !== undefined),
       scales: raw.scales.flatMap((scale) => {
-        const id = scaleIds.get(fold(scale.name));
-        return id === undefined ? [] : [{ scale_id: id, value: scale.value }];
+        const target = scaleByName.get(fold(scale.name));
+        return target === undefined ? [] : [{ scale_id: target.id, value: fit(target, scale.value) }];
       }),
     });
   }

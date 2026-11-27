@@ -28,12 +28,12 @@ import { useDayLabel } from '@/lib/calendar/useDayLabel';
 import { useCalendarMarkers } from '@/lib/calendar/useDayMarkers';
 import { addDaysToDateString, daysBetween, formatLong, type DateString } from '@/lib/dates';
 import { useToday } from '@/lib/dates/useToday';
-import { formatDuration } from '@/lib/health/format';
 import { useHealthDay } from '@/lib/health/useHealthDays';
 import { upper } from '@/lib/i18n/language';
 import { useHintOnToday } from '@/lib/outlook/useGoodTomorrow';
 import { useOutlook } from '@/lib/outlook/useOutlook';
 import { useReviewPrompt } from '@/lib/review/useReviewPrompt';
+import { formatEntryValue } from '@/lib/scales/format';
 import { useQuery } from '@/lib/store/dataVersion';
 import { useSelectedDay } from '@/lib/store/selectedDay';
 import { useChipPulse, useStreak } from '@/lib/streak/useStreak';
@@ -163,7 +163,7 @@ export default function TodayScreen() {
                 entry={entry}
                 catalog={catalog}
                 scaleLabel={(scale, value) =>
-                  scale.kind === 'duration' ? `${scale.name} ${formatDuration(value)}` : t('entry.scaleLine', { name: scale.name, value, max: scale.max })
+                  scale.kind === 'rating' ? t('entry.scaleLine', { name: scale.name, value, max: scale.max }) : `${scale.name} ${formatEntryValue(scale, value)}`
                 }
                 editLabel={t('today.editHint')}
                 photoLabel={t('photo.open')}

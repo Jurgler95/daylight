@@ -192,6 +192,35 @@ describe('duration scales in the backup', () => {
   });
 });
 
+describe('number scales in the backup', () => {
+  it('keep unit, decimals and decimal values', () => {
+    const db = sampled();
+    const weight = createScale(db, { name: 'Gewicht', kind: 'number', unit: 'kg', decimals: 1 });
+    const mood = listMoods(db)[0];
+    createEntry(db, { date: '2026-09-27', time: '07:00', mood_id: mood?.id ?? 0, scales: [{ scale_id: weight.id, value: 72.4 }] });
+    const target = createTestDb();
+    applyImport(target, parseImport(JSON.stringify(buildExport(db, '1.0.0'))), 'replace');
+    expect(listScales(target).find((scale) => scale.name === 'Gewicht')).toMatchObject({ kind: 'number', unit: 'kg', decimals: 1 });
+    expect(buildExport(target, '1.0.0').entry_scales).toContainEqual(expect.objectContaining({ scale_id: weight.id, value: 72.4 }));
+  });
+
+  it('a file from before them has no unit and no decimals', () => {
+    const file = buildExport(sampled(), '1.0.0');
+    const old = { ...file, scales: file.scales.map(({ unit: _unit, decimals: _decimals, ...scale }) => scale) };
+    expect(parseImport(JSON.stringify(old)).scales.every((scale) => scale.unit === '' && scale.decimals === 0)).toBe(true);
+  });
+
+  it('a decimal on a rating is refused', () => {
+    const db = sampled();
+    const energy = listScales(db)[0]!;
+    const mood = listMoods(db)[0];
+    createEntry(db, { date: '2026-09-27', time: '07:00', mood_id: mood?.id ?? 0, scales: [{ scale_id: energy.id, value: 3 }] });
+    const file = buildExport(db, '1.0.0');
+    const broken = { ...file, entry_scales: file.entry_scales.map((row) => (row.scale_id === energy.id ? { ...row, value: 3.5 } : row)) };
+    expect(() => parseImport(JSON.stringify(broken))).toThrow();
+  });
+});
+
 describe('health days in the backup', () => {
   const steps = (date: string, value: number) => ({ date, steps: value, sleep_minutes: 420, resting_hr: null, exercise_minutes: null });
 
