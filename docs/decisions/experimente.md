@@ -7,9 +7,9 @@ Gebaut am 2026-11-27 auf dem Branch `feature/experimente` in drei Phasen nach `d
 | Prüfung | Ergebnis |
 | --- | --- |
 | `npm run typecheck` | sauber |
-| `npx jest` | 94 Suites, 1037 Tests grün, 2 übersprungen (vor dem Bau 84 Suites, 921 Tests). Neu: `db/__tests__/experiments.test.ts`, `lib/experiments/__tests__/` (`rules`, `compare`, `noise`, `view`), `lib/export/__tests__/experiments.test.ts`, `lib/i18n/__tests__/experimentWords.test.ts`, `components/experiments/__tests__/` (`screens`, `checkIn`, `doneCard`); ergänzt: `draft.test.ts`, `useEntryEditor.test.tsx`, `summary.test.ts` |
-| Unabhängige Prüfung | Eine Prüfrunde zwischen Phase 2 und 3 (im Plan „Nach Prüfung R1“), die Abschlussprüfung steht noch aus |
-| Auf dem Gerät | noch nicht, siehe Offene Punkte |
+| `npx jest` | 94 Suites, 1050 Tests grün, 2 übersprungen (vor dem Bau 84 Suites, 921 Tests). Neu: `db/__tests__/experiments.test.ts`, `lib/experiments/__tests__/` (`rules`, `compare`, `noise`, `view`), `lib/export/__tests__/experiments.test.ts`, `lib/i18n/__tests__/experimentWords.test.ts`, `components/experiments/__tests__/` (`screens`, `checkIn`, `doneCard`); ergänzt: `draft.test.ts`, `useEntryEditor.test.tsx`, `summary.test.ts` |
+| Unabhängige Prüfung | Eine Prüfrunde zwischen Phase 2 und 3 (im Plan „Nach Prüfung R1“) und eine Abschlussprüfung mit zwei Code-Prüfern und Durchklick; ihre Befunde sind behoben, siehe Plan „Nach Abschlussprüfung“ |
+| Auf dem Gerät | Durchklick auf dem Emulator `Pixel_9` mit Release-Build in der Abschlussprüfung, vor den Korrekturen danach |
 
 ## Was existiert
 
@@ -17,10 +17,10 @@ Gebaut am 2026-11-27 auf dem Branch `feature/experimente` in drei Phasen nach `d
 | --- | --- |
 | `db/schema.ts`, `drizzle/0018_odd_stick.sql` | Tabellen `experiments` (Titel, Notiz, Start, Ende einschließlich, `check_in`, `result_seen`, Zeitstempel) und `experiment_days` (Antwort je Experiment und Tag, Kaskade beim Löschen). Keine Spalte für die geplante Dauer, kein gespeicherter Zustand |
 | `db/repositories/experiments.ts` | Anlegen, Bearbeiten, „Jetzt beenden“, Löschen, `markExperimentSeen`, Antworten lesen. `setExperimentDays` speichert die Antworten des Editors für einen Tag und führt ein Nein selbst aus, in einer Transaktion |
-| `lib/experiments/rules.ts` | Dauer 7 bis 84 Tage, Start ein Jahr zurück bis 60 Tage voraus, Zustand aus dem Datum (`experimentState`), Bearbeiten, Beenden, Überschneidung, wann gefragt wird (`canAnswer`, `askingOn`), Schlüssel zum Zusammenführen (`experimentKey`) |
+| `lib/experiments/rules.ts` | Dauer 7 bis 84 Tage, Start ein Jahr zurück bis 60 Tage voraus, Zustand aus dem Datum (`experimentState`), Bearbeiten, Beenden, Überschneidung, wann gefragt wird (`canAnswer`, `askingOn`), Schlüssel zum Zusammenführen (`experimentKey`, `isDuplicate`) |
 | `lib/experiments/compare.ts` | „Davor“ gegen „Im Experiment“ für Stimmung, Skalen, Gesundheit und Aktivitäten, Hinweise (Überschneidung, Jahreszeiten, Rückkehr zum Gewohnten), Zählung der Antworten (`checkInCounts`). Teilt die Rechnung mit `lib/turning/compare.ts` |
 | `lib/experiments/noise.ts` | Urteil an der eigenen Schwankung (E2, E11, E14): nicht beurteilbar, vorläufig, im Rahmen oder größer als üblich |
-| `lib/experiments/view.ts`, `useExperiments.ts` | Abschnitte der Liste, Auswahl der Dauer, Urteil in Worten, welches Experiment die Karte auf Heute zeigt (`finishedToShow`); die Brücke zu den Bildschirmen |
+| `lib/experiments/view.ts`, `useExperiments.ts` | Abschnitte der Liste, Zustandstext (`experimentStatus`), Auswahl der Dauer, Urteil in Worten samt Prozent (`verdictPercent`), welches Experiment die Karte auf Heute zeigt (`finishedToShow`); die Brücke zu den Bildschirmen |
 | `app/experiments/` | Liste (`index.tsx`), Anlegen und Bearbeiten (`new.tsx`, `?id=`), Vergleich (`[id].tsx`) mit Check-in-Block, Jetzt beenden und Löschen |
 | `components/experiments/` | Zeile der Liste, Karte in Einblicke, Datumszeile mit Grenzen, Frage im Editor (`CheckInCard.tsx`), Karte auf Heute (`ExperimentDoneCard.tsx`) |
 | `lib/entry/draft.ts`, `lib/entry/useEntryEditor.ts`, `components/entry/EntryEditor.tsx` | Antworten im Entwurf (`check_ins`, nur Änderungen), geschrieben mit „Speichern“ im selben `mutate` wie der Eintrag |
@@ -47,10 +47,8 @@ Die Migration `drizzle/0018_odd_stick.sql` liegt in einem eigenen Commit („Dat
 
 ## Offene Punkte
 
-Auf dem Gerät prüfen (Emulator `Pixel_9`, Beispieldaten über ein Jahr), die Wege aus dem Abschnitt „Abnahme“ im Plan:
+Die Wege aus dem Abschnitt „Abnahme“ im Plan sind in der Abschlussprüfung auf dem Emulator `Pixel_9` durchgeklickt. Nach den Korrekturen danach einmal auf dem Gerät ansehen:
 
-- Experiment mit Start vor 30 Tagen und 4 Wochen anlegen: schon vorbei, keine Karte auf Heute, Vergleich mit Urteil.
-- Start vor 10 Tagen: Zwischenstand ohne Urteil. Start ab morgen: geplant, kein Vergleich.
-- Laufendes Experiment mit Frage: im Editor beantworten, zweiten Eintrag am Tag öffnen (Antwort vorbelegt), Nein tippen, Rückfrage, speichern, Experiment beendet, Karte auf Heute erscheint und verschwindet mit „Schließen“.
-- Vorzeitig beenden, Import-Vorschau mit Ersetzen zeigt den Verlust-Hinweis, Sicherung exportieren, alles löschen, einspielen, Experimente wieder da.
-- Dark Mode einmal ansehen, die Ja/Nein-Chips im Editor mit TalkBack.
+- Vergleichsseite: Skalen- und Gesundheitszeilen mit dem Kurzurteil in eigener Zeile (lange Urteile wie „größer als üblich, 1,0 %, vorläufig“), Stimmungsbalken mit der Beschriftung darüber, auch in Französisch oder Polnisch.
+- Ein beendetes Experiment: alter Eintrag aus seinem Zeitraum ohne Frage, Formular ohne Schalter „Täglich fragen“.
+- Die Ja/Nein-Chips im Editor und die Verlaufsgrafik mit TalkBack.

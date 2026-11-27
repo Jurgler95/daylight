@@ -1,6 +1,6 @@
 # Experimente
 
-Stand: 2026-11-27, Status: bereit zum Bau
+Stand: 2026-11-27, Status: gebaut (2026-11-27)
 
 ## Kurzfassung
 
@@ -215,3 +215,20 @@ Phase 3:
 - Eine Antwort, die wieder dem gespeicherten Stand entspricht, fällt aus `check_ins` (`tapCheckIn` in `lib/entry/draft.ts`), sonst bliebe der Entwurf nach Hin- und Zurücktippen `dirty`.
 - Check-in-Block auf der Vergleichsseite nur, wenn die Frage an ist oder Antworten da sind, nicht bei geplanten. Ohne Antwort ein eigener Satz („Noch keine Antwort …“).
 - Welche Karte Heute zeigt, rechnet rein `finishedToShow` in `lib/experiments/view.ts` (Konstante `RESULT_CARD_DAYS = 14`), bei gleichem Ende das später angelegte.
+
+Nach Abschlussprüfung (zwei Code-Prüfer und ein Durchklick auf dem Emulator):
+- E17 „Nach Ende fest“ (Paul): `canAnswer` verlangt zusätzlich, dass das Experiment heute nicht vorbei ist; `setExperimentDays` lehnt damit Ja und Nein für ein beendetes ab, `null` geht weiter. Im Formular fehlt dann der Schalter „Täglich fragen“, die Vergleichsseite sagt ohne Antworten „Zu diesem Experiment gibt es keine Antworten.“ (`experiments.checkIn.noneOver`).
+- Urteilssatz (Abschnitt „Eigene Schwankung“, Punkt 7) neu formuliert, ohne „Stichtage“ und ohne „gleich lang“, weil „Davor“ gekürzt sein kann: „In deiner Vorgeschichte gab es einen so großen Unterschied zwischen zwei aufeinanderfolgenden Zeiträumen wie diesen nur in X % der Fälle.“ (bzw. ohne „nur“ und mit „Er liegt im Rahmen …“). „Nicht beurteilbar“ ohne „noch“, weil es nur nach dem Ende erscheint.
+- Prozent im Urteil unter 20 % mit einer Nachkommastelle, „im Rahmen“ dort aufgerundet (`verdictPercent` in `view.ts`), damit zwei Urteile an der Schwelle nie dieselbe Zahl zeigen. `formatPercent` nimmt dafür optional die Nachkommastellen.
+- Kurzurteil der Skalen und Gesundheitsgrößen steht in einer eigenen Zeile unter den Werten; die Zeile ist jetzt `components/insights/ValueRow.tsx` und wird auch für die Gesundheitszeilen der Wendepunkte genutzt. Die Aktivitätenliste bleibt je Seite, sie ist dort nur ein `map` über `ActivityLine`.
+- „Zu wenige Tage“ mit eigenem Satz nach dem Ende (`experiments.fewOver`), Tageszahlen als „Tage mit Eintrag: davor 7, im Experiment 1“, damit keine Pluralform nötig ist.
+- Kein zweites Experiment mit gleichem gefaltetem Titel und gleichem Beginn (`isDuplicate` in `rules.ts`, geprüft im Formular und im Repository, Text `experiments.problem.duplicate`), weil Zusammenführen die beiden sonst verschmilzt.
+- Zusammenführen ergänzt in ein schon vorhandenes Experiment nur Ja-Antworten; ein Nein würde es beenden, das tut nur der Editor nach Rückfrage.
+- Sicherung: Antworten müssen im Zeitraum liegen, nur ein Nein darf auf dem Tag nach dem Ende liegen.
+- Eintrag und Antworten werden in einer Transaktion gespeichert (verschachtelt, Drizzle nutzt Savepoints).
+- `earlyEndDate` und `endDateAfterNo` sind eine Funktion `endOnDayBefore`; der Zustandstext ist `experimentStatus` in `view.ts`; `countExperiments`, die Felder `difference/before/during` des Rauschergebnisses (`noiseCheck` gibt jetzt das Urteil selbst zurück) und die Typen `ExportExperiment*` sind entfernt. Text und Zweig `problem.over` bleiben als Schutz im Repository.
+- `listExperimentDays` sortiert in SQL, die Sicherung nutzt die Funktion.
+- Stimmungsbalken der Vergleichsseite mit der Beschriftung über dem Balken (`LevelBar` mit `labelAbove`), weil „Im Experiment“ nicht in die schmale Spalte passt.
+- Vorlesetext der Verlaufsgrafik ohne „Schnitt“, wenn es keinen gibt (`insights.trend.a11yNoMean`); gilt auch für Wendepunkte.
+- „Jetzt beenden“ sagt in der Rückfrage, wenn Antworten nach dem neuen Ende entfernt werden (`experiments.endTextAnswers`, dafür `lastAnswered` in `checkInCounts`).
+- Titelfeld mit `maxLength` 60; „Alle Daten löschen“ nennt Wendepunkte und Experimente; unter den Aktivitäten steht, dass sie ohne Einordnung in die üblichen Schwankungen bleiben.
