@@ -1443,6 +1443,7 @@
       "count_many": "Dotrzymane w {{kept}} z {{count}} dni z odpowiedzią.",
       "count_other": "Dotrzymane w {{kept}} z {{count}} dnia z odpowiedzią.",
       "none": "Na razie brak odpowiedzi. Pytanie pojawia się przy wpisie danego dnia.",
+      "noneOver": "Ten eksperyment nie ma żadnych odpowiedzi.",
       "endedByNo": "Zakończone przez „nie” {{date}}."
     },
     "done": {

@@ -101,6 +101,14 @@ describe('experiment rules', () => {
     expect(askingOn(list, today, today).map((row) => row.id)).toEqual([1]);
   });
 
+  it('asks no more once the experiment is over, not even for its old days (E17)', () => {
+    const over = { start_date: '2026-11-01', end_date: '2026-11-26', check_in: true };
+    expect(canAnswer(over, d('2026-11-10'), d('2026-11-26'))).toBe(true);
+    expect(canAnswer(over, d('2026-11-10'), today)).toBe(false);
+    expect(canAnswer(over, d('2026-11-26'), today)).toBe(false);
+    expect(askingOn([over], d('2026-11-10'), today)).toEqual([]);
+  });
+
   it('keys an experiment by folded title and start', () => {
     expect(experimentKey({ title: ' Kein Kaffee ', start_date: '2026-11-20' })).toBe(experimentKey({ title: 'kein kaffee', start_date: '2026-11-20' }));
     expect(experimentKey({ title: 'Kein Kaffee', start_date: '2026-11-21' })).not.toBe(experimentKey({ title: 'Kein Kaffee', start_date: '2026-11-20' }));

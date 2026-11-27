@@ -1293,6 +1293,7 @@
       "count_one": "Eingehalten an {{kept}} von {{count}} Tag mit Antwort.",
       "count_other": "Eingehalten an {{kept}} von {{count}} Tagen mit Antwort.",
       "none": "Noch keine Antwort. Die Frage steht im Eintrag des Tages.",
+      "noneOver": "Zu diesem Experiment gibt es keine Antworten.",
       "endedByNo": "Beendet durch ein Nein am {{date}}."
     },
     "done": {

@@ -135,9 +135,12 @@ export default function ExperimentFormScreen() {
           {datesOpen ? t('experiments.form.endsOn', { date: formatLong(end) }) : t('experiments.form.datesLocked', { date: formatLong(end) })}
         </AppText>
       </Card>
-      <Card>
-        <ToggleRow label={t('experiments.form.checkIn')} hint={t('experiments.form.checkInHint')} value={checkIn} onChange={setCheckIn} />
-      </Card>
+      {datesOpen ? (
+        // Once it is over the editor asks no more (E17), so the switch would change nothing.
+        <Card>
+          <ToggleRow label={t('experiments.form.checkIn')} hint={t('experiments.form.checkInHint')} value={checkIn} onChange={setCheckIn} />
+        </Card>
+      ) : null}
       <AppText variant="caption" muted>
         {t('experiments.form.honest')}
       </AppText>

@@ -1368,6 +1368,7 @@
       "count_many": "Cumprido em {{kept}} de {{count}} dias com resposta.",
       "count_other": "Cumprido em {{kept}} de {{count}} dias com resposta.",
       "none": "Ainda sem resposta. A pergunta aparece no registro do dia.",
+      "noneOver": "Este experimento não tem respostas.",
       "endedByNo": "Encerrado por um não em {{date}}."
     },
     "done": {

@@ -166,6 +166,8 @@ describe('the form', () => {
     await render(<ExperimentFormScreen />);
     expect(screen.queryByLabelText(/^Dauer/)).toBeNull();
     expect(screen.getByText(/Nach dem Ende bleiben Beginn und Dauer/)).toBeTruthy();
+    // It asks no more once over (E17), so there is no switch for the question either.
+    expect(screen.queryByText(/Täglich fragen/)).toBeNull();
     await act(async () => fireEvent.changeText(screen.getByLabelText('Was probierst du?'), 'Früher schlafen'));
     await act(async () => fireEvent.press(screen.getByText('Speichern')));
     expect(getExperiment(db, over.id)).toMatchObject({ title: 'Früher schlafen', end_date: '2026-08-14' });

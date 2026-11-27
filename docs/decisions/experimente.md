@@ -2,7 +2,7 @@
 
 ## Status
 
-Gebaut am 2026-11-27 auf dem Branch `feature/experimente` in drei Phasen nach `docs/plans/experimente.md`. Nicht gepusht, kein Pull Request, keine Version gehoben, keine Updatehistorie, das macht `/deploy`. Der Plan ist die Spezifikation, seine Tabelle „Entscheidungen“ (E1 bis E16) gilt, Abweichungen stehen dort unter „Abweichungen beim Bau“.
+Gebaut am 2026-11-27 auf dem Branch `feature/experimente` in drei Phasen nach `docs/plans/experimente.md`. Nicht gepusht, kein Pull Request, keine Version gehoben, keine Updatehistorie, das macht `/deploy`. Der Plan ist die Spezifikation, seine Tabelle „Entscheidungen“ (E1 bis E17) gilt, Abweichungen stehen dort unter „Abweichungen beim Bau“.
 
 | Prüfung | Ergebnis |
 | --- | --- |
@@ -30,15 +30,16 @@ Gebaut am 2026-11-27 auf dem Branch `feature/experimente` in drei Phasen nach `d
 
 ## Entscheidungen
 
-Die Entscheidungen E1 bis E16 stehen im Plan. Hier, was beim Bau dazukam oder für spätere Arbeit wichtig ist.
+Die Entscheidungen E1 bis E17 stehen im Plan. Hier, was beim Bau dazukam oder für spätere Arbeit wichtig ist.
 
 1. **Zustand nur aus dem Datum.** Geplant vor dem Start, läuft bis zum Ende, danach vorbei. Ausnahme: Ein Experiment von genau einem Tag (nur durch ein Nein am Starttag möglich) ist ab diesem Tag vorbei.
 2. **Nein beendet (E15).** Der Editor fragt sofort nach, merkt sich das Nein im Entwurf und schreibt erst mit „Speichern“. `setExperimentDays` setzt dann das Ende auf den Vortag (am Starttag auf den Starttag), behält das Nein und entfernt spätere Antworten. Ohne Speichern passiert nichts. Danach fragt das Experiment nicht mehr.
-3. **Antworten im Entwurf.** `check_ins` hält nur die Änderungen gegenüber der Datenbank: `true`, `false` oder `null` (zurückgenommen). Ein Tipp auf die gewählte Antwort nimmt sie zurück; was wieder dem gespeicherten Stand entspricht, fällt aus dem Entwurf, damit er nicht grundlos als geändert gilt. Ein anderer Tag im Editor verwirft die Änderungen. Beim Speichern gehen nur Antworten für Experimente an die Datenbank, die an dem Tag noch fragen.
-4. **Antworten hängen am Tag,** nicht am Eintrag. Ein zweiter Eintrag des Tages zeigt die vorhandene Antwort, das Löschen eines Eintrags lässt sie stehen.
-5. **Vergleichsseite:** „Eingehalten an X von Y Tagen mit Antwort“ und, wenn ein Nein es beendet hat, „Beendet durch ein Nein am …“. Der Block erscheint, wenn die Frage an ist oder es Antworten gibt, nicht bei geplanten. Kein Vergleich Ja-Tage gegen Nein-Tage.
-6. **Karte auf Heute:** nur am heutigen Tag nach der Bewertungskarte, für ein Experiment, das vorbei ist, dessen Vergleich noch nicht gesehen wurde und dessen Ende höchstens 14 Tage her ist. Bei mehreren nur das zuletzt beendete. „Schließen“ und das Öffnen des Vergleichs setzen `result_seen`. Wer ein schon beendetes Experiment anlegt, bekommt keine Karte; ein Nein am Starttag bringt sie sofort.
-7. **Zusammenführen:** Neue Experimente aus einer Sicherung bekommen `result_seen = true`, wenn ihr Ende vor heute liegt; laufende und geplante behalten `false`, damit sie nach dem Ende ihre Karte zeigen.
+3. **Nach Ende fest (E17).** Gefragt wird nur, solange das Experiment heute noch nicht vorbei ist (`canAnswer` prüft den Tag des Eintrags und heute). Ein alter Eintrag aus dem Zeitraum eines beendeten Experiments zeigt keine Frage, und `setExperimentDays` lehnt Ja und Nein dafür ab, nur das Zurücknehmen (`null`) geht. So kann ein spätes Nein Ende und Urteil nicht mehr ändern. Im Formular fehlt dann der Schalter „Täglich fragen“, und die Vergleichsseite sagt ohne Antworten „Zu diesem Experiment gibt es keine Antworten.“
+4. **Antworten im Entwurf.** `check_ins` hält nur die Änderungen gegenüber der Datenbank: `true`, `false` oder `null` (zurückgenommen). Ein Tipp auf die gewählte Antwort nimmt sie zurück; was wieder dem gespeicherten Stand entspricht, fällt aus dem Entwurf, damit er nicht grundlos als geändert gilt. Ein anderer Tag im Editor verwirft die Änderungen. Beim Speichern gehen nur Antworten für Experimente an die Datenbank, die an dem Tag noch fragen.
+5. **Antworten hängen am Tag,** nicht am Eintrag. Ein zweiter Eintrag des Tages zeigt die vorhandene Antwort, das Löschen eines Eintrags lässt sie stehen.
+6. **Vergleichsseite:** „Eingehalten an X von Y Tagen mit Antwort“ und, wenn ein Nein es beendet hat, „Beendet durch ein Nein am …“. Der Block erscheint, wenn die Frage an ist oder es Antworten gibt, nicht bei geplanten. Kein Vergleich Ja-Tage gegen Nein-Tage.
+7. **Karte auf Heute:** nur am heutigen Tag nach der Bewertungskarte, für ein Experiment, das vorbei ist, dessen Vergleich noch nicht gesehen wurde und dessen Ende höchstens 14 Tage her ist. Bei mehreren nur das zuletzt beendete. „Schließen“ und das Öffnen des Vergleichs setzen `result_seen`. Wer ein schon beendetes Experiment anlegt, bekommt keine Karte; ein Nein am Starttag bringt sie sofort.
+8. **Zusammenführen:** Neue Experimente aus einer Sicherung bekommen `result_seen = true`, wenn ihr Ende vor heute liegt; laufende und geplante behalten `false`, damit sie nach dem Ende ihre Karte zeigen.
 
 ## Zusammenführen mit dem Branch der automatischen Sicherung
 

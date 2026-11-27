@@ -86,6 +86,14 @@ describe('the question in the entry editor', () => {
     expect(screen.queryByText(/eingehalten\?/)).toBeNull();
   });
 
+  it('asks no more in an old entry once the experiment is over (E17)', async () => {
+    const over = experiment('Vorbei', '2026-09-01', true, 14);
+    await render(<EntryEditor target={newOn('2026-09-05')} />);
+    expect(screen.queryByText(/eingehalten\?/)).toBeNull();
+    await act(async () => fireEvent.press(screen.getByText('Speichern')));
+    expect(getExperiment(db, over.id)!.end_date).toBe('2026-09-14');
+  });
+
   it('writes the answer with "Speichern" and shows it in a second entry of the day', async () => {
     const running = experiment('Kein Kaffee', '2026-09-15');
     const first = await render(<EntryEditor target={newOn('2026-09-20')} />);
@@ -198,5 +206,13 @@ describe('the answers on the comparison page', () => {
     mockParams = { id: String(silent.id) };
     await render(<ExperimentDetailScreen />);
     expect(screen.queryByText('Eingehalten')).toBeNull();
+  });
+
+  it('says there are no answers, without "yet", once it is over', async () => {
+    const over = experiment('Vorbei', '2026-09-01', true, 14);
+    mockParams = { id: String(over.id) };
+    await render(<ExperimentDetailScreen />);
+    expect(screen.getByText('Zu diesem Experiment gibt es keine Antworten.')).toBeTruthy();
+    expect(screen.queryByText(/^Noch keine Antwort/)).toBeNull();
   });
 });

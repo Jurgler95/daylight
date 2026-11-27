@@ -1284,6 +1284,7 @@
       "endsOnSave": "Saat disimpan, eksperimen berakhir {{date}}.",
       "count_other": "Dijalankan pada {{kept}} dari {{count}} hari yang dijawab.",
       "none": "Belum ada jawaban. Pertanyaannya muncul di entri hari itu.",
+      "noneOver": "Tidak ada jawaban untuk eksperimen ini.",
       "endedByNo": "Berakhir karena jawaban tidak pada {{date}}."
     },
     "done": {

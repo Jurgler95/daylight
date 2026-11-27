@@ -121,11 +121,13 @@ export function overlaps(a: ExperimentSpan, b: ExperimentSpan): boolean {
 }
 
 /**
- * "Kept today?" can be answered for days on which the experiment runs and not after today. So an
- * experiment a "no" ended on its start day asks no more, not even on that day.
+ * "Kept today?" can be answered for days on which the experiment runs and not after today, and only
+ * while it is not over today (E17): once over, the result stays, so an old entry neither asks nor
+ * shortens it afterwards with a "no". An experiment a "no" ended on its start day asks no more,
+ * not even on that day.
  */
 export function canAnswer(experiment: ExperimentSpan, date: DateString, today: DateString): boolean {
-  return date <= today && experimentState(experiment, date) === 'running';
+  return date <= today && experimentState(experiment, date) === 'running' && experimentState(experiment, today) !== 'over';
 }
 
 /** The experiments that ask "kept today?" in the editor for `date`. */

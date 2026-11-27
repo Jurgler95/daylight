@@ -1293,6 +1293,7 @@
       "count_one": "Cevap verilen {{count}} günün {{kept}} gününde uyuldu.",
       "count_other": "Cevap verilen {{count}} günün {{kept}} gününde uyuldu.",
       "none": "Henüz cevap yok. Soru, o günün kaydında çıkar.",
+      "noneOver": "Bu deney için hiç cevap yok.",
       "endedByNo": "{{date}} tarihinde bir hayır cevabıyla bitti."
     },
     "done": {

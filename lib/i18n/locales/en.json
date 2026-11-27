@@ -1293,6 +1293,7 @@
       "count_one": "Stuck to it on {{kept}} of {{count}} day with an answer.",
       "count_other": "Stuck to it on {{kept}} of {{count}} days with an answer.",
       "none": "No answer yet. The question shows up in the entry for the day.",
+      "noneOver": "There are no answers for this experiment.",
       "endedByNo": "Ended by a no on {{date}}."
     },
     "done": {

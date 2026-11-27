@@ -1368,6 +1368,7 @@
       "count_many": "Rispettato in {{kept}} su {{count}} giorni con risposta.",
       "count_other": "Rispettato in {{kept}} su {{count}} giorni con risposta.",
       "none": "Ancora nessuna risposta. La domanda compare nella voce del giorno.",
+      "noneOver": "Per questo esperimento non ci sono risposte.",
       "endedByNo": "Terminato con un no il {{date}}."
     },
     "done": {

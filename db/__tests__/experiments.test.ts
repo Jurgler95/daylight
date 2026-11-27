@@ -148,6 +148,17 @@ describe('experiments', () => {
       expect(() => updateExperiment(db, experiment.id, { dates: { start_date: today, days: 14 } }, today)).toThrow('over');
       expect(checkInCounts(ended, listExperimentDays(db, experiment.id)).endedByNo).toBe(today);
     });
+
+    it('takes no answer once it is over, so the result stays (E17); taking one back still works', () => {
+      const db = createTestDb();
+      const experiment = createExperiment(db, { title: 'A', start_date: '2026-11-01', days: 21, check_in: true }, '2026-11-01' as DateString);
+      setExperimentDays(db, '2026-11-10', { [experiment.id]: true }, '2026-11-10' as DateString);
+      expect(() => setExperimentDays(db, '2026-11-12', { [experiment.id]: false }, today)).toThrow('no answer');
+      expect(() => setExperimentDays(db, '2026-11-12', { [experiment.id]: true }, today)).toThrow('no answer');
+      expect(getExperiment(db, experiment.id)!.end_date).toBe('2026-11-21');
+      setExperimentDays(db, '2026-11-10', { [experiment.id]: null }, today);
+      expect(listExperimentDays(db, experiment.id)).toEqual([]);
+    });
   });
 
   it('clearJournal empties both tables', () => {

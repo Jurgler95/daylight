@@ -1293,6 +1293,7 @@
       "count_one": "Volgehouden op {{kept}} van {{count}} dag met een antwoord.",
       "count_other": "Volgehouden op {{kept}} van {{count}} dagen met een antwoord.",
       "none": "Nog geen antwoord. De vraag staat bij de registratie van die dag.",
+      "noneOver": "Bij dit experiment zijn er geen antwoorden.",
       "endedByNo": "Beëindigd door een nee op {{date}}."
     },
     "done": {

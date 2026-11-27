@@ -1368,6 +1368,7 @@
       "count_many": "Tenu {{kept}} sur {{count}} jours avec une réponse.",
       "count_other": "Tenu {{kept}} sur {{count}} jours avec une réponse.",
       "none": "Pas encore de réponse. La question apparaît dans l'entrée du jour.",
+      "noneOver": "Cette expérience n'a aucune réponse.",
       "endedByNo": "Terminée par un non le {{date}}."
     },
     "done": {
