@@ -33,7 +33,12 @@ jest.mock('@/lib/export/autoFolder', () => ({
   storageFolder: (): BackupFolder => ({
     exists: () => !mockGone,
     list: () => [...mockFiles.keys()],
-    write: (name, _mime, bytes) => void mockFiles.set(name, bytes),
+    size: (name) => mockFiles.get(name)?.length ?? null,
+    write: (name, _mime, fill) => {
+      const chunks: Uint8Array[] = [];
+      fill((chunk) => chunks.push(chunk));
+      mockFiles.set(name, Uint8Array.from(chunks.flatMap((chunk) => [...chunk])));
+    },
     remove: (name) => void mockFiles.delete(name),
   }),
 }));
@@ -60,6 +65,23 @@ describe('automatic backup settings', () => {
     expect([...mockFiles.keys()]).toEqual([expect.stringMatching(/^daylight-auto-\d{4}-\d{2}-\d{2}-\d{4}\.json$/)]);
     expect(screen.getByText(/^Zuletzt gesichert am/)).toBeTruthy();
     expect(Alert.alert).toHaveBeenCalledWith('Gesichert');
+  });
+
+  it('points to the import when the folder already holds backups, perhaps from the old phone', async () => {
+    (Alert.alert as jest.Mock).mockClear();
+    const old = new Uint8Array(5000);
+    mockFiles.set('daylight-auto-2026-08-01-2100.json', old);
+    await render(<AutoBackupScreen />);
+    await act(async () => fireEvent.press(screen.getByRole('button', { name: 'Ordner wählen' })));
+    expect(useSettingsStore.getState().settings?.auto_backup_dir).toBeNull();
+    const [title, body, buttons] = (Alert.alert as jest.Mock).mock.calls[0]!;
+    expect(title).toBe('Hier liegen schon Sicherungen');
+    expect(body).toContain('„Importieren“');
+    // "Ordner trotzdem verwenden" goes ahead; the old backup stays next to the new one.
+    await act(async () => buttons.find((button: { text: string }) => button.text === 'Ordner trotzdem verwenden').onPress());
+    expect(useSettingsStore.getState().settings?.auto_backup_dir).toBe(DIR);
+    expect(mockFiles.get('daylight-auto-2026-08-01-2100.json')).toBe(old);
+    expect(mockFiles.size).toBe(2);
   });
 
   it('shows a folder that went away, and the app carries on', async () => {

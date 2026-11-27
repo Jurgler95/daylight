@@ -3,8 +3,8 @@ import { Alert } from 'react-native';
 
 import { AppText, Card, ListRow, Screen } from '@/components/ui';
 import { formatLong, toDateString, toTimeString } from '@/lib/dates';
-import { AUTO_BACKUP_KEEP, classifyAutoBackupError, folderLabel } from '@/lib/export/auto';
-import { pickBackupFolder } from '@/lib/export/autoFolder';
+import { AUTO_BACKUP_KEEP, classifyAutoBackupError, folderLabel, hasAutoBackups } from '@/lib/export/auto';
+import { pickBackupFolder, storageFolder } from '@/lib/export/autoFolder';
 import { ShareUnavailableError } from '@/lib/export/files';
 import { autoBackupNow } from '@/lib/export/useAutoBackup';
 import { useDataTransfer } from '@/lib/export/useDataTransfer';
@@ -13,7 +13,7 @@ import { useTheme } from '@/lib/theme';
 
 /**
  * "Automatische Sicherung": one folder picked once, written by the app on start and after changes,
- * at most once a day (`lib/export/auto.ts`). Shows when it last worked and why it did not.
+ * one file per day (`lib/export/auto.ts`). Shows when it last worked and why it did not.
  */
 export default function AutoBackupScreen() {
   const { t } = useTranslation();
@@ -41,12 +41,24 @@ export default function AutoBackupScreen() {
     else if (result === 'failed') Alert.alert(t('autoBackup.failed'), describe(useSettingsStore.getState().settings?.auto_backup_error ?? ''));
   };
 
-  const choose = async () => {
-    const uri = await pickBackupFolder();
-    if (!uri) return;
+  const use = (uri: string) => {
     // A new folder starts fresh: the first backup goes there right away, whatever was written today.
     update({ auto_backup_dir: uri, auto_backup_error: null, auto_backup_hash: null, auto_backup_tried_at: null });
     report(autoBackupNow(true));
+  };
+
+  const choose = async () => {
+    const uri = await pickBackupFolder();
+    if (!uri) return;
+    // Backups already there may be the journal from the old phone: then the import comes first.
+    if (uri !== dir && hasAutoBackups(storageFolder(uri))) {
+      Alert.alert(t('autoBackup.existingTitle'), t('autoBackup.existingBody'), [
+        { text: t('common.cancel'), style: 'cancel' },
+        { text: t('autoBackup.existingUse'), onPress: () => use(uri) },
+      ]);
+      return;
+    }
+    use(uri);
   };
 
   const turnOff = () => {

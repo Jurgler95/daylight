@@ -882,8 +882,11 @@
     "errorOther": "Dernière tentative échouée : {{message}}",
     "done": "Sauvegardé",
     "failed": "Échec de la sauvegarde",
-    "howItWorks": "Daylight dépose une sauvegarde dans ce dossier à l'ouverture et après des modifications, au plus une fois par jour et seulement si quelque chose a changé. Les {{keep}} plus récentes restent, Daylight supprime les plus anciennes. Les autres fichiers du dossier ne sont pas touchés. Si le dossier appartient à une app de synchronisation, la sauvegarde part de là.",
-    "restore": "Pour restaurer : dans « Plus » › « Importer », choisis le fichier le plus récent. Comme la sauvegarde manuelle, il n'est pas chiffré."
+    "howItWorks": "Daylight dépose une sauvegarde dans ce dossier à l'ouverture et après des modifications, seulement si quelque chose a changé. Il y a un fichier par jour ; les modifications suivantes du même jour le remplacent. Les {{keep}} plus récentes restent, Daylight supprime les plus anciennes. Les autres fichiers du dossier ne sont pas touchés. Si le dossier appartient à une app de synchronisation, la sauvegarde part de là.",
+    "restore": "Pour restaurer : dans « Plus » › « Importer », choisis le fichier le plus récent. Comme la sauvegarde manuelle, il n'est pas chiffré.",
+    "existingTitle": "Ce dossier contient déjà des sauvegardes",
+    "existingBody": "Ce dossier contient déjà des sauvegardes automatiques de Daylight, peut-être de ton ancien téléphone. Si tu veux récupérer ton journal à partir d'elles, annule et importe d'abord la plus récente dans « Plus » › « Importer ».",
+    "existingUse": "Utiliser quand même ce dossier"
   },
   "reminders": {
     "title": "Rappel",

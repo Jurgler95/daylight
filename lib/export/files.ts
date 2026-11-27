@@ -64,7 +64,7 @@ export async function saveBase64ToPickedDirectory(name: string, mimeType: string
  * Writes a file in chunks into the cache, gathering them so the disk sees few large appends
  * instead of thousands of small ones. `fill` gets the write function and runs synchronously.
  */
-function cacheFileFrom(name: string, fill: (write: (chunk: Uint8Array) => void) => void): File {
+export function cacheFileFrom(name: string, fill: (write: (chunk: Uint8Array) => void) => void): File {
   const file = cacheFile(name);
   const LIMIT = 4 * 1024 * 1024;
   let pending: Uint8Array[] = [];

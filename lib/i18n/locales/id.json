@@ -845,8 +845,11 @@
     "errorOther": "Percobaan terakhir gagal: {{message}}",
     "done": "Dicadangkan",
     "failed": "Pencadangan gagal",
-    "howItWorks": "Daylight menaruh cadangan di folder ini saat dibuka dan setelah ada perubahan, paling banyak sekali sehari dan hanya jika ada yang berubah. {{keep}} cadangan terbaru disimpan, yang lebih lama dihapus Daylight. File lain di folder tidak disentuh. Jika folder ini milik aplikasi sinkronisasi, cadangan berlanjut dari sana.",
-    "restore": "Untuk memulihkan: di “Lainnya” › “Impor”, pilih file terbaru. Seperti cadangan manual, file ini tidak dienkripsi."
+    "howItWorks": "Daylight menaruh cadangan di folder ini saat dibuka dan setelah ada perubahan, hanya jika ada yang berubah. Ada satu file per hari; perubahan berikutnya di hari yang sama menggantikannya. {{keep}} cadangan terbaru disimpan, yang lebih lama dihapus Daylight. File lain di folder tidak disentuh. Jika folder ini milik aplikasi sinkronisasi, cadangan berlanjut dari sana.",
+    "restore": "Untuk memulihkan: di “Lainnya” › “Impor”, pilih file terbaru. Seperti cadangan manual, file ini tidak dienkripsi.",
+    "existingTitle": "Folder ini sudah berisi cadangan",
+    "existingBody": "Folder ini sudah berisi cadangan otomatis dari Daylight, mungkin dari ponsel lamamu. Jika ingin memulihkan jurnalmu dari sana, batalkan dan impor dulu yang terbaru di “Lainnya” › “Impor”.",
+    "existingUse": "Tetap gunakan folder ini"
   },
   "reminders": {
     "title": "Pengingat",

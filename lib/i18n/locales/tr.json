@@ -845,8 +845,11 @@
     "errorOther": "Son deneme başarısız: {{message}}",
     "done": "Yedeklendi",
     "failed": "Yedekleme başarısız",
-    "howItWorks": "Daylight uygulama açıldığında ve değişikliklerden sonra bu klasöre bir yedek koyar; günde en fazla bir kez ve yalnızca bir şey değiştiyse. En yeni {{keep}} yedek kalır, eskilerini Daylight siler. Klasördeki diğer dosyalara dokunulmaz. Klasör bir eşitleme uygulamasına aitse yedek oradan devam eder.",
-    "restore": "Geri yüklemek için: “Diğer” › “İçe aktar” altında en yeni dosyayı seç. Elle alınan yedek gibi şifrelenmemiştir."
+    "howItWorks": "Daylight uygulama açıldığında ve değişikliklerden sonra bu klasöre bir yedek koyar; yalnızca bir şey değiştiyse. Her gün için tek bir dosya olur, aynı gün sonradan yapılan değişiklikler onun yerine geçer. En yeni {{keep}} yedek kalır, eskilerini Daylight siler. Klasördeki diğer dosyalara dokunulmaz. Klasör bir eşitleme uygulamasına aitse yedek oradan devam eder.",
+    "restore": "Geri yüklemek için: “Diğer” › “İçe aktar” altında en yeni dosyayı seç. Elle alınan yedek gibi şifrelenmemiştir.",
+    "existingTitle": "Bu klasörde zaten yedekler var",
+    "existingBody": "Bu klasörde Daylight'ın otomatik yedekleri zaten var, belki eski telefonundan. Günlüğünü bunlardan geri almak istiyorsan iptal et ve önce en yenisini “Diğer” › “İçe aktar” altından içe aktar.",
+    "existingUse": "Klasörü yine de kullan"
   },
   "reminders": {
     "title": "Hatırlatıcı",

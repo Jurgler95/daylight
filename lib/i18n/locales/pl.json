@@ -919,8 +919,11 @@
     "errorOther": "Ostatnia próba nie powiodła się: {{message}}",
     "done": "Kopia zapisana",
     "failed": "Kopia nie powiodła się",
-    "howItWorks": "Daylight zapisuje kopię w tym folderze przy otwarciu aplikacji i po zmianach, najwyżej raz dziennie i tylko wtedy, gdy coś się zmieniło. Zostaje {{keep}} najnowszych, starsze Daylight usuwa. Innych plików w folderze nie rusza. Jeśli folder należy do aplikacji synchronizującej, kopia trafia stamtąd dalej.",
-    "restore": "Przywracanie: w „Więcej” › „Import” wybierz najnowszy plik. Tak jak kopia ręczna, nie jest zaszyfrowana."
+    "howItWorks": "Daylight zapisuje kopię w tym folderze przy otwarciu aplikacji i po zmianach, tylko wtedy, gdy coś się zmieniło. Na każdy dzień przypada jeden plik, późniejsze zmiany tego samego dnia go zastępują. Zostaje {{keep}} najnowszych, starsze Daylight usuwa. Innych plików w folderze nie rusza. Jeśli folder należy do aplikacji synchronizującej, kopia trafia stamtąd dalej.",
+    "restore": "Przywracanie: w „Więcej” › „Import” wybierz najnowszy plik. Tak jak kopia ręczna, nie jest zaszyfrowana.",
+    "existingTitle": "W tym folderze są już kopie",
+    "existingBody": "W tym folderze są już automatyczne kopie z Daylight, może z twojego starego telefonu. Jeśli chcesz odzyskać z nich dziennik, anuluj i najpierw zaimportuj najnowszą w „Więcej” › „Import”.",
+    "existingUse": "Użyj folderu mimo to"
   },
   "reminders": {
     "title": "Przypomnienie",

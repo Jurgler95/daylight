@@ -882,8 +882,11 @@
     "errorOther": "Ultimo tentativo non riuscito: {{message}}",
     "done": "Backup fatto",
     "failed": "Backup non riuscito",
-    "howItWorks": "Daylight salva un backup in questa cartella all'apertura e dopo le modifiche, al massimo una volta al giorno e solo se qualcosa è cambiato. Restano gli ultimi {{keep}}, Daylight elimina quelli più vecchi. Gli altri file nella cartella non vengono toccati. Se la cartella appartiene a un'app di sincronizzazione, il backup prosegue da lì.",
-    "restore": "Per ripristinare: in «Altro» › «Importa» scegli il file più recente. Come il backup manuale, non è cifrato."
+    "howItWorks": "Daylight salva un backup in questa cartella all'apertura e dopo le modifiche, solo se qualcosa è cambiato. C'è un file al giorno; le modifiche successive dello stesso giorno lo sostituiscono. Restano gli ultimi {{keep}}, Daylight elimina quelli più vecchi. Gli altri file nella cartella non vengono toccati. Se la cartella appartiene a un'app di sincronizzazione, il backup prosegue da lì.",
+    "restore": "Per ripristinare: in «Altro» › «Importa» scegli il file più recente. Come il backup manuale, non è cifrato.",
+    "existingTitle": "Questa cartella contiene già dei backup",
+    "existingBody": "In questa cartella ci sono già backup automatici di Daylight, forse del tuo vecchio telefono. Se vuoi recuperare il diario da lì, annulla e importa prima il più recente in «Altro» › «Importa».",
+    "existingUse": "Usa comunque la cartella"
   },
   "reminders": {
     "title": "Promemoria",

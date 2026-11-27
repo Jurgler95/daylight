@@ -882,8 +882,11 @@
     "errorOther": "El último intento falló: {{message}}",
     "done": "Copia guardada",
     "failed": "La copia falló",
-    "howItWorks": "Daylight guarda una copia en esta carpeta al abrirla y después de cada cambio, como mucho una vez al día y solo si algo cambió. Se conservan las {{keep}} más recientes; Daylight borra las anteriores. Los demás archivos de la carpeta no se tocan. Si la carpeta está en una app de sincronización, la copia viaja desde allí.",
-    "restore": "Para restaurar: en «Más» › «Importar», elige el archivo más reciente. Igual que la copia manual, no está cifrada."
+    "howItWorks": "Daylight guarda una copia en esta carpeta al abrirla y después de cada cambio, solo si algo cambió. Hay un archivo por día; los cambios posteriores del mismo día lo reemplazan. Se conservan las {{keep}} más recientes; Daylight borra las anteriores. Los demás archivos de la carpeta no se tocan. Si la carpeta está en una app de sincronización, la copia viaja desde allí.",
+    "restore": "Para restaurar: en «Más» › «Importar», elige el archivo más reciente. Igual que la copia manual, no está cifrada.",
+    "existingTitle": "Esta carpeta ya tiene copias",
+    "existingBody": "En esta carpeta ya hay copias automáticas de Daylight, quizá de tu móvil anterior. Si quieres recuperar tu diario desde ellas, cancela e importa primero la más reciente en «Más» › «Importar».",
+    "existingUse": "Usar la carpeta igualmente"
   },
   "reminders": {
     "title": "Recordatorio",

@@ -3,6 +3,7 @@ import { Directory, File } from 'expo-file-system';
 import { withLockSuspended } from '@/lib/lock/store';
 
 import type { BackupFolder } from './auto';
+import { cacheFileFrom } from './files';
 
 /**
  * The automatic backup's folder through Android's storage access. The picker takes a lasting
@@ -21,9 +22,16 @@ export function storageFolder(uri: string): BackupFolder {
       }
     },
     list: () => files().map((file) => file.name),
-    write: (name, mimeType, bytes) => {
+    size: (name) => files().find((file) => file.name === name)?.size || null,
+    write: (name, mimeType, fill) => {
+      // Built in the cache in chunks like the manual backup, so the ZIP is in memory once, not twice.
       // A folder picked through Android's storage access can only be written as a whole (`files.ts`).
-      directory.createFile(name, mimeType).write(bytes);
+      const built = cacheFileFrom(name, fill);
+      try {
+        directory.createFile(name, mimeType).write(built.bytesSync());
+      } finally {
+        built.delete();
+      }
     },
     remove: (name) => {
       files()

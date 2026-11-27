@@ -845,8 +845,11 @@
     "errorOther": "Last attempt failed: {{message}}",
     "done": "Backed up",
     "failed": "Backup failed",
-    "howItWorks": "Daylight puts a backup into this folder when you open it and after changes, at most once a day and only when something changed. The latest {{keep}} stay, Daylight deletes older ones. Other files in the folder are left alone. If the folder belongs to a sync app, the backup travels on from there.",
-    "restore": "To restore: under “More” › “Import”, pick the newest file. Like a manual backup, it is not encrypted."
+    "howItWorks": "Daylight puts a backup into this folder when you open it and after changes, only when something changed. There is one file per day; later changes on the same day replace it. The latest {{keep}} stay, Daylight deletes older ones. Other files in the folder are left alone. If the folder belongs to a sync app, the backup travels on from there.",
+    "restore": "To restore: under “More” › “Import”, pick the newest file. Like a manual backup, it is not encrypted.",
+    "existingTitle": "This folder already has backups",
+    "existingBody": "This folder already holds automatic backups from Daylight, maybe from your old phone. If you want your journal back from them, cancel and first import the newest one under “More” › “Import”.",
+    "existingUse": "Use folder anyway"
   },
   "reminders": {
     "title": "Reminder",

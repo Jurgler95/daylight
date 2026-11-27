@@ -845,8 +845,11 @@
     "errorOther": "Laatste poging mislukt: {{message}}",
     "done": "Back-up gemaakt",
     "failed": "Back-up mislukt",
-    "howItWorks": "Daylight zet een back-up in deze map bij het openen en na wijzigingen, hoogstens één keer per dag en alleen als er iets veranderd is. De laatste {{keep}} blijven, oudere verwijdert Daylight. Andere bestanden in de map blijven onaangeroerd. Hoort de map bij een sync-app, dan gaat de back-up vandaar verder.",
-    "restore": "Herstellen: kies onder ‘Meer’ › ‘Importeren’ het nieuwste bestand. Net als een handmatige back-up is het niet versleuteld."
+    "howItWorks": "Daylight zet een back-up in deze map bij het openen en na wijzigingen, alleen als er iets veranderd is. Er is één bestand per dag; latere wijzigingen op dezelfde dag vervangen het. De laatste {{keep}} blijven, oudere verwijdert Daylight. Andere bestanden in de map blijven onaangeroerd. Hoort de map bij een sync-app, dan gaat de back-up vandaar verder.",
+    "restore": "Herstellen: kies onder ‘Meer’ › ‘Importeren’ het nieuwste bestand. Net als een handmatige back-up is het niet versleuteld.",
+    "existingTitle": "Deze map bevat al back-ups",
+    "existingBody": "In deze map staan al automatische back-ups van Daylight, misschien van je oude telefoon. Wil je je dagboek daaruit terughalen, annuleer dan en importeer eerst de nieuwste onder ‘Meer’ › ‘Importeren’.",
+    "existingUse": "Map toch gebruiken"
   },
   "reminders": {
     "title": "Herinnering",

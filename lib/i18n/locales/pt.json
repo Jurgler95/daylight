@@ -882,8 +882,11 @@
     "errorOther": "A última tentativa falhou: {{message}}",
     "done": "Backup feito",
     "failed": "O backup falhou",
-    "howItWorks": "O Daylight salva um backup nesta pasta ao abrir o app e após alterações, no máximo uma vez por dia e só quando algo mudou. Os {{keep}} mais recentes ficam; o Daylight apaga os mais antigos. Outros arquivos da pasta não são tocados. Se a pasta estiver em um app de sincronização, o backup segue de lá.",
-    "restore": "Para restaurar: em “Mais” › “Importar”, escolha o arquivo mais recente. Como o backup manual, ele não é criptografado."
+    "howItWorks": "O Daylight salva um backup nesta pasta ao abrir o app e após alterações, só quando algo mudou. Há um arquivo por dia; alterações posteriores no mesmo dia o substituem. Os {{keep}} mais recentes ficam; o Daylight apaga os mais antigos. Outros arquivos da pasta não são tocados. Se a pasta estiver em um app de sincronização, o backup segue de lá.",
+    "restore": "Para restaurar: em “Mais” › “Importar”, escolha o arquivo mais recente. Como o backup manual, ele não é criptografado.",
+    "existingTitle": "Esta pasta já tem backups",
+    "existingBody": "Esta pasta já contém backups automáticos do Daylight, talvez do seu celular antigo. Se quiser recuperar seu diário a partir deles, cancele e importe primeiro o mais recente em “Mais” › “Importar”.",
+    "existingUse": "Usar a pasta mesmo assim"
   },
   "reminders": {
     "title": "Lembrete",

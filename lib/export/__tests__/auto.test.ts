@@ -2,14 +2,19 @@ import { unzipSync } from 'fflate';
 
 import { createEntry } from '@/db/repositories/entries';
 import { setPhotos } from '@/db/repositories/photos';
+import * as settingsRepository from '@/db/repositories/settings';
 import { getSettings, updateSettings } from '@/db/repositories/settings';
 import { createTestDb } from '@/db/testDb';
 import { memoryPhotoStore } from '@/lib/photos/store';
 
 import {
+  AUTO_BACKUP_CHANGE_DELAY_MS,
   AUTO_BACKUP_KEEP,
+  AUTO_BACKUP_REPLACE_DELAY_MS,
   AUTO_BACKUP_RETRY_MS,
+  autoBackupDelay,
   autoBackupDue,
+  hasAutoBackups,
   autoBackupFileName,
   classifyAutoBackupError,
   folderLabel,
@@ -34,7 +39,12 @@ function memoryFolder(initial: Record<string, Uint8Array> = {}) {
       if (folder.gone) throw new Error('does not exist');
       return [...files.keys()];
     },
-    write: (name, _mime, bytes) => {
+    size: (name) => files.get(name)?.length ?? null,
+    write: (name, _mime, fill) => {
+      const chunks: Uint8Array[] = [];
+      fill((chunk) => chunks.push(chunk));
+      const bytes = new Uint8Array(chunks.reduce((sum, chunk) => sum + chunk.length, 0));
+      chunks.reduce((offset, chunk) => (bytes.set(chunk, offset), offset + chunk.length), 0);
       // Like a full disk: the file is created, then the write breaks off.
       files.set(name, bytes.slice(0, 10));
       if (folder.full) throw new Error('ENOSPC (No space left on device)');
@@ -75,10 +85,9 @@ describe('autoBackupDue', () => {
     expect(autoBackupDue({ dir: null, lastAt: null, triedAt: null, error: null }, now)).toBe(false);
   });
 
-  it('runs once per day', () => {
+  it('also runs again on a day that already has a backup, to replace it', () => {
     expect(autoBackupDue({ dir: DIR, lastAt: null, triedAt: null, error: null }, now)).toBe(true);
-    expect(autoBackupDue({ dir: DIR, lastAt: at('2026-09-15T07:00:00').toISOString(), triedAt: null, error: null }, now)).toBe(false);
-    expect(autoBackupDue({ dir: DIR, lastAt: at('2026-09-14T23:00:00').toISOString(), triedAt: null, error: null }, now)).toBe(true);
+    expect(autoBackupDue({ dir: DIR, lastAt: at('2026-09-15T07:00:00').toISOString(), triedAt: null, error: null }, now)).toBe(true);
   });
 
   it('waits an hour after a failure', () => {
@@ -86,6 +95,16 @@ describe('autoBackupDue', () => {
     expect(autoBackupDue({ dir: DIR, lastAt: null, triedAt: tried, error: 'x' }, now)).toBe(false);
     const longAgo = new Date(now.getTime() - AUTO_BACKUP_RETRY_MS).toISOString();
     expect(autoBackupDue({ dir: DIR, lastAt: null, triedAt: longAgo, error: 'x' }, now)).toBe(true);
+  });
+});
+
+describe('autoBackupDelay', () => {
+  const now = at('2026-09-15T18:00:00');
+  it('writes the first backup of a day soon and waits longer before replacing it', () => {
+    expect(autoBackupDelay(null, now)).toBe(AUTO_BACKUP_CHANGE_DELAY_MS);
+    expect(autoBackupDelay(at('2026-09-14T23:00:00').toISOString(), now)).toBe(AUTO_BACKUP_CHANGE_DELAY_MS);
+    expect(autoBackupDelay(at('2026-09-15T07:00:00').toISOString(), now)).toBe(AUTO_BACKUP_REPLACE_DELAY_MS);
+    expect(autoBackupDelay('broken', now)).toBe(AUTO_BACKUP_CHANGE_DELAY_MS);
   });
 });
 
@@ -126,17 +145,61 @@ describe('runAutoBackup', () => {
     expect(pending.kind === 'json' && pending.photos?.get('photo-a.jpg')).toEqual(photo);
   });
 
-  it('keeps to once a day, skips unchanged data, and "Jetzt sichern" writes anyway', () => {
+  it('back up, change, next day: the evening entry replaces the day\'s file and nothing lags behind', () => {
     const db = setup();
     const folder = memoryFolder();
     const store = memoryPhotoStore();
-    runAutoBackup({ db, folder, store, appVersion: '1.0.0', now: at('2026-09-15T08:00:00') });
-    createEntry(db, { date: '2026-09-15', time: '20:30', mood_id: 1 });
-    expect(runAutoBackup({ db, folder, store, appVersion: '1.0.0', now: at('2026-09-15T20:31:00') })).toBe('throttled');
-    expect(runAutoBackup({ db, folder, store, appVersion: '1.0.0', now: at('2026-09-16T08:00:00') })).toBe('written');
-    expect(runAutoBackup({ db, folder, store, appVersion: '1.0.0', now: at('2026-09-17T08:00:00') })).toBe('unchanged');
-    expect(runAutoBackup({ db, folder, store, appVersion: '1.0.0', now: at('2026-09-17T08:05:00'), force: true })).toBe('written');
-    expect(folder.files.size).toBe(3);
+    expect(runAutoBackup({ db, folder, store, appVersion: '1.0.0', now: at('2026-09-15T08:00:00') })).toBe('written');
+    createEntry(db, { date: '2026-09-15', time: '20:30', mood_id: 1, note: 'Abend' });
+    expect(runAutoBackup({ db, folder, store, appVersion: '1.0.0', now: at('2026-09-15T20:31:00') })).toBe('written');
+    expect([...folder.files.keys()]).toEqual(['daylight-auto-2026-09-15-2031.json']);
+    const pending = readImportBytes('x.json', folder.files.get('daylight-auto-2026-09-15-2031.json')!);
+    expect(pending.kind === 'json' && pending.payload.entries.map((entry) => entry.note)).toContain('Abend');
+    // Opening the app the next morning finds nothing new to save.
+    expect(runAutoBackup({ db, folder, store, appVersion: '1.0.0', now: at('2026-09-16T08:00:00') })).toBe('unchanged');
+    expect(runAutoBackup({ db, folder, store, appVersion: '1.0.0', now: at('2026-09-16T08:05:00'), force: true })).toBe('written');
+    expect([...folder.files.keys()].sort()).toEqual(['daylight-auto-2026-09-15-2031.json', 'daylight-auto-2026-09-16-0805.json']);
+  });
+
+  it('keeps a finished backup when storing its success fails', () => {
+    const db = setup();
+    const folder = memoryFolder();
+    const spy = jest.spyOn(settingsRepository, 'updateSettings').mockImplementationOnce(() => {
+      throw new Error('database is locked');
+    });
+    try {
+      expect(runAutoBackup({ db, folder, store: memoryPhotoStore(), appVersion: '1.0.0', now: at('2026-09-15T18:00:00') })).toBe('failed');
+    } finally {
+      spy.mockRestore();
+    }
+    const file = folder.files.get('daylight-auto-2026-09-15-1800.json');
+    expect(file && readImportBytes('x.json', file).kind).toBe('json');
+    expect(getSettings(db).auto_backup_error).toBe('database is locked');
+  });
+
+  it('a nearly empty journal on a new phone does not push the real backups out of an old folder', () => {
+    const db = setup();
+    const big = new Uint8Array(50_000);
+    const real = Array.from({ length: AUTO_BACKUP_KEEP }, (_, i) => `daylight-auto-2026-08-0${i + 1}-2100.json`);
+    const folder = memoryFolder(Object.fromEntries(real.map((name) => [name, big])));
+    const store = memoryPhotoStore();
+    expect(runAutoBackup({ db, folder, store, appVersion: '1.0.0', now: at('2026-09-15T18:00:00') })).toBe('written');
+    expect(real.every((name) => folder.files.has(name))).toBe(true);
+    // Day after day one real backup, the newest of them, stays on top of the latest seven.
+    for (let day = 16; day <= 25; day++) {
+      createEntry(db, { date: `2026-09-${day}`, time: '20:30', mood_id: 2 });
+      runAutoBackup({ db, folder, store, appVersion: '1.0.0', now: at(`2026-09-${day}T21:00:00`) });
+    }
+    const own = [...folder.files.keys()].filter(isAutoBackupName).sort();
+    expect(own).toHaveLength(AUTO_BACKUP_KEEP + 1);
+    expect(own[0]).toBe(real.at(-1));
+  });
+
+  it('does not replace a far larger backup of the same day, from the old phone', () => {
+    const db = setup();
+    const folder = memoryFolder({ 'daylight-auto-2026-09-15-0700.zip': new Uint8Array(50_000) });
+    runAutoBackup({ db, folder, store: memoryPhotoStore(), appVersion: '1.0.0', now: at('2026-09-15T18:00:00') });
+    expect([...folder.files.keys()].sort()).toEqual(['daylight-auto-2026-09-15-0700.zip', 'daylight-auto-2026-09-15-1800.json']);
   });
 
   it(`keeps the newest ${AUTO_BACKUP_KEEP} of its own and never touches other files`, () => {
@@ -192,6 +255,16 @@ describe('runAutoBackup', () => {
   });
 });
 
+describe('hasAutoBackups', () => {
+  it('finds our own backups in a folder, and nothing in one that is gone', () => {
+    expect(hasAutoBackups(memoryFolder({ 'daylight-auto-2026-09-15-0700.zip': new Uint8Array(1) }))).toBe(true);
+    expect(hasAutoBackups(memoryFolder({ 'daylight-export-2026-09-15.json': new Uint8Array(1) }))).toBe(false);
+    const gone = memoryFolder({ 'daylight-auto-2026-09-15-0700.zip': new Uint8Array(1) });
+    gone.gone = true;
+    expect(hasAutoBackups(gone)).toBe(false);
+  });
+});
+
 describe('pruneAutoBackups', () => {
   it('goes on when one old file will not go', () => {
     const names = Array.from({ length: 9 }, (_, i) => `daylight-auto-2026-10-0${i + 1}-0800.json`);
@@ -201,7 +274,7 @@ describe('pruneAutoBackups', () => {
       if (name === names[0]) throw new Error('busy');
       remove(name);
     };
-    expect(pruneAutoBackups(folder, 7)).toEqual(names.slice(0, 2));
+    expect(pruneAutoBackups(folder, null, 7)).toEqual(names.slice(0, 2));
     expect(folder.files.has(names[0]!)).toBe(true);
     expect(folder.files.has(names[1]!)).toBe(false);
   });

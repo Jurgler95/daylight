@@ -845,8 +845,11 @@
     "errorOther": "Letzter Versuch fehlgeschlagen: {{message}}",
     "done": "Gesichert",
     "failed": "Sicherung fehlgeschlagen",
-    "howItWorks": "Daylight legt beim Öffnen und nach Änderungen eine Sicherung in diesen Ordner, höchstens einmal am Tag und nur, wenn sich etwas geändert hat. Die letzten {{keep}} bleiben, ältere löscht Daylight. Andere Dateien im Ordner bleiben unberührt. Liegt der Ordner in einer Sync-App, wandert die Sicherung von dort weiter.",
-    "restore": "Wiederherstellen: unter „Mehr“ › „Importieren“ die neueste Datei wählen. Die Sicherung ist wie die von Hand unverschlüsselt."
+    "howItWorks": "Daylight legt beim Öffnen und nach Änderungen eine Sicherung in diesen Ordner, nur wenn sich etwas geändert hat. Pro Tag bleibt eine Datei, spätere Änderungen am selben Tag ersetzen sie. Die letzten {{keep}} bleiben, ältere löscht Daylight. Andere Dateien im Ordner bleiben unberührt. Liegt der Ordner in einer Sync-App, wandert die Sicherung von dort weiter.",
+    "restore": "Wiederherstellen: unter „Mehr“ › „Importieren“ die neueste Datei wählen. Die Sicherung ist wie die von Hand unverschlüsselt.",
+    "existingTitle": "Hier liegen schon Sicherungen",
+    "existingBody": "In diesem Ordner liegen schon automatische Sicherungen von Daylight, vielleicht von deinem alten Handy. Willst du dein Tagebuch daraus zurückholen, brich ab und importiere zuerst die neueste unter „Mehr“ › „Importieren“.",
+    "existingUse": "Ordner trotzdem verwenden"
   },
   "reminders": {
     "title": "Erinnerung",
