@@ -21,7 +21,7 @@ A mood journal for Android that doesn't know your data. No account, no servers, 
 
 - 🔒 **Completely offline.** Daylight has no internet permission. Your entries live in a database on your device and only leave it when you share a backup yourself. The [Exodus Privacy report](https://reports.exodus-privacy.eu.org/en/reports/de.behla.daylight/latest/) finds no trackers in the Play version.
 - ⚡ **Logged in seconds.** Tap a mood, pick what you did, done. A note, your own scales and a photo per day are optional.
-- 📦 **Easy to switch.** Daylight imports an existing mood journal from another app completely, as a CSV export or as a backup with photos. You can export to CSV as well.
+- 📦 **Easy to switch.** Daylight imports an existing mood journal from another app completely, as a CSV export or as a backup with photos. You can export to CSV as well, and for your doctor or therapist there is a PDF report with mood, sleep, scales and activities, made on the device.
 - 📊 **Insights into your patterns.** Trend, weekdays, months, year in pixels, which activities go along with better or worse days, what tends to follow the next day, frequent words in your notes. Always a description of your entries, never a diagnosis.
 - 🌅 **Turning points.** Mark days that changed something, like a new job or a move, and compare the time before with the time after.
 - 🏆 **Awards for keeping at it.** Stars for days and weeks in a row, for notes, photos, activities, sleep and steps. Only the journaling is rewarded, never how a day went.
