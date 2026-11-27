@@ -6,6 +6,7 @@ import Animated, { FadeInDown } from 'react-native-reanimated';
 
 import { EntryCard } from '@/components/entry/EntryCard';
 import { ExperimentDoneCard } from '@/components/experiments/ExperimentDoneCard';
+import { ExperimentStartRow, ExperimentTodayCard, useOffersExperimentStart } from '@/components/experiments/ExperimentTodayCard';
 import { HealthDayCard } from '@/components/health/HealthDayCard';
 import { MoodPicker } from '@/components/mood/MoodPicker';
 import { GoodTomorrowCard } from '@/components/outlook/GoodTomorrowCard';
@@ -58,6 +59,7 @@ export default function TodayScreen() {
   const health = useHealthDay(date);
   const streak = useStreak(now);
   const review = useReviewPrompt();
+  const offerExperiment = useOffersExperimentStart(now);
 
   const offset = daysBetween(now, date);
   // The hint counts as given once it was on screen, today or on tomorrow's page, and not while an
@@ -92,8 +94,7 @@ export default function TodayScreen() {
     tapped.current = null;
   }, [date]);
 
-  const newEntry = (mood?: number) =>
-    router.push({ pathname: '/entry/new', params: mood === undefined ? { date } : { date, mood: String(mood) } });
+  const newEntry = (mood?: number) => router.push({ pathname: '/entry/new', params: mood === undefined ? { date } : { date, mood: String(mood) } });
   const fillIn = (day: DateString) => router.push({ pathname: '/entry/new', params: { date: day } });
 
   const pinned = (
@@ -153,7 +154,12 @@ export default function TodayScreen() {
               <StreakRiskCard days={streak.state.days} onFillIn={() => fillIn(addDaysToDateString(now, -1))} />
             ) : null}
             {offset === 0 && streak.rescue ? (
-              <StreakRescueCard missing={streak.state.missing} restoredDays={streak.state.restoredDays ?? 0} onFillIn={fillIn} onDismiss={streak.dismissRescue} />
+              <StreakRescueCard
+                missing={streak.state.missing}
+                restoredDays={streak.state.restoredDays ?? 0}
+                onFillIn={fillIn}
+                onDismiss={streak.dismissRescue}
+              />
             ) : null}
             {offset === 0 && hint && morning ? <GoodTomorrowCard hint={hint} catalog={catalog} morning /> : null}
             {entries.length === 0 ? picker : null}
@@ -173,9 +179,10 @@ export default function TodayScreen() {
             {entries.length > 0 ? <Button label={t('today.another')} variant="secondary" onPress={() => newEntry()} /> : null}
             {health ? <HealthDayCard day={health} /> : null}
             {offset === 0 && review.show ? <ReviewCard onRate={review.rate} onDismiss={review.dismiss} /> : null}
+            {offset === 0 ? <ExperimentTodayCard today={now} /> : null}
             {offset === 0 ? <ExperimentDoneCard today={now} /> : null}
             {offset === 0 && hint && !morning ? <GoodTomorrowCard hint={hint} catalog={catalog} /> : null}
-            {entries.length > 0 ? <TurningDayCard date={date} /> : null}
+            {entries.length > 0 ? <TurningDayCard date={date} extra={offset === 0 && offerExperiment ? <ExperimentStartRow /> : null} /> : null}
             {offset === 0 ? <LookbackCard date={date} catalog={catalog} onOpenDay={setDate} /> : null}
             {offset === 0 && lowMood.show ? <LowMoodCard onDismiss={lowMood.dismiss} /> : null}
             {offset === 0 ? <BackupCard /> : null}

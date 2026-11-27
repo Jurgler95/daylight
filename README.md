@@ -24,7 +24,7 @@ A mood journal for Android that doesn't know your data. No account, no servers, 
 - 📦 **Easy to switch.** Daylight imports an existing mood journal from another app completely, as a CSV export or as a backup with photos. You can export to CSV as well.
 - 📊 **Insights into your patterns.** Trend, weekdays, months, year in pixels, which activities go along with better or worse days, what tends to follow the next day, frequent words in your notes. Always a description of your entries, never a diagnosis.
 - 🌅 **Turning points.** Mark days that changed something, like a new job or a move, and compare the time before with the time after.
-- 🧪 **Experiments.** Take something on for a few weeks, like no coffee after 2 pm, and see your entries before and during side by side. Daylight says honestly when there are too few days or the difference is within your usual ups and downs.
+- 🧪 **Self-experiments.** Take something on for a few weeks, like no coffee after 2 pm, and see your entries before and during side by side. Daylight says honestly when there are too few days or the difference is within your usual ups and downs.
 - 🏆 **Awards for keeping at it.** Stars for days and weeks in a row, for notes, photos, activities, sleep and steps. Only the journaling is rewarded, never how a day went.
 - 🔭 **An honest outlook.** Daylight estimates the next seven days, but only where that measurably works better on your own data than simple guessing. Otherwise the outlook steps back and says so.
 - ❤️ **Health data, if you want.** Steps, sleep, resting heart rate and exercise from Health Connect, for example from a smartwatch. Read only, and only after you agree.

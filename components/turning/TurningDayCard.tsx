@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { router } from 'expo-router';
+import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
@@ -16,46 +17,59 @@ import { DAWN } from './dawn';
 
 /**
  * Under the entries of a day: the turning point set on it, which opens the comparison, or a quiet
- * way to set one. Nothing once the year holds all it may.
+ * way to set one. Nothing once the year holds all it may. `extra` is a further quiet row (on "Heute":
+ * "Selbstversuch starten"), set in the same muted card under "Wendepunkt setzen", or in a muted card
+ * of its own when there is no such row.
  */
-export function TurningDayCard({ date }: { date: DateString }) {
+export function TurningDayCard({ date, extra }: { date: DateString; extra?: ReactNode }) {
   const { t } = useTranslation();
   const { colors } = useTheme();
   const point = useTurningPointOn(date);
   const all = useTurningPoints();
 
+  const extraCard = extra ? <Card tone="muted">{extra}</Card> : null;
+
   if (point) {
     return (
-      <PressableScale
-        pressedScale={0.98}
-        onPress={() => {
-          haptics.tap();
-          router.push({ pathname: '/turning/[id]', params: { id: String(point.id) } });
-        }}
-        accessibilityRole="button"
-        accessibilityLabel={t('turning.cardA11y', { title: point.title })}
-        style={[styles.marked, { backgroundColor: DAWN.skyMid }]}
-      >
-        <View style={styles.sun}>
-          <MaterialCommunityIcons name="flag-variant" size={20} color={DAWN.sky} />
-        </View>
-        <View style={styles.text}>
-          <AppText variant="caption" color={DAWN.sun} style={styles.eyebrow}>
-            {upper(t('turning.eyebrow'))}
-          </AppText>
-          <AppText variant="headline" color={DAWN.text}>
-            {point.title}
-          </AppText>
-          <AppText variant="caption" color={DAWN.textSoft}>
-            {t('turning.compare')}
-          </AppText>
-        </View>
-        <Ionicons name="chevron-forward" size={18} color={DAWN.textSoft} />
-      </PressableScale>
+      <>
+        <PressableScale
+          pressedScale={0.98}
+          onPress={() => {
+            haptics.tap();
+            router.push({ pathname: '/turning/[id]', params: { id: String(point.id) } });
+          }}
+          accessibilityRole="button"
+          accessibilityLabel={t('turning.cardA11y', { title: point.title })}
+          style={[styles.marked, { backgroundColor: DAWN.skyMid }]}
+        >
+          <View style={styles.sun}>
+            <MaterialCommunityIcons name="flag-variant" size={20} color={DAWN.sky} />
+          </View>
+          <View style={styles.text}>
+            <AppText variant="caption" color={DAWN.sun} style={styles.eyebrow}>
+              {upper(t('turning.eyebrow'))}
+            </AppText>
+            <AppText variant="headline" color={DAWN.text}>
+              {point.title}
+            </AppText>
+            <AppText variant="caption" color={DAWN.textSoft}>
+              {t('turning.compare')}
+            </AppText>
+          </View>
+          <Ionicons name="chevron-forward" size={18} color={DAWN.textSoft} />
+        </PressableScale>
+        {extraCard}
+      </>
     );
   }
 
-  if (roomInYear(all.map((p) => p.date), date) === 0) return null;
+  if (
+    roomInYear(
+      all.map((p) => p.date),
+      date,
+    ) === 0
+  )
+    return extraCard;
   return (
     <Card tone="muted">
       <PressableScale
@@ -76,6 +90,7 @@ export function TurningDayCard({ date }: { date: DateString }) {
         </View>
         <Ionicons name="chevron-forward" size={16} color={colors.textMuted} />
       </PressableScale>
+      {extra}
     </Card>
   );
 }

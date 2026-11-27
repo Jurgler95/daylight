@@ -27,7 +27,7 @@ describe('summaryText', () => {
 
   it('names the experiments in the file', () => {
     const text = summaryText(i18n.t, { entries: 1, from: '2026-01-01' as never, to: '2026-01-01' as never, moods: 1, newMoods: 0, activities: 0, newActivities: 0, toAdd: 1, duplicates: 0, photos: 0, newPhotos: 0, healthDays: 0, experiments: 2, experimentsLost: 0 });
-    expect(text.endsWith(' Die Datei enthält 2 Experimente.')).toBe(true);
+    expect(text.endsWith(' Die Datei enthält 2 Selbstversuche.')).toBe(true);
   });
 
   it('uses the singular and handles an empty file', () => {

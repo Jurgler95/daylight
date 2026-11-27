@@ -52,3 +52,7 @@ Die Wege aus dem Abschnitt „Abnahme“ im Plan sind in der Abschlussprüfung a
 - Vergleichsseite: Skalen- und Gesundheitszeilen mit dem Kurzurteil in eigener Zeile (lange Urteile wie „größer als üblich, 1,0 %, vorläufig“), Stimmungsbalken mit der Beschriftung darüber, auch in Französisch oder Polnisch.
 - Ein beendetes Experiment: alter Eintrag aus seinem Zeitraum ohne Frage, Formular ohne Schalter „Täglich fragen“.
 - Die Ja/Nein-Chips im Editor und die Verlaufsgrafik mit TalkBack.
+
+## Name und Einstieg (2026-11-27)
+
+In der App heißt die Funktion „Selbstversuche“ (englisch „Self-experiments“), weil „Experimente“ unter „Mehr“ nach Beta-Funktionen klingt. Code, Tabellen und Schlüssel heißen weiter `experiments`. Einstiege: Auf Heute eine Karte je laufendem Selbstversuch mit Fortschritt (`ExperimentTodayCard`), und solange keiner läuft oder geplant ist, die Zeile „Selbstversuch starten“ in der grauen Karte unter „Wendepunkt setzen“ (`extra` von `TurningDayCard`). Dazu die Zeile unter „Mehr“ direkt unter „Wendepunkte“ und die Karte in Einblicke. Über der Frage im Editor steht „Selbstversuch“.

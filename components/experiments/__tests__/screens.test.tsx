@@ -83,7 +83,7 @@ describe('the list', () => {
     diary('2026-09-01');
     await render(<ExperimentsScreen />);
     expect(screen.getByText(/nimmst du dir für ein paar Wochen etwas vor/)).toBeTruthy();
-    await act(async () => fireEvent.press(screen.getByText('Neues Experiment')));
+    await act(async () => fireEvent.press(screen.getByText('Neuer Selbstversuch')));
     expect(jest.requireMock('expo-router').router.push).toHaveBeenCalledWith('/experiments/new');
   });
 
@@ -107,13 +107,13 @@ describe('the form', () => {
   it('insists on a title and then creates the experiment', async () => {
     const db = diary('2026-09-01');
     await render(<ExperimentFormScreen />);
-    await act(async () => fireEvent.press(screen.getByText('Experiment anlegen')));
-    expect(screen.getByText('Gib dem Experiment einen Namen (höchstens 60 Zeichen).')).toBeTruthy();
+    await act(async () => fireEvent.press(screen.getByText('Selbstversuch anlegen')));
+    expect(screen.getByText('Gib dem Selbstversuch einen Namen (höchstens 60 Zeichen).')).toBeTruthy();
     expect(listExperiments(db)).toEqual([]);
     expect(screen.getByLabelText('Was probierst du?').props.maxLength).toBe(60);
     await act(async () => fireEvent.changeText(screen.getByLabelText('Was probierst du?'), '  Kein Kaffee nach 14 Uhr '));
-    expect(screen.queryByText('Gib dem Experiment einen Namen (höchstens 60 Zeichen).')).toBeNull();
-    await act(async () => fireEvent.press(screen.getByText('Experiment anlegen')));
+    expect(screen.queryByText('Gib dem Selbstversuch einen Namen (höchstens 60 Zeichen).')).toBeNull();
+    await act(async () => fireEvent.press(screen.getByText('Selbstversuch anlegen')));
     const [created] = listExperiments(db);
     expect(created).toMatchObject({ title: 'Kein Kaffee nach 14 Uhr', start_date: today, end_date: '2026-10-23', check_in: false });
     expect(jest.requireMock('expo-router').router.replace).toHaveBeenCalledWith({ pathname: '/experiments/[id]', params: { id: String(created!.id) } });
@@ -124,8 +124,8 @@ describe('the form', () => {
     add(db, 'Kein Kaffee', today);
     await render(<ExperimentFormScreen />);
     await act(async () => fireEvent.changeText(screen.getByLabelText('Was probierst du?'), 'kein kaffee'));
-    await act(async () => fireEvent.press(screen.getByText('Experiment anlegen')));
-    expect(screen.getByText('Ein Experiment mit diesem Namen und diesem Beginn gibt es schon.')).toBeTruthy();
+    await act(async () => fireEvent.press(screen.getByText('Selbstversuch anlegen')));
+    expect(screen.getByText('Einen Selbstversuch mit diesem Namen und diesem Beginn gibt es schon.')).toBeTruthy();
     expect(listExperiments(db)).toHaveLength(1);
   });
 
@@ -136,7 +136,7 @@ describe('the form', () => {
     await act(async () => fireEvent.press(screen.getByLabelText('Dauer: 4 Wochen')));
     await act(async () => fireEvent.press(screen.getByText('2 Wochen')));
     await act(async () => fireEvent(screen.getByRole('switch'), 'valueChange', true));
-    await act(async () => fireEvent.press(screen.getByText('Experiment anlegen')));
+    await act(async () => fireEvent.press(screen.getByText('Selbstversuch anlegen')));
     expect(listExperiments(db)[0]).toMatchObject({ end_date: '2026-10-09', check_in: true });
   });
 
@@ -191,7 +191,7 @@ describe('the comparison', () => {
     const running = add(db, 'Kein Kaffee', '2026-09-20');
     mockParams = { id: String(running.id) };
     await render(<ExperimentDetailScreen />);
-    expect(screen.getByText(/^Noch zu wenige Tage zum Vergleichen\. Tage mit Eintrag: davor 5, im Experiment 7\./)).toBeTruthy();
+    expect(screen.getByText(/^Noch zu wenige Tage zum Vergleichen\. Tage mit Eintrag: davor 5, im Selbstversuch 7\./)).toBeTruthy();
     expect(screen.queryByText(BROKEN)).toBeNull();
   });
 
@@ -200,7 +200,7 @@ describe('the comparison', () => {
     const over = add(db, 'Kein Kaffee', '2026-08-01', 14);
     mockParams = { id: String(over.id) };
     await render(<ExperimentDetailScreen />);
-    expect(screen.getByText(/^Zu wenige Tage zum Vergleichen\. Tage mit Eintrag: davor 4, im Experiment 14\./)).toBeTruthy();
+    expect(screen.getByText(/^Zu wenige Tage zum Vergleichen\. Tage mit Eintrag: davor 4, im Selbstversuch 14\./)).toBeTruthy();
     expect(screen.queryByText(/Noch zu wenige/)).toBeNull();
   });
 
@@ -211,7 +211,7 @@ describe('the comparison', () => {
     useDataVersion.getState().bump();
     mockParams = { id: String(short.id) };
     await render(<ExperimentDetailScreen />);
-    expect(screen.getByText('Das Experiment lief nur 3 Tage. Für einen Vergleich braucht es mindestens 7 Tage.')).toBeTruthy();
+    expect(screen.getByText('Der Selbstversuch lief nur 3 Tage. Für einen Vergleich braucht es mindestens 7 Tage.')).toBeTruthy();
   });
 
   it('offers no "Jetzt beenden" on the start day, and one a "no" ended there is over', async () => {
@@ -220,11 +220,11 @@ describe('the comparison', () => {
     mockParams = { id: String(fresh.id) };
     await render(<ExperimentDetailScreen />);
     expect(screen.queryByText('Jetzt beenden')).toBeNull();
-    expect(screen.getByText('Experiment löschen')).toBeTruthy();
+    expect(screen.getByText('Selbstversuch löschen')).toBeTruthy();
 
     setExperimentDays(db, today, { [fresh.id]: false }, today);
     await act(async () => useDataVersion.getState().bump());
-    expect(screen.getByText('Das Experiment lief nur 1 Tag. Für einen Vergleich braucht es mindestens 7 Tage.')).toBeTruthy();
+    expect(screen.getByText('Der Selbstversuch lief nur 1 Tag. Für einen Vergleich braucht es mindestens 7 Tage.')).toBeTruthy();
     expect(screen.queryByText('Jetzt beenden')).toBeNull();
     await render(<ExperimentsScreen />);
     expect(screen.getByText('VORBEI')).toBeTruthy();
@@ -236,7 +236,7 @@ describe('the comparison', () => {
     const running = add(db, 'Kein Kaffee', '2026-09-10');
     mockParams = { id: String(running.id) };
     await render(<ExperimentDetailScreen />);
-    expect(screen.getByText(/^Zwischenstand nach 17 von 28 Tagen: Im Experiment lag deine Stimmung/)).toBeTruthy();
+    expect(screen.getByText(/^Zwischenstand nach 17 von 28 Tagen: Im Selbstversuch lag deine Stimmung/)).toBeTruthy();
     expect(screen.getByText(/zeigt Daylight am Ende/)).toBeTruthy();
     expect(screen.queryByText(/der Fälle/)).toBeNull();
     expect(screen.getByText(/es zeigt keine Ursache/)).toBeTruthy();
@@ -270,7 +270,7 @@ describe('the comparison', () => {
     expect(over.result_seen).toBe(false);
     mockParams = { id: String(over.id) };
     await render(<ExperimentDetailScreen />);
-    expect(screen.getByText(/^Im Experiment lag deine Stimmung im Schnitt bei 5,0, in den 28 Tagen davor bei/)).toBeTruthy();
+    expect(screen.getByText(/^Im Selbstversuch lag deine Stimmung im Schnitt bei 5,0, in den 28 Tagen davor bei/)).toBeTruthy();
     expect(screen.getByText(/^In deiner Vorgeschichte gab es einen so großen Unterschied zwischen zwei aufeinanderfolgenden Zeiträumen wie diesen nur in .* der Fälle\.$/)).toBeTruthy();
     expect(screen.queryByText(/Vorläufig/)).toBeNull();
     expect(screen.queryByText(/Zwischenstand/)).toBeNull();
@@ -318,7 +318,7 @@ describe('the comparison', () => {
     const over = add(db, 'Kein Kaffee', '2026-08-01');
     mockParams = { id: String(over.id) };
     await render(<ExperimentDetailScreen />);
-    expect(screen.getByText('Für einen Vergleich mit deinen üblichen Schwankungen reicht die Zeit vor dem Experiment nicht.')).toBeTruthy();
+    expect(screen.getByText('Für einen Vergleich mit deinen üblichen Schwankungen reicht die Zeit vor dem Selbstversuch nicht.')).toBeTruthy();
     expect(screen.queryByText(BROKEN)).toBeNull();
   });
 
@@ -327,10 +327,10 @@ describe('the comparison', () => {
     const planned = add(db, 'Abendspaziergang', '2026-10-05');
     mockParams = { id: String(planned.id) };
     await render(<ExperimentDetailScreen />);
-    expect(screen.getByText(/^Es beginnt am/)).toBeTruthy();
+    expect(screen.getByText(/^Er beginnt am/)).toBeTruthy();
     const alert = jest.spyOn(Alert, 'alert').mockImplementation(() => undefined);
-    await act(async () => fireEvent.press(screen.getByText('Experiment löschen')));
-    await pressAlertButton(alert, 'Experiment löschen');
+    await act(async () => fireEvent.press(screen.getByText('Selbstversuch löschen')));
+    await pressAlertButton(alert, 'Selbstversuch löschen');
     expect(listExperiments(db)).toEqual([]);
     alert.mockRestore();
   });
@@ -355,9 +355,9 @@ describe('experiments elsewhere', () => {
     add(db, 'Abendspaziergang', '2026-10-05');
     usePendingImport.getState().set(file);
     await render(<ImportScreen />);
-    expect(screen.queryByText('2 Experimente gehen verloren.')).toBeNull();
+    expect(screen.queryByText('2 Selbstversuche gehen verloren.')).toBeNull();
     await act(async () => fireEvent.press(screen.getByText('Ersetzen')));
-    expect(screen.getByText('2 Experimente gehen verloren.')).toBeTruthy();
+    expect(screen.getByText('2 Selbstversuche gehen verloren.')).toBeTruthy();
     await act(async () => usePendingImport.getState().set(null));
   });
 });
