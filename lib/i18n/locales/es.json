@@ -1296,7 +1296,8 @@
     "tooShort_one": "El experimento duró solo {{count}} día. Para comparar hacen falta al menos {{min}} días.",
     "tooShort_many": "El experimento duró solo {{count}} días. Para comparar hacen falta al menos {{min}} días.",
     "tooShort_other": "El experimento duró solo {{count}} días. Para comparar hacen falta al menos {{min}} días.",
-    "few": "Aún hay pocos días para comparar: antes {{before}}, en el experimento {{during}} días con entrada. Cada lado necesita al menos {{min}}.",
+    "few": "Aún hay pocos días para comparar. Días con entrada: antes {{before}}, en el experimento {{during}}. Cada lado necesita al menos {{min}}.",
+    "fewOver": "Hay pocos días para comparar. Días con entrada: antes {{before}}, en el experimento {{during}}. Cada lado necesita al menos {{min}}.",
     "noBefore": "Antes del inicio no hay entradas con las que comparar el experimento.",
     "before": "Antes",
     "during": "En el experimento",
@@ -1309,7 +1310,7 @@
     "sentenceRunning": "Resultado parcial tras {{elapsed}} de {{total}} días: en el experimento tu ánimo estuvo de media en {{during}}, en los días anteriores en {{before}}.",
     "interim": "Resultado parcial. Si la diferencia va más allá de tus altibajos habituales, Daylight lo muestra al final.",
     "noise": {
-      "unjudgeable": "Todavía no hay suficiente tiempo antes del experimento para comparar con tus altibajos habituales.",
+      "unjudgeable": "No hay suficiente tiempo antes del experimento para comparar con tus altibajos habituales.",
       "larger": "Una diferencia tan grande apareció en tu historial solo en el {{share}} de los días de referencia entre dos periodos de igual duración.",
       "usual": "Una diferencia tan grande apareció en tu historial en el {{share}} de los días de referencia. Está dentro de tus altibajos habituales.",
       "preliminary": "Provisional: tu historial todavía es bastante corto para esto.",

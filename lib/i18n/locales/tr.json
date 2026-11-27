@@ -1226,7 +1226,8 @@
     "planned": "{{date}} tarihinde başlıyor. İlk günden itibaren önceki kayıtların ve deney sırasındaki kayıtların burada yan yana görünür.",
     "tooShort_one": "Deney yalnızca {{count}} gün sürdü. Karşılaştırma için en az {{min}} gün gerekir.",
     "tooShort_other": "Deney yalnızca {{count}} gün sürdü. Karşılaştırma için en az {{min}} gün gerekir.",
-    "few": "Karşılaştırmak için henüz gün az: öncesinde {{before}}, deneyde {{during}} kayıtlı gün var. Her iki tarafta da en az {{min}} gerekir.",
+    "few": "Karşılaştırmak için henüz gün az. Kayıtlı günler: öncesinde {{before}}, deneyde {{during}}. Her iki tarafta da en az {{min}} gerekir.",
+    "fewOver": "Karşılaştırmak için gün az. Kayıtlı günler: öncesinde {{before}}, deneyde {{during}}. Her iki tarafta da en az {{min}} gerekir.",
     "noBefore": "Başlangıçtan önce deneyle karşılaştırılacak kayıt yok.",
     "before": "Önce",
     "during": "Deneyde",
@@ -1237,7 +1238,7 @@
     "sentenceRunning": "{{total}} günün {{elapsed}} günü sonunda ara durum: deneyde ruh halin ortalama {{during}}, önceki günlerde {{before}} idi.",
     "interim": "Ara durum. Farkın olağan iniş çıkışlarının ötesine geçip geçmediğini Daylight sonunda gösterir.",
     "noise": {
-      "unjudgeable": "Deneyden önceki süre, olağan iniş çıkışlarınla karşılaştırmak için henüz yetmiyor.",
+      "unjudgeable": "Deneyden önceki süre, olağan iniş çıkışlarınla karşılaştırmak için yetmiyor.",
       "larger": "Bu kadar büyük bir fark geçmişinde, aynı uzunluktaki iki dönem arasında referans günlerinin yalnızca {{share}} kadarında görüldü.",
       "usual": "Bu kadar büyük bir fark geçmişinde referans günlerinin {{share}} kadarında görüldü. Olağan iniş çıkışlarının içinde kalıyor.",
       "preliminary": "Ön sonuç: Geçmişin bunun için henüz oldukça kısa.",

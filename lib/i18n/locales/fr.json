@@ -1296,7 +1296,8 @@
     "tooShort_one": "L'expérience n'a duré que {{count}} jour. Une comparaison demande au moins {{min}} jours.",
     "tooShort_many": "L'expérience n'a duré que {{count}} jours. Une comparaison demande au moins {{min}} jours.",
     "tooShort_other": "L'expérience n'a duré que {{count}} jours. Une comparaison demande au moins {{min}} jours.",
-    "few": "Encore trop peu de jours pour comparer : avant {{before}}, pendant l'expérience {{during}} jours avec une entrée. Il en faut au moins {{min}} de chaque côté.",
+    "few": "Encore trop peu de jours pour comparer. Jours avec une entrée : avant {{before}}, pendant l'expérience {{during}}. Il en faut au moins {{min}} de chaque côté.",
+    "fewOver": "Trop peu de jours pour comparer. Jours avec une entrée : avant {{before}}, pendant l'expérience {{during}}. Il en faut au moins {{min}} de chaque côté.",
     "noBefore": "Il n'y a pas d'entrées avant le début pour comparer l'expérience.",
     "before": "Avant",
     "during": "Pendant l'expérience",
@@ -1309,7 +1310,7 @@
     "sentenceRunning": "Point d'étape après {{elapsed}} jours sur {{total}} : pendant l'expérience, ton humeur était en moyenne à {{during}}, les jours d'avant à {{before}}.",
     "interim": "Point d'étape. Daylight montre à la fin si l'écart dépasse tes variations habituelles.",
     "noise": {
-      "unjudgeable": "La période avant l'expérience ne suffit pas encore pour comparer avec tes variations habituelles.",
+      "unjudgeable": "La période avant l'expérience ne suffit pas pour comparer avec tes variations habituelles.",
       "larger": "Un écart aussi grand n'est apparu dans ton historique que pour {{share}} des jours de référence entre deux périodes de même durée.",
       "usual": "Un écart aussi grand est apparu dans ton historique pour {{share}} des jours de référence. Il reste dans tes variations habituelles.",
       "preliminary": "Provisoire : ton historique est encore assez court pour cela.",

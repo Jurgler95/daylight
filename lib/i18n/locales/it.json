@@ -1296,7 +1296,8 @@
     "tooShort_one": "L'esperimento è durato solo {{count}} giorno. Per un confronto servono almeno {{min}} giorni.",
     "tooShort_many": "L'esperimento è durato solo {{count}} giorni. Per un confronto servono almeno {{min}} giorni.",
     "tooShort_other": "L'esperimento è durato solo {{count}} giorni. Per un confronto servono almeno {{min}} giorni.",
-    "few": "Ancora troppo pochi giorni per confrontare: prima {{before}}, nell'esperimento {{during}} giorni con una voce. Su ogni lato ne servono almeno {{min}}.",
+    "few": "Ancora troppo pochi giorni per confrontare. Giorni con una voce: prima {{before}}, nell'esperimento {{during}}. Su ogni lato ne servono almeno {{min}}.",
+    "fewOver": "Troppo pochi giorni per confrontare. Giorni con una voce: prima {{before}}, nell'esperimento {{during}}. Su ogni lato ne servono almeno {{min}}.",
     "noBefore": "Prima dell'inizio non ci sono voci con cui confrontare l'esperimento.",
     "before": "Prima",
     "during": "Nell'esperimento",
@@ -1309,7 +1310,7 @@
     "sentenceRunning": "Risultato parziale dopo {{elapsed}} giorni su {{total}}: nell'esperimento il tuo umore è stato in media {{during}}, nei giorni prima {{before}}.",
     "interim": "Risultato parziale. Se la differenza va oltre i tuoi soliti alti e bassi, Daylight lo mostra alla fine.",
     "noise": {
-      "unjudgeable": "Il periodo prima dell'esperimento non basta ancora per un confronto con i tuoi soliti alti e bassi.",
+      "unjudgeable": "Il periodo prima dell'esperimento non basta per un confronto con i tuoi soliti alti e bassi.",
       "larger": "Una differenza così grande è comparsa nella tua storia solo nel {{share}} dei giorni di riferimento tra due periodi di pari durata.",
       "usual": "Una differenza così grande è comparsa nella tua storia nel {{share}} dei giorni di riferimento. Rientra nei tuoi soliti alti e bassi.",
       "preliminary": "Provvisorio: la tua storia è ancora piuttosto breve per questo.",

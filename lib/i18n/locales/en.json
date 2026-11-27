@@ -1226,7 +1226,8 @@
     "planned": "It starts {{date}}. From the first day on, your entries from before and during it show up here side by side.",
     "tooShort_one": "The experiment ran for only {{count}} day. A comparison needs at least {{min}} days.",
     "tooShort_other": "The experiment ran for only {{count}} days. A comparison needs at least {{min}} days.",
-    "few": "Not enough days to compare yet: {{before}} before, {{during}} in the experiment, counting days with an entry. Each side needs at least {{min}}.",
+    "few": "Not enough days to compare yet. Days with an entry: {{before}} before, {{during}} in the experiment. Each side needs at least {{min}}.",
+    "fewOver": "Not enough days to compare. Days with an entry: {{before}} before, {{during}} in the experiment. Each side needs at least {{min}}.",
     "noBefore": "There are no entries before the start to compare the experiment with.",
     "before": "Before",
     "during": "In the experiment",
@@ -1237,7 +1238,7 @@
     "sentenceRunning": "Interim result after {{elapsed}} of {{total}} days: in the experiment your mood averaged {{during}}, in the days before {{before}}.",
     "interim": "Interim result. Daylight shows at the end whether the difference goes beyond your usual ups and downs.",
     "noise": {
-      "unjudgeable": "The time before the experiment is not long enough yet to compare with your usual ups and downs.",
+      "unjudgeable": "The time before the experiment is not long enough to compare with your usual ups and downs.",
       "larger": "A difference this large came up in your history on only {{share}} of the reference days between two stretches of the same length.",
       "usual": "A difference this large came up in your history on {{share}} of the reference days. It lies within your usual ups and downs.",
       "preliminary": "Preliminary: your history is still fairly short for this.",

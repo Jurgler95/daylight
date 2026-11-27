@@ -180,8 +180,17 @@ describe('the comparison', () => {
     const running = add(db, 'Kein Kaffee', '2026-09-20');
     mockParams = { id: String(running.id) };
     await render(<ExperimentDetailScreen />);
-    expect(screen.getByText(/Noch zu wenige Tage zum Vergleichen/)).toBeTruthy();
+    expect(screen.getByText(/^Noch zu wenige Tage zum Vergleichen\. Tage mit Eintrag: davor 5, im Experiment 7\./)).toBeTruthy();
     expect(screen.queryByText(BROKEN)).toBeNull();
+  });
+
+  it('says it without "noch" once it is over', async () => {
+    const db = diary('2026-07-28');
+    const over = add(db, 'Kein Kaffee', '2026-08-01', 14);
+    mockParams = { id: String(over.id) };
+    await render(<ExperimentDetailScreen />);
+    expect(screen.getByText(/^Zu wenige Tage zum Vergleichen\. Tage mit Eintrag: davor 4, im Experiment 14\./)).toBeTruthy();
+    expect(screen.queryByText(/Noch zu wenige/)).toBeNull();
   });
 
   it('says that one ended after a few days never gets a comparison', async () => {
@@ -282,7 +291,7 @@ describe('the comparison', () => {
     const over = add(db, 'Kein Kaffee', '2026-08-01');
     mockParams = { id: String(over.id) };
     await render(<ExperimentDetailScreen />);
-    expect(screen.getByText('Für einen Vergleich mit deinen üblichen Schwankungen reicht die Zeit vor dem Experiment noch nicht.')).toBeTruthy();
+    expect(screen.getByText('Für einen Vergleich mit deinen üblichen Schwankungen reicht die Zeit vor dem Experiment nicht.')).toBeTruthy();
     expect(screen.queryByText(BROKEN)).toBeNull();
   });
 

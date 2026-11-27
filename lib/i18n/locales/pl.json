@@ -1366,7 +1366,8 @@
     "tooShort_few": "Eksperyment trwał tylko {{count}} dni. Porównanie wymaga co najmniej {{min}} dni.",
     "tooShort_many": "Eksperyment trwał tylko {{count}} dni. Porównanie wymaga co najmniej {{min}} dni.",
     "tooShort_other": "Eksperyment trwał tylko {{count}} dnia. Porównanie wymaga co najmniej {{min}} dni.",
-    "few": "Wciąż za mało dni do porównania: przed {{before}}, w eksperymencie {{during}} dni z wpisem. Po każdej stronie potrzeba co najmniej {{min}}.",
+    "few": "Wciąż za mało dni do porównania. Dni z wpisem: przed {{before}}, w eksperymencie {{during}}. Po każdej stronie potrzeba co najmniej {{min}}.",
+    "fewOver": "Za mało dni do porównania. Dni z wpisem: przed {{before}}, w eksperymencie {{during}}. Po każdej stronie potrzeba co najmniej {{min}}.",
     "noBefore": "Przed początkiem nie ma wpisów, z którymi można porównać eksperyment.",
     "before": "Przed",
     "during": "W eksperymencie",
@@ -1381,7 +1382,7 @@
     "sentenceRunning": "Stan pośredni po {{elapsed}} z {{total}} dni: w eksperymencie Twój nastrój wynosił średnio {{during}}, w dniach przed nim {{before}}.",
     "interim": "Stan pośredni. Czy różnica wykracza poza Twoje zwykłe wahania, Daylight pokaże na końcu.",
     "noise": {
-      "unjudgeable": "Czas przed eksperymentem jest jeszcze za krótki, by porównać różnicę z Twoimi zwykłymi wahaniami.",
+      "unjudgeable": "Czas przed eksperymentem jest za krótki, by porównać różnicę z Twoimi zwykłymi wahaniami.",
       "larger": "Tak duża różnica pojawiła się w Twojej historii tylko w {{share}} dni odniesienia między dwoma równie długimi okresami.",
       "usual": "Tak duża różnica pojawiła się w Twojej historii w {{share}} dni odniesienia. Mieści się w Twoich zwykłych wahaniach.",
       "preliminary": "Wstępnie: Twoja historia jest do tego jeszcze dość krótka.",

@@ -1222,7 +1222,8 @@
     },
     "planned": "Mulai {{date}}. Sejak hari pertama, entrimu dari sebelum dan selama eksperimen tampil berdampingan di sini.",
     "tooShort_other": "Eksperimen hanya berjalan {{count}} hari. Perbandingan butuh setidaknya {{min}} hari.",
-    "few": "Belum cukup hari untuk dibandingkan: sebelum {{before}}, dalam eksperimen {{during}} hari dengan entri. Tiap sisi butuh setidaknya {{min}}.",
+    "few": "Belum cukup hari untuk dibandingkan. Hari dengan entri: sebelum {{before}}, dalam eksperimen {{during}}. Tiap sisi butuh setidaknya {{min}}.",
+    "fewOver": "Tidak cukup hari untuk dibandingkan. Hari dengan entri: sebelum {{before}}, dalam eksperimen {{during}}. Tiap sisi butuh setidaknya {{min}}.",
     "noBefore": "Tidak ada entri sebelum awal untuk dibandingkan dengan eksperimen.",
     "before": "Sebelum",
     "during": "Dalam eksperimen",
@@ -1231,7 +1232,7 @@
     "sentenceRunning": "Hasil sementara setelah {{elapsed}} dari {{total}} hari: dalam eksperimen, suasana hatimu rata-rata {{during}}, pada hari-hari sebelumnya {{before}}.",
     "interim": "Hasil sementara. Apakah perbedaannya melampaui naik turunmu yang biasa, Daylight tunjukkan di akhir.",
     "noise": {
-      "unjudgeable": "Waktu sebelum eksperimen belum cukup untuk dibandingkan dengan naik turunmu yang biasa.",
+      "unjudgeable": "Waktu sebelum eksperimen tidak cukup untuk dibandingkan dengan naik turunmu yang biasa.",
       "larger": "Perbedaan sebesar ini dalam riwayatmu hanya muncul pada {{share}} hari acuan antara dua periode yang sama panjang.",
       "usual": "Perbedaan sebesar ini dalam riwayatmu muncul pada {{share}} hari acuan. Itu masih dalam naik turunmu yang biasa.",
       "preliminary": "Sementara: riwayatmu masih cukup pendek untuk ini.",

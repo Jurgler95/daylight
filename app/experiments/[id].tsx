@@ -134,7 +134,13 @@ function Body({ experiment, comparison }: { experiment: Experiment; comparison: 
     return (
       <Card tone="muted">
         <AppText muted>
-          {before ? t('experiments.few', { before: comparison.beforeDays, during: comparison.duringDays, min: MIN_SIDE_DAYS }) : t('experiments.noBefore')}
+          {before
+            ? t(comparison.state === 'over' ? 'experiments.fewOver' : 'experiments.few', {
+                before: comparison.beforeDays,
+                during: comparison.duringDays,
+                min: MIN_SIDE_DAYS,
+              })
+            : t('experiments.noBefore')}
         </AppText>
       </Card>
     );

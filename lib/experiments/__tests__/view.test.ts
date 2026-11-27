@@ -49,6 +49,6 @@ describe('experiment view helpers', () => {
     expect(verdictShort(t, larger)).toMatch(/^größer als üblich, 6\s?%$/);
     expect(verdictShort(t, { ...larger, kind: 'usual', share: 0.34, preliminary: true })).toMatch(/^im Rahmen, 34\s?%, vorläufig$/);
     expect(verdictSentences(t, { ...larger, preliminary: true })).toEqual([expect.stringMatching(/nur an 6\s?% der Stichtage/), expect.stringMatching(/^Vorläufig/)]);
-    expect(verdictSentences(t, { kind: 'unjudgeable' })).toEqual([expect.stringMatching(/reicht die Zeit vor dem Experiment noch nicht/)]);
+    expect(verdictSentences(t, { kind: 'unjudgeable' })).toEqual([expect.stringMatching(/reicht die Zeit vor dem Experiment nicht\./)]);
   });
 });

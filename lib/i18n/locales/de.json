@@ -1226,7 +1226,8 @@
     "planned": "Es beginnt am {{date}}. Ab dem ersten Tag stehen hier deine Einträge davor und währenddessen nebeneinander.",
     "tooShort_one": "Das Experiment lief nur {{count}} Tag. Für einen Vergleich braucht es mindestens {{min}} Tage.",
     "tooShort_other": "Das Experiment lief nur {{count}} Tage. Für einen Vergleich braucht es mindestens {{min}} Tage.",
-    "few": "Noch zu wenige Tage zum Vergleichen: davor {{before}}, im Experiment {{during}} Tage mit Eintrag. Es braucht auf jeder Seite mindestens {{min}}.",
+    "few": "Noch zu wenige Tage zum Vergleichen. Tage mit Eintrag: davor {{before}}, im Experiment {{during}}. Es braucht auf jeder Seite mindestens {{min}}.",
+    "fewOver": "Zu wenige Tage zum Vergleichen. Tage mit Eintrag: davor {{before}}, im Experiment {{during}}. Es braucht auf jeder Seite mindestens {{min}}.",
     "noBefore": "Vor dem Beginn gibt es keine Einträge, mit denen sich die Zeit im Experiment vergleichen lässt.",
     "before": "Davor",
     "during": "Im Experiment",
@@ -1237,7 +1238,7 @@
     "sentenceRunning": "Zwischenstand nach {{elapsed}} von {{total}} Tagen: Im Experiment lag deine Stimmung im Schnitt bei {{during}}, in den Tagen davor bei {{before}}.",
     "interim": "Zwischenstand. Ob der Unterschied über deine üblichen Schwankungen hinausgeht, zeigt Daylight am Ende.",
     "noise": {
-      "unjudgeable": "Für einen Vergleich mit deinen üblichen Schwankungen reicht die Zeit vor dem Experiment noch nicht.",
+      "unjudgeable": "Für einen Vergleich mit deinen üblichen Schwankungen reicht die Zeit vor dem Experiment nicht.",
       "larger": "Ein so großer Unterschied kam in deiner Vorgeschichte nur an {{share}} der Stichtage zwischen zwei gleich langen Zeiträumen vor.",
       "usual": "Ein so großer Unterschied kam in deiner Vorgeschichte an {{share}} der Stichtage vor. Er liegt im Rahmen deiner üblichen Schwankungen.",
       "preliminary": "Vorläufig: Deine Vorgeschichte ist dafür noch recht kurz.",

@@ -1226,7 +1226,8 @@
     "planned": "Het begint op {{date}}. Vanaf de eerste dag staan je registraties van ervoor en van tijdens hier naast elkaar.",
     "tooShort_one": "Het experiment liep maar {{count}} dag. Voor een vergelijking zijn minstens {{min}} dagen nodig.",
     "tooShort_other": "Het experiment liep maar {{count}} dagen. Voor een vergelijking zijn minstens {{min}} dagen nodig.",
-    "few": "Nog te weinig dagen om te vergelijken: ervoor {{before}}, in het experiment {{during}} dagen met een registratie. Aan elke kant zijn er minstens {{min}} nodig.",
+    "few": "Nog te weinig dagen om te vergelijken. Dagen met een registratie: ervoor {{before}}, in het experiment {{during}}. Aan elke kant zijn er minstens {{min}} nodig.",
+    "fewOver": "Te weinig dagen om te vergelijken. Dagen met een registratie: ervoor {{before}}, in het experiment {{during}}. Aan elke kant zijn er minstens {{min}} nodig.",
     "noBefore": "Vóór het begin zijn er geen registraties om het experiment mee te vergelijken.",
     "before": "Ervoor",
     "during": "In het experiment",
@@ -1237,7 +1238,7 @@
     "sentenceRunning": "Tussenstand na {{elapsed}} van {{total}} dagen: in het experiment lag je stemming gemiddeld op {{during}}, in de dagen ervoor op {{before}}.",
     "interim": "Tussenstand. Of het verschil buiten je gewone schommelingen valt, laat Daylight aan het eind zien.",
     "noise": {
-      "unjudgeable": "De tijd vóór het experiment is nog te kort voor een vergelijking met je gewone schommelingen.",
+      "unjudgeable": "De tijd vóór het experiment is te kort voor een vergelijking met je gewone schommelingen.",
       "larger": "Zo'n groot verschil kwam in je geschiedenis maar op {{share}} van de peildagen voor tussen twee even lange periodes.",
       "usual": "Zo'n groot verschil kwam in je geschiedenis op {{share}} van de peildagen voor. Het valt binnen je gewone schommelingen.",
       "preliminary": "Voorlopig: je geschiedenis is hiervoor nog vrij kort.",
