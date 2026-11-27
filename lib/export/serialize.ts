@@ -1,3 +1,4 @@
+import { listExperimentDays } from '@/db/repositories/experiments';
 import { listHealthDays } from '@/db/repositories/health';
 import { getSettings } from '@/db/repositories/settings';
 import {
@@ -7,7 +8,6 @@ import {
   entryActivities,
   entryPhotos,
   entryScales,
-  experimentDays,
   experiments,
   moods,
   plannedActivities,
@@ -91,11 +91,7 @@ export function buildExport(db: Database, appVersion: string, exportedAt = new D
       .sort((a, b) => a.date.localeCompare(b.date))
       .map(({ date, title, note, created_at, updated_at }) => ({ date, title, note, created_at, updated_at })),
     experiments: byId(db.select().from(experiments).all()),
-    experiment_days: db
-      .select()
-      .from(experimentDays)
-      .all()
-      .sort((a, b) => a.experiment_id - b.experiment_id || a.date.localeCompare(b.date)),
+    experiment_days: listExperimentDays(db),
     ...(settings.health_in_backup ? { health_days: listHealthDays(db).map(({ restored: _r, ...day }) => day) } : {}),
   };
 }

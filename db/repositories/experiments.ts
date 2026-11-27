@@ -122,10 +122,14 @@ export function markExperimentSeen(db: Database, id: number): void {
   db.update(experiments).set({ result_seen: true }).where(and(eq(experiments.id, id), eq(experiments.result_seen, false))).run();
 }
 
+/** By experiment, then by day; all of them, or those of one experiment. */
 export function listExperimentDays(db: Database, experimentId?: number): ExperimentDay[] {
-  const query = db.select().from(experimentDays);
-  const rows = experimentId === undefined ? query.all() : query.where(eq(experimentDays.experiment_id, experimentId)).all();
-  return rows.sort((a, b) => a.experiment_id - b.experiment_id || a.date.localeCompare(b.date));
+  return db
+    .select()
+    .from(experimentDays)
+    .where(experimentId === undefined ? undefined : eq(experimentDays.experiment_id, experimentId))
+    .orderBy(asc(experimentDays.experiment_id), asc(experimentDays.date))
+    .all();
 }
 
 /** The answers given for one day, by experiment id. */
