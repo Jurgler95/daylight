@@ -221,8 +221,8 @@ function Body({ experiment, comparison }: { experiment: Experiment; comparison: 
       </InsightCard>
 
       <InsightCard title={t('experiments.levels')}>
-        <LevelBar label={t('experiments.before')} levels={comparison.distribution.before} moodLabel={moodLabel} />
-        <LevelBar label={t('experiments.during')} levels={comparison.distribution.during} moodLabel={moodLabel} />
+        <LevelBar label={t('experiments.before')} levels={comparison.distribution.before} moodLabel={moodLabel} labelAbove />
+        <LevelBar label={t('experiments.during')} levels={comparison.distribution.during} moodLabel={moodLabel} labelAbove />
       </InsightCard>
 
       {comparison.scales.length > 0 ? (
