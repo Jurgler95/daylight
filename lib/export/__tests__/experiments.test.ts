@@ -134,6 +134,14 @@ describe('experiments in the JSON backup', () => {
     expect(broken({ experiments: [first, first], experiment_days: [] })).toThrow('doppelte Experiment-ids');
     expect(broken({ experiments: [{ ...first, title: 'x'.repeat(61) }], experiment_days: [] })).toThrow();
     expect(broken({ experiments: [{ ...first, title: ` ${'x'.repeat(60)} ` }], experiment_days: [] })).not.toThrow();
+    // Answers lie in the span; only a "no" may lie on the day after the end, where it ended it.
+    const firstId = first.id;
+    const outside = (date: string, kept: boolean) => broken({ experiments: [first], experiment_days: [{ experiment_id: firstId, date, kept }] });
+    expect(outside('2026-09-30', true)).toThrow('außerhalb');
+    expect(outside('2026-10-29', true)).toThrow('außerhalb');
+    expect(outside('2026-10-30', false)).toThrow('außerhalb');
+    expect(outside('2026-10-29', false)).not.toThrow();
+    expect(outside('2026-10-28', true)).not.toThrow();
     // One day is fine, even though the app itself asks for seven.
     expect(broken({ experiments: [{ ...first, end_date: first.start_date }], experiment_days: [] })).not.toThrow();
   });

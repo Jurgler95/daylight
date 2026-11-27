@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 import { ENTRY_SOURCES, SCALE_KINDS } from '@/db/schema';
-import { daysBetween, isDateString, type DateString } from '@/lib/dates';
+import { addDaysToDateString, daysBetween, isDateString, type DateString } from '@/lib/dates';
 import { MAX_EXPERIMENT_DAYS, TITLE_MAX_LENGTH } from '@/lib/experiments/rules';
 import { latestReminderTime, reminderTimesOr } from '@/lib/notifications/times';
 import { isPhotoName } from '@/lib/photos/store';
@@ -198,7 +198,15 @@ export const exportSchema = z
       check(length >= 1 && length <= MAX_EXPERIMENT_DAYS, `Experiment ${experiment.id}: Zeitraum ungültig`);
     }
     const answers = payload.experiment_days ?? [];
-    for (const answer of answers) check(experimentIds.has(answer.experiment_id), 'Verweis in experiment_days ungültig');
+    const spans = new Map(experimentList.map((experiment) => [experiment.id, experiment]));
+    for (const answer of answers) {
+      const experiment = spans.get(answer.experiment_id);
+      check(!!experiment, 'Verweis in experiment_days ungültig');
+      if (!experiment) continue;
+      // Answers lie in the span; only the "no" that ended it lies on the day after its end.
+      const endedByNo = !answer.kept && answer.date === addDaysToDateString(experiment.end_date as DateString, 1);
+      check(answer.date >= experiment.start_date && (answer.date <= experiment.end_date || endedByNo), `Experiment ${experiment.id}: Antwort außerhalb des Zeitraums`);
+    }
     check(new Set(answers.map((answer) => `${answer.experiment_id}|${answer.date}`)).size === answers.length, 'doppelte Antworten in experiment_days');
   });
 
