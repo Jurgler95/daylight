@@ -97,20 +97,12 @@ export function canEndEarly(experiment: ExperimentSpan, today: DateString): bool
   return experimentState(experiment, today) === 'running' && today > experiment.start_date;
 }
 
-/** The new last day when it is ended today: yesterday (never before the start day). */
-export function earlyEndDate(experiment: ExperimentSpan, today: DateString): DateString {
-  return dayBeforeOrStart(experiment, today);
-}
-
 /**
- * The new last day after a "no" on `date`: the day before, on the start day the start day itself.
- * The "no" itself is kept, so the comparison can say how it ended.
+ * The new last day when it ends early on `date`: the day before, never before the start day. Used
+ * for "Jetzt beenden" (with today) and for a "no" on `date`; that "no" itself is kept, so the
+ * comparison can say how it ended.
  */
-export function endDateAfterNo(experiment: ExperimentSpan, date: DateString): DateString {
-  return dayBeforeOrStart(experiment, date);
-}
-
-function dayBeforeOrStart(experiment: ExperimentSpan, date: DateString): DateString {
+export function endOnDayBefore(experiment: ExperimentSpan, date: DateString): DateString {
   const before = addDaysToDateString(date, -1);
   return before < experiment.start_date ? (experiment.start_date as DateString) : before;
 }

@@ -5,9 +5,8 @@ import {
   canAnswer,
   canEndEarly,
   cleanTitle,
-  earlyEndDate,
-  endDateAfterNo,
   endFromStart,
+  endOnDayBefore,
   isDuplicate,
   newDatesProblem,
   newExperimentProblem,
@@ -111,7 +110,7 @@ export function endExperiment(db: Database, id: number, today: DateString = toda
   return db.transaction((tx) => {
     const experiment = found(tx, id);
     if (!canEndEarly(experiment, today)) throw new RepositoryError(`experiment ${id} is not running`);
-    const end_date = earlyEndDate(experiment, today);
+    const end_date = endOnDayBefore(experiment, today);
     tx.delete(experimentDays).where(and(eq(experimentDays.experiment_id, id), gt(experimentDays.date, end_date))).run();
     return tx.update(experiments).set({ end_date, updated_at: now() }).where(eq(experiments.id, id)).returning().get()!;
   });
@@ -167,7 +166,7 @@ export function setExperimentDays(db: Database, date: string, answers: Readonly<
         .onConflictDoUpdate({ target: [experimentDays.experiment_id, experimentDays.date], set: { kept } })
         .run();
       if (kept) continue;
-      const end_date = endDateAfterNo(experiment, day);
+      const end_date = endOnDayBefore(experiment, day);
       tx.delete(experimentDays)
         .where(and(eq(experimentDays.experiment_id, id), gt(experimentDays.date, end_date), ne(experimentDays.date, day)))
         .run();

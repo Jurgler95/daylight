@@ -6,7 +6,7 @@ import { setExperimentDays } from '@/db/repositories/experiments';
 import type { Experiment, TurningPoint } from '@/db/schema';
 import { nowTime, today, type DateString } from '@/lib/dates';
 import { useToday } from '@/lib/dates/useToday';
-import { askingOn, endDateAfterNo } from '@/lib/experiments/rules';
+import { askingOn, endOnDayBefore } from '@/lib/experiments/rules';
 import { useExperimentAnswers, useExperiments } from '@/lib/experiments/useExperiments';
 import { haptics } from '@/lib/haptics';
 import { filePhotoStore } from '@/lib/photos/fileStore';
@@ -92,7 +92,7 @@ export function useEntryEditor(target: EditorTarget): EntryEditor {
     ? asking.map((experiment) => {
         const answer = checkInAnswer(draft.check_ins, stored, experiment.id);
         const pending = draft.check_ins[experiment.id] === false;
-        return { experiment, answer, endsOn: pending ? endDateAfterNo(experiment, draft.date) : null };
+        return { experiment, answer, endsOn: pending ? endOnDayBefore(experiment, draft.date) : null };
       })
     : [];
 

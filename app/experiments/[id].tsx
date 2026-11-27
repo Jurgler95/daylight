@@ -19,7 +19,7 @@ import { useCatalog } from '@/lib/catalog/useCatalog';
 import { formatLong, formatRange, formatShortWithYear, type DateString } from '@/lib/dates';
 import { useToday } from '@/lib/dates/useToday';
 import type { CheckInCounts, ExperimentComparison } from '@/lib/experiments/compare';
-import { canEndEarly, earlyEndDate } from '@/lib/experiments/rules';
+import { canEndEarly, endOnDayBefore } from '@/lib/experiments/rules';
 import { useExperiment, useExperimentComparison } from '@/lib/experiments/useExperiments';
 import { verdictSentences, verdictShort } from '@/lib/experiments/view';
 import { formatMetric } from '@/lib/health/format';
@@ -60,7 +60,7 @@ export default function ExperimentDetailScreen() {
 
   const comparison = result.comparison;
   const end = () =>
-    Alert.alert(t('experiments.endTitle'), t('experiments.endText', { title: experiment.title, date: formatLong(earlyEndDate(experiment, today)) }), [
+    Alert.alert(t('experiments.endTitle'), t('experiments.endText', { title: experiment.title, date: formatLong(endOnDayBefore(experiment, today)) }), [
       { text: t('common.cancel'), style: 'cancel' },
       { text: t('experiments.endConfirm'), style: 'destructive', onPress: () => mutate(() => endExperiment(getDb(), experiment.id, today)) },
     ]);

@@ -3,7 +3,7 @@ import { Alert, StyleSheet, View } from 'react-native';
 
 import { AppText, Card, Chip } from '@/components/ui';
 import { formatLong, type DateString } from '@/lib/dates';
-import { endDateAfterNo } from '@/lib/experiments/rules';
+import { endOnDayBefore } from '@/lib/experiments/rules';
 import type { CheckInRow } from '@/lib/entry/useEntryEditor';
 import { spacing } from '@/lib/theme';
 
@@ -26,7 +26,7 @@ export function CheckInCard({ rows, date, onTap }: Props) {
     if (row.answer === false) return onTap(row.experiment.id, false);
     Alert.alert(
       t('experiments.checkIn.noTitle'),
-      t('experiments.checkIn.noText', { title: row.experiment.title, date: formatLong(endDateAfterNo(row.experiment, date)) }),
+      t('experiments.checkIn.noText', { title: row.experiment.title, date: formatLong(endOnDayBefore(row.experiment, date)) }),
       [
         { text: t('common.cancel'), style: 'cancel' },
         { text: t('experiments.checkIn.noConfirm'), style: 'destructive', onPress: () => onTap(row.experiment.id, false) },
