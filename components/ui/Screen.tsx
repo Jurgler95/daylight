@@ -77,7 +77,7 @@ export function Screen({ title, eyebrow, scroll = true, back, backLabel, sticky,
           scroll
             ? [
                 styles.content,
-                { paddingTop: sticky ? spacing.lg : insets.top + spacing.lg, paddingBottom: insets.bottom + spacing.xxxl },
+                { paddingTop: sticky ? spacing.lg : insets.top + spacing.lg, paddingBottom: insets.bottom + spacing.xxl },
               ]
             : undefined
         }
@@ -107,7 +107,7 @@ export function Screen({ title, eyebrow, scroll = true, back, backLabel, sticky,
 const styles = StyleSheet.create({
   root: { flex: 1 },
   glow: { position: 'absolute', top: 0, left: 0, right: 0 },
-  content: { paddingHorizontal: spacing.lg, gap: spacing.lg },
+  content: { paddingHorizontal: spacing.lg, gap: spacing.md },
   // Outside the scroll view, so it keeps its place while the content below moves.
   sticky: { paddingHorizontal: spacing.lg, gap: spacing.sm },
   header: { gap: spacing.xs, marginBottom: spacing.sm },

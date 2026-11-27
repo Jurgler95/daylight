@@ -194,7 +194,7 @@ export const TOUCH_TARGET = 44;
 
 export const typography = {
   display: { fontSize: 42, lineHeight: 46, fontWeight: '800', letterSpacing: -1 },
-  title: { fontSize: 30, lineHeight: 36, fontWeight: '800', letterSpacing: -0.6 },
+  title: { fontSize: 27, lineHeight: 32, fontWeight: '800', letterSpacing: -0.6 },
   headline: { fontSize: 18, lineHeight: 24, fontWeight: '700', letterSpacing: -0.2 },
   body: { fontSize: 16, lineHeight: 22, fontWeight: '400', letterSpacing: 0 },
   label: { fontSize: 14, lineHeight: 18, fontWeight: '700', letterSpacing: 0 },

@@ -41,5 +41,5 @@ export function Card({ tone = 'surface', style, children, ...rest }: Props) {
 }
 
 const styles = StyleSheet.create({
-  card: { borderRadius: radius.lg, borderWidth: 1.5, padding: spacing.xl, gap: spacing.md },
+  card: { borderRadius: radius.lg, borderWidth: 1.5, padding: spacing.lg, gap: spacing.sm },
 });

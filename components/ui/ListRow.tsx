@@ -59,7 +59,7 @@ function tileFor(icon: string, tileColors: Theme['tiles']) {
 }
 
 const styles = StyleSheet.create({
-  row: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, minHeight: TOUCH_TARGET + 8 },
+  row: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, minHeight: TOUCH_TARGET + 4 },
   icon: { width: 38, height: 38, borderRadius: 14, alignItems: 'center', justifyContent: 'center' },
   label: { flex: 1 },
 });

@@ -50,7 +50,7 @@ export function Button({ label, variant = 'primary', disabled, style, onPress, a
 
 const styles = StyleSheet.create({
   base: {
-    minHeight: TOUCH_TARGET + 8,
+    minHeight: TOUCH_TARGET + 4,
     paddingHorizontal: spacing.xl,
     borderRadius: radius.pill,
     alignItems: 'center',
