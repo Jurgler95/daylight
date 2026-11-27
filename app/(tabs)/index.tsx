@@ -50,7 +50,7 @@ export default function TodayScreen() {
   const markers = useCalendarMarkers(now);
   const { enabled: outlookEnabled, outlook } = useOutlook(now);
   const allScales = useMemo(() => [...catalog.scaleById.values()], [catalog]);
-  const { hint, morning, markShown } = useHintOnToday(now, allScales);
+  const { hint, morning, markShown } = useHintOnToday(now, allScales, outlook);
   const lowMood = useLowMoodNote(now);
   const dayLabel = useDayLabel(now);
   // The newest entry of the day on top.

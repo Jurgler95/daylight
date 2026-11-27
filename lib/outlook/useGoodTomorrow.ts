@@ -10,6 +10,8 @@ import { readInsightDays } from '@/lib/insights/useInsights';
 import { cached, useDataVersion, useQuery } from '@/lib/store/dataVersion';
 import { useSettingsStore } from '@/lib/store/settingsStore';
 
+import { outlookContradicts } from './agree';
+import type { Outlook } from './outlook';
 import { tomorrowSteps, WINDOW_DAYS, type BodyByDate, type GoodTomorrow, type TomorrowResult } from './tomorrow';
 
 /** Everything the hint depends on: the day, every day's mood, activities and scale values, the scales, sleep and steps, and the hint days. */
@@ -153,8 +155,12 @@ export interface HintOnToday {
  * The hint "Heute" shows. Normally the one for tomorrow, from today's entry. Before today's entry,
  * on a day yesterday's hint pointed at, that one again from what was stored when it was on screen,
  * so the morning card appears at once and says what the evening said.
+ *
+ * `outlook` is the outlook from today (null while its backtest still runs). The evening's hint waits
+ * for it and gives way where its range for tomorrow speaks against a good day, so tomorrow's page
+ * never shows the hint above a warning. The morning's is left as it was: it said so last night.
  */
-export function useHintOnToday(today: DateString, scales: readonly ScaleFacts[]): HintOnToday {
+export function useHintOnToday(today: DateString, scales: readonly ScaleFacts[], outlook: Outlook | null): HintOnToday {
   const yesterday = addDaysToDateString(today, -1);
   const hasEntry = useQuery(() => readInsightDays().some((day) => day.date === today), [today]);
   const stored = useQuery(() => listTomorrowSnapshots(getDb(), yesterday), [yesterday]);
@@ -162,12 +168,16 @@ export function useHintOnToday(today: DateString, scales: readonly ScaleFacts[])
   const enabled = useSettingsStore((s) => s.settings?.outlook_enabled ?? true);
   const morning = enabled && !hasEntry && fromYesterday !== null;
   const { result } = useGoodTomorrow(today, scales);
-  const hint = morning ? fromYesterday : (result?.hint ?? null);
+  const found = result?.hint ?? null;
+  const contradicted = found !== null && outlook !== null && outlookContradicts(found, outlook);
+  const evening = found !== null && outlook !== null && !contradicted ? found : null;
+  const hint = morning ? fromYesterday : evening;
   const json = hint && !morning ? JSON.stringify(hint) : null;
 
-  // Today's hint gone again, say after the entry was changed that evening: tomorrow morning has
-  // nothing to show and no notification to send. The day still counts towards the two weeks.
-  const gone = result !== null && result.hint === null && stored.has(today);
+  // Today's hint gone again, say after the entry was changed that evening or a plan turned the
+  // outlook for tomorrow: tomorrow morning has nothing to show and no notification to send. The day
+  // still counts towards the two weeks.
+  const gone = result !== null && (result.hint === null || contradicted) && stored.has(today);
   useEffect(() => {
     if (gone && clearTomorrowHint(getDb(), today)) useDataVersion.getState().bump();
   }, [gone, today]);
