@@ -199,6 +199,18 @@ export const settings = sqliteTable('settings', {
   outlook_notify_time: text('outlook_notify_time').notNull().default('08:00'),
   /** The card asking for a Play Store rating was answered ("Bewerten" or "Nicht jetzt", `lib/review`). Device-local, never exported. */
   review_prompt_done: integer('review_prompt_done', { mode: 'boolean' }).notNull().default(false),
+  /** Folder for the automatic backup, the content:// URI Android's folder picker handed out (`lib/export/auto.ts`); null while it is off. Device-local, never exported. */
+  auto_backup_dir: text('auto_backup_dir'),
+  /** ISO timestamp of the last automatic backup that worked. Device-local, never exported. */
+  auto_backup_at: text('auto_backup_at'),
+  /** ISO timestamp of the last attempt, worked or not; keeps a failing folder from being tried after every save. Device-local, never exported. */
+  auto_backup_tried_at: text('auto_backup_tried_at'),
+  /** Message of the last failed attempt, cleared by the next one that works. Device-local, never exported. */
+  auto_backup_error: text('auto_backup_error'),
+  /** Fingerprint of the data in the last automatic backup, so an unchanged diary is not written again. Device-local, never exported. */
+  auto_backup_hash: text('auto_backup_hash'),
+  /** Day the card on "Heute" asking for a backup was last put away ("YYYY-MM-DD"). Device-local, never exported. */
+  backup_hint_dismissed_on: text('backup_hint_dismissed_on'),
   ...timestamps,
 });
 

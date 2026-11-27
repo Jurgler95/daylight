@@ -7,8 +7,8 @@ import { EXPORT_APP, EXPORT_SCHEMA_VERSION, type ExportPayload, type ExportSetti
 
 /**
  * last_export_at, low_mood_dismissed_on, the announced stars, the number of app opens, the language, light or dark, the Health Connect state,
- * the answered reminder sheet, the streak's celebrations and put away rescue and the answered rating card describe this device, not the
- * data, so they stay out of the snapshot. The health days themselves only go in when the user opted in.
+ * the answered reminder sheet, the streak's celebrations and put away rescue, the answered rating card, the automatic backup's folder and
+ * state and the put away backup card describe this device, not the data, so they stay out of the snapshot. The health days themselves only go in when the user opted in.
  */
 export function settingsForExport(row: ReturnType<typeof getSettings>): ExportSettings {
   const {
@@ -30,6 +30,12 @@ export function settingsForExport(row: ReturnType<typeof getSettings>): ExportSe
     streak_celebrated: _sc,
     streak_rescue_dismissed: _sr,
     review_prompt_done: _rv,
+    auto_backup_dir: _abd,
+    auto_backup_at: _aba,
+    auto_backup_tried_at: _abt,
+    auto_backup_error: _abe,
+    auto_backup_hash: _abh,
+    backup_hint_dismissed_on: _bhd,
     ...rest
   } = row;
   return rest;
