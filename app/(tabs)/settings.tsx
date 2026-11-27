@@ -73,6 +73,7 @@ export default function MoreScreen() {
         <ListRow icon="share-outline" label={t('settings.exportJson')} value={backupValue} onPress={guard(transfer.exportJson)} />
         <ListRow icon="folder-outline" label={t('settings.saveJson')} onPress={guard(transfer.saveJson)} />
         <ListRow icon="grid-outline" label={t('settings.exportCsv')} onPress={guard(transfer.exportCsv)} />
+        <ListRow icon="document-text-outline" label={t('settings.report')} onPress={go('/more/report')} />
         <ListRow icon="trash-outline" label={t('settings.deleteAll')} destructive onPress={go('/more/delete')} />
         <AppText variant="caption" muted>
           {t('settings.backupHint')}
