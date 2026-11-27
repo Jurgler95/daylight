@@ -110,6 +110,7 @@ describe('the form', () => {
     await act(async () => fireEvent.press(screen.getByText('Experiment anlegen')));
     expect(screen.getByText('Gib dem Experiment einen Namen (höchstens 60 Zeichen).')).toBeTruthy();
     expect(listExperiments(db)).toEqual([]);
+    expect(screen.getByLabelText('Was probierst du?').props.maxLength).toBe(60);
     await act(async () => fireEvent.changeText(screen.getByLabelText('Was probierst du?'), '  Kein Kaffee nach 14 Uhr '));
     expect(screen.queryByText('Gib dem Experiment einen Namen (höchstens 60 Zeichen).')).toBeNull();
     await act(async () => fireEvent.press(screen.getByText('Experiment anlegen')));

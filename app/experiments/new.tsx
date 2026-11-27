@@ -20,6 +20,7 @@ import {
   newDatesProblem,
   newExperimentProblem,
   startBounds,
+  TITLE_MAX_LENGTH,
   type ExperimentProblem,
 } from '@/lib/experiments/rules';
 import { useExperiment, useExperiments } from '@/lib/experiments/useExperiments';
@@ -120,7 +121,13 @@ export default function ExperimentFormScreen() {
   return (
     <Screen back title={t(existing ? 'experiments.form.editTitle' : 'experiments.form.newTitle')} backLabel={t('common.back')}>
       <Card>
-        <TextField label={t('experiments.form.titleLabel')} value={title} placeholder={t('experiments.form.titlePlaceholder')} onChangeText={setTitle} />
+        <TextField
+          label={t('experiments.form.titleLabel')}
+          value={title}
+          placeholder={t('experiments.form.titlePlaceholder')}
+          maxLength={TITLE_MAX_LENGTH}
+          onChangeText={setTitle}
+        />
         <TextField label={t('experiments.form.noteLabel')} value={note} placeholder={t('experiments.form.notePlaceholder')} multiline onChangeText={setNote} />
       </Card>
       <Card>
