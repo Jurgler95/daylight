@@ -1177,5 +1177,101 @@
     "healthShift": "{{before}} → {{after}}",
     "nameLabel": "Beri nama hari ini",
     "setTitle": "Titik balik ditetapkan"
+  },
+  "experiments": {
+    "title": "Eksperimen",
+    "one": "Eksperimen",
+    "new": "Eksperimen baru",
+    "empty": "Dalam eksperimen, kamu mencoba sesuatu selama beberapa minggu. Daylight lalu menaruh entrimu dari sebelumnya di samping entri selama eksperimen.",
+    "gone": "Eksperimen ini sudah tidak ada",
+    "section": {
+      "running": "Berjalan",
+      "planned": "Direncanakan",
+      "over": "Selesai"
+    },
+    "progress": "Hari {{day}} dari {{total}}",
+    "startsOn": "Mulai {{date}}",
+    "ranFor_other": "Berjalan {{count}} hari",
+    "form": {
+      "newTitle": "Eksperimen baru",
+      "editTitle": "Edit eksperimen",
+      "titleLabel": "Apa yang kamu coba?",
+      "titlePlaceholder": "mis. Tanpa kopi setelah jam 14",
+      "noteLabel": "Catatan",
+      "notePlaceholder": "Apa tepatnya dan kenapa, kalau mau",
+      "start": "Mulai",
+      "length": "Durasi",
+      "weeks_other": "{{count}} minggu",
+      "days_other": "{{count}} hari",
+      "endsOn": "Berakhir {{date}}",
+      "datesLocked": "Berakhir {{date}}. Setelah selesai, awal dan durasinya tetap seperti itu.",
+      "checkIn": "Tanyakan setiap hari apakah aku menjalankannya",
+      "checkInHint": "Pertanyaannya muncul di entri hari itu.",
+      "honest": "Daylight hanya membandingkan entrimu dan tidak mengatakan apa pun tentang penyebab atau terapi.",
+      "save": "Simpan",
+      "create": "Buat eksperimen",
+      "discardTitle": "Buang yang sudah diketik?"
+    },
+    "problem": {
+      "title": "Beri nama eksperimennya (paling banyak 60 karakter).",
+      "length": "Eksperimen berlangsung 1 sampai 12 minggu.",
+      "startTooEarly": "Awalnya paling jauh setahun yang lalu.",
+      "startTooLate": "Awalnya paling jauh 60 hari lagi.",
+      "endBeforeToday": "Dengan durasi ini, akhirnya jatuh sebelum hari ini. Untuk berhenti lebih awal, pakai \"Akhiri sekarang\".",
+      "over": "Eksperimen ini sudah selesai, awal dan durasinya tetap seperti itu."
+    },
+    "planned": "Mulai {{date}}. Sejak hari pertama, entrimu dari sebelum dan selama eksperimen tampil berdampingan di sini.",
+    "tooShort_other": "Eksperimen hanya berjalan {{count}} hari. Perbandingan butuh setidaknya {{min}} hari.",
+    "few": "Belum cukup hari untuk dibandingkan: sebelum {{before}}, dalam eksperimen {{during}} hari dengan entri. Tiap sisi butuh setidaknya {{min}}.",
+    "noBefore": "Tidak ada entri sebelum awal untuk dibandingkan dengan eksperimen.",
+    "before": "Sebelum",
+    "during": "Dalam eksperimen",
+    "daysWithEntries_other": "{{count}} hari dengan entri",
+    "sentence_other": "Dalam eksperimen, suasana hatimu rata-rata {{during}}, dalam {{count}} hari sebelumnya {{before}}.",
+    "sentenceRunning": "Hasil sementara setelah {{elapsed}} dari {{total}} hari: dalam eksperimen, suasana hatimu rata-rata {{during}}, pada hari-hari sebelumnya {{before}}.",
+    "interim": "Hasil sementara. Apakah perbedaannya melampaui naik turunmu yang biasa, Daylight tunjukkan di akhir.",
+    "noise": {
+      "unjudgeable": "Waktu sebelum eksperimen belum cukup untuk dibandingkan dengan naik turunmu yang biasa.",
+      "larger": "Perbedaan sebesar ini dalam riwayatmu hanya muncul pada {{share}} hari acuan antara dua periode yang sama panjang.",
+      "usual": "Perbedaan sebesar ini dalam riwayatmu muncul pada {{share}} hari acuan. Itu masih dalam naik turunmu yang biasa.",
+      "preliminary": "Sementara: riwayatmu masih cukup pendek untuk ini.",
+      "many": "Makin banyak nilai yang dibandingkan, makin mungkin ada yang menonjol secara kebetulan."
+    },
+    "short": {
+      "larger": "lebih besar dari biasa, {{share}}",
+      "usual": "dalam batas biasa, {{share}}",
+      "unjudgeable": "tidak bisa dinilai",
+      "preliminary": "{{verdict}}, sementara"
+    },
+    "windows": "Sebelum: {{beforeFrom}} sampai {{beforeTo}}. Dalam eksperimen: {{duringFrom}} sampai {{duringTo}}.",
+    "overlapDuring": "Berjalan bersamaan dengan: {{titles}}.",
+    "overlapBefore": "Berjalan pada periode sebelumnya: {{titles}}.",
+    "seasons": "Kedua periode jatuh di musim yang berbeda. Sebagian perbedaan bisa juga datang dari situ.",
+    "regression": "Periode sebelumnya di bawah rata-ratamu, sebagian perbedaan bisa jadi kembalinya ke yang biasa.",
+    "noCause": "Ini menggambarkan entrimu, bukan menunjukkan sebab.",
+    "trend": "Suasana hati dari waktu ke waktu",
+    "levels": "Suasana hati",
+    "scales": "Skala",
+    "health": "Kesehatan",
+    "activities": "Aktivitas",
+    "activitiesSame": "Tidak ada aktivitas yang muncul jelas lebih sering atau lebih jarang dalam eksperimen.",
+    "activityShift": "sebelum pada {{before}} hari, dalam eksperimen pada {{during}}",
+    "shift": "{{before}} → {{during}}",
+    "edit": "Edit",
+    "end": "Akhiri sekarang",
+    "endTitle": "Akhiri eksperimen sekarang?",
+    "endText": "\"{{title}}\" lalu berakhir {{date}}. Perbandingan hanya memakai hari sampai saat itu.",
+    "endConfirm": "Akhiri",
+    "delete": "Hapus eksperimen",
+    "deleteTitle": "Hapus eksperimen?",
+    "deleteText": "\"{{title}}\" dan jawabannya akan dihapus. Entrimu tetap ada.",
+    "card": {
+      "all": "Semua",
+      "invite": "Coba sesuatu selama beberapa minggu dan lihat apakah entrimu berbeda selama itu."
+    },
+    "import": {
+      "inFile_other": "Berkas berisi {{count}} eksperimen.",
+      "lost_other": "{{count}} eksperimen akan hilang."
+    }
   }
 }

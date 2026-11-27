@@ -191,3 +191,11 @@ Phase 1:
 - Verlust beim Ersetzen (`experimentsLost` in `lib/export/summary.ts`): gezählt werden vorhandene Experimente, die die Datei nicht mit gleichem gefaltetem Titel und gleichem Start wieder mitbringt. Bei CSV und Sicherung ohne Experimente sind das alle. `ImportSummary` hat dafür `experiments` und `experimentsLost`. `summarizePlan` nimmt die vorhandenen Experimente als optionales zweites Argument, `useImportPreview` reicht sie schon durch; angezeigt wird erst in Phase 2.
 - Spanne der Stichtage in `noise.ts`: erster bis letzter gültiger Stichtag einschließlich (`letzter − erster + 1`).
 - Gemeinsamer Schlüssel `experimentKey` (gefalteter Titel und Start) in `lib/experiments/rules.ts`, genutzt von Zusammenführen und Import-Vorschau.
+
+Phase 2:
+- Reine Anzeigehilfen in `lib/experiments/view.ts`: Abschnitte der Liste (Läuft und Geplant nach Start, Vorbei mit dem jüngsten Ende zuerst), Auswahl der Dauer und das Urteil in Worten (Satz für die Stimmung, Kurzform für die Zeilen). Grund: keine Logik in Komponenten.
+- Dauer als `SelectRow` mit 1 bis 12 Wochen. Eine gespeicherte Länge, die keine ganze Wochenzahl der Auswahl ist (etwa aus einer Sicherung), erscheint dort zusätzlich in Tagen, damit Bearbeiten sie nicht stillschweigend ändert.
+- Das Formular fragt beim Verlassen mit Änderungen nach, wie bei den Wendepunkten. Nach dem Anlegen öffnet sich gleich die Vergleichsseite (`router.replace`).
+- Gibt es vor dem Start gar keine Einträge, sagt die Vergleichsseite das in einem eigenen Satz (`experiments.noBefore`) statt „zu wenige Tage“.
+- Texte der Import-Vorschau liegen unter `experiments.import.*`, damit der Worttest greift. Die Zahl der Experimente in der Datei hängt `summaryText` an; „N Experimente gehen verloren“ steht beim Ersetzen rot unter dem Ersetzen-Hinweis und zusätzlich in der Rückfrage.
+- Worttest (`lib/i18n/__tests__/experimentWords.test.ts`): in es, it und pt „curar“/„curare“ statt „cura“ (sonst trifft „procura“, „sicura“), in tr „etkis“/„etkil“ statt „etki“ (sonst trifft „etkinlik“), in pl „lecz“ bleibt, deshalb nutzen die polnischen Texte das Wort nicht. Der Satz unter dem Formular sagt außerhalb des Deutschen „Therapien“ statt „Behandlungen“, weil „treat“, „tratamiento“, „behandel“ usw. auf der Liste stehen.

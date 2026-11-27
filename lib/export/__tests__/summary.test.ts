@@ -25,6 +25,11 @@ describe('summaryText', () => {
     );
   });
 
+  it('names the experiments in the file', () => {
+    const text = summaryText(i18n.t, { entries: 1, from: '2026-01-01' as never, to: '2026-01-01' as never, moods: 1, newMoods: 0, activities: 0, newActivities: 0, toAdd: 1, duplicates: 0, photos: 0, newPhotos: 0, healthDays: 0, experiments: 2, experimentsLost: 0 });
+    expect(text.endsWith(' Die Datei enthält 2 Experimente.')).toBe(true);
+  });
+
   it('uses the singular and handles an empty file', () => {
     const one = summaryText(i18n.t, { entries: 1, from: '2026-01-01' as never, to: '2026-01-01' as never, moods: 1, newMoods: 1, activities: 1, newActivities: 0, toAdd: 1, duplicates: 1, photos: 0, newPhotos: 0, healthDays: 0, experiments: 0, experimentsLost: 0 });
     expect(one).toBe('1 Eintrag vom 01.01.2026 bis 01.01.2026, 1 Stimmung, 1 Aktivität (davon 0 neu). Zusammenführen fügt 1 Eintrag hinzu, 1 ist schon vorhanden.');

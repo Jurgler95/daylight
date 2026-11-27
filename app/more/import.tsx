@@ -40,6 +40,8 @@ export default function ImportScreen() {
   }
 
   const blocked = preview.errors.length > 0 && !skipErrors;
+  // A replace deletes every stored experiment the file does not bring again (E16): said before, not after.
+  const lost = preview.summary.experimentsLost > 0 ? t('experiments.import.lost', { count: preview.summary.experimentsLost }) : null;
   const run = () => {
     setBusy(true);
     try {
@@ -57,7 +59,7 @@ export default function ImportScreen() {
   };
   const confirm = () => {
     if (mode === 'merge') return run();
-    Alert.alert(t('import.replaceConfirm'), t(file.kind === 'csv' ? 'import.replaceWarningCsv' : 'import.replaceWarningJson'), [
+    Alert.alert(t('import.replaceConfirm'), [t(file.kind === 'csv' ? 'import.replaceWarningCsv' : 'import.replaceWarningJson'), lost].filter(Boolean).join(' '), [
       { text: t('common.cancel'), style: 'cancel' },
       { text: t('import.replace'), style: 'destructive', onPress: run },
     ]);
@@ -104,6 +106,11 @@ export default function ImportScreen() {
         {mode === 'replace' ? (
           <AppText variant="caption" color={colors.danger}>
             {t(file.kind === 'csv' ? 'import.replaceWarningCsv' : 'import.replaceWarningJson')}
+          </AppText>
+        ) : null}
+        {mode === 'replace' && lost ? (
+          <AppText variant="label" color={colors.danger}>
+            {lost}
           </AppText>
         ) : null}
         <Button label={t('import.run')} disabled={blocked || busy || preview.summary.entries === 0} onPress={confirm} />

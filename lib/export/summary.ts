@@ -54,5 +54,6 @@ export function summaryText(t: TFunction, summary: ImportSummary): string {
   const merge = t('import.mergeInfo', { count: summary.toAdd, duplicates: t('import.duplicates', { count: summary.duplicates }) });
   const photos = summary.photos > 0 ? ` ${t('import.photoInfo', { count: summary.photos, fresh: summary.newPhotos })}` : '';
   const health = summary.healthDays > 0 ? ` ${t('import.healthInfo', { count: summary.healthDays })}` : '';
-  return `${contents} ${merge}${photos}${health}`;
+  const experiments = summary.experiments > 0 ? ` ${t('experiments.import.inFile', { count: summary.experiments })}` : '';
+  return `${contents} ${merge}${photos}${health}${experiments}`;
 }

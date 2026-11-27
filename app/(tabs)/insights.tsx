@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
+import { ExperimentsCard } from '@/components/experiments/ExperimentsCard';
 import { BeforeHardCard } from '@/components/insights/BeforeHardCard';
 import { CoverageCard } from '@/components/insights/CoverageCard';
 import { DistributionCard } from '@/components/insights/DistributionCard';
@@ -166,6 +167,7 @@ export default function InsightsScreen() {
     <Screen sticky={header} contentKey={section}>
       {section === 'mood' ? (
         <>
+          <ExperimentsCard today={now} />
           {empty ? null : (
             <View style={styles.tiles}>
               <StatTile label={t('insights.tiles.mean')} value={formatDecimal(insights.mean ?? 0, 2)} hint={t('insights.days', { count: insights.days.length })} />
