@@ -8,12 +8,14 @@ import { addDaysToDateString, daysBetween, type DateString } from '@/lib/dates';
  * say "larger than usual". It describes the diary and never claims a cause.
  *
  * Neighbouring days `s` share almost all their days and are no independent cases, so how much
- * history there is goes by the span the days `s` cover, not by how many there are.
+ * history there is is measured against "Davor" plus experiment: the number of valid days `s` must
+ * reach a multiple of that length. Counting the valid days rather than the span from the first to
+ * the last one keeps a long break in the diary from passing for history.
  */
 
 /** A difference this rare or rarer in the history counts as larger than usual. Same for every value. */
 export const NOISE_SHARE = 0.1;
-/** The days `s` cover at least this many times "Davor" plus experiment: a verdict, marked preliminary. */
+/** At least this many times "Davor" plus experiment valid days `s`: a verdict, marked preliminary. */
 export const NOISE_SPAN_PRELIMINARY = 2;
 /** ... and at least this many times: a full verdict. */
 export const NOISE_SPAN_FULL = 4;
@@ -28,7 +30,7 @@ export type NoiseVerdict =
       kind: 'larger' | 'usual';
       /** 0..1: share of the days `s` with a difference at least this large. */
       share: number;
-      /** The history covers only between `NOISE_SPAN_PRELIMINARY` and `NOISE_SPAN_FULL` times the lengths. */
+      /** Only between `NOISE_SPAN_PRELIMINARY` and `NOISE_SPAN_FULL` times the lengths valid days `s`. */
       preliminary: boolean;
       /** Days `s` that counted. */
       pairs: number;
@@ -93,27 +95,22 @@ export function noiseCheck({ series, start, beforeLength: lb, duringLength: le, 
   const firstDay = Math.max(lb, last - NOISE_MAX_DAYS + 1);
   let valid = 0;
   let asLarge = 0;
-  let firstValid = -1;
-  let lastValid = -1;
   const threshold = Math.abs(difference) - 1e-9;
   for (let s = firstDay; s <= last; s++) {
     const a = meanOf(s - lb, s);
     const b = meanOf(s, s + le);
     if (a === null || b === null) continue;
     valid++;
-    if (firstValid < 0) firstValid = s;
-    lastValid = s;
     if (Math.abs(b - a) >= threshold) asLarge++;
   }
 
-  const span = valid > 0 ? lastValid - firstValid + 1 : 0;
   const unit = lb + le;
-  if (span < NOISE_SPAN_PRELIMINARY * unit) return { difference, before, during, verdict: { kind: 'unjudgeable' } };
+  if (valid < NOISE_SPAN_PRELIMINARY * unit) return { difference, before, during, verdict: { kind: 'unjudgeable' } };
   const share = asLarge / valid;
   return {
     difference,
     before,
     during,
-    verdict: { kind: share <= NOISE_SHARE ? 'larger' : 'usual', share, preliminary: span < NOISE_SPAN_FULL * unit, pairs: valid },
+    verdict: { kind: share <= NOISE_SHARE ? 'larger' : 'usual', share, preliminary: valid < NOISE_SPAN_FULL * unit, pairs: valid },
   };
 }

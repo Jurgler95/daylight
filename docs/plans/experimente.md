@@ -189,7 +189,7 @@ Phase 1:
 - `setExperimentDays(db, date, answers, today)` führt ein Nein selbst aus: Ende auf `max(start_date, Tag − 1)`, das Nein bleibt, spätere Antworten gehen. Phase 3 muss im Editor also nur nachfragen und dann speichern. Grund: Die Regel gehört in die Datenbankschicht und läuft so in einer Transaktion.
 - Repository-Funktionen mit Regeln (`createExperiment`, `updateExperiment`, `endExperiment`, `setExperimentDays`) nehmen `today` als letztes, optionales Argument (Standard `today()`), damit Tests feste Tage nutzen. Start und Dauer ändert `updateExperiment` über `dates: { start_date, days }`, weil es keine Dauer-Spalte gibt.
 - Verlust beim Ersetzen (`experimentsLost` in `lib/export/summary.ts`): gezählt werden vorhandene Experimente, die die Datei nicht mit gleichem gefaltetem Titel und gleichem Start wieder mitbringt. Bei CSV und Sicherung ohne Experimente sind das alle. `ImportSummary` hat dafür `experiments` und `experimentsLost`. `summarizePlan` nimmt die vorhandenen Experimente als optionales zweites Argument, `useImportPreview` reicht sie schon durch; angezeigt wird erst in Phase 2.
-- Spanne der Stichtage in `noise.ts`: erster bis letzter gültiger Stichtag einschließlich (`letzter − erster + 1`).
+- Spanne der Stichtage in `noise.ts`: erster bis letzter gültiger Stichtag einschließlich (`letzter − erster + 1`). Nach Prüfung R1 ersetzt, siehe unten.
 - Gemeinsamer Schlüssel `experimentKey` (gefalteter Titel und Start) in `lib/experiments/rules.ts`, genutzt von Zusammenführen und Import-Vorschau.
 
 Phase 2:
@@ -199,3 +199,6 @@ Phase 2:
 - Gibt es vor dem Start gar keine Einträge, sagt die Vergleichsseite das in einem eigenen Satz (`experiments.noBefore`) statt „zu wenige Tage“.
 - Texte der Import-Vorschau liegen unter `experiments.import.*`, damit der Worttest greift. Die Zahl der Experimente in der Datei hängt `summaryText` an; „N Experimente gehen verloren“ steht beim Ersetzen rot unter dem Ersetzen-Hinweis und zusätzlich in der Rückfrage.
 - Worttest (`lib/i18n/__tests__/experimentWords.test.ts`): in es, it und pt „curar“/„curare“ statt „cura“ (sonst trifft „procura“, „sicura“), in tr „etkis“/„etkil“ statt „etki“ (sonst trifft „etkinlik“), in pl „lecz“ bleibt, deshalb nutzen die polnischen Texte das Wort nicht. Der Satz unter dem Formular sagt außerhalb des Deutschen „Therapien“ statt „Behandlungen“, weil „treat“, „tratamiento“, „behandel“ usw. auf der Liste stehen.
+
+Nach Prüfung R1 (zwischen Phase 2 und 3):
+- Mindest-Vorgeschichte (E14) zählt die gültigen Stichtage statt der Spanne vom ersten bis zum letzten. Grund: Eine monatelange Lücke im Tagebuch ließ die Spanne groß erscheinen, obwohl kaum Vorgeschichte da war. Ohne Lücken ist beides gleich. Die Konstanten `NOISE_SPAN_PRELIMINARY` und `NOISE_SPAN_FULL` behalten ihre Namen und Werte.

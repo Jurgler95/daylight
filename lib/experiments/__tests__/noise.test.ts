@@ -72,6 +72,15 @@ describe('noiseCheck', () => {
     expect(noiseCheck({ series: series(0, 28, () => 3), start, beforeLength: 28, duringLength: 28, minDays: 7 })).toBeNull();
   });
 
+  it('does not count a long break in the diary as history', () => {
+    const next = random(13);
+    // 60 days, a break of 180 days, 60 days right before the start: 52 valid days s over a span
+    // of 245 days. Only the valid days count, so this is too little for any verdict.
+    const value = (i: number, inside: boolean) => (i >= -300 && i < -240) || i >= -60 ? (inside ? 3.4 : 3) + (next() - 0.5) : null;
+    const result = noiseCheck({ series: series(300, 28, value), start, beforeLength: 28, duringLength: 28, minDays: 7 })!;
+    expect(result.verdict).toEqual({ kind: 'unjudgeable' });
+  });
+
   it('ignores days after the experiment', () => {
     const base = series(400, 28, (_, inside) => (inside ? 5 : 3));
     const later = new Map(base);
