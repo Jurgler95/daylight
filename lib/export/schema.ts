@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { ENTRY_SOURCES, SCALE_KINDS } from '@/db/schema';
 import { daysBetween, isDateString, type DateString } from '@/lib/dates';
-import { MAX_EXPERIMENT_DAYS } from '@/lib/experiments/rules';
+import { MAX_EXPERIMENT_DAYS, TITLE_MAX_LENGTH } from '@/lib/experiments/rules';
 import { latestReminderTime, reminderTimesOr } from '@/lib/notifications/times';
 import { isPhotoName } from '@/lib/photos/store';
 import { countByYear, TURNING_POINTS_PER_YEAR } from '@/lib/turning/rules';
@@ -93,7 +93,7 @@ export const turningPointSchema = z.object({
 
 export const experimentSchema = z.object({
   id,
-  title: name,
+  title: name.max(TITLE_MAX_LENGTH),
   note: z.string().nullable(),
   start_date: dateString,
   end_date: dateString,

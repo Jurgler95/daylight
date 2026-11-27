@@ -1,10 +1,11 @@
-import { createEntry, createExperiment, listExperimentDays, listExperiments, listMoods, setExperimentDays } from '@/db/repositories';
+import { createEntry, createExperiment, endExperiment, listExperimentDays, listExperiments, listMoods, setExperimentDays } from '@/db/repositories';
 import { deleteAllData } from '@/db/repositories/maintenance';
 import { createTestDb } from '@/db/testDb';
 import type { DateString } from '@/lib/dates';
 import type { ImportPlan } from '@/lib/daylio/plan';
 
 import { applyImport, buildExport, parseImport, previewImport } from '../index';
+import { mergeImport } from '../merge';
 import { experimentsLost, summarizePlan } from '../summary';
 
 const today = '2026-11-27' as DateString;
@@ -47,27 +48,41 @@ describe('experiments in the JSON backup', () => {
       // Stays as it was here, its "no" too.
       ['abendspaziergang', false],
     ]);
+    // The "no" on the 21st ended it here on the 20th, so the backup's answer for the 22nd stays out.
     const days = listExperimentDays(target).map((row) => [row.experiment_id, row.date, row.kept]);
     const coffee = rows[0]!.id;
     expect(days).toEqual(
       expect.arrayContaining([
         [coffee, '2026-10-02', true],
         [here.id, '2026-11-21', false],
-        [here.id, '2026-11-22', true],
       ]),
     );
-    expect(days).toHaveLength(3);
+    expect(days).toHaveLength(2);
 
     applyImport(target, payload, 'merge');
     expect(listExperiments(target)).toHaveLength(2);
-    expect(listExperimentDays(target)).toHaveLength(3);
+    expect(listExperimentDays(target)).toHaveLength(2);
   });
 
-  it('new experiments from a merge count as seen, so no old card comes up on "Heute"', () => {
-    const payload = buildExport(journal(), '1');
+  it('new experiments from a merge that are over count as seen; running ones keep their card', () => {
+    const payload = parseImport(JSON.stringify(buildExport(journal(), '1')));
     const target = createTestDb();
-    applyImport(target, parseImport(JSON.stringify(payload)), 'merge');
-    expect(listExperiments(target).every((row) => row.result_seen)).toBe(true);
+    target.transaction((tx) => mergeImport(tx, payload, today));
+    expect(listExperiments(target).map((row) => [row.title, row.result_seen])).toEqual([
+      ['Kein Kaffee', true],
+      ['Abendspaziergang', false],
+    ]);
+  });
+
+  it('merge adds no answers outside the span of an experiment that is already here', () => {
+    const source = journal();
+    const payload = parseImport(JSON.stringify(buildExport(source, '1')));
+    const target = createTestDb();
+    // Here it was ended early on 21 November; the backup still has an answer for the 22nd.
+    const here = createExperiment(target, { title: 'Abendspaziergang', start_date: '2026-11-20', days: 14, check_in: true }, '2026-11-20' as DateString);
+    endExperiment(target, here.id, '2026-11-22' as DateString);
+    target.transaction((tx) => mergeImport(tx, payload, today));
+    expect(listExperimentDays(target, here.id).map((row) => row.date)).toEqual(['2026-11-21']);
   });
 
   it('reads an older backup without the fields, and a replace with it removes the stored ones', () => {
@@ -104,6 +119,8 @@ describe('experiments in the JSON backup', () => {
     expect(broken({ experiments: [{ ...first, end_date: '2026-09-30' }] })).toThrow('Zeitraum');
     expect(broken({ experiments: [{ ...first, end_date: '2027-01-01' }] })).toThrow('Zeitraum');
     expect(broken({ experiments: [first, first], experiment_days: [] })).toThrow('doppelte Experiment-ids');
+    expect(broken({ experiments: [{ ...first, title: 'x'.repeat(61) }], experiment_days: [] })).toThrow();
+    expect(broken({ experiments: [{ ...first, title: ` ${'x'.repeat(60)} ` }], experiment_days: [] })).not.toThrow();
     // One day is fine, even though the app itself asks for seven.
     expect(broken({ experiments: [{ ...first, end_date: first.start_date }], experiment_days: [] })).not.toThrow();
   });

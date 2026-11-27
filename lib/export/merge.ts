@@ -14,9 +14,10 @@ import {
   turningPoints,
 } from '@/db/schema';
 import type { Database } from '@/db/types';
+import { today as todayDate, type DateString } from '@/lib/dates';
 import { entryIdsByKey, readCatalog } from '@/lib/daylio/apply';
 import { entryKey, takeKey } from '@/lib/daylio/plan';
-import { experimentKey } from '@/lib/experiments/rules';
+import { experimentKey, type ExperimentSpan } from '@/lib/experiments/rules';
 import { fold } from '@/lib/search/fold';
 import { onEntryDays, roomInYear } from '@/lib/turning/rules';
 
@@ -113,7 +114,7 @@ function nextOrder(rows: readonly { sort_order: number }[]): number {
 }
 
 /** Adds what is missing. Expects to run inside a transaction. */
-export function mergeImport(tx: Database, payload: ExportPayload): { added: number; duplicates: number } {
+export function mergeImport(tx: Database, payload: ExportPayload, today: DateString = todayDate()): { added: number; duplicates: number } {
   const matches = matchPayload(tx, payload);
   const resolve = <T extends { id: number; sort_order: number }>(
     rows: readonly T[],
@@ -171,7 +172,7 @@ export function mergeImport(tx: Database, payload: ExportPayload): { added: numb
   for (const chunk of chunked(plans)) tx.insert(plannedActivities).values(chunk).onConflictDoNothing().run();
   attachPhotos(tx, payload, entryIds);
   mergeTurningPoints(tx, payload);
-  mergeExperiments(tx, payload);
+  mergeExperiments(tx, payload, today);
 
   return { added: matches.newEntries.length, duplicates: matches.duplicates };
 }
@@ -191,12 +192,17 @@ function mergeTurningPoints(tx: Database, payload: ExportPayload): void {
 
 /**
  * An experiment with the same folded title and exactly the same start is already here: it stays as
- * it is and only gets the answers it lacks. New ones get fresh ids and count as seen, so merging an
- * old backup brings no cards to "Heute"; their answers follow.
+ * it is and only gets the answers it lacks, within its own span here. An answer after its end would
+ * otherwise read as the "no" that ended it. New ones get fresh ids and their answers follow; they
+ * count as seen once their end lies before `today`, so merging an old backup brings no cards to
+ * "Heute", while one that still runs or is planned gets its card when it is over.
  */
-function mergeExperiments(tx: Database, payload: ExportPayload): void {
+function mergeExperiments(tx: Database, payload: ExportPayload, today: DateString): void {
   if (!payload.experiments?.length) return;
-  const stored = new Map(tx.select().from(experiments).all().map((row) => [experimentKey(row), row.id]));
+  const here = tx.select().from(experiments).all();
+  const stored = new Map(here.map((row) => [experimentKey(row), row.id]));
+  /** The span of each experiment that was already here, by its id. */
+  const spans = new Map<number, ExperimentSpan>(here.map((row) => [row.id, row]));
   const ids = new Map<number, number>();
   for (const experiment of payload.experiments) {
     const key = experimentKey(experiment);
@@ -206,13 +212,20 @@ function mergeExperiments(tx: Database, payload: ExportPayload): void {
       continue;
     }
     const { id, ...rest } = experiment;
-    const inserted = tx.insert(experiments).values({ ...rest, result_seen: true }).returning({ id: experiments.id }).get();
+    const inserted = tx
+      .insert(experiments)
+      .values({ ...rest, result_seen: experiment.end_date < today })
+      .returning({ id: experiments.id })
+      .get();
     stored.set(key, inserted.id);
     ids.set(id, inserted.id);
   }
   const answers = (payload.experiment_days ?? []).flatMap((answer) => {
     const experimentId = ids.get(answer.experiment_id);
-    return experimentId === undefined ? [] : [{ ...answer, experiment_id: experimentId }];
+    if (experimentId === undefined) return [];
+    const span = spans.get(experimentId);
+    if (span && (answer.date < span.start_date || answer.date > span.end_date)) return [];
+    return [{ ...answer, experiment_id: experimentId }];
   });
   for (const chunk of chunked(answers)) tx.insert(experimentDays).values(chunk).onConflictDoNothing().run();
 }
