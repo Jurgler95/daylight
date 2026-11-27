@@ -132,8 +132,21 @@ export async function pickImportFile(): Promise<{ name: string; bytes: Uint8Arra
   return { name: asset.name, bytes };
 }
 
-/** Cache folders where the pickers and the image manipulator leave copies of what passed through. */
-const COPY_FOLDERS = ['ImagePicker', 'ImageManipulator', 'DocumentPicker'];
+/**
+ * Deletes a file another module left behind (the PDF `expo-print` writes to `cache/Print/`) once
+ * its content is read. Never throws: the cache is cleared on "Alle Daten löschen" anyway.
+ */
+export function discardFile(uri: string): void {
+  try {
+    const file = new File(uri);
+    if (file.exists) file.delete();
+  } catch {
+    // Gone already, or not ours to delete; "Alle Daten löschen" clears the folder.
+  }
+}
+
+/** Cache folders where the pickers, the image manipulator and the PDF printer leave copies of what passed through. */
+const COPY_FOLDERS = ['ImagePicker', 'ImageManipulator', 'DocumentPicker', 'Print'];
 
 /**
  * "Alle Daten löschen": the exports shared from the cache (`daylight-…`) and the copies the pickers
