@@ -5,6 +5,7 @@ import { AppText, Card, Chip } from '@/components/ui';
 import { formatLong, type DateString } from '@/lib/dates';
 import { endOnDayBefore } from '@/lib/experiments/rules';
 import type { CheckInRow } from '@/lib/entry/useEntryEditor';
+import { upper } from '@/lib/i18n/language';
 import { spacing } from '@/lib/theme';
 
 interface Props {
@@ -36,6 +37,9 @@ export function CheckInCard({ rows, date, onTap }: Props) {
 
   return (
     <Card>
+      <AppText variant="caption" muted>
+        {upper(t(rows.length > 1 ? 'experiments.title' : 'experiments.one'))}
+      </AppText>
       {rows.map((row) => (
         <View key={row.experiment.id} style={styles.row}>
           <AppText variant="label">{t('experiments.checkIn.question', { title: row.experiment.title })}</AppText>

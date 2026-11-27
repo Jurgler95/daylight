@@ -127,7 +127,7 @@ describe('the question in the entry editor', () => {
     const alert = jest.spyOn(Alert, 'alert');
     await render(<EntryEditor target={newOn('2026-09-20')} />);
     await act(async () => fireEvent.press(screen.getByText('Nein')));
-    expect(alert).toHaveBeenLastCalledWith('Experiment beenden?', expect.stringContaining('Dann endet „Kein Kaffee“ am'), expect.any(Array));
+    expect(alert).toHaveBeenLastCalledWith('Selbstversuch beenden?', expect.stringContaining('Dann endet „Kein Kaffee“ am'), expect.any(Array));
     expect(alert.mock.calls.at(-1)![1]).toContain('19. September');
     await pressAlertButton(alert, 'Abbrechen');
     expect(screen.getByLabelText('Nein').props.accessibilityState).toMatchObject({ selected: false });
@@ -146,7 +146,7 @@ describe('the question in the entry editor', () => {
     await render(<EntryEditor target={newOn('2026-09-20')} />);
     await act(async () => fireEvent.press(screen.getByText('Nein')));
     await pressAlertButton(alert, 'Beenden');
-    expect(screen.getByText(/Mit dem Speichern endet das Experiment am/)).toBeTruthy();
+    expect(screen.getByText(/Mit dem Speichern endet der Selbstversuch am/)).toBeTruthy();
     // Nothing happens before "Speichern".
     expect(getExperiment(db, running.id)!.end_date).toBe('2026-10-12');
     await act(async () => fireEvent.press(screen.getByText('Speichern')));
@@ -212,7 +212,7 @@ describe('the answers on the comparison page', () => {
     const over = experiment('Vorbei', '2026-09-01', true, 14);
     mockParams = { id: String(over.id) };
     await render(<ExperimentDetailScreen />);
-    expect(screen.getByText('Zu diesem Experiment gibt es keine Antworten.')).toBeTruthy();
+    expect(screen.getByText('Zu diesem Selbstversuch gibt es keine Antworten.')).toBeTruthy();
     expect(screen.queryByText(/^Noch keine Antwort/)).toBeNull();
   });
 });
