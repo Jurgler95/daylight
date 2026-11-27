@@ -1221,7 +1221,8 @@
       "startTooEarly": "Başlangıç en fazla bir yıl önce olabilir.",
       "startTooLate": "Başlangıç en fazla 60 gün sonra olabilir.",
       "endBeforeToday": "Bu süreyle bitiş bugünden önceye düşer. Erken bitirmek için “Şimdi bitir” seçeneğini kullan.",
-      "over": "Bu deney zaten bitti, başlangıç ve süre olduğu gibi kalır."
+      "over": "Bu deney zaten bitti, başlangıç ve süre olduğu gibi kalır.",
+      "duplicate": "Bu ad ve başlangıçla bir deney zaten var."
     },
     "planned": "{{date}} tarihinde başlıyor. İlk günden itibaren önceki kayıtların ve deney sırasındaki kayıtların burada yan yana görünür.",
     "tooShort_one": "Deney yalnızca {{count}} gün sürdü. Karşılaştırma için en az {{min}} gün gerekir.",

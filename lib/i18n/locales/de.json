@@ -1221,7 +1221,8 @@
       "startTooEarly": "Der Beginn darf höchstens ein Jahr zurückliegen.",
       "startTooLate": "Der Beginn darf höchstens 60 Tage in der Zukunft liegen.",
       "endBeforeToday": "Mit dieser Dauer läge das Ende vor heute. Früher aufhören geht über „Jetzt beenden“.",
-      "over": "Das Experiment ist schon vorbei, Beginn und Dauer bleiben, wie sie sind."
+      "over": "Das Experiment ist schon vorbei, Beginn und Dauer bleiben, wie sie sind.",
+      "duplicate": "Ein Experiment mit diesem Namen und diesem Beginn gibt es schon."
     },
     "planned": "Es beginnt am {{date}}. Ab dem ersten Tag stehen hier deine Einträge davor und währenddessen nebeneinander.",
     "tooShort_one": "Das Experiment lief nur {{count}} Tag. Für einen Vergleich braucht es mindestens {{min}} Tage.",

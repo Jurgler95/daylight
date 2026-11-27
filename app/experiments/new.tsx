@@ -16,12 +16,13 @@ import {
   endFromStart,
   experimentLength,
   experimentState,
+  isDuplicate,
   newDatesProblem,
   newExperimentProblem,
   startBounds,
   type ExperimentProblem,
 } from '@/lib/experiments/rules';
-import { useExperiment } from '@/lib/experiments/useExperiments';
+import { useExperiment, useExperiments } from '@/lib/experiments/useExperiments';
 import { lengthChoices } from '@/lib/experiments/view';
 import { haptics } from '@/lib/haptics';
 import { mutate } from '@/lib/store/dataVersion';
@@ -38,6 +39,7 @@ export default function ExperimentFormScreen() {
   const params = useLocalSearchParams<{ id?: string }>();
   const today = useToday();
   const existing = useExperiment(params.id ? Number(params.id) : -1);
+  const experiments = useExperiments();
   const editing = !!params.id;
   const initialDays = existing ? experimentLength(existing) : DEFAULT_EXPERIMENT_WEEKS * 7;
   const initialStart = (existing?.start_date ?? today) as DateString;
@@ -54,13 +56,14 @@ export default function ExperimentFormScreen() {
 
   const datesOpen = !existing || experimentState(existing, today) !== 'over';
   const datesChanged = start !== initialStart || days !== initialDays;
-  const problem: ExperimentProblem | null = !existing
+  const datesProblem: ExperimentProblem | null = !existing
     ? newExperimentProblem({ title, start, days }, today)
     : cleanTitle(title) === null
       ? 'title'
       : datesChanged
         ? newDatesProblem(existing, { start, days }, today)
         : null;
+  const problem = datesProblem ?? (isDuplicate(experiments, { title, start_date: start }, existing?.id) ? 'duplicate' : null);
   const bounds = startBounds(today);
   const end = datesOpen ? endFromStart(start, days) : (existing!.end_date as DateString);
   const dirty =

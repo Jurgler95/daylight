@@ -1290,7 +1290,8 @@
       "startTooEarly": "O início pode ser no máximo um ano atrás.",
       "startTooLate": "O início pode ser no máximo daqui a 60 dias.",
       "endBeforeToday": "Com essa duração, o fim ficaria antes de hoje. Para parar antes, use “Encerrar agora”.",
-      "over": "Este experimento já terminou, início e duração ficam como estão."
+      "over": "Este experimento já terminou, início e duração ficam como estão.",
+      "duplicate": "Já existe um experimento com este nome e este início."
     },
     "planned": "Começa em {{date}}. Desde o primeiro dia, seus registros de antes e de durante aparecem aqui lado a lado.",
     "tooShort_one": "O experimento durou só {{count}} dia. Para comparar, são precisos pelo menos {{min}} dias.",

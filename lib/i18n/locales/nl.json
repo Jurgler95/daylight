@@ -1221,7 +1221,8 @@
       "startTooEarly": "Het begin mag hoogstens een jaar geleden zijn.",
       "startTooLate": "Het begin mag hoogstens 60 dagen vooruit liggen.",
       "endBeforeToday": "Met deze duur zou het einde vóór vandaag liggen. Eerder stoppen gaat via “Nu beëindigen”.",
-      "over": "Dit experiment is al voorbij, begin en duur blijven zoals ze zijn."
+      "over": "Dit experiment is al voorbij, begin en duur blijven zoals ze zijn.",
+      "duplicate": "Er is al een experiment met deze naam en dit begin."
     },
     "planned": "Het begint op {{date}}. Vanaf de eerste dag staan je registraties van ervoor en van tijdens hier naast elkaar.",
     "tooShort_one": "Het experiment liep maar {{count}} dag. Voor een vergelijking zijn minstens {{min}} dagen nodig.",

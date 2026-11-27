@@ -118,6 +118,16 @@ describe('the form', () => {
     expect(jest.requireMock('expo-router').router.replace).toHaveBeenCalledWith({ pathname: '/experiments/[id]', params: { id: String(created!.id) } });
   });
 
+  it('refuses a second experiment with the same name and start', async () => {
+    const db = diary('2026-09-01');
+    add(db, 'Kein Kaffee', today);
+    await render(<ExperimentFormScreen />);
+    await act(async () => fireEvent.changeText(screen.getByLabelText('Was probierst du?'), 'kein kaffee'));
+    await act(async () => fireEvent.press(screen.getByText('Experiment anlegen')));
+    expect(screen.getByText('Ein Experiment mit diesem Namen und diesem Beginn gibt es schon.')).toBeTruthy();
+    expect(listExperiments(db)).toHaveLength(1);
+  });
+
   it('takes a length in weeks and the daily question', async () => {
     const db = diary('2026-09-01');
     await render(<ExperimentFormScreen />);

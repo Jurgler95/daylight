@@ -1218,7 +1218,8 @@
       "startTooEarly": "Awalnya paling jauh setahun yang lalu.",
       "startTooLate": "Awalnya paling jauh 60 hari lagi.",
       "endBeforeToday": "Dengan durasi ini, akhirnya jatuh sebelum hari ini. Untuk berhenti lebih awal, pakai \"Akhiri sekarang\".",
-      "over": "Eksperimen ini sudah selesai, awal dan durasinya tetap seperti itu."
+      "over": "Eksperimen ini sudah selesai, awal dan durasinya tetap seperti itu.",
+      "duplicate": "Sudah ada eksperimen dengan nama dan tanggal mulai ini."
     },
     "planned": "Mulai {{date}}. Sejak hari pertama, entrimu dari sebelum dan selama eksperimen tampil berdampingan di sini.",
     "tooShort_other": "Eksperimen hanya berjalan {{count}} hari. Perbandingan butuh setidaknya {{min}} hari.",

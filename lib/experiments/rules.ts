@@ -64,7 +64,7 @@ export function cleanTitle(title: string): string | null {
   return clean.length >= 1 && clean.length <= TITLE_MAX_LENGTH ? clean : null;
 }
 
-export type ExperimentProblem = 'title' | 'length' | 'startTooEarly' | 'startTooLate' | 'endBeforeToday' | 'over';
+export type ExperimentProblem = 'title' | 'length' | 'startTooEarly' | 'startTooLate' | 'endBeforeToday' | 'over' | 'duplicate';
 
 /** What is wrong with a new experiment, or null. */
 export function newExperimentProblem(input: { title: string; start: DateString; days: number }, today: DateString): ExperimentProblem | null {
@@ -138,4 +138,17 @@ export function askingOn<T extends ExperimentSpan & { check_in: boolean }>(exper
 /** Same folded title and exactly the same start: the same experiment, for merging and the import preview. */
 export function experimentKey(experiment: { title: string; start_date: string }): string {
   return `${fold(experiment.title.trim())}|${experiment.start_date}`;
+}
+
+/**
+ * Another experiment than `exceptId` already has the same key. Two of them would melt into one when a
+ * backup is merged, so the app keeps them apart from the start.
+ */
+export function isDuplicate(
+  experiments: readonly { id: number; title: string; start_date: string }[],
+  candidate: { title: string; start_date: string },
+  exceptId?: number,
+): boolean {
+  const key = experimentKey(candidate);
+  return experiments.some((other) => other.id !== exceptId && experimentKey(other) === key);
 }

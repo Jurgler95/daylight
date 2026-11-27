@@ -96,6 +96,18 @@ describe('experiments', () => {
     expect(listExperimentDays(db)).toEqual([]);
   });
 
+  it('refuses a second one with the same folded title and start, also by editing', () => {
+    const db = createTestDb();
+    const first = createExperiment(db, { title: 'Kein Kaffee', start_date: '2026-12-01', days: 28 }, today);
+    expect(() => createExperiment(db, { title: ' kein kaffee ', start_date: '2026-12-01', days: 14 }, today)).toThrow('duplicate');
+    const other = createExperiment(db, { title: 'Kein Kaffee', start_date: '2026-12-02', days: 28 }, today);
+    expect(() => updateExperiment(db, other.id, { dates: { start_date: '2026-12-01', days: 28 } }, today)).toThrow('duplicate');
+    const third = createExperiment(db, { title: 'Tee', start_date: '2026-12-01', days: 28 }, today);
+    expect(() => updateExperiment(db, third.id, { title: 'KEIN KAFFEE' }, today)).toThrow('duplicate');
+    // Its own key is no duplicate.
+    expect(updateExperiment(db, first.id, { title: 'Kein Kaffee!' }, today).title).toBe('Kein Kaffee!');
+  });
+
   it('marks the result seen once', () => {
     const db = createTestDb();
     const experiment = createExperiment(db, { title: 'A', start_date: '2026-11-01', days: 21 }, today);

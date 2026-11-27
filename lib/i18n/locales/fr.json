@@ -1290,7 +1290,8 @@
       "startTooEarly": "Le début peut remonter à un an au plus.",
       "startTooLate": "Le début peut se situer au plus dans 60 jours.",
       "endBeforeToday": "Avec cette durée, la fin tomberait avant aujourd'hui. Pour arrêter plus tôt, utilise « Terminer maintenant ».",
-      "over": "Cette expérience est déjà terminée, le début et la durée restent tels quels."
+      "over": "Cette expérience est déjà terminée, le début et la durée restent tels quels.",
+      "duplicate": "Une expérience avec ce nom et ce début existe déjà."
     },
     "planned": "Elle commence le {{date}}. Dès le premier jour, tes entrées d'avant et de pendant apparaissent ici côte à côte.",
     "tooShort_one": "L'expérience n'a duré que {{count}} jour. Une comparaison demande au moins {{min}} jours.",

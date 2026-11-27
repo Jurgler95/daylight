@@ -1221,7 +1221,8 @@
       "startTooEarly": "The start can be a year ago at most.",
       "startTooLate": "The start can be 60 days ahead at most.",
       "endBeforeToday": "With this length the end would be before today. To stop early, use \"End now\".",
-      "over": "This experiment is already over, start and length stay as they are."
+      "over": "This experiment is already over, start and length stay as they are.",
+      "duplicate": "There is already an experiment with this name and start."
     },
     "planned": "It starts {{date}}. From the first day on, your entries from before and during it show up here side by side.",
     "tooShort_one": "The experiment ran for only {{count}} day. A comparison needs at least {{min}} days.",

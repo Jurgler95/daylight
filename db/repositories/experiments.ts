@@ -8,6 +8,7 @@ import {
   earlyEndDate,
   endDateAfterNo,
   endFromStart,
+  isDuplicate,
   newDatesProblem,
   newExperimentProblem,
 } from '@/lib/experiments/rules';
@@ -49,6 +50,7 @@ export function createExperiment(db: Database, input: NewExperiment, today: Date
   const start = assertDate(input.start_date, 'start_date');
   const problem = newExperimentProblem({ title: input.title, start, days: input.days }, today);
   if (problem) throw new RepositoryError(`experiment: ${problem}`);
+  if (isDuplicate(listExperiments(db), { title: input.title, start_date: start })) throw new RepositoryError('experiment: duplicate');
   const end_date = endFromStart(start, input.days);
   return db
     .insert(experiments)
@@ -90,6 +92,9 @@ export function updateExperiment(db: Database, id: number, patch: ExperimentPatc
       if (problem) throw new RepositoryError(`experiment: ${problem}`);
       clean.start_date = start;
       clean.end_date = endFromStart(start, patch.dates.days);
+    }
+    if (isDuplicate(listExperiments(tx), { title: clean.title ?? experiment.title, start_date: clean.start_date ?? experiment.start_date }, id)) {
+      throw new RepositoryError('experiment: duplicate');
     }
     const updated = tx.update(experiments).set(clean).where(eq(experiments.id, id)).returning().get()!;
     if (patch.dates) {

@@ -9,6 +9,7 @@ import {
   endDateAfterNo,
   endFromStart,
   experimentKey,
+  isDuplicate,
   experimentLength,
   experimentProgress,
   experimentState,
@@ -107,6 +108,13 @@ describe('experiment rules', () => {
     expect(canAnswer(over, d('2026-11-10'), today)).toBe(false);
     expect(canAnswer(over, d('2026-11-26'), today)).toBe(false);
     expect(askingOn([over], d('2026-11-10'), today)).toEqual([]);
+  });
+
+  it('finds another experiment with the same key', () => {
+    const list = [{ id: 1, title: 'Kein Kaffee', start_date: '2026-11-20' }];
+    expect(isDuplicate(list, { title: 'kein kaffee ', start_date: '2026-11-20' })).toBe(true);
+    expect(isDuplicate(list, { title: 'kein kaffee', start_date: '2026-11-20' }, 1)).toBe(false);
+    expect(isDuplicate(list, { title: 'Kein Kaffee', start_date: '2026-11-21' })).toBe(false);
   });
 
   it('keys an experiment by folded title and start', () => {
