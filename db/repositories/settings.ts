@@ -42,6 +42,7 @@ export function updateSettings(db: Database, patch: SettingsPatch): Settings {
   if (patch.outlook_notify_time !== undefined) assertTime(patch.outlook_notify_time, 'outlook_notify_time');
   if (patch.streak_rescue_dismissed) assertDate(patch.streak_rescue_dismissed, 'streak_rescue_dismissed');
   if (patch.low_mood_dismissed_on) assertDate(patch.low_mood_dismissed_on, 'low_mood_dismissed_on');
+  if (patch.backup_hint_dismissed_on) assertDate(patch.backup_hint_dismissed_on, 'backup_hint_dismissed_on');
   if (patch.health_synced_from) assertDate(patch.health_synced_from, 'health_synced_from');
   if (patch.first_day_of_week !== undefined && (patch.first_day_of_week < 0 || patch.first_day_of_week > 6)) {
     throw new RepositoryError('first_day_of_week must be 0..6');

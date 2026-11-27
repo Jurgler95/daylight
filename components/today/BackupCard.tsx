@@ -1,42 +1,47 @@
+import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { Alert, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { AppText, Button, Card } from '@/components/ui';
-import { ShareUnavailableError } from '@/lib/export/files';
-import { useBackupStatus } from '@/lib/export/useBackupStatus';
-import { useDataTransfer } from '@/lib/export/useDataTransfer';
-import { TOUCH_TARGET, spacing } from '@/lib/theme';
+import { useBackupHint } from '@/lib/export/useBackupStatus';
+import { spacing } from '@/lib/theme';
 
 /**
- * Appears only once a backup is overdue (60 days, `lib/export/backup.ts`). Android's own backup is
- * off for this app (`allowBackup: false`), so this card is all that stands between the diary and a
- * lost phone (from Zyklus, Phase 10).
+ * A quiet card at the end of "Heute", never a popup. Without automatic backup it comes once the
+ * last backup is a month old (or never happened and the first entry is a month old); with one it
+ * comes only when that keeps failing. Both lead to "Automatische Sicherung" and can be put away
+ * (`lib/export/backup.ts`). Android's own backup is off for this app (`allowBackup: false`), so
+ * this is all that stands between the diary and a lost phone.
  */
 export function BackupCard() {
   const { t } = useTranslation();
-  const status = useBackupStatus();
-  const { saveJson } = useDataTransfer();
-  if (!status.due) return null;
+  const { hint, status, dismiss } = useBackupHint();
+  if (hint === 'none') return null;
 
-  const save = () => {
-    saveJson().catch((error: unknown) => Alert.alert(t('common.error'), error instanceof ShareUnavailableError ? t('common.shareUnavailable') : error instanceof Error ? error.message : String(error)));
-  };
+  const failing = hint === 'failing';
+  const body = failing
+    ? t('backup.bodyFailing')
+    : status.everExported
+      ? t('backup.bodyAgo', { count: status.days ?? 0 })
+      : t('backup.bodyNever');
 
   return (
-    <Card tone="muted" style={styles.card}>
+    <Card tone="muted">
       <View style={styles.text}>
-        <AppText variant="label">{t('backup.title')}</AppText>
+        <AppText variant="label">{failing ? t('backup.titleFailing') : t('backup.title')}</AppText>
         <AppText variant="caption" muted>
-          {status.everExported ? t('backup.bodyAgo', { count: status.days ?? 0 }) : t('backup.bodyNever')}
+          {failing ? body : `${body} ${t('backup.autoOffer')}`}
         </AppText>
       </View>
-      <Button label={t('backup.now')} variant="secondary" style={styles.action} onPress={save} />
+      <View style={styles.actions}>
+        <Button label={failing ? t('backup.check') : t('backup.setUp')} variant="secondary" onPress={() => router.push('/more/backup')} />
+        <Button label={t('backup.later')} accessibilityHint={t('backup.laterHint')} variant="ghost" onPress={dismiss} />
+      </View>
     </Card>
   );
 }
 
 const styles = StyleSheet.create({
-  card: { flexDirection: 'row', alignItems: 'center', paddingVertical: spacing.sm, paddingHorizontal: spacing.lg, gap: spacing.md },
-  text: { flex: 1, gap: 2 },
-  action: { minHeight: TOUCH_TARGET, paddingHorizontal: spacing.lg },
+  text: { gap: 2 },
+  actions: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
 });

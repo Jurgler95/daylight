@@ -43,6 +43,9 @@ export default function MoreScreen() {
   const colorScheme = useSettingsStore((s) => s.settings?.color_scheme ?? 'system');
   const backup = useBackupStatus();
   const rateApp = useRateApp();
+  const autoBackupDir = useSettingsStore((s) => s.settings?.auto_backup_dir ?? null);
+  const autoBackupFailed = useSettingsStore((s) => Boolean(s.settings?.auto_backup_error));
+  const autoBackupValue = !autoBackupDir ? t('common.off') : autoBackupFailed ? t('autoBackup.statusFailed') : t('common.on');
   const backupValue = !backup.everExported
     ? t('settings.backupNever')
     : backup.days === 0
@@ -70,6 +73,7 @@ export default function MoreScreen() {
           {upper(t('settings.data'))}
         </AppText>
         <ListRow icon="download-outline" label={t('settings.import')} onPress={guard(transfer.pickImport)} />
+        <ListRow icon="sync-outline" label={t('autoBackup.title')} value={autoBackupValue} onPress={go('/more/backup')} />
         <ListRow icon="share-outline" label={t('settings.exportJson')} value={backupValue} onPress={guard(transfer.exportJson)} />
         <ListRow icon="folder-outline" label={t('settings.saveJson')} onPress={guard(transfer.saveJson)} />
         <ListRow icon="grid-outline" label={t('settings.exportCsv')} onPress={guard(transfer.exportCsv)} />
