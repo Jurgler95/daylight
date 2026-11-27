@@ -8,6 +8,7 @@ import { readInsightDays } from '@/lib/insights/useInsights';
 import { cached, useQuery } from '@/lib/store/dataVersion';
 
 import { checkInCounts, compareExperiment, type CheckInCounts, type ExperimentComparison } from './compare';
+import { finishedToShow } from './view';
 
 /** Every experiment, oldest start first, read once per data version. */
 export function readExperiments(): Experiment[] {
@@ -20,6 +21,11 @@ export function useExperiments(): Experiment[] {
 
 export function useExperiment(id: number): Experiment | undefined {
   return useQuery(() => readExperiments().find((experiment) => experiment.id === id), [id]);
+}
+
+/** The experiment the card on "Heute" points to, or null. Only dates, no comparison. */
+export function useFinishedExperiment(today: DateString): Experiment | null {
+  return useQuery(() => finishedToShow(readExperiments(), today), [today]);
 }
 
 /** The answers already stored for a day, by experiment id, for the entry editor. */

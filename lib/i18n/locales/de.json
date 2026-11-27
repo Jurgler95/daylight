@@ -1280,6 +1280,24 @@
       "inFile_other": "Die Datei enthält {{count}} Experimente.",
       "lost_one": "{{count}} Experiment geht verloren.",
       "lost_other": "{{count}} Experimente gehen verloren."
+    },
+    "checkIn": {
+      "title": "Eingehalten",
+      "question": "{{title}}: eingehalten?",
+      "yes": "Ja",
+      "no": "Nein",
+      "noTitle": "Experiment beenden?",
+      "noText": "Dann endet „{{title}}“ am {{date}}. Dein Nein bleibt gespeichert, spätere Antworten werden entfernt. Das passiert, sobald du den Eintrag speicherst.",
+      "noConfirm": "Beenden",
+      "endsOnSave": "Mit dem Speichern endet das Experiment am {{date}}.",
+      "count_one": "Eingehalten an {{kept}} von {{count}} Tag mit Antwort.",
+      "count_other": "Eingehalten an {{kept}} von {{count}} Tagen mit Antwort.",
+      "none": "Noch keine Antwort. Die Frage steht im Eintrag des Tages.",
+      "endedByNo": "Beendet durch ein Nein am {{date}}."
+    },
+    "done": {
+      "title": "„{{title}}“ ist vorbei",
+      "open": "Vergleich ansehen"
     }
   }
 }

@@ -1354,6 +1354,25 @@
       "lost_one": "Andrà perso {{count}} esperimento.",
       "lost_many": "Andranno persi {{count}} esperimenti.",
       "lost_other": "Andranno persi {{count}} esperimenti."
+    },
+    "checkIn": {
+      "title": "Rispettato",
+      "question": "{{title}}: rispettato?",
+      "yes": "Sì",
+      "no": "No",
+      "noTitle": "Terminare l'esperimento?",
+      "noText": "“{{title}}” finisce allora il {{date}}. Il tuo no resta salvato, le risposte successive vengono tolte. Succede quando salvi la voce.",
+      "noConfirm": "Termina",
+      "endsOnSave": "Salvando, l'esperimento finisce il {{date}}.",
+      "count_one": "Rispettato in {{kept}} su {{count}} giorno con risposta.",
+      "count_many": "Rispettato in {{kept}} su {{count}} giorni con risposta.",
+      "count_other": "Rispettato in {{kept}} su {{count}} giorni con risposta.",
+      "none": "Ancora nessuna risposta. La domanda compare nella voce del giorno.",
+      "endedByNo": "Terminato con un no il {{date}}."
+    },
+    "done": {
+      "title": "“{{title}}” è finito",
+      "open": "Vedi il confronto"
     }
   }
 }

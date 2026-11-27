@@ -5,6 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 
 import { EntryCard } from '@/components/entry/EntryCard';
+import { ExperimentDoneCard } from '@/components/experiments/ExperimentDoneCard';
 import { HealthDayCard } from '@/components/health/HealthDayCard';
 import { MoodPicker } from '@/components/mood/MoodPicker';
 import { GoodTomorrowCard } from '@/components/outlook/GoodTomorrowCard';
@@ -172,6 +173,7 @@ export default function TodayScreen() {
             {entries.length > 0 ? <Button label={t('today.another')} variant="secondary" onPress={() => newEntry()} /> : null}
             {health ? <HealthDayCard day={health} /> : null}
             {offset === 0 && review.show ? <ReviewCard onRate={review.rate} onDismiss={review.dismiss} /> : null}
+            {offset === 0 ? <ExperimentDoneCard today={now} /> : null}
             {offset === 0 && hint && !morning ? <GoodTomorrowCard hint={hint} catalog={catalog} /> : null}
             {entries.length > 0 ? <TurningDayCard date={date} /> : null}
             {offset === 0 ? <LookbackCard date={date} catalog={catalog} onOpenDay={setDate} /> : null}

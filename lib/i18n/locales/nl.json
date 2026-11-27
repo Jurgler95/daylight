@@ -1280,6 +1280,24 @@
       "inFile_other": "Het bestand bevat {{count}} experimenten.",
       "lost_one": "{{count}} experiment gaat verloren.",
       "lost_other": "{{count}} experimenten gaan verloren."
+    },
+    "checkIn": {
+      "title": "Volgehouden",
+      "question": "{{title}}: volgehouden?",
+      "yes": "Ja",
+      "no": "Nee",
+      "noTitle": "Experiment beëindigen?",
+      "noText": "“{{title}}” eindigt dan op {{date}}. Je nee blijft bewaard, latere antwoorden worden verwijderd. Dat gebeurt zodra je de registratie opslaat.",
+      "noConfirm": "Beëindigen",
+      "endsOnSave": "Bij het opslaan eindigt het experiment op {{date}}.",
+      "count_one": "Volgehouden op {{kept}} van {{count}} dag met een antwoord.",
+      "count_other": "Volgehouden op {{kept}} van {{count}} dagen met een antwoord.",
+      "none": "Nog geen antwoord. De vraag staat bij de registratie van die dag.",
+      "endedByNo": "Beëindigd door een nee op {{date}}."
+    },
+    "done": {
+      "title": "“{{title}}” is voorbij",
+      "open": "Vergelijking bekijken"
     }
   }
 }

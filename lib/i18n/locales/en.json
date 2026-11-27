@@ -1280,6 +1280,24 @@
       "inFile_other": "The file holds {{count}} experiments.",
       "lost_one": "{{count}} experiment will be lost.",
       "lost_other": "{{count}} experiments will be lost."
+    },
+    "checkIn": {
+      "title": "Stuck to it",
+      "question": "{{title}}: stuck to it?",
+      "yes": "Yes",
+      "no": "No",
+      "noTitle": "End the experiment?",
+      "noText": "\"{{title}}\" then ends on {{date}}. Your no is kept, later answers are removed. This happens once you save the entry.",
+      "noConfirm": "End",
+      "endsOnSave": "Saving ends the experiment on {{date}}.",
+      "count_one": "Stuck to it on {{kept}} of {{count}} day with an answer.",
+      "count_other": "Stuck to it on {{kept}} of {{count}} days with an answer.",
+      "none": "No answer yet. The question shows up in the entry for the day.",
+      "endedByNo": "Ended by a no on {{date}}."
+    },
+    "done": {
+      "title": "\"{{title}}\" is over",
+      "open": "See the comparison"
     }
   }
 }

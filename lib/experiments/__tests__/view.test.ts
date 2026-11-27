@@ -1,7 +1,7 @@
 import i18n from '@/lib/i18n';
 import type { DateString } from '@/lib/dates';
 
-import { experimentSections, lengthChoices, verdictSentences, verdictShort } from '../view';
+import { experimentSections, finishedToShow, lengthChoices, verdictSentences, verdictShort } from '../view';
 
 const today = '2026-11-27' as DateString;
 const t = i18n.getFixedT('de');
@@ -22,6 +22,17 @@ describe('experiment view helpers', () => {
     expect(sections.running.map((row) => row.id)).toEqual([3, 1]);
     expect(sections.planned.map((row) => row.id)).toEqual([4, 2]);
     expect(sections.over.map((row) => row.id)).toEqual([7, 6, 5]);
+  });
+
+  it('points the card on "Heute" to the one that ended last, unseen and at most 14 days ago', () => {
+    const row = (id: number, start_date: string, end_date: string, result_seen = false) => ({ id, start_date, end_date, result_seen });
+    expect(finishedToShow([], today)).toBeNull();
+    // Running, seen, or ended too long ago: no card.
+    expect(finishedToShow([row(1, '2026-11-01', '2026-11-28'), row(2, '2026-10-20', '2026-11-20', true), row(3, '2026-10-01', '2026-11-12')], today)).toBeNull();
+    expect(finishedToShow([row(3, '2026-10-01', '2026-11-13')], today)?.id).toBe(3);
+    expect(finishedToShow([row(4, '2026-10-20', '2026-11-20'), row(5, '2026-10-25', '2026-11-25'), row(6, '2026-10-01', '2026-11-14')], today)?.id).toBe(5);
+    // A "no" on the start day ends it at once.
+    expect(finishedToShow([row(5, '2026-10-25', '2026-11-25'), row(7, today, today)], today)?.id).toBe(7);
   });
 
   it('offers the weeks in days, plus a stored length that is no whole choice', () => {

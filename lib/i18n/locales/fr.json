@@ -1354,6 +1354,25 @@
       "lost_one": "{{count}} expérience sera perdue.",
       "lost_many": "{{count}} expériences seront perdues.",
       "lost_other": "{{count}} expériences seront perdues."
+    },
+    "checkIn": {
+      "title": "Tenu",
+      "question": "{{title}} : tenu ?",
+      "yes": "Oui",
+      "no": "Non",
+      "noTitle": "Terminer l'expérience ?",
+      "noText": "« {{title}} » se termine alors le {{date}}. Ton non reste enregistré, les réponses suivantes sont retirées. Cela se fait quand tu enregistres l'entrée.",
+      "noConfirm": "Terminer",
+      "endsOnSave": "En enregistrant, l'expérience se termine le {{date}}.",
+      "count_one": "Tenu {{kept}} sur {{count}} jour avec une réponse.",
+      "count_many": "Tenu {{kept}} sur {{count}} jours avec une réponse.",
+      "count_other": "Tenu {{kept}} sur {{count}} jours avec une réponse.",
+      "none": "Pas encore de réponse. La question apparaît dans l'entrée du jour.",
+      "endedByNo": "Terminée par un non le {{date}}."
+    },
+    "done": {
+      "title": "« {{title}} » est terminée",
+      "open": "Voir la comparaison"
     }
   }
 }

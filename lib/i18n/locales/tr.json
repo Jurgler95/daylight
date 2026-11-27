@@ -1280,6 +1280,24 @@
       "inFile_other": "Dosyada {{count}} deney var.",
       "lost_one": "{{count}} deney kaybolacak.",
       "lost_other": "{{count}} deney kaybolacak."
+    },
+    "checkIn": {
+      "title": "Uyuldu",
+      "question": "{{title}}: uydun mu?",
+      "yes": "Evet",
+      "no": "Hayır",
+      "noTitle": "Deney bitirilsin mi?",
+      "noText": "“{{title}}” o zaman {{date}} tarihinde biter. Hayır cevabın kayıtlı kalır, sonraki cevaplar silinir. Bu, kaydı kaydettiğinde olur.",
+      "noConfirm": "Bitir",
+      "endsOnSave": "Kaydedince deney {{date}} tarihinde biter.",
+      "count_one": "Cevap verilen {{count}} günün {{kept}} gününde uyuldu.",
+      "count_other": "Cevap verilen {{count}} günün {{kept}} gününde uyuldu.",
+      "none": "Henüz cevap yok. Soru, o günün kaydında çıkar.",
+      "endedByNo": "{{date}} tarihinde bir hayır cevabıyla bitti."
+    },
+    "done": {
+      "title": "“{{title}}” bitti",
+      "open": "Karşılaştırmayı gör"
     }
   }
 }

@@ -1,6 +1,6 @@
 import type { TFunction } from 'i18next';
 
-import type { DateString } from '@/lib/dates';
+import { daysBetween, type DateString } from '@/lib/dates';
 import { formatPercent } from '@/lib/insights/format';
 
 import type { NoiseVerdict } from './noise';
@@ -26,6 +26,24 @@ export function experimentSections<T extends ExperimentSpan>(experiments: readon
   sections.planned.sort(byStart);
   sections.over.sort((a, b) => b.end_date.localeCompare(a.end_date));
   return sections;
+}
+
+/** The card on "Heute" shows an experiment that ended at most this many days ago. */
+export const RESULT_CARD_DAYS = 14;
+
+/**
+ * The experiment the card on "Heute" points to: over, its comparison not seen yet and ended at most
+ * `RESULT_CARD_DAYS` ago. When several qualify, only the one that ended last. One that was already
+ * over when it was created is stored as seen and never shows up here.
+ */
+export function finishedToShow<T extends ExperimentSpan & { id: number; result_seen: boolean }>(experiments: readonly T[], today: DateString): T | null {
+  let pick: T | null = null;
+  for (const experiment of experiments) {
+    if (experiment.result_seen || experimentState(experiment, today) !== 'over') continue;
+    if (daysBetween(experiment.end_date as DateString, today) > RESULT_CARD_DAYS) continue;
+    if (!pick || experiment.end_date > pick.end_date || (experiment.end_date === pick.end_date && experiment.id > pick.id)) pick = experiment;
+  }
+  return pick;
 }
 
 /** The lengths the form offers in days: the weeks, plus a stored length that is no whole choice. */

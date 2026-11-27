@@ -16,10 +16,16 @@ export interface EntryDraft {
   note: string;
   /** Photo file names in display order; a picked photo is already in the photo folder. */
   photos: string[];
+  /**
+   * "Kept today?" for the experiments that ask on this day, by experiment id: only what changed
+   * against the stored answers. True kept, false not kept (which ends the experiment with the save),
+   * null takes a stored answer back. The answers belong to the day, so another day starts empty.
+   */
+  check_ins: Record<number, boolean | null>;
 }
 
 export function newDraft(date: DateString, time: string, moodId: number | null = null): EntryDraft {
-  return { date, time, mood_id: moodId, activity_ids: [], scales: {}, note_title: '', note: '', photos: [] };
+  return { date, time, mood_id: moodId, activity_ids: [], scales: {}, note_title: '', note: '', photos: [], check_ins: {} };
 }
 
 /**
@@ -37,6 +43,7 @@ export function draftFromEntry(entry: EntryDetails): EntryDraft {
     note_title: '',
     note,
     photos: [...entry.photos],
+    check_ins: {},
   };
 }
 
@@ -70,6 +77,33 @@ function sameScales(a: Readonly<Record<number, number>>, b: Readonly<Record<numb
   return keys.length === Object.keys(b).length && keys.every((key) => a[Number(key)] === b[Number(key)]);
 }
 
+/** The answer the editor shows for an experiment: the change in the draft, else the stored one. */
+export function checkInAnswer(checkIns: Readonly<Record<number, boolean | null>>, stored: ReadonlyMap<number, boolean>, id: number): boolean | null {
+  return id in checkIns ? (checkIns[id] ?? null) : (stored.get(id) ?? null);
+}
+
+/**
+ * A tap on Ja or Nein: picks the answer, or takes it back when it was the one shown. What equals the
+ * stored answer again is no change any more, so it leaves the draft.
+ */
+export function tapCheckIn(
+  checkIns: Readonly<Record<number, boolean | null>>,
+  stored: ReadonlyMap<number, boolean>,
+  id: number,
+  kept: boolean,
+): Record<number, boolean | null> {
+  const next = { ...checkIns };
+  const value = checkInAnswer(checkIns, stored, id) === kept ? null : kept;
+  if (value === (stored.get(id) ?? null)) delete next[id];
+  else next[id] = value;
+  return next;
+}
+
+function sameCheckIns(a: Readonly<Record<number, boolean | null>>, b: Readonly<Record<number, boolean | null>>): boolean {
+  const keys = Object.keys(a);
+  return keys.length === Object.keys(b).length && keys.every((key) => Number(key) in b && a[Number(key)] === b[Number(key)]);
+}
+
 /** Text is compared trimmed, because that is how it is saved; activity order does not matter. */
 export function sameDraft(a: EntryDraft, b: EntryDraft): boolean {
   return (
@@ -81,7 +115,8 @@ export function sameDraft(a: EntryDraft, b: EntryDraft): boolean {
     a.note_title.trim() === b.note_title.trim() &&
     a.note.trim() === b.note.trim() &&
     a.photos.length === b.photos.length &&
-    a.photos.every((name, i) => b.photos[i] === name)
+    a.photos.every((name, i) => b.photos[i] === name) &&
+    sameCheckIns(a.check_ins, b.check_ins)
   );
 }
 

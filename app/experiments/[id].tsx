@@ -17,7 +17,7 @@ import { activityLabel, levelMood } from '@/lib/catalog/catalog';
 import { useCatalog } from '@/lib/catalog/useCatalog';
 import { formatLong, formatRange, formatShortWithYear, type DateString } from '@/lib/dates';
 import { useToday } from '@/lib/dates/useToday';
-import type { ExperimentComparison } from '@/lib/experiments/compare';
+import type { CheckInCounts, ExperimentComparison } from '@/lib/experiments/compare';
 import { canEndEarly, earlyEndDate } from '@/lib/experiments/rules';
 import { useExperiment, useExperimentComparison } from '@/lib/experiments/useExperiments';
 import { verdictSentences, verdictShort } from '@/lib/experiments/view';
@@ -80,6 +80,7 @@ export default function ExperimentDetailScreen() {
     <Screen back eyebrow={t('experiments.one')} title={experiment.title} backLabel={t('common.back')}>
       <Head experiment={experiment} today={today} />
       <Body experiment={experiment} comparison={comparison} />
+      {comparison.state !== 'planned' && (experiment.check_in || result.checkIn.answered > 0) ? <CheckInBlock counts={result.checkIn} /> : null}
       <Card>
         <ListRow
           icon="create-outline"
@@ -253,6 +254,21 @@ function Body({ experiment, comparison }: { experiment: Experiment; comparison: 
         ))}
       </InsightCard>
     </>
+  );
+}
+
+/** How often it was kept, by the answers in the entry editor. No comparison of the days with yes against those with no. */
+function CheckInBlock({ counts }: { counts: CheckInCounts }) {
+  const { t } = useTranslation();
+  return (
+    <InsightCard title={t('experiments.checkIn.title')}>
+      <AppText>
+        {counts.answered > 0 ? t('experiments.checkIn.count', { count: counts.answered, kept: counts.kept }) : t('experiments.checkIn.none')}
+      </AppText>
+      {counts.endedByNo ? (
+        <AppText muted>{t('experiments.checkIn.endedByNo', { date: formatLong(counts.endedByNo) })}</AppText>
+      ) : null}
+    </InsightCard>
   );
 }
 

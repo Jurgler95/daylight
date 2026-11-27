@@ -1354,6 +1354,25 @@
       "lost_one": "{{count}} experimento será perdido.",
       "lost_many": "{{count}} experimentos serão perdidos.",
       "lost_other": "{{count}} experimentos serão perdidos."
+    },
+    "checkIn": {
+      "title": "Cumprido",
+      "question": "{{title}}: cumpriu?",
+      "yes": "Sim",
+      "no": "Não",
+      "noTitle": "Encerrar o experimento?",
+      "noText": "“{{title}}” termina então em {{date}}. Seu não fica salvo, as respostas posteriores são removidas. Isso acontece quando você salva o registro.",
+      "noConfirm": "Encerrar",
+      "endsOnSave": "Ao salvar, o experimento termina em {{date}}.",
+      "count_one": "Cumprido em {{kept}} de {{count}} dia com resposta.",
+      "count_many": "Cumprido em {{kept}} de {{count}} dias com resposta.",
+      "count_other": "Cumprido em {{kept}} de {{count}} dias com resposta.",
+      "none": "Ainda sem resposta. A pergunta aparece no registro do dia.",
+      "endedByNo": "Encerrado por um não em {{date}}."
+    },
+    "done": {
+      "title": "“{{title}}” terminou",
+      "open": "Ver a comparação"
     }
   }
 }

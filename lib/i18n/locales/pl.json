@@ -1428,6 +1428,26 @@
       "lost_few": "{{count}} eksperymenty zostaną utracone.",
       "lost_many": "{{count}} eksperymentów zostanie utraconych.",
       "lost_other": "{{count}} eksperymentu zostanie utracone."
+    },
+    "checkIn": {
+      "title": "Dotrzymane",
+      "question": "{{title}}: dotrzymane?",
+      "yes": "Tak",
+      "no": "Nie",
+      "noTitle": "Zakończyć eksperyment?",
+      "noText": "„{{title}}” zakończy się wtedy {{date}}. Twoje „nie” zostaje zapisane, późniejsze odpowiedzi zostaną usunięte. Stanie się to, gdy zapiszesz wpis.",
+      "noConfirm": "Zakończ",
+      "endsOnSave": "Po zapisaniu eksperyment zakończy się {{date}}.",
+      "count_one": "Dotrzymane w {{kept}} z {{count}} dnia z odpowiedzią.",
+      "count_few": "Dotrzymane w {{kept}} z {{count}} dni z odpowiedzią.",
+      "count_many": "Dotrzymane w {{kept}} z {{count}} dni z odpowiedzią.",
+      "count_other": "Dotrzymane w {{kept}} z {{count}} dnia z odpowiedzią.",
+      "none": "Na razie brak odpowiedzi. Pytanie pojawia się przy wpisie danego dnia.",
+      "endedByNo": "Zakończone przez „nie” {{date}}."
+    },
+    "done": {
+      "title": "Koniec: „{{title}}”",
+      "open": "Zobacz porównanie"
     }
   }
 }

@@ -1354,6 +1354,25 @@
       "lost_one": "Se perderá {{count}} experimento.",
       "lost_many": "Se perderán {{count}} experimentos.",
       "lost_other": "Se perderán {{count}} experimentos."
+    },
+    "checkIn": {
+      "title": "Cumplido",
+      "question": "{{title}}: ¿lo cumpliste?",
+      "yes": "Sí",
+      "no": "No",
+      "noTitle": "¿Terminar el experimento?",
+      "noText": "“{{title}}” termina entonces el {{date}}. Tu no se guarda y se quitan las respuestas posteriores. Pasa cuando guardas la entrada.",
+      "noConfirm": "Terminar",
+      "endsOnSave": "Al guardar, el experimento termina el {{date}}.",
+      "count_one": "Cumplido {{kept}} de {{count}} día con respuesta.",
+      "count_many": "Cumplido {{kept}} de {{count}} días con respuesta.",
+      "count_other": "Cumplido {{kept}} de {{count}} días con respuesta.",
+      "none": "Aún no hay respuestas. La pregunta aparece en la entrada del día.",
+      "endedByNo": "Terminado por un no el {{date}}."
+    },
+    "done": {
+      "title": "“{{title}}” terminó",
+      "open": "Ver la comparación"
     }
   }
 }
