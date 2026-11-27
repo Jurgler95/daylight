@@ -875,6 +875,7 @@
     "permissionDenied": "Sans autorisation du système, l'app ne programme aucun rappel. Tu peux l'autoriser dans les réglages Android.",
     "unavailable": "Dans Expo Go, Android ne programme pas de rappels. Le réglage est enregistré et s'appliquera dans l'app installée.",
     "discreet": "Le texte indique au plus depuis combien de temps dure ta série, ou qu'il manque encore l'entrée d'hier, jamais le contenu du journal.",
+    "moodButtons": "Déplie le rappel pour toucher directement une humeur. Cela ouvre une nouvelle entrée avec cette humeur.",
     "yesterday": "Rappel le lendemain matin",
     "yesterdayHint": "Seulement s'il manque encore hier. Uniquement avec le rappel quotidien"
   },

@@ -1,7 +1,6 @@
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image } from 'react-native';
 
 import { getDb } from '@/db';
 import { lastMoodOnDate } from '@/db/repositories/entries';
@@ -9,6 +8,7 @@ import { useDayMarkers } from '@/lib/calendar/useDayMarkers';
 import { useCatalog } from '@/lib/catalog/useCatalog';
 import { addDaysToDateString, formatWeekdayShort, type DateString } from '@/lib/dates';
 import { useToday } from '@/lib/dates/useToday';
+import { iconFont } from '@/lib/icons/font';
 import { useQuery } from '@/lib/store/dataVersion';
 import { useSettingsStore } from '@/lib/store/settingsStore';
 import { readStreak } from '@/lib/streak/celebrate';
@@ -22,14 +22,6 @@ const SUNDAY = '2026-01-04' as DateString;
 /** Short weekday names, Sunday first. Takes the language only so a change of it computes them anew. */
 function weekdayNames(_language: string): string[] {
   return Array.from({ length: 7 }, (_, i) => formatWeekdayShort(addDaysToDateString(SUNDAY, i)));
-}
-
-function iconFont(): string | null {
-  try {
-    return Image.resolveAssetSource(MaterialCommunityIcons.font['material-community'] as number)?.uri ?? null;
-  } catch {
-    return null;
-  }
 }
 
 /**

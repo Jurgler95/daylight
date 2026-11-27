@@ -133,6 +133,9 @@ export default function RemindersScreen() {
         />
       </Card>
       <AppText variant="caption" muted>
+        {t('reminders.moodButtons')}
+      </AppText>
+      <AppText variant="caption" muted>
         {t('reminders.discreet')}
       </AppText>
     </Screen>

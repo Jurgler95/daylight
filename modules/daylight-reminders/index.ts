@@ -12,9 +12,21 @@ export interface DaylightRemindersModule {
    * `at` in milliseconds since the epoch. A time in the past schedules nothing. A tap opens `url`
    * (a `daylight://` link) in the app, or just the app when it is null. `local` is the wall-clock
    * time behind `at` ("YYYY-MM-DDTHH:mm"): after a change of time zone the module works out `at`
-   * again from it, so the reminder keeps its time of day.
+   * again from it, so the reminder keeps its time of day. With `moodUrl` the expanded notification
+   * shows a button per mood (see `setMoods`), each opening `moodUrl` with `&mood=<id>` added.
    */
-  schedule(id: string, at: number, channelId: string, title: string, body: string, url: string | null, local: string | null): void;
+  schedule(
+    id: string,
+    at: number,
+    channelId: string,
+    title: string,
+    body: string,
+    url: string | null,
+    local: string | null,
+    moodUrl: string | null,
+  ): void;
+  /** The moods for the buttons, JSON of `ReminderMoods` (`lib/notifications/moods.ts`), read when a reminder shows. */
+  setMoods(json: string): void;
   cancelAll(): void;
   /** Removes notifications already on screen by reminder id; ids that show nothing are ignored. */
   dismiss(ids: string[]): void;

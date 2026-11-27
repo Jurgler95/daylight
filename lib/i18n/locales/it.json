@@ -875,6 +875,7 @@
     "permissionDenied": "Senza l'autorizzazione di sistema l'app non imposta promemoria. Puoi concederla nelle impostazioni di Android.",
     "unavailable": "In Expo Go, Android non imposta promemoria. L'impostazione viene salvata e vale nell'app installata.",
     "discreet": "Il testo dice al massimo da quanto dura la tua serie, o che manca ancora la voce di ieri, mai contenuti del diario.",
+    "moodButtons": "Espandi il promemoria per toccare subito un umore. Si apre una nuova voce con quell'umore.",
     "yesterday": "Promemoria la mattina dopo",
     "yesterdayHint": "Solo se manca ancora ieri. Arriva solo insieme al promemoria giornaliero"
   },

@@ -875,6 +875,7 @@
     "permissionDenied": "Sin el permiso del sistema, la app no programa recordatorios. Puedes permitirlo en los ajustes de Android.",
     "unavailable": "En Expo Go, Android no programa recordatorios. El ajuste se guarda y funciona en la app instalada.",
     "discreet": "El texto dice como mucho cuánto dura tu racha o que a ayer aún le falta una entrada, nunca nada del diario.",
+    "moodButtons": "Despliega el recordatorio para tocar un estado de ánimo directamente. Se abre una entrada nueva con ese estado de ánimo.",
     "yesterday": "Recordatorio a la mañana siguiente",
     "yesterdayHint": "Solo si aún falta ayer. Llega solo junto con el recordatorio diario"
   },

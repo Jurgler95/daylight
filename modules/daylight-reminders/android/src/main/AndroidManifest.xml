@@ -3,6 +3,14 @@
   <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
   <application>
+    <!-- Mood buttons in a reminder: closes it and hands the link to the app. Only this app's own notifications start it. -->
+    <activity
+      android:name=".MoodTapActivity"
+      android:exported="false"
+      android:excludeFromRecents="true"
+      android:noHistory="true"
+      android:taskAffinity=""
+      android:theme="@android:style/Theme.NoDisplay" />
     <receiver
       android:name=".ReminderReceiver"
       android:enabled="true"

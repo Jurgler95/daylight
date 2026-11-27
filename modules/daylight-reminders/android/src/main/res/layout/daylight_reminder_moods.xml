@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Expanded reminder with a button per mood (MoodButtons.kt), inside the system's decorated frame. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
+
+  <TextView
+    android:id="@+id/daylight_reminder_title"
+    style="@style/TextAppearance.Compat.Notification.Title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:ellipsize="end"
+    android:maxLines="1" />
+
+  <TextView
+    android:id="@+id/daylight_reminder_text"
+    style="@style/TextAppearance.Compat.Notification"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:ellipsize="end"
+    android:maxLines="3" />
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:orientation="horizontal">
+
+    <LinearLayout
+      android:id="@+id/daylight_reminder_slot_0"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:background="?android:attr/selectableItemBackground"
+      android:gravity="center_horizontal"
+      android:orientation="vertical"
+      android:paddingTop="4dp"
+      android:paddingBottom="4dp">
+
+      <ImageView
+        android:id="@+id/daylight_reminder_mood_0"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:importantForAccessibility="no" />
+
+      <TextView
+        android:id="@+id/daylight_reminder_label_0"
+        style="@style/TextAppearance.Compat.Notification.Info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:ellipsize="end"
+        android:gravity="center_horizontal"
+        android:importantForAccessibility="no"
+        android:maxLines="1" />
+    </LinearLayout>
+
+    <LinearLayout
+      android:id="@+id/daylight_reminder_slot_1"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:background="?android:attr/selectableItemBackground"
+      android:gravity="center_horizontal"
+      android:orientation="vertical"
+      android:paddingTop="4dp"
+      android:paddingBottom="4dp">
+
+      <ImageView
+        android:id="@+id/daylight_reminder_mood_1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:importantForAccessibility="no" />
+
+      <TextView
+        android:id="@+id/daylight_reminder_label_1"
+        style="@style/TextAppearance.Compat.Notification.Info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:ellipsize="end"
+        android:gravity="center_horizontal"
+        android:importantForAccessibility="no"
+        android:maxLines="1" />
+    </LinearLayout>
+
+    <LinearLayout
+      android:id="@+id/daylight_reminder_slot_2"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:background="?android:attr/selectableItemBackground"
+      android:gravity="center_horizontal"
+      android:orientation="vertical"
+      android:paddingTop="4dp"
+      android:paddingBottom="4dp">
+
+      <ImageView
+        android:id="@+id/daylight_reminder_mood_2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:importantForAccessibility="no" />
+
+      <TextView
+        android:id="@+id/daylight_reminder_label_2"
+        style="@style/TextAppearance.Compat.Notification.Info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:ellipsize="end"
+        android:gravity="center_horizontal"
+        android:importantForAccessibility="no"
+        android:maxLines="1" />
+    </LinearLayout>
+
+    <LinearLayout
+      android:id="@+id/daylight_reminder_slot_3"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:background="?android:attr/selectableItemBackground"
+      android:gravity="center_horizontal"
+      android:orientation="vertical"
+      android:paddingTop="4dp"
+      android:paddingBottom="4dp">
+
+      <ImageView
+        android:id="@+id/daylight_reminder_mood_3"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:importantForAccessibility="no" />
+
+      <TextView
+        android:id="@+id/daylight_reminder_label_3"
+        style="@style/TextAppearance.Compat.Notification.Info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:ellipsize="end"
+        android:gravity="center_horizontal"
+        android:importantForAccessibility="no"
+        android:maxLines="1" />
+    </LinearLayout>
+
+    <LinearLayout
+      android:id="@+id/daylight_reminder_slot_4"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:background="?android:attr/selectableItemBackground"
+      android:gravity="center_horizontal"
+      android:orientation="vertical"
+      android:paddingTop="4dp"
+      android:paddingBottom="4dp">
+
+      <ImageView
+        android:id="@+id/daylight_reminder_mood_4"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:importantForAccessibility="no" />
+
+      <TextView
+        android:id="@+id/daylight_reminder_label_4"
+        style="@style/TextAppearance.Compat.Notification.Info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:ellipsize="end"
+        android:gravity="center_horizontal"
+        android:importantForAccessibility="no"
+        android:maxLines="1" />
+    </LinearLayout>
+
+  </LinearLayout>
+</LinearLayout>

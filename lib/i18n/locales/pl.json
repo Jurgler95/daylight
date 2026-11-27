@@ -912,6 +912,7 @@
     "permissionDenied": "Bez uprawnienia systemowego aplikacja nie ustawi przypomnienia. Możesz na nie zezwolić w ustawieniach Androida.",
     "unavailable": "W Expo Go Android nie ustawia przypomnień. Ustawienie zostaje zapisane i zadziała w zainstalowanej aplikacji.",
     "discreet": "Tekst podaje najwyżej długość Twojej serii albo to, że brakuje wczorajszego wpisu, nigdy nic z dziennika.",
+    "moodButtons": "Rozwiń przypomnienie, aby od razu dotknąć nastroju. Otworzy się nowy wpis z tym nastrojem.",
     "yesterday": "Przypomnienie następnego ranka",
     "yesterdayHint": "Tylko gdy brakuje wczorajszego wpisu. Działa tylko z codziennym przypomnieniem"
   },

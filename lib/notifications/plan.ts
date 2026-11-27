@@ -117,6 +117,15 @@ export function reminderLink(reminder: PlannedReminder): string {
 }
 
 /**
+ * The link behind the mood buttons of `reminder`, which add `&mood=<id>` to it, or null for none.
+ * The daily ones and the morning one for yesterday ask for an entry, so they get buttons for its
+ * day; the outlook only says that the hint is there.
+ */
+export function moodLink(reminder: PlannedReminder): string | null {
+  return reminder.kind !== 'outlook' && reminder.openDate ? entryLink(reminder.openDate) : null;
+}
+
+/**
  * The daily reminder on `date` names the streak it continues: the run up to the day before plus
  * this day. Only from day 2 on, and only when the day before has an entry.
  */

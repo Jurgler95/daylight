@@ -2,7 +2,8 @@ import { parseDateString } from '@/lib/dates';
 import { withLockSuspended } from '@/lib/lock/store';
 import Reminders from '@/modules/daylight-reminders';
 
-import { localTrigger, reminderLink, type PlannedReminder } from './plan';
+import type { ReminderMoods } from './moods';
+import { localTrigger, moodLink, reminderLink, type PlannedReminder } from './plan';
 
 /**
  * Reminders go through the app's own native module (`modules/daylight-reminders`), not
@@ -45,8 +46,8 @@ function triggerAt(reminder: PlannedReminder): number {
 /**
  * Replaces every scheduled reminder with the given plan. The app schedules nothing else, so
  * cancelling all first keeps the device in sync without bookkeeping of identifiers. Each reminder
- * carries its own text, the link that opens its day in the editor and its wall-clock time, so the
- * module can move it when the time zone changes while the app is closed.
+ * carries its own text, the link that opens its day in the editor, the link behind its mood buttons
+ * and its wall-clock time, so the module can move it when the time zone changes while the app is closed.
  */
 export async function syncReminders(planned: readonly PlannedReminder[], channelName: string): Promise<void> {
   if (!Reminders) return;
@@ -61,6 +62,7 @@ export async function syncReminders(planned: readonly PlannedReminder[], channel
       reminder.body,
       reminderLink(reminder),
       localTrigger(reminder),
+      moodLink(reminder),
     );
   }
 }
@@ -72,4 +74,9 @@ export async function syncReminders(planned: readonly PlannedReminder[], channel
 export async function dismissReminders(keys: readonly string[]): Promise<void> {
   if (!Reminders || keys.length === 0) return;
   Reminders.dismiss([...keys]);
+}
+
+/** Hands the module the moods its buttons show; a reminder reads them when it shows, not when it is set. */
+export async function setReminderMoods(moods: ReminderMoods): Promise<void> {
+  Reminders?.setMoods(JSON.stringify(moods));
 }
