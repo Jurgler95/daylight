@@ -89,6 +89,10 @@ describe('compareExperiment', () => {
     const result = compareExperiment({ ...input, experiments: others, today: d('2026-09-01') });
     expect(result.overlapDuring.map((row) => row.id)).toEqual([2]);
     expect(result.overlapBefore.map((row) => row.id)).toEqual([3]);
+    // While it runs, only what overlapped the days so far: "Abendspaziergang" has not begun on 10 June.
+    const running = compareExperiment({ ...input, experiments: others, today: d('2026-06-10') });
+    expect(running.overlapDuring).toEqual([]);
+    expect(compareExperiment({ ...input, experiments: others, today: d('2026-06-20') }).overlapDuring.map((row) => row.id)).toEqual([2]);
   });
 
   it('hints at the seasons only from six weeks on', () => {
@@ -103,6 +107,9 @@ describe('compareExperiment', () => {
     expect(compareExperiment({ ...input, days: dip, today: d('2026-09-01') }).regression).toBe(true);
     const flat = buildDays(diary(d('2026-01-01'), 200, () => ({ level: 3 })));
     expect(compareExperiment({ ...input, days: flat, today: d('2026-09-01') }).regression).toBe(false);
+    // A further fall in the experiment is no return to the usual.
+    const fall = buildDays(diary(d('2026-01-01'), 200, (date) => ({ level: date >= '2026-06-01' ? 1.5 : date >= '2026-05-04' ? 2 : 3.5 })));
+    expect(compareExperiment({ ...input, days: fall, today: d('2026-09-01') }).regression).toBe(false);
   });
 
   it('compares and judges health values with enough days on both sides', () => {

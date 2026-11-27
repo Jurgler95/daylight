@@ -87,9 +87,9 @@ export interface ExperimentComparison {
   /** Number of values with a verdict (not "unjudgeable"); above one the page says more values make a chance hit likelier. */
   judged: number;
   seasons: boolean;
-  /** "Davor" lay clearly below the usual, so part of a rise may be the return to it. */
+  /** "Davor" lay clearly below the usual and the experiment higher, so part of the rise may be the return to it. */
   regression: boolean;
-  /** Other experiments that shared days with this one, and those that ran in "Davor". */
+  /** Other experiments that shared days with "Im Experiment" (up to today), and those that ran in "Davor". */
   overlapDuring: ExperimentFacts[];
   overlapBefore: ExperimentFacts[];
 }
@@ -158,8 +158,10 @@ export function compareExperiment({ experiment, experiments, days, health, scale
     activities: enough ? activityShifts(beforeList, duringList) : [],
     judged: verdicts.filter((verdict) => verdict && verdict.kind !== 'unjudgeable').length,
     seasons: total >= SEASON_MIN_DAYS && !!before && !!during && differentSeasons(before, during),
-    regression: enough && before !== null && beforeMean !== null && regressionHint(days, before, beforeMean),
-    overlapDuring: others.filter((other) => overlaps(other, experiment)),
+    // Only a rise can be partly the return to the usual; a further fall cannot.
+    regression: enough && before !== null && beforeMean !== null && duringMean !== null && duringMean > beforeMean && regressionHint(days, before, beforeMean),
+    // Against the days compared so far, so one that has not begun yet is not named.
+    overlapDuring: during ? others.filter((other) => overlaps(other, { start_date: during.from, end_date: during.to })) : [],
     overlapBefore: before ? others.filter((other) => overlaps(other, { start_date: before.from, end_date: before.to })) : [],
   };
 }
