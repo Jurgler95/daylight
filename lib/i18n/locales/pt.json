@@ -1342,6 +1342,7 @@
     "end": "Encerrar agora",
     "endTitle": "Encerrar o experimento agora?",
     "endText": "“{{title}}” termina então em {{date}}. A comparação usa só os dias até lá.",
+    "endTextAnswers": "“{{title}}” termina então em {{date}}. A comparação usa só os dias até lá, e as respostas depois desse dia são removidas.",
     "endConfirm": "Encerrar",
     "delete": "Apagar experimento",
     "deleteTitle": "Apagar experimento?",

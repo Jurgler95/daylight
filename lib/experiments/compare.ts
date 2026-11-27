@@ -62,6 +62,8 @@ export interface CheckInCounts {
   kept: number;
   /** The day a "no" ended the experiment, or null. */
   endedByNo: DateString | null;
+  /** The latest day with an answer, or null: "Jetzt beenden" says when it removes answers. */
+  lastAnswered: DateString | null;
 }
 
 export interface ExperimentComparison {
@@ -218,5 +220,6 @@ export function checkInCounts(experiment: ExperimentSpan, answers: readonly { da
     answered: answers.length,
     kept: answers.filter((answer) => answer.kept).length,
     endedByNo: (endedByNo?.date as DateString | undefined) ?? null,
+    lastAnswered: answers.reduce<DateString | null>((last, answer) => (last === null || answer.date > last ? (answer.date as DateString) : last), null),
   };
 }

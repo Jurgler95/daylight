@@ -58,8 +58,11 @@ export default function ExperimentDetailScreen() {
   }
 
   const comparison = result.comparison;
+  const endDate = endOnDayBefore(experiment, today);
+  // "Jetzt beenden" removes the answers after the new end, today's among them; it says so first.
+  const dropsAnswers = result.checkIn.lastAnswered !== null && result.checkIn.lastAnswered > endDate;
   const end = () =>
-    Alert.alert(t('experiments.endTitle'), t('experiments.endText', { title: experiment.title, date: formatLong(endOnDayBefore(experiment, today)) }), [
+    Alert.alert(t('experiments.endTitle'), t(dropsAnswers ? 'experiments.endTextAnswers' : 'experiments.endText', { title: experiment.title, date: formatLong(endDate) }), [
       { text: t('common.cancel'), style: 'cancel' },
       { text: t('experiments.endConfirm'), style: 'destructive', onPress: () => mutate(() => endExperiment(getDb(), experiment.id, today)) },
     ]);

@@ -1414,6 +1414,7 @@
     "end": "Zakończ teraz",
     "endTitle": "Zakończyć eksperyment teraz?",
     "endText": "„{{title}}” zakończy się wtedy {{date}}. Porównanie obejmie tylko dni do tego momentu.",
+    "endTextAnswers": "„{{title}}” zakończy się wtedy {{date}}. Porównanie obejmie tylko dni do tego momentu, a odpowiedzi z późniejszych dni zostaną usunięte.",
     "endConfirm": "Zakończ",
     "delete": "Usuń eksperyment",
     "deleteTitle": "Usunąć eksperyment?",

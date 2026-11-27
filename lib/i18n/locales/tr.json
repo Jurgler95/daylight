@@ -1270,6 +1270,7 @@
     "end": "Şimdi bitir",
     "endTitle": "Deney şimdi bitirilsin mi?",
     "endText": "“{{title}}” o zaman {{date}} tarihinde biter. Karşılaştırma yalnızca o güne kadarki günleri kullanır.",
+    "endTextAnswers": "“{{title}}” o zaman {{date}} tarihinde biter. Karşılaştırma yalnızca o güne kadarki günleri kullanır, sonraki cevaplar silinir.",
     "endConfirm": "Bitir",
     "delete": "Deneyi sil",
     "deleteTitle": "Deney silinsin mi?",

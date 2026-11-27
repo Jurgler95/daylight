@@ -1270,6 +1270,7 @@
     "end": "Jetzt beenden",
     "endTitle": "Experiment jetzt beenden?",
     "endText": "„{{title}}“ endet dann am {{date}}. Der Vergleich nimmt nur die Tage bis dahin.",
+    "endTextAnswers": "„{{title}}“ endet dann am {{date}}. Der Vergleich nimmt nur die Tage bis dahin, Antworten nach diesem Tag werden entfernt.",
     "endConfirm": "Beenden",
     "delete": "Experiment löschen",
     "deleteTitle": "Experiment löschen?",

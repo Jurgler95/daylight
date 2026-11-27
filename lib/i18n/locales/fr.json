@@ -1342,6 +1342,7 @@
     "end": "Terminer maintenant",
     "endTitle": "Terminer l'expérience maintenant ?",
     "endText": "« {{title}} » se termine alors le {{date}}. La comparaison ne prend que les jours jusque-là.",
+    "endTextAnswers": "« {{title}} » se termine alors le {{date}}. La comparaison ne prend que les jours jusque-là, et les réponses après ce jour sont supprimées.",
     "endConfirm": "Terminer",
     "delete": "Supprimer l'expérience",
     "deleteTitle": "Supprimer l'expérience ?",

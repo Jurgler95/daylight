@@ -1270,6 +1270,7 @@
     "end": "End now",
     "endTitle": "End the experiment now?",
     "endText": "\"{{title}}\" then ends on {{date}}. The comparison only uses the days up to then.",
+    "endTextAnswers": "\"{{title}}\" then ends on {{date}}. The comparison only uses the days up to then, and answers after that day are removed.",
     "endConfirm": "End",
     "delete": "Delete experiment",
     "deleteTitle": "Delete experiment?",

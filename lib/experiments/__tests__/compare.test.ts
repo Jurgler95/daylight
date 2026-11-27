@@ -134,9 +134,9 @@ describe('checkInCounts', () => {
         { date: '2026-06-05', kept: true },
         { date: '2026-06-10', kept: false },
       ]),
-    ).toEqual({ answered: 3, kept: 2, endedByNo: '2026-06-10' });
+    ).toEqual({ answered: 3, kept: 2, endedByNo: '2026-06-10', lastAnswered: '2026-06-10' });
     expect(checkInCounts({ start_date: '2026-06-01', end_date: '2026-06-01' }, [{ date: '2026-06-01', kept: false }]).endedByNo).toBe('2026-06-01');
-    expect(checkInCounts(experiment, [{ date: '2026-06-02', kept: true }])).toEqual({ answered: 1, kept: 1, endedByNo: null });
-    expect(checkInCounts(experiment, [])).toEqual({ answered: 0, kept: 0, endedByNo: null });
+    expect(checkInCounts(experiment, [{ date: '2026-06-02', kept: true }])).toEqual({ answered: 1, kept: 1, endedByNo: null, lastAnswered: '2026-06-02' });
+    expect(checkInCounts(experiment, [])).toEqual({ answered: 0, kept: 0, endedByNo: null, lastAnswered: null });
   });
 });

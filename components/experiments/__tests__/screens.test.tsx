@@ -237,14 +237,28 @@ describe('the comparison', () => {
     await render(<ExperimentDetailScreen />);
     expect(screen.getByText(/^Zwischenstand nach 17 von 28 Tagen: Im Experiment lag deine Stimmung/)).toBeTruthy();
     expect(screen.getByText(/zeigt Daylight am Ende/)).toBeTruthy();
-    expect(screen.queryByText(/Stichtage/)).toBeNull();
+    expect(screen.queryByText(/der Fälle/)).toBeNull();
     expect(screen.getByText(/es zeigt keine Ursache/)).toBeTruthy();
     expect(screen.queryByText(BROKEN)).toBeNull();
 
     const alert = jest.spyOn(Alert, 'alert').mockImplementation(() => undefined);
     await act(async () => fireEvent.press(screen.getByText('Jetzt beenden')));
+    expect(alert.mock.calls.at(-1)![1]).toMatch(/Der Vergleich nimmt nur die Tage bis dahin\.$/);
     await pressAlertButton(alert, 'Beenden');
     expect(getExperiment(db, running.id)!.end_date).toBe('2026-09-25');
+    alert.mockRestore();
+  });
+
+  it('says before "Jetzt beenden" that it removes today\'s answer', async () => {
+    const db = diary('2026-01-01');
+    const running = createExperiment(db, { title: 'Kein Kaffee', start_date: '2026-09-10', days: 28, check_in: true }, today);
+    setExperimentDays(db, today, { [running.id]: true }, today);
+    useDataVersion.getState().bump();
+    mockParams = { id: String(running.id) };
+    await render(<ExperimentDetailScreen />);
+    const alert = jest.spyOn(Alert, 'alert').mockImplementation(() => undefined);
+    await act(async () => fireEvent.press(screen.getByText('Jetzt beenden')));
+    expect(alert.mock.calls.at(-1)![1]).toMatch(/Antworten nach diesem Tag werden entfernt\.$/);
     alert.mockRestore();
   });
 

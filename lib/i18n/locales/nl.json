@@ -1270,6 +1270,7 @@
     "end": "Nu beëindigen",
     "endTitle": "Experiment nu beëindigen?",
     "endText": "“{{title}}” eindigt dan op {{date}}. De vergelijking neemt alleen de dagen tot dan.",
+    "endTextAnswers": "“{{title}}” eindigt dan op {{date}}. De vergelijking neemt alleen de dagen tot dan, antwoorden na die dag worden verwijderd.",
     "endConfirm": "Beëindigen",
     "delete": "Experiment wissen",
     "deleteTitle": "Experiment wissen?",
