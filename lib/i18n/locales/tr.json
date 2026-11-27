@@ -1264,6 +1264,7 @@
     "health": "Sağlık",
     "activities": "Aktiviteler",
     "activitiesSame": "Deneyde hiçbir aktivite belirgin biçimde daha sık ya da daha seyrek görülmüyor.",
+    "activitiesNoVerdict": "Aktivitelerde Daylight, farkın olağan iniş çıkışlarının dışına çıkıp çıkmadığını kontrol etmez.",
     "activityShift": "önce günlerin {{before}} kadarında, deneyde {{during}} kadarında",
     "shift": "{{before}} → {{during}}",
     "edit": "Düzenle",

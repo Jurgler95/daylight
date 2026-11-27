@@ -1336,6 +1336,7 @@
     "health": "Santé",
     "activities": "Activités",
     "activitiesSame": "Aucune activité ne revient nettement plus ou moins souvent pendant l'expérience.",
+    "activitiesNoVerdict": "Pour les activités, Daylight ne vérifie pas si l'écart dépasse tes variations habituelles.",
     "activityShift": "avant {{before}} des jours, pendant l'expérience {{during}}",
     "shift": "{{before}} → {{during}}",
     "edit": "Modifier",

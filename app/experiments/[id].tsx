@@ -258,6 +258,11 @@ function Body({ experiment, comparison }: { experiment: Experiment; comparison: 
             detail={t('experiments.activityShift', { before: formatPercent(row.beforeShare), during: formatPercent(row.afterShare) })}
           />
         ))}
+        {comparison.activities.length > 0 ? (
+          <AppText variant="caption" muted>
+            {t('experiments.activitiesNoVerdict')}
+          </AppText>
+        ) : null}
       </InsightCard>
     </>
   );

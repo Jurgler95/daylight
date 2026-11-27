@@ -1264,6 +1264,7 @@
     "health": "Health",
     "activities": "Activities",
     "activitiesSame": "No activity comes up clearly more or less often in the experiment.",
+    "activitiesNoVerdict": "For activities, Daylight does not check whether the difference goes beyond your usual ups and downs.",
     "activityShift": "before on {{before}} of days, in the experiment on {{during}}",
     "shift": "{{before}} → {{during}}",
     "edit": "Edit",

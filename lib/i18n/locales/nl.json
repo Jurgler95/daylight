@@ -1264,6 +1264,7 @@
     "health": "Gezondheid",
     "activities": "Activiteiten",
     "activitiesSame": "Geen activiteit komt in het experiment duidelijk vaker of minder vaak voor.",
+    "activitiesNoVerdict": "Bij activiteiten kijkt Daylight niet of het verschil buiten je gewone schommelingen valt.",
     "activityShift": "ervoor op {{before}} van de dagen, in het experiment op {{during}}",
     "shift": "{{before}} → {{during}}",
     "edit": "Bewerken",

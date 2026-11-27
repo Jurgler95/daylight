@@ -1264,6 +1264,7 @@
     "health": "Gesundheit",
     "activities": "Aktivitäten",
     "activitiesSame": "Keine Aktivität kommt im Experiment deutlich öfter oder seltener vor.",
+    "activitiesNoVerdict": "Bei den Aktivitäten prüft Daylight nicht, ob der Unterschied über deine üblichen Schwankungen hinausgeht.",
     "activityShift": "davor an {{before}} der Tage, im Experiment an {{during}}",
     "shift": "{{before}} → {{during}}",
     "edit": "Bearbeiten",

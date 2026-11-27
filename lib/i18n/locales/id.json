@@ -1258,6 +1258,7 @@
     "health": "Kesehatan",
     "activities": "Aktivitas",
     "activitiesSame": "Tidak ada aktivitas yang muncul jelas lebih sering atau lebih jarang dalam eksperimen.",
+    "activitiesNoVerdict": "Untuk aktivitas, Daylight tidak memeriksa apakah perbedaannya melampaui naik turunmu yang biasa.",
     "activityShift": "sebelum pada {{before}} hari, dalam eksperimen pada {{during}}",
     "shift": "{{before}} → {{during}}",
     "edit": "Edit",

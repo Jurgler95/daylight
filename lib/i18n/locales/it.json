@@ -1336,6 +1336,7 @@
     "health": "Salute",
     "activities": "Attività",
     "activitiesSame": "Nessuna attività compare nell'esperimento in modo nettamente più o meno frequente.",
+    "activitiesNoVerdict": "Per le attività Daylight non verifica se la differenza va oltre i tuoi soliti alti e bassi.",
     "activityShift": "prima nel {{before}} dei giorni, nell'esperimento nel {{during}}",
     "shift": "{{before}} → {{during}}",
     "edit": "Modifica",
