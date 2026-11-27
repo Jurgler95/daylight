@@ -9,6 +9,7 @@ import { InsightCard } from '@/components/insights/InsightCard';
 import { LevelBar } from '@/components/insights/LevelBar';
 import { MoodLineChart } from '@/components/insights/MoodLineChart';
 import { StatTile } from '@/components/insights/StatTile';
+import { ValueRow } from '@/components/insights/ValueRow';
 import { AppText, Button, Card, EmptyState, ListRow, Screen } from '@/components/ui';
 import { getDb } from '@/db';
 import { deleteExperiment, endExperiment, markExperimentSeen } from '@/db/repositories/experiments';
@@ -142,10 +143,6 @@ function Body({ experiment, comparison }: { experiment: Experiment; comparison: 
   const over = comparison.state === 'over';
   const moodLabel = (level: Parameters<typeof levelMood>[1]) => levelMood(catalog, level).label;
   const titles = (list: readonly { title: string }[]) => list.map((other) => other.title).join(', ');
-  const rowDetail = (shift: string, verdict: Parameters<typeof verdictShort>[1]) => {
-    const short = verdictShort(t, verdict);
-    return short ? `${shift} · ${short}` : shift;
-  };
 
   return (
     <>
@@ -228,7 +225,7 @@ function Body({ experiment, comparison }: { experiment: Experiment; comparison: 
             const scale = catalog.scaleById.get(row.scaleId);
             if (!scale) return null;
             const shift = t('experiments.shift', { before: formatScaleValue(scale, row.before), during: formatScaleValue(scale, row.during) });
-            return <ValueRow key={row.scaleId} label={scale.name} detail={rowDetail(shift, row.verdict)} />;
+            return <ValueRow key={row.scaleId} label={scale.name} detail={shift} note={verdictShort(t, row.verdict)} />;
           })}
         </InsightCard>
       ) : null}
@@ -237,7 +234,7 @@ function Body({ experiment, comparison }: { experiment: Experiment; comparison: 
         <InsightCard title={t('experiments.health')}>
           {comparison.health.map((row) => {
             const shift = t('experiments.shift', { before: formatMetric(row.metric, row.before), during: formatMetric(row.metric, row.after) });
-            return <ValueRow key={row.metric} label={t(`insights.healthStats.metric.${row.metric}`)} detail={rowDetail(shift, row.verdict)} />;
+            return <ValueRow key={row.metric} label={t(`insights.healthStats.metric.${row.metric}`)} detail={shift} note={verdictShort(t, row.verdict)} />;
           })}
         </InsightCard>
       ) : null}
@@ -274,22 +271,6 @@ function CheckInBlock({ counts, over }: { counts: CheckInCounts; over: boolean }
   );
 }
 
-function ValueRow({ label, detail }: { label: string; detail: string }) {
-  return (
-    <View style={styles.valueRow} accessible accessibilityLabel={`${label}: ${detail}`}>
-      <AppText variant="label" style={styles.flex}>
-        {label}
-      </AppText>
-      <AppText muted style={styles.detail}>
-        {detail}
-      </AppText>
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
   tiles: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.md },
-  valueRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, minHeight: 32 },
-  flex: { flex: 1 },
-  detail: { flexShrink: 1, textAlign: 'right' },
 });

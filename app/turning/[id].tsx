@@ -8,6 +8,7 @@ import { InsightCard } from '@/components/insights/InsightCard';
 import { LevelBar } from '@/components/insights/LevelBar';
 import { MoodLineChart } from '@/components/insights/MoodLineChart';
 import { StatTile } from '@/components/insights/StatTile';
+import { ValueRow } from '@/components/insights/ValueRow';
 import { TurningHero } from '@/components/turning/TurningHero';
 import { AppText, Button, Card, EmptyState, ListRow, Screen, Segmented } from '@/components/ui';
 import { getDb } from '@/db';
@@ -153,12 +154,11 @@ export default function TurningPointDetailScreen() {
           {comparison.health.length > 0 ? (
             <InsightCard title={t('turning.health')}>
               {comparison.health.map((row) => (
-                <View key={row.metric} style={styles.healthRow} accessible>
-                  <AppText variant="label" style={styles.flex}>
-                    {t(`insights.healthStats.metric.${row.metric}`)}
-                  </AppText>
-                  <AppText muted>{t('turning.healthShift', { before: formatMetric(row.metric, row.before), after: formatMetric(row.metric, row.after) })}</AppText>
-                </View>
+                <ValueRow
+                  key={row.metric}
+                  label={t(`insights.healthStats.metric.${row.metric}`)}
+                  detail={t('turning.healthShift', { before: formatMetric(row.metric, row.before), after: formatMetric(row.metric, row.after) })}
+                />
               ))}
             </InsightCard>
           ) : null}
@@ -174,6 +174,4 @@ export default function TurningPointDetailScreen() {
 
 const styles = StyleSheet.create({
   tiles: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.md },
-  healthRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, minHeight: 32 },
-  flex: { flex: 1 },
 });
