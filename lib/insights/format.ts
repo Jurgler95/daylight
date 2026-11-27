@@ -24,10 +24,10 @@ export function formatSigned(value: number, digits = 1): string {
   return `${value > 0 ? '+' : '-'}${text}`;
 }
 
-/** "74 %" in German, "74%" in English, "%74" in Turkish, for a share 0..1, whole percent. */
-export function formatPercent(share: number): string {
+/** "74 %" in German, "74%" in English, "%74" in Turkish, for a share 0..1, whole percent unless `digits` says more. */
+export function formatPercent(share: number, digits = 0): string {
   const { percent, percentFirst } = numberStyle();
-  const value = roundDecimal(share * 100, 0);
+  const value = formatDecimal(share * 100, digits);
   return percentFirst ? `${percent}${value}` : `${value}${percent}`;
 }
 

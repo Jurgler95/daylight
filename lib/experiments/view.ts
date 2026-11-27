@@ -53,11 +53,25 @@ export function lengthChoices(current: number | null): number[] {
   return days.sort((a, b) => a - b);
 }
 
+/** Below this share the verdict shows one decimal, so shares around the threshold `NOISE_SHARE` do not look alike. */
+export const VERDICT_DECIMALS_BELOW = 0.2;
+
+/**
+ * The share of a verdict as a percentage: "34 %", below 20 % with one decimal ("9,6 %"). "Im Rahmen"
+ * lies above the threshold and is rounded up, so it never shows the threshold itself and two
+ * different verdicts never show the same number.
+ */
+export function verdictPercent(verdict: { kind: 'larger' | 'usual'; share: number }): string {
+  if (verdict.share >= VERDICT_DECIMALS_BELOW) return formatPercent(verdict.share);
+  const share = verdict.kind === 'usual' ? Math.ceil(verdict.share * 1000 - 1e-9) / 1000 : verdict.share;
+  return formatPercent(share, 1);
+}
+
 /** The verdict as full sentences for the mood: the verdict, and "vorläufig" when it is. */
 export function verdictSentences(t: TFunction, verdict: NoiseVerdict | null): string[] {
   if (!verdict) return [];
   if (verdict.kind === 'unjudgeable') return [t('experiments.noise.unjudgeable')];
-  const sentence = t(`experiments.noise.${verdict.kind}`, { share: formatPercent(verdict.share) });
+  const sentence = t(`experiments.noise.${verdict.kind}`, { share: verdictPercent(verdict) });
   return verdict.preliminary ? [sentence, t('experiments.noise.preliminary')] : [sentence];
 }
 
@@ -65,6 +79,6 @@ export function verdictSentences(t: TFunction, verdict: NoiseVerdict | null): st
 export function verdictShort(t: TFunction, verdict: NoiseVerdict | null): string | null {
   if (!verdict) return null;
   if (verdict.kind === 'unjudgeable') return t('experiments.short.unjudgeable');
-  const text = t(`experiments.short.${verdict.kind}`, { share: formatPercent(verdict.share) });
+  const text = t(`experiments.short.${verdict.kind}`, { share: verdictPercent(verdict) });
   return verdict.preliminary ? t('experiments.short.preliminary', { verdict: text }) : text;
 }

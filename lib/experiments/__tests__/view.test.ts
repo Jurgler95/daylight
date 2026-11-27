@@ -1,7 +1,7 @@
 import i18n from '@/lib/i18n';
 import type { DateString } from '@/lib/dates';
 
-import { experimentSections, finishedToShow, lengthChoices, verdictSentences, verdictShort } from '../view';
+import { experimentSections, finishedToShow, lengthChoices, verdictPercent, verdictSentences, verdictShort } from '../view';
 
 const today = '2026-11-27' as DateString;
 const t = i18n.getFixedT('de');
@@ -41,14 +41,22 @@ describe('experiment view helpers', () => {
     expect(lengthChoices(30)).toEqual([7, 14, 21, 28, 30, 42, 56, 84]);
   });
 
+  it('never shows the same percentage for two verdicts at the threshold', () => {
+    expect(verdictPercent({ kind: 'larger', share: 0.1 })).toMatch(/^10,0\s?%$/);
+    expect(verdictPercent({ kind: 'usual', share: 73 / 729 })).toMatch(/^10,1\s?%$/);
+    expect(verdictPercent({ kind: 'usual', share: 0.103 })).toMatch(/^10,3\s?%$/);
+    expect(verdictPercent({ kind: 'larger', share: 0.004 })).toMatch(/^0,4\s?%$/);
+    expect(verdictPercent({ kind: 'usual', share: 0.34 })).toMatch(/^34\s?%$/);
+  });
+
   it('puts the verdict into words, "vorläufig" included', () => {
     expect(verdictShort(t, null)).toBeNull();
     expect(verdictSentences(t, null)).toEqual([]);
     expect(verdictShort(t, { kind: 'unjudgeable' })).toBe('nicht beurteilbar');
     const larger = { kind: 'larger' as const, share: 0.06, preliminary: false, pairs: 400 };
-    expect(verdictShort(t, larger)).toMatch(/^größer als üblich, 6\s?%$/);
+    expect(verdictShort(t, larger)).toMatch(/^größer als üblich, 6,0\s?%$/);
     expect(verdictShort(t, { ...larger, kind: 'usual', share: 0.34, preliminary: true })).toMatch(/^im Rahmen, 34\s?%, vorläufig$/);
-    expect(verdictSentences(t, { ...larger, preliminary: true })).toEqual([expect.stringMatching(/nur in 6\s?% der Fälle/), expect.stringMatching(/^Vorläufig/)]);
+    expect(verdictSentences(t, { ...larger, preliminary: true })).toEqual([expect.stringMatching(/nur in 6,0\s?% der Fälle/), expect.stringMatching(/^Vorläufig/)]);
     expect(verdictSentences(t, { kind: 'unjudgeable' })).toEqual([expect.stringMatching(/reicht die Zeit vor dem Experiment nicht\./)]);
   });
 });
