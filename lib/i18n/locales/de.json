@@ -1372,6 +1372,8 @@
     "endText": "„{{title}}“ endet dann am {{date}}. Der Vergleich nimmt nur die Tage bis dahin.",
     "endTextAnswers": "„{{title}}“ endet dann am {{date}}. Der Vergleich nimmt nur die Tage bis dahin, Antworten nach diesem Tag werden entfernt.",
     "endConfirm": "Beenden",
+    "datesAnswersTitle": "Antworten entfernen?",
+    "datesAnswersText": "„{{title}}“ läuft dann vom {{start}} bis {{end}}. Antworten außerhalb dieser Tage werden beim Speichern entfernt.",
     "delete": "Experiment löschen",
     "deleteTitle": "Experiment löschen?",
     "deleteText": "„{{title}}“ und die Antworten dazu werden entfernt. Deine Einträge bleiben.",

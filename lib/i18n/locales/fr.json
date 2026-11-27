@@ -1445,6 +1445,8 @@
     "endText": "« {{title}} » se termine alors le {{date}}. La comparaison ne prend que les jours jusque-là.",
     "endTextAnswers": "« {{title}} » se termine alors le {{date}}. La comparaison ne prend que les jours jusque-là, et les réponses après ce jour sont supprimées.",
     "endConfirm": "Terminer",
+    "datesAnswersTitle": "Supprimer des réponses ?",
+    "datesAnswersText": "« {{title}} » va alors du {{start}} au {{end}}. Les réponses en dehors de ces jours sont supprimées à l'enregistrement.",
     "delete": "Supprimer l'expérience",
     "deleteTitle": "Supprimer l'expérience ?",
     "deleteText": "« {{title}} » et ses réponses seront retirées. Tes entrées restent.",

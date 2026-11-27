@@ -1518,6 +1518,8 @@
     "endText": "„{{title}}” zakończy się wtedy {{date}}. Porównanie obejmie tylko dni do tego momentu.",
     "endTextAnswers": "„{{title}}” zakończy się wtedy {{date}}. Porównanie obejmie tylko dni do tego momentu, a odpowiedzi z późniejszych dni zostaną usunięte.",
     "endConfirm": "Zakończ",
+    "datesAnswersTitle": "Usunąć odpowiedzi?",
+    "datesAnswersText": "„{{title}}” potrwa wtedy od {{start}} do {{end}}. Odpowiedzi spoza tych dni zostaną usunięte przy zapisie.",
     "delete": "Usuń eksperyment",
     "deleteTitle": "Usunąć eksperyment?",
     "deleteText": "„{{title}}” i odpowiedzi do niego zostaną usunięte. Twoje wpisy zostają.",

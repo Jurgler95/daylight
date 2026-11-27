@@ -1,7 +1,7 @@
 import { getDb } from '@/db';
 import { experimentAnswersOn, listExperimentDays, listExperiments } from '@/db/repositories/experiments';
 import { listHealthDays } from '@/db/repositories/health';
-import type { Experiment } from '@/db/schema';
+import type { Experiment, ExperimentDay } from '@/db/schema';
 import { readCatalogFromDb } from '@/lib/catalog/useCatalog';
 import type { DateString } from '@/lib/dates';
 import { readInsightDays } from '@/lib/insights/useInsights';
@@ -31,6 +31,11 @@ export function useFinishedExperiment(today: DateString): Experiment | null {
 /** The answers already stored for a day, by experiment id, for the entry editor. */
 export function useExperimentAnswers(date: DateString): Map<number, boolean> {
   return useQuery(() => experimentAnswersOn(getDb(), date), [date]);
+}
+
+/** The answers stored for one experiment, oldest first, for the form. */
+export function useExperimentDays(id: number): ExperimentDay[] {
+  return useQuery(() => listExperimentDays(getDb(), id), [id]);
 }
 
 export interface ExperimentResult {

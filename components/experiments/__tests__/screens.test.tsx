@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 
 import '@/lib/i18n';
 import type { Database } from '@/db';
-import { createEntry, createExperiment, createScale, endExperiment, getExperiment, listExperiments, listMoods, setExperimentDays } from '@/db/repositories';
+import { createEntry, createExperiment, createScale, endExperiment, getExperiment, listExperimentDays, listExperiments, listMoods, setExperimentDays } from '@/db/repositories';
 import { createTestDb } from '@/db/testDb';
 import { addDaysToDateString, type DateString } from '@/lib/dates';
 import { buildExport } from '@/lib/export';
@@ -27,7 +27,16 @@ jest.mock('react-native-keyboard-controller', () => {
 });
 jest.mock('@expo/vector-icons', () => ({ Ionicons: () => null }));
 jest.mock('@expo/vector-icons/MaterialCommunityIcons', () => () => null);
-jest.mock('@react-native-community/datetimepicker', () => ({ __esModule: true, DateTimePickerAndroid: { open: jest.fn() }, default: () => null }));
+/** The inline picker's props on iOS, to pick a day in a test. */
+let mockPickerProps: { onChange: (event: unknown, picked?: Date) => void } | null = null;
+jest.mock('@react-native-community/datetimepicker', () => ({
+  __esModule: true,
+  DateTimePickerAndroid: { open: jest.fn() },
+  default: (props: { onChange: (event: unknown, picked?: Date) => void }) => {
+    mockPickerProps = props;
+    return null;
+  },
+}));
 let mockParams: Record<string, string> = {};
 jest.mock('expo-router', () => ({
   router: { push: jest.fn(), navigate: jest.fn(), back: jest.fn(), replace: jest.fn(), canGoBack: () => true },
@@ -71,6 +80,15 @@ function add(db: Database, title: string, start: string, days = 28, createdOn: D
 async function pressAlertButton(spy: jest.SpyInstance, label: string) {
   const buttons = spy.mock.calls.at(-1)![2] as { text: string; onPress?: () => void }[];
   await act(async () => buttons.find((button) => button.text === label)!.onPress!());
+}
+
+/** Picks a start day through the row, on whichever platform the tests run. */
+async function pickStart(current: RegExp, day: Date) {
+  mockPickerProps = null;
+  await act(async () => fireEvent.press(screen.getByLabelText(current)));
+  const open = jest.requireMock('@react-native-community/datetimepicker').DateTimePickerAndroid.open as jest.Mock;
+  const android = open.mock.calls.at(-1)?.[0] as { onChange: (event: { type: string }, picked?: Date) => void } | undefined;
+  await act(async () => (android ? android.onChange({ type: 'set' }, day) : mockPickerProps!.onChange({}, day)));
 }
 
 beforeEach(() => {
@@ -168,6 +186,45 @@ describe('the form', () => {
     await act(async () => fireEvent.press(screen.getByText('30 Tage')));
     await act(async () => fireEvent.press(screen.getByText('Speichern')));
     expect(getExperiment(db, odd.id)!.end_date).toBe('2026-10-19');
+  });
+
+  it('asks before new dates remove answers, and keeps them on cancel', async () => {
+    const db = diary('2026-09-01');
+    const running = createExperiment(db, { title: 'Kein Kaffee', start_date: '2026-09-10', days: 28, check_in: true }, today);
+    setExperimentDays(db, '2026-09-12', { [running.id]: true }, today);
+    setExperimentDays(db, today, { [running.id]: true }, today);
+    useDataVersion.getState().bump();
+    mockParams = { id: String(running.id) };
+    await render(<ExperimentFormScreen />);
+    const alert = jest.spyOn(Alert, 'alert').mockImplementation(() => undefined);
+    await pickStart(/^Beginn/, new Date(2026, 8, 15, 12));
+    await act(async () => fireEvent.press(screen.getByText('Speichern')));
+    expect(alert).toHaveBeenCalledTimes(1);
+    expect(alert.mock.calls[0]![0]).toBe('Antworten entfernen?');
+    expect(alert.mock.calls[0]![1]).toMatch(/^„Kein Kaffee“ läuft dann vom .*15\. September.* bis .*Antworten außerhalb dieser Tage werden beim Speichern entfernt\.$/);
+    // Nothing is written until "Speichern" in the question; "Abbrechen" just closes it.
+    expect(getExperiment(db, running.id)!.start_date).toBe('2026-09-10');
+    expect(listExperimentDays(db, running.id)).toHaveLength(2);
+    await act(async () => fireEvent.press(screen.getByText('Speichern')));
+    await pressAlertButton(alert, 'Speichern');
+    expect(getExperiment(db, running.id)!.start_date).toBe('2026-09-15');
+    expect(listExperimentDays(db, running.id).map((day) => day.date)).toEqual([today]);
+    alert.mockRestore();
+  });
+
+  it('saves new dates without asking when no answer falls outside them', async () => {
+    const db = diary('2026-09-01');
+    const running = createExperiment(db, { title: 'Kein Kaffee', start_date: '2026-09-10', days: 28, check_in: true }, today);
+    setExperimentDays(db, today, { [running.id]: true }, today);
+    useDataVersion.getState().bump();
+    mockParams = { id: String(running.id) };
+    await render(<ExperimentFormScreen />);
+    const alert = jest.spyOn(Alert, 'alert').mockImplementation(() => undefined);
+    await pickStart(/^Beginn/, new Date(2026, 8, 15, 12));
+    await act(async () => fireEvent.press(screen.getByText('Speichern')));
+    expect(alert).not.toHaveBeenCalled();
+    expect(getExperiment(db, running.id)!.start_date).toBe('2026-09-15');
+    alert.mockRestore();
   });
 
   it('keeps start and length of one that is over', async () => {

@@ -40,6 +40,7 @@ Die Entscheidungen E1 bis E17 stehen im Plan. Hier, was beim Bau dazukam oder f�
 6. **Vergleichsseite:** „Eingehalten an X von Y Tagen mit Antwort“ und, wenn ein Nein es beendet hat, „Beendet durch ein Nein am …“. Der Block erscheint, wenn die Frage an ist oder es Antworten gibt, nicht bei geplanten. Kein Vergleich Ja-Tage gegen Nein-Tage.
 7. **Karte auf Heute:** nur am heutigen Tag nach der Bewertungskarte, für ein Experiment, das vorbei ist, dessen Vergleich noch nicht gesehen wurde und dessen Ende höchstens 14 Tage her ist. Bei mehreren nur das zuletzt beendete. „Schließen“ und das Öffnen des Vergleichs setzen `result_seen`. Wer ein schon beendetes Experiment anlegt, bekommt keine Karte; ein Nein am Starttag bringt sie sofort.
 8. **Zusammenführen:** Neue Experimente aus einer Sicherung bekommen `result_seen = true`, wenn ihr Ende vor heute liegt; laufende und geplante behalten `false`, damit sie nach dem Ende ihre Karte zeigen.
+9. **Neue Daten entfernen Antworten nur nach Nachfrage.** `updateExperiment` löscht Antworten außerhalb eines neuen Zeitraums. Das Formular fragt vorher („Antworten entfernen?“), wenn das welche trifft (`answersOutside`), wie „Jetzt beenden“.
 
 ## Zusammenführen mit dem Branch der automatischen Sicherung
 

@@ -1445,6 +1445,8 @@
     "endText": "“{{title}}” termina entonces el {{date}}. La comparación solo usa los días hasta ahí.",
     "endTextAnswers": "“{{title}}” termina entonces el {{date}}. La comparación solo usa los días hasta ahí y se eliminan las respuestas posteriores.",
     "endConfirm": "Terminar",
+    "datesAnswersTitle": "¿Quitar respuestas?",
+    "datesAnswersText": "“{{title}}” va entonces del {{start}} al {{end}}. Las respuestas fuera de esos días se quitan al guardar.",
     "delete": "Borrar experimento",
     "deleteTitle": "¿Borrar experimento?",
     "deleteText": "“{{title}}” y sus respuestas se eliminarán. Tus entradas se mantienen.",

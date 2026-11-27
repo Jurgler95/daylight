@@ -29,6 +29,11 @@ export function endFromStart(start: DateString, days: number): DateString {
   return addDaysToDateString(start, days - 1);
 }
 
+/** How many of the answers fall outside a new span; saving new dates removes them. */
+export function answersOutside(answers: readonly { date: string }[], span: ExperimentSpan): number {
+  return answers.filter((answer) => answer.date < span.start_date || answer.date > span.end_date).length;
+}
+
 /** Days from start to end, both included. */
 export function experimentLength(experiment: ExperimentSpan): number {
   return daysBetween(experiment.start_date as DateString, experiment.end_date as DateString) + 1;

@@ -1,6 +1,7 @@
 import type { DateString } from '@/lib/dates';
 
 import {
+  answersOutside,
   askingOn,
   canAnswer,
   canEndEarly,
@@ -118,5 +119,14 @@ describe('experiment rules', () => {
   it('keys an experiment by folded title and start', () => {
     expect(experimentKey({ title: ' Kein Kaffee ', start_date: '2026-11-20' })).toBe(experimentKey({ title: 'kein kaffee', start_date: '2026-11-20' }));
     expect(experimentKey({ title: 'Kein Kaffee', start_date: '2026-11-21' })).not.toBe(experimentKey({ title: 'Kein Kaffee', start_date: '2026-11-20' }));
+  });
+});
+
+describe('answersOutside', () => {
+  it('counts the answers before the new start and after the new end', () => {
+    const answers = [{ date: '2026-09-10' }, { date: '2026-09-14' }, { date: '2026-09-15' }, { date: '2026-10-12' }, { date: '2026-10-13' }];
+    expect(answersOutside(answers, { start_date: '2026-09-15', end_date: '2026-10-12' })).toBe(3);
+    expect(answersOutside(answers, { start_date: '2026-09-10', end_date: '2026-10-13' })).toBe(0);
+    expect(answersOutside([], { start_date: '2026-09-15', end_date: '2026-10-12' })).toBe(0);
   });
 });

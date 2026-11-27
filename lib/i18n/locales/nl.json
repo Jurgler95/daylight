@@ -1372,6 +1372,8 @@
     "endText": "“{{title}}” eindigt dan op {{date}}. De vergelijking neemt alleen de dagen tot dan.",
     "endTextAnswers": "“{{title}}” eindigt dan op {{date}}. De vergelijking neemt alleen de dagen tot dan, antwoorden na die dag worden verwijderd.",
     "endConfirm": "Beëindigen",
+    "datesAnswersTitle": "Antwoorden verwijderen?",
+    "datesAnswersText": "“{{title}}” loopt dan van {{start}} tot {{end}}. Antwoorden buiten deze dagen worden bij het opslaan verwijderd.",
     "delete": "Experiment wissen",
     "deleteTitle": "Experiment wissen?",
     "deleteText": "“{{title}}” en de antwoorden erbij worden verwijderd. Je registraties blijven.",

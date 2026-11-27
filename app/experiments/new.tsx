@@ -11,6 +11,7 @@ import { createExperiment, updateExperiment } from '@/db/repositories/experiment
 import { formatLong, type DateString } from '@/lib/dates';
 import { useToday } from '@/lib/dates/useToday';
 import {
+  answersOutside,
   cleanTitle,
   DEFAULT_EXPERIMENT_WEEKS,
   endFromStart,
@@ -23,7 +24,7 @@ import {
   TITLE_MAX_LENGTH,
   type ExperimentProblem,
 } from '@/lib/experiments/rules';
-import { useExperiment, useExperiments } from '@/lib/experiments/useExperiments';
+import { useExperiment, useExperimentDays, useExperiments } from '@/lib/experiments/useExperiments';
 import { lengthChoices } from '@/lib/experiments/view';
 import { haptics } from '@/lib/haptics';
 import { mutate } from '@/lib/store/dataVersion';
@@ -41,6 +42,7 @@ export default function ExperimentFormScreen() {
   const today = useToday();
   const existing = useExperiment(params.id ? Number(params.id) : -1);
   const experiments = useExperiments();
+  const answers = useExperimentDays(params.id ? Number(params.id) : -1);
   const editing = !!params.id;
   const initialDays = existing ? experimentLength(existing) : DEFAULT_EXPERIMENT_WEEKS * 7;
   const initialStart = (existing?.start_date ?? today) as DateString;
@@ -96,6 +98,18 @@ export default function ExperimentFormScreen() {
       haptics.off();
       return;
     }
+    // New dates remove the answers outside them, like "Jetzt beenden"; it says so first.
+    if (existing && datesChanged && answersOutside(answers, { start_date: start, end_date: end }) > 0) {
+      Alert.alert(t('experiments.datesAnswersTitle'), t('experiments.datesAnswersText', { title: cleanTitle(title) ?? existing.title, start: formatLong(start), end: formatLong(end) }), [
+        { text: t('common.cancel'), style: 'cancel' },
+        { text: t('experiments.form.save'), style: 'destructive', onPress: write },
+      ]);
+      return;
+    }
+    write();
+  };
+
+  const write = () => {
     try {
       if (existing) {
         mutate(() =>

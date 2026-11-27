@@ -1366,6 +1366,8 @@
     "endText": "\"{{title}}\" lalu berakhir {{date}}. Perbandingan hanya memakai hari sampai saat itu.",
     "endTextAnswers": "\"{{title}}\" lalu berakhir {{date}}. Perbandingan hanya memakai hari sampai saat itu, dan jawaban setelah hari itu dihapus.",
     "endConfirm": "Akhiri",
+    "datesAnswersTitle": "Hapus jawaban?",
+    "datesAnswersText": "\"{{title}}\" lalu berlangsung dari {{start}} sampai {{end}}. Jawaban di luar hari-hari itu dihapus saat disimpan.",
     "delete": "Hapus eksperimen",
     "deleteTitle": "Hapus eksperimen?",
     "deleteText": "\"{{title}}\" dan jawabannya akan dihapus. Entrimu tetap ada.",

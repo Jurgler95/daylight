@@ -1372,6 +1372,8 @@
     "endText": "“{{title}}” o zaman {{date}} tarihinde biter. Karşılaştırma yalnızca o güne kadarki günleri kullanır.",
     "endTextAnswers": "“{{title}}” o zaman {{date}} tarihinde biter. Karşılaştırma yalnızca o güne kadarki günleri kullanır, sonraki cevaplar silinir.",
     "endConfirm": "Bitir",
+    "datesAnswersTitle": "Yanıtlar kaldırılsın mı?",
+    "datesAnswersText": "“{{title}}” o zaman {{start}} ile {{end}} arasında sürer. Bu günlerin dışındaki yanıtlar kaydederken kaldırılır.",
     "delete": "Deneyi sil",
     "deleteTitle": "Deney silinsin mi?",
     "deleteText": "“{{title}}” ve yanıtları kaldırılacak. Kayıtların kalır.",

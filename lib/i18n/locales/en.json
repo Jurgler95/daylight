@@ -1372,6 +1372,8 @@
     "endText": "\"{{title}}\" then ends on {{date}}. The comparison only uses the days up to then.",
     "endTextAnswers": "\"{{title}}\" then ends on {{date}}. The comparison only uses the days up to then, and answers after that day are removed.",
     "endConfirm": "End",
+    "datesAnswersTitle": "Remove answers?",
+    "datesAnswersText": "\"{{title}}\" then runs from {{start}} to {{end}}. Answers outside these days are removed when you save.",
     "delete": "Delete experiment",
     "deleteTitle": "Delete experiment?",
     "deleteText": "\"{{title}}\" and its answers will be removed. Your entries stay.",
