@@ -184,3 +184,10 @@ F1 Zusammenführen mit dem Branch der automatischen Sicherung: Wer zuerst nach m
 ## Abweichungen beim Bau
 
 Tragen die Bau-Agents ein: was, warum, welche Phase.
+
+Phase 1:
+- `setExperimentDays(db, date, answers, today)` führt ein Nein selbst aus: Ende auf `max(start_date, Tag − 1)`, das Nein bleibt, spätere Antworten gehen. Phase 3 muss im Editor also nur nachfragen und dann speichern. Grund: Die Regel gehört in die Datenbankschicht und läuft so in einer Transaktion.
+- Repository-Funktionen mit Regeln (`createExperiment`, `updateExperiment`, `endExperiment`, `setExperimentDays`) nehmen `today` als letztes, optionales Argument (Standard `today()`), damit Tests feste Tage nutzen. Start und Dauer ändert `updateExperiment` über `dates: { start_date, days }`, weil es keine Dauer-Spalte gibt.
+- Verlust beim Ersetzen (`experimentsLost` in `lib/export/summary.ts`): gezählt werden vorhandene Experimente, die die Datei nicht mit gleichem gefaltetem Titel und gleichem Start wieder mitbringt. Bei CSV und Sicherung ohne Experimente sind das alle. `ImportSummary` hat dafür `experiments` und `experimentsLost`. `summarizePlan` nimmt die vorhandenen Experimente als optionales zweites Argument, `useImportPreview` reicht sie schon durch; angezeigt wird erst in Phase 2.
+- Spanne der Stichtage in `noise.ts`: erster bis letzter gültiger Stichtag einschließlich (`letzter − erster + 1`).
+- Gemeinsamer Schlüssel `experimentKey` (gefalteter Titel und Start) in `lib/experiments/rules.ts`, genutzt von Zusammenführen und Import-Vorschau.

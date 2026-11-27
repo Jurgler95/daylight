@@ -1,7 +1,8 @@
 import { z } from 'zod';
 
 import { ENTRY_SOURCES, SCALE_KINDS } from '@/db/schema';
-import { isDateString } from '@/lib/dates';
+import { daysBetween, isDateString, type DateString } from '@/lib/dates';
+import { MAX_EXPERIMENT_DAYS } from '@/lib/experiments/rules';
 import { latestReminderTime, reminderTimesOr } from '@/lib/notifications/times';
 import { isPhotoName } from '@/lib/photos/store';
 import { countByYear, TURNING_POINTS_PER_YEAR } from '@/lib/turning/rules';
@@ -15,6 +16,8 @@ import { countByYear, TURNING_POINTS_PER_YEAR } from '@/lib/turning/rules';
  * `turning_points` is optional too: backups from before they existed simply have none. A scale's
  * `kind` likewise: older backups hold ratings only. `settings.reminder_times` is optional as well:
  * a backup from before several reminders a day has the one `reminder_time`, which becomes the list.
+ * `experiments` and `experiment_days` are optional the same way (no version bump): older app
+ * versions drop them, and a replace with a backup without them leaves no experiments behind.
  */
 
 export const EXPORT_SCHEMA_VERSION = 2;
@@ -88,6 +91,20 @@ export const turningPointSchema = z.object({
   updated_at: isoTimestamp,
 });
 
+export const experimentSchema = z.object({
+  id,
+  title: name,
+  note: z.string().nullable(),
+  start_date: dateString,
+  end_date: dateString,
+  check_in: z.boolean(),
+  result_seen: z.boolean(),
+  created_at: isoTimestamp,
+  updated_at: isoTimestamp,
+});
+
+export const experimentDaySchema = z.object({ experiment_id: id, date: dateString, kept: z.boolean() });
+
 export const settingsSchema = z
   .object({
     first_day_of_week: z.number().int().min(0).max(6),
@@ -143,6 +160,8 @@ export const exportSchema = z
     ),
     health_days: z.array(healthDaySchema).optional(),
     turning_points: z.array(turningPointSchema).optional(),
+    experiments: z.array(experimentSchema).optional(),
+    experiment_days: z.array(experimentDaySchema).optional(),
   })
   .superRefine((payload, ctx) => {
     const ids = (rows: readonly { id: number }[]) => new Set(rows.map((row) => row.id));
@@ -170,6 +189,17 @@ export const exportSchema = z
     const turning = (payload.turning_points ?? []).map((point) => point.date);
     check(new Set(turning).size === turning.length, 'doppelte Wendepunkte');
     for (const [year, n] of countByYear(turning)) check(n <= TURNING_POINTS_PER_YEAR, `zu viele Wendepunkte in ${year}`);
+    const experimentList = payload.experiments ?? [];
+    const experimentIds = ids(experimentList);
+    check(experimentIds.size === experimentList.length, 'doppelte Experiment-ids');
+    // More lenient than the app (1 instead of 7 days), so an import does not fail at the edge.
+    for (const experiment of experimentList) {
+      const length = daysBetween(experiment.start_date as DateString, experiment.end_date as DateString) + 1;
+      check(length >= 1 && length <= MAX_EXPERIMENT_DAYS, `Experiment ${experiment.id}: Zeitraum ungültig`);
+    }
+    const answers = payload.experiment_days ?? [];
+    for (const answer of answers) check(experimentIds.has(answer.experiment_id), 'Verweis in experiment_days ungültig');
+    check(new Set(answers.map((answer) => `${answer.experiment_id}|${answer.date}`)).size === answers.length, 'doppelte Antworten in experiment_days');
   });
 
 export type ExportPayload = z.infer<typeof exportSchema>;
@@ -177,3 +207,5 @@ export type ExportSettings = z.infer<typeof settingsSchema>;
 export type ExportPhoto = ExportPayload['entry_photos'][number];
 export type ExportHealthDay = z.infer<typeof healthDaySchema>;
 export type ExportTurningPoint = z.infer<typeof turningPointSchema>;
+export type ExportExperiment = z.infer<typeof experimentSchema>;
+export type ExportExperimentDay = z.infer<typeof experimentDaySchema>;

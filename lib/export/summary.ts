@@ -2,11 +2,23 @@ import type { TFunction } from 'i18next';
 
 import { formatNumeric } from '@/lib/dates';
 import type { ImportPlan } from '@/lib/daylio/plan';
+import { experimentKey } from '@/lib/experiments/rules';
 
 import type { ImportSummary } from './import';
 
-/** A CSV import plan in the same shape as a JSON preview. */
-export function summarizePlan(plan: ImportPlan): ImportSummary {
+type ExperimentIdentity = { title: string; start_date: string };
+
+/**
+ * Stored experiments a replace deletes: every one the file does not bring again (same folded title,
+ * same start). A CSV and a backup without experiments bring none, so all of them go.
+ */
+export function experimentsLost(stored: readonly ExperimentIdentity[], incoming: readonly ExperimentIdentity[]): number {
+  const keys = new Set(incoming.map(experimentKey));
+  return stored.filter((experiment) => !keys.has(experimentKey(experiment))).length;
+}
+
+/** A CSV import plan in the same shape as a JSON preview. A CSV never holds experiments, so a replace loses every stored one. */
+export function summarizePlan(plan: ImportPlan, storedExperiments: readonly ExperimentIdentity[] = []): ImportSummary {
   return {
     entries: plan.entryCount,
     from: plan.from,
@@ -20,6 +32,8 @@ export function summarizePlan(plan: ImportPlan): ImportSummary {
     photos: plan.photos,
     newPhotos: plan.newPhotos,
     healthDays: 0,
+    experiments: 0,
+    experimentsLost: experimentsLost(storedExperiments, []),
   };
 }
 

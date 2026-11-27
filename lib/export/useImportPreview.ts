@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import { getDb } from '@/db';
+import { listExperiments } from '@/db/repositories/experiments';
 import { listGroups } from '@/db/repositories/groups';
 import { readCatalog, type ImportMode } from '@/lib/daylio/apply';
 import { resolveGroupName } from '@/lib/daylio/known';
@@ -32,6 +33,7 @@ export interface ImportPreview {
 export function useImportPreview(file: PendingImport | null, choices: ImportChoices, mode: ImportMode = 'merge'): ImportPreview | null {
   const stored = useQuery(() => readCatalog(getDb()), []);
   const storedGroups = useQuery(() => listGroups(getDb()).map((group) => group.name), []);
+  const storedExperiments = useQuery(() => listExperiments(getDb()), []);
   const json = useQuery(() => (file?.kind === 'json' ? previewImport(getDb(), file.payload, { store: filePhotoStore, files: file.photos }) : null), [file]);
 
   return useMemo(() => {
@@ -46,12 +48,12 @@ export function useImportPreview(file: PendingImport | null, choices: ImportChoi
     }
     const plan = buildImportPlan(file.parsed.entries, catalog, choices);
     return {
-      summary: summarizePlan(plan),
+      summary: summarizePlan(plan, storedExperiments),
       newMoods: plan.moods.filter((mood) => mood.existingId === null),
       newActivities: plan.activities.filter((activity) => activity.existingId === null),
       groupNames,
       errors: file.parsed.errors,
       warnings: file.parsed.warnings,
     };
-  }, [file, choices, mode, stored, storedGroups, json]);
+  }, [file, choices, mode, stored, storedGroups, storedExperiments, json]);
 }

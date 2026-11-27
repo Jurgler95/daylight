@@ -1,9 +1,22 @@
 import { chunked } from '@/db/chunks';
 import { addPhotos } from '@/db/repositories/photos';
-import { activities, activityGroups, entries, entryActivities, entryScales, moods, plannedActivities, scales, turningPoints } from '@/db/schema';
+import {
+  activities,
+  activityGroups,
+  entries,
+  entryActivities,
+  entryScales,
+  experimentDays,
+  experiments,
+  moods,
+  plannedActivities,
+  scales,
+  turningPoints,
+} from '@/db/schema';
 import type { Database } from '@/db/types';
 import { entryIdsByKey, readCatalog } from '@/lib/daylio/apply';
 import { entryKey, takeKey } from '@/lib/daylio/plan';
+import { experimentKey } from '@/lib/experiments/rules';
 import { fold } from '@/lib/search/fold';
 import { onEntryDays, roomInYear } from '@/lib/turning/rules';
 
@@ -158,6 +171,7 @@ export function mergeImport(tx: Database, payload: ExportPayload): { added: numb
   for (const chunk of chunked(plans)) tx.insert(plannedActivities).values(chunk).onConflictDoNothing().run();
   attachPhotos(tx, payload, entryIds);
   mergeTurningPoints(tx, payload);
+  mergeExperiments(tx, payload);
 
   return { added: matches.newEntries.length, duplicates: matches.duplicates };
 }
@@ -173,4 +187,32 @@ function mergeTurningPoints(tx: Database, payload: ExportPayload): void {
     tx.insert(turningPoints).values(point).run();
     dates.push(point.date);
   }
+}
+
+/**
+ * An experiment with the same folded title and exactly the same start is already here: it stays as
+ * it is and only gets the answers it lacks. New ones get fresh ids and count as seen, so merging an
+ * old backup brings no cards to "Heute"; their answers follow.
+ */
+function mergeExperiments(tx: Database, payload: ExportPayload): void {
+  if (!payload.experiments?.length) return;
+  const stored = new Map(tx.select().from(experiments).all().map((row) => [experimentKey(row), row.id]));
+  const ids = new Map<number, number>();
+  for (const experiment of payload.experiments) {
+    const key = experimentKey(experiment);
+    const existing = stored.get(key);
+    if (existing !== undefined) {
+      ids.set(experiment.id, existing);
+      continue;
+    }
+    const { id, ...rest } = experiment;
+    const inserted = tx.insert(experiments).values({ ...rest, result_seen: true }).returning({ id: experiments.id }).get();
+    stored.set(key, inserted.id);
+    ids.set(id, inserted.id);
+  }
+  const answers = (payload.experiment_days ?? []).flatMap((answer) => {
+    const experimentId = ids.get(answer.experiment_id);
+    return experimentId === undefined ? [] : [{ ...answer, experiment_id: experimentId }];
+  });
+  for (const chunk of chunked(answers)) tx.insert(experimentDays).values(chunk).onConflictDoNothing().run();
 }

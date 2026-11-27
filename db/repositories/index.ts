@@ -1,6 +1,7 @@
 export * from './activities';
 export * from './defaults';
 export * from './entries';
+export * from './experiments';
 export * from './groups';
 export * from './health';
 export * from './maintenance';
