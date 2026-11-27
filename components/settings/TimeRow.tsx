@@ -1,5 +1,5 @@
 import DateTimePicker, { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Platform, Pressable, StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/ui';
@@ -11,12 +11,16 @@ interface Props {
   /** "HH:MM". */
   value: string;
   disabled?: boolean;
+  /** What a screen reader says instead of "label, value", for a row among several alike. */
+  accessibilityLabel?: string;
   onChange: (value: string) => void;
 }
 
-/** Opens the system time picker. The stored value stays a plain "HH:MM" string. */
-export function TimeRow({ label, value, disabled, onChange }: Props) {
-  const { colors } = useTheme();
+/**
+ * The system time picker for a "HH:MM" value: `open` shows it (a dialog on Android), `inline` is
+ * the spinner iOS shows in place and has to be rendered below whatever opens it.
+ */
+export function useTimePicker(value: string, onChange: (value: string) => void): { open: () => void; inline: ReactNode } {
   const [iosOpen, setIosOpen] = useState(false);
   const parsed = parseTime(value) ?? { hour: 20, minute: 0 };
   const asDate = new Date(2000, 0, 1, parsed.hour, parsed.minute);
@@ -27,7 +31,6 @@ export function TimeRow({ label, value, disabled, onChange }: Props) {
   };
 
   const open = () => {
-    if (disabled) return;
     if (Platform.OS === 'android') {
       DateTimePickerAndroid.open({
         value: asDate,
@@ -42,13 +45,22 @@ export function TimeRow({ label, value, disabled, onChange }: Props) {
     setIosOpen((open) => !open);
   };
 
+  return { open, inline: iosOpen ? <DateTimePicker value={asDate} mode="time" display="spinner" onChange={(_, date) => commit(date)} /> : null };
+}
+
+/** Opens the system time picker. The stored value stays a plain "HH:MM" string. */
+export function TimeRow({ label, value, disabled, accessibilityLabel, onChange }: Props) {
+  const { colors } = useTheme();
+  const picker = useTimePicker(value, onChange);
+
   return (
     <View>
       <Pressable
-        onPress={open}
+        onPress={picker.open}
         disabled={disabled}
         accessibilityRole="button"
-        accessibilityLabel={`${label}, ${value}`}
+        accessibilityLabel={accessibilityLabel ?? `${label}, ${value}`}
+        accessibilityState={{ disabled: !!disabled }}
         style={({ pressed }) => [styles.row, { opacity: disabled ? 0.4 : pressed ? 0.6 : 1 }]}
       >
         <AppText style={styles.label}>{label}</AppText>
@@ -56,9 +68,7 @@ export function TimeRow({ label, value, disabled, onChange }: Props) {
           <AppText variant="label">{value}</AppText>
         </View>
       </Pressable>
-      {iosOpen ? (
-        <DateTimePicker value={asDate} mode="time" display="spinner" onChange={(_, date) => commit(date)} />
-      ) : null}
+      {picker.inline}
     </View>
   );
 }

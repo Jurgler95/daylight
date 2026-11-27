@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 
 import { getDb } from '@/db';
-import { deleteEntry, entryIdOnDate, getEntryDetails, saveEntry, turningPointLostBy } from '@/db/repositories/entries';
+import { deleteEntry, getEntryDetails, saveEntry, turningPointLostBy } from '@/db/repositories/entries';
 import type { TurningPoint } from '@/db/schema';
 import { nowTime, today, type DateString } from '@/lib/dates';
 import { haptics } from '@/lib/haptics';
@@ -23,10 +23,8 @@ export interface EntryEditor {
   savedDate: DateString | null;
   /** Something changed since the editor opened; closing now would lose it. */
   dirty: boolean;
-  /** A mood is picked and the day is free. */
+  /** A mood is picked. The day may hold other entries already. */
   canSave: boolean;
-  /** The draft was moved to a day that already has an entry; one entry per day. */
-  dayTaken: boolean;
   /** The turning point that goes when this entry is deleted, or saved on another day, since it is the last of its day. */
   turningPointLostOnDelete: TurningPoint | undefined;
   turningPointLostOnSave: TurningPoint | undefined;
@@ -52,6 +50,7 @@ function removePhotoFiles(names: readonly string[]): void {
  * so the draft always holds every keystroke; closing with changes asks first (see the screen).
  */
 export function useEntryEditor(target: EditorTarget): EntryEditor {
+  // `reminder_time` is the latest of the daily reminder's times.
   const reminderTime = useSettingsStore((s) => s.settings?.reminder_time ?? '20:30');
   const [initial] = useState<EntryDraft | null>(() => {
     if (target.kind === 'new') return newDraft(target.date, defaultTime(target.date, today(), nowTime(), reminderTime), target.moodId);
@@ -63,14 +62,9 @@ export function useEntryEditor(target: EditorTarget): EntryEditor {
   const id = target.kind === 'edit' ? target.id : null;
   const date = draft?.date ?? null;
   const moved = date !== null && date !== initial?.date;
-  // Only a moved entry is checked, so a day imported with several entries can still be edited.
-  const isTaken = (day: string) => (id === null || day !== initial?.date) && entryIdOnDate(getDb(), day, id) !== undefined;
   // Set once the draft is written or the entry deleted: a second tap before the editor has closed
-  // must not write again. The state keeps the closing editor from reading its own entry as taken.
+  // must not write again.
   const done = useRef(false);
-  const [closing, setClosing] = useState(false);
-  // Read again when the day or the data changes, not on every keystroke.
-  const dayTaken = useQuery(() => !closing && date !== null && isTaken(date), [closing, date, id]);
   const turningPointLostOnDelete = useQuery(() => (id !== null ? turningPointLostBy(getDb(), id) : undefined), [id]);
   const turningPointLostOnSave = useQuery(() => (id !== null && moved ? turningPointLostBy(getDb(), id, date ?? undefined) : undefined), [id, date, moved]);
 
@@ -79,18 +73,15 @@ export function useEntryEditor(target: EditorTarget): EntryEditor {
     isNew: id === null,
     savedDate: id === null ? null : (initial?.date ?? null),
     dirty: draft !== null && initial !== null && !sameDraft(draft, initial),
-    canSave: input !== null && !dayTaken,
-    dayTaken,
+    canSave: input !== null,
     turningPointLostOnDelete,
     turningPointLostOnSave,
     update: (patch) => setDraft((current) => (current ? { ...current, ...patch } : current)),
     save: () => {
-      // Checked against the database as it is now, since another editor may have taken the day meanwhile.
-      if (done.current || !input || isTaken(input.date)) return false;
+      if (done.current || !input) return false;
       const celebration = celebrateSave(() => mutate(() => saveEntry(getDb(), id, input)));
       noteSaveForReview();
       done.current = true;
-      setClosing(true);
       removePhotoFiles((initial?.photos ?? []).filter((name) => !input.photos?.includes(name)));
       // A celebration brings its own buzz when it shows; one is enough.
       if (!celebration) haptics.confirm();
@@ -99,7 +90,6 @@ export function useEntryEditor(target: EditorTarget): EntryEditor {
     remove: () => {
       if (id === null || done.current) return;
       done.current = true;
-      setClosing(true);
       removePhotoFiles(mutate(() => deleteEntry(getDb(), id)));
     },
   };

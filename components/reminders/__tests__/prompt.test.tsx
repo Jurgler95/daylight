@@ -31,6 +31,17 @@ jest.mock('@/lib/notifications/client', () => ({
   requestPermission: (name: string) => mockRequest(name),
 }));
 
+/** The inline picker (the test runs as iOS): the last one shown, so a test can pick a time in it. */
+let mockPick: ((time: string) => void) | null = null;
+jest.mock('@react-native-community/datetimepicker', () => ({
+  __esModule: true,
+  DateTimePickerAndroid: { open: jest.fn() },
+  default: ({ onChange }: { onChange: (event: unknown, date?: Date) => void }) => {
+    mockPick = (time: string) => onChange({}, new Date(2000, 0, 1, Number(time.slice(0, 2)), Number(time.slice(3))));
+    return null;
+  },
+}));
+
 const TITLE = 'Abends kurz erinnern?';
 const wait = (ms: number) => act(async () => jest.advanceTimersByTime(ms));
 const settings = () => useSettingsStore.getState().settings!;
@@ -76,6 +87,37 @@ describe('reminder start sheet', () => {
     expect(mockRequest).toHaveBeenCalledTimes(1);
     expect(screen.queryByText(TITLE)).toBeNull();
     expect(settings()).toMatchObject({ reminder_enabled: true, reminder_time: '20:30', reminder_yesterday_enabled: true, reminder_prompt_done: true });
+  });
+
+  it('keeps a list of several times, as a restored backup brings it, and only switches the reminder on', async () => {
+    mockRequest.mockResolvedValue(true);
+    useSettingsStore.getState().update({ reminder_times: ['09:00', '14:00', '21:00'] });
+    await render(<ReminderPrompt />);
+    await wait(PROMPT_DELAY_MS);
+    expect(screen.getByRole('button', { name: 'Uhrzeit am Abend, 21:00' })).toBeTruthy();
+    await act(async () => fireEvent.press(screen.getByRole('button', { name: 'Erinnern' })));
+    expect(settings()).toMatchObject({ reminder_enabled: true, reminder_times: ['09:00', '14:00', '21:00'], reminder_time: '21:00', reminder_prompt_done: true });
+  });
+
+  it('moves only the latest time of such a list when another one is picked in the sheet', async () => {
+    mockRequest.mockResolvedValue(true);
+    useSettingsStore.getState().update({ reminder_times: ['09:00', '14:00', '21:00'] });
+    await render(<ReminderPrompt />);
+    await wait(PROMPT_DELAY_MS);
+    await act(async () => fireEvent.press(screen.getByRole('button', { name: 'Uhrzeit am Abend, 21:00' })));
+    await act(async () => mockPick!('19:45'));
+    await act(async () => fireEvent.press(screen.getByRole('button', { name: 'Erinnern' })));
+    expect(settings()).toMatchObject({ reminder_enabled: true, reminder_times: ['09:00', '14:00', '19:45'], reminder_time: '19:45' });
+  });
+
+  it('sets the one time picked in the sheet when there is a single one, as before', async () => {
+    mockRequest.mockResolvedValue(true);
+    await render(<ReminderPrompt />);
+    await wait(PROMPT_DELAY_MS);
+    await act(async () => fireEvent.press(screen.getByRole('button', { name: 'Uhrzeit am Abend, 20:30' })));
+    await act(async () => mockPick!('19:45'));
+    await act(async () => fireEvent.press(screen.getByRole('button', { name: 'Erinnern' })));
+    expect(settings()).toMatchObject({ reminder_enabled: true, reminder_times: ['19:45'], reminder_time: '19:45' });
   });
 
   it('shows where to switch it on after a refusal, then closes and never asks again', async () => {

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Image } from 'react-native';
 
 import { getDb } from '@/db';
-import { entryIdOnDate, getEntry } from '@/db/repositories/entries';
+import { lastMoodOnDate } from '@/db/repositories/entries';
 import { useDayMarkers } from '@/lib/calendar/useDayMarkers';
 import { useCatalog } from '@/lib/catalog/useCatalog';
 import { addDaysToDateString, formatWeekdayShort, type DateString } from '@/lib/dates';
@@ -34,8 +34,8 @@ function iconFont(): string | null {
 
 /**
  * Hands the home screen widgets (`modules/daylight-widget`) what they draw, after every change: the
- * moods, today's mood, the recent days, the streak and their texts in the app's language. A tap on a
- * mood there opens `/entry/new?mood=<id>`. Mounted once in the root layout.
+ * moods, the mood of today's last entry, the recent days, the streak and their texts in the app's language. A tap on a
+ * mood there opens `/entry/new?mood=<id>`, a new entry every time. Mounted once in the root layout.
  */
 export function useWidgetSync(): void {
   const { t, i18n } = useTranslation();
@@ -44,10 +44,8 @@ export function useWidgetSync(): void {
   const markers = useDayMarkers();
   const weekStart = useSettingsStore((s) => s.settings?.first_day_of_week) ?? 1;
   const locked = useSettingsStore((s) => s.settings?.app_lock_enabled) ?? false;
-  const moodId = useQuery(() => {
-    const id = entryIdOnDate(getDb(), today);
-    return id === undefined ? null : (getEntry(getDb(), id)?.mood_id ?? null);
-  }, [today]);
+  // The mood of today's last entry; the history widget keeps the day's mean (`markers`).
+  const moodId = useQuery(() => lastMoodOnDate(getDb(), today), [today]);
   const streak = useQuery(() => readStreak(today), [today]);
   const weekdays = useMemo(() => weekdayNames(i18n.language), [i18n.language]);
   const title = t('today.ask');

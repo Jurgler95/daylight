@@ -1,5 +1,6 @@
 import { today as currentDay, type DateString } from '@/lib/dates';
 import { readInsightEntries } from '@/lib/insights/useInsights';
+import { writtenAt } from '@/lib/notifications/plan';
 import { cached } from '@/lib/store/dataVersion';
 import { useOverlayStore } from '@/lib/store/overlays';
 import { useSettingsStore } from '@/lib/store/settingsStore';
@@ -10,6 +11,34 @@ import { entryStreak, type StreakState } from './streak';
 /** Every day with an entry, taken once per data version from the entries the insights read anyway. */
 export function readEntryDays(): ReadonlySet<string> {
   return cached('entryDays', () => new Set(readInsightEntries().map((entry) => entry.date)));
+}
+
+/** The times of every day's entries (each entry's own `time`), for the reminders that come several times a day. */
+export function readEntryTimes(): ReadonlyMap<string, readonly string[]> {
+  return cached('entryTimes', () => {
+    const times = new Map<string, string[]>();
+    for (const entry of readInsightEntries()) {
+      const list = times.get(entry.date);
+      if (list) list.push(entry.time);
+      else times.set(entry.date, [entry.time]);
+    }
+    return times;
+  });
+}
+
+/** When every day's entries were written, as wall-clock minutes (`writtenAt`): a reminder that showed before goes off the screen. */
+export function readEntryWritten(): ReadonlyMap<string, readonly string[]> {
+  return cached('entryWritten', () => {
+    const written = new Map<string, string[]>();
+    for (const entry of readInsightEntries()) {
+      const moment = writtenAt(entry.created_at);
+      if (!moment) continue;
+      const list = written.get(entry.date);
+      if (list) list.push(moment);
+      else written.set(entry.date, [moment]);
+    }
+    return written;
+  });
 }
 
 export function readStreak(today: DateString): StreakState {

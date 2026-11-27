@@ -49,6 +49,27 @@ describe('celebrateSave', () => {
     expect(useOverlayStore.getState()).toMatchObject({ celebration: { rescued: true, days: 6 }, chipPulse: 'quiet' });
   });
 
+  it('celebrates nothing for a second entry on the same day, also on the day of a milestone', () => {
+    const { db, write } = setup(range(-9, -1));
+    expect(celebrateSave(() => write(0))).toEqual({ milestone: 'small', rescued: false, days: 10 });
+    const record = getSettings(db).streak_celebrated;
+    useOverlayStore.setState({ waiting: [], celebration: null, chipPulse: null });
+
+    // The streak is the same before and after: the day already counted.
+    expect(celebrateSave(() => write(0))).toBeNull();
+    expect(celebrateSave(() => write(0))).toBeNull();
+    expect(useOverlayStore.getState()).toMatchObject({ celebration: null, chipPulse: null });
+    expect(getSettings(db).streak_celebrated).toBe(record);
+  });
+
+  it('celebrates nothing for a second entry on a day that closed a gap', () => {
+    const { write } = setup(range(-6, -2));
+    expect(celebrateSave(() => write(-1))).toMatchObject({ rescued: true });
+    useOverlayStore.setState({ waiting: [], celebration: null, chipPulse: null });
+    expect(celebrateSave(() => write(-1))).toBeNull();
+    expect(useOverlayStore.getState()).toMatchObject({ celebration: null, chipPulse: null });
+  });
+
   it('stays quiet for an ordinary day', () => {
     const { write } = setup(range(-4, -1));
     expect(celebrateSave(() => write(0))).toBeNull();

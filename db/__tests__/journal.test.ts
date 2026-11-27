@@ -12,6 +12,7 @@ import {
   firstEntryDate,
   getSettings,
   hasEntryOn,
+  lastMoodOnDate,
   listActivities,
   listEntriesOnDates,
   listEntryDetails,
@@ -200,6 +201,20 @@ describe('entries', () => {
     expect(listEntryDetails(db)[0]?.scales).toEqual([{ scale_id: energy.id, value: 1 }]);
   });
 
+  it('names the mood of the last entry of a day, by its time and not by when it was written', () => {
+    const { db, good } = setup();
+    const low = listMoods(db).find((m) => m.level === 2)!;
+    const top = listMoods(db).find((m) => m.level === 5)!;
+    expect(lastMoodOnDate(db, '2026-03-02')).toBeNull();
+    createEntry(db, { date: '2026-03-02', time: '20:30', mood_id: low.id });
+    createEntry(db, { date: '2026-03-02', time: '08:00', mood_id: good.id });
+    createEntry(db, { date: '2026-03-03', time: '23:00', mood_id: top.id });
+    expect(lastMoodOnDate(db, '2026-03-02')).toBe(low.id);
+    // The same minute: the one written later.
+    createEntry(db, { date: '2026-03-02', time: '20:30', mood_id: top.id });
+    expect(lastMoodOnDate(db, '2026-03-02')).toBe(top.id);
+  });
+
   it('finds the entry of a day and reads the look back days', () => {
     const { db, good } = setup();
     const late = createEntry(db, { date: '2026-03-02', time: '20:30', mood_id: good.id });
@@ -274,5 +289,36 @@ describe('plans and settings', () => {
     expect(() => updateSettings(db, { reminder_time: '25:00' })).toThrow();
     expect(() => updateSettings(db, { first_day_of_week: 7 })).toThrow();
     expect(updateSettings(db, { reminder_time: '21:00' }).reminder_time).toBe('21:00');
+  });
+
+  it('starts with one reminder time, the list and the single time saying the same', () => {
+    expect(getSettings(createTestDb())).toMatchObject({ reminder_time: '20:30', reminder_times: ['20:30'] });
+  });
+
+  it('keeps `reminder_time` at the latest time of the list', () => {
+    const db = createTestDb();
+    expect(updateSettings(db, { reminder_times: ['21:00', '09:00', '14:00'] })).toMatchObject({ reminder_times: ['09:00', '14:00', '21:00'], reminder_time: '21:00' });
+    expect(updateSettings(db, { reminder_times: ['09:00', '14:00'] })).toMatchObject({ reminder_times: ['09:00', '14:00'], reminder_time: '14:00' });
+    // The list wins over a single time handed in with it.
+    expect(updateSettings(db, { reminder_times: ['07:00'], reminder_time: '22:00' })).toMatchObject({ reminder_times: ['07:00'], reminder_time: '07:00' });
+    // Read back from the row, not only returned.
+    expect(getSettings(db)).toMatchObject({ reminder_times: ['07:00'], reminder_time: '07:00' });
+  });
+
+  it('tidies a list of reminder times: invalid and repeated ones go, at most five stay', () => {
+    const db = createTestDb();
+    expect(updateSettings(db, { reminder_times: ['09:00', '09:00', '25:00', '8:00', '12:30'] }).reminder_times).toEqual(['09:00', '12:30']);
+    expect(updateSettings(db, { reminder_times: ['06:00', '08:00', '10:00', '12:00', '14:00', '16:00'] }).reminder_times).toEqual(['06:00', '08:00', '10:00', '12:00', '14:00']);
+    expect(() => updateSettings(db, { reminder_times: [] })).toThrow();
+    expect(() => updateSettings(db, { reminder_times: ['nope'] })).toThrow();
+    expect(getSettings(db).reminder_times).toEqual(['06:00', '08:00', '10:00', '12:00', '14:00']);
+  });
+
+  it('turns a single time set on its own, as the start sheet does, into a list of that time', () => {
+    const db = createTestDb();
+    updateSettings(db, { reminder_times: ['09:00', '21:00'] });
+    expect(updateSettings(db, { reminder_time: '19:45' })).toMatchObject({ reminder_time: '19:45', reminder_times: ['19:45'] });
+    // Other settings leave both alone.
+    expect(updateSettings(db, { reminder_always: true })).toMatchObject({ reminder_time: '19:45', reminder_times: ['19:45'] });
   });
 });

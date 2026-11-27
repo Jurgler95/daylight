@@ -52,7 +52,8 @@ export default function TodayScreen() {
   const { hint, morning, markShown } = useHintOnToday(now, allScales);
   const lowMood = useLowMoodNote(now);
   const dayLabel = useDayLabel(now);
-  const entries = useQuery(() => listEntryDetails(getDb(), date, date), [date]);
+  // The newest entry of the day on top.
+  const entries = useQuery(() => listEntryDetails(getDb(), date, date).reverse(), [date]);
   const health = useHealthDay(date);
   const streak = useStreak(now);
   const review = useReviewPrompt();
@@ -128,7 +129,7 @@ export default function TodayScreen() {
     </>
   );
 
-  // One entry per day: the picker is there until the day has one, after that the entry is edited.
+  // The picker is there until the day has an entry; after that a plain button adds another one.
   const picker = (
     <Card tone="accent">
       <AppText variant="headline">{t('today.ask')}</AppText>
@@ -168,6 +169,7 @@ export default function TodayScreen() {
                 onEdit={() => router.push({ pathname: '/entry/[id]', params: { id: String(entry.id) } })}
               />
             ))}
+            {entries.length > 0 ? <Button label={t('today.another')} variant="secondary" onPress={() => newEntry()} /> : null}
             {health ? <HealthDayCard day={health} /> : null}
             {offset === 0 && review.show ? <ReviewCard onRate={review.rate} onDismiss={review.dismiss} /> : null}
             {offset === 0 && hint && !morning ? <GoodTomorrowCard hint={hint} catalog={catalog} /> : null}

@@ -102,6 +102,53 @@ describe('JSON round trip', () => {
     applyImport(createTestDb(), old, 'merge');
   });
 
+  it('carries several reminder times, with `reminder_time` as the latest for older app versions', () => {
+    const source = sampled();
+    updateSettings(source, { reminder_times: ['21:00', '08:30', '13:00'] });
+    const payload = buildExport(source, '1.0.0');
+    expect(payload.settings).toMatchObject({ reminder_times: ['08:30', '13:00', '21:00'], reminder_time: '21:00' });
+
+    const target = createTestDb();
+    applyImport(target, parseImport(JSON.stringify(payload)), 'replace');
+    expect(getSettings(target)).toMatchObject({ reminder_times: ['08:30', '13:00', '21:00'], reminder_time: '21:00' });
+    expect(buildExport(target, '1.0.0', payload.exported_at).settings).toEqual(payload.settings);
+  });
+
+  it('builds the list from the one time of a backup from before several reminder times', () => {
+    const source = sampled();
+    const payload = buildExport(source, '1.0.0');
+    const { reminder_times: _times, ...older } = payload.settings;
+    expect(older.reminder_time).toBe('21:15');
+
+    const target = createTestDb();
+    updateSettings(target, { reminder_times: ['07:00', '12:00', '19:00'] });
+    applyImport(target, parseImport(JSON.stringify({ ...payload, settings: older })), 'replace');
+    expect(getSettings(target)).toMatchObject({ reminder_time: '21:15', reminder_times: ['21:15'] });
+  });
+
+  it('tidies a broken list of reminder times instead of refusing the backup', () => {
+    const payload = buildExport(sampled(), '1.0.0');
+    const read = (reminder_times: unknown) => parseImport(JSON.stringify({ ...payload, settings: { ...payload.settings, reminder_times } })).settings;
+    // Invalid and repeated times go, the rest is sorted, and the single time follows the list.
+    expect(read(['22:00', 'abc', '07:15', '07:15', 5, null, '24:00'])).toMatchObject({ reminder_times: ['07:15', '22:00'], reminder_time: '22:00' });
+    // Too many: five stay.
+    expect(read(['01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00']).reminder_times).toEqual(['01:00', '02:00', '03:00', '04:00', '05:00']);
+    // Nothing usable: the single time of the backup is the list.
+    for (const broken of [[], ['x'], 'text', 42, null, { a: 1 }]) expect(read(broken)).toMatchObject({ reminder_times: ['21:15'], reminder_time: '21:15' });
+
+    const target = createTestDb();
+    applyImport(target, parseImport(JSON.stringify({ ...payload, settings: { ...payload.settings, reminder_times: ['22:00', 'abc', '07:15'] } })), 'replace');
+    expect(getSettings(target)).toMatchObject({ reminder_times: ['07:15', '22:00'], reminder_time: '22:00' });
+  });
+
+  it('leaves the reminder times of this device alone on a merge', () => {
+    const payload = buildExport(sampled(), '1.0.0');
+    const target = createTestDb();
+    updateSettings(target, { reminder_times: ['07:00', '19:00'] });
+    applyImport(target, parseImport(JSON.stringify(payload)), 'merge');
+    expect(getSettings(target)).toMatchObject({ reminder_times: ['07:00', '19:00'], reminder_time: '19:00' });
+  });
+
   it('carries the seasonal designs, and a backup from before them leaves the choice here alone', () => {
     const source = sampled();
     updateSettings(source, { design_seasons: true, design_festivals: false });

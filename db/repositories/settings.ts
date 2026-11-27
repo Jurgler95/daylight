@@ -1,5 +1,7 @@
 import { eq } from 'drizzle-orm';
 
+import { cleanReminderTimes, latestReminderTime } from '@/lib/notifications/times';
+
 import { settings, type Settings } from '../schema';
 import { RepositoryError, type Database } from '../types';
 import { assertDate, assertTime, now } from '../validate';
@@ -17,8 +19,25 @@ export function getSettings(db: Database): Settings {
   return row;
 }
 
+/**
+ * The two columns of the daily reminder's times always move together. A list is cleaned (invalid and
+ * repeated times go, at most five stay, sorted) and `reminder_time` follows with its latest; a single
+ * `reminder_time` on its own, as the start sheet sets it, becomes a list of that one time.
+ */
+function reminderTimesPatch(patch: SettingsPatch): Pick<SettingsPatch, 'reminder_time' | 'reminder_times'> {
+  if (patch.reminder_times !== undefined) {
+    const times = cleanReminderTimes(patch.reminder_times);
+    if (times.length === 0) throw new RepositoryError('reminder_times needs at least one HH:mm');
+    return { reminder_times: times, reminder_time: latestReminderTime(times) };
+  }
+  if (patch.reminder_time !== undefined) {
+    return { reminder_time: assertTime(patch.reminder_time, 'reminder_time'), reminder_times: [patch.reminder_time] };
+  }
+  return {};
+}
+
 export function updateSettings(db: Database, patch: SettingsPatch): Settings {
-  if (patch.reminder_time !== undefined) assertTime(patch.reminder_time, 'reminder_time');
+  const times = reminderTimesPatch(patch);
   if (patch.reminder_yesterday_time !== undefined) assertTime(patch.reminder_yesterday_time, 'reminder_yesterday_time');
   if (patch.outlook_notify_time !== undefined) assertTime(patch.outlook_notify_time, 'outlook_notify_time');
   if (patch.streak_rescue_dismissed) assertDate(patch.streak_rescue_dismissed, 'streak_rescue_dismissed');
@@ -32,7 +51,7 @@ export function updateSettings(db: Database, patch: SettingsPatch): Settings {
   }
   return db
     .update(settings)
-    .set({ ...patch, updated_at: now() })
+    .set({ ...patch, ...times, updated_at: now() })
     .where(eq(settings.id, 1))
     .returning()
     .get();

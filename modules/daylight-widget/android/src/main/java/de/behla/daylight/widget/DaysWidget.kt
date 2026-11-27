@@ -78,8 +78,10 @@ internal object DaysWidget : WidgetKind {
       views.setTextViewText(slot.label, weekday(state, date))
       if (date == today) theme.text(slot.label) else theme.muted(slot.label)
       views.setContentDescription(slot.root, date.format(DateTimeFormatter.ISO_LOCAL_DATE))
-      // `/entry/new?date=` opens the day's entry when it has one, else a new one for that day.
-      views.setOnClickPendingIntent(slot.root, Widgets.open(context, "daylight://entry/new?date=$date"))
+      // A day with entries opens on "Heute", where they are listed and another one can be added;
+      // an empty day goes straight to a new entry for it.
+      val link = if (state.days.containsKey(date)) "daylight://today?date=$date" else "daylight://entry/new?date=$date"
+      views.setOnClickPendingIntent(slot.root, Widgets.open(context, link))
     }
   }
 

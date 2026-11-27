@@ -41,8 +41,9 @@ export function draftFromEntry(entry: EntryDetails): EntryDraft {
 }
 
 /**
- * New entries on today get the current time. Earlier days get the reminder time, because that is
- * when a day is usually written down, and "now" would sort a late addition oddly into the past.
+ * New entries on today get the current time. Earlier days get the reminder time (the latest one
+ * when there are several), because that is when a day is usually written down, and "now" would sort
+ * a late addition oddly into the past.
  */
 export function defaultTime(date: DateString, today: DateString, nowTime: string, reminderTime: string): string {
   return date === today ? nowTime : reminderTime;

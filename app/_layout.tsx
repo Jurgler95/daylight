@@ -103,7 +103,9 @@ function AppShell() {
       <View style={styles.flex} importantForAccessibility={locked ? 'no-hide-descendants' : 'auto'} accessibilityElementsHidden={locked}>
         <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.background } }}>
           <Stack.Screen name="(tabs)" />
-          {/* One editor per day: a reminder's link for another day opens on top and keeps the draft below. */}
+          {/* One open editor per day: a reminder's link for another day opens on top and keeps the draft below,
+              one for the same day comes back to the draft that is open. Once that is saved the screen is
+              gone, so the next new entry of the day starts in a fresh editor. */}
           <Stack.Screen name="entry/new" options={{ presentation: 'modal' }} dangerouslySingular={(_, params) => (typeof params.date === 'string' ? params.date : today())} />
           <Stack.Screen name="entry/[id]" options={{ presentation: 'modal' }} />
           {/* The one screen that leaves the daylight palette: setting a turning point happens at dawn. */}

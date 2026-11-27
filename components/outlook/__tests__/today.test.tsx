@@ -262,6 +262,96 @@ describe('rating card on "Heute"', () => {
   });
 });
 
+describe('several entries a day on "Heute"', () => {
+  /** Entries on a day, as [offset from today, time, note]. */
+  async function diary(rows: [number, string, string][]) {
+    const db = createTestDb();
+    const good = listMoods(db).find((m) => m.level === 4)!;
+    for (const [offset, time, note] of rows) createEntry(db, { date: addDaysToDateString(today, offset), time, mood_id: good.id, note });
+    await use(db);
+    (router.push as jest.Mock).mockClear();
+    await show(<TodayScreen />);
+    return db;
+  }
+  const another = () => screen.queryByRole('button', { name: 'Weiterer Eintrag' });
+  const notes = () => screen.getAllByText(/^Notiz /).map((node) => node.props.children as string);
+
+  it('shows the mood picker on an empty day and no button for another entry', async () => {
+    await diary([]);
+    expect(screen.getByText('Na, wie war dein Tag? ☀️')).toBeTruthy();
+    expect(another()).toBeNull();
+  });
+
+  it('shows the button instead of the picker once the day has an entry, and opens an empty editor', async () => {
+    await diary([[0, '08:00', 'Notiz früh']]);
+    expect(screen.queryByText('Na, wie war dein Tag? ☀️')).toBeNull();
+    await act(async () => fireEvent.press(another()!));
+    // No mood handed over: the new entry starts empty.
+    expect(router.push).toHaveBeenCalledWith({ pathname: '/entry/new', params: { date: today } });
+    expect(screen.queryByText(BROKEN)).toBeNull();
+  });
+
+  it('lists the entries of a day with the newest on top, whatever order they were written in', async () => {
+    await diary([
+      [0, '13:15', 'Notiz mittags'],
+      [0, '21:40', 'Notiz abends'],
+      [0, '07:05', 'Notiz morgens'],
+    ]);
+    expect(notes()).toEqual(['Notiz abends', 'Notiz mittags', 'Notiz morgens']);
+    expect(another()).toBeTruthy();
+  });
+
+  it('offers another entry on a past day too, for that day, and none on a day ahead', async () => {
+    await diary([[-1, '20:30', 'Notiz gestern']]);
+    await act(async () => fireEvent.press(screen.getAllByRole('button', { name: /^Freitag, 25\. September/ })[0]!));
+    await act(async () => fireEvent.press(another()!));
+    expect(router.push).toHaveBeenCalledWith({ pathname: '/entry/new', params: { date: '2026-09-25' } });
+    await act(async () => fireEvent.press(screen.getAllByRole('button', { name: /^Sonntag, 27\. September/ })[0]!));
+    expect(another()).toBeNull();
+  });
+});
+
+describe('reminder times under "Mehr"', () => {
+  async function page(times: string[]) {
+    const db = createTestDb();
+    updateSettings(db, { reminder_enabled: true, reminder_times: times });
+    await use(db);
+    await show(<RemindersScreen />);
+    return db;
+  }
+
+  it('shows one time without a way to remove it, and a way to add one', async () => {
+    await page(['20:30']);
+    expect(screen.getByRole('button', { name: 'Uhrzeit 20:30 ändern' })).toBeTruthy();
+    expect(screen.queryByRole('button', { name: /entfernen$/ })).toBeNull();
+    expect(screen.getByRole('button', { name: 'Uhrzeit hinzufügen' })).toBeTruthy();
+    expect(screen.getByText('Entfällt, wenn der Tag schon einen Eintrag hat')).toBeTruthy();
+  });
+
+  it('lists several times in order, each to change and to remove, and removes one', async () => {
+    const db = await page(['21:00', '09:00', '14:00']);
+    expect(screen.getAllByRole('button', { name: /^Uhrzeit \d\d:\d\d ändern$/ }).map((node) => node.props.accessibilityLabel)).toEqual([
+      'Uhrzeit 09:00 ändern',
+      'Uhrzeit 14:00 ändern',
+      'Uhrzeit 21:00 ändern',
+    ]);
+    expect(screen.getByText('Jede Uhrzeit fragt nach einem eigenen Eintrag. Ein Eintrag zählt für die Uhrzeit, die ihm am nächsten liegt, und die entfällt dann')).toBeTruthy();
+    await act(async () => fireEvent.press(screen.getByRole('button', { name: 'Uhrzeit 21:00 entfernen' })));
+    expect(getSettings(db)).toMatchObject({ reminder_times: ['09:00', '14:00'], reminder_time: '14:00' });
+    await act(async () => fireEvent.press(screen.getByRole('button', { name: 'Uhrzeit 09:00 entfernen' })));
+    expect(getSettings(db).reminder_times).toEqual(['14:00']);
+    // The last one stays.
+    expect(screen.queryByRole('button', { name: /entfernen$/ })).toBeNull();
+    expect(screen.queryByText(BROKEN)).toBeNull();
+  });
+
+  it('offers no further time once there are five', async () => {
+    await page(['06:00', '09:00', '12:00', '15:00', '18:00']);
+    expect(screen.queryByRole('button', { name: 'Uhrzeit hinzufügen' })).toBeNull();
+    expect(screen.getAllByRole('button', { name: /entfernen$/ })).toHaveLength(5);
+  });
+});
+
 describe('pages under "Mehr"', () => {
   it('render without missing texts', async () => {
     await use(createTestDb());

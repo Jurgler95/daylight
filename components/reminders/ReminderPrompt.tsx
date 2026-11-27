@@ -74,7 +74,10 @@ function Sheet({ initialTime, close }: { initialTime: string; close: () => void 
       .then((granted) => {
         if (granted) {
           haptics.on();
-          update({ reminder_enabled: true, reminder_time: time, reminder_yesterday_enabled: true, reminder_prompt_done: true });
+          // A list of several times (from a restored backup) stays: the sheet only sets its latest, the one it showed.
+          const others = (useSettingsStore.getState().settings?.reminder_times ?? []).slice(0, -1);
+          const when = others.length > 0 ? { reminder_times: [...others, time] } : { reminder_time: time };
+          update({ reminder_enabled: true, ...when, reminder_yesterday_enabled: true, reminder_prompt_done: true });
           close();
           return;
         }

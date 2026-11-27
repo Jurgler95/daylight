@@ -145,8 +145,13 @@ export const settings = sqliteTable('settings', {
   /** 0 = Sunday, 1 = Monday. */
   first_day_of_week: integer('first_day_of_week').notNull().default(1),
   reminder_enabled: integer('reminder_enabled', { mode: 'boolean' }).notNull().default(false),
-  /** "HH:mm". Entries in the real data cluster between 20:00 and 21:45. */
+  /** "HH:mm": the latest time of `reminder_times`. Entries in the real data cluster between 20:00 and 21:45. */
   reminder_time: text('reminder_time').notNull().default('20:30'),
+  /**
+   * Every time of the daily reminder as a JSON list of "HH:mm", one to five, sorted (`lib/notifications/times.ts`).
+   * `reminder_time` always holds the latest of them, for older app versions reading a newer backup. Part of the backup.
+   */
+  reminder_times: text('reminder_times', { mode: 'json' }).$type<string[]>().notNull().default(['20:30']),
   app_lock_enabled: integer('app_lock_enabled', { mode: 'boolean' }).notNull().default(false),
   app_lock_delay_seconds: integer('app_lock_delay_seconds').notNull().default(0),
   outlook_enabled: integer('outlook_enabled', { mode: 'boolean' }).notNull().default(true),
@@ -176,7 +181,7 @@ export const settings = sqliteTable('settings', {
   reminder_yesterday_enabled: integer('reminder_yesterday_enabled', { mode: 'boolean' }).notNull().default(true),
   /** "HH:mm" of the morning reminder. Part of the backup. */
   reminder_yesterday_time: text('reminder_yesterday_time').notNull().default('10:00'),
-  /** The evening reminder comes even on a day that already has an entry. Only with `reminder_enabled`; part of the backup like it. */
+  /** The daily reminder comes even when there already is an entry for its part of the day. Only with `reminder_enabled`; part of the backup like it. */
   reminder_always: integer('reminder_always', { mode: 'boolean' }).notNull().default(false),
   /** The start sheet offering the reminder was answered, or never needed (reminder already on). Device-local, never exported. */
   reminder_prompt_done: integer('reminder_prompt_done', { mode: 'boolean' }).notNull().default(false),

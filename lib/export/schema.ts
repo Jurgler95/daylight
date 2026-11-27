@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 import { ENTRY_SOURCES, SCALE_KINDS } from '@/db/schema';
 import { isDateString } from '@/lib/dates';
+import { latestReminderTime, reminderTimesOr } from '@/lib/notifications/times';
 import { isPhotoName } from '@/lib/photos/store';
 import { countByYear, TURNING_POINTS_PER_YEAR } from '@/lib/turning/rules';
 
@@ -12,7 +13,8 @@ import { countByYear, TURNING_POINTS_PER_YEAR } from '@/lib/turning/rules';
  * Version 2 added `entry_photos`; the photo files themselves travel next to the JSON in a ZIP.
  * `health_days` is optional and only there when the user opted in; older app versions skip it.
  * `turning_points` is optional too: backups from before they existed simply have none. A scale's
- * `kind` likewise: older backups hold ratings only.
+ * `kind` likewise: older backups hold ratings only. `settings.reminder_times` is optional as well:
+ * a backup from before several reminders a day has the one `reminder_time`, which becomes the list.
  */
 
 export const EXPORT_SCHEMA_VERSION = 2;
@@ -86,25 +88,35 @@ export const turningPointSchema = z.object({
   updated_at: isoTimestamp,
 });
 
-export const settingsSchema = z.object({
-  first_day_of_week: z.number().int().min(0).max(6),
-  reminder_enabled: z.boolean(),
-  reminder_time: timeString,
-  app_lock_enabled: z.boolean(),
-  app_lock_delay_seconds: z.number().int().min(0),
-  outlook_enabled: z.boolean(),
-  // Optional without a default: backups from before the morning reminder leave the choice on this
-  // device alone, since a replace writes these settings as they come.
-  reminder_yesterday_enabled: z.boolean().optional(),
-  reminder_yesterday_time: timeString.optional(),
-  reminder_always: z.boolean().optional(),
-  // Optional for the same reason: backups from before the seasonal designs leave them alone.
-  design_seasons: z.boolean().optional(),
-  design_festivals: z.boolean().optional(),
-  // Optional for the same reason: backups from before the morning outlook leave it alone.
-  outlook_notify_enabled: z.boolean().optional(),
-  outlook_notify_time: timeString.optional(),
-});
+export const settingsSchema = z
+  .object({
+    first_day_of_week: z.number().int().min(0).max(6),
+    reminder_enabled: z.boolean(),
+    reminder_time: timeString,
+    // Anything is taken and tidied below instead of refusing the whole backup over a reminder time.
+    reminder_times: z.unknown().optional(),
+    app_lock_enabled: z.boolean(),
+    app_lock_delay_seconds: z.number().int().min(0),
+    outlook_enabled: z.boolean(),
+    // Optional without a default: backups from before the morning reminder leave the choice on this
+    // device alone, since a replace writes these settings as they come.
+    reminder_yesterday_enabled: z.boolean().optional(),
+    reminder_yesterday_time: timeString.optional(),
+    reminder_always: z.boolean().optional(),
+    // Optional for the same reason: backups from before the seasonal designs leave them alone.
+    design_seasons: z.boolean().optional(),
+    design_festivals: z.boolean().optional(),
+    // Optional for the same reason: backups from before the morning outlook leave it alone.
+    outlook_notify_enabled: z.boolean().optional(),
+    outlook_notify_time: timeString.optional(),
+  })
+  // The list as the app keeps it: valid times only, none twice, at most five, sorted. Without a
+  // usable list (an older backup, a broken one) the single `reminder_time` is the list. Either way
+  // `reminder_time` ends up as the latest time, as everywhere else.
+  .transform((settings) => {
+    const reminder_times = reminderTimesOr(settings.reminder_times, settings.reminder_time);
+    return { ...settings, reminder_times, reminder_time: latestReminderTime(reminder_times) };
+  });
 
 export const exportSchema = z
   .object({

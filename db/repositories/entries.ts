@@ -1,4 +1,4 @@
-import { and, asc, eq, gte, inArray, lte, min, ne } from 'drizzle-orm';
+import { and, asc, desc, eq, gte, inArray, lte, min, ne } from 'drizzle-orm';
 
 import type { DateString } from '@/lib/dates';
 
@@ -124,6 +124,18 @@ export function entryIdOnDate(db: Database, date: string, exceptId: number | nul
     .where(and(eq(entries.date, date), exceptId !== null ? ne(entries.id, exceptId) : undefined))
     .orderBy(asc(entries.time), asc(entries.id))
     .get()?.id;
+}
+
+/** The mood of the day's last entry (latest time, then newest), or null when the day has none; what the mood widget marks. */
+export function lastMoodOnDate(db: Database, date: string): number | null {
+  return (
+    db
+      .select({ mood_id: entries.mood_id })
+      .from(entries)
+      .where(eq(entries.date, date))
+      .orderBy(desc(entries.time), desc(entries.id))
+      .get()?.mood_id ?? null
+  );
 }
 
 export function getEntry(db: Database, id: number): Entry | undefined {

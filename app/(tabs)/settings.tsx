@@ -35,7 +35,8 @@ export default function MoreScreen() {
   const outlookEnabled = useSettingsStore((s) => s.settings?.outlook_enabled ?? true);
   const lockEnabled = useSettingsStore((s) => s.settings?.app_lock_enabled ?? false);
   const reminderEnabled = useSettingsStore((s) => s.settings?.reminder_enabled ?? false);
-  const reminderTime = useSettingsStore((s) => s.settings?.reminder_time ?? '');
+  // Every time of the daily reminder, earliest first; `reminder_time` alone is the latest.
+  const reminderTime = useSettingsStore((s) => (s.settings?.reminder_times ?? []).join(', ') || (s.settings?.reminder_time ?? ''));
   const healthEnabled = useSettingsStore((s) => s.settings?.health_enabled ?? false);
   const designSeasons = useSettingsStore((s) => s.settings?.design_seasons ?? true);
   const designFestivals = useSettingsStore((s) => s.settings?.design_festivals ?? true);

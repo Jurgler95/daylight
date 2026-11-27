@@ -19,15 +19,14 @@ private const val RING_MAX = 64
 /**
  * Days in a row in a ring: filled once today has an entry, faint until then, amber while yesterday
  * is missing. The count stays behind the app lock, as in the reminders: it tells how regularly,
- * never what. A tap opens today's entry.
+ * never what. A tap opens a new entry while today has none, and "Heute" with today's entries after that.
  */
 internal object StreakWidget : WidgetKind {
   override fun views(context: Context, state: WidgetState?, size: Size, look: Look): RemoteViews {
     val views = RemoteViews(context.packageName, R.layout.daylight_streak_widget)
     val theme = Widgets.theme(context, views, look)
-    views.setOnClickPendingIntent(R.id.daylight_widget_root, Widgets.open(context, "daylight://entry/new"))
-
     val (streak, label) = state?.let { current(it) } ?: (Streak(0, false, false) to "")
+    views.setOnClickPendingIntent(R.id.daylight_widget_root, Widgets.open(context, if (streak.todayDone) "daylight://today" else "daylight://entry/new"))
     val width = (if (size.width > 0) size.width else 70) - PADDING
     val height = (if (size.height > 0) size.height else 70) - PADDING
     val labelHeight = (LABEL * size.fontScale).toInt()

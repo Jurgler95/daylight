@@ -13,7 +13,7 @@ private const val LABEL = 34
 private const val ICON_MIN = 32
 private const val ICON_MAX = 56
 
-/** One button: a tap opens today's entry, or a new one. Works before the app has run, with its own caption. */
+/** One button: every tap opens a new entry for today. Works before the app has run, with its own caption. */
 internal object QuickWidget : WidgetKind {
   override fun views(context: Context, state: WidgetState?, size: Size, look: Look): RemoteViews {
     val views = RemoteViews(context.packageName, R.layout.daylight_quick_widget)

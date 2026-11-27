@@ -45,7 +45,7 @@ private data class Fit(val title: Boolean, val labels: Boolean, val icon: Int) {
   }
 }
 
-/** The question and five moods: a tap on one opens today's entry with that mood. */
+/** The question and five moods: a tap on one opens a new entry for today with that mood. */
 internal object MoodWidget : WidgetKind {
   override fun views(context: Context, state: WidgetState?, size: Size, look: Look): RemoteViews {
     val views = RemoteViews(context.packageName, R.layout.daylight_mood_widget)
@@ -85,7 +85,7 @@ internal object MoodWidget : WidgetKind {
       // As in the mood picker: the chosen mood's name in its colour, the others muted.
       if (chosen) theme.level(slot.label, mood.level) else theme.muted(slot.label)
       views.setContentDescription(slot.root, mood.label)
-      // `/entry/new` opens today's entry instead when the day already has one.
+      // Every tap starts a new entry with this mood, also when the day already has one.
       views.setOnClickPendingIntent(slot.root, Widgets.open(context, "daylight://entry/new?mood=${mood.id}"))
     }
     return views

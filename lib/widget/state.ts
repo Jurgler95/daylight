@@ -18,6 +18,7 @@ export interface WidgetState {
   moods: { id: number; level: number; glyph: number; label: string }[];
   /** The day the app built this for: `moodId`, `streak` and `days` hold for it. */
   date: DateString;
+  /** The mood of that day's last entry, null without one. */
   moodId: number | null;
   /** Days with entries of the last `WIDGET_DAYS`, by date: the day's mood level and its icon (level 0 behind the app lock). */
   days: Record<string, WidgetDay>;

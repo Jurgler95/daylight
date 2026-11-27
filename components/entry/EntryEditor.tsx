@@ -61,7 +61,7 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
               text: t('entry.save'),
               onPress: () =>
                 confirmTurningLoss(() => {
-                  // Not saved (the day was taken meanwhile): stay, so the draft is not dropped.
+                  // Not saved (it was written already): stay.
                   if (editor.save()) navigation.dispatch(data.action);
                 }),
             },
@@ -226,11 +226,6 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
               timeLabel={t('entry.time')}
               onChange={(patch) => editor.update(patch)}
             />
-            {editor.dayTaken ? (
-              <AppText variant="caption" color={colors.danger}>
-                {t('entry.dayTaken')}
-              </AppText>
-            ) : null}
           </Card>
 
           {/* The day's turning point, or a way to set one, while the entry stays on its day. The editor

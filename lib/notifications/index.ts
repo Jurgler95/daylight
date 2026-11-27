@@ -1,5 +1,9 @@
 export { cancelAll, dismissReminders, hasPermission, notificationsAvailable, requestPermission, syncReminders } from './client';
 export {
+  ANDROID_ALARM_LIMIT,
+  answered,
+  dailyKey,
+  dailyKeysOfTimes,
   doneReminderKeys,
   entryLink,
   formatTime,

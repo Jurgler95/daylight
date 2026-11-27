@@ -8,14 +8,13 @@ import { AppText, Card, PressableScale } from '@/components/ui';
 import { getDb } from '@/db';
 import { listEntriesOnDates } from '@/db/repositories/entries';
 import { photosForEntries } from '@/db/repositories/photos';
-import type { MoodLevel } from '@/db/schema';
-import type { Catalog } from '@/lib/catalog/catalog';
+import { levelMood, type Catalog } from '@/lib/catalog/catalog';
 import { formatShortWithYear, type DateString } from '@/lib/dates';
 import { haptics } from '@/lib/haptics';
 import { upper } from '@/lib/i18n/language';
 import type { IconName } from '@/lib/icons';
 import { useQuery } from '@/lib/store/dataVersion';
-import { lookbackDays } from '@/lib/today/lookback';
+import { lookbackDays, summariseDay } from '@/lib/today/lookback';
 import { TOUCH_TARGET, radius, spacing, useTheme } from '@/lib/theme';
 
 interface Props {
@@ -26,7 +25,8 @@ interface Props {
 
 /**
  * The same day a week, a month, six months and a year ago, with mood, the start of the note and
- * the day's photos. Tapping a day opens it on "Heute", a photo opens itself full screen. Hidden
+ * the day's photos. A day with several entries is one line: its mood as the calendar shows it (the
+ * mean of its entries), the most recent note, the photos of all entries and how many entries it has. Tapping a day opens it on "Heute", a photo opens itself full screen. Hidden
  * while none of the four days has an entry.
  */
 export function LookbackCard({ date, catalog, onOpenDay }: Props) {
@@ -46,13 +46,13 @@ export function LookbackCard({ date, catalog, onOpenDay }: Props) {
         {t('lookback.title')}
       </AppText>
       {days.map((day) => {
-        // One entry per day; a day imported with several shows its first.
-        const entry = rows.find((row) => row.date === day.date);
-        const mood = entry ? catalog.moodById.get(entry.mood_id) : undefined;
-        const dayPhotos = entry ? photos.get(entry.id) : undefined;
+        const summary = summariseDay(rows.filter((row) => row.date === day.date));
+        const mood = summary ? ((summary.moodId !== null ? catalog.moodById.get(summary.moodId) : undefined) ?? levelMood(catalog, summary.level)) : undefined;
+        const dayPhotos = summary ? summary.entryIds.flatMap((id) => photos.get(id) ?? []) : [];
         const when = t(`lookback.${day.key}`);
-        const note = [entry?.note_title, entry?.note].filter((part) => part && part.trim() !== '').join(' ');
-        const spoken = [when, formatShortWithYear(day.date), entry ? mood?.label : t('lookback.none'), note].filter(Boolean).join('. ');
+        const note = summary?.note ?? '';
+        const several = summary && summary.count > 1 ? t('calendar.entries', { count: summary.count }) : '';
+        const spoken = [when, formatShortWithYear(day.date), summary ? mood?.label : t('lookback.none'), several, note].filter(Boolean).join('. ');
         return (
           <PressableScale
             key={day.key}
@@ -65,17 +65,17 @@ export function LookbackCard({ date, catalog, onOpenDay }: Props) {
             accessibilityHint={t('lookback.hint')}
             style={styles.row}
           >
-            {entry ? (
-              <MoodBadge level={entry.level as MoodLevel} icon={(mood?.icon ?? 'emoticon-neutral-outline') as IconName} size={40} />
+            {summary ? (
+              <MoodBadge level={summary.level} icon={(mood?.icon ?? 'emoticon-neutral-outline') as IconName} size={40} />
             ) : (
               <View style={[styles.empty, { borderColor: colors.border }]} />
             )}
             <View style={styles.text}>
               <AppText variant="caption" muted>
-                {`${upper(when)} · ${formatShortWithYear(day.date)}`}
+                {[upper(when), formatShortWithYear(day.date), several].filter(Boolean).join(' · ')}
               </AppText>
-              {entry ? (
-                <AppText variant="label" color={moodColors[entry.level as MoodLevel].strong}>
+              {summary ? (
+                <AppText variant="label" color={moodColors[summary.level].strong}>
                   {mood?.label ?? ''}
                 </AppText>
               ) : (
@@ -84,7 +84,7 @@ export function LookbackCard({ date, catalog, onOpenDay }: Props) {
                 </AppText>
               )}
               {note ? <AppText numberOfLines={2}>{note}</AppText> : null}
-              {dayPhotos ? (
+              {dayPhotos.length > 0 ? (
                 <View style={styles.photos}>
                   {dayPhotos.map((name) => (
                     <Pressable
