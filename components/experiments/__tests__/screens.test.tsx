@@ -146,6 +146,19 @@ describe('the form', () => {
     expect(jest.requireMock('expo-router').router.back).toHaveBeenCalledTimes(1);
   });
 
+  it('keeps a stored length that is no whole choice on offer after picking another', async () => {
+    const db = diary('2026-09-01');
+    const odd = add(db, 'Kein Kaffee', '2026-09-20', 30);
+    mockParams = { id: String(odd.id) };
+    await render(<ExperimentFormScreen />);
+    await act(async () => fireEvent.press(screen.getByLabelText('Dauer: 30 Tage')));
+    await act(async () => fireEvent.press(screen.getByText('6 Wochen')));
+    await act(async () => fireEvent.press(screen.getByLabelText('Dauer: 6 Wochen')));
+    await act(async () => fireEvent.press(screen.getByText('30 Tage')));
+    await act(async () => fireEvent.press(screen.getByText('Speichern')));
+    expect(getExperiment(db, odd.id)!.end_date).toBe('2026-10-19');
+  });
+
   it('keeps start and length of one that is over', async () => {
     const db = diary('2026-09-01');
     const over = add(db, 'Früh schlafen', '2026-08-01', 14);

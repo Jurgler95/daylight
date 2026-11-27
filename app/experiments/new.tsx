@@ -126,7 +126,7 @@ export default function ExperimentFormScreen() {
           <SelectRow
             label={t('experiments.form.length')}
             value={String(days)}
-            sections={[{ options: lengthChoices(days).map((value) => ({ value: String(value), label: lengthLabel(value) })) }]}
+            sections={[{ options: lengthChoices(initialDays).map((value) => ({ value: String(value), label: lengthLabel(value) })) }]}
             closeLabel={t('common.close')}
             onChange={(value) => setDays(Number(value))}
           />
