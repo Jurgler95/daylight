@@ -15,7 +15,7 @@ function journal() {
   createEntry(db, { date: '2026-11-01', time: '20:00', mood_id: listMoods(db)[0]!.id, activity_ids: [] });
   const over = createExperiment(db, { title: 'Kein Kaffee', note: 'nach 14 Uhr', start_date: '2026-10-01', days: 28, check_in: true }, today);
   const running = createExperiment(db, { title: 'Abendspaziergang', start_date: '2026-11-20', days: 14, check_in: true }, today);
-  setExperimentDays(db, '2026-10-02', { [over.id]: true }, today);
+  setExperimentDays(db, '2026-10-02', { [over.id]: true }, '2026-10-02' as DateString);
   setExperimentDays(db, '2026-11-21', { [running.id]: true }, today);
   setExperimentDays(db, '2026-11-22', { [running.id]: true }, today);
   return db;
@@ -83,6 +83,19 @@ describe('experiments in the JSON backup', () => {
     endExperiment(target, here.id, '2026-11-22' as DateString);
     target.transaction((tx) => mergeImport(tx, payload, today));
     expect(listExperimentDays(target, here.id).map((row) => row.date)).toEqual(['2026-11-21']);
+  });
+
+  it('merge brings no "no" into an experiment that is already here and still runs', () => {
+    const source = createTestDb();
+    const there = createExperiment(source, { title: 'Abendspaziergang', start_date: '2026-11-20', days: 14, check_in: true }, '2026-11-20' as DateString);
+    setExperimentDays(source, '2026-11-21', { [there.id]: true }, '2026-11-21' as DateString);
+    setExperimentDays(source, '2026-11-24', { [there.id]: false }, '2026-11-24' as DateString);
+    const payload = parseImport(JSON.stringify(buildExport(source, '1')));
+    const target = createTestDb();
+    const here = createExperiment(target, { title: 'Abendspaziergang', start_date: '2026-11-20', days: 14, check_in: true }, '2026-11-20' as DateString);
+    target.transaction((tx) => mergeImport(tx, payload, today));
+    expect(listExperimentDays(target, here.id).map((row) => [row.date, row.kept])).toEqual([['2026-11-21', true]]);
+    expect(listExperiments(target)[0]!.end_date).toBe('2026-12-03');
   });
 
   it('reads an older backup without the fields, and a replace with it removes the stored ones', () => {

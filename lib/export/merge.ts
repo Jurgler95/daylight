@@ -192,8 +192,9 @@ function mergeTurningPoints(tx: Database, payload: ExportPayload): void {
 
 /**
  * An experiment with the same folded title and exactly the same start is already here: it stays as
- * it is and only gets the answers it lacks, within its own span here. An answer after its end would
- * otherwise read as the "no" that ended it. New ones get fresh ids and their answers follow; they
+ * it is and only gets the "yes" answers it lacks, within its own span here. An answer after its end
+ * would otherwise read as the "no" that ended it, and a "no" inside its span would stand there
+ * without ending it. New ones get fresh ids and their answers follow; they
  * count as seen once their end lies before `today`, so merging an old backup brings no cards to
  * "Heute", while one that still runs or is planned gets its card when it is over.
  */
@@ -224,7 +225,8 @@ function mergeExperiments(tx: Database, payload: ExportPayload, today: DateStrin
     const experimentId = ids.get(answer.experiment_id);
     if (experimentId === undefined) return [];
     const span = spans.get(experimentId);
-    if (span && (answer.date < span.start_date || answer.date > span.end_date)) return [];
+    // A "no" would end it, which only the editor does after asking; so an existing one takes only a "yes".
+    if (span && (!answer.kept || answer.date < span.start_date || answer.date > span.end_date)) return [];
     return [{ ...answer, experiment_id: experimentId }];
   });
   for (const chunk of chunked(answers)) tx.insert(experimentDays).values(chunk).onConflictDoNothing().run();
