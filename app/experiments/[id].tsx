@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, StyleSheet, View } from 'react-native';
 
-import { useExperimentStatus } from '@/components/experiments/ExperimentRow';
 import { ActivityLine } from '@/components/insights/ActivityLine';
 import { InsightCard } from '@/components/insights/InsightCard';
 import { LevelBar } from '@/components/insights/LevelBar';
@@ -21,7 +20,7 @@ import { useToday } from '@/lib/dates/useToday';
 import type { CheckInCounts, ExperimentComparison } from '@/lib/experiments/compare';
 import { canEndEarly, endOnDayBefore } from '@/lib/experiments/rules';
 import { useExperiment, useExperimentComparison } from '@/lib/experiments/useExperiments';
-import { verdictSentences, verdictShort } from '@/lib/experiments/view';
+import { experimentStatus, verdictSentences, verdictShort } from '@/lib/experiments/view';
 import { formatMetric } from '@/lib/health/format';
 import { formatDecimal, formatPercent, formatSigned, moodSeries, windowLength } from '@/lib/insights';
 import { readInsightDays } from '@/lib/insights/useInsights';
@@ -96,7 +95,8 @@ export default function ExperimentDetailScreen() {
 }
 
 function Head({ experiment, today }: { experiment: Experiment; today: DateString }) {
-  const status = useExperimentStatus(experiment, today);
+  const { t } = useTranslation();
+  const status = experimentStatus(t, experiment, today);
   return (
     <Card>
       <AppText variant="label">{formatRange(experiment.start_date as DateString, experiment.end_date as DateString)}</AppText>

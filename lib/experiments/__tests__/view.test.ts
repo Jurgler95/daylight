@@ -1,7 +1,7 @@
 import i18n from '@/lib/i18n';
 import type { DateString } from '@/lib/dates';
 
-import { experimentSections, finishedToShow, lengthChoices, verdictPercent, verdictSentences, verdictShort } from '../view';
+import { experimentSections, experimentStatus, finishedToShow, lengthChoices, verdictPercent, verdictSentences, verdictShort } from '../view';
 
 const today = '2026-11-27' as DateString;
 const t = i18n.getFixedT('de');
@@ -39,6 +39,13 @@ describe('experiment view helpers', () => {
     expect(lengthChoices(null)).toEqual([7, 14, 21, 28, 42, 56, 84]);
     expect(lengthChoices(28)).toEqual([7, 14, 21, 28, 42, 56, 84]);
     expect(lengthChoices(30)).toEqual([7, 14, 21, 28, 30, 42, 56, 84]);
+  });
+
+  it('says how far an experiment is', () => {
+    const span = { start_date: '2026-11-20', end_date: '2026-12-17' };
+    expect(experimentStatus(t, span, today)).toBe('Tag 8 von 28');
+    expect(experimentStatus(t, span, '2026-11-19' as DateString)).toMatch(/^Beginnt am .*20\. November/);
+    expect(experimentStatus(t, span, '2026-12-18' as DateString)).toBe('Lief 28 Tage');
   });
 
   it('never shows the same percentage for two verdicts at the threshold', () => {

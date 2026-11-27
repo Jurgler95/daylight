@@ -5,25 +5,16 @@ import { StyleSheet, View } from 'react-native';
 
 import { AppText, PressableScale } from '@/components/ui';
 import type { Experiment } from '@/db/schema';
-import { formatLong, formatRange, type DateString } from '@/lib/dates';
-import { experimentProgress, experimentState } from '@/lib/experiments/rules';
+import { formatRange, type DateString } from '@/lib/dates';
+import { experimentStatus } from '@/lib/experiments/view';
 import { haptics } from '@/lib/haptics';
 import { TOUCH_TARGET, spacing, useTheme } from '@/lib/theme';
 
-/** "Tag 9 von 28", "Beginnt am 1. Dezember" or "Lief 28 Tage", from the dates and today. */
-export function useExperimentStatus(experiment: Experiment, today: DateString): string {
-  const { t } = useTranslation();
-  const state = experimentState(experiment, today);
-  const { day, total } = experimentProgress(experiment, today);
-  if (state === 'planned') return t('experiments.startsOn', { date: formatLong(experiment.start_date as DateString) });
-  if (state === 'running') return t('experiments.progress', { day, total });
-  return t('experiments.ranFor', { count: total });
-}
-
 /** One experiment with its span and how far it is; opens its comparison. */
 export function ExperimentRow({ experiment, today, last = false }: { experiment: Experiment; today: DateString; last?: boolean }) {
+  const { t } = useTranslation();
   const { colors } = useTheme();
-  const status = useExperimentStatus(experiment, today);
+  const status = experimentStatus(t, experiment, today);
   const range = formatRange(experiment.start_date as DateString, experiment.end_date as DateString);
   return (
     <PressableScale

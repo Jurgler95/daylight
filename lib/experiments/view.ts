@@ -1,10 +1,10 @@
 import type { TFunction } from 'i18next';
 
-import { daysBetween, type DateString } from '@/lib/dates';
+import { daysBetween, formatLong, type DateString } from '@/lib/dates';
 import { formatPercent } from '@/lib/insights/format';
 
 import type { NoiseVerdict } from './noise';
-import { EXPERIMENT_WEEKS, experimentState, type ExperimentSpan } from './rules';
+import { EXPERIMENT_WEEKS, experimentProgress, experimentState, type ExperimentSpan } from './rules';
 
 /**
  * What the screens show of experiments, pure: the sections of the list, the length choices of the
@@ -26,6 +26,15 @@ export function experimentSections<T extends ExperimentSpan>(experiments: readon
   sections.planned.sort(byStart);
   sections.over.sort((a, b) => b.end_date.localeCompare(a.end_date));
   return sections;
+}
+
+/** "Tag 9 von 28", "Beginnt am 1. Dezember" or "Lief 28 Tage", from the dates and today. */
+export function experimentStatus(t: TFunction, experiment: ExperimentSpan, today: DateString): string {
+  const state = experimentState(experiment, today);
+  if (state === 'planned') return t('experiments.startsOn', { date: formatLong(experiment.start_date as DateString) });
+  const { day, total } = experimentProgress(experiment, today);
+  if (state === 'running') return t('experiments.progress', { day, total });
+  return t('experiments.ranFor', { count: total });
 }
 
 /** The card on "Heute" shows an experiment that ended at most this many days ago. */
