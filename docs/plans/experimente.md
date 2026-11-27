@@ -207,3 +207,10 @@ Nach Prüfung R1 (zwischen Phase 2 und 3):
 - Sicherung: Titel eines Experiments höchstens 60 Zeichen (nach dem Trimmen), wie beim Anlegen.
 - Abschnitt „Vergleich“ korrigiert: Dort stand, Skalen und Gesundheit kämen ohne Rauschurteil. Das widersprach E11 und „Eigene Schwankung“; gebaut war schon in Phase 1 nach E11 (Urteil je Größe, Aktivitäten ohne).
 - Rückkehr zum Gewohnten nur, wenn das Mittel im Experiment über dem Mittel „Davor“ liegt; bei weiterem Abfall kann es keine Rückkehr sein. „Lief gleichzeitig mit“ prüft gegen „Im Experiment“ (Start bis heute), damit ein noch nicht begonnenes Experiment nicht genannt wird.
+
+Phase 3:
+- Rückfrage beim Nein sagt „Dein Nein bleibt gespeichert, spätere Antworten werden entfernt. Das passiert, sobald du den Eintrag speicherst.“ statt „Antworten ab diesem Tag werden entfernt“. Grund: Das Nein des Tages bleibt (E15), der Plantext klang, als ginge es mit. Unter der Zeile steht nach dem Bestätigen „Mit dem Speichern endet das Experiment am …“, damit sichtbar ist, dass noch nichts passiert ist.
+- Die Frage im Editor liegt als `CheckInCard` in `components/experiments/`, eingebunden in `EntryEditor` nach den Skalen. `useEntryEditor` liefert die fragenden Experimente samt angezeigter Antwort (`checkIns`) und `tapCheckIn`; die Rückfrage stellt die Karte. Beim Speichern gehen nur Antworten für Experimente an `setExperimentDays`, die an dem Tag noch fragen, damit ein inzwischen beendetes Experiment das Speichern des Eintrags nicht scheitern lässt. Heute kommt aus `useToday`.
+- Eine Antwort, die wieder dem gespeicherten Stand entspricht, fällt aus `check_ins` (`tapCheckIn` in `lib/entry/draft.ts`), sonst bliebe der Entwurf nach Hin- und Zurücktippen `dirty`.
+- Check-in-Block auf der Vergleichsseite nur, wenn die Frage an ist oder Antworten da sind, nicht bei geplanten. Ohne Antwort ein eigener Satz („Noch keine Antwort …“).
+- Welche Karte Heute zeigt, rechnet rein `finishedToShow` in `lib/experiments/view.ts` (Konstante `RESULT_CARD_DAYS = 14`), bei gleichem Ende das später angelegte.
