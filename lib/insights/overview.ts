@@ -11,6 +11,7 @@ import { daysIn, previousWindow, rangeWindow, type DayWindow, type InsightRange 
 import { goodStreaks, weeklySwings, type Streaks, type Swings } from './swings';
 import { usualView, type UsualMonth, type UsualRange } from './usual';
 import { weekdayProfile, type WeekdayProfile } from './weekdays';
+import { noteStats, type NoteStats } from './notes';
 import { noteWords, type NoteWords } from './words';
 
 export interface InsightsInput {
@@ -52,6 +53,7 @@ export interface Insights {
   pairs: ActivityPair[];
   beforeHard: BeforeHardResult;
   words: NoteWords;
+  notes: NoteStats;
   coverage: Coverage | null;
   years: number[];
 }
@@ -65,6 +67,7 @@ export function buildInsights({ entries, range, today, firstDayOfWeek }: Insight
   const before = previous ? daysIn(allDays, previous) : null;
   // Over the whole diary, then cut to the window: a day's usual range depends on the days before it.
   const usual = usualView(allDays, window);
+  const texts = dayTexts(entries);
   return {
     window,
     previous,
@@ -83,7 +86,8 @@ export function buildInsights({ entries, range, today, firstDayOfWeek }: Insight
     effects: splitEffects(activityEffects(days)),
     pairs: activityPairs(days),
     beforeHard: beforeHardDays(days),
-    words: noteWords(days, dayTexts(entries)),
+    words: noteWords(days, texts),
+    notes: noteStats(days, texts),
     coverage: coverage(entries, window, firstDate),
     years: pixelYears(allDays),
   };

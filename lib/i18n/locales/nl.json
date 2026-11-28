@@ -772,6 +772,20 @@
             "exercise": "Meer beweging, lagere {{scale}} ({{strength}})"
           }
         }
+      },
+      "list": {
+        "title": "Alle schalen",
+        "row": "Ø {{mean}}, {{count}} dagen",
+        "rowSpoken": "gemiddeld {{mean}}, {{count}} dagen",
+        "changeSpoken": "verandering ten opzichte van de vorige periode {{change}}"
+      },
+      "detail": {
+        "edit": "Schaal bewerken",
+        "median": "Mediaan",
+        "span": "Bereik",
+        "spanValue": "{{min}} tot {{max}}",
+        "days": "Dagen met waarde",
+        "empty": "Deze schaal heeft in deze periode geen waarde"
       }
     },
     "ready": {
@@ -786,6 +800,24 @@
       "weekdays_other": "Verschijnt zodra deze periode {{count}} dagen met een registratie heeft, op minstens {{weekdays}} verschillende weekdagen.",
       "months_one": "Verschijnt zodra {{count}} maand in deze periode registraties heeft.",
       "months_other": "Verschijnt zodra {{count}} maanden in deze periode registraties hebben."
+    },
+    "notes": {
+      "title": "Notities",
+      "empty": "Geen notities in deze periode",
+      "days": "Dagen met notitie",
+      "daysValue": "{{days}} van {{total}} ({{share}})",
+      "meanWords": "Woorden per notitie",
+      "words": "Woorden in totaal",
+      "moodWith": "Stemming met notitie",
+      "moodWithout": "Stemming zonder notitie",
+      "byLevel": "Notities per stemming",
+      "levelA11y": "{{mood}}: notitie op {{share}} van de dagen, {{count}} van {{total}}",
+      "longest": "Langste notitie",
+      "longestValue_one": "{{date}}, {{count}} woord",
+      "longestValue_other": "{{date}}, {{count}} woorden",
+      "longestA11y_one": "Langste notitie op {{date}}, {{count}} woord. Opent de dag",
+      "longestA11y_other": "Langste notitie op {{date}}, {{count}} woorden. Opent de dag",
+      "top": "Meest gebruikte woorden"
     }
   },
   "outlook": {

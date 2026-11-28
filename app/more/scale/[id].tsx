@@ -50,7 +50,7 @@ export default function ScaleScreen() {
         <Button
           variant="secondary"
           label={t('manage.scaleInsights')}
-          onPress={() => router.navigate({ pathname: '/insights', params: { section: 'scales', scale: String(scale.id) } })}
+          onPress={() => router.push({ pathname: '/scale/[id]', params: { id: String(scale.id) } })}
         />
       </Card>
       <Card>

@@ -842,6 +842,20 @@
             "exercise": "Więcej treningu, niższa wartość {{scale}} ({{strength}})"
           }
         }
+      },
+      "list": {
+        "title": "Wszystkie skale",
+        "row": "Ø {{mean}}, dni: {{count}}",
+        "rowSpoken": "średnio {{mean}}, dni: {{count}}",
+        "changeSpoken": "zmiana względem poprzedniego okresu {{change}}"
+      },
+      "detail": {
+        "edit": "Edytuj skalę",
+        "median": "Mediana",
+        "span": "Zakres",
+        "spanValue": "od {{min}} do {{max}}",
+        "days": "Dni z wartością",
+        "empty": "W tym okresie skala nie ma wartości"
       }
     },
     "ready": {
@@ -866,6 +880,28 @@
       "months_few": "Pojawi się, gdy wpisy będą w co najmniej {{count}} miesiącach tego okresu.",
       "months_many": "Pojawi się, gdy wpisy będą w co najmniej {{count}} miesiącach tego okresu.",
       "months_other": "Pojawi się, gdy wpisy będą w co najmniej {{count}} miesiąca tego okresu."
+    },
+    "notes": {
+      "title": "Notatki",
+      "empty": "Brak notatek w tym okresie",
+      "days": "Dni z notatką",
+      "daysValue": "{{days}} z {{total}} ({{share}})",
+      "meanWords": "Słowa na notatkę",
+      "words": "Słowa łącznie",
+      "moodWith": "Nastrój z notatką",
+      "moodWithout": "Nastrój bez notatki",
+      "byLevel": "Notatki według nastroju",
+      "levelA11y": "{{mood}}: notatka w {{share}} dni, {{count}} z {{total}}",
+      "longest": "Najdłuższa notatka",
+      "longestValue_one": "{{date}}, słowa: {{count}}",
+      "longestValue_few": "{{date}}, słowa: {{count}}",
+      "longestValue_many": "{{date}}, słowa: {{count}}",
+      "longestValue_other": "{{date}}, słowa: {{count}}",
+      "longestA11y_one": "Najdłuższa notatka {{date}}, słowa: {{count}}. Otwiera dzień",
+      "longestA11y_few": "Najdłuższa notatka {{date}}, słowa: {{count}}. Otwiera dzień",
+      "longestA11y_many": "Najdłuższa notatka {{date}}, słowa: {{count}}. Otwiera dzień",
+      "longestA11y_other": "Najdłuższa notatka {{date}}, słowa: {{count}}. Otwiera dzień",
+      "top": "Najczęstsze słowa"
     }
   },
   "outlook": {
