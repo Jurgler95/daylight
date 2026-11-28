@@ -5,7 +5,7 @@ import { AppText, Card, ListRow, Screen } from '@/components/ui';
 import { formatLong, toDateString, toTimeString } from '@/lib/dates';
 import { AUTO_BACKUP_KEEP, classifyAutoBackupError, folderLabel, hasAutoBackups } from '@/lib/export/auto';
 import { pickBackupFolder, storageFolder } from '@/lib/export/autoFolder';
-import { ShareUnavailableError } from '@/lib/export/files';
+import { exportErrorMessage } from '@/lib/export/files';
 import { autoBackupNow } from '@/lib/export/useAutoBackup';
 import { useDataTransfer } from '@/lib/export/useDataTransfer';
 import { useSettingsStore } from '@/lib/store/settingsStore';
@@ -48,7 +48,13 @@ export default function AutoBackupScreen() {
   };
 
   const choose = async () => {
-    const uri = await pickBackupFolder();
+    let uri: string | null;
+    try {
+      uri = await pickBackupFolder();
+    } catch (failure) {
+      Alert.alert(t('common.error'), exportErrorMessage(failure, t));
+      return;
+    }
     if (!uri) return;
     // Backups already there may be the journal from the old phone: then the import comes first.
     if (uri !== dir && hasAutoBackups(storageFolder(uri))) {
@@ -73,9 +79,7 @@ export default function AutoBackupScreen() {
   };
 
   const saveOnce = () => {
-    saveJson().catch((failure: unknown) =>
-      Alert.alert(t('common.error'), failure instanceof ShareUnavailableError ? t('common.shareUnavailable') : failure instanceof Error ? failure.message : String(failure)),
-    );
+    saveJson().catch((failure: unknown) => Alert.alert(t('common.error'), exportErrorMessage(failure, t)));
   };
 
   return (

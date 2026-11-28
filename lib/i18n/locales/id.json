@@ -303,6 +303,8 @@
   "common": {
     "error": "Terjadi kesalahan",
     "shareUnavailable": "Berbagi tidak tersedia di perangkat ini.",
+    "folderPickerFailed": "Pemilih folder tidak dapat dibuka. Silakan coba lagi. Jika tidak berhasil, tutup Daylight sepenuhnya lalu buka kembali.",
+    "folderWriteFailed": "File tidak dapat disimpan di folder yang dipilih. Silakan pilih folder lain, misalnya \"Download\".",
     "retry": "Coba lagi",
     "back": "Kembali",
     "close": "Tutup",

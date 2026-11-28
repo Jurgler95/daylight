@@ -303,6 +303,8 @@
   "common": {
     "error": "Er ging iets mis",
     "shareUnavailable": "Delen is niet beschikbaar op dit toestel.",
+    "folderPickerFailed": "De mapkiezer kon niet worden geopend. Probeer het opnieuw. Helpt dat niet, sluit Daylight dan volledig af en open het opnieuw.",
+    "folderWriteFailed": "Het bestand kon niet in de gekozen map worden opgeslagen. Kies een andere map, bijvoorbeeld \"Downloads\".",
     "retry": "Opnieuw proberen",
     "back": "Terug",
     "close": "Sluiten",

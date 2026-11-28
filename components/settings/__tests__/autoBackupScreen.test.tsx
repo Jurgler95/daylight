@@ -6,6 +6,7 @@ import type { Database } from '@/db';
 import { createEntry } from '@/db/repositories/entries';
 import { createTestDb } from '@/db/testDb';
 import type { BackupFolder } from '@/lib/export/auto';
+import { FolderPickerError } from '@/lib/export/files';
 import { useDataVersion } from '@/lib/store/dataVersion';
 import { useSettingsStore } from '@/lib/store/settingsStore';
 
@@ -27,9 +28,10 @@ jest.mock('@/db/client', () => ({ getDb: () => mockDb, DATABASE_NAME: 'test.db' 
 
 const mockFiles = new Map<string, Uint8Array>();
 let mockGone = false;
+const mockPickBackupFolder = jest.fn((): Promise<string | null> => Promise.resolve(DIR));
 const DIR = 'content://com.android.externalstorage.documents/tree/primary%3ADocuments%2FDaylight';
 jest.mock('@/lib/export/autoFolder', () => ({
-  pickBackupFolder: () => Promise.resolve(DIR),
+  pickBackupFolder: () => mockPickBackupFolder(),
   storageFolder: (): BackupFolder => ({
     exists: () => !mockGone,
     list: () => [...mockFiles.keys()],
@@ -92,5 +94,22 @@ describe('automatic backup settings', () => {
     expect(Alert.alert).toHaveBeenCalledWith('Sicherung fehlgeschlagen', expect.stringContaining('nicht mehr erreichbar'));
     expect(screen.getByText(/nicht mehr erreichbar/)).toBeTruthy();
     expect(screen.getByText('Noch keine automatische Sicherung')).toBeTruthy();
+  });
+
+  it('says so when the folder picker fails, and keeps the settings', async () => {
+    mockPickBackupFolder.mockRejectedValueOnce(new FolderPickerError(new Error('unregistered ActivityResultLauncher')));
+    await render(<AutoBackupScreen />);
+    await act(async () => fireEvent.press(screen.getByRole('button', { name: 'Ordner wählen' })));
+    expect(Alert.alert).toHaveBeenCalledWith('Etwas ist schiefgelaufen', expect.stringContaining('Ordnerwähler ließ sich nicht öffnen'));
+    expect(useSettingsStore.getState().settings?.auto_backup_dir).toBeNull();
+  });
+
+  it('stays quiet when the folder pick is cancelled', async () => {
+    (Alert.alert as jest.Mock).mockClear();
+    mockPickBackupFolder.mockResolvedValueOnce(null);
+    await render(<AutoBackupScreen />);
+    await act(async () => fireEvent.press(screen.getByRole('button', { name: 'Ordner wählen' })));
+    expect(Alert.alert).not.toHaveBeenCalled();
+    expect(useSettingsStore.getState().settings?.auto_backup_dir).toBeNull();
   });
 });

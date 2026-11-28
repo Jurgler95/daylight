@@ -351,6 +351,8 @@
   "common": {
     "error": "Coś poszło nie tak",
     "shareUnavailable": "Udostępnianie nie jest dostępne na tym urządzeniu.",
+    "folderPickerFailed": "Nie udało się otworzyć wyboru folderu. Spróbuj ponownie. Jeśli to nie pomoże, zamknij całkowicie Daylight i otwórz go ponownie.",
+    "folderWriteFailed": "Nie udało się zapisać pliku w wybranym folderze. Wybierz inny folder, na przykład „Pobrane”.",
     "retry": "Spróbuj ponownie",
     "back": "Wstecz",
     "close": "Zamknij",

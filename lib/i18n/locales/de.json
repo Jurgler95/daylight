@@ -303,6 +303,8 @@
   "common": {
     "error": "Etwas ist schiefgelaufen",
     "shareUnavailable": "Teilen ist auf diesem Gerät nicht verfügbar.",
+    "folderPickerFailed": "Der Ordnerwähler ließ sich nicht öffnen. Bitte versuche es noch einmal. Hilft das nicht, schließe Daylight ganz und öffne es neu.",
+    "folderWriteFailed": "Die Datei konnte nicht im gewählten Ordner gespeichert werden. Bitte wähle einen anderen Ordner, zum Beispiel „Downloads“.",
     "retry": "Erneut versuchen",
     "back": "Zurück",
     "close": "Schließen",

@@ -8,7 +8,7 @@ import { getDb } from '@/db';
 import { countRows, deleteAllData } from '@/db/repositories/maintenance';
 import { loadSampleData } from '@/lib/dev/sample';
 import { deviceLanguage, isLanguage, LANGUAGE_NAMES, LANGUAGES, upper } from '@/lib/i18n/language';
-import { ShareUnavailableError } from '@/lib/export/files';
+import { exportErrorMessage } from '@/lib/export/files';
 import { useBackupStatus } from '@/lib/export/useBackupStatus';
 import { useDataTransfer } from '@/lib/export/useDataTransfer';
 import { filePhotoStore } from '@/lib/photos/fileStore';
@@ -21,7 +21,7 @@ export default function MoreScreen() {
   const { t } = useTranslation();
   const transfer = useDataTransfer();
   const guard = (action: () => Promise<void>) => () => {
-    action().catch((error: unknown) => Alert.alert(t('common.error'), error instanceof ShareUnavailableError ? t('common.shareUnavailable') : error instanceof Error ? error.message : String(error)));
+    action().catch((error: unknown) => Alert.alert(t('common.error'), exportErrorMessage(error, t)));
   };
   const go = (pathname: Href) => () => router.push(pathname);
 
