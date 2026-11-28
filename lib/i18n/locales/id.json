@@ -39,7 +39,7 @@
     "import": "Impor",
     "exportJson": "Bagikan cadangan",
     "saveJson": "Simpan cadangan ke folder",
-    "exportCsv": "Ekspor sebagai CSV Daylio",
+    "exportCsv": "Ekspor sebagai CSV (untuk aplikasi jurnal lain)",
     "report": "Laporan PDF",
     "deleteAll": "Hapus semua data",
     "backupHint": "Hanya cadangan yang memulihkan semuanya. Dengan foto, cadangan berupa file ZIP. CSV tidak berisi grup, ikon, rencana, titik balik, atau foto.",

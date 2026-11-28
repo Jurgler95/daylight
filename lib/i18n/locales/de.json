@@ -39,7 +39,7 @@
     "import": "Importieren",
     "exportJson": "Sicherung teilen",
     "saveJson": "Sicherung in Ordner speichern",
-    "exportCsv": "Als Daylio-CSV exportieren",
+    "exportCsv": "Als CSV exportieren (für andere Tagebuch-Apps)",
     "report": "Bericht als PDF",
     "deleteAll": "Alle Daten löschen",
     "backupHint": "Nur die Sicherung stellt alles wieder her. Mit Fotos ist sie eine ZIP-Datei. Die CSV enthält keine Gruppen, Symbole, Pläne, Wendepunkte und Fotos.",

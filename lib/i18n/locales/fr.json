@@ -41,7 +41,7 @@
     "import": "Importer",
     "exportJson": "Partager la sauvegarde",
     "saveJson": "Enregistrer la sauvegarde dans un dossier",
-    "exportCsv": "Exporter en CSV Daylio",
+    "exportCsv": "Exporter en CSV (pour d'autres applis de journal)",
     "report": "Rapport en PDF",
     "deleteAll": "Supprimer toutes les données",
     "backupHint": "Seule la sauvegarde restaure tout. Avec des photos, c'est un fichier ZIP. Le CSV ne contient ni groupes, ni icônes, ni activités prévues, ni tournants, ni photos.",

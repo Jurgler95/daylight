@@ -43,7 +43,7 @@
     "import": "Import",
     "exportJson": "Udostępnij kopię zapasową",
     "saveJson": "Zapisz kopię zapasową w folderze",
-    "exportCsv": "Eksportuj jako Daylio CSV",
+    "exportCsv": "Eksportuj jako CSV (dla innych aplikacji dziennika)",
     "report": "Raport PDF",
     "deleteAll": "Usuń wszystkie dane",
     "backupHint": "Tylko kopia zapasowa przywraca wszystko. Ze zdjęciami jest to plik ZIP. Plik CSV nie zawiera grup, ikon, planów, punktów zwrotnych ani zdjęć.",

@@ -39,7 +39,7 @@
     "import": "Import",
     "exportJson": "Share backup",
     "saveJson": "Save backup to folder",
-    "exportCsv": "Export as Daylio CSV",
+    "exportCsv": "Export as CSV (for other diary apps)",
     "report": "Report as PDF",
     "deleteAll": "Delete all data",
     "backupHint": "Only the backup restores everything. With photos it is a ZIP file. The CSV has no groups, icons, plans, turning points or photos.",

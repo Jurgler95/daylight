@@ -39,7 +39,7 @@
     "import": "Importeren",
     "exportJson": "Back-up delen",
     "saveJson": "Back-up in map opslaan",
-    "exportCsv": "Exporteren als Daylio-CSV",
+    "exportCsv": "Exporteren als CSV (voor andere dagboek-apps)",
     "report": "Rapport als pdf",
     "deleteAll": "Alle gegevens wissen",
     "backupHint": "Alleen de back-up zet alles terug. Met foto's is het een ZIP-bestand. De CSV bevat geen groepen, iconen, plannen, keerpunten of foto's.",

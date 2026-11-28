@@ -39,7 +39,7 @@
     "import": "İçe aktar",
     "exportJson": "Yedeği paylaş",
     "saveJson": "Yedeği klasöre kaydet",
-    "exportCsv": "Daylio CSV olarak dışa aktar",
+    "exportCsv": "CSV olarak dışa aktar (diğer günlük uygulamaları için)",
     "report": "PDF rapor",
     "deleteAll": "Tüm verileri sil",
     "backupHint": "Her şeyi yalnızca yedek geri yükler. Fotoğraflarla birlikte bir ZIP dosyasıdır. CSV'de gruplar, simgeler, planlar, dönüm noktaları ve fotoğraflar yoktur.",
