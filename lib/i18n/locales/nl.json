@@ -180,6 +180,8 @@
     "selected_other": "{{count}} gekozen",
     "noActivities": "Nog geen activiteiten",
     "addActivity": "Nieuwe activiteit in {{group}}",
+    "archiveActivity": "„{{name}}” archiveren?",
+    "archiveActivityRestore": "Terughalen kan onder „{{more}}”, „{{activities}}”.",
     "note": "Notitie",
     "date": "Dag",
     "time": "Tijd",

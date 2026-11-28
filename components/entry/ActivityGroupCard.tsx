@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 
 import { AppText, Card, Chip } from '@/components/ui';
@@ -20,25 +20,43 @@ interface Props {
   addLabel?: string;
   /** Creates an activity in this group; returns whether it worked, the field closes only then. Without it, no plus chip. */
   onAdd?: (name: string) => boolean;
+  /** Holding a chip asks to archive that activity. Without it, holding does nothing. */
+  onArchive?: (activityId: number) => void;
+  /** Told the way to take a name still in the field, or null when there is none, so "Speichern" can take it. */
+  onPending?: (commit: (() => void) | null) => void;
 }
 
 /**
  * One activity group in the editor: a header that folds it, then its activities as chips and a plus
- * chip that turns into a name field, so a missing activity is added without leaving the entry.
+ * chip that turns into a name field, so a missing activity is added without leaving the entry. The
+ * name is taken on "Fertig" and also when the field loses focus, e.g. by tapping beside the keyboard.
+ * Holding a chip offers to archive it.
  */
-export function ActivityGroupCard({ item, selected, collapsed, selectedLabel, onToggleCollapsed, onToggle, addLabel, onAdd }: Props) {
+export function ActivityGroupCard({ item, selected, collapsed, selectedLabel, onToggleCollapsed, onToggle, addLabel, onAdd, onArchive, onPending }: Props) {
   const { colors } = useTheme();
   const [adding, setAdding] = useState(false);
   const [text, setText] = useState('');
+  // "Fertig" is followed by a blur in the same breath, before the cleared text has rendered; this
+  // keeps the name from being added twice.
+  const taken = useRef(false);
   const close = () => {
     setAdding(false);
     setText('');
   };
   const add = () => {
+    if (taken.current) return;
     const name = text.trim();
     if (!name) return close();
-    if (onAdd?.(name)) close();
+    if (onAdd?.(name)) {
+      taken.current = true;
+      close();
+    }
   };
+  const pending = adding && text.trim() !== '';
+  useEffect(() => {
+    onPending?.(pending ? add : null);
+    return () => onPending?.(null);
+  }, [pending, text]); // eslint-disable-line react-hooks/exhaustive-deps
   const count = item.activities.filter((activity) => selected.includes(activity.id)).length;
   return (
     <Card>
@@ -71,6 +89,7 @@ export function ActivityGroupCard({ item, selected, collapsed, selectedLabel, on
               icon={activity.icon as IconName}
               selected={selected.includes(activity.id)}
               onPress={() => onToggle(activity.id)}
+              onLongPress={onArchive ? () => onArchive(activity.id) : undefined}
             />
           ))}
           {!onAdd ? null : adding ? (
@@ -78,9 +97,7 @@ export function ActivityGroupCard({ item, selected, collapsed, selectedLabel, on
               value={text}
               onChangeText={setText}
               onSubmitEditing={add}
-              onBlur={() => {
-                if (!text.trim()) close();
-              }}
+              onBlur={add}
               autoFocus
               placeholder={addLabel}
               placeholderTextColor={colors.textMuted}
@@ -92,6 +109,7 @@ export function ActivityGroupCard({ item, selected, collapsed, selectedLabel, on
             <Pressable
               onPress={() => {
                 haptics.tick();
+                taken.current = false;
                 setAdding(true);
               }}
               accessibilityRole="button"

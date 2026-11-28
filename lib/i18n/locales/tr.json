@@ -180,6 +180,8 @@
     "selected_other": "{{count}} seçildi",
     "noActivities": "Henüz aktivite yok",
     "addActivity": "Yeni aktivite, grup: {{group}}",
+    "archiveActivity": "“{{name}}” arşivlensin mi?",
+    "archiveActivityRestore": "“{{more}}”, “{{activities}}” altından geri alabilirsin.",
     "note": "Not",
     "date": "Gün",
     "time": "Saat",

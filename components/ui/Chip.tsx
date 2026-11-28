@@ -17,10 +17,12 @@ interface Props {
   color?: string;
   /** Activity icon in front of the label. */
   icon?: IconName;
+  /** Holding the chip, e.g. to archive an activity. */
+  onLongPress?: () => void;
 }
 
 /** Colour fades in, then the chip gives a small hop, so picking one feels like it landed. */
-export function Chip({ label, selected, onPress, color, icon }: Props) {
+export function Chip({ label, selected, onPress, color, icon, onLongPress }: Props) {
   const { colors } = useTheme();
   const tint = color ?? colors.accent;
   const progress = useSharedValue(selected ? 1 : 0);
@@ -50,6 +52,14 @@ export function Chip({ label, selected, onPress, color, icon }: Props) {
               if (selected) haptics.off();
               else haptics.on();
               onPress();
+            }
+          : undefined
+      }
+      onLongPress={
+        onLongPress
+          ? () => {
+              haptics.landmark();
+              onLongPress();
             }
           : undefined
       }
