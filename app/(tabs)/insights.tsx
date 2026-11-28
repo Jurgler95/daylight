@@ -6,7 +6,6 @@ import { StyleSheet, View } from 'react-native';
 import { BeforeHardCard } from '@/components/insights/BeforeHardCard';
 import { CoverageCard } from '@/components/insights/CoverageCard';
 import { DistributionCard } from '@/components/insights/DistributionCard';
-import { EffectsCard } from '@/components/insights/EffectsCard';
 import { FrequencyCard } from '@/components/insights/FrequencyCard';
 import { GroupCard } from '@/components/insights/GroupCard';
 import { HealthCard } from '@/components/insights/HealthCard';
@@ -19,6 +18,7 @@ import { HealthTrendCard } from '@/components/insights/health/HealthTrendCard';
 import { HealthWeekdayCard } from '@/components/insights/health/HealthWeekdayCard';
 import { MoodSplitCard } from '@/components/insights/health/MoodSplitCard';
 import { InsightCard } from '@/components/insights/InsightCard';
+import { LinksCard } from '@/components/insights/LinksCard';
 import { MonthCard } from '@/components/insights/MonthCard';
 import { MoodLineChart } from '@/components/insights/MoodLineChart';
 import type { ActivityNames, GroupActivities } from '@/components/insights/names';
@@ -45,6 +45,7 @@ import { weekdayLabels, type DateString } from '@/lib/dates';
 import { useToday } from '@/lib/dates/useToday';
 import { formatDecimal, formatPercent, INSIGHT_RANGES, type InsightRange, type TrendSubject } from '@/lib/insights';
 import { useHealthInsights, useInsights, useScaleInsights, useScaleRelations, useTrends } from '@/lib/insights/useInsights';
+import { useLinks } from '@/lib/insights/useLinks';
 import type { IconName } from '@/lib/icons';
 import { useSelectedDayStore } from '@/lib/store/selectedDay';
 import { useSettingsStore } from '@/lib/store/settingsStore';
@@ -96,6 +97,8 @@ export default function InsightsScreen() {
     return true;
   });
   const section = sections.some((s) => s.value === picked) ? picked : 'mood';
+  // Over the last two years whatever the range, and only worked out while its section is open.
+  const links = useLinks(catalog, now, section === 'activities');
   const firstDay = useSettingsStore((s) => s.settings?.first_day_of_week) ?? 1;
   const pick = useSelectedDayStore((s) => s.pick);
   const turningPoints = useTurningPoints();
@@ -190,7 +193,7 @@ export default function InsightsScreen() {
       {section === 'patterns' ? (
         <>
           <WeekdayCard profile={insights.weekdays} names={weekdayNames} firstDay={firstDay} />
-          <MonthCard months={insights.months} />
+          <MonthCard months={insights.months} usual={insights.usual} moodLabel={(level) => levelMood(catalog, level).label} />
           <SwingsCard swings={insights.swings} />
           <StreakCard streaks={insights.streaks} goodLabel={good} />
         </>
@@ -199,8 +202,7 @@ export default function InsightsScreen() {
       {section === 'activities' ? (
         <>
           <FrequencyCard counts={insights.counts} groups={groups} names={names} />
-          <EffectsCard effects={insights.effects} names={names} lag={0} />
-          <EffectsCard effects={insights.nextDay} names={names} lag={1} />
+          <LinksCard links={links} names={names} scaleName={(id) => catalog.scaleById.get(id)?.name ?? ''} />
           <PairsCard pairs={insights.pairs} names={names} />
           <BeforeHardCard result={insights.beforeHard} names={names} />
           <GroupCard days={insights.days} groups={groups} names={names} />

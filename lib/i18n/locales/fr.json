@@ -267,6 +267,9 @@
     "archiveActivityHint": "N'est plus proposée, les anciennes entrées la gardent.",
     "archiveGroupHint": "Le groupe et ses activités ne sont plus proposés.",
     "archiveScaleHint": "N'apparaît plus dans l'entrée, les anciennes valeurs restent.",
+    "describesMood": "Décrit l’humeur",
+    "describesMoodGroupHint": "Pour les groupes comme « Émotions », dont les activités disent comment la journée a été vécue et non ce qui s’est passé. Les aperçus les présentent à part dans les liens.",
+    "describesMoodScaleHint": "Pour les échelles qui évaluent l’humeur elle-même, comme la satisfaction ou la tension. Les aperçus les présentent à part dans les liens.",
     "usage_one": "{{count}} entrée",
     "usage_other": "{{count}} entrées",
     "usage_many": "{{count}} entrées",
@@ -380,7 +383,14 @@
     },
     "months": {
       "title": "Mois",
-      "empty": "Pas encore de mois"
+      "empty": "Pas encore de mois",
+      "usual": "Ta plage habituelle : {{range}}",
+      "usualSpan": "de {{from}} à {{to}}",
+      "usualHint": "Environ la moitié de tes journées, ou plus, se situent dans cette plage. Les barres montrent combien de jours de chaque mois étaient en dessous et au-dessus.",
+      "usualFew": "À partir de {{days}} jours avec entrée, ta plage habituelle s’affiche ici.",
+      "mean": "Moyenne {{value}}",
+      "counts": "{{above}} au-dessus, {{below}} en dessous",
+      "allUsual": "Tous les jours dans la plage habituelle"
     },
     "trends": {
       "title": "Tendances",
@@ -424,15 +434,36 @@
       "empty": "Aucune activité sur cette période"
     },
     "effects": {
-      "title": "Humeur avec et sans",
-      "nextTitle": "Le lendemain",
-      "higher": "Moyenne plus haute",
-      "lower": "Moyenne plus basse",
       "sentence": "Les jours avec {{name}}, moyenne {{with}} au lieu de {{without}} ({{count}} jours)",
       "nextSentence": "Le lendemain de {{name}}, moyenne {{with}} au lieu de {{without}} ({{count}} jours)",
-      "empty": "Pas encore d'activité avec une nette différence",
       "more": "Tout afficher",
       "less": "Afficher moins"
+    },
+    "links": {
+      "title": "Liens stables",
+      "window": "Sur les deux dernières années, quelle que soit la période",
+      "explain": "Stable signifie que le lien tient même une fois pris en compte le jour de la semaine, l’évolution des semaines voisines et les éléments étroitement liés. Un indice est moins sûr et peut relever du hasard. Les deux montrent ce qui va ensemble, pas ce qui en est la cause.",
+      "sameDay": "Le même jour",
+      "nextDay": "Le lendemain",
+      "stable": "Lien stable",
+      "hint": "Indice",
+      "describing": "Décrit l’humeur",
+      "describingHint": "Ces éléments disent comment la journée a été vécue. Il est normal qu’ils suivent l’humeur, c’est pourquoi ils sont à part.",
+      "activity": {
+        "up0": "Va de pair avec de meilleurs jours",
+        "down0": "Va de pair avec des jours moins bons",
+        "up1": "Va de pair avec un meilleur lendemain",
+        "down1": "Va de pair avec un lendemain moins bon"
+      },
+      "value": {
+        "up0": "Des valeurs plus élevées vont de pair avec de meilleurs jours",
+        "down0": "Des valeurs plus élevées vont de pair avec des jours moins bons",
+        "up1": "Des valeurs plus élevées vont de pair avec un meilleur lendemain",
+        "down1": "Des valeurs plus élevées vont de pair avec un lendemain moins bon"
+      },
+      "row": "{{direction}} ({{days}})",
+      "few": "À partir de {{days}} jours avec entrée, Daylight cherche ici des liens.",
+      "nothing": "Aucun lien trouvé pour l’instant qui semble dépasser le hasard."
     },
     "pairs": {
       "title": "Souvent ensemble",

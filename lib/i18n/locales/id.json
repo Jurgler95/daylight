@@ -248,6 +248,9 @@
     "archiveActivityHint": "Tidak bisa dipilih lagi, entri lama tetap menyimpannya.",
     "archiveGroupHint": "Grup dan aktivitasnya tidak bisa dipilih lagi.",
     "archiveScaleHint": "Tidak muncul lagi di entri, nilai lama tetap ada.",
+    "describesMood": "Menggambarkan suasana hati",
+    "describesMoodGroupHint": "Untuk grup seperti “Perasaan”, yang aktivitasnya menyatakan bagaimana harimu terasa, bukan apa yang terjadi. Wawasan menampilkannya terpisah di bagian hubungan.",
+    "describesMoodScaleHint": "Untuk skala yang menilai suasana hati itu sendiri, misalnya kepuasan atau ketegangan. Wawasan menampilkannya terpisah di bagian hubungan.",
     "usage_one": "{{count}} entri",
     "usage_other": "{{count}} entri",
     "levelUsage_one": "Tingkat {{level}}, {{count}} entri",
@@ -354,7 +357,14 @@
     },
     "months": {
       "title": "Bulan",
-      "empty": "Belum ada bulan"
+      "empty": "Belum ada bulan",
+      "usual": "Rentang biasamu: {{range}}",
+      "usualSpan": "{{from}} sampai {{to}}",
+      "usualHint": "Sekitar separuh harimu atau lebih berada dalam rentang ini. Batang menunjukkan berapa hari tiap bulan yang berada di bawah dan di atasnya.",
+      "usualFew": "Mulai {{days}} hari dengan entri, rentang biasamu muncul di sini.",
+      "mean": "Rata-rata {{value}}",
+      "counts": "{{above}} di atas, {{below}} di bawah",
+      "allUsual": "Semua hari dalam rentang biasa"
     },
     "trends": {
       "title": "Tren",
@@ -396,15 +406,36 @@
       "empty": "Tidak ada aktivitas dalam periode ini"
     },
     "effects": {
-      "title": "Suasana hati dengan dan tanpa",
-      "nextTitle": "Pada hari berikutnya",
-      "higher": "Rata-rata lebih tinggi",
-      "lower": "Rata-rata lebih rendah",
       "sentence": "Pada hari dengan {{name}}, rata-rata {{with}}, bukan {{without}} ({{count}} hari)",
       "nextSentence": "Pada hari setelah {{name}}, rata-rata {{with}}, bukan {{without}} ({{count}} hari)",
-      "empty": "Belum ada aktivitas dengan perbedaan yang jelas",
       "more": "Tampilkan semua",
       "less": "Tampilkan lebih sedikit"
+    },
+    "links": {
+      "title": "Hubungan yang stabil",
+      "window": "Dari dua tahun terakhir, apa pun periodenya",
+      "explain": "Stabil berarti hubungannya tetap ada meski hari dalam seminggu, perkembangan minggu-minggu di sekitarnya, dan data yang berkaitan erat sudah diperhitungkan. Petunjuk lebih tidak pasti dan bisa jadi kebetulan. Keduanya menunjukkan apa yang muncul bersamaan, bukan apa penyebabnya.",
+      "sameDay": "Di hari yang sama",
+      "nextDay": "Di hari berikutnya",
+      "stable": "Hubungan stabil",
+      "hint": "Petunjuk",
+      "describing": "Menggambarkan suasana hati",
+      "describingHint": "Data ini menyatakan bagaimana harimu terasa. Wajar jika sejalan dengan suasana hati, karena itu ditampilkan terpisah.",
+      "activity": {
+        "up0": "Sejalan dengan hari yang lebih baik",
+        "down0": "Sejalan dengan hari yang lebih buruk",
+        "up1": "Sejalan dengan hari berikutnya yang lebih baik",
+        "down1": "Sejalan dengan hari berikutnya yang lebih buruk"
+      },
+      "value": {
+        "up0": "Nilai yang lebih tinggi sejalan dengan hari yang lebih baik",
+        "down0": "Nilai yang lebih tinggi sejalan dengan hari yang lebih buruk",
+        "up1": "Nilai yang lebih tinggi sejalan dengan hari berikutnya yang lebih baik",
+        "down1": "Nilai yang lebih tinggi sejalan dengan hari berikutnya yang lebih buruk"
+      },
+      "row": "{{direction}} ({{days}})",
+      "few": "Mulai {{days}} hari dengan entri, Daylight mencari hubungan di sini.",
+      "nothing": "Belum ada hubungan yang tampaknya lebih dari kebetulan."
     },
     "pairs": {
       "title": "Sering bersamaan",

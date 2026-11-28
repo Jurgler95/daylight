@@ -27,6 +27,7 @@ describe('buildInsights', () => {
         coverage: null,
         years: [],
         streaks: { longest: null, current: null },
+        usual: null,
         effects: { lifts: [], lowers: [] },
         beforeHard: { hardDays: 0, items: [] },
       });
@@ -43,9 +44,12 @@ describe('buildInsights', () => {
       expect(insights.series.length).toBeGreaterThan(20);
     }
     const year = buildInsights({ entries, range: '365', today, firstDayOfWeek: 1 });
-    // The generator lifts the mood with good sleep and weighs it down with poor sleep.
-    expect(year.effects.lifts.length).toBeGreaterThan(0);
-    expect(year.effects.lowers.length).toBeGreaterThan(0);
+    // Mostly "Gut" with days around it: a usual range, and months that count their days against it.
+    expect(year.usual).toEqual({ lo: expect.any(Number), hi: expect.any(Number) });
+    expect(year.months.length).toBeGreaterThan(10);
+    for (const month of year.months) expect(month.usual!.below + month.usual!.within + month.usual!.above).toBe(month.days);
+    expect(year.months.some((month) => month.usual!.below > 0)).toBe(true);
+    expect(year.months.some((month) => month.usual!.above > 0)).toBe(true);
     // Two entries on some days: more entries than days.
     expect(year.coverage!.entries).toBeGreaterThan(year.coverage!.days);
     expect(year.weekdays.weekdays.every((w) => w.days > 40)).toBe(true);

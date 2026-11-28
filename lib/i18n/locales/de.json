@@ -248,6 +248,9 @@
     "archiveActivityHint": "Nicht mehr zur Auswahl, alte Einträge behalten sie.",
     "archiveGroupHint": "Die Gruppe und ihre Aktivitäten sind nicht mehr zur Auswahl.",
     "archiveScaleHint": "Nicht mehr im Eintrag, alte Werte bleiben.",
+    "describesMood": "Beschreibt die Stimmung",
+    "describesMoodGroupHint": "Für Gruppen wie „Gefühle“, deren Aktivitäten sagen, wie der Tag war, und nicht, was passiert ist. Die Einblicke führen sie bei den Zusammenhängen getrennt auf.",
+    "describesMoodScaleHint": "Für Skalen, die die Stimmung selbst bewerten, etwa Zufriedenheit oder Anspannung. Die Einblicke führen sie bei den Zusammenhängen getrennt auf.",
     "usage_one": "{{count}} Eintrag",
     "usage_other": "{{count}} Einträge",
     "levelUsage_one": "Stufe {{level}}, {{count}} Eintrag",
@@ -354,7 +357,14 @@
     },
     "months": {
       "title": "Monate",
-      "empty": "Noch keine Monate"
+      "empty": "Noch keine Monate",
+      "usual": "Dein üblicher Bereich: {{range}}",
+      "usualSpan": "{{from}} bis {{to}}",
+      "usualHint": "In diesem Bereich liegt mindestens etwa die Hälfte deiner Tage. Die Balken zeigen je Monat, wie viele Tage darunter und darüber lagen.",
+      "usualFew": "Ab {{days}} Tagen mit Eintrag steht hier dein üblicher Bereich.",
+      "mean": "Schnitt {{value}}",
+      "counts": "{{above}} darüber, {{below}} darunter",
+      "allUsual": "Alle Tage im üblichen Bereich"
     },
     "trends": {
       "title": "Trends",
@@ -396,15 +406,36 @@
       "empty": "Keine Aktivitäten in diesem Zeitraum"
     },
     "effects": {
-      "title": "Stimmung mit und ohne",
-      "nextTitle": "Am Folgetag",
-      "higher": "Höherer Schnitt",
-      "lower": "Niedrigerer Schnitt",
       "sentence": "An Tagen mit {{name}} im Schnitt {{with}} statt {{without}} ({{count}} Tage)",
       "nextSentence": "Am Tag nach {{name}} im Schnitt {{with}} statt {{without}} ({{count}} Tage)",
-      "empty": "Noch keine Aktivität mit deutlichem Unterschied",
       "more": "Alle zeigen",
       "less": "Weniger zeigen"
+    },
+    "links": {
+      "title": "Stabile Zusammenhänge",
+      "window": "Aus den letzten zwei Jahren, unabhängig vom Zeitraum",
+      "explain": "Stabil heißt: Der Zusammenhang bleibt, auch wenn der Wochentag, der Verlauf der umliegenden Wochen und eng verbundene Angaben herausgerechnet sind. Ein Hinweis ist unsicherer und kann Zufall sein. Beides zeigt, was zusammen auftritt, nicht was die Ursache ist.",
+      "sameDay": "Am selben Tag",
+      "nextDay": "Am Folgetag",
+      "stable": "Stabiler Zusammenhang",
+      "hint": "Hinweis",
+      "describing": "Beschreibt die Stimmung",
+      "describingHint": "Diese Angaben sagen, wie der Tag war. Dass sie zur Stimmung passen, ist zu erwarten, deshalb stehen sie für sich.",
+      "activity": {
+        "up0": "Geht mit besseren Tagen einher",
+        "down0": "Geht mit schlechteren Tagen einher",
+        "up1": "Geht mit einem besseren Folgetag einher",
+        "down1": "Geht mit einem schlechteren Folgetag einher"
+      },
+      "value": {
+        "up0": "Höhere Werte gehen mit besseren Tagen einher",
+        "down0": "Höhere Werte gehen mit schlechteren Tagen einher",
+        "up1": "Höhere Werte gehen mit einem besseren Folgetag einher",
+        "down1": "Höhere Werte gehen mit einem schlechteren Folgetag einher"
+      },
+      "row": "{{direction}} ({{days}})",
+      "few": "Ab {{days}} Tagen mit Eintrag sucht Daylight hier nach Zusammenhängen.",
+      "nothing": "Noch kein Zusammenhang gefunden, der mehr als Zufall sein dürfte."
     },
     "pairs": {
       "title": "Oft zusammen",

@@ -267,6 +267,9 @@
     "archiveActivityHint": "Non più selezionabile, le voci passate la mantengono.",
     "archiveGroupHint": "Il gruppo e le sue attività non sono più selezionabili.",
     "archiveScaleHint": "Non più nella voce, i valori passati restano.",
+    "describesMood": "Descrive l’umore",
+    "describesMoodGroupHint": "Per gruppi come «Emozioni», le cui attività dicono com’è andata la giornata e non che cosa è successo. Le analisi li mostrano a parte nelle relazioni.",
+    "describesMoodScaleHint": "Per le scale che valutano l’umore stesso, come la soddisfazione o la tensione. Le analisi le mostrano a parte nelle relazioni.",
     "usage_one": "{{count}} voce",
     "usage_other": "{{count}} voci",
     "usage_many": "{{count}} voci",
@@ -380,7 +383,14 @@
     },
     "months": {
       "title": "Mesi",
-      "empty": "Ancora nessun mese"
+      "empty": "Ancora nessun mese",
+      "usual": "Il tuo intervallo abituale: {{range}}",
+      "usualSpan": "da {{from}} a {{to}}",
+      "usualHint": "Circa metà dei tuoi giorni, o più, rientra in questo intervallo. Le barre mostrano quanti giorni di ogni mese sono stati sotto e sopra.",
+      "usualFew": "Da {{days}} giorni con una voce qui compare il tuo intervallo abituale.",
+      "mean": "Media {{value}}",
+      "counts": "{{above}} sopra, {{below}} sotto",
+      "allUsual": "Tutti i giorni nell’intervallo abituale"
     },
     "trends": {
       "title": "Tendenze",
@@ -424,15 +434,36 @@
       "empty": "Nessuna attività in questo periodo"
     },
     "effects": {
-      "title": "Umore con e senza",
-      "nextTitle": "Il giorno dopo",
-      "higher": "Media più alta",
-      "lower": "Media più bassa",
       "sentence": "Nei giorni con {{name}}, in media {{with}} invece di {{without}} ({{count}} giorni)",
       "nextSentence": "Il giorno dopo {{name}}, in media {{with}} invece di {{without}} ({{count}} giorni)",
-      "empty": "Ancora nessuna attività con una differenza chiara",
       "more": "Mostra tutto",
       "less": "Mostra meno"
+    },
+    "links": {
+      "title": "Relazioni stabili",
+      "window": "Dagli ultimi due anni, a prescindere dal periodo",
+      "explain": "Stabile significa che la relazione regge anche tolti il giorno della settimana, l’andamento delle settimane vicine e i dati strettamente collegati. Un indizio è meno sicuro e può essere un caso. Entrambi mostrano che cosa compare insieme, non quale sia la causa.",
+      "sameDay": "Nello stesso giorno",
+      "nextDay": "Il giorno dopo",
+      "stable": "Relazione stabile",
+      "hint": "Indizio",
+      "describing": "Descrive l’umore",
+      "describingHint": "Questi dati dicono com’è andata la giornata. È normale che seguano l’umore, per questo stanno a parte.",
+      "activity": {
+        "up0": "Si accompagna a giorni migliori",
+        "down0": "Si accompagna a giorni peggiori",
+        "up1": "Si accompagna a un giorno dopo migliore",
+        "down1": "Si accompagna a un giorno dopo peggiore"
+      },
+      "value": {
+        "up0": "Valori più alti si accompagnano a giorni migliori",
+        "down0": "Valori più alti si accompagnano a giorni peggiori",
+        "up1": "Valori più alti si accompagnano a un giorno dopo migliore",
+        "down1": "Valori più alti si accompagnano a un giorno dopo peggiore"
+      },
+      "row": "{{direction}} ({{days}})",
+      "few": "Da {{days}} giorni con una voce, Daylight cerca qui le relazioni.",
+      "nothing": "Ancora nessuna relazione che sembri più di un caso."
     },
     "pairs": {
       "title": "Spesso insieme",

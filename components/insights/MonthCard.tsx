@@ -1,81 +1,82 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
-import { BarChart } from 'react-native-gifted-charts';
 
-import { formatMonthLong, formatMonthShort } from '@/lib/dates';
-import { formatDecimal, type MonthMean } from '@/lib/insights';
-import { roundLevel } from '@/lib/mood/dayMood';
-import { useTheme } from '@/lib/theme';
+import { AppText, Button } from '@/components/ui';
+import type { MoodLevel } from '@/db/schema';
+import { formatMonthYear } from '@/lib/dates';
+import { formatDecimal, USUAL_MIN_DAYS, type UsualMonth, type UsualRange } from '@/lib/insights';
+import { radius, spacing, useTheme } from '@/lib/theme';
 
 import { InsightCard } from './InsightCard';
 
 interface Props {
-  months: MonthMean[];
+  months: UsualMonth[];
+  /** The usual range at the end of the range picked; null while the diary is too short for one. */
+  usual: UsualRange | null;
+  moodLabel: (level: MoodLevel) => string;
 }
 
-const PLOT_HEIGHT = 140;
-const X_LABELS_HEIGHT = 22;
-const MIN_LABEL_SPACING = 40;
-const Y_AXIS_WIDTH = 32;
-/** Plot + x labels + headroom; the wrapper clips anything the library adds beyond that (as in Zyklus). */
-const FRAME_HEIGHT = PLOT_HEIGHT + X_LABELS_HEIGHT + 24;
+/** Months before "Alle zeigen". */
+const SHOWN = 6;
 
-/** Mean per month as bars on the 1 to 5 scale, each in the colour of its rounded mean. */
-export function MonthCard({ months }: Props) {
+/**
+ * One row per month, newest first: its mean as a number and its days below and above the usual
+ * range as a bar. Someone who picks the same mood on most days gets months with nearly the same
+ * mean; the days outside their own usual range are what tells them apart.
+ */
+export function MonthCard({ months, usual, moodLabel }: Props) {
   const { t } = useTranslation();
   const { colors, mood: moodColors } = useTheme();
-  const [width, setWidth] = useState(0);
-  const plotWidth = Math.max(0, width - Y_AXIS_WIDTH - 12);
-  const step = Math.max(12, Math.floor((plotWidth - 20) / Math.max(1, months.length)));
-  // Only every n-th label, so neighbouring month names never overlap.
-  const labelEvery = Math.max(1, Math.ceil(MIN_LABEL_SPACING / step));
-  const data = months.map((month, i) => ({
-    value: month.mean,
-    label: i % labelEvery === 0 ? formatMonthShort(month.month) : '',
-    frontColor: moodColors[roundLevel(month.mean)].strong,
-  }));
-  const spoken = months.map((month) => `${formatMonthLong(month.month)} ${formatDecimal(month.mean)}`).join(', ');
+  const [all, setAll] = useState(false);
+  const newestFirst = [...months].reverse();
+  const range = usual ? (usual.lo === usual.hi ? moodLabel(usual.lo) : t('insights.months.usualSpan', { from: moodLabel(usual.lo), to: moodLabel(usual.hi) })) : null;
 
   return (
     <InsightCard title={t('insights.months.title')} empty={months.length === 0 ? t('insights.months.empty') : null}>
-      <View
-        onLayout={(e) => setWidth(Math.round(e.nativeEvent.layout.width))}
-        accessible
-        accessibilityRole="image"
-        accessibilityLabel={`${t('insights.months.title')}: ${spoken}`}
-        style={[styles.plot, { height: FRAME_HEIGHT }]}
-      >
-        {width > 0 ? (
-          <BarChart
-            data={data}
-            width={plotWidth}
-            height={PLOT_HEIGHT}
-            barWidth={Math.min(28, Math.max(6, step - 6))}
-            spacing={Math.max(4, step - Math.min(28, Math.max(6, step - 6)))}
-            initialSpacing={8}
-            barBorderTopLeftRadius={4}
-            barBorderTopRightRadius={4}
-            // The library subtracts yAxisOffset from every value; maxValue is relative to it.
-            yAxisOffset={1}
-            maxValue={4}
-            noOfSections={4}
-            yAxisLabelWidth={Y_AXIS_WIDTH}
-            yAxisColor="transparent"
-            xAxisColor={colors.border}
-            rulesColor={colors.border}
-            rulesType="solid"
-            yAxisTextStyle={{ color: colors.textMuted, fontSize: 12 }}
-            xAxisLabelTextStyle={{ color: colors.textMuted, fontSize: 11, width: MIN_LABEL_SPACING, textAlign: 'center' }}
-            xAxisLabelsHeight={X_LABELS_HEIGHT}
-            disableScroll
-          />
-        ) : null}
-      </View>
+      {range ? <AppText variant="label">{t('insights.months.usual', { range })}</AppText> : null}
+      <AppText variant="caption" muted>
+        {range ? t('insights.months.usualHint') : t('insights.months.usualFew', { days: USUAL_MIN_DAYS })}
+      </AppText>
+      {(all ? newestFirst : newestFirst.slice(0, SHOWN)).map((month) => {
+        const name = formatMonthYear(month.month);
+        const mean = t('insights.months.mean', { value: formatDecimal(month.mean) });
+        const counts = month.usual
+          ? month.usual.below + month.usual.above === 0
+            ? t('insights.months.allUsual')
+            : t('insights.months.counts', { above: month.usual.above, below: month.usual.below })
+          : null;
+        return (
+          <View key={month.month} style={styles.month} accessible accessibilityLabel={[name, mean, counts].filter(Boolean).join(', ')}>
+            <View style={styles.head}>
+              <AppText variant="label" style={styles.name}>
+                {name}
+              </AppText>
+              <AppText variant="label">{mean}</AppText>
+            </View>
+            {month.usual ? (
+              <View style={[styles.bar, { backgroundColor: colors.surfaceMuted }]}>
+                {month.usual.below > 0 ? <View style={{ flex: month.usual.below, backgroundColor: moodColors[2].strong }} /> : null}
+                {month.usual.within > 0 ? <View style={{ flex: month.usual.within, backgroundColor: colors.border }} /> : null}
+                {month.usual.above > 0 ? <View style={{ flex: month.usual.above, backgroundColor: moodColors[5].strong }} /> : null}
+              </View>
+            ) : null}
+            {counts ? (
+              <AppText variant="caption" muted>
+                {counts}
+              </AppText>
+            ) : null}
+          </View>
+        );
+      })}
+      {months.length > SHOWN ? <Button variant="ghost" label={t(all ? 'insights.effects.less' : 'insights.effects.more')} onPress={() => setAll(!all)} /> : null}
     </InsightCard>
   );
 }
 
 const styles = StyleSheet.create({
-  plot: { overflow: 'hidden' },
+  month: { gap: spacing.xs, paddingVertical: spacing.xs },
+  head: { flexDirection: 'row', alignItems: 'baseline', gap: spacing.md },
+  name: { flex: 1 },
+  bar: { flexDirection: 'row', height: 10, borderRadius: radius.pill, overflow: 'hidden' },
 });

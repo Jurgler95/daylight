@@ -248,6 +248,9 @@
     "archiveActivityHint": "Niet meer te kiezen, oude registraties houden hem.",
     "archiveGroupHint": "De groep en haar activiteiten zijn niet meer te kiezen.",
     "archiveScaleHint": "Niet meer in de registratie, oude waarden blijven.",
+    "describesMood": "Beschrijft de stemming",
+    "describesMoodGroupHint": "Voor groepen als “Gevoelens”, waarvan de activiteiten zeggen hoe de dag voelde en niet wat er gebeurde. De inzichten tonen ze apart bij de verbanden.",
+    "describesMoodScaleHint": "Voor schalen die de stemming zelf beoordelen, zoals tevredenheid of spanning. De inzichten tonen ze apart bij de verbanden.",
     "usage_one": "{{count}} registratie",
     "usage_other": "{{count}} registraties",
     "levelUsage_one": "Niveau {{level}}, {{count}} registratie",
@@ -354,7 +357,14 @@
     },
     "months": {
       "title": "Maanden",
-      "empty": "Nog geen maanden"
+      "empty": "Nog geen maanden",
+      "usual": "Je gebruikelijke bereik: {{range}}",
+      "usualSpan": "{{from}} tot {{to}}",
+      "usualHint": "Ongeveer de helft van je dagen of meer valt binnen dit bereik. De balken tonen per maand hoeveel dagen eronder en erboven lagen.",
+      "usualFew": "Vanaf {{days}} dagen met een registratie staat hier je gebruikelijke bereik.",
+      "mean": "Gemiddelde {{value}}",
+      "counts": "{{above}} erboven, {{below}} eronder",
+      "allUsual": "Alle dagen binnen het gebruikelijke bereik"
     },
     "trends": {
       "title": "Trends",
@@ -396,15 +406,36 @@
       "empty": "Geen activiteiten in deze periode"
     },
     "effects": {
-      "title": "Stemming met en zonder",
-      "nextTitle": "Op de dag erna",
-      "higher": "Hoger gemiddelde",
-      "lower": "Lager gemiddelde",
       "sentence": "Op dagen met {{name}} gemiddeld {{with}} in plaats van {{without}} ({{count}} dagen)",
       "nextSentence": "Op de dag na {{name}} gemiddeld {{with}} in plaats van {{without}} ({{count}} dagen)",
-      "empty": "Nog geen activiteit met een duidelijk verschil",
       "more": "Alles tonen",
       "less": "Minder tonen"
+    },
+    "links": {
+      "title": "Stabiele verbanden",
+      "window": "Uit de laatste twee jaar, los van de gekozen periode",
+      "explain": "Stabiel betekent dat het verband blijft, ook als de weekdag, het verloop van de omliggende weken en nauw verbonden gegevens eruit zijn gehaald. Een aanwijzing is minder zeker en kan toeval zijn. Beide tonen wat samen voorkomt, niet wat de oorzaak is.",
+      "sameDay": "Op dezelfde dag",
+      "nextDay": "Op de dag erna",
+      "stable": "Stabiel verband",
+      "hint": "Aanwijzing",
+      "describing": "Beschrijft de stemming",
+      "describingHint": "Deze gegevens zeggen hoe de dag voelde. Dat ze bij de stemming passen ligt voor de hand, daarom staan ze apart.",
+      "activity": {
+        "up0": "Gaat samen met betere dagen",
+        "down0": "Gaat samen met slechtere dagen",
+        "up1": "Gaat samen met een betere dag erna",
+        "down1": "Gaat samen met een slechtere dag erna"
+      },
+      "value": {
+        "up0": "Hogere waarden gaan samen met betere dagen",
+        "down0": "Hogere waarden gaan samen met slechtere dagen",
+        "up1": "Hogere waarden gaan samen met een betere dag erna",
+        "down1": "Hogere waarden gaan samen met een slechtere dag erna"
+      },
+      "row": "{{direction}} ({{days}})",
+      "few": "Vanaf {{days}} dagen met een registratie zoekt Daylight hier naar verbanden.",
+      "nothing": "Nog geen verband gevonden dat meer dan toeval lijkt."
     },
     "pairs": {
       "title": "Vaak samen",

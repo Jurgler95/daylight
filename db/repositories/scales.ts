@@ -32,8 +32,8 @@ export function createScale(db: Database, input: { name: string; min?: number; m
   return db.insert(scales).values({ name, min, max: maxValue, kind, sort_order: last + 1 }).returning().get();
 }
 
-/** Renames or archives a scale. Its range stays as created, so stored values always fit it. */
-export function updateScale(db: Database, id: number, patch: Partial<Pick<Scale, 'name' | 'sort_order' | 'archived'>>): Scale {
+/** Renames, archives or marks a scale. Its range stays as created, so stored values always fit it. */
+export function updateScale(db: Database, id: number, patch: Partial<Pick<Scale, 'name' | 'sort_order' | 'archived' | 'describes_mood'>>): Scale {
   const clean = { ...patch };
   if (clean.name !== undefined) {
     const name = assertName(clean.name);

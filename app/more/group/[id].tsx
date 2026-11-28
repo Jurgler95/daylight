@@ -33,6 +33,14 @@ export default function GroupScreen() {
       </Card>
       <Card>
         <ToggleRow
+          label={t('manage.describesMood')}
+          hint={t('manage.describesMoodGroupHint')}
+          value={group.describes_mood}
+          onChange={(describes_mood) => write(() => updateGroup(getDb(), group.id, { describes_mood }))}
+        />
+      </Card>
+      <Card>
+        <ToggleRow
           label={t('manage.archive')}
           hint={t('manage.archiveGroupHint')}
           value={group.archived}

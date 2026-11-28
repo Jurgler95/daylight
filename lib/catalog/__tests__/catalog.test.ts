@@ -1,7 +1,7 @@
 import { createActivity, createMood, listActivities, listGroups, listMoods, listScales, updateActivity, updateGroup, updateMood } from '@/db/repositories';
 import { createTestDb } from '@/db/testDb';
 
-import { activityLabel, buildCatalog, editorGroups, levelMood } from '../catalog';
+import { activityDescribesMood, activityLabel, buildCatalog, editorGroups, levelMood } from '../catalog';
 
 function load(db: ReturnType<typeof createTestDb>) {
   return buildCatalog({
@@ -59,5 +59,27 @@ describe('catalog', () => {
     expect(activityLabel(catalog, sunnyA.id)).toBe(`Sonnig (${weather!.name})`);
     expect(activityLabel(catalog, sunnyB.id)).toBe(`sonnig (${feelings!.name})`);
     expect(activityLabel(catalog, 9999)).toBe('');
+  });
+
+  it('gives an activity the mark of its group, of an archived group too', () => {
+    const db = createTestDb();
+    const [feelings, sleep] = listGroups(db);
+    const tired = createActivity(db, { group_id: feelings!.id, name: 'Müde' });
+    const good = createActivity(db, { group_id: sleep!.id, name: 'Gut' });
+    const all = () =>
+      buildCatalog({
+        moods: listMoods(db, { includeArchived: true }),
+        groups: listGroups(db, { includeArchived: true }),
+        activities: listActivities(db, { includeArchived: true }),
+        scales: listScales(db, { includeArchived: true }),
+      });
+    expect([activityDescribesMood(all(), tired.id), activityDescribesMood(all(), good.id), activityDescribesMood(all(), 9999)]).toEqual([true, false, false]);
+
+    updateGroup(db, feelings!.id, { archived: true });
+    updateGroup(db, sleep!.id, { describes_mood: true });
+    const catalog = all();
+    // The archived group is not offered any more, its activities still carry its mark.
+    expect(catalog.groups.some((group) => group.id === feelings!.id)).toBe(false);
+    expect([activityDescribesMood(catalog, tired.id), activityDescribesMood(catalog, good.id)]).toEqual([true, true]);
   });
 });

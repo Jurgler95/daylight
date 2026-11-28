@@ -36,6 +36,14 @@ export default function ScaleScreen() {
       </Card>
       <Card>
         <ToggleRow
+          label={t('manage.describesMood')}
+          hint={t('manage.describesMoodScaleHint')}
+          value={scale.describes_mood}
+          onChange={(describes_mood) => write(() => updateScale(getDb(), scale.id, { describes_mood }))}
+        />
+      </Card>
+      <Card>
+        <ToggleRow
           label={t('manage.archive')}
           hint={t('manage.archiveScaleHint')}
           value={scale.archived}

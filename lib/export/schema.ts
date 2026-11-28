@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import { ENTRY_SOURCES, SCALE_KINDS } from '@/db/schema';
+import { describesMoodByName } from '@/lib/catalog/catalog';
 import { isDateString } from '@/lib/dates';
 import { latestReminderTime, reminderTimesOr } from '@/lib/notifications/times';
 import { isPhotoName } from '@/lib/photos/store';
@@ -15,6 +16,8 @@ import { countByYear, TURNING_POINTS_PER_YEAR } from '@/lib/turning/rules';
  * `turning_points` is optional too: backups from before they existed simply have none. A scale's
  * `kind` likewise: older backups hold ratings only. `settings.reminder_times` is optional as well:
  * a backup from before several reminders a day has the one `reminder_time`, which becomes the list.
+ * `describes_mood` on groups and scales is optional in the same way: without it a group is marked
+ * by its name, exactly as the migration marked the groups of an existing installation.
  */
 
 export const EXPORT_SCHEMA_VERSION = 2;
@@ -35,7 +38,10 @@ export const moodSchema = z.object({
   archived: z.boolean(),
 });
 
-export const groupSchema = z.object({ id, name, sort_order: z.number().int(), archived: z.boolean() });
+export const groupSchema = z
+  .object({ id, name, sort_order: z.number().int(), archived: z.boolean(), describes_mood: z.boolean().optional() })
+  // Backups from before the mark: the feelings group under one of the app's own names carries it, not "off" for all.
+  .transform((group) => ({ ...group, describes_mood: group.describes_mood ?? describesMoodByName(group.name) }));
 
 export const activitySchema = z.object({
   id,
@@ -55,6 +61,8 @@ export const scaleSchema = z.object({
   kind: z.enum(SCALE_KINDS).default('rating'),
   sort_order: z.number().int(),
   archived: z.boolean(),
+  // Backups from before the mark have no scale that carries it.
+  describes_mood: z.boolean().default(false),
 });
 
 export const entrySchema = z.object({

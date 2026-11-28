@@ -1,7 +1,10 @@
 import type { Activity, ActivityGroup, Mood, MoodLevel, Scale } from '@/db/schema';
-import { defaultMoods, moodIconForLevel } from '@/lib/daylio/known';
+import { defaultMoods, describesMoodByName, feelingsGroupNames, moodIconForLevel } from '@/lib/daylio/known';
 import type { IconName } from '@/lib/icons';
 import { fold } from '@/lib/search/fold';
+
+/** The names a group is marked by as describing the mood, for the places outside the import code that need the rule. */
+export { describesMoodByName, feelingsGroupNames };
 
 /** Moods, groups, activities and scales as every screen reads them, with lookups by id. */
 export interface Catalog {
@@ -11,6 +14,8 @@ export interface Catalog {
   moodById: ReadonlyMap<number, Mood>;
   /** Active groups in display order. */
   groups: ActivityGroup[];
+  /** Every group handed in, archived ones included when the caller read them, so an activity always finds its group. */
+  groupById: ReadonlyMap<number, ActivityGroup>;
   /** Every activity in display order, archived ones included. */
   activities: Activity[];
   activityById: ReadonlyMap<number, Activity>;
@@ -24,6 +29,7 @@ export function buildCatalog(input: { moods: Mood[]; groups: ActivityGroup[]; ac
     moods: input.moods.filter((mood) => !mood.archived).sort((a, b) => b.level - a.level || a.sort_order - b.sort_order || a.id - b.id),
     moodById: new Map(input.moods.map((mood) => [mood.id, mood])),
     groups: input.groups.filter((group) => !group.archived),
+    groupById: new Map(input.groups.map((group) => [group.id, group])),
     activities: input.activities,
     activityById: new Map(input.activities.map((activity) => [activity.id, activity])),
     scales: input.scales.filter((scale) => !scale.archived),
@@ -58,6 +64,15 @@ export function editorGroups(catalog: Catalog, selected: readonly number[]): Gro
   const last = groups[groups.length - 1];
   if (stray.length && last) last.activities.push(...stray);
   return groups;
+}
+
+/**
+ * Whether an activity says how the day felt instead of what happened: it takes the mark of its
+ * group, also of an archived one. The links on "Einblicke" list such activities apart.
+ */
+export function activityDescribesMood(catalog: Catalog, id: number): boolean {
+  const activity = catalog.activityById.get(id);
+  return activity ? (catalog.groupById.get(activity.group_id)?.describes_mood ?? false) : false;
 }
 
 const ambiguousNames = new WeakMap<Catalog, Set<string>>();

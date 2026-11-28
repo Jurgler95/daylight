@@ -103,6 +103,23 @@ export function groupName(key: GroupKey, language: Language = currentLanguage())
   return GROUP_NAMES[key][language];
 }
 
+const FEELINGS_NAMES: ReadonlySet<string> = new Set(Object.values(GROUP_NAMES.feelings));
+
+/**
+ * Whether `name` is exactly the name the app gives its feelings group in one of its languages.
+ * Such a group starts out marked as describing the mood (`activity_groups.describes_mood`): on a
+ * first start, in the migration that brought the mark, and in a backup from before it. A renamed
+ * group is not recognised, on purpose: what it holds now is the user's business.
+ */
+export function describesMoodByName(name: string): boolean {
+  return FEELINGS_NAMES.has(name);
+}
+
+/** Every name `describesMoodByName` accepts. The migration lists the same names in SQL. */
+export function feelingsGroupNames(): string[] {
+  return [...FEELINGS_NAMES];
+}
+
 /** Created on first start, in order. */
 export function defaultGroups(language: Language = currentLanguage()): string[] {
   return DEFAULT_GROUP_KEYS.map((key) => groupName(key, language));
