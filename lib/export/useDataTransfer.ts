@@ -13,7 +13,7 @@ import { useSettingsStore } from '@/lib/store/settingsStore';
 
 import { archiveFileName, writeBackupArchive } from './archive';
 import { pickImportFile, saveBinaryToPickedDirectory, saveToPickedDirectory, shareBinary, shareText } from './files';
-import { readImportBytes, UnknownFormatError, usePendingImport } from './pending';
+import { importErrorKey, readImportBytes, usePendingImport } from './pending';
 import { buildExport, exportFileName } from './serialize';
 
 const appVersion = (): string => Constants.expoConfig?.version ?? '0.0.0';
@@ -59,8 +59,7 @@ export function useDataTransfer() {
     try {
       setPending(readImportBytes(picked.name, picked.bytes));
     } catch (error) {
-      const message = error instanceof UnknownFormatError ? t('settings.unknownFile') : error instanceof Error ? error.message.slice(0, 300) : String(error);
-      Alert.alert(t('settings.invalidFile'), message);
+      Alert.alert(t('settings.invalidFile'), t(importErrorKey(error)));
       return;
     }
     router.push('/more/import');

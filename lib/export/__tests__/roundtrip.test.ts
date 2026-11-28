@@ -20,7 +20,7 @@ import type { DateString } from '@/lib/dates';
 import { generateSample } from '@/lib/dev/generateSample';
 import { applySample } from '@/lib/dev/sample';
 
-import { applyImport, buildExport, detectFormat, parseImport, previewImport } from '../index';
+import { applyImport, buildExport, detectFormat, ImportFormatError, parseImport, previewImport } from '../index';
 
 const today = '2026-09-26' as DateString;
 
@@ -345,9 +345,21 @@ describe('JSON validation', () => {
     const db = sampled();
     const rows = countRows(db);
     const good = buildExport(db, '1', 'X');
-    expect(() => parseImport('[]')).toThrow('Export-Objekt');
+    expect(() => parseImport('[]')).toThrow('not an export object');
     expect(() => parseImport('{"schema_version": 1}')).toThrow('Daylight');
-    expect(() => parseImport('{"app": "daylight", "schema_version": 99}')).toThrow('neuer');
+    expect(() => parseImport('{"app": "daylight", "schema_version": 99}')).toThrow('newer');
+    const code = (text: string) => {
+      try {
+        parseImport(text);
+      } catch (error) {
+        return error instanceof ImportFormatError ? error.code : 'other';
+      }
+      return 'none';
+    };
+    expect(code('[]')).toBe('notBackup');
+    expect(code('{"app": "other"}')).toBe('notBackup');
+    expect(code('{"app": "daylight"}')).toBe('damaged');
+    expect(code('{"app": "daylight", "schema_version": 99}')).toBe('newer');
     expect(() => parseImport('{"app": "daylight", "schema_version": 1, "entries": "nope"}')).toThrow();
     expect(() => parseImport(JSON.stringify({ ...good, entries: [{ ...good.entries[0], time: '8:00' }] }))).toThrow();
     expect(() => parseImport(JSON.stringify({ ...good, entries: [{ ...good.entries[0], mood_id: 999 }] }))).toThrow('Stimmung fehlt');

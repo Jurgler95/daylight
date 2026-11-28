@@ -49,7 +49,11 @@
     "backupAgo_other": "{{count}} days ago",
     "saved": "Saved",
     "changelog": "Update history",
-    "unknownFile": "This file is neither a Daylight backup nor a Daylio export or Daylio backup.",
+    "importError": {
+      "notBackup": "Daylight can't read this file. It reads Daylight backups (JSON or ZIP) and exports and backups from other diary apps.",
+      "damaged": "Daylight can't read this file. It is incomplete or damaged. Try another backup.",
+      "newer": "Daylight can't read this file. It comes from a newer version of Daylight. Update the app and try again."
+    },
     "invalidFile": "File not readable",
     "deleteWord": "DELETE",
     "deleteBody": "All entries, photos, moods, activities, plans, turning points, self-experiments, health data and settings will be deleted from this device.",

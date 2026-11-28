@@ -11,6 +11,7 @@ import type { PhotoStore } from '@/lib/photos/store';
 import { isBackupArchive, readBackupArchive } from './archive';
 import { detectFormat } from './detect';
 import { applyImport, parseImport } from './import';
+import { ImportFormatError, type ImportFormatCode } from './migrateFormat';
 import type { ExportPayload } from './schema';
 
 /**
@@ -23,6 +24,17 @@ export type PendingImport =
 
 export class UnknownFormatError extends Error {
   override readonly name = 'UnknownFormatError';
+}
+
+/**
+ * The text for a file that could not be read, one message style for every case: a file that is no
+ * backup at all, one from a newer app version, and everything else (broken JSON, a backup that fails
+ * validation, a damaged ZIP or CSV) as damaged. Raw parser messages never reach the screen.
+ */
+export function importErrorKey(error: unknown): `settings.importError.${ImportFormatCode}` {
+  if (error instanceof UnknownFormatError) return 'settings.importError.notBackup';
+  if (error instanceof ImportFormatError) return `settings.importError.${error.code}`;
+  return 'settings.importError.damaged';
 }
 
 /** Like `readImportFile`, for the raw bytes: a ZIP is a Daylio or Daylight backup, anything else is text. */

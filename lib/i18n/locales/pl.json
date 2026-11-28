@@ -55,7 +55,11 @@
     "backupAgo_other": "{{count}} dnia temu",
     "saved": "Zapisano",
     "changelog": "Historia zmian",
-    "unknownFile": "Ten plik nie jest ani kopią zapasową Daylight, ani eksportem lub kopią zapasową Daylio.",
+    "importError": {
+      "notBackup": "Daylight nie może odczytać tego pliku. Obsługuje kopie zapasowe Daylight (JSON lub ZIP) oraz eksporty i kopie zapasowe innych aplikacji dziennika.",
+      "damaged": "Daylight nie może odczytać tego pliku. Jest niekompletny lub uszkodzony. Spróbuj z inną kopią zapasową.",
+      "newer": "Daylight nie może odczytać tego pliku. Pochodzi z nowszej wersji Daylight. Zaktualizuj aplikację i spróbuj ponownie."
+    },
     "invalidFile": "Nie można odczytać pliku",
     "deleteWord": "USUŃ",
     "deleteBody": "Wszystkie wpisy, zdjęcia, nastroje, aktywności, plany, punkty zwrotne, eksperymenty na sobie, dane o zdrowiu i ustawienia zostaną usunięte z tego urządzenia.",

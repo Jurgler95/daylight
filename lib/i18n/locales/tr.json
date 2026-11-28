@@ -49,7 +49,11 @@
     "backupAgo_other": "{{count}} gün önce",
     "saved": "Kaydedildi",
     "changelog": "Güncelleme geçmişi",
-    "unknownFile": "Bu dosya ne bir Daylight yedeği ne de bir Daylio dışa aktarımı ya da Daylio yedeği.",
+    "importError": {
+      "notBackup": "Daylight bu dosyayı okuyamıyor. Daylight yedeklerini (JSON veya ZIP) ve diğer günlük uygulamalarının dışa aktarımlarını ve yedeklerini okuyabilir.",
+      "damaged": "Daylight bu dosyayı okuyamıyor. Dosya eksik ya da bozuk. Başka bir yedek dene.",
+      "newer": "Daylight bu dosyayı okuyamıyor. Dosya, Daylight'ın daha yeni bir sürümünden geliyor. Uygulamayı güncelle ve tekrar dene."
+    },
     "invalidFile": "Dosya okunamıyor",
     "deleteWord": "SIFIRLA",
     "deleteBody": "Tüm kayıtlar, fotoğraflar, ruh halleri, aktiviteler, planlar, dönüm noktaları, kişisel deneyler, sağlık verileri ve ayarlar bu cihazdan silinir.",

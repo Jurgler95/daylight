@@ -49,7 +49,11 @@
     "backupAgo_other": "{{count}} dagen geleden",
     "saved": "Opgeslagen",
     "changelog": "Updategeschiedenis",
-    "unknownFile": "Dit bestand is geen Daylight-back-up en ook geen Daylio-export of Daylio-back-up.",
+    "importError": {
+      "notBackup": "Daylight kan dit bestand niet lezen. Het leest Daylight-back-ups (JSON of ZIP) en exports en back-ups van andere dagboek-apps.",
+      "damaged": "Daylight kan dit bestand niet lezen. Het is onvolledig of beschadigd. Probeer een andere back-up.",
+      "newer": "Daylight kan dit bestand niet lezen. Het komt uit een nieuwere versie van Daylight. Werk de app bij en probeer het opnieuw."
+    },
     "invalidFile": "Bestand niet leesbaar",
     "deleteWord": "WISSEN",
     "deleteBody": "Alle registraties, foto's, stemmingen, activiteiten, plannen, keerpunten, zelfexperimenten, gezondheidsgegevens en instellingen worden van dit toestel gewist.",

@@ -49,7 +49,11 @@
     "backupAgo_other": "Vor {{count}} Tagen",
     "saved": "Gespeichert",
     "changelog": "Updatehistorie",
-    "unknownFile": "Diese Datei ist weder eine Daylight-Sicherung noch ein Daylio-Export oder eine Daylio-Sicherung.",
+    "importError": {
+      "notBackup": "Daylight kann diese Datei nicht einlesen. Passend sind Daylight-Sicherungen (JSON oder ZIP) sowie Exporte und Sicherungen anderer Tagebuch-Apps.",
+      "damaged": "Daylight kann diese Datei nicht einlesen. Sie ist unvollständig oder beschädigt. Versuch es mit einer anderen Sicherung.",
+      "newer": "Daylight kann diese Datei nicht einlesen. Sie stammt aus einer neueren Version von Daylight. Aktualisiere die App und versuch es noch einmal."
+    },
     "invalidFile": "Datei nicht lesbar",
     "deleteWord": "LÖSCHEN",
     "deleteBody": "Alle Einträge, Fotos, Stimmungen, Aktivitäten, Pläne, Wendepunkte, Selbstversuche, Gesundheitsdaten und Einstellungen werden von diesem Gerät gelöscht.",

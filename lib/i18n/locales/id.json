@@ -49,7 +49,11 @@
     "backupAgo_other": "{{count}} hari lalu",
     "saved": "Tersimpan",
     "changelog": "Riwayat pembaruan",
-    "unknownFile": "File ini bukan cadangan Daylight, bukan ekspor Daylio, dan bukan cadangan Daylio.",
+    "importError": {
+      "notBackup": "Daylight tidak dapat membaca file ini. Daylight membaca cadangan Daylight (JSON atau ZIP) serta ekspor dan cadangan dari aplikasi jurnal lain.",
+      "damaged": "Daylight tidak dapat membaca file ini. File tidak lengkap atau rusak. Coba cadangan lain.",
+      "newer": "Daylight tidak dapat membaca file ini. File berasal dari versi Daylight yang lebih baru. Perbarui aplikasi lalu coba lagi."
+    },
     "invalidFile": "File tidak dapat dibaca",
     "deleteWord": "HAPUS",
     "deleteBody": "Semua entri, foto, suasana hati, aktivitas, rencana, titik balik, eksperimen pribadi, data kesehatan, dan pengaturan akan dihapus dari perangkat ini.",

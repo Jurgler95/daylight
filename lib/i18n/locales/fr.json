@@ -52,7 +52,11 @@
     "backupAgo_many": "Il y a {{count}} jours",
     "saved": "Enregistré",
     "changelog": "Historique des mises à jour",
-    "unknownFile": "Ce fichier n'est ni une sauvegarde Daylight, ni un export ou une sauvegarde Daylio.",
+    "importError": {
+      "notBackup": "Daylight ne peut pas lire ce fichier. Il accepte les sauvegardes Daylight (JSON ou ZIP) ainsi que les exports et sauvegardes d'autres applis de journal.",
+      "damaged": "Daylight ne peut pas lire ce fichier. Il est incomplet ou endommagé. Essaie une autre sauvegarde.",
+      "newer": "Daylight ne peut pas lire ce fichier. Il provient d'une version plus récente de Daylight. Mets l'appli à jour et réessaie."
+    },
     "invalidFile": "Fichier illisible",
     "deleteWord": "SUPPRIMER",
     "deleteBody": "Toutes les entrées, photos, humeurs, activités, activités prévues, tournants, auto-expériences, données de santé et réglages seront supprimés de cet appareil.",

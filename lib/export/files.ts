@@ -113,11 +113,30 @@ export async function saveBinaryToPickedDirectory(name: string, mimeType: string
   return true;
 }
 
+/**
+ * What the import picker offers: backups (JSON, ZIP) and CSV under the names Android's providers use
+ * for them, no photos or other documents. `application/octet-stream` stays for files a provider does
+ * not know, such as another app's backup or a JSON from a messenger download.
+ */
+export const IMPORT_MIME_TYPES = [
+  'application/json',
+  'text/json',
+  'text/csv',
+  'text/comma-separated-values',
+  'text/x-csv',
+  'application/csv',
+  'application/vnd.ms-excel',
+  'text/plain',
+  'application/zip',
+  'application/x-zip-compressed',
+  'application/octet-stream',
+];
+
 /** Lets the user pick a file to import and returns its name and bytes, or null when cancelled. */
 export async function pickImportFile(): Promise<{ name: string; bytes: Uint8Array } | null> {
   const result = await withLockSuspended(() =>
     DocumentPicker.getDocumentAsync({
-      type: ['application/json', 'text/csv', 'text/comma-separated-values', 'text/plain', 'application/zip', 'application/octet-stream', '*/*'],
+      type: IMPORT_MIME_TYPES,
       copyToCacheDirectory: true,
       multiple: false,
     }),

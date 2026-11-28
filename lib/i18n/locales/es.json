@@ -52,7 +52,11 @@
     "backupAgo_many": "Hace {{count}} días",
     "saved": "Guardado",
     "changelog": "Actualizaciones",
-    "unknownFile": "Este archivo no es una copia de seguridad de Daylight, ni una exportación o copia de seguridad de Daylio.",
+    "importError": {
+      "notBackup": "Daylight no puede leer este archivo. Admite copias de seguridad de Daylight (JSON o ZIP) y exportaciones y copias de seguridad de otras apps de diario.",
+      "damaged": "Daylight no puede leer este archivo. Está incompleto o dañado. Prueba con otra copia de seguridad.",
+      "newer": "Daylight no puede leer este archivo. Viene de una versión más nueva de Daylight. Actualiza la app y vuelve a intentarlo."
+    },
     "invalidFile": "No se puede leer el archivo",
     "deleteWord": "BORRAR",
     "deleteBody": "Se borrarán de este dispositivo todas las entradas, fotos, estados de ánimo, actividades, planes, puntos de inflexión, autoexperimentos, datos de salud y ajustes.",
