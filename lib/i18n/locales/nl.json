@@ -694,8 +694,6 @@
       }
     },
     "scales": {
-      "label": "Schaal",
-      "pick": "Kies een schaal",
       "emptyRange": "Geen enkele schaal heeft een waarde in deze periode",
       "trend": "{{name}} in de tijd",
       "weekdays": "{{name}} per weekdag",
@@ -802,7 +800,7 @@
       "months_other": "Verschijnt zodra {{count}} maanden in deze periode registraties hebben."
     },
     "notes": {
-      "title": "Notities",
+      "title": "Overzicht",
       "empty": "Geen notities in deze periode",
       "days": "Dagen met notitie",
       "daysValue": "{{days}} van {{total}} ({{share}})",

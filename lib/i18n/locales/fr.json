@@ -728,8 +728,6 @@
       }
     },
     "scales": {
-      "label": "Échelle",
-      "pick": "Choisir une échelle",
       "emptyRange": "Aucune échelle n’a de valeur sur cette période",
       "trend": "{{name}} : évolution",
       "weekdays": "{{name}} par jour de la semaine",
@@ -842,7 +840,7 @@
       "months_other": "S’affiche dès que {{count}} mois de cette période ont des entrées."
     },
     "notes": {
-      "title": "Notes",
+      "title": "Aperçu",
       "empty": "Aucune note sur cette période",
       "days": "Jours avec note",
       "daysValue": "{{days}} sur {{total}} ({{share}})",

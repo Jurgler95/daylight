@@ -762,8 +762,6 @@
       }
     },
     "scales": {
-      "label": "Skala",
-      "pick": "Wybierz skalę",
       "emptyRange": "Żadna skala nie ma wartości w tym okresie",
       "trend": "{{name}} w czasie",
       "weekdays": "{{name}} według dnia tygodnia",
@@ -882,7 +880,7 @@
       "months_other": "Pojawi się, gdy wpisy będą w co najmniej {{count}} miesiąca tego okresu."
     },
     "notes": {
-      "title": "Notatki",
+      "title": "Przegląd",
       "empty": "Brak notatek w tym okresie",
       "days": "Dni z notatką",
       "daysValue": "{{days}} z {{total}} ({{share}})",

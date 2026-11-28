@@ -694,8 +694,6 @@
       }
     },
     "scales": {
-      "label": "Scale",
-      "pick": "Pick a scale",
       "emptyRange": "No scale has a value in this period",
       "trend": "{{name}} over time",
       "weekdays": "{{name}} by weekday",
@@ -802,7 +800,7 @@
       "months_other": "Shows up once {{count}} months in this period have entries."
     },
     "notes": {
-      "title": "Notes",
+      "title": "Overview",
       "empty": "No notes in this period",
       "days": "Days with a note",
       "daysValue": "{{days}} of {{total}} ({{share}})",
