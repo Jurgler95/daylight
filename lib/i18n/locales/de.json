@@ -762,6 +762,19 @@
           }
         }
       }
+    },
+    "ready": {
+      "missing_one": "Noch {{count}} Tag mit Eintrag, dann erscheinen erste Muster",
+      "missing_other": "Noch {{count}} Tage mit Eintrag, dann erscheinen erste Muster",
+      "progress_one": "{{days}} von {{count}} Tag",
+      "progress_other": "{{days}} von {{count}} Tagen",
+      "body": "Ab einer Woche mit Einträgen zeigen die Einblicke deinen Verlauf, deine Stimmungen und das Jahr in Pixeln. Wochentage und Monate kommen dazu, sobald es genug Tage dafür gibt.",
+      "rangeDays_one": "Erscheint, sobald es in diesem Zeitraum {{count}} Tag mit Eintrag gibt.",
+      "rangeDays_other": "Erscheint, sobald es in diesem Zeitraum {{count}} Tage mit Eintrag gibt.",
+      "weekdays_one": "Erscheint, sobald es in diesem Zeitraum {{count}} Tag mit Eintrag an mindestens {{weekdays}} verschiedenen Wochentagen gibt.",
+      "weekdays_other": "Erscheint, sobald es in diesem Zeitraum {{count}} Tage mit Eintrag an mindestens {{weekdays}} verschiedenen Wochentagen gibt.",
+      "months_one": "Erscheint, sobald {{count}} Monat in diesem Zeitraum Einträge hat.",
+      "months_other": "Erscheint, sobald {{count}} Monate in diesem Zeitraum Einträge haben."
     }
   },
   "outlook": {

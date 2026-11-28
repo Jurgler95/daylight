@@ -797,6 +797,24 @@
           }
         }
       }
+    },
+    "ready": {
+      "missing_one": "Encore {{count}} jour avec une entrée, et les premières tendances apparaissent",
+      "missing_many": "Encore {{count}} jours avec une entrée, et les premières tendances apparaissent",
+      "missing_other": "Encore {{count}} jours avec une entrée, et les premières tendances apparaissent",
+      "progress_one": "{{days}} sur {{count}} jour",
+      "progress_many": "{{days}} sur {{count}} jours",
+      "progress_other": "{{days}} sur {{count}} jours",
+      "body": "Après une semaine d’entrées, les Aperçus montrent ton évolution, tes humeurs et l’année en pixels. Les jours de la semaine et les mois suivent dès qu’il y a assez de jours pour eux.",
+      "rangeDays_one": "S’affiche dès que cette période compte {{count}} jour avec une entrée.",
+      "rangeDays_many": "S’affiche dès que cette période compte {{count}} jours avec une entrée.",
+      "rangeDays_other": "S’affiche dès que cette période compte {{count}} jours avec une entrée.",
+      "weekdays_one": "S’affiche dès que cette période compte {{count}} jour avec une entrée, sur au moins {{weekdays}} jours de la semaine différents.",
+      "weekdays_many": "S’affiche dès que cette période compte {{count}} jours avec une entrée, sur au moins {{weekdays}} jours de la semaine différents.",
+      "weekdays_other": "S’affiche dès que cette période compte {{count}} jours avec une entrée, sur au moins {{weekdays}} jours de la semaine différents.",
+      "months_one": "S’affiche dès que {{count}} mois de cette période a des entrées.",
+      "months_many": "S’affiche dès que {{count}} mois de cette période ont des entrées.",
+      "months_other": "S’affiche dès que {{count}} mois de cette période ont des entrées."
     }
   },
   "outlook": {

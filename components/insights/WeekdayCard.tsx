@@ -12,6 +12,8 @@ interface Props {
   /** Short names, Sunday first. */
   names: string[];
   firstDay: number;
+  /** Too little data yet: one line saying what the card still needs, in place of the bars. */
+  notYet?: string | null;
 }
 
 /** Smallest half-width of the scale, so a week of tiny differences does not look dramatic. */
@@ -21,13 +23,13 @@ const MIN_SCALE = 0.5;
  * Mean per weekday with its count, and a bar that grows left or right from the overall mean:
  * the differences between weekdays are a few tenths, which bars from 1 to 5 would hide.
  */
-export function WeekdayCard({ profile, names, firstDay }: Props) {
+export function WeekdayCard({ profile, names, firstDay, notYet = null }: Props) {
   const { t } = useTranslation();
   const { colors } = useTheme();
   const stats = orderWeekdays(profile.weekdays, firstDay);
   const scale = Math.max(MIN_SCALE, ...stats.map((s) => Math.abs(s.difference ?? 0)));
   return (
-    <InsightCard title={t('insights.weekdays.title')} empty={profile.overall === null ? t('insights.emptyRange') : null}>
+    <InsightCard title={t('insights.weekdays.title')} empty={profile.overall === null ? t('insights.emptyRange') : notYet}>
       {stats.map((stat) => {
         const name = names[stat.weekday] ?? '';
         const diff = stat.difference ?? 0;

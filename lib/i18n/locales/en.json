@@ -762,6 +762,19 @@
           }
         }
       }
+    },
+    "ready": {
+      "missing_one": "{{count}} more day with an entry, then the first patterns appear",
+      "missing_other": "{{count}} more days with an entry, then the first patterns appear",
+      "progress_one": "{{days}} of {{count}} day",
+      "progress_other": "{{days}} of {{count}} days",
+      "body": "After a week of entries, Insights show your trend, your moods and the year in pixels. Weekdays and months follow once there are enough days for them.",
+      "rangeDays_one": "Shows up once this period has {{count}} day with an entry.",
+      "rangeDays_other": "Shows up once this period has {{count}} days with an entry.",
+      "weekdays_one": "Shows up once this period has {{count}} day with an entry on at least {{weekdays}} different weekdays.",
+      "weekdays_other": "Shows up once this period has {{count}} days with an entry on at least {{weekdays}} different weekdays.",
+      "months_one": "Shows up once {{count}} month in this period has entries.",
+      "months_other": "Shows up once {{count}} months in this period have entries."
     }
   },
   "outlook": {

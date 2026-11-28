@@ -797,6 +797,24 @@
           }
         }
       }
+    },
+    "ready": {
+      "missing_one": "Ancora {{count}} giorno con una voce, poi compaiono i primi andamenti",
+      "missing_many": "Ancora {{count}} giorni con una voce, poi compaiono i primi andamenti",
+      "missing_other": "Ancora {{count}} giorni con una voce, poi compaiono i primi andamenti",
+      "progress_one": "{{days}} di {{count}} giorno",
+      "progress_many": "{{days}} di {{count}} giorni",
+      "progress_other": "{{days}} di {{count}} giorni",
+      "body": "Dopo una settimana di voci, Analisi mostra il tuo andamento, i tuoi umori e l’anno in pixel. Giorni della settimana e mesi arrivano quando ci sono abbastanza giorni.",
+      "rangeDays_one": "Compare quando questo periodo ha {{count}} giorno con una voce.",
+      "rangeDays_many": "Compare quando questo periodo ha {{count}} giorni con una voce.",
+      "rangeDays_other": "Compare quando questo periodo ha {{count}} giorni con una voce.",
+      "weekdays_one": "Compare quando questo periodo ha {{count}} giorno con una voce in almeno {{weekdays}} giorni della settimana diversi.",
+      "weekdays_many": "Compare quando questo periodo ha {{count}} giorni con una voce in almeno {{weekdays}} giorni della settimana diversi.",
+      "weekdays_other": "Compare quando questo periodo ha {{count}} giorni con una voce in almeno {{weekdays}} giorni della settimana diversi.",
+      "months_one": "Compare quando {{count}} mese di questo periodo ha delle voci.",
+      "months_many": "Compare quando {{count}} mesi di questo periodo hanno delle voci.",
+      "months_other": "Compare quando {{count}} mesi di questo periodo hanno delle voci."
     }
   },
   "outlook": {

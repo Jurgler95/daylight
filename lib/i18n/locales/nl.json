@@ -762,6 +762,19 @@
           }
         }
       }
+    },
+    "ready": {
+      "missing_one": "Nog {{count}} dag met een registratie, dan verschijnen de eerste patronen",
+      "missing_other": "Nog {{count}} dagen met een registratie, dan verschijnen de eerste patronen",
+      "progress_one": "{{days}} van {{count}} dag",
+      "progress_other": "{{days}} van {{count}} dagen",
+      "body": "Na een week met registraties tonen de Inzichten je verloop, je stemmingen en het jaar in pixels. Weekdagen en maanden komen erbij zodra er genoeg dagen voor zijn.",
+      "rangeDays_one": "Verschijnt zodra deze periode {{count}} dag met een registratie heeft.",
+      "rangeDays_other": "Verschijnt zodra deze periode {{count}} dagen met een registratie heeft.",
+      "weekdays_one": "Verschijnt zodra deze periode {{count}} dag met een registratie heeft, op minstens {{weekdays}} verschillende weekdagen.",
+      "weekdays_other": "Verschijnt zodra deze periode {{count}} dagen met een registratie heeft, op minstens {{weekdays}} verschillende weekdagen.",
+      "months_one": "Verschijnt zodra {{count}} maand in deze periode registraties heeft.",
+      "months_other": "Verschijnt zodra {{count}} maanden in deze periode registraties hebben."
     }
   },
   "outlook": {

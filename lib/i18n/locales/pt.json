@@ -797,6 +797,24 @@
           }
         }
       }
+    },
+    "ready": {
+      "missing_one": "Falta {{count}} dia com registro para aparecerem os primeiros padrões",
+      "missing_many": "Faltam {{count}} dias com registro para aparecerem os primeiros padrões",
+      "missing_other": "Faltam {{count}} dias com registro para aparecerem os primeiros padrões",
+      "progress_one": "{{days}} de {{count}} dia",
+      "progress_many": "{{days}} de {{count}} dias",
+      "progress_other": "{{days}} de {{count}} dias",
+      "body": "Depois de uma semana de registros, as Análises mostram sua evolução, seus humores e o ano em pixels. Dias da semana e meses vêm depois, quando houver dias suficientes para eles.",
+      "rangeDays_one": "Aparece quando este período tiver {{count}} dia com registro.",
+      "rangeDays_many": "Aparece quando este período tiver {{count}} dias com registro.",
+      "rangeDays_other": "Aparece quando este período tiver {{count}} dias com registro.",
+      "weekdays_one": "Aparece quando este período tiver {{count}} dia com registro em pelo menos {{weekdays}} dias da semana diferentes.",
+      "weekdays_many": "Aparece quando este período tiver {{count}} dias com registro em pelo menos {{weekdays}} dias da semana diferentes.",
+      "weekdays_other": "Aparece quando este período tiver {{count}} dias com registro em pelo menos {{weekdays}} dias da semana diferentes.",
+      "months_one": "Aparece quando {{count}} mês deste período tiver registros.",
+      "months_many": "Aparece quando {{count}} meses deste período tiverem registros.",
+      "months_other": "Aparece quando {{count}} meses deste período tiverem registros."
     }
   },
   "outlook": {

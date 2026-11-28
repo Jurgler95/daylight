@@ -25,6 +25,7 @@ import { MoodLineChart } from '@/components/insights/MoodLineChart';
 import type { ActivityNames, GroupActivities } from '@/components/insights/names';
 import { PairsCard } from '@/components/insights/PairsCard';
 import { PixelsCard } from '@/components/insights/PixelsCard';
+import { ReadinessCard } from '@/components/insights/ReadinessCard';
 import { ScaleActivitiesCard } from '@/components/insights/scales/ScaleActivitiesCard';
 import { ScaleMoodCard } from '@/components/insights/scales/ScaleMoodCard';
 import { ScalePicker, useScale } from '@/components/insights/scales/ScalePicker';
@@ -44,7 +45,9 @@ import { activityLabel, levelMood } from '@/lib/catalog/catalog';
 import { useCatalog } from '@/lib/catalog/useCatalog';
 import { weekdayLabels, type DateString } from '@/lib/dates';
 import { useToday } from '@/lib/dates/useToday';
+import { useExperiments } from '@/lib/experiments/useExperiments';
 import { formatDecimal, formatPercent, INSIGHT_RANGES, type InsightRange, type TrendSubject } from '@/lib/insights';
+import { INSIGHT_MINIMUMS, insightReadiness } from '@/lib/insights/readiness';
 import { useHealthInsights, useInsights, useScaleInsights, useScaleRelations, useTrends } from '@/lib/insights/useInsights';
 import { useLinks } from '@/lib/insights/useLinks';
 import type { IconName } from '@/lib/icons';
@@ -74,6 +77,10 @@ export default function InsightsScreen() {
   const now = useToday();
   const [range, setRange] = useState<InsightRange>('90');
   const insights = useInsights(range, now);
+  const readiness = useMemo(() => insightReadiness(insights), [insights]);
+  // While the diary is too young for patterns the page shows how far it is instead of the cards.
+  const young = insights.allDays.length > 0 && readiness.missing > 0;
+  const hasExperiments = useExperiments().length > 0;
   const health = useHealthInsights(insights, now);
   const catalog = useCatalog();
   // Archived scales too: their old values still belong to the diary.
@@ -131,10 +138,10 @@ export default function InsightsScreen() {
       <AppText variant="title" accessibilityRole="header">
         {t('tabs.insights')}
       </AppText>
-      {insights.allDays.length > 0 ? (
+      {insights.allDays.length > 0 && !young ? (
         <Tabs tabs={sections.map((s) => ({ ...s, label: t(`insights.tabs.${s.value}`) }))} value={section} onChange={setSection} />
       ) : null}
-      {insights.allDays.length > 0 ? (
+      {insights.allDays.length > 0 && !young ? (
         <Segmented
           label={t('insights.range.label')}
           options={INSIGHT_RANGES.map((value) => ({ value, label: t(`insights.range.${value}`) }))}
@@ -150,6 +157,16 @@ export default function InsightsScreen() {
     return (
       <Screen sticky={header}>
         <EmptyState icon="analytics-outline" label={t('insights.empty')} />
+      </Screen>
+    );
+  }
+
+  if (young) {
+    return (
+      <Screen sticky={header}>
+        <ReadinessCard readiness={readiness} />
+        {/* Running or past experiments stay reachable; the invitation to a new one waits, it would have nothing to compare with. */}
+        {hasExperiments ? <ExperimentsCard today={now} /> : null}
       </Screen>
     );
   }
@@ -171,7 +188,7 @@ export default function InsightsScreen() {
       {section === 'mood' ? (
         <>
           <ExperimentsCard today={now} />
-          {empty ? null : (
+          {empty || !readiness.overview ? null : (
             <View style={styles.tiles}>
               <StatTile label={t('insights.tiles.mean')} value={formatDecimal(insights.mean ?? 0, 2)} hint={t('insights.days', { count: insights.days.length })} />
               {insights.coverage ? (
@@ -184,18 +201,31 @@ export default function InsightsScreen() {
             </View>
           )}
           <TrendsCard trends={trends} onOpen={openTrend} />
-          <InsightCard title={t('insights.trend.title')} empty={empty ? t('insights.emptyRange') : null}>
+          <InsightCard
+            title={t('insights.trend.title')}
+            empty={empty ? t('insights.emptyRange') : !readiness.overview ? t('insights.ready.rangeDays', { count: INSIGHT_MINIMUMS.rangeDays }) : null}
+          >
             <MoodLineChart points={insights.series} window={insights.window} mean={insights.mean} iconFor={(level) => levelMood(catalog, level).icon} marks={marks} />
           </InsightCard>
-          {empty ? null : <DistributionCard rows={insights.distribution} moodFor={(level) => levelMood(catalog, level)} />}
+          {empty || !readiness.overview ? null : <DistributionCard rows={insights.distribution} moodFor={(level) => levelMood(catalog, level)} />}
           <PixelsCard days={insights.allDays} years={insights.years} today={now} moodLabel={(level) => levelMood(catalog, level).label} onOpen={openDay} />
         </>
       ) : null}
 
       {section === 'patterns' ? (
         <>
-          <WeekdayCard profile={insights.weekdays} names={weekdayNames} firstDay={firstDay} />
-          <MonthCard months={insights.months} usual={insights.usual} moodLabel={(level) => levelMood(catalog, level).label} />
+          <WeekdayCard
+            profile={insights.weekdays}
+            names={weekdayNames}
+            firstDay={firstDay}
+            notYet={readiness.weekdays ? null : t('insights.ready.weekdays', { count: INSIGHT_MINIMUMS.weekdayDays, weekdays: INSIGHT_MINIMUMS.weekdays })}
+          />
+          <MonthCard
+            months={insights.months}
+            usual={insights.usual}
+            moodLabel={(level) => levelMood(catalog, level).label}
+            notYet={readiness.months ? null : t('insights.ready.months', { count: INSIGHT_MINIMUMS.months })}
+          />
           <SwingsCard swings={insights.swings} />
           <StreakCard streaks={insights.streaks} goodLabel={good} />
         </>
