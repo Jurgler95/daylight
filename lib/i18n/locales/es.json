@@ -210,7 +210,10 @@
     "manageScales": "Gestionar escalas",
     "turningLost": "Este día es el punto de inflexión “{{title}}”. Sin una entrada en este día, también se borrará.",
     "turningMoveTitle": "Se perderá el punto de inflexión",
-    "turningMoveConfirm": "Mover y borrar"
+    "turningMoveConfirm": "Mover y borrar",
+    "draftTitle": "¿Continuar la entrada sin terminar?",
+    "draftBody": "Una entrada no se guardó, por ejemplo porque la app se cerró en segundo plano. Puedes seguir donde lo dejaste.",
+    "draftContinue": "Continuar"
   },
   "photo": {
     "title": "Foto",
@@ -805,6 +808,24 @@
           }
         }
       }
+    },
+    "ready": {
+      "missing_one": "Falta {{count}} día con entrada para que aparezcan los primeros patrones",
+      "missing_many": "Faltan {{count}} días con entrada para que aparezcan los primeros patrones",
+      "missing_other": "Faltan {{count}} días con entrada para que aparezcan los primeros patrones",
+      "progress_one": "{{days}} de {{count}} día",
+      "progress_many": "{{days}} de {{count}} días",
+      "progress_other": "{{days}} de {{count}} días",
+      "body": "Tras una semana de entradas, Análisis muestra tu evolución, tus estados de ánimo y el año en píxeles. Los días de la semana y los meses llegan cuando haya suficientes días para ellos.",
+      "rangeDays_one": "Aparece cuando este período tenga {{count}} día con entrada.",
+      "rangeDays_many": "Aparece cuando este período tenga {{count}} días con entrada.",
+      "rangeDays_other": "Aparece cuando este período tenga {{count}} días con entrada.",
+      "weekdays_one": "Aparece cuando este período tenga {{count}} día con entrada en al menos {{weekdays}} días distintos de la semana.",
+      "weekdays_many": "Aparece cuando este período tenga {{count}} días con entrada en al menos {{weekdays}} días distintos de la semana.",
+      "weekdays_other": "Aparece cuando este período tenga {{count}} días con entrada en al menos {{weekdays}} días distintos de la semana.",
+      "months_one": "Aparece cuando {{count}} mes de este período tenga entradas.",
+      "months_many": "Aparece cuando {{count}} meses de este período tengan entradas.",
+      "months_other": "Aparece cuando {{count}} meses de este período tengan entradas."
     }
   },
   "outlook": {
@@ -1432,7 +1453,17 @@
       "honest": "Daylight solo compara tus entradas y no dice nada sobre causas ni terapias.",
       "save": "Guardar",
       "create": "Crear autoexperimento",
-      "discardTitle": "¿Descartar lo escrito?"
+      "discardTitle": "¿Descartar lo escrito?",
+      "baselineTitle": "Todavía hay poco para comparar",
+      "baselineFew_one": "Antes del inicio solo hay {{count}} día con entrada.",
+      "baselineFew_many": "Antes del inicio solo hay {{count}} días con entrada.",
+      "baselineFew_other": "Antes del inicio solo hay {{count}} días con entrada.",
+      "baselineNeeded_one": "Daylight compara el autoexperimento con el tiempo anterior y para ello necesita alrededor de {{count}} día con entrada.",
+      "baselineNeeded_many": "Daylight compara el autoexperimento con el tiempo anterior y para ello necesita unos {{count}} días con entrada.",
+      "baselineNeeded_other": "Daylight compara el autoexperimento con el tiempo anterior y para ello necesita unos {{count}} días con entrada.",
+      "baselineLater": "Empezar el {{date}}",
+      "baselineLaterHint": "Si haces una entrada cada día hasta entonces, habrá suficiente para comparar. También puedes crearlo así.",
+      "createAnyway": "Crear de todos modos"
     },
     "problem": {
       "title": "Ponle un nombre al autoexperimento (60 caracteres como máximo).",

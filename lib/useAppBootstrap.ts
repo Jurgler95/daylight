@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 
 import { getDb, runMigrations } from '@/db';
+import { fileDraftStorage } from '@/lib/entry/draftFile';
+import { savedDraftPhotos } from '@/lib/entry/savedDrafts';
 import { initialiseLock } from '@/lib/lock';
 import { filePhotoStore } from '@/lib/photos/fileStore';
 import { sweepPhotos } from '@/lib/photos/store';
@@ -24,8 +26,9 @@ export function useAppBootstrap(): Status & { retry: () => void } {
         await runMigrations();
         load();
         // Photos picked in an editor that was then left without saving; nothing else is open yet.
+        // A draft the app was ended over keeps its photos until it is saved or discarded.
         try {
-          sweepPhotos(getDb(), filePhotoStore);
+          sweepPhotos(getDb(), filePhotoStore, savedDraftPhotos(fileDraftStorage));
         } catch {
           // Tidying up must never keep the app from starting.
         }

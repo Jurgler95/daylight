@@ -210,7 +210,10 @@
     "manageScales": "Gérer les échelles",
     "turningLost": "Ce jour est le tournant « {{title}} ». Sans entrée ce jour-là, il sera supprimé lui aussi.",
     "turningMoveTitle": "Le tournant sera perdu",
-    "turningMoveConfirm": "Déplacer et supprimer"
+    "turningMoveConfirm": "Déplacer et supprimer",
+    "draftTitle": "Reprendre l’entrée commencée ?",
+    "draftBody": "Une entrée n’a pas été enregistrée, par exemple parce que l’app a été fermée en arrière-plan. Tu peux reprendre là où tu t’étais arrêté.",
+    "draftContinue": "Reprendre"
   },
   "photo": {
     "title": "Photo",
@@ -805,6 +808,24 @@
           }
         }
       }
+    },
+    "ready": {
+      "missing_one": "Encore {{count}} jour avec une entrée, et les premières tendances apparaissent",
+      "missing_many": "Encore {{count}} jours avec une entrée, et les premières tendances apparaissent",
+      "missing_other": "Encore {{count}} jours avec une entrée, et les premières tendances apparaissent",
+      "progress_one": "{{days}} sur {{count}} jour",
+      "progress_many": "{{days}} sur {{count}} jours",
+      "progress_other": "{{days}} sur {{count}} jours",
+      "body": "Après une semaine d’entrées, les Aperçus montrent ton évolution, tes humeurs et l’année en pixels. Les jours de la semaine et les mois suivent dès qu’il y a assez de jours pour eux.",
+      "rangeDays_one": "S’affiche dès que cette période compte {{count}} jour avec une entrée.",
+      "rangeDays_many": "S’affiche dès que cette période compte {{count}} jours avec une entrée.",
+      "rangeDays_other": "S’affiche dès que cette période compte {{count}} jours avec une entrée.",
+      "weekdays_one": "S’affiche dès que cette période compte {{count}} jour avec une entrée, sur au moins {{weekdays}} jours de la semaine différents.",
+      "weekdays_many": "S’affiche dès que cette période compte {{count}} jours avec une entrée, sur au moins {{weekdays}} jours de la semaine différents.",
+      "weekdays_other": "S’affiche dès que cette période compte {{count}} jours avec une entrée, sur au moins {{weekdays}} jours de la semaine différents.",
+      "months_one": "S’affiche dès que {{count}} mois de cette période a des entrées.",
+      "months_many": "S’affiche dès que {{count}} mois de cette période ont des entrées.",
+      "months_other": "S’affiche dès que {{count}} mois de cette période ont des entrées."
     }
   },
   "outlook": {
@@ -1432,7 +1453,17 @@
       "honest": "Daylight compare seulement tes entrées et ne dit rien des causes ni des thérapies.",
       "save": "Enregistrer",
       "create": "Créer l'auto-expérience",
-      "discardTitle": "Abandonner la saisie ?"
+      "discardTitle": "Abandonner la saisie ?",
+      "baselineTitle": "Encore peu de quoi comparer",
+      "baselineFew_one": "Avant le début, il n’y a que {{count}} jour avec une entrée.",
+      "baselineFew_many": "Avant le début, il n’y a que {{count}} jours avec une entrée.",
+      "baselineFew_other": "Avant le début, il n’y a que {{count}} jours avec une entrée.",
+      "baselineNeeded_one": "Daylight compare l’auto-expérience avec la période d’avant et a besoin pour cela d’environ {{count}} jour avec une entrée.",
+      "baselineNeeded_many": "Daylight compare l’auto-expérience avec la période d’avant et a besoin pour cela d’environ {{count}} jours avec une entrée.",
+      "baselineNeeded_other": "Daylight compare l’auto-expérience avec la période d’avant et a besoin pour cela d’environ {{count}} jours avec une entrée.",
+      "baselineLater": "Commencer le {{date}}",
+      "baselineLaterHint": "Si tu fais une entrée chaque jour d’ici là, il y aura assez de quoi comparer. Tu peux aussi la créer telle quelle.",
+      "createAnyway": "Créer quand même"
     },
     "problem": {
       "title": "Donne un nom à l'auto-expérience (60 caractères au plus).",

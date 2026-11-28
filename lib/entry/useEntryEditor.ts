@@ -1,9 +1,11 @@
-import { useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { AppState } from 'react-native';
 
 import { getDb } from '@/db';
 import { deleteEntry, getEntryDetails, saveEntry, turningPointLostBy } from '@/db/repositories/entries';
 import { setExperimentDays } from '@/db/repositories/experiments';
 import type { Experiment, TurningPoint } from '@/db/schema';
+import { useCatalog } from '@/lib/catalog/useCatalog';
 import { nowTime, today, type DateString } from '@/lib/dates';
 import { useToday } from '@/lib/dates/useToday';
 import { askingOn, endOnDayBefore } from '@/lib/experiments/rules';
@@ -16,6 +18,8 @@ import { useSettingsStore } from '@/lib/store/settingsStore';
 import { celebrateSave } from '@/lib/streak/celebrate';
 
 import { checkInAnswer, defaultTime, draftFromEntry, draftToInput, newDraft, sameDraft, tapCheckIn, type EntryDraft } from './draft';
+import { fileDraftStorage } from './draftFile';
+import { debounce, DRAFT_SAVE_DELAY_MS, draftKey, editorOpened, readSavedDraft, removeSavedDraft, restorableDraft, writeSavedDraft } from './savedDrafts';
 
 /** "Kept today?" for one experiment that asks on the draft's day. */
 export interface CheckInRow {
@@ -25,7 +29,8 @@ export interface CheckInRow {
   endsOn: DateString | null;
 }
 
-export type EditorTarget = { kind: 'new'; date: DateString; moodId: number | null } | { kind: 'edit'; id: number };
+/** `resume` opens the editor on its saved draft right away, without asking (the offer on start asked already). */
+export type EditorTarget = { kind: 'new'; date: DateString; moodId: number | null; resume?: boolean } | { kind: 'edit'; id: number; resume?: boolean };
 
 export interface EntryEditor {
   /** Null when the entry to edit no longer exists. */
@@ -45,6 +50,15 @@ export interface EntryEditor {
   /** Ja or Nein tapped; the same answer again takes it back. A "no" is confirmed by the screen first. */
   tapCheckIn: (experimentId: number, kept: boolean) => void;
   update: (patch: Partial<EntryDraft>) => void;
+  /**
+   * A draft of this editor survived the app being ended and waits for "Fortsetzen" or "Verwerfen".
+   * Until one is picked nothing is written, so the old draft is not overwritten by an empty one.
+   */
+  savedDraft: boolean;
+  resumeSaved: () => void;
+  discardSaved: () => void;
+  /** Leaving without saving ("Verwerfen"): the saved draft goes too. */
+  discard: () => void;
   /** Writes the draft; false when it cannot be saved yet or was already saved. */
   save: () => boolean;
   remove: () => void;
@@ -62,8 +76,10 @@ function removePhotoFiles(names: readonly string[]): void {
 }
 
 /**
- * The editor keeps its own draft and writes only on "Speichern". The text fields are controlled,
- * so the draft always holds every keystroke; closing with changes asks first (see the screen).
+ * The editor keeps its own draft and writes the entry only on "Speichern". The text fields are
+ * controlled, so the draft always holds every keystroke; closing with changes asks first (see the
+ * screen). Shortly after every change, and when the app goes to the background, the draft is also
+ * kept on the device (`savedDrafts.ts`), so Android ending the app does not lose it.
  */
 export function useEntryEditor(target: EditorTarget): EntryEditor {
   // `reminder_time` is the latest of the daily reminder's times.
@@ -73,7 +89,27 @@ export function useEntryEditor(target: EditorTarget): EntryEditor {
     const entry = getEntryDetails(getDb(), target.id);
     return entry ? draftFromEntry(entry) : null;
   });
-  const [draft, setDraft] = useState<EntryDraft | null>(initial);
+  const key = draftKey(target.kind === 'new' ? { kind: 'new', date: target.date } : { kind: 'edit', id: target.id });
+  const catalog = useCatalog();
+  // Read once on opening, like `initial`.
+  const [restorable] = useState<EntryDraft | null>(() => {
+    if (!initial) return null;
+    const fit = {
+      hasMood: (moodId: number) => catalog.moodById.has(moodId),
+      hasActivity: (activityId: number) => catalog.activityById.has(activityId),
+      hasScale: (scaleId: number) => catalog.scaleById.has(scaleId),
+      hasPhoto: (name: string) => {
+        try {
+          return filePhotoStore.has(name);
+        } catch {
+          return false;
+        }
+      },
+    };
+    return restorableDraft(readSavedDraft(fileDraftStorage, key), target, initial, fit);
+  });
+  const [draft, setDraft] = useState<EntryDraft | null>(target.resume && restorable ? restorable : initial);
+  const [offer, setOffer] = useState<EntryDraft | null>(target.resume ? null : restorable);
   const input = draft ? draftToInput(draft) : null;
   const id = target.kind === 'edit' ? target.id : null;
   const date = draft?.date ?? null;
@@ -88,6 +124,41 @@ export function useEntryEditor(target: EditorTarget): EntryEditor {
   const experiments = useExperiments();
   const stored = useExperimentAnswers(date ?? now);
   const asking = date ? askingOn(experiments, date, now) : [];
+  const dirty = draft !== null && initial !== null && !sameDraft(draft, initial);
+
+  // Kept on the device a moment after the last change; written at once when the app leaves the front.
+  const latest = useRef(draft);
+  latest.current = draft;
+  const saver = useMemo(
+    () => debounce(() => latest.current && initial && writeSavedDraft(fileDraftStorage, key, latest.current, initial), DRAFT_SAVE_DELAY_MS),
+    [key, initial],
+  );
+  useEffect(() => {
+    if (offer !== null || done.current) return;
+    if (dirty) saver.schedule();
+    else {
+      // Back to how it opened: nothing worth keeping.
+      saver.cancel();
+      removeSavedDraft(fileDraftStorage, key);
+    }
+  }, [draft, dirty, offer, saver, key]);
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', (state) => {
+      if (state !== 'active') saver.flush();
+    });
+    const closed = editorOpened();
+    return () => {
+      subscription.remove();
+      closed();
+      saver.cancel();
+    };
+  }, [saver]);
+  /** Leaving on purpose: the draft has no reason to come back. */
+  const forget = () => {
+    saver.cancel();
+    removeSavedDraft(fileDraftStorage, key);
+  };
+
   const checkIns: CheckInRow[] = draft
     ? asking.map((experiment) => {
         const answer = checkInAnswer(draft.check_ins, stored, experiment.id);
@@ -100,7 +171,7 @@ export function useEntryEditor(target: EditorTarget): EntryEditor {
     draft,
     isNew: id === null,
     savedDate: id === null ? null : (initial?.date ?? null),
-    dirty: draft !== null && initial !== null && !sameDraft(draft, initial),
+    dirty,
     canSave: input !== null,
     turningPointLostOnDelete,
     turningPointLostOnSave,
@@ -110,6 +181,16 @@ export function useEntryEditor(target: EditorTarget): EntryEditor {
     // Another day drops the changed answers: they were given for the day before.
     update: (patch) =>
       setDraft((current) => (current ? { ...current, ...patch, ...(patch.date !== undefined && patch.date !== current.date ? { check_ins: {} } : {}) } : current)),
+    savedDraft: offer !== null,
+    resumeSaved: () => {
+      if (offer) setDraft(offer);
+      setOffer(null);
+    },
+    discardSaved: () => {
+      removeSavedDraft(fileDraftStorage, key);
+      setOffer(null);
+    },
+    discard: forget,
     save: () => {
       if (done.current || !input || !draft) return false;
       // Only for experiments that still ask on this day; a "no" ends its experiment here.
@@ -126,6 +207,7 @@ export function useEntryEditor(target: EditorTarget): EntryEditor {
       );
       noteSaveForReview();
       done.current = true;
+      forget();
       removePhotoFiles((initial?.photos ?? []).filter((name) => !input.photos?.includes(name)));
       // A celebration brings its own buzz when it shows; one is enough.
       if (!celebration) haptics.confirm();
@@ -134,6 +216,7 @@ export function useEntryEditor(target: EditorTarget): EntryEditor {
     remove: () => {
       if (id === null || done.current) return;
       done.current = true;
+      forget();
       removePhotoFiles(mutate(() => deleteEntry(getDb(), id)));
     },
   };

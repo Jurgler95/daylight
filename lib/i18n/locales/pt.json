@@ -210,7 +210,10 @@
     "manageScales": "Gerenciar escalas",
     "turningLost": "Este dia é o ponto de virada “{{title}}”. Sem um registro neste dia, ele também será apagado.",
     "turningMoveTitle": "O ponto de virada será perdido",
-    "turningMoveConfirm": "Mover e apagar"
+    "turningMoveConfirm": "Mover e apagar",
+    "draftTitle": "Continuar o registro não terminado?",
+    "draftBody": "Um registro não foi salvo, por exemplo porque o app foi fechado em segundo plano. Você pode continuar de onde parou.",
+    "draftContinue": "Continuar"
   },
   "photo": {
     "title": "Foto",
@@ -805,6 +808,24 @@
           }
         }
       }
+    },
+    "ready": {
+      "missing_one": "Falta {{count}} dia com registro para aparecerem os primeiros padrões",
+      "missing_many": "Faltam {{count}} dias com registro para aparecerem os primeiros padrões",
+      "missing_other": "Faltam {{count}} dias com registro para aparecerem os primeiros padrões",
+      "progress_one": "{{days}} de {{count}} dia",
+      "progress_many": "{{days}} de {{count}} dias",
+      "progress_other": "{{days}} de {{count}} dias",
+      "body": "Depois de uma semana de registros, as Análises mostram sua evolução, seus humores e o ano em pixels. Dias da semana e meses vêm depois, quando houver dias suficientes para eles.",
+      "rangeDays_one": "Aparece quando este período tiver {{count}} dia com registro.",
+      "rangeDays_many": "Aparece quando este período tiver {{count}} dias com registro.",
+      "rangeDays_other": "Aparece quando este período tiver {{count}} dias com registro.",
+      "weekdays_one": "Aparece quando este período tiver {{count}} dia com registro em pelo menos {{weekdays}} dias da semana diferentes.",
+      "weekdays_many": "Aparece quando este período tiver {{count}} dias com registro em pelo menos {{weekdays}} dias da semana diferentes.",
+      "weekdays_other": "Aparece quando este período tiver {{count}} dias com registro em pelo menos {{weekdays}} dias da semana diferentes.",
+      "months_one": "Aparece quando {{count}} mês deste período tiver registros.",
+      "months_many": "Aparece quando {{count}} meses deste período tiverem registros.",
+      "months_other": "Aparece quando {{count}} meses deste período tiverem registros."
     }
   },
   "outlook": {
@@ -1432,7 +1453,17 @@
       "honest": "Daylight só compara seus registros e não diz nada sobre causas ou terapias.",
       "save": "Salvar",
       "create": "Criar autoexperimento",
-      "discardTitle": "Descartar o que foi digitado?"
+      "discardTitle": "Descartar o que foi digitado?",
+      "baselineTitle": "Ainda há pouco para comparar",
+      "baselineFew_one": "Antes do início há só {{count}} dia com registro.",
+      "baselineFew_many": "Antes do início há só {{count}} dias com registro.",
+      "baselineFew_other": "Antes do início há só {{count}} dias com registro.",
+      "baselineNeeded_one": "O Daylight compara o autoexperimento com o período anterior e precisa para isso de cerca de {{count}} dia com registro.",
+      "baselineNeeded_many": "O Daylight compara o autoexperimento com o período anterior e precisa para isso de cerca de {{count}} dias com registro.",
+      "baselineNeeded_other": "O Daylight compara o autoexperimento com o período anterior e precisa para isso de cerca de {{count}} dias com registro.",
+      "baselineLater": "Começar em {{date}}",
+      "baselineLaterHint": "Se você fizer um registro por dia até lá, haverá o suficiente para comparar. Você também pode criá-lo assim mesmo.",
+      "createAnyway": "Criar mesmo assim"
     },
     "problem": {
       "title": "Dê um nome ao autoexperimento (no máximo 60 caracteres).",

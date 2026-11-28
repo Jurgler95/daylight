@@ -194,7 +194,10 @@
     "manageScales": "Kelola skala",
     "turningLost": "Hari ini adalah titik balik \"{{title}}\". Tanpa entri di hari ini, titik balik itu juga akan dihapus.",
     "turningMoveTitle": "Titik balik akan hilang",
-    "turningMoveConfirm": "Pindahkan dan hapus"
+    "turningMoveConfirm": "Pindahkan dan hapus",
+    "draftTitle": "Lanjutkan entri yang belum selesai?",
+    "draftBody": "Sebuah entri belum tersimpan, misalnya karena aplikasi ditutup di latar belakang. Kamu bisa melanjutkan dari tempat terakhir.",
+    "draftContinue": "Lanjutkan"
   },
   "photo": {
     "title": "Foto",
@@ -770,6 +773,14 @@
           }
         }
       }
+    },
+    "ready": {
+      "missing_other": "{{count}} hari lagi dengan entri, lalu pola pertama muncul",
+      "progress_other": "{{days}} dari {{count}} hari",
+      "body": "Setelah seminggu berisi entri, Wawasan menampilkan tren, suasana hati, dan tahun dalam piksel. Hari dalam seminggu dan bulan menyusul setelah harinya cukup.",
+      "rangeDays_other": "Muncul setelah periode ini punya {{count}} hari dengan entri.",
+      "weekdays_other": "Muncul setelah periode ini punya {{count}} hari dengan entri di setidaknya {{weekdays}} hari berbeda dalam seminggu.",
+      "months_other": "Muncul setelah {{count}} bulan dalam periode ini punya entri."
     }
   },
   "outlook": {
@@ -1358,7 +1369,13 @@
       "honest": "Daylight hanya membandingkan entrimu dan tidak mengatakan apa pun tentang penyebab atau terapi.",
       "save": "Simpan",
       "create": "Buat eksperimen pribadi",
-      "discardTitle": "Buang yang sudah diketik?"
+      "discardTitle": "Buang yang sudah diketik?",
+      "baselineTitle": "Belum banyak yang bisa dibandingkan",
+      "baselineFew_other": "Sebelum awal baru ada {{count}} hari dengan entri.",
+      "baselineNeeded_other": "Daylight membandingkan eksperimen pribadi dengan masa sebelumnya dan untuk itu butuh sekitar {{count}} hari dengan entri.",
+      "baselineLater": "Mulai pada {{date}}",
+      "baselineLaterHint": "Kalau kamu menulis entri setiap hari sampai saat itu, akan ada cukup untuk dibandingkan. Kamu juga bisa tetap membuatnya seperti ini.",
+      "createAnyway": "Tetap buat"
     },
     "problem": {
       "title": "Beri nama eksperimen pribadi ini (paling banyak 60 karakter).",

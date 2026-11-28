@@ -15,6 +15,8 @@ interface Props {
   /** The usual range at the end of the range picked; null while the diary is too short for one. */
   usual: UsualRange | null;
   moodLabel: (level: MoodLevel) => string;
+  /** Too little data yet: one line saying what the card still needs, in place of the months. */
+  notYet?: string | null;
 }
 
 /** Months before "Alle zeigen". */
@@ -25,7 +27,7 @@ const SHOWN = 6;
  * range as a bar. Someone who picks the same mood on most days gets months with nearly the same
  * mean; the days outside their own usual range are what tells them apart.
  */
-export function MonthCard({ months, usual, moodLabel }: Props) {
+export function MonthCard({ months, usual, moodLabel, notYet = null }: Props) {
   const { t } = useTranslation();
   const { colors, mood: moodColors } = useTheme();
   const [all, setAll] = useState(false);
@@ -33,7 +35,7 @@ export function MonthCard({ months, usual, moodLabel }: Props) {
   const range = usual ? (usual.lo === usual.hi ? moodLabel(usual.lo) : t('insights.months.usualSpan', { from: moodLabel(usual.lo), to: moodLabel(usual.hi) })) : null;
 
   return (
-    <InsightCard title={t('insights.months.title')} empty={months.length === 0 ? t('insights.months.empty') : null}>
+    <InsightCard title={t('insights.months.title')} empty={months.length === 0 ? t('insights.months.empty') : notYet}>
       {range ? <AppText variant="label">{t('insights.months.usual', { range })}</AppText> : null}
       <AppText variant="caption" muted>
         {range ? t('insights.months.usualHint') : t('insights.months.usualFew', { days: USUAL_MIN_DAYS })}

@@ -9,6 +9,7 @@ import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { StarToast } from '@/components/achievements/StarToast';
+import { DraftPrompt } from '@/components/entry/DraftPrompt';
 import { HealthSyncIndicator } from '@/components/health/HealthSyncIndicator';
 import { LockScreen } from '@/components/lock/LockScreen';
 import { ReminderPrompt } from '@/components/reminders/ReminderPrompt';
@@ -102,6 +103,8 @@ function AppShell() {
       <LauncherIcon />
       <WidgetSync />
       <AutoBackup />
+      {/* A draft Android ended the app over, offered once after unlocking. */}
+      <DraftPrompt />
       <View style={styles.flex} importantForAccessibility={locked ? 'no-hide-descendants' : 'auto'} accessibilityElementsHidden={locked}>
         <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.background } }}>
           <Stack.Screen name="(tabs)" />

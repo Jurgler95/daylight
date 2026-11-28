@@ -226,7 +226,10 @@
     "manageScales": "Zarządzaj skalami",
     "turningLost": "Ten dzień jest punktem zwrotnym „{{title}}”. Bez wpisu w tym dniu punkt zwrotny też zostanie usunięty.",
     "turningMoveTitle": "Punkt zwrotny przepadnie",
-    "turningMoveConfirm": "Przenieś i usuń"
+    "turningMoveConfirm": "Przenieś i usuń",
+    "draftTitle": "Kontynuować rozpoczęty wpis?",
+    "draftBody": "Wpis nie został zapisany, na przykład dlatego, że aplikacja została zamknięta w tle. Możesz kontynuować od miejsca, w którym przerwano.",
+    "draftContinue": "Kontynuuj"
   },
   "photo": {
     "title": "Zdjęcie",
@@ -840,6 +843,29 @@
           }
         }
       }
+    },
+    "ready": {
+      "missing_one": "Jeszcze {{count}} dzień z wpisem, a pojawią się pierwsze wzorce",
+      "missing_few": "Jeszcze {{count}} dni z wpisem, a pojawią się pierwsze wzorce",
+      "missing_many": "Jeszcze {{count}} dni z wpisem, a pojawią się pierwsze wzorce",
+      "missing_other": "Jeszcze {{count}} dnia z wpisem, a pojawią się pierwsze wzorce",
+      "progress_one": "{{days}} z {{count}} dnia",
+      "progress_few": "{{days}} z {{count}} dni",
+      "progress_many": "{{days}} z {{count}} dni",
+      "progress_other": "{{days}} z {{count}} dnia",
+      "body": "Po tygodniu z wpisami Wgląd pokaże Twój przebieg, nastroje i rok w pikselach. Dni tygodnia i miesiące dojdą, gdy będzie na nie dość dni.",
+      "rangeDays_one": "Pojawi się od {{count}} dnia z wpisem w tym okresie.",
+      "rangeDays_few": "Pojawi się od {{count}} dni z wpisem w tym okresie.",
+      "rangeDays_many": "Pojawi się od {{count}} dni z wpisem w tym okresie.",
+      "rangeDays_other": "Pojawi się od {{count}} dnia z wpisem w tym okresie.",
+      "weekdays_one": "Pojawi się od {{count}} dnia z wpisem w tym okresie, w co najmniej {{weekdays}} różnych dniach tygodnia.",
+      "weekdays_few": "Pojawi się od {{count}} dni z wpisem w tym okresie, w co najmniej {{weekdays}} różnych dniach tygodnia.",
+      "weekdays_many": "Pojawi się od {{count}} dni z wpisem w tym okresie, w co najmniej {{weekdays}} różnych dniach tygodnia.",
+      "weekdays_other": "Pojawi się od {{count}} dnia z wpisem w tym okresie, w co najmniej {{weekdays}} różnych dniach tygodnia.",
+      "months_one": "Pojawi się, gdy wpisy będą w co najmniej {{count}} miesiącu tego okresu.",
+      "months_few": "Pojawi się, gdy wpisy będą w co najmniej {{count}} miesiącach tego okresu.",
+      "months_many": "Pojawi się, gdy wpisy będą w co najmniej {{count}} miesiącach tego okresu.",
+      "months_other": "Pojawi się, gdy wpisy będą w co najmniej {{count}} miesiąca tego okresu."
     }
   },
   "outlook": {
@@ -1503,7 +1529,19 @@
       "honest": "Daylight porównuje tylko Twoje wpisy i nie mówi nic o przyczynach ani terapiach.",
       "save": "Zapisz",
       "create": "Utwórz eksperyment na sobie",
-      "discardTitle": "Odrzucić wpisane dane?"
+      "discardTitle": "Odrzucić wpisane dane?",
+      "baselineTitle": "Na razie mało do porównania",
+      "baselineFew_one": "Przed początkiem jest dopiero {{count}} dzień z wpisem.",
+      "baselineFew_few": "Przed początkiem są dopiero {{count}} dni z wpisem.",
+      "baselineFew_many": "Przed początkiem jest dopiero {{count}} dni z wpisem.",
+      "baselineFew_other": "Przed początkiem jest dopiero {{count}} dnia z wpisem.",
+      "baselineNeeded_one": "Daylight porównuje eksperyment na sobie z czasem przed nim i potrzebuje do tego około {{count}} dnia z wpisem.",
+      "baselineNeeded_few": "Daylight porównuje eksperyment na sobie z czasem przed nim i potrzebuje do tego około {{count}} dni z wpisem.",
+      "baselineNeeded_many": "Daylight porównuje eksperyment na sobie z czasem przed nim i potrzebuje do tego około {{count}} dni z wpisem.",
+      "baselineNeeded_other": "Daylight porównuje eksperyment na sobie z czasem przed nim i potrzebuje do tego około {{count}} dnia z wpisem.",
+      "baselineLater": "Zacznij dopiero {{date}}",
+      "baselineLaterHint": "Jeśli do tego czasu będziesz codziennie coś wpisywać, będzie dość do porównania. Możesz też utworzyć go tak, jak jest.",
+      "createAnyway": "Utwórz mimo to"
     },
     "problem": {
       "title": "Nadaj eksperymentowi na sobie nazwę (najwyżej 60 znaków).",

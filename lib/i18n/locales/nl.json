@@ -194,7 +194,10 @@
     "manageScales": "Schalen beheren",
     "turningLost": "Deze dag is het keerpunt “{{title}}”. Zonder registratie op deze dag wordt het ook gewist.",
     "turningMoveTitle": "Keerpunt gaat verloren",
-    "turningMoveConfirm": "Verplaatsen en wissen"
+    "turningMoveConfirm": "Verplaatsen en wissen",
+    "draftTitle": "Begonnen registratie voortzetten?",
+    "draftBody": "Een registratie is niet opgeslagen, bijvoorbeeld omdat de app op de achtergrond werd afgesloten. Je kunt verdergaan waar je gebleven was.",
+    "draftContinue": "Voortzetten"
   },
   "photo": {
     "title": "Foto",
@@ -770,6 +773,19 @@
           }
         }
       }
+    },
+    "ready": {
+      "missing_one": "Nog {{count}} dag met een registratie, dan verschijnen de eerste patronen",
+      "missing_other": "Nog {{count}} dagen met een registratie, dan verschijnen de eerste patronen",
+      "progress_one": "{{days}} van {{count}} dag",
+      "progress_other": "{{days}} van {{count}} dagen",
+      "body": "Na een week met registraties tonen de Inzichten je verloop, je stemmingen en het jaar in pixels. Weekdagen en maanden komen erbij zodra er genoeg dagen voor zijn.",
+      "rangeDays_one": "Verschijnt zodra deze periode {{count}} dag met een registratie heeft.",
+      "rangeDays_other": "Verschijnt zodra deze periode {{count}} dagen met een registratie heeft.",
+      "weekdays_one": "Verschijnt zodra deze periode {{count}} dag met een registratie heeft, op minstens {{weekdays}} verschillende weekdagen.",
+      "weekdays_other": "Verschijnt zodra deze periode {{count}} dagen met een registratie heeft, op minstens {{weekdays}} verschillende weekdagen.",
+      "months_one": "Verschijnt zodra {{count}} maand in deze periode registraties heeft.",
+      "months_other": "Verschijnt zodra {{count}} maanden in deze periode registraties hebben."
     }
   },
   "outlook": {
@@ -1361,7 +1377,15 @@
       "honest": "Daylight vergelijkt alleen je registraties en zegt niets over oorzaken of therapieën.",
       "save": "Opslaan",
       "create": "Zelfexperiment aanmaken",
-      "discardTitle": "Invoer weggooien?"
+      "discardTitle": "Invoer weggooien?",
+      "baselineTitle": "Nog weinig om mee te vergelijken",
+      "baselineFew_one": "Vóór het begin is er pas {{count}} dag met een registratie.",
+      "baselineFew_other": "Vóór het begin zijn er pas {{count}} dagen met een registratie.",
+      "baselineNeeded_one": "Daylight vergelijkt het zelfexperiment met de tijd ervoor en heeft daarvoor ongeveer {{count}} dag met een registratie nodig.",
+      "baselineNeeded_other": "Daylight vergelijkt het zelfexperiment met de tijd ervoor en heeft daarvoor ongeveer {{count}} dagen met een registratie nodig.",
+      "baselineLater": "Pas op {{date}} beginnen",
+      "baselineLaterHint": "Als je tot dan elke dag iets registreert, is er genoeg om mee te vergelijken. Je kunt het ook zo aanmaken.",
+      "createAnyway": "Toch aanmaken"
     },
     "problem": {
       "title": "Geef het zelfexperiment een naam (hoogstens 60 tekens).",

@@ -194,7 +194,10 @@
     "manageScales": "Ölçekleri yönet",
     "turningLost": "Bu gün “{{title}}” dönüm noktası. Bu günde kayıt kalmazsa dönüm noktası da silinir.",
     "turningMoveTitle": "Dönüm noktası kaybolacak",
-    "turningMoveConfirm": "Taşı ve sil"
+    "turningMoveConfirm": "Taşı ve sil",
+    "draftTitle": "Yarım kalan kayda devam edilsin mi?",
+    "draftBody": "Bir kayıt kaydedilmedi, örneğin uygulama arka planda kapatıldığı için. Kaldığın yerden devam edebilirsin.",
+    "draftContinue": "Devam et"
   },
   "photo": {
     "title": "Fotoğraf",
@@ -770,6 +773,19 @@
           }
         }
       }
+    },
+    "ready": {
+      "missing_one": "Kaydı olan {{count}} gün daha, sonra ilk örüntüler görünür",
+      "missing_other": "Kaydı olan {{count}} gün daha, sonra ilk örüntüler görünür",
+      "progress_one": "{{count}} günün {{days}} günü",
+      "progress_other": "{{count}} günün {{days}} günü",
+      "body": "Bir haftalık kayıttan sonra İçgörüler seyrini, ruh hallerini ve piksellerle yılı gösterir. Haftanın günleri ve aylar, yeterli gün olunca eklenir.",
+      "rangeDays_one": "Bu dönemde kaydı olan {{count}} gün olunca görünür.",
+      "rangeDays_other": "Bu dönemde kaydı olan {{count}} gün olunca görünür.",
+      "weekdays_one": "Bu dönemde haftanın en az {{weekdays}} farklı gününe yayılmış, kaydı olan {{count}} gün olunca görünür.",
+      "weekdays_other": "Bu dönemde haftanın en az {{weekdays}} farklı gününe yayılmış, kaydı olan {{count}} gün olunca görünür.",
+      "months_one": "Bu dönemde {{count}} ayda kayıt olunca görünür.",
+      "months_other": "Bu dönemde {{count}} ayda kayıt olunca görünür."
     }
   },
   "outlook": {
@@ -1361,7 +1377,15 @@
       "honest": "Daylight yalnızca kayıtlarını karşılaştırır, nedenler ya da terapiler hakkında bir şey söylemez.",
       "save": "Kaydet",
       "create": "Kişisel deneyi oluştur",
-      "discardTitle": "Yazdıkların silinsin mi?"
+      "discardTitle": "Yazdıkların silinsin mi?",
+      "baselineTitle": "Henüz karşılaştıracak pek bir şey yok",
+      "baselineFew_one": "Başlangıçtan önce kaydı olan yalnızca {{count}} gün var.",
+      "baselineFew_other": "Başlangıçtan önce kaydı olan yalnızca {{count}} gün var.",
+      "baselineNeeded_one": "Daylight kişisel deneyi önceki dönemle karşılaştırır ve bunun için kaydı olan yaklaşık {{count}} güne ihtiyaç duyar.",
+      "baselineNeeded_other": "Daylight kişisel deneyi önceki dönemle karşılaştırır ve bunun için kaydı olan yaklaşık {{count}} güne ihtiyaç duyar.",
+      "baselineLater": "{{date}} tarihinde başla",
+      "baselineLaterHint": "O zamana kadar her gün bir kayıt eklersen karşılaştırmak için yeterli veri olur. İstersen yine de böyle oluşturabilirsin.",
+      "createAnyway": "Yine de oluştur"
     },
     "problem": {
       "title": "Kişisel deneye bir ad ver (en fazla 60 karakter).",

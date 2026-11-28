@@ -4,7 +4,7 @@ import path from 'node:path';
 
 import '@/lib/i18n';
 import type { Database } from '@/db';
-import { listActivities } from '@/db/repositories';
+import { createEntry, listActivities, listMoods } from '@/db/repositories';
 import { replaceHealthDays, type HealthDayInput } from '@/db/repositories/health';
 import { createScale } from '@/db/repositories/scales';
 import { entryScales } from '@/db/schema';
@@ -118,6 +118,31 @@ describe('insight screens', () => {
     mockParams = { level: '4' };
     await render(<MoodInsightScreen />);
     expect(screen.getByText('Noch kein Tag mit dieser Stimmung')).toBeTruthy();
+  });
+
+  it('show how far a young diary is instead of empty cards, and each card only with enough days', async () => {
+    const diary = (days: number) => {
+      const db = createTestDb();
+      const mood = listMoods(db).find((row) => row.level === 4)!;
+      for (let i = 0; i < days; i++) createEntry(db, { date: addDaysToDateString(today, -i), time: '20:00', mood_id: mood.id });
+      return db;
+    };
+    use(diary(1));
+    const first = await render(<InsightsScreen />);
+    expect(screen.getByText('Noch 6 Tage mit Eintrag, dann erscheinen erste Muster')).toBeTruthy();
+    expect(screen.getByText('1 von 7 Tagen')).toBeTruthy();
+    expect(screen.queryByText('Verteilung')).toBeNull();
+    expect(screen.queryByRole('tab', { name: 'Muster' })).toBeNull();
+    await first.unmount();
+
+    // A week: the cards are there, the weekdays and months still say what they need.
+    use(diary(7));
+    await render(<InsightsScreen />);
+    expect(screen.queryByText(/dann erscheinen erste Muster/)).toBeNull();
+    expect(screen.getByText('Verteilung')).toBeTruthy();
+    await openTab('Muster');
+    expect(screen.getByText('Erscheint, sobald es in diesem Zeitraum 14 Tage mit Eintrag an mindestens 5 verschiedenen Wochentagen gibt.')).toBeTruthy();
+    expect(screen.getByText('Erscheint, sobald 2 Monate in diesem Zeitraum Einträge haben.')).toBeTruthy();
   });
 
   it('render every card on the sample year in every range', async () => {
