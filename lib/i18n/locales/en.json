@@ -297,6 +297,8 @@
   "common": {
     "error": "Something went wrong",
     "shareUnavailable": "Sharing is not available on this device.",
+    "folderPickerFailed": "The folder picker could not be opened. Please try again. If that does not help, close Daylight completely and open it again.",
+    "folderWriteFailed": "The file could not be saved in the chosen folder. Please choose another folder, for example \"Downloads\".",
     "retry": "Try again",
     "back": "Back",
     "close": "Close",

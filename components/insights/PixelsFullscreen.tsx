@@ -10,7 +10,7 @@ import { LogoShapes } from '@/components/ui/Logo';
 import { LOGO_CENTER, LOGO_COLORS } from '@/components/ui/logoPaths';
 import { MOOD_LEVELS, type MoodLevel } from '@/db/schema';
 import { formatMonthShort, type DateString } from '@/lib/dates';
-import { saveBase64ToPickedDirectory, shareBase64, ShareUnavailableError } from '@/lib/export/files';
+import { exportErrorMessage, saveBase64ToPickedDirectory, shareBase64 } from '@/lib/export/files';
 import type { PixelMonth } from '@/lib/insights';
 import { useCloseOnLock } from '@/lib/lock/useCloseOnLock';
 import { TOUCH_TARGET, spacing, useTheme } from '@/lib/theme';
@@ -92,10 +92,7 @@ export function PixelsFullscreen({ visible, onClose, year, years, onYear, months
         );
         await deliver(`daylight-pixels-${year}.png`, base64);
       } catch (error) {
-        Alert.alert(
-          t('common.error'),
-          error instanceof ShareUnavailableError ? t('common.shareUnavailable') : error instanceof Error ? error.message.slice(0, 300) : String(error),
-        );
+        Alert.alert(t('common.error'), exportErrorMessage(error, t));
       } finally {
         setBusy(false);
       }

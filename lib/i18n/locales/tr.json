@@ -297,6 +297,8 @@
   "common": {
     "error": "Bir şeyler ters gitti",
     "shareUnavailable": "Bu cihazda paylaşım kullanılamıyor.",
+    "folderPickerFailed": "Klasör seçici açılamadı. Lütfen tekrar dene. İşe yaramazsa Daylight'ı tamamen kapatıp yeniden aç.",
+    "folderWriteFailed": "Dosya seçilen klasöre kaydedilemedi. Lütfen başka bir klasör seç, örneğin \"İndirilenler\".",
     "retry": "Tekrar dene",
     "back": "Geri",
     "close": "Kapat",

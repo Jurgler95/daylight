@@ -5,7 +5,7 @@ import { Alert, StyleSheet, View } from 'react-native';
 import { AppText, Button, Card, Chip, Screen, Segmented, TextField, ToggleRow } from '@/components/ui';
 import { activityLabel } from '@/lib/catalog/catalog';
 import { useToday } from '@/lib/dates/useToday';
-import { ShareUnavailableError } from '@/lib/export/files';
+import { exportErrorMessage } from '@/lib/export/files';
 import { upper } from '@/lib/i18n/language';
 import {
   activityDays,
@@ -70,9 +70,7 @@ export default function ReportScreen() {
       .then((done) => {
         if (done && delivery === 'save') Alert.alert(t('settings.saved'));
       })
-      .catch((error: unknown) =>
-        Alert.alert(t('common.error'), error instanceof ShareUnavailableError ? t('common.shareUnavailable') : error instanceof Error ? error.message.slice(0, 300) : String(error)),
-      )
+      .catch((error: unknown) => Alert.alert(t('common.error'), exportErrorMessage(error, t)))
       .finally(() => setBusy(false));
   };
 

@@ -321,6 +321,8 @@
   "common": {
     "error": "Algo deu errado",
     "shareUnavailable": "Compartilhar não está disponível neste aparelho.",
+    "folderPickerFailed": "Não foi possível abrir o seletor de pastas. Tente novamente. Se não resolver, feche o Daylight por completo e abra de novo.",
+    "folderWriteFailed": "Não foi possível salvar o arquivo na pasta escolhida. Escolha outra pasta, por exemplo \"Downloads\".",
     "retry": "Tentar de novo",
     "back": "Voltar",
     "close": "Fechar",

@@ -1,9 +1,7 @@
 import { Directory, File } from 'expo-file-system';
 
-import { withLockSuspended } from '@/lib/lock/store';
-
 import type { BackupFolder } from './auto';
-import { cacheFileFrom } from './files';
+import { cacheFileFrom, pickDirectory } from './files';
 
 /**
  * The automatic backup's folder through Android's storage access. The picker takes a lasting
@@ -41,12 +39,8 @@ export function storageFolder(uri: string): BackupFolder {
   };
 }
 
-/** Lets the user pick the folder; returns its URI, or null when cancelled. */
+/** Lets the user pick the folder; returns its URI, or null when cancelled. Throws `FolderPickerError` on failure. */
 export async function pickBackupFolder(): Promise<string | null> {
-  try {
-    const directory = await withLockSuspended(() => Directory.pickDirectoryAsync());
-    return directory.uri;
-  } catch {
-    return null;
-  }
+  const directory = await pickDirectory();
+  return directory ? directory.uri : null;
 }

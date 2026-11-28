@@ -14,6 +14,66 @@ export class ShareUnavailableError extends Error {
   }
 }
 
+/** The system folder picker could not be opened or failed; not a cancel. */
+export class FolderPickerError extends Error {
+  constructor(cause: unknown) {
+    super(`Folder picker failed: ${describeCause(cause)}`);
+    this.name = 'FolderPickerError';
+  }
+}
+
+/** A folder was picked, but the file could not be written into it. */
+export class FolderWriteError extends Error {
+  constructor(cause: unknown) {
+    super(`Writing to the picked folder failed: ${describeCause(cause)}`);
+    this.name = 'FolderWriteError';
+  }
+}
+
+/** The text an alert shows for a failed share or folder save, translated where the cause is known. */
+export function exportErrorMessage(error: unknown, t: (key: string) => string): string {
+  if (error instanceof ShareUnavailableError) return t('common.shareUnavailable');
+  if (error instanceof FolderPickerError) return t('common.folderPickerFailed');
+  if (error instanceof FolderWriteError) return t('common.folderWriteFailed');
+  return error instanceof Error ? error.message.slice(0, 300) : String(error);
+}
+
+function describeCause(cause: unknown): string {
+  return cause instanceof Error ? cause.message : String(cause);
+}
+
+/** expo-file-system rejects a cancelled picker with this code (`PickerCancelledException`). */
+const PICKER_CANCELLED = 'ERR_PICKER_CANCELLED';
+
+function isPickerCancel(error: unknown): boolean {
+  return typeof error === 'object' && error !== null && (error as { code?: unknown }).code === PICKER_CANCELLED;
+}
+
+/**
+ * Storage Access Framework: the user picks a folder (e.g. Downloads). Returns null when cancelled.
+ * Any other failure throws `FolderPickerError`, so the screen says so instead of doing nothing:
+ * the picker once stayed shut after Android recreated the activity (plugins/withSyncHostDestroy.js).
+ */
+export async function pickDirectory(): Promise<Directory | null> {
+  try {
+    return await withLockSuspended(() => Directory.pickDirectoryAsync());
+  } catch (error) {
+    if (isPickerCancel(error)) return null;
+    console.warn('Folder picker failed', error);
+    throw new FolderPickerError(error);
+  }
+}
+
+/** Writes into a picked folder; a failure becomes `FolderWriteError`. */
+function writeToFolder(write: () => void): void {
+  try {
+    write();
+  } catch (error) {
+    console.warn('Writing to the picked folder failed', error);
+    throw new FolderWriteError(error);
+  }
+}
+
 function cacheFile(name: string): File {
   const file = new File(Paths.cache, name);
   if (file.exists) file.delete();
@@ -27,16 +87,14 @@ export async function shareText(name: string, mimeType: string, content: string)
   await withLockSuspended(() => Sharing.shareAsync(file.uri, { mimeType, dialogTitle: name }));
 }
 
-/** Storage Access Framework: the user picks a folder (e.g. Downloads); returns false when cancelled. */
+/**
+ * Saves into a folder the user picks; returns false when cancelled. Throws `FolderPickerError` or
+ * `FolderWriteError` on failure.
+ */
 export async function saveToPickedDirectory(name: string, mimeType: string, content: string): Promise<boolean> {
-  let directory: Directory;
-  try {
-    directory = await withLockSuspended(() => Directory.pickDirectoryAsync());
-  } catch {
-    return false;
-  }
-  const file = directory.createFile(name, mimeType);
-  file.write(content);
+  const directory = await pickDirectory();
+  if (!directory) return false;
+  writeToFolder(() => directory.createFile(name, mimeType).write(content));
   return true;
 }
 
@@ -50,13 +108,9 @@ export async function shareBase64(name: string, mimeType: string, base64: string
 
 /** Like `saveToPickedDirectory`, for binary content handed over as base64 (a rendered PNG). */
 export async function saveBase64ToPickedDirectory(name: string, mimeType: string, base64: string): Promise<boolean> {
-  let directory: Directory;
-  try {
-    directory = await withLockSuspended(() => Directory.pickDirectoryAsync());
-  } catch {
-    return false;
-  }
-  directory.createFile(name, mimeType).write(base64, { encoding: 'base64' });
+  const directory = await pickDirectory();
+  if (!directory) return false;
+  writeToFolder(() => directory.createFile(name, mimeType).write(base64, { encoding: 'base64' }));
   return true;
 }
 
@@ -100,16 +154,15 @@ export async function shareBinary(name: string, mimeType: string, fill: (write: 
 
 /** Like `saveToPickedDirectory`, for a file built in chunks (the backup ZIP). */
 export async function saveBinaryToPickedDirectory(name: string, mimeType: string, fill: (write: (chunk: Uint8Array) => void) => void): Promise<boolean> {
-  let directory: Directory;
-  try {
-    directory = await withLockSuspended(() => Directory.pickDirectoryAsync());
-  } catch {
-    return false;
-  }
+  const directory = await pickDirectory();
+  if (!directory) return false;
   const built = cacheFileFrom(name, fill);
-  // A folder picked through Android's storage access can only be written as a whole.
-  directory.createFile(name, mimeType).write(built.bytesSync());
-  built.delete();
+  try {
+    // A folder picked through Android's storage access can only be written as a whole.
+    writeToFolder(() => directory.createFile(name, mimeType).write(built.bytesSync()));
+  } finally {
+    built.delete();
+  }
   return true;
 }
 

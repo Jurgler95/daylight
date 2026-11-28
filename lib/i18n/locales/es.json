@@ -321,6 +321,8 @@
   "common": {
     "error": "Algo salió mal",
     "shareUnavailable": "Compartir no está disponible en este dispositivo.",
+    "folderPickerFailed": "No se pudo abrir el selector de carpetas. Inténtalo de nuevo. Si no funciona, cierra Daylight por completo y vuelve a abrirlo.",
+    "folderWriteFailed": "No se pudo guardar el archivo en la carpeta elegida. Elige otra carpeta, por ejemplo «Descargas».",
     "retry": "Reintentar",
     "back": "Atrás",
     "close": "Cerrar",
