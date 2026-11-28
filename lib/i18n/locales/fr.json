@@ -819,6 +819,12 @@
         "spanValue": "{{min}} à {{max}}",
         "days": "Jours avec valeur",
         "empty": "Cette échelle n’a aucune valeur sur cette période"
+      },
+      "words": {
+        "title": "Mots",
+        "high": "Plus fréquents avec des valeurs au-dessus de {{value}}",
+        "low": "Plus fréquents avec des valeurs en dessous de {{value}}",
+        "empty": "Pas encore assez de notes pour comparer"
       }
     },
     "ready": {
@@ -858,6 +864,14 @@
       "longestA11y_other": "Note la plus longue le {{date}}, {{count}} mots. Ouvre le jour",
       "longestA11y_many": "Note la plus longue le {{date}}, {{count}} mots. Ouvre le jour",
       "top": "Mots les plus fréquents"
+    },
+    "word": {
+      "eyebrow": "Mot de tes notes",
+      "days": "Dans {{count}} notes sur {{total}} ({{share}})",
+      "basis": "Comparé aux autres jours avec une note.",
+      "mood": "Les jours avec « {{word}} », {{with}} en moyenne au lieu de {{without}}",
+      "noDays": "Ce mot ne figure dans aucune note",
+      "open": "Ouvre la page de ce mot"
     }
   },
   "outlook": {

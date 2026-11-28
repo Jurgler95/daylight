@@ -10,6 +10,7 @@ import { formatDecimal, formatPercent, type NoteStats } from '@/lib/insights';
 import { radius, spacing, TOUCH_TARGET, useTheme } from '@/lib/theme';
 
 import { InsightCard } from './InsightCard';
+import { WordPills } from './WordPills';
 
 interface Props {
   notes: NoteStats;
@@ -89,27 +90,12 @@ export function NotesCard({ notes, moodLabel, onOpen }: Props) {
   );
 }
 
-/** The words written on the most days of the range, as pills with their day count. */
+/** The words written on the most days of the range, as pills with their day count that open the word's page. */
 export function TopWordsCard({ notes }: { notes: NoteStats }) {
   const { t } = useTranslation();
-  const { colors } = useTheme();
   return (
     <InsightCard title={t('insights.notes.top')} empty={notes.top.length === 0 ? t('insights.words.empty') : null}>
-      <View style={styles.pills}>
-        {notes.top.map((stat) => (
-          <View
-            key={stat.word}
-            style={[styles.pill, { backgroundColor: colors.surfaceMuted }]}
-            accessible
-            accessibilityLabel={t('insights.words.a11y', { word: stat.word, count: stat.days })}
-          >
-            <AppText variant="label">{stat.word}</AppText>
-            <AppText variant="caption" muted>
-              {stat.days}
-            </AppText>
-          </View>
-        ))}
-      </View>
+      <WordPills words={notes.top} />
     </InsightCard>
   );
 }
@@ -124,6 +110,4 @@ const styles = StyleSheet.create({
   levelValue: { width: 40, textAlign: 'right' },
   longest: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, minHeight: TOUCH_TARGET, marginTop: spacing.sm },
   text: { flex: 1, gap: 2 },
-  pills: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
-  pill: { flexDirection: 'row', alignItems: 'baseline', gap: spacing.xs, borderRadius: radius.pill, paddingHorizontal: spacing.md, paddingVertical: spacing.xs },
 });

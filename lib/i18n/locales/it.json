@@ -819,6 +819,12 @@
         "spanValue": "da {{min}} a {{max}}",
         "days": "Giorni con valore",
         "empty": "In questo periodo la scala non ha valori"
+      },
+      "words": {
+        "title": "Parole",
+        "high": "Più frequenti con valori sopra {{value}}",
+        "low": "Più frequenti con valori sotto {{value}}",
+        "empty": "Ancora troppe poche note per un confronto"
       }
     },
     "ready": {
@@ -858,6 +864,14 @@
       "longestA11y_other": "Nota più lunga il {{date}}, {{count}} parole. Apre il giorno",
       "longestA11y_many": "Nota più lunga il {{date}}, {{count}} parole. Apre il giorno",
       "top": "Parole più frequenti"
+    },
+    "word": {
+      "eyebrow": "Parola dalle tue note",
+      "days": "In {{count}} note su {{total}} ({{share}})",
+      "basis": "Confrontato con gli altri giorni con una nota.",
+      "mood": "Nei giorni con «{{word}}» in media {{with}} invece di {{without}}",
+      "noDays": "Questa parola non compare in nessuna nota",
+      "open": "Apre la pagina di questa parola"
     }
   },
   "outlook": {

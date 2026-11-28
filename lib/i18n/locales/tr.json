@@ -784,6 +784,12 @@
         "spanValue": "{{min}} ile {{max}} arası",
         "days": "Değerli günler",
         "empty": "Bu dönemde ölçeğin değeri yok"
+      },
+      "words": {
+        "title": "Kelimeler",
+        "high": "{{value}} üzerindeki değerlerde daha sık",
+        "low": "{{value}} altındaki değerlerde daha sık",
+        "empty": "Karşılaştırma için henüz yeterli not yok"
       }
     },
     "ready": {
@@ -816,6 +822,14 @@
       "longestA11y_one": "En uzun not {{date}}, {{count}} kelime. Günü açar",
       "longestA11y_other": "En uzun not {{date}}, {{count}} kelime. Günü açar",
       "top": "En sık kelimeler"
+    },
+    "word": {
+      "eyebrow": "Notlarından bir kelime",
+      "days": "{{total}} notun {{count}} tanesinde ({{share}})",
+      "basis": "Notu olan diğer günlerle karşılaştırılır.",
+      "mood": "“{{word}}” geçen günlerde ortalama {{without}} yerine {{with}}",
+      "noDays": "Bu kelime hiçbir notta geçmiyor",
+      "open": "Bu kelimenin sayfasını açar"
     }
   },
   "outlook": {

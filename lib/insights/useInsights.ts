@@ -7,7 +7,7 @@ import type { DateString } from '@/lib/dates';
 import { cached, useQuery } from '@/lib/store/dataVersion';
 import { useSettingsStore } from '@/lib/store/settingsStore';
 
-import { buildDays, type InsightDay } from './days';
+import { buildDays, dayTexts, type InsightDay } from './days';
 import { activityDetail, levelDetail, type ActivityDetail, type LevelDetail } from './detail';
 import { healthMood, type HealthMood } from './health';
 import { healthStats, type HealthStats } from './healthStats';
@@ -15,6 +15,7 @@ import { buildInsights, type Insights } from './overview';
 import type { InsightRange } from './range';
 import { compareScales, scaleHealthLinks, scalePairLinks, scaleStats, type ScaleComparison, type ScaleFacts, type ScaleHealthLink, type ScaleInsight, type ScalePairLink } from './scales';
 import { buildTrends, type TrendItem } from './trends';
+import { scaleWords, wordDetail, type ScaleWords, type WordDetail } from './words';
 
 /** Every entry with its level and activities, read once per data version for all insight screens. */
 export function readInsightEntries(): EntryDetails[] {
@@ -24,6 +25,11 @@ export function readInsightEntries(): EntryDetails[] {
 /** Every day of the diary, oldest first; the unit the detail pages count in. */
 export function readInsightDays(): InsightDay[] {
   return cached('insightDays', () => buildDays(readInsightEntries()));
+}
+
+/** Title and note of every day, joined, read once per data version. */
+export function readInsightTexts(): Map<DateString, string> {
+  return cached('insightTexts', () => dayTexts(readInsightEntries()));
 }
 
 /** Everything "Einblicke" shows for a range, recomputed when data, day, range or first weekday change. */
@@ -47,6 +53,16 @@ export function useLevelDetail(level: MoodLevel): LevelDetail {
 /** Each scale with values in the range of "Einblicke", in display order. */
 export function useScaleInsights(insights: Insights, scales: readonly ScaleFacts[]): ScaleInsight[] {
   return useQuery(() => scaleStats({ scales, allDays: insights.allDays, window: insights.window, previous: insights.previous }), [insights, scales]);
+}
+
+/** Words on days with a high and a low value of the scale, for the range of "Einblicke". */
+export function useScaleWords(insights: Insights, scale: ScaleFacts | undefined): ScaleWords | null {
+  return useQuery(() => (scale ? scaleWords(insights.days, readInsightTexts(), scale) : null), [insights, scale]);
+}
+
+/** One word over the whole diary, like the page of an activity. */
+export function useWordDetail(word: string, scales: readonly ScaleFacts[]): WordDetail {
+  return useQuery(() => wordDetail(readInsightDays(), readInsightTexts(), word, scales), [word, scales]);
 }
 
 export interface ScaleRelations {

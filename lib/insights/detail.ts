@@ -14,7 +14,8 @@ export interface LevelCount {
   share: number;
 }
 
-function levelCounts(days: readonly InsightDay[]): LevelCount[] {
+/** Days per mood level, best first, with their share of `days`. */
+export function levelCounts(days: readonly InsightDay[]): LevelCount[] {
   return [...MOOD_LEVELS].reverse().map((level) => {
     const n = days.filter((day) => day.level === level).length;
     return { level, days: n, share: days.length ? n / days.length : 0 };
@@ -118,46 +119,52 @@ export interface LevelDetail {
   rare: LevelActivity[];
 }
 
+export interface ActivityContrast {
+  typical: LevelActivity[];
+  rare: LevelActivity[];
+}
+
 /**
- * Which activities go with one mood level, compared with every other day. Ratios use add-one
- * smoothing, so a level with three days does not produce a ratio of 30.
+ * Which activities are more or less common on the days picked than on all other days. Ratios use
+ * add-one smoothing, so three picked days do not produce a ratio of 30.
  */
-export function levelDetail(days: readonly InsightDay[], level: MoodLevel): LevelDetail {
-  const at = days.filter((day) => day.level === level);
-  const other = days.length - at.length;
+export function activityContrast(days: readonly InsightDay[], picked: (day: InsightDay) => boolean): ActivityContrast {
+  let at = 0;
   const atCounts = new Map<number, number>();
   const otherCounts = new Map<number, number>();
   for (const day of days) {
-    const counts = day.level === level ? atCounts : otherCounts;
+    const isPicked = picked(day);
+    if (isPicked) at += 1;
+    const counts = isPicked ? atCounts : otherCounts;
     for (const id of day.activities) counts.set(id, (counts.get(id) ?? 0) + 1);
   }
+  const other = days.length - at;
+  if (at === 0 || other === 0) return { typical: [], rare: [] };
   const rows: LevelActivity[] = [...new Set([...atCounts.keys(), ...otherCounts.keys()])].map((activityId) => {
     const n = atCounts.get(activityId) ?? 0;
     const o = otherCounts.get(activityId) ?? 0;
     return {
       activityId,
       days: n,
-      share: at.length ? n / at.length : 0,
-      otherShare: other ? o / other : 0,
-      ratio: (n + 1) / (at.length + 2) / ((o + 1) / (other + 2)),
+      share: n / at,
+      otherShare: o / other,
+      ratio: (n + 1) / (at + 2) / ((o + 1) / (other + 2)),
     };
   });
-  const enough = at.length > 0 && other > 0;
   return {
-    level,
-    days: at.length,
-    share: days.length ? at.length / days.length : 0,
-    typical: enough
-      ? rows
-          .filter((row) => row.days >= MIN_LEVEL_ACTIVITY_DAYS && row.ratio >= TYPICAL_RATIO)
-          .sort((a, b) => b.ratio - a.ratio || a.activityId - b.activityId)
-          .slice(0, DETAIL_ROWS)
-      : [],
-    rare: enough
-      ? rows
-          .filter((row) => (otherCounts.get(row.activityId) ?? 0) >= MIN_OTHER_ACTIVITY_DAYS && row.ratio <= RARE_RATIO)
-          .sort((a, b) => a.ratio - b.ratio || a.activityId - b.activityId)
-          .slice(0, DETAIL_ROWS)
-      : [],
+    typical: rows
+      .filter((row) => row.days >= MIN_LEVEL_ACTIVITY_DAYS && row.ratio >= TYPICAL_RATIO)
+      .sort((a, b) => b.ratio - a.ratio || a.activityId - b.activityId)
+      .slice(0, DETAIL_ROWS),
+    rare: rows
+      .filter((row) => (otherCounts.get(row.activityId) ?? 0) >= MIN_OTHER_ACTIVITY_DAYS && row.ratio <= RARE_RATIO)
+      .sort((a, b) => a.ratio - b.ratio || a.activityId - b.activityId)
+      .slice(0, DETAIL_ROWS),
   };
+}
+
+/** Which activities go with one mood level, compared with every other day. */
+export function levelDetail(days: readonly InsightDay[], level: MoodLevel): LevelDetail {
+  const at = days.filter((day) => day.level === level).length;
+  return { level, days: at, share: days.length ? at / days.length : 0, ...activityContrast(days, (day) => day.level === level) };
 }
