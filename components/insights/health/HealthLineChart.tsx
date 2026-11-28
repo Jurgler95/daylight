@@ -29,5 +29,5 @@ export function HealthLineChart({ metric, points, window, goal }: Props) {
     count: points.length,
     last: last ? formatMetric(metric, last.rolling) : '',
   });
-  return <ValueLineChart points={points} window={window} lo={lo} hi={hi} format={(value) => formatMetric(metric, value)} accessibilityLabel={label} goal={goal} />;
+  return <ValueLineChart points={points} window={window} lo={lo} hi={hi} format={(value) => formatMetric(metric, value)} accessibilityLabel={label} goal={goal} title={t(`insights.healthStats.metric.${metric}`)} />;
 }

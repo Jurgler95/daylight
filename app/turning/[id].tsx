@@ -131,6 +131,7 @@ export default function TurningPointDetailScreen() {
               mean={null}
               iconFor={(level) => levelMood(catalog, level).icon}
               marks={[date]}
+              title={t('turning.trend')}
             />
           </InsightCard>
 
