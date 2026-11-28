@@ -77,7 +77,7 @@ export function Segmented<T extends string | number>({ label, options, value, on
                 { opacity: pressed && !selected ? 0.6 : 1 },
               ]}
             >
-              <AppText variant="label" color={selected ? colors.textOnAccent : colors.text} numberOfLines={1}>
+              <AppText variant="label" color={selected ? colors.textOnAccent : colors.text} numberOfLines={2} style={styles.label}>
                 {option.label}
               </AppText>
             </Pressable>
@@ -92,12 +92,15 @@ const PADDING = 3;
 
 const styles = StyleSheet.create({
   wrap: { gap: spacing.xs },
+  // Two lines rather than "4 Woch…": German, French and Polish labels are often longer than a segment.
+  label: { textAlign: 'center' },
   track: { flexDirection: 'row', borderRadius: radius.pill, padding: PADDING },
   indicator: { position: 'absolute', top: PADDING, bottom: PADDING, left: PADDING, borderRadius: radius.pill },
   segment: {
     flex: 1,
     minHeight: TOUCH_TARGET - PADDING * 2,
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: 2,
     borderRadius: radius.pill,
     alignItems: 'center',
     justifyContent: 'center',

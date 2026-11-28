@@ -2,7 +2,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, useWindowDimensions, View } from 'react-native';
 import Animated, { Easing, useAnimatedStyle, useReducedMotion, useSharedValue, withDelay, withTiming, ZoomIn } from 'react-native-reanimated';
 
 import { AppText } from '@/components/ui';
@@ -33,6 +33,9 @@ interface Props {
 export function AchievementsHero({ stars, complete, total, progress, upNext, onUpNext }: Props) {
   const { t } = useTranslation();
   const { colors, gradients, trophySoftText } = useTheme();
+  // With a large system font, star, title, count and arrow no longer fit in one row and the caption
+  // broke syllable by syllable; then the star goes and the count moves under the title.
+  const large = useWindowDimensions().fontScale > 1.2;
   const toGoText = useToGoText();
   const reduceMotion = useReducedMotion();
   const percent = Math.floor(progress * 100);
@@ -88,18 +91,21 @@ export function AchievementsHero({ stars, complete, total, progress, upNext, onU
           accessibilityLabel={`${t('achievements.upNext')}: ${t(`achievements.items.${upNext.key}.title`)}, ${toGoText(upNext.unit, upNext.remaining)}`}
           style={({ pressed }) => [styles.upNext, { opacity: pressed ? 0.75 : 1 }]}
         >
-          <View style={styles.upNextStar}>
-            <TierStar index={upNext.stars} earned size={26} />
-          </View>
+          {large ? null : (
+            <View style={styles.upNextStar}>
+              <TierStar index={upNext.stars} earned size={26} />
+            </View>
+          )}
           <View style={styles.upNextText}>
             <AppText variant="caption" color={trophySoftText}>
               {upper(t('achievements.upNext'))}
             </AppText>
-            <AppText variant="headline" color={colors.textOnGradient} numberOfLines={1}>
+            <AppText variant="headline" color={colors.textOnGradient} numberOfLines={2}>
               {t(`achievements.items.${upNext.key}.title`)}
             </AppText>
+            {large ? <ToGo unit={upNext.unit} remaining={upNext.remaining} color={colors.textOnGradient} size={26} /> : null}
           </View>
-          <ToGo unit={upNext.unit} remaining={upNext.remaining} color={colors.textOnGradient} size={26} />
+          {large ? null : <ToGo unit={upNext.unit} remaining={upNext.remaining} color={colors.textOnGradient} size={26} />}
           <MaterialCommunityIcons name="chevron-right" size={22} color={trophySoftText} />
         </Pressable>
       ) : null}
