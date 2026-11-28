@@ -188,7 +188,10 @@
     "manageScales": "Skalen verwalten",
     "turningLost": "Dieser Tag ist der Wendepunkt „{{title}}“. Ohne Eintrag an diesem Tag wird er mit gelöscht.",
     "turningMoveTitle": "Wendepunkt geht verloren",
-    "turningMoveConfirm": "Verschieben und löschen"
+    "turningMoveConfirm": "Verschieben und löschen",
+    "draftTitle": "Angefangenen Eintrag fortsetzen?",
+    "draftBody": "Ein Eintrag wurde nicht gespeichert, etwa weil die App im Hintergrund beendet wurde. Du kannst dort weitermachen, wo du aufgehört hast.",
+    "draftContinue": "Fortsetzen"
   },
   "photo": {
     "title": "Foto",

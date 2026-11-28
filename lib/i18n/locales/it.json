@@ -204,7 +204,10 @@
     "manageScales": "Gestisci scale",
     "turningLost": "Questo giorno è la svolta “{{title}}”. Senza una voce in questo giorno, verrà eliminata anch'essa.",
     "turningMoveTitle": "La svolta andrà persa",
-    "turningMoveConfirm": "Sposta ed elimina"
+    "turningMoveConfirm": "Sposta ed elimina",
+    "draftTitle": "Riprendere la voce non finita?",
+    "draftBody": "Una voce non è stata salvata, per esempio perché l’app è stata chiusa in background. Puoi riprendere da dove avevi lasciato.",
+    "draftContinue": "Riprendi"
   },
   "photo": {
     "title": "Foto",

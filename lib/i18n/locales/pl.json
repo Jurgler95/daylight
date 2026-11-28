@@ -220,7 +220,10 @@
     "manageScales": "Zarządzaj skalami",
     "turningLost": "Ten dzień jest punktem zwrotnym „{{title}}”. Bez wpisu w tym dniu punkt zwrotny też zostanie usunięty.",
     "turningMoveTitle": "Punkt zwrotny przepadnie",
-    "turningMoveConfirm": "Przenieś i usuń"
+    "turningMoveConfirm": "Przenieś i usuń",
+    "draftTitle": "Kontynuować rozpoczęty wpis?",
+    "draftBody": "Wpis nie został zapisany, na przykład dlatego, że aplikacja została zamknięta w tle. Możesz kontynuować od miejsca, w którym przerwano.",
+    "draftContinue": "Kontynuuj"
   },
   "photo": {
     "title": "Zdjęcie",

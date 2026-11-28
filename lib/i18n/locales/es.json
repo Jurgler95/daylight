@@ -204,7 +204,10 @@
     "manageScales": "Gestionar escalas",
     "turningLost": "Este día es el punto de inflexión “{{title}}”. Sin una entrada en este día, también se borrará.",
     "turningMoveTitle": "Se perderá el punto de inflexión",
-    "turningMoveConfirm": "Mover y borrar"
+    "turningMoveConfirm": "Mover y borrar",
+    "draftTitle": "¿Continuar la entrada sin terminar?",
+    "draftBody": "Una entrada no se guardó, por ejemplo porque la app se cerró en segundo plano. Puedes seguir donde lo dejaste.",
+    "draftContinue": "Continuar"
   },
   "photo": {
     "title": "Foto",

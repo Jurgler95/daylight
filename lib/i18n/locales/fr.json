@@ -204,7 +204,10 @@
     "manageScales": "Gérer les échelles",
     "turningLost": "Ce jour est le tournant « {{title}} ». Sans entrée ce jour-là, il sera supprimé lui aussi.",
     "turningMoveTitle": "Le tournant sera perdu",
-    "turningMoveConfirm": "Déplacer et supprimer"
+    "turningMoveConfirm": "Déplacer et supprimer",
+    "draftTitle": "Reprendre l’entrée commencée ?",
+    "draftBody": "Une entrée n’a pas été enregistrée, par exemple parce que l’app a été fermée en arrière-plan. Tu peux reprendre là où tu t’étais arrêté.",
+    "draftContinue": "Reprendre"
   },
   "photo": {
     "title": "Photo",

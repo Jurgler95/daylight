@@ -188,7 +188,10 @@
     "manageScales": "Schalen beheren",
     "turningLost": "Deze dag is het keerpunt “{{title}}”. Zonder registratie op deze dag wordt het ook gewist.",
     "turningMoveTitle": "Keerpunt gaat verloren",
-    "turningMoveConfirm": "Verplaatsen en wissen"
+    "turningMoveConfirm": "Verplaatsen en wissen",
+    "draftTitle": "Begonnen registratie voortzetten?",
+    "draftBody": "Een registratie is niet opgeslagen, bijvoorbeeld omdat de app op de achtergrond werd afgesloten. Je kunt verdergaan waar je gebleven was.",
+    "draftContinue": "Voortzetten"
   },
   "photo": {
     "title": "Foto",

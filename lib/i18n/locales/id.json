@@ -188,7 +188,10 @@
     "manageScales": "Kelola skala",
     "turningLost": "Hari ini adalah titik balik \"{{title}}\". Tanpa entri di hari ini, titik balik itu juga akan dihapus.",
     "turningMoveTitle": "Titik balik akan hilang",
-    "turningMoveConfirm": "Pindahkan dan hapus"
+    "turningMoveConfirm": "Pindahkan dan hapus",
+    "draftTitle": "Lanjutkan entri yang belum selesai?",
+    "draftBody": "Sebuah entri belum tersimpan, misalnya karena aplikasi ditutup di latar belakang. Kamu bisa melanjutkan dari tempat terakhir.",
+    "draftContinue": "Lanjutkan"
   },
   "photo": {
     "title": "Foto",

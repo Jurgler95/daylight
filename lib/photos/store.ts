@@ -38,12 +38,15 @@ export function daylioPhotoName(checksum: string): string {
   return `daylio-${checksum.toLowerCase().replace(/[^0-9a-f]/g, '')}.jpg`;
 }
 
-/** Deletes every file no row points to. Returns how many went. Never while an editor holds an unsaved photo. */
-export function sweepPhotos(db: Database, store: PhotoStore): number {
+/**
+ * Deletes every file no row points to, except the ones in `keep` (photos of a saved editor draft).
+ * Returns how many went. Never while an editor holds an unsaved photo.
+ */
+export function sweepPhotos(db: Database, store: PhotoStore, keep: ReadonlySet<string> = new Set()): number {
   const used = allPhotoFileNames(db);
   let removed = 0;
   for (const name of store.list()) {
-    if (used.has(name)) continue;
+    if (used.has(name) || keep.has(name)) continue;
     store.remove(name);
     removed++;
   }

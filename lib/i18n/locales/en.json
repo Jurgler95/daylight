@@ -188,7 +188,10 @@
     "manageScales": "Manage scales",
     "turningLost": "This day is the turning point \"{{title}}\". Without an entry on this day, it will be deleted too.",
     "turningMoveTitle": "Turning point will be lost",
-    "turningMoveConfirm": "Move and delete"
+    "turningMoveConfirm": "Move and delete",
+    "draftTitle": "Continue your unfinished entry?",
+    "draftBody": "An entry was not saved, for example because the app was closed in the background. You can pick up where you left off.",
+    "draftContinue": "Continue"
   },
   "photo": {
     "title": "Photo",

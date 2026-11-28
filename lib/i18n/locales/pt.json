@@ -204,7 +204,10 @@
     "manageScales": "Gerenciar escalas",
     "turningLost": "Este dia é o ponto de virada “{{title}}”. Sem um registro neste dia, ele também será apagado.",
     "turningMoveTitle": "O ponto de virada será perdido",
-    "turningMoveConfirm": "Mover e apagar"
+    "turningMoveConfirm": "Mover e apagar",
+    "draftTitle": "Continuar o registro não terminado?",
+    "draftBody": "Um registro não foi salvo, por exemplo porque o app foi fechado em segundo plano. Você pode continuar de onde parou.",
+    "draftContinue": "Continuar"
   },
   "photo": {
     "title": "Foto",

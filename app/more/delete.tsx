@@ -5,6 +5,8 @@ import { Alert, StyleSheet, TextInput } from 'react-native';
 
 import { AppText, Button, Card, Screen } from '@/components/ui';
 import { dropDatabaseFile, runMigrations } from '@/db';
+import { fileDraftStorage } from '@/lib/entry/draftFile';
+import { removeAllSavedDrafts } from '@/lib/entry/savedDrafts';
 import { deleteCachedCopies } from '@/lib/export/files';
 import { revokeAccess } from '@/lib/health/client';
 import { cancelAll } from '@/lib/notifications';
@@ -32,6 +34,7 @@ export default function DeleteDataScreen() {
       await revokeAccess().catch(() => undefined);
       dropDatabaseFile();
       deleteAllPhotoFiles();
+      removeAllSavedDrafts(fileDraftStorage);
       deleteCachedCopies();
       await runMigrations();
       mutate(() => load());

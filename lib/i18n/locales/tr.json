@@ -188,7 +188,10 @@
     "manageScales": "Ölçekleri yönet",
     "turningLost": "Bu gün “{{title}}” dönüm noktası. Bu günde kayıt kalmazsa dönüm noktası da silinir.",
     "turningMoveTitle": "Dönüm noktası kaybolacak",
-    "turningMoveConfirm": "Taşı ve sil"
+    "turningMoveConfirm": "Taşı ve sil",
+    "draftTitle": "Yarım kalan kayda devam edilsin mi?",
+    "draftBody": "Bir kayıt kaydedilmedi, örneğin uygulama arka planda kapatıldığı için. Kaldığın yerden devam edebilirsin.",
+    "draftContinue": "Devam et"
   },
   "photo": {
     "title": "Fotoğraf",

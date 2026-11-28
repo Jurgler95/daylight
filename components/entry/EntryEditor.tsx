@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { router, useNavigation } from 'expo-router';
 import { usePreventRemove } from 'expo-router/react-navigation';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, Pressable, StyleSheet, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
@@ -20,6 +20,7 @@ import { useToday } from '@/lib/dates/useToday';
 import { useCollapsedGroups } from '@/lib/entry/collapsedGroups';
 import { setScale, toggleId } from '@/lib/entry/draft';
 import { useEntryEditor, type EditorTarget } from '@/lib/entry/useEntryEditor';
+import { useLockStore } from '@/lib/lock/store';
 import { useManageWrite } from '@/lib/manage/useManageWrite';
 import { TOUCH_TARGET, spacing, useTheme } from '@/lib/theme';
 
@@ -33,7 +34,7 @@ import { ScaleInput } from './ScaleInput';
 /**
  * New and existing entries alike. Writes only on "Speichern"; leaving with changes (close button,
  * Android back, swipe) asks whether to save, discard or keep editing, so nothing typed is lost
- * without a decision.
+ * without a decision. A draft left behind when Android ended the app is offered once on opening.
  */
 export function EntryEditor({ target }: { target: EditorTarget }) {
   const { t } = useTranslation();
@@ -48,6 +49,22 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
   const toggleCollapsed = useCollapsedGroups((s) => s.toggle);
   // Set right before a deliberate exit (saved or deleted), so the guard below lets it through.
   const leaving = useRef(false);
+  // Not over the lock screen: the question waits until the app is unlocked.
+  const locked = useLockStore((s) => s.locked);
+  const offered = useRef(false);
+  useEffect(() => {
+    if (!editor.savedDraft || locked || offered.current) return;
+    offered.current = true;
+    Alert.alert(
+      t('entry.draftTitle'),
+      t('entry.draftBody'),
+      [
+        { text: t('entry.discard'), style: 'destructive', onPress: editor.discardSaved },
+        { text: t('entry.draftContinue'), onPress: editor.resumeSaved },
+      ],
+      { cancelable: false },
+    );
+  }, [editor.savedDraft, locked]); // eslint-disable-line react-hooks/exhaustive-deps
 
   usePreventRemove(editor.dirty, ({ data }) => {
     if (leaving.current) {
@@ -56,7 +73,14 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
     }
     Alert.alert(t('entry.unsavedTitle'), undefined, [
       { text: t('entry.keepEditing'), style: 'cancel' },
-      { text: t('entry.discard'), style: 'destructive', onPress: () => navigation.dispatch(data.action) },
+      {
+        text: t('entry.discard'),
+        style: 'destructive',
+        onPress: () => {
+          editor.discard();
+          navigation.dispatch(data.action);
+        },
+      },
       ...(editor.canSave
         ? [
             {
