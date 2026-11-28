@@ -109,7 +109,8 @@
       "./plugins/withBlockedPermissionsSdk23",
       "./plugins/withNoDeviceTransfer",
       "./plugins/withSeasonalIcons",
-      "./plugins/withThemeColors"
+      "./plugins/withThemeColors",
+      "./plugins/withSyncHostDestroy"
     ],
     "experiments": {
       "typedRoutes": true,
