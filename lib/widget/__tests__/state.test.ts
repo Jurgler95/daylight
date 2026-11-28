@@ -34,6 +34,12 @@ describe('buildWidgetState', () => {
     });
   });
 
+  it('shows one mood per level, the first of each, so doubled moods leave no level out', () => {
+    const moods = [mood(1, 5, 'a'), mood(6, 5, 'a'), mood(2, 4, 'b'), mood(7, 4, 'b'), mood(3, 3, 'c'), mood(4, 2, 'd'), mood(5, 1, 'e')];
+    const state = buildWidgetState({ title: 'Q', font: null, moods, glyphs: {}, date: day, moodId: null });
+    expect(state.moods.map((m) => m.id)).toEqual([1, 2, 3, 4, 5]);
+  });
+
   it('marks an unknown or non-numeric glyph as 0, so the widget draws the initial', () => {
     const state = buildWidgetState({
       title: 'Q',

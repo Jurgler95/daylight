@@ -1,5 +1,6 @@
 import type { Mood } from '@/db/schema';
 import { addDaysToDateString, type DateString } from '@/lib/dates';
+import { onePerLevel } from '@/lib/notifications/moods';
 import type { StreakState } from '@/lib/streak/streak';
 
 /** How many days back the history widget can reach: five weeks plus the rest of the oldest week. */
@@ -14,7 +15,7 @@ export interface WidgetState {
   title: string;
   /** Resource name of the icon font in a release build; a Metro URL in development, which the widget ignores. */
   font: string | null;
-  /** At most five, best first, as the mood picker shows them. */
+  /** One per level, best first: the first of each level in the mood picker's order. */
   moods: { id: number; level: number; glyph: number; label: string }[];
   /** The day the app built this for: `moodId`, `streak` and `days` hold for it. */
   date: DateString;
@@ -72,7 +73,7 @@ export function buildWidgetState(input: WidgetStateInput): WidgetState {
   return {
     title: input.title,
     font: input.font,
-    moods: input.moods.slice(0, 5).map((mood) => ({
+    moods: onePerLevel(input.moods).map((mood) => ({
       id: mood.id,
       level: mood.level,
       glyph: glyph(mood.icon),
