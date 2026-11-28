@@ -108,6 +108,8 @@
     "healthInfo_other": "Ditambah data kesehatan untuk {{count}} hari.",
     "newMoods": "Suasana hati baru",
     "newActivities": "Aktivitas baru",
+    "newGroups": "Grup baru",
+    "newList": "{{title}}: {{names}}.",
     "level": "{{name}} ({{level}})",
     "mode": "Mode",
     "merge": "Gabungkan",

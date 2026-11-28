@@ -4,8 +4,8 @@ import { createScale } from '@/db/repositories/scales';
 import type { Database } from '@/db/types';
 import { today } from '@/lib/dates';
 import { applyDaylioImport } from '@/lib/daylio/apply';
+import { activityIdentity } from '@/lib/daylio/known';
 import { currentLanguage, type Language } from '@/lib/i18n/language';
-import { fold } from '@/lib/search/fold';
 
 import { ENGLISH } from './english';
 import { generateSample, SAMPLE_SCALE, type SampleData } from './generateSample';
@@ -25,10 +25,11 @@ export function applySample(db: Database, data: SampleData, language: Language =
   db.transaction((tx) => {
     createScale(tx, { ...SAMPLE_SCALE, name: translationFor(language)?.scale ?? SAMPLE_SCALE.name });
     applyDaylioImport(tx, { entries: data.entries, errors: [], warnings: [] }, { mode: 'merge', source: 'app' });
-    const ids = new Map(listActivities(tx).map((activity) => [fold(activity.name), activity.id]));
+    // By slot, not name: the import names standard activities in the app's language.
+    const ids = new Map(listActivities(tx).map((activity) => [activityIdentity(activity.name), activity.id]));
     const byDate = new Map<string, number[]>();
     for (const plan of data.plans) {
-      const id = ids.get(fold(plan.activity));
+      const id = ids.get(activityIdentity(plan.activity));
       if (id !== undefined) byDate.set(plan.date, [...(byDate.get(plan.date) ?? []), id]);
     }
     for (const [date, activityIds] of byDate) setPlannedActivities(tx, date, activityIds);

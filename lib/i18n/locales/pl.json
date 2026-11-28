@@ -128,6 +128,8 @@
     "healthInfo_other": "Do tego dane o zdrowiu z {{count}} dnia.",
     "newMoods": "Nowe nastroje",
     "newActivities": "Nowe aktywności",
+    "newGroups": "Nowe grupy",
+    "newList": "{{title}}: {{names}}.",
     "level": "{{name}} ({{level}})",
     "mode": "Tryb",
     "merge": "Scal",

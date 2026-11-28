@@ -6,7 +6,7 @@ import { fold } from '@/lib/search/fold';
 import type { Language } from '@/lib/i18n/language';
 import { NUMBER_MAX_DECIMALS } from '@/lib/scales/number';
 
-import { defaultGroups, defaultMoods, knownActivity, knownMoodLevel, resolveGroupName } from './known';
+import { activityIdentity, defaultGroups, defaultMoods, knownActivity, knownActivityKey, knownMoodLevel, resolveGroupName, standardActivityKey, standardGroupKey } from './known';
 import type { RawEntry } from './parse';
 
 /**
@@ -90,9 +90,12 @@ export interface KeyedEntry {
   activities: readonly string[];
 }
 
-/** An entry counts as already there when date, time, mood level, note title, note and activities all match. */
+/**
+ * An entry counts as already there when date, time, mood level, note title, note and activities all
+ * match. A standard activity matches in any language ("Happy" is "Glücklich", `activityIdentity`).
+ */
 export function entryKey({ date, time, level, noteTitle, note, activities }: KeyedEntry): string {
-  const names = [...new Set(activities.map(fold))].sort().join('\u0002');
+  const names = [...new Set(activities.map(activityIdentity))].sort().join('\u0002');
   return [date, time, level, noteTitle ?? '', note ?? '', names].join('\u0001');
 }
 
@@ -179,10 +182,18 @@ function resolveMood(label: string, catalog: Catalog, choices: ImportChoices): O
   return { key, label, level: chosen ?? known ?? UNKNOWN_MOOD_LEVEL, existingId: null, needsChoice: chosen === undefined && known === null };
 }
 
+/** The stored standard activity a standard name stands for in another language ("happy" for "Glücklich" in "Gefühle"). */
+function standardTwin(name: string, catalog: Catalog): Catalog['activities'][number] | undefined {
+  const known = knownActivityKey(name);
+  if (!known) return undefined;
+  const groups = new Set(catalog.groups.filter((group) => standardGroupKey(group.name) === known.group).map((group) => group.id));
+  return catalog.activities.find((activity) => groups.has(activity.group_id) && standardActivityKey(activity.name, known.group) === known.key);
+}
+
 function resolveActivity(name: string, catalog: Catalog, choices: ImportChoices): Omit<PlannedActivity, 'count' | 'rank'> {
   const key = fold(name);
   const groupNames = catalog.groups.map((group) => group.name);
-  const existing = catalog.activities.find((activity) => fold(activity.name) === key);
+  const existing = catalog.activities.find((activity) => fold(activity.name) === key) ?? standardTwin(name, catalog);
   if (existing) {
     const group = catalog.groups.find((g) => g.id === existing.group_id)?.name ?? resolveGroupName('imported', groupNames);
     return { key, name, existingId: existing.id, group, icon: FALLBACK_ACTIVITY_ICON };

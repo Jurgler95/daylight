@@ -34,6 +34,11 @@ export function summarizePlan(plan: ImportPlan, storedExperiments: readonly Expe
     healthDays: 0,
     experiments: 0,
     experimentsLost: experimentsLost(storedExperiments, []),
+    created: {
+      moods: plan.moods.filter((mood) => mood.existingId === null).map((mood) => mood.label),
+      groups: plan.newGroups,
+      activities: plan.activities.filter((activity) => activity.existingId === null).map((activity) => activity.name),
+    },
   };
 }
 
@@ -56,4 +61,27 @@ export function summaryText(t: TFunction, summary: ImportSummary): string {
   const health = summary.healthDays > 0 ? ` ${t('import.healthInfo', { count: summary.healthDays })}` : '';
   const experiments = summary.experiments > 0 ? ` ${t('experiments.import.inFile', { count: summary.experiments })}` : '';
   return `${contents} ${merge}${photos}${health}${experiments}`;
+}
+
+/** Names shown before "und 3 weitere". */
+const CREATED_SHOWN = 5;
+
+/**
+ * "Neue Stimmungen: Prima. Neue Aktivitäten: Yoga, Malen und 3 weitere." Null when a merge creates
+ * nothing, so a backup from the same journal or one in another language says nothing extra.
+ */
+export function createdText(t: TFunction, created: ImportSummary['created']): string | null {
+  const parts = (
+    [
+      ['import.newMoods', created.moods],
+      ['import.newGroups', created.groups],
+      ['import.newActivities', created.activities],
+    ] as const
+  ).flatMap(([title, names]) => {
+    if (names.length === 0) return [];
+    const shown = names.slice(0, CREATED_SHOWN).join(', ');
+    const rest = names.length - CREATED_SHOWN;
+    return [t('import.newList', { title: t(title), names: rest > 0 ? `${shown} ${t('import.more', { count: rest })}` : shown })];
+  });
+  return parts.length > 0 ? parts.join(' ') : null;
 }

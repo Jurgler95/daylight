@@ -6,10 +6,11 @@ import { deviceLanguage } from '@/lib/i18n/language';
 import { getDb } from './client';
 import { ensureDefaults } from './repositories/defaults';
 import { ensureSettings, settleReminderPrompt, updateSettings } from './repositories/settings';
+import { tidyStandards } from './repositories/standards';
 
 /**
  * Runs all pending Drizzle migrations, then guarantees the settings singleton and the default
- * moods and groups exist. Called once at app start before any screen renders.
+ * moods and groups exist, named in the app's language and each only once. Called once at app start before any screen renders.
  */
 export async function runMigrations(): Promise<void> {
   const db = getDb();
@@ -24,6 +25,9 @@ export async function runMigrations(): Promise<void> {
       updateSettings(tx, { language });
     }
     ensureDefaults(tx, language);
+    // Standard moods, groups and activities in the app's language and each only once, also for
+    // journals set up in another language or merged with a backup from one (before this existed).
+    tidyStandards(tx, language);
     settleReminderPrompt(tx);
   });
 }

@@ -118,6 +118,8 @@
     "healthInfo_many": "In più dati sulla salute per {{count}} giorni.",
     "newMoods": "Nuovi umori",
     "newActivities": "Nuove attività",
+    "newGroups": "Nuovi gruppi",
+    "newList": "{{title}}: {{names}}.",
     "level": "{{name}} ({{level}})",
     "mode": "Modalità",
     "merge": "Unisci",

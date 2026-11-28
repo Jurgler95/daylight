@@ -3,6 +3,7 @@ import { ensureDefaults } from '@/db/repositories/defaults';
 import { restoreHealthDays } from '@/db/repositories/health';
 import { updateSettings } from '@/db/repositories/settings';
 import { clearJournal } from '@/db/repositories/maintenance';
+import { tidyStandards } from '@/db/repositories/standards';
 import { allPhotoFileNames } from '@/db/repositories/photos';
 import { listExperiments } from '@/db/repositories/experiments';
 import {
@@ -21,6 +22,8 @@ import {
   turningPoints,
 } from '@/db/schema';
 import type { Database } from '@/db/types';
+import type { MoodLevel } from '@/db/schema';
+import { activityName, groupName, isStandardMood, standardActivityKey, standardGroupKey, standardMoodLabel } from '@/lib/daylio/known';
 import type { DateString } from '@/lib/dates';
 import type { ImportMode } from '@/lib/daylio/apply';
 import { sweepPhotos, writePhotos, type PhotoStore } from '@/lib/photos/store';
@@ -52,6 +55,38 @@ export interface ImportSummary {
   experiments: number;
   /** Stored experiments a replace would delete: those the file does not bring again. */
   experimentsLost: number;
+  /** Names a merge would create, standard ones as they will be called here (in the app's language). */
+  created: { moods: string[]; groups: string[]; activities: string[] };
+}
+
+/** The name a new row will carry once `tidyStandards` has run: a standard one in the app's language. */
+function createdNames(payload: ExportPayload, matches: ReturnType<typeof matchPayload>): ImportSummary['created'] {
+  const groupNames = new Map(payload.activity_groups.map((group) => [group.id, group.name]));
+  const isNew = (found: Map<number, number | null>, id: number) => found.get(id) === null;
+  const unique = (names: string[]) => [...new Set(names)];
+  return {
+    moods: unique(
+      payload.moods
+        .filter((mood) => isNew(matches.moods, mood.id))
+        .map((mood) => (isStandardMood(mood.label, mood.level) ? standardMoodLabel(mood.level as MoodLevel) : mood.label)),
+    ),
+    groups: unique(
+      payload.activity_groups
+        .filter((group) => isNew(matches.groups, group.id))
+        .map((group) => {
+          const key = standardGroupKey(group.name);
+          return key ? groupName(key) : group.name;
+        }),
+    ),
+    activities: unique(
+      payload.activities
+        .filter((activity) => isNew(matches.activities, activity.id))
+        .map((activity) => {
+          const slot = standardActivityKey(activity.name, standardGroupKey(groupNames.get(activity.group_id) ?? ''));
+          return slot ? activityName(slot) : activity.name;
+        }),
+    ),
+  };
 }
 
 /** Photo files that came with a backup (ZIP), and where they go. */
@@ -91,6 +126,7 @@ export function previewImport(db: Database, payload: ExportPayload, photos: Phot
     healthDays: payload.health_days?.length ?? 0,
     experiments: payload.experiments?.length ?? 0,
     experimentsLost: experimentsLost(listExperiments(db), payload.experiments ?? []),
+    created: createdNames(payload, matches),
   };
 }
 
@@ -106,6 +142,8 @@ export function applyImport(db: Database, payload: ExportPayload, mode: ImportMo
     return db.transaction((tx) => {
       const result = mode === 'replace' ? replaceAll(tx, usable) : mergeImport(tx, usable);
       restoreHealth(tx, payload);
+      // A backup from a journal in another language brings its standard moods and groups in that one.
+      tidyStandards(tx);
       return result;
     });
   } finally {

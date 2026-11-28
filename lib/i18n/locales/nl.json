@@ -108,6 +108,8 @@
     "healthInfo_other": "Plus gezondheidsgegevens voor {{count}} dagen.",
     "newMoods": "Nieuwe stemmingen",
     "newActivities": "Nieuwe activiteiten",
+    "newGroups": "Nieuwe groepen",
+    "newList": "{{title}}: {{names}}.",
     "level": "{{name}} ({{level}})",
     "mode": "Manier",
     "merge": "Samenvoegen",

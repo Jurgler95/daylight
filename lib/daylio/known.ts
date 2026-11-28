@@ -266,3 +266,93 @@ export function knownActivity(name: string): KnownActivity | null {
 export function knownActivitiesByGroup(): { group: string; name: string; icon: IconName }[] {
   return DEFAULT_GROUP_KEYS.flatMap((group) => ACTIVITIES[group].map(([names, icon]) => ({ group: groupName(group, 'de'), name: names[0] ?? '', icon })));
 }
+
+/*
+ * Standard names. A mood, group or activity counts as standard while its name is still the name the
+ * app gives that slot in one of its languages (folded, so case and accents do not matter). Such a row
+ * follows the app's language and is matched across languages on import; a renamed one is the user's
+ * own and stays as it is. Import aliases and variants ("rad", "Besuch") do not count here.
+ */
+
+/** Every app language's name of each mood level, folded. */
+const STANDARD_MOOD_NAMES = new Map<number, Set<string>>(
+  ([5, 4, 3, 2, 1] as const).map((level) => [level, new Set(LANGUAGES.map((language) => fold(standardMoodLabel(level, language))))]),
+);
+
+/** The app's name of a mood level in `language`. */
+export function standardMoodLabel(level: MoodLevel, language: Language = currentLanguage()): string {
+  return MOODS_BY_LANGUAGE[language].find((mood) => mood.level === level)?.label ?? '';
+}
+
+/** Whether `label` is the app's own name of `level` in any of its languages. */
+export function isStandardMood(label: string, level: number): boolean {
+  return STANDARD_MOOD_NAMES.get(level)?.has(fold(label.trim())) ?? false;
+}
+
+const GROUP_KEY_BY_NAME = new Map<string, GroupKey>(
+  (Object.keys(GROUP_NAMES) as GroupKey[]).flatMap((key) => Object.values(GROUP_NAMES[key]).map((name) => [fold(name), key] as const)),
+);
+
+/** The slot of a standard group name in any app language, or null for a group of the user's own. */
+export function standardGroupKey(name: string): GroupKey | null {
+  return GROUP_KEY_BY_NAME.get(fold(name.trim())) ?? null;
+}
+
+const ACTIVITY_NAMES_BY_KEY = new Map<ActivityKey, readonly string[]>(
+  DEFAULT_GROUP_KEYS.flatMap((group) => ACTIVITIES[group].map(([names]) => [names[0], names] as const)),
+);
+
+/** The app's name of a standard activity in `language`. English capitalises the lower-case import name, as on first start. */
+export function activityName(key: ActivityKey, language: Language = currentLanguage()): string {
+  if (language === 'de') return key;
+  if (language !== 'en') return CONTENT[language].activities[key];
+  const english = ACTIVITY_NAMES_BY_KEY.get(key)?.[1] ?? key;
+  return english.charAt(0).toUpperCase() + english.slice(1);
+}
+
+/** Per standard group, every app language's name of each of its activities, folded. The first slot wins a clash. */
+const STANDARD_ACTIVITY_KEYS = Object.fromEntries(
+  DEFAULT_GROUP_KEYS.map((group) => {
+    const keys = new Map<string, ActivityKey>();
+    for (const [names] of ACTIVITIES[group]) {
+      for (const language of LANGUAGES) {
+        const name = fold(activityName(names[0], language));
+        if (!keys.has(name)) keys.set(name, names[0]);
+      }
+    }
+    return [group, keys];
+  }),
+) as Record<DefaultGroupKey, Map<string, ActivityKey>>;
+
+/**
+ * The slot of a standard activity inside the standard group `group`, or null. Only within its own
+ * group: a "Gut" in a group of the user's own is not the sleep one.
+ */
+export function standardActivityKey(name: string, group: GroupKey | null): ActivityKey | null {
+  if (!group || group === 'imported') return null;
+  return STANDARD_ACTIVITY_KEYS[group].get(fold(name.trim())) ?? null;
+}
+
+const ACTIVITY_KEY_BY_ANY_NAME = new Map<string, { key: ActivityKey; group: DefaultGroupKey }>();
+for (const group of DEFAULT_GROUP_KEYS) {
+  for (const [names] of ACTIVITIES[group]) {
+    for (const name of [...names, ...LANGUAGES.map((language) => activityName(names[0], language))]) {
+      const key = fold(name);
+      if (!ACTIVITY_KEY_BY_ANY_NAME.has(key)) ACTIVITY_KEY_BY_ANY_NAME.set(key, { key: names[0], group });
+    }
+  }
+}
+
+/** The standard activity any of its names stands for (import variants included), with its group, or null. */
+export function knownActivityKey(name: string): { key: ActivityKey; group: GroupKey } | null {
+  return ACTIVITY_KEY_BY_ANY_NAME.get(fold(name.trim())) ?? null;
+}
+
+/**
+ * How an activity name takes part in telling entries apart: a standard activity by its slot, so
+ * "Happy" and "Glücklich" are the same, anything else by its folded name.
+ */
+export function activityIdentity(name: string): string {
+  const known = knownActivityKey(name);
+  return known === null ? fold(name) : `\u0003${known.key}`;
+}

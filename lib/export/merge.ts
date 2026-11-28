@@ -16,6 +16,8 @@ import {
 import type { Database } from '@/db/types';
 import { today as todayDate, type DateString } from '@/lib/dates';
 import { entryIdsByKey, readCatalog } from '@/lib/daylio/apply';
+import { isStandardMood, standardActivityKey, standardGroupKey } from '@/lib/daylio/known';
+import type { Catalog } from '@/lib/daylio/plan';
 import { entryKey, takeKey } from '@/lib/daylio/plan';
 import { experimentKey, type ExperimentSpan } from '@/lib/experiments/rules';
 import { fold } from '@/lib/search/fold';
@@ -25,9 +27,48 @@ import type { ExportPayload } from './schema';
 
 /**
  * Merge side of the JSON import. Rows are matched by meaning, not by id: groups by folded name,
- * scales by folded name and kind, moods by folded label and level, activities by group and folded name, entries by
+ * scales by folded name and kind, moods by folded label and level, activities by group and folded name,
+ * and what the app brought (standard moods, groups and activities) by its slot in any language, entries by
  * date, time, mood level, note title, note and activity names (`entryKey`). Unmatched rows are added with fresh ids; settings stay as they are.
  */
+
+/** Active rows first, then in list order: a standard name finds the row the editor shows. */
+function shownFirst<T extends { archived: boolean; sort_order: number; id: number }>(rows: readonly T[]): T[] {
+  return [...rows].sort((a, b) => Number(a.archived) - Number(b.archived) || a.sort_order - b.sort_order || a.id - b.id);
+}
+
+/**
+ * A standard mood (the app's name for its level in any language) is the standard mood of that level
+ * here, so "Gut" from a German backup lands on "Good". A mood of the user's own needs name and level.
+ */
+function matchMood<T extends { id: number; label: string; level: number; archived: boolean; sort_order: number }>(
+  stored: readonly T[],
+  mood: { label: string; level: number },
+): T | undefined {
+  const same = stored.find((m) => fold(m.label) === fold(mood.label) && m.level === mood.level);
+  if (same || !isStandardMood(mood.label, mood.level)) return same;
+  return shownFirst(stored).find((m) => m.level === mood.level && isStandardMood(m.label, m.level));
+}
+
+/** By folded name, and a standard group by its slot in any language ("Schlaf" is "Sleep"). */
+function matchGroup<T extends { id: number; name: string }>(stored: readonly T[], name: string): T | undefined {
+  const same = stored.find((g) => fold(g.name) === fold(name));
+  const key = standardGroupKey(name);
+  if (same || key === null) return same;
+  return stored.find((g) => standardGroupKey(g.name) === key);
+}
+
+/** By folded name inside the group, and a standard activity of a standard group by its slot ("Müde" is "Tired"). */
+function matchActivity(catalog: Catalog, groupId: number, name: string, payloadGroup: string): Catalog['activities'][number] | undefined {
+  const inGroup = catalog.activities.filter((a) => a.group_id === groupId);
+  const same = inGroup.find((a) => fold(a.name) === fold(name));
+  const groupKey = standardGroupKey(payloadGroup);
+  const slot = standardActivityKey(name, groupKey);
+  if (same || slot === null) return same;
+  const storedGroup = catalog.groups.find((g) => g.id === groupId);
+  if (!storedGroup || standardGroupKey(storedGroup.name) !== groupKey) return undefined;
+  return inGroup.find((a) => standardActivityKey(a.name, groupKey) === slot);
+}
 
 export interface Matches {
   /** Payload id to existing id, or null when the row is new. */
@@ -42,14 +83,13 @@ export interface Matches {
 
 export function matchPayload(db: Database, payload: ExportPayload): Matches {
   const catalog = readCatalog(db);
-  const groups = new Map(payload.activity_groups.map((group) => [group.id, catalog.groups.find((g) => fold(g.name) === fold(group.name))?.id ?? null]));
-  const moodMatches = new Map(
-    payload.moods.map((mood) => [mood.id, catalog.moods.find((m) => fold(m.label) === fold(mood.label) && m.level === mood.level)?.id ?? null]),
-  );
+  const groups = new Map(payload.activity_groups.map((group) => [group.id, matchGroup(catalog.groups, group.name)?.id ?? null]));
+  const moodMatches = new Map(payload.moods.map((mood) => [mood.id, matchMood(catalog.moods, mood)?.id ?? null]));
+  const payloadGroups = new Map(payload.activity_groups.map((group) => [group.id, group.name]));
   const activityMatches = new Map(
     payload.activities.map((activity) => {
       const groupId = groups.get(activity.group_id) ?? null;
-      const match = groupId === null ? undefined : catalog.activities.find((a) => a.group_id === groupId && fold(a.name) === fold(activity.name));
+      const match = groupId === null ? undefined : matchActivity(catalog, groupId, activity.name, payloadGroups.get(activity.group_id) ?? '');
       return [activity.id, match?.id ?? null];
     }),
   );

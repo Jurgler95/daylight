@@ -1,5 +1,6 @@
 import { createActivity, listActivities } from '@/db/repositories/activities';
 import { ensureDefaults } from '@/db/repositories/defaults';
+import { tidyStandards } from '@/db/repositories/standards';
 import { createEntry, listEntryDetails } from '@/db/repositories/entries';
 import { createGroup, listGroups } from '@/db/repositories/groups';
 import { clearJournal } from '@/db/repositories/maintenance';
@@ -167,6 +168,7 @@ export function applyDaylioImport(
       const plan = buildImportPlan(parsed.entries, readCatalog(tx), options.choices);
       const added = carryOut(tx, plan, options.source ?? 'daylio_csv');
       const photos = store ? attachPhotos(tx, plan, parsed.entries) : 0;
+      tidyStandards(tx);
       return { added, duplicates: plan.duplicates, skipped: parsed.errors.length, photos };
     });
   } finally {

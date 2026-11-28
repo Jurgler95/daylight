@@ -108,6 +108,8 @@
     "healthInfo_other": "Dazu Gesundheitsdaten für {{count}} Tage.",
     "newMoods": "Neue Stimmungen",
     "newActivities": "Neue Aktivitäten",
+    "newGroups": "Neue Gruppen",
+    "newList": "{{title}}: {{names}}.",
     "level": "{{name}} ({{level}})",
     "mode": "Modus",
     "merge": "Zusammenführen",

@@ -118,6 +118,8 @@
     "healthInfo_many": "Además, datos de salud de {{count}} días.",
     "newMoods": "Nuevos estados de ánimo",
     "newActivities": "Nuevas actividades",
+    "newGroups": "Nuevos grupos",
+    "newList": "{{title}}: {{names}}.",
     "level": "{{name}} ({{level}})",
     "mode": "Modo",
     "merge": "Combinar",

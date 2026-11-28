@@ -10,7 +10,7 @@ import { getDb } from '@/db';
 import type { ImportMode } from '@/lib/daylio/apply';
 import type { ImportChoices } from '@/lib/daylio/plan';
 import { applyPendingImport, usePendingImport } from '@/lib/export/pending';
-import { summaryText } from '@/lib/export/summary';
+import { createdText, summaryText } from '@/lib/export/summary';
 import { useImportPreview } from '@/lib/export/useImportPreview';
 import { haptics } from '@/lib/haptics';
 import { filePhotoStore } from '@/lib/photos/fileStore';
@@ -41,6 +41,8 @@ export default function ImportScreen() {
 
   const blocked = preview.errors.length > 0 && !skipErrors;
   // A replace deletes every stored experiment the file does not bring again (E16): said before, not after.
+  // A JSON merge has no mapping step, so the card says what it adds besides entries (CSV: the mapping below does).
+  const created = file.kind === 'json' && mode === 'merge' ? createdText(t, preview.summary.created) : null;
   const lost = preview.summary.experimentsLost > 0 ? t('experiments.import.lost', { count: preview.summary.experimentsLost }) : null;
   const run = () => {
     setBusy(true);
@@ -69,6 +71,7 @@ export default function ImportScreen() {
     <Screen back title={t('import.title')} eyebrow={file.name} backLabel={t('common.back')}>
       <Card tone="accent">
         <AppText>{summaryText(t, preview.summary)}</AppText>
+        {created ? <AppText variant="caption">{created}</AppText> : null}
       </Card>
       {preview.errors.length > 0 || preview.warnings.length > 0 ? (
         <Card>
