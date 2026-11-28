@@ -27,15 +27,9 @@ import type { ActivityNames, GroupActivities } from '@/components/insights/names
 import { PairsCard } from '@/components/insights/PairsCard';
 import { PixelsCard } from '@/components/insights/PixelsCard';
 import { ReadinessCard } from '@/components/insights/ReadinessCard';
-import { ScaleActivitiesCard } from '@/components/insights/scales/ScaleActivitiesCard';
-import { ScaleMoodCard } from '@/components/insights/scales/ScaleMoodCard';
-import { ScalePicker, useScale } from '@/components/insights/scales/ScalePicker';
 import { ScaleListCard } from '@/components/insights/scales/ScaleListCard';
 import { ScaleBodyCard, ScaleMoodLinksCard, ScalePairsCard } from '@/components/insights/scales/ScaleRelationCards';
 import { ScaleSplitCard } from '@/components/insights/scales/ScaleSplitCard';
-import { ScaleTiles } from '@/components/insights/scales/ScaleTiles';
-import { ScaleTrendCard } from '@/components/insights/scales/ScaleTrendCard';
-import { ScaleWeekdayCard } from '@/components/insights/scales/ScaleWeekdayCard';
 import { StatTile } from '@/components/insights/StatTile';
 import { StreakCard } from '@/components/insights/StreakCard';
 import { SwingsCard } from '@/components/insights/SwingsCard';
@@ -61,7 +55,7 @@ import { spacing } from '@/lib/theme';
 /**
  * The page is split into sections, one shown at a time, so no single scroll runs through twenty
  * cards. Scales only appear once one got a value, health once Health Connect delivered something;
- * the links between mood, scales and body as soon as either is there.
+ * the links between scales and body once there is health data or a second scale.
  */
 const SECTIONS = [
   { value: 'mood', icon: 'emoticon-outline' },
@@ -88,22 +82,22 @@ export default function InsightsScreen() {
   // Archived scales too: their old values still belong to the diary.
   const allScales = useMemo(() => [...catalog.scaleById.values()], [catalog]);
   const scaleInsights = useScaleInsights(insights, allScales);
-  const [scale, setScale] = useScale(scaleInsights);
   const relations = useScaleRelations(insights, allScales, now);
   const trends = useTrends(insights, allScales, now);
-  const hasScales = useMemo(() => insights.allDays.some((day) => day.scales.size > 0), [insights]);
+  // How many scales ever got a value: "Zusammenhänge" needs health data or two scales to compare.
+  const usedScales = useMemo(() => new Set(insights.allDays.flatMap((day) => [...day.scales.keys()])).size, [insights]);
+  const hasScales = usedScales > 0;
   const [picked, setSection] = useState<Section>('mood');
-  // A scale's page links here with `section=scales&scale=<id>`.
-  const params = useLocalSearchParams<{ section?: string; scale?: string }>();
+  // Other screens can open a section with `section=<value>`.
+  const params = useLocalSearchParams<{ section?: string }>();
   useEffect(() => {
     const target = SECTIONS.find((candidate) => candidate.value === params.section);
     if (target) setSection(target.value);
-    if (params.scale) setScale(Number(params.scale));
-  }, [params.section, params.scale]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [params.section]);
   const sections = SECTIONS.filter((section) => {
     if (section.value === 'health') return !!health;
     if (section.value === 'scales') return hasScales;
-    if (section.value === 'links') return !!health || hasScales;
+    if (section.value === 'links') return !!health || usedScales > 1;
     return true;
   });
   const section = sections.some((s) => s.value === picked) ? picked : 'mood';
@@ -151,7 +145,6 @@ export default function InsightsScreen() {
           onChange={setRange}
         />
       ) : null}
-      {section === 'scales' && scale ? <ScalePicker insights={scaleInsights} value={scale.scale.id} onChange={setScale} /> : null}
     </View>
   );
 
@@ -179,10 +172,8 @@ export default function InsightsScreen() {
   };
   const empty = insights.days.length === 0;
   const openTrend = (subject: TrendSubject) => {
-    if (subject.kind === 'scale') {
-      setScale(subject.scale.id);
-      setSection('scales');
-    } else if (subject.kind === 'health') setSection('health');
+    if (subject.kind === 'scale') router.push({ pathname: '/scale/[id]', params: { id: String(subject.scale.id), range } });
+    else if (subject.kind === 'health') setSection('health');
   };
 
   return (
@@ -244,17 +235,13 @@ export default function InsightsScreen() {
       ) : null}
 
       {section === 'scales' ? (
-        scale === null ? (
+        scaleInsights.length === 0 ? (
           <EmptyState icon="options-outline" label={t('insights.scales.emptyRange')} />
         ) : (
           <>
-            <ScaleTiles insights={scaleInsights} value={scale.scale.id} onChange={setScale} />
-            <ScaleTrendCard insight={scale} window={insights.window} />
-            <ScaleMoodCard insight={scale} />
-            <ScaleActivitiesCard insight={scale} names={names} />
-            <ScaleWeekdayCard insight={scale} names={weekdayNames} firstDay={firstDay} />
-            <ScaleSplitCard insights={scaleInsights} goodLabel={good} hardLabel={hard} />
             <ScaleListCard insights={scaleInsights} range={range} />
+            <ScaleSplitCard insights={scaleInsights} goodLabel={good} hardLabel={hard} />
+            <ScaleMoodLinksCard insights={scaleInsights} />
           </>
         )
       ) : null}
@@ -283,7 +270,6 @@ export default function InsightsScreen() {
               <ActivityHealthCard stats={health.stats} names={names} />
             </>
           ) : null}
-          {scaleInsights.length > 0 ? <ScaleMoodLinksCard insights={scaleInsights} /> : null}
           {scaleInsights.length > 1 ? <ScalePairsCard pairs={relations.pairs} /> : null}
           {health && scaleInsights.length > 0 ? <ScaleBodyCard links={relations.health} /> : null}
           {!health && scaleInsights.length === 0 ? <EmptyState icon="options-outline" label={t('insights.scales.emptyRange')} /> : null}
@@ -303,7 +289,7 @@ export default function InsightsScreen() {
 }
 
 const styles = StyleSheet.create({
-  // Room below the chips or the scale row before the scrolling cards are cut off.
+  // Room below the chips before the scrolling cards are cut off.
   head: { gap: spacing.md, paddingBottom: spacing.md },
   tiles: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.md },
 });

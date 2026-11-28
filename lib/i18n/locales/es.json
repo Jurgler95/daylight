@@ -728,8 +728,6 @@
       }
     },
     "scales": {
-      "label": "Escala",
-      "pick": "Elegir escala",
       "emptyRange": "Ninguna escala tiene valores en este periodo",
       "trend": "{{name}}: evolución",
       "weekdays": "{{name}} por día de la semana",
@@ -842,7 +840,7 @@
       "months_other": "Aparece cuando {{count}} meses de este período tengan entradas."
     },
     "notes": {
-      "title": "Notas",
+      "title": "Resumen",
       "empty": "No hay notas en este periodo",
       "days": "Días con nota",
       "daysValue": "{{days}} de {{total}} ({{share}})",

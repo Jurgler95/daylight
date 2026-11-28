@@ -694,8 +694,6 @@
       }
     },
     "scales": {
-      "label": "Ölçek",
-      "pick": "Bir ölçek seç",
       "emptyRange": "Bu dönemde hiçbir ölçeğin değeri yok",
       "trend": "Zaman içinde {{name}}",
       "weekdays": "Haftanın günlerine göre {{name}}",
@@ -802,7 +800,7 @@
       "months_other": "Bu dönemde {{count}} ayda kayıt olunca görünür."
     },
     "notes": {
-      "title": "Notlar",
+      "title": "Genel bakış",
       "empty": "Bu dönemde not yok",
       "days": "Notlu günler",
       "daysValue": "{{total}} günün {{days}} günü ({{share}})",

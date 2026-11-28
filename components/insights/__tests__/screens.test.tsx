@@ -6,7 +6,7 @@ import '@/lib/i18n';
 import type { Database } from '@/db';
 import { createEntry, listActivities, listMoods } from '@/db/repositories';
 import { replaceHealthDays, type HealthDayInput } from '@/db/repositories/health';
-import { createScale } from '@/db/repositories/scales';
+import { createScale, listScales } from '@/db/repositories/scales';
 import { entryScales } from '@/db/schema';
 import { createTestDb } from '@/db/testDb';
 import { addDaysToDateString, type DateString } from '@/lib/dates';
@@ -20,6 +20,7 @@ import { useDataVersion } from '@/lib/store/dataVersion';
 import ActivityInsightScreen from '../../../app/activity/[id]';
 import InsightsScreen from '../../../app/(tabs)/insights';
 import MoodInsightScreen from '../../../app/mood/[level]';
+import ScaleInsightScreen from '../../../app/scale/[id]';
 
 /**
  * Renders the insight screens against an empty diary, the sample year and (when present) the real
@@ -83,13 +84,14 @@ const TABS: Record<string, (string | RegExp)[]> = {
   Stimmung: ['Verlauf', 'Verteilung', 'Jahr in Pixeln'],
   Muster: ['Wochentage', 'Monate', 'Schwankung', 'Serien'],
   Aktivitäten: ['Häufigkeit', 'Stabile Zusammenhänge', 'Oft zusammen', 'Vor schwierigen Tagen', /^Gruppenblick: /],
-  Notizen: ['Wörter', 'Umfang'],
+  Notizen: ['Überblick', 'Häufigste Wörter', 'Wörter', 'Umfang'],
 };
-/** The sample year records energy on most days. */
+/** The sample year records energy on most days; one scale alone has nothing for "Zusammenhänge". */
 const SCALE_TABS: Record<string, (string | RegExp)[]> = {
-  Skalen: ['Energie im Verlauf', 'Stimmung je Energie', 'Aktivitäten und Energie', 'Energie nach Wochentag', 'Skalen an guten und schwierigen Tagen'],
-  Zusammenhänge: ['Skalen und Stimmung'],
+  Skalen: ['Alle Skalen', 'Skalen an guten und schwierigen Tagen', 'Skalen und Stimmung'],
 };
+/** A scale's own page. */
+const SCALE_DETAIL = ['Energie im Verlauf', 'Stimmung je Energie', 'Aktivitäten und Energie', 'Energie nach Wochentag'];
 const HEALTH_TABS: Record<string, (string | RegExp)[]> = {
   Gesundheit: [/ im Verlauf$/, 'Ziele und Serien', / nach Wochentag$/, 'Bestwerte'],
   Zusammenhänge: [
@@ -97,7 +99,6 @@ const HEALTH_TABS: Record<string, (string | RegExp)[]> = {
     'Gute und schwierige Tage',
     'Stimmung und Körper',
     /^Aktivitäten und (Schlaf|Schritte|Puls|Training)$/,
-    'Skalen und Stimmung',
     'Skalen untereinander',
     'Skalen und Körper',
   ],
@@ -151,11 +152,18 @@ describe('insight screens', () => {
     use(db);
     await render(<InsightsScreen />);
     expect(screen.queryByRole('tab', { name: 'Gesundheit' })).toBeNull();
+    expect(screen.queryByRole('tab', { name: 'Zusammenhänge' })).toBeNull();
     for (const [tab, titles] of Object.entries({ ...TABS, ...SCALE_TABS })) {
       await openTab(tab);
       for (const title of titles) expect(screen.getByText(title)).toBeTruthy();
       await everyRange();
     }
+
+    const energy = listScales(db).find((scale) => scale.name === 'Energie')!;
+    mockParams = { id: String(energy.id), range: '365' };
+    await render(<ScaleInsightScreen />);
+    for (const title of SCALE_DETAIL) expect(screen.getByText(title)).toBeTruthy();
+    await everyRange();
 
     const activity = listActivities(db)[0]!;
     mockParams = { id: String(activity.id) };
@@ -217,11 +225,14 @@ describe('insight screens', () => {
       expect(screen.queryByText(/NaN|undefined|insights\./)).toBeNull();
     }
 
-    // Two scales: the head names the one the cards show, and a tap on a tile switches all cards.
+    // Two scales: the list names both, each opening its own page.
     await openTab('Skalen');
-    expect(screen.getByRole('button', { name: 'Skala: Energie' })).toBeTruthy();
-    await act(async () => fireEvent.press(screen.getByRole('radio', { name: /^Durchschnitt Stress:/ })));
-    expect(screen.getByRole('button', { name: 'Skala: Stress' })).toBeTruthy();
+    expect(screen.getByRole('button', { name: /^Energie\. / })).toBeTruthy();
+    expect(screen.getByRole('button', { name: /^Stress\. / })).toBeTruthy();
+    expect(screen.queryByText('Stress im Verlauf')).toBeNull();
+    const stress = listScales(db).find((scale) => scale.name === 'Stress')!;
+    mockParams = { id: String(stress.id) };
+    await render(<ScaleInsightScreen />);
     expect(screen.getByText('Stress im Verlauf')).toBeTruthy();
     expect(screen.getByText('Stress nach Wochentag')).toBeTruthy();
   });

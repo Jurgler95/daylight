@@ -694,8 +694,6 @@
       }
     },
     "scales": {
-      "label": "Skala",
-      "pick": "Pilih skala",
       "emptyRange": "Tidak ada skala dengan nilai dalam periode ini",
       "trend": "{{name}} dari waktu ke waktu",
       "weekdays": "{{name}} per hari dalam seminggu",
@@ -797,7 +795,7 @@
       "months_other": "Muncul setelah {{count}} bulan dalam periode ini punya entri."
     },
     "notes": {
-      "title": "Catatan",
+      "title": "Ringkasan",
       "empty": "Tidak ada catatan pada periode ini",
       "days": "Hari dengan catatan",
       "daysValue": "{{days}} dari {{total}} ({{share}})",
