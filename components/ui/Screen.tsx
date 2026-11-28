@@ -100,6 +100,14 @@ export function Screen({ title, eyebrow, scroll = true, back, backLabel, sticky,
         )}
         {children}
       </Container>
+      {/* The status bar is transparent; without a backdrop the content scrolls under the clock and
+          battery icons. Same background and glow as the top of the page, so it only shows once something
+          scrolls beneath. With `sticky` the scroll area starts below the pinned part and needs none. */}
+      {sticky ? null : (
+        <View pointerEvents="none" style={[styles.statusBar, { height: insets.top, backgroundColor: colors.background }]}>
+          <LinearGradient colors={[glow, withAlpha(glow, 0)]} style={[styles.glow, { height: insets.top + 320 }]} />
+        </View>
+      )}
     </View>
   );
 }
@@ -107,6 +115,7 @@ export function Screen({ title, eyebrow, scroll = true, back, backLabel, sticky,
 const styles = StyleSheet.create({
   root: { flex: 1 },
   glow: { position: 'absolute', top: 0, left: 0, right: 0 },
+  statusBar: { position: 'absolute', top: 0, left: 0, right: 0, overflow: 'hidden' },
   content: { paddingHorizontal: spacing.lg, gap: spacing.md },
   // Outside the scroll view, so it keeps its place while the content below moves.
   sticky: { paddingHorizontal: spacing.lg, gap: spacing.sm },
