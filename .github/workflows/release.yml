@@ -16,6 +16,12 @@ on:
       version:
         description: Version wie in app.json, ohne v
         required: true
+      # Aus, wenn nur die APK als GitHub-Release erscheinen soll und das App Bundle nicht in den
+      # Play Store geht. Lässt sich später mit play.yml nachholen.
+      play:
+        description: App Bundle in den Play Store laden
+        type: boolean
+        default: true
 
 permissions:
   contents: write
@@ -186,6 +192,7 @@ jobs:
   # gescheiterter Upload wiederholen lässt, ohne neu zu bauen oder das Release anzufassen.
   play:
     needs: apk
+    if: inputs.play
     uses: ./.github/workflows/play.yml
     with:
       version: ${{ inputs.version }}

@@ -33,6 +33,82 @@ export function changesIn(release: Release, language: Language): string[] {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.1.0',
+    date: '2026-11-28',
+    changes: {
+      de: [
+        'Selbstversuche: Nimm dir ein paar Wochen etwas vor und vergleiche deine Einträge davor und währenddessen',
+        'Mehrere Einträge und Erinnerungen pro Tag, die Stimmung lässt sich direkt in der Erinnerung antippen',
+        'Automatische Sicherung in einen selbst gewählten Ordner und ein Bericht als PDF für Arzt oder Therapie',
+        'Zahl-Skalen mit Einheit und Nachkommastellen, etwa fürs Gewicht, und eine eigene Seite je Skala',
+        'Neue Auswertungen zu Notizen: Wörter je Skala und eine Seite für jedes Wort',
+      ],
+      en: [
+        'Self-experiments: take something on for a few weeks and Daylight puts your entries from before and during side by side',
+        'Several entries and reminders per day, and you can tap your mood right in the reminder',
+        'Automatic backup to a folder of your choice and a PDF report for your doctor or therapist',
+        'Number scales with a unit and decimals, for example for weight, and a page of its own for every scale',
+        'New insights on notes: words per scale and a page for every word',
+      ],
+      es: [
+        'Autoexperimentos: proponte algo unas semanas y compara tus entradas de antes y de durante',
+        'Varias entradas y recordatorios al día, y el estado de ánimo se puede tocar directamente en el recordatorio',
+        'Copia de seguridad automática en una carpeta elegida y un informe en PDF para tu médico o terapeuta',
+        'Escalas numéricas con unidad y decimales, como el peso, y una página para cada escala',
+        'Nuevos análisis de las notas: palabras por escala y una página para cada palabra',
+      ],
+      pt: [
+        'Autoexperimentos: proponha algo por algumas semanas e o Daylight coloca seus registros de antes e de durante lado a lado',
+        'Vários registros e lembretes por dia, e o humor pode ser tocado direto no lembrete',
+        'Backup automático em uma pasta escolhida e um relatório em PDF para seu médico ou terapeuta',
+        'Escalas numéricas com unidade e casas decimais, por exemplo para o peso, e uma página própria para cada escala',
+        'Novas análises das notas: palavras por escala e uma página para cada palavra',
+      ],
+      fr: [
+        'Auto-expériences : fixe-toi un objectif pour quelques semaines, Daylight compare tes entrées d’avant et de pendant',
+        'Plusieurs entrées et rappels par jour, et l’humeur se choisit directement dans le rappel',
+        'Sauvegarde automatique dans un dossier de ton choix et un rapport PDF pour ton médecin ou ton thérapeute',
+        'Échelles numériques avec unité et décimales, par exemple pour le poids, et une page pour chaque échelle',
+        'Nouveaux aperçus des notes : mots par échelle et une page pour chaque mot',
+      ],
+      it: [
+        'Autoesperimenti: prenditi un impegno per qualche settimana e Daylight mette a confronto le voci di prima e di durante',
+        'Più voci e promemoria al giorno, e l’umore si tocca direttamente nel promemoria',
+        'Backup automatico in una cartella a scelta e un report in PDF per il medico o il terapeuta',
+        'Scale numeriche con unità e decimali, per esempio per il peso, e una pagina per ogni scala',
+        'Nuove analisi delle note: parole per scala e una pagina per ogni parola',
+      ],
+      nl: [
+        'Zelfexperimenten: neem je iets voor voor een paar weken en Daylight zet je notities van ervoor en tijdens naast elkaar',
+        'Meerdere notities en herinneringen per dag, en je tikt je stemming direct in de herinnering aan',
+        'Automatische back-up naar een map naar keuze en een pdf-verslag voor je arts of therapeut',
+        'Getalschalen met eenheid en decimalen, bijvoorbeeld voor je gewicht, en een eigen pagina voor elke schaal',
+        'Nieuwe inzichten in notities: woorden per schaal en een pagina voor elk woord',
+      ],
+      pl: [
+        'Eksperymenty na sobie: postanów coś na kilka tygodni, a Daylight zestawi wpisy sprzed eksperymentu i z jego trwania',
+        'Kilka wpisów i przypomnień dziennie, a nastrój można wybrać od razu w przypomnieniu',
+        'Automatyczna kopia zapasowa w wybranym folderze i raport PDF dla lekarza lub terapeuty',
+        'Skale liczbowe z jednostką i miejscami po przecinku, na przykład dla wagi, oraz osobna strona dla każdej skali',
+        'Nowe analizy notatek: słowa według skali i strona dla każdego słowa',
+      ],
+      tr: [
+        'Kişisel deneyler: birkaç haftalığına bir şey dene, Daylight öncesindeki ve sırasındaki kayıtlarını yan yana koyar',
+        'Günde birden fazla kayıt ve hatırlatıcı, ruh halini doğrudan hatırlatıcıdan seçebilirsin',
+        'Seçtiğin bir klasöre otomatik yedekleme ve doktorun ya da terapistin için PDF rapor',
+        'Birim ve ondalıklı sayısal ölçekler, örneğin kilo için, ve her ölçek için ayrı bir sayfa',
+        'Notlar için yeni içgörüler: ölçeğe göre kelimeler ve her kelime için bir sayfa',
+      ],
+      id: [
+        'Eksperimen pribadi: coba sesuatu selama beberapa minggu dan Daylight menyandingkan catatanmu sebelum dan selama itu',
+        'Beberapa catatan dan pengingat per hari, dan suasana hati bisa langsung diketuk di pengingat',
+        'Cadangan otomatis ke folder pilihanmu dan laporan PDF untuk dokter atau terapis',
+        'Skala angka dengan satuan dan desimal, misalnya untuk berat badan, dan halaman sendiri untuk tiap skala',
+        'Wawasan baru tentang catatan: kata per skala dan halaman untuk tiap kata',
+      ],
+    },
+  },
+  {
     version: '1.0.41',
     date: '2026-11-25',
     storePoints: 5,

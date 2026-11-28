@@ -1,0 +1,5 @@
+• Eksperymenty na sobie: postanów coś na kilka tygodni, a Daylight zestawi wpisy sprzed eksperymentu i z jego trwania
+• Kilka wpisów i przypomnień dziennie, a nastrój można wybrać od razu w przypomnieniu
+• Automatyczna kopia zapasowa w wybranym folderze i raport PDF dla lekarza lub terapeuty
+• Skale liczbowe z jednostką i miejscami po przecinku, na przykład dla wagi, oraz osobna strona dla każdej skali
+• Nowe analizy notatek: słowa według skali i strona dla każdego słowa

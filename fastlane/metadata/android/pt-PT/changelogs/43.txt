@@ -1,0 +1,5 @@
+• Autoexperimentos: proponha algo por algumas semanas e o Daylight coloca seus registros de antes e de durante lado a lado
+• Vários registros e lembretes por dia, e o humor pode ser tocado direto no lembrete
+• Backup automático em uma pasta escolhida e um relatório em PDF para seu médico ou terapeuta
+• Escalas numéricas com unidade e casas decimais, por exemplo para o peso, e uma página própria para cada escala
+• Novas análises das notas: palavras por escala e uma página para cada palavra

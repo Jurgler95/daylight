@@ -1,0 +1,5 @@
+• Auto-expériences : fixe-toi un objectif pour quelques semaines, Daylight compare tes entrées d’avant et de pendant
+• Plusieurs entrées et rappels par jour, et l’humeur se choisit directement dans le rappel
+• Sauvegarde automatique dans un dossier de ton choix et un rapport PDF pour ton médecin ou ton thérapeute
+• Échelles numériques avec unité et décimales, par exemple pour le poids, et une page pour chaque échelle
+• Nouveaux aperçus des notes : mots par échelle et une page pour chaque mot

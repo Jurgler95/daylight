@@ -1,0 +1,5 @@
+• Autoexperimentos: proponte algo unas semanas y compara tus entradas de antes y de durante
+• Varias entradas y recordatorios al día, y el estado de ánimo se puede tocar directamente en el recordatorio
+• Copia de seguridad automática en una carpeta elegida y un informe en PDF para tu médico o terapeuta
+• Escalas numéricas con unidad y decimales, como el peso, y una página para cada escala
+• Nuevos análisis de las notas: palabras por escala y una página para cada palabra

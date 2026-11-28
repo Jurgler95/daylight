@@ -1,0 +1,5 @@
+• Autoesperimenti: prenditi un impegno per qualche settimana e Daylight mette a confronto le voci di prima e di durante
+• Più voci e promemoria al giorno, e l’umore si tocca direttamente nel promemoria
+• Backup automatico in una cartella a scelta e un report in PDF per il medico o il terapeuta
+• Scale numeriche con unità e decimali, per esempio per il peso, e una pagina per ogni scala
+• Nuove analisi delle note: parole per scala e una pagina per ogni parola
