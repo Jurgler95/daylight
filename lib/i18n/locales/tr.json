@@ -772,6 +772,20 @@
             "exercise": "Daha çok egzersiz, daha düşük {{scale}} ({{strength}})"
           }
         }
+      },
+      "list": {
+        "title": "Tüm ölçekler",
+        "row": "Ø {{mean}}, {{count}} gün",
+        "rowSpoken": "ortalama {{mean}}, {{count}} gün",
+        "changeSpoken": "önceki döneme göre değişim {{change}}"
+      },
+      "detail": {
+        "edit": "Ölçeği düzenle",
+        "median": "Medyan",
+        "span": "Aralık",
+        "spanValue": "{{min}} ile {{max}} arası",
+        "days": "Değerli günler",
+        "empty": "Bu dönemde ölçeğin değeri yok"
       }
     },
     "ready": {
@@ -786,6 +800,24 @@
       "weekdays_other": "Bu dönemde haftanın en az {{weekdays}} farklı gününe yayılmış, kaydı olan {{count}} gün olunca görünür.",
       "months_one": "Bu dönemde {{count}} ayda kayıt olunca görünür.",
       "months_other": "Bu dönemde {{count}} ayda kayıt olunca görünür."
+    },
+    "notes": {
+      "title": "Notlar",
+      "empty": "Bu dönemde not yok",
+      "days": "Notlu günler",
+      "daysValue": "{{total}} günün {{days}} günü ({{share}})",
+      "meanWords": "Not başına kelime",
+      "words": "Toplam kelime",
+      "moodWith": "Notlu günlerde ruh hali",
+      "moodWithout": "Notsuz günlerde ruh hali",
+      "byLevel": "Ruh haline göre notlar",
+      "levelA11y": "{{mood}}: günlerin {{share}} kadarında not, {{total}} günün {{count}} günü",
+      "longest": "En uzun not",
+      "longestValue_one": "{{date}}, {{count}} kelime",
+      "longestValue_other": "{{date}}, {{count}} kelime",
+      "longestA11y_one": "En uzun not {{date}}, {{count}} kelime. Günü açar",
+      "longestA11y_other": "En uzun not {{date}}, {{count}} kelime. Günü açar",
+      "top": "En sık kelimeler"
     }
   },
   "outlook": {

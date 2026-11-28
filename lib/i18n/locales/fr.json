@@ -807,6 +807,20 @@
             "exercise": "Plus d’entraînement, {{scale}} plus bas ({{strength}})"
           }
         }
+      },
+      "list": {
+        "title": "Toutes les échelles",
+        "row": "Ø {{mean}}, {{count}} jours",
+        "rowSpoken": "moyenne {{mean}}, {{count}} jours",
+        "changeSpoken": "évolution par rapport à la période précédente {{change}}"
+      },
+      "detail": {
+        "edit": "Modifier l’échelle",
+        "median": "Médiane",
+        "span": "Étendue",
+        "spanValue": "{{min}} à {{max}}",
+        "days": "Jours avec valeur",
+        "empty": "Cette échelle n’a aucune valeur sur cette période"
       }
     },
     "ready": {
@@ -826,6 +840,26 @@
       "months_one": "S’affiche dès que {{count}} mois de cette période a des entrées.",
       "months_many": "S’affiche dès que {{count}} mois de cette période ont des entrées.",
       "months_other": "S’affiche dès que {{count}} mois de cette période ont des entrées."
+    },
+    "notes": {
+      "title": "Notes",
+      "empty": "Aucune note sur cette période",
+      "days": "Jours avec note",
+      "daysValue": "{{days}} sur {{total}} ({{share}})",
+      "meanWords": "Mots par note",
+      "words": "Mots au total",
+      "moodWith": "Humeur avec note",
+      "moodWithout": "Humeur sans note",
+      "byLevel": "Notes par humeur",
+      "levelA11y": "{{mood}} : une note sur {{share}} des jours, {{count}} sur {{total}}",
+      "longest": "Note la plus longue",
+      "longestValue_one": "{{date}}, {{count}} mot",
+      "longestValue_other": "{{date}}, {{count}} mots",
+      "longestValue_many": "{{date}}, {{count}} mots",
+      "longestA11y_one": "Note la plus longue le {{date}}, {{count}} mot. Ouvre le jour",
+      "longestA11y_other": "Note la plus longue le {{date}}, {{count}} mots. Ouvre le jour",
+      "longestA11y_many": "Note la plus longue le {{date}}, {{count}} mots. Ouvre le jour",
+      "top": "Mots les plus fréquents"
     }
   },
   "outlook": {

@@ -9,8 +9,7 @@ import { haptics } from '@/lib/haptics';
 import type { IconName } from '@/lib/icons';
 import { TOUCH_TARGET, spacing, useTheme } from '@/lib/theme';
 
-interface Props {
-  activityId: number;
+interface LineProps {
   icon: IconName;
   title: string;
   detail?: string;
@@ -21,7 +20,12 @@ interface Props {
 }
 
 /** A row naming an activity; tapping opens its detail page, from every card alike. */
-export function ActivityLine({ activityId, icon, title, detail, spokenDetail, trailing }: Props) {
+export function ActivityLine({ activityId, ...line }: LineProps & { activityId: number }) {
+  return <InsightLine {...line} onPress={() => router.push({ pathname: '/activity/[id]', params: { id: String(activityId) } })} />;
+}
+
+/** A row with an icon, a title and a detail that opens a detail page, like the activities on every card. */
+export function InsightLine({ icon, title, detail, spokenDetail, trailing, onPress }: LineProps & { onPress: () => void }) {
   const said = spokenDetail ?? detail;
   const { colors } = useTheme();
   return (
@@ -29,7 +33,7 @@ export function ActivityLine({ activityId, icon, title, detail, spokenDetail, tr
       pressedScale={0.98}
       onPress={() => {
         haptics.tap();
-        router.push({ pathname: '/activity/[id]', params: { id: String(activityId) } });
+        onPress();
       }}
       accessibilityRole="button"
       accessibilityLabel={said ? `${title}. ${said}` : title}

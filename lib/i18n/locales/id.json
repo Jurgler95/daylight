@@ -772,6 +772,20 @@
             "exercise": "Lebih banyak latihan, {{scale}} lebih rendah ({{strength}})"
           }
         }
+      },
+      "list": {
+        "title": "Semua skala",
+        "row": "Ø {{mean}}, {{count}} hari",
+        "rowSpoken": "rata-rata {{mean}}, {{count}} hari",
+        "changeSpoken": "perubahan dari periode sebelumnya {{change}}"
+      },
+      "detail": {
+        "edit": "Edit skala",
+        "median": "Median",
+        "span": "Rentang",
+        "spanValue": "{{min}} sampai {{max}}",
+        "days": "Hari dengan nilai",
+        "empty": "Skala ini tidak punya nilai pada periode ini"
       }
     },
     "ready": {
@@ -781,6 +795,24 @@
       "rangeDays_other": "Muncul setelah periode ini punya {{count}} hari dengan entri.",
       "weekdays_other": "Muncul setelah periode ini punya {{count}} hari dengan entri di setidaknya {{weekdays}} hari berbeda dalam seminggu.",
       "months_other": "Muncul setelah {{count}} bulan dalam periode ini punya entri."
+    },
+    "notes": {
+      "title": "Catatan",
+      "empty": "Tidak ada catatan pada periode ini",
+      "days": "Hari dengan catatan",
+      "daysValue": "{{days}} dari {{total}} ({{share}})",
+      "meanWords": "Kata per catatan",
+      "words": "Total kata",
+      "moodWith": "Suasana hati dengan catatan",
+      "moodWithout": "Suasana hati tanpa catatan",
+      "byLevel": "Catatan menurut suasana hati",
+      "levelA11y": "{{mood}}: catatan pada {{share}} hari, {{count}} dari {{total}}",
+      "longest": "Catatan terpanjang",
+      "longestValue_one": "{{date}}, {{count}} kata",
+      "longestValue_other": "{{date}}, {{count}} kata",
+      "longestA11y_one": "Catatan terpanjang pada {{date}}, {{count}} kata. Membuka hari itu",
+      "longestA11y_other": "Catatan terpanjang pada {{date}}, {{count}} kata. Membuka hari itu",
+      "top": "Kata paling sering"
     }
   },
   "outlook": {

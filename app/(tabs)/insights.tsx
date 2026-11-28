@@ -21,6 +21,7 @@ import { MoodSplitCard } from '@/components/insights/health/MoodSplitCard';
 import { InsightCard } from '@/components/insights/InsightCard';
 import { LinksCard } from '@/components/insights/LinksCard';
 import { MonthCard } from '@/components/insights/MonthCard';
+import { NotesCard, TopWordsCard } from '@/components/insights/NotesCard';
 import { MoodLineChart } from '@/components/insights/MoodLineChart';
 import type { ActivityNames, GroupActivities } from '@/components/insights/names';
 import { PairsCard } from '@/components/insights/PairsCard';
@@ -29,6 +30,7 @@ import { ReadinessCard } from '@/components/insights/ReadinessCard';
 import { ScaleActivitiesCard } from '@/components/insights/scales/ScaleActivitiesCard';
 import { ScaleMoodCard } from '@/components/insights/scales/ScaleMoodCard';
 import { ScalePicker, useScale } from '@/components/insights/scales/ScalePicker';
+import { ScaleListCard } from '@/components/insights/scales/ScaleListCard';
 import { ScaleBodyCard, ScaleMoodLinksCard, ScalePairsCard } from '@/components/insights/scales/ScaleRelationCards';
 import { ScaleSplitCard } from '@/components/insights/scales/ScaleSplitCard';
 import { ScaleTiles } from '@/components/insights/scales/ScaleTiles';
@@ -252,6 +254,7 @@ export default function InsightsScreen() {
             <ScaleActivitiesCard insight={scale} names={names} />
             <ScaleWeekdayCard insight={scale} names={weekdayNames} firstDay={firstDay} />
             <ScaleSplitCard insights={scaleInsights} goodLabel={good} hardLabel={hard} />
+            <ScaleListCard insights={scaleInsights} range={range} />
           </>
         )
       ) : null}
@@ -289,6 +292,8 @@ export default function InsightsScreen() {
 
       {section === 'notes' ? (
         <>
+          <NotesCard notes={insights.notes} moodLabel={(level) => levelMood(catalog, level).label} onOpen={openDay} />
+          <TopWordsCard notes={insights.notes} />
           <WordsCard words={insights.words} goodLabel={good} />
           <CoverageCard coverage={insights.coverage} />
         </>

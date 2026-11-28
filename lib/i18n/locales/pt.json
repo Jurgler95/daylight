@@ -807,6 +807,20 @@
             "exercise": "Mais treino, {{scale}} mais baixo ({{strength}})"
           }
         }
+      },
+      "list": {
+        "title": "Todas as escalas",
+        "row": "Ø {{mean}}, {{count}} dias",
+        "rowSpoken": "média {{mean}}, {{count}} dias",
+        "changeSpoken": "mudança em relação ao período anterior {{change}}"
+      },
+      "detail": {
+        "edit": "Editar escala",
+        "median": "Mediana",
+        "span": "Intervalo",
+        "spanValue": "{{min}} a {{max}}",
+        "days": "Dias com valor",
+        "empty": "Esta escala não tem valores neste período"
       }
     },
     "ready": {
@@ -826,6 +840,26 @@
       "months_one": "Aparece quando {{count}} mês deste período tiver registros.",
       "months_many": "Aparece quando {{count}} meses deste período tiverem registros.",
       "months_other": "Aparece quando {{count}} meses deste período tiverem registros."
+    },
+    "notes": {
+      "title": "Notas",
+      "empty": "Sem notas neste período",
+      "days": "Dias com nota",
+      "daysValue": "{{days}} de {{total}} ({{share}})",
+      "meanWords": "Palavras por nota",
+      "words": "Palavras no total",
+      "moodWith": "Humor com nota",
+      "moodWithout": "Humor sem nota",
+      "byLevel": "Notas por humor",
+      "levelA11y": "{{mood}}: nota em {{share}} dos dias, {{count}} de {{total}}",
+      "longest": "Nota mais longa",
+      "longestValue_one": "{{date}}, {{count}} palavra",
+      "longestValue_other": "{{date}}, {{count}} palavras",
+      "longestValue_many": "{{date}}, {{count}} palavras",
+      "longestA11y_one": "Nota mais longa em {{date}}, {{count}} palavra. Abre o dia",
+      "longestA11y_other": "Nota mais longa em {{date}}, {{count}} palavras. Abre o dia",
+      "longestA11y_many": "Nota mais longa em {{date}}, {{count}} palavras. Abre o dia",
+      "top": "Palavras mais frequentes"
     }
   },
   "outlook": {

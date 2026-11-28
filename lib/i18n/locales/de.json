@@ -772,6 +772,20 @@
             "exercise": "Mehr Training, {{scale}} niedriger ({{strength}})"
           }
         }
+      },
+      "list": {
+        "title": "Alle Skalen",
+        "row": "Ø {{mean}}, {{count}} Tage",
+        "rowSpoken": "im Schnitt {{mean}}, {{count}} Tage",
+        "changeSpoken": "Veränderung zum Zeitraum davor {{change}}"
+      },
+      "detail": {
+        "edit": "Skala bearbeiten",
+        "median": "Median",
+        "span": "Spanne",
+        "spanValue": "{{min}} bis {{max}}",
+        "days": "Tage mit Wert",
+        "empty": "In diesem Zeitraum hat die Skala keinen Wert"
       }
     },
     "ready": {
@@ -786,6 +800,24 @@
       "weekdays_other": "Erscheint, sobald es in diesem Zeitraum {{count}} Tage mit Eintrag an mindestens {{weekdays}} verschiedenen Wochentagen gibt.",
       "months_one": "Erscheint, sobald {{count}} Monat in diesem Zeitraum Einträge hat.",
       "months_other": "Erscheint, sobald {{count}} Monate in diesem Zeitraum Einträge haben."
+    },
+    "notes": {
+      "title": "Notizen",
+      "empty": "In diesem Zeitraum gibt es keine Notizen",
+      "days": "Tage mit Notiz",
+      "daysValue": "{{days}} von {{total}} ({{share}})",
+      "meanWords": "Wörter pro Notiz",
+      "words": "Wörter insgesamt",
+      "moodWith": "Stimmung mit Notiz",
+      "moodWithout": "Stimmung ohne Notiz",
+      "byLevel": "Notizen je Stimmung",
+      "levelA11y": "{{mood}}: an {{share}} der Tage eine Notiz, {{count}} von {{total}}",
+      "longest": "Längste Notiz",
+      "longestValue_one": "{{date}}, {{count}} Wort",
+      "longestValue_other": "{{date}}, {{count}} Wörter",
+      "longestA11y_one": "Längste Notiz am {{date}}, {{count}} Wort. Öffnet den Tag",
+      "longestA11y_other": "Längste Notiz am {{date}}, {{count}} Wörter. Öffnet den Tag",
+      "top": "Häufigste Wörter"
     }
   },
   "outlook": {

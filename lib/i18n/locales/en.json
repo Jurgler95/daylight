@@ -772,6 +772,20 @@
             "exercise": "More training, lower {{scale}} ({{strength}})"
           }
         }
+      },
+      "list": {
+        "title": "All scales",
+        "row": "Ø {{mean}}, {{count}} days",
+        "rowSpoken": "average {{mean}}, {{count}} days",
+        "changeSpoken": "change from the period before {{change}}"
+      },
+      "detail": {
+        "edit": "Edit scale",
+        "median": "Median",
+        "span": "Range",
+        "spanValue": "{{min}} to {{max}}",
+        "days": "Days with a value",
+        "empty": "This scale has no value in this period"
       }
     },
     "ready": {
@@ -786,6 +800,24 @@
       "weekdays_other": "Shows up once this period has {{count}} days with an entry on at least {{weekdays}} different weekdays.",
       "months_one": "Shows up once {{count}} month in this period has entries.",
       "months_other": "Shows up once {{count}} months in this period have entries."
+    },
+    "notes": {
+      "title": "Notes",
+      "empty": "No notes in this period",
+      "days": "Days with a note",
+      "daysValue": "{{days}} of {{total}} ({{share}})",
+      "meanWords": "Words per note",
+      "words": "Words in total",
+      "moodWith": "Mood with a note",
+      "moodWithout": "Mood without a note",
+      "byLevel": "Notes by mood",
+      "levelA11y": "{{mood}}: a note on {{share}} of days, {{count}} of {{total}}",
+      "longest": "Longest note",
+      "longestValue_one": "{{date}}, {{count}} word",
+      "longestValue_other": "{{date}}, {{count}} words",
+      "longestA11y_one": "Longest note on {{date}}, {{count}} word. Opens the day",
+      "longestA11y_other": "Longest note on {{date}}, {{count}} words. Opens the day",
+      "top": "Most frequent words"
     }
   },
   "outlook": {
