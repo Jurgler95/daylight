@@ -1,3 +1,4 @@
+import { describesMoodByName } from '@/lib/daylio/known';
 import { asc, eq, max } from 'drizzle-orm';
 
 import { fold } from '@/lib/search/fold';
@@ -28,11 +29,12 @@ export function createGroup(db: Database, name: string): ActivityGroup {
   const existing = findGroupByName(db, clean);
   if (existing) return existing;
   const last = db.select({ value: max(activityGroups.sort_order) }).from(activityGroups).get()?.value ?? -1;
-  return db.insert(activityGroups).values({ name: clean, sort_order: last + 1 }).returning().get();
+  // A feelings group made again (by hand or by a CSV import) is marked like the one that ships.
+  return db.insert(activityGroups).values({ name: clean, sort_order: last + 1, describes_mood: describesMoodByName(clean) }).returning().get();
 }
 
 /** Throws `NameTakenError` when another group already has the folded name. */
-export function updateGroup(db: Database, id: number, patch: Partial<Pick<ActivityGroup, 'name' | 'sort_order' | 'archived'>>): ActivityGroup {
+export function updateGroup(db: Database, id: number, patch: Partial<Pick<ActivityGroup, 'name' | 'sort_order' | 'archived' | 'describes_mood'>>): ActivityGroup {
   const clean = { ...patch };
   if (clean.name !== undefined) {
     clean.name = assertName(clean.name);

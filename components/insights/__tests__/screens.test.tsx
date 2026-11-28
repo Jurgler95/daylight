@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen } from '@testing-library/react-native';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 
@@ -14,6 +14,7 @@ import { applyDaylioImport } from '@/lib/daylio/apply';
 import { parseDaylioCsv } from '@/lib/daylio/parse';
 import { generateSample } from '@/lib/dev/generateSample';
 import { applySample } from '@/lib/dev/sample';
+import { resetLinks } from '@/lib/insights/useLinks';
 import { useDataVersion } from '@/lib/store/dataVersion';
 
 import ActivityInsightScreen from '../../../app/activity/[id]';
@@ -81,7 +82,7 @@ async function openTab(name: string) {
 const TABS: Record<string, (string | RegExp)[]> = {
   Stimmung: ['Verlauf', 'Verteilung', 'Jahr in Pixeln'],
   Muster: ['Wochentage', 'Monate', 'Schwankung', 'Serien'],
-  Aktivitäten: ['Häufigkeit', 'Stimmung mit und ohne', 'Am Folgetag', 'Oft zusammen', 'Vor schwierigen Tagen', /^Gruppenblick: /],
+  Aktivitäten: ['Häufigkeit', 'Stabile Zusammenhänge', 'Oft zusammen', 'Vor schwierigen Tagen', /^Gruppenblick: /],
   Notizen: ['Wörter', 'Umfang'],
 };
 /** The sample year records energy on most days. */
@@ -142,6 +143,35 @@ describe('insight screens', () => {
       await render(<MoodInsightScreen />);
       expect(screen.queryByText(/NaN|undefined|insights\./)).toBeNull();
     }
+  });
+
+  it('show the usual range per month and the tested links on the sample year', async () => {
+    const db = createTestDb();
+    applySample(db, generateSample({ today }));
+    resetLinks();
+    use(db);
+    await render(<InsightsScreen />);
+    await openTab('Muster');
+    // Mostly "Gut": the range is that one level, and the days around it are what the months count.
+    expect(screen.getByText('Dein üblicher Bereich: Gut')).toBeTruthy();
+    expect(screen.getAllByText(/^\d+ darüber, \d+ darunter$/).length).toBeGreaterThan(0);
+
+    // The links are worked out in slices after the section opened.
+    await openTab('Aktivitäten');
+    expect(screen.getByText('Wird berechnet')).toBeTruthy();
+    await waitFor(() => expect(screen.queryByText('Wird berechnet')).toBeNull());
+    expect(screen.getByText('Am selben Tag')).toBeTruthy();
+    expect(screen.getByText('STABILER ZUSAMMENHANG')).toBeTruthy();
+    // The generator lifts the mood with good sleep and weighs it down with poor sleep.
+    expect(screen.getByRole('button', { name: /^Gut \(Schlaf\)\. Geht mit besseren Tagen einher \(\d+ Tage\)$/ })).toBeTruthy();
+    expect(screen.getByRole('button', { name: /^Schlecht \(Schlaf\)\. Geht mit schlechteren Tagen einher \(\d+ Tage\)$/ })).toBeTruthy();
+    // The feelings group is marked from the start, so its activities stand apart.
+    expect(screen.getByText('Beschreibt die Stimmung')).toBeTruthy();
+    // Only the first few at first; other cards of the section have a button of the same name.
+    expect(screen.queryByRole('button', { name: /^Müde\. Geht mit / })).toBeNull();
+    for (const button of screen.getAllByRole('button', { name: 'Alle zeigen' })) await act(async () => fireEvent.press(button));
+    expect(screen.getByRole('button', { name: /^Müde\. Geht mit schlechteren Tagen einher \(\d+ Tage\)$/ })).toBeTruthy();
+    expect(screen.queryByText(/NaN|undefined|insights\./)).toBeNull();
   });
 
   it('render the health tabs with watch data in every range', async () => {

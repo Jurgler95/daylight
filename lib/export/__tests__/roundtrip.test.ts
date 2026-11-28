@@ -1,6 +1,7 @@
 import {
   createActivity,
   createEntry,
+  createGroup,
   createMood,
   createScale,
   getSettings,
@@ -9,6 +10,8 @@ import {
   listMoods,
   listScales,
   replaceHealthDays,
+  updateGroup,
+  updateScale,
   updateSettings,
 } from '@/db/repositories';
 import { countRows, deleteAllData } from '@/db/repositories/maintenance';
@@ -237,6 +240,64 @@ describe('number scales in the backup', () => {
     const file = buildExport(db, '1.0.0');
     const broken = { ...file, entry_scales: file.entry_scales.map((row) => (row.scale_id === energy.id ? { ...row, value: 3.5 } : row)) };
     expect(() => parseImport(JSON.stringify(broken))).toThrow();
+  });
+});
+
+describe('the mark "describes the mood" in the backup', () => {
+  it('travels with groups and scales', () => {
+    const db = sampled();
+    const [feelings, sleep] = listGroups(db);
+    const energy = listScales(db)[0]!;
+    updateGroup(db, feelings!.id, { describes_mood: false });
+    updateGroup(db, sleep!.id, { describes_mood: true });
+    updateScale(db, energy.id, { describes_mood: true });
+    const file = buildExport(db, '1.0.0', 'X');
+    expect(file.activity_groups.filter((group) => group.describes_mood).map((group) => group.name)).toEqual(['Schlaf']);
+    expect(file.scales.map((scale) => scale.describes_mood)).toEqual([true]);
+
+    const target = createTestDb();
+    applyImport(target, parseImport(JSON.stringify(file)), 'replace');
+    expect(buildExport(target, '1.0.0', 'X')).toEqual(file);
+  });
+
+  it('a file from before it marks the feelings group by its name, not nothing', () => {
+    const db = sampled();
+    const sleep = listGroups(db)[1]!;
+    // Renamed to something the app does not know: this group stays unmarked like in the migration.
+    updateGroup(db, sleep.id, { name: 'Meine Gefühle' });
+    const file = buildExport(db, '1.0.0');
+    const old = {
+      ...file,
+      activity_groups: file.activity_groups.map(({ describes_mood: _mark, ...group }) => group),
+      scales: file.scales.map(({ describes_mood: _mark, ...scale }) => scale),
+    };
+    const parsed = parseImport(JSON.stringify(old));
+    expect(parsed.activity_groups.filter((group) => group.describes_mood).map((group) => group.name)).toEqual(['Gefühle']);
+    expect(parsed.scales.every((scale) => !scale.describes_mood)).toBe(true);
+
+    const target = createTestDb();
+    applyImport(target, parsed, 'replace');
+    expect(listGroups(target).filter((group) => group.describes_mood).map((group) => group.name)).toEqual(['Gefühle']);
+  });
+
+  it('a merge keeps the marks that are here and takes those of new groups and scales from the file', () => {
+    const db = sampled();
+    const stress = createScale(db, { name: 'Anspannung', min: 1, max: 5 });
+    updateScale(db, stress.id, { describes_mood: true });
+    const body = createGroup(db, 'Körper');
+    updateGroup(db, body.id, { describes_mood: true });
+    const file = buildExport(db, '1.0.0');
+
+    const target = createTestDb();
+    // Here the feelings group was switched off and the energy scale switched on by hand.
+    updateGroup(target, listGroups(target)[0]!.id, { describes_mood: false });
+    const energy = createScale(target, { name: 'Energie', min: 1, max: 5 });
+    updateScale(target, energy.id, { describes_mood: true });
+    applyImport(target, parseImport(JSON.stringify(file)), 'merge');
+
+    const marked = (rows: readonly { name: string; describes_mood: boolean }[]) => rows.filter((row) => row.describes_mood).map((row) => row.name);
+    expect(marked(listGroups(target))).toEqual(['Körper']);
+    expect(marked(listScales(target))).toEqual(['Energie', 'Anspannung']);
   });
 });
 

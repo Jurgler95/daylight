@@ -278,6 +278,9 @@
     "archiveActivityHint": "Não aparece mais para escolher, registros antigos continuam com ela.",
     "archiveGroupHint": "O grupo e suas atividades não aparecem mais para escolher.",
     "archiveScaleHint": "Não aparece mais no registro, valores antigos ficam.",
+    "describesMood": "Descreve o humor",
+    "describesMoodGroupHint": "Para grupos como “Emoções”, cujas atividades dizem como foi o dia, e não o que aconteceu. As análises os mostram à parte nas relações.",
+    "describesMoodScaleHint": "Para escalas que avaliam o próprio humor, como satisfação ou tensão. As análises as mostram à parte nas relações.",
     "usage_one": "{{count}} registro",
     "usage_other": "{{count}} registros",
     "usage_many": "{{count}} registros",
@@ -392,7 +395,14 @@
     },
     "months": {
       "title": "Meses",
-      "empty": "Nenhum mês ainda"
+      "empty": "Nenhum mês ainda",
+      "usual": "Sua faixa habitual: {{range}}",
+      "usualSpan": "de {{from}} a {{to}}",
+      "usualHint": "Cerca de metade dos seus dias, ou mais, fica dentro desta faixa. As barras mostram quantos dias de cada mês ficaram abaixo e acima.",
+      "usualFew": "A partir de {{days}} dias com registro, sua faixa habitual aparece aqui.",
+      "mean": "Média {{value}}",
+      "counts": "{{above}} acima, {{below}} abaixo",
+      "allUsual": "Todos os dias na faixa habitual"
     },
     "trends": {
       "title": "Tendências",
@@ -436,15 +446,36 @@
       "empty": "Nenhuma atividade neste período"
     },
     "effects": {
-      "title": "Humor com e sem",
-      "nextTitle": "No dia seguinte",
-      "higher": "Média mais alta",
-      "lower": "Média mais baixa",
       "sentence": "Em dias com {{name}}, média {{with}} em vez de {{without}} ({{count}} dias)",
       "nextSentence": "No dia depois de {{name}}, média {{with}} em vez de {{without}} ({{count}} dias)",
-      "empty": "Nenhuma atividade com diferença clara ainda",
       "more": "Mostrar tudo",
       "less": "Mostrar menos"
+    },
+    "links": {
+      "title": "Relações estáveis",
+      "window": "Dos últimos dois anos, seja qual for o período",
+      "explain": "Estável quer dizer que a relação se mantém mesmo descontando o dia da semana, a evolução das semanas próximas e os dados estreitamente ligados. Um indício é menos seguro e pode ser acaso. Os dois mostram o que aparece junto, não o que é a causa.",
+      "sameDay": "No mesmo dia",
+      "nextDay": "No dia seguinte",
+      "stable": "Relação estável",
+      "hint": "Indício",
+      "describing": "Descreve o humor",
+      "describingHint": "Estes dados dizem como foi o dia. É de esperar que acompanhem o humor, por isso ficam à parte.",
+      "activity": {
+        "up0": "Acompanha dias melhores",
+        "down0": "Acompanha dias piores",
+        "up1": "Acompanha um dia seguinte melhor",
+        "down1": "Acompanha um dia seguinte pior"
+      },
+      "value": {
+        "up0": "Valores mais altos acompanham dias melhores",
+        "down0": "Valores mais altos acompanham dias piores",
+        "up1": "Valores mais altos acompanham um dia seguinte melhor",
+        "down1": "Valores mais altos acompanham um dia seguinte pior"
+      },
+      "row": "{{direction}} ({{days}})",
+      "few": "A partir de {{days}} dias com registro, o Daylight procura relações aqui.",
+      "nothing": "Ainda não há nenhuma relação que pareça mais do que acaso."
     },
     "pairs": {
       "title": "Muitas vezes juntas",

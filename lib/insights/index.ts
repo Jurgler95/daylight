@@ -23,6 +23,26 @@ export { coverage, type Coverage } from './coverage';
 export { activityDetail, DETAIL_ROWS, levelDetail, type ActivityDetail, type LevelActivity, type LevelCount, type LevelDetail } from './detail';
 export { formatCount, formatDecimal, formatPercent, formatRatio, formatSigned } from './format';
 export { buildInsights, type Insights, type InsightsInput } from './overview';
+export { USUAL_MIN_DAYS, usualPosition, usualRanges, usualView, type UsualMonth, type UsualPosition, type UsualRange, type UsualView } from './usual';
+export {
+  analyzeLinks,
+  buildLinks,
+  LINK_WINDOW_DAYS,
+  linkDays,
+  linkFactorKey,
+  linkRows,
+  linksSignature,
+  linksSteps,
+  MIN_DAYS as MIN_LINK_DAYS,
+  type LinkActivity,
+  type LinkDirection,
+  type LinkFactor,
+  type LinkFinding,
+  type LinkLevel,
+  type Links,
+  type LinkScale,
+  type LinksInput,
+} from './links';
 export { healthMood, HR_USUAL_BPM, MIN_BAND_DAYS, type HealthBand, type HealthMood } from './health';
 export {
   activityHealth,

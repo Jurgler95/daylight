@@ -42,10 +42,10 @@ export function createScale(
 }
 
 /**
- * Renames or archives a scale, or changes a number scale's unit and decimals. A rating's range
+ * Renames, archives or marks a scale, or changes a number scale's unit and decimals. A rating's range
  * stays as created, so stored values always fit it. Fewer decimals only show stored values rounded.
  */
-export function updateScale(db: Database, id: number, patch: Partial<Pick<Scale, 'name' | 'sort_order' | 'archived' | 'unit' | 'decimals'>>): Scale {
+export function updateScale(db: Database, id: number, patch: Partial<Pick<Scale, 'name' | 'sort_order' | 'archived' | 'unit' | 'decimals' | 'describes_mood'>>): Scale {
   const clean = { ...patch };
   if (clean.unit !== undefined) clean.unit = cleanUnit(clean.unit);
   if (clean.decimals !== undefined) clean.decimals = clampDecimals(clean.decimals);

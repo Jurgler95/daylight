@@ -298,6 +298,9 @@
     "archiveActivityHint": "Nie można jej już wybrać, stare wpisy ją zachowują.",
     "archiveGroupHint": "Grupy i jej aktywności nie można już wybrać.",
     "archiveScaleHint": "Nie ma jej już we wpisie, stare wartości zostają.",
+    "describesMood": "Opisuje nastrój",
+    "describesMoodGroupHint": "Dla grup takich jak „Emocje”, których aktywności mówią, jaki był dzień, a nie co się wydarzyło. Wgląd pokazuje je osobno przy powiązaniach.",
+    "describesMoodScaleHint": "Dla skal, które oceniają sam nastrój, na przykład zadowolenie lub napięcie. Wgląd pokazuje je osobno przy powiązaniach.",
     "usage_one": "{{count}} wpis",
     "usage_few": "{{count}} wpisy",
     "usage_many": "{{count}} wpisów",
@@ -419,7 +422,14 @@
     },
     "months": {
       "title": "Miesiące",
-      "empty": "Jeszcze brak miesięcy"
+      "empty": "Jeszcze brak miesięcy",
+      "usual": "Twój zwykły zakres: {{range}}",
+      "usualSpan": "od {{from}} do {{to}}",
+      "usualHint": "Mniej więcej połowa twoich dni lub więcej mieści się w tym zakresie. Paski pokazują, ile dni każdego miesiąca było poniżej i powyżej.",
+      "usualFew": "Od {{days}} dni z wpisem pojawi się tu Twój zwykły zakres.",
+      "mean": "Średnia {{value}}",
+      "counts": "{{above}} powyżej, {{below}} poniżej",
+      "allUsual": "Wszystkie dni w zwykłym zakresie"
     },
     "trends": {
       "title": "Tendencje",
@@ -465,15 +475,36 @@
       "empty": "Brak aktywności w tym okresie"
     },
     "effects": {
-      "title": "Nastrój z i bez",
-      "nextTitle": "Następnego dnia",
-      "higher": "Wyższa średnia",
-      "lower": "Niższa średnia",
       "sentence": "W dni z „{{name}}” średnio {{with}} zamiast {{without}} (liczba dni: {{count}})",
       "nextSentence": "Dzień po „{{name}}” średnio {{with}} zamiast {{without}} (liczba dni: {{count}})",
-      "empty": "Jeszcze brak aktywności z wyraźną różnicą",
       "more": "Pokaż wszystko",
       "less": "Pokaż mniej"
+    },
+    "links": {
+      "title": "Stabilne powiązania",
+      "window": "Z ostatnich dwóch lat, niezależnie od okresu",
+      "explain": "Stabilne znaczy, że powiązanie utrzymuje się także po uwzględnieniu dnia tygodnia, przebiegu sąsiednich tygodni i ściśle powiązanych danych. Wskazówka jest mniej pewna i może być przypadkiem. Jedno i drugie pokazuje, co występuje razem, a nie co jest przyczyną.",
+      "sameDay": "Tego samego dnia",
+      "nextDay": "Następnego dnia",
+      "stable": "Stabilne powiązanie",
+      "hint": "Wskazówka",
+      "describing": "Opisuje nastrój",
+      "describingHint": "Te dane mówią, jaki był dzień. To naturalne, że pasują do nastroju, dlatego są pokazane osobno.",
+      "activity": {
+        "up0": "Idzie w parze z lepszymi dniami",
+        "down0": "Idzie w parze z gorszymi dniami",
+        "up1": "Idzie w parze z lepszym następnym dniem",
+        "down1": "Idzie w parze z gorszym następnym dniem"
+      },
+      "value": {
+        "up0": "Wyższe wartości idą w parze z lepszymi dniami",
+        "down0": "Wyższe wartości idą w parze z gorszymi dniami",
+        "up1": "Wyższe wartości idą w parze z lepszym następnym dniem",
+        "down1": "Wyższe wartości idą w parze z gorszym następnym dniem"
+      },
+      "row": "{{direction}} ({{days}})",
+      "few": "Od {{days}} dni z wpisem Daylight szuka tu powiązań.",
+      "nothing": "Nie ma jeszcze powiązania, które wygląda na coś więcej niż przypadek."
     },
     "pairs": {
       "title": "Często razem",

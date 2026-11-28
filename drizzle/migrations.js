@@ -22,6 +22,7 @@ import m0017 from './0017_hesitant_morgan_stark.sql';
 import m0018 from './0018_brief_wolfpack.sql';
 import m0019 from './0019_shiny_skin.sql';
 import m0020 from './0020_number_scales.sql';
+import m0021 from './0021_third_boomer.sql';
 
   export default {
     journal,
@@ -46,7 +47,8 @@ m0016,
 m0017,
 m0018,
 m0019,
-m0020
+m0020,
+m0021
     }
   }
   

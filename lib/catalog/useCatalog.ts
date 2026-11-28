@@ -8,7 +8,8 @@ export function readCatalogFromDb(): Catalog {
   const db = getDb();
   return buildCatalog({
     moods: listMoods(db, { includeArchived: true }),
-    groups: listGroups(db),
+    // Archived groups too: their activities still carry the group's mark. The catalog lists only the active ones.
+    groups: listGroups(db, { includeArchived: true }),
     activities: listActivities(db, { includeArchived: true }),
     scales: listScales(db, { includeArchived: true }),
   });

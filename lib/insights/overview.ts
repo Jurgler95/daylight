@@ -5,10 +5,11 @@ import { beforeHardDays, type BeforeHardResult } from './beforeHard';
 import { coverage, type Coverage } from './coverage';
 import { buildDays, dayTexts, type EntryFacts, type InsightDay } from './days';
 import { activityEffects, splitEffects, type SplitEffects } from './effects';
-import { monthMeans, moodDistribution, moodSeries, overallMean, type LevelShare, type MonthMean, type MoodPoint } from './mood';
+import { moodDistribution, moodSeries, overallMean, type LevelShare, type MoodPoint } from './mood';
 import { pixelYears } from './pixels';
 import { daysIn, previousWindow, rangeWindow, type DayWindow, type InsightRange } from './range';
 import { goodStreaks, weeklySwings, type Streaks, type Swings } from './swings';
+import { usualView, type UsualMonth, type UsualRange } from './usual';
 import { weekdayProfile, type WeekdayProfile } from './weekdays';
 import { noteWords, type NoteWords } from './words';
 
@@ -34,13 +35,20 @@ export interface Insights {
   series: MoodPoint[];
   distribution: LevelShare[];
   weekdays: WeekdayProfile;
-  months: MonthMean[];
+  /** Months of the window with their mean and their days below and above the usual range. */
+  months: UsualMonth[];
+  /** The usual range on the last day with an entry in the window; null below `USUAL_MIN_DAYS` days in the diary. */
+  usual: UsualRange | null;
   swings: Swings;
   /** Longest run inside the window; the current run looks at the whole diary. */
   streaks: Streaks;
   counts: ActivityCount[];
+  /**
+   * Mean mood with and without each activity on the same day. No card of the page shows it any more:
+   * the tested links (`links.ts`, `useLinks`) took the place of the two effect cards. Kept because
+   * checks outside the page still read it.
+   */
   effects: SplitEffects;
-  nextDay: SplitEffects;
   pairs: ActivityPair[];
   beforeHard: BeforeHardResult;
   words: NoteWords;
@@ -55,6 +63,8 @@ export function buildInsights({ entries, range, today, firstDayOfWeek }: Insight
   const previous = previousWindow(range, window, firstDate);
   const days = daysIn(allDays, window);
   const before = previous ? daysIn(allDays, previous) : null;
+  // Over the whole diary, then cut to the window: a day's usual range depends on the days before it.
+  const usual = usualView(allDays, window);
   return {
     window,
     previous,
@@ -64,13 +74,13 @@ export function buildInsights({ entries, range, today, firstDayOfWeek }: Insight
     series: moodSeries(allDays, window),
     distribution: moodDistribution(days, before),
     weekdays: weekdayProfile(days),
-    months: monthMeans(days),
+    months: usual.months,
+    usual: usual.range,
     swings: weeklySwings(days, firstDayOfWeek),
     // One pass over the whole diary, so a run that began before the window keeps its full length.
     streaks: goodStreaks(allDays, today, window.from),
     counts: activityCounts(days, before),
     effects: splitEffects(activityEffects(days)),
-    nextDay: splitEffects(activityEffects(days, { lag: 1 })),
     pairs: activityPairs(days),
     beforeHard: beforeHardDays(days),
     words: noteWords(days, dayTexts(entries)),

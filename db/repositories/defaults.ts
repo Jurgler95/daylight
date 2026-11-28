@@ -1,4 +1,4 @@
-import { defaultGroups, defaultMoods, starterActivities } from '@/lib/daylio/known';
+import { defaultGroups, defaultMoods, describesMoodByName, starterActivities } from '@/lib/daylio/known';
 import { currentLanguage, type Language } from '@/lib/i18n/language';
 
 import { activities, activityGroups, moods } from '../schema';
@@ -10,6 +10,7 @@ import { ensureSettings } from './settings';
  * activity groups with a few starter activities each, named in `language`. Only fills empty tables,
  * so it is safe to call on every start. The starter activities come only together with fresh groups,
  * so an emptied group stays empty; `starters: false` leaves them out, for an import that brings its own.
+ * The feelings group starts out marked as describing the mood.
  */
 export function ensureDefaults(db: Database, language: Language = currentLanguage(), options: { starters?: boolean } = {}): void {
   ensureSettings(db);
@@ -21,7 +22,7 @@ export function ensureDefaults(db: Database, language: Language = currentLanguag
   if (!db.select({ id: activityGroups.id }).from(activityGroups).limit(1).get()) {
     const groups = db
       .insert(activityGroups)
-      .values(defaultGroups(language).map((name, index) => ({ name, sort_order: index })))
+      .values(defaultGroups(language).map((name, index) => ({ name, sort_order: index, describes_mood: describesMoodByName(name) })))
       .returning({ id: activityGroups.id })
       .all();
     if (options.starters === false) return;

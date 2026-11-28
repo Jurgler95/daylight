@@ -1,4 +1,4 @@
-import { createMood, listActivities, listEntryDetails, listMoods } from '@/db/repositories';
+import { createMood, listActivities, listEntryDetails, listGroups, listMoods } from '@/db/repositories';
 import { createTestDb } from '@/db/testDb';
 
 import { applyDaylioImport, previewDaylioImport } from '../apply';
@@ -36,6 +36,8 @@ describe('replace import', () => {
     expect(listMoods(db).find((m) => m.label === 'Erschöpft')?.level).toBe(1);
     expect(listEntryDetails(db).map((entry) => entry.level)).toEqual([4, 1]);
     expect(listActivities(db).map((activity) => activity.name)).toEqual(['Töpfern']);
+    // The groups a replace starts from are the defaults, so the feelings group carries its mark again.
+    expect(listGroups(db).filter((group) => group.describes_mood).map((group) => group.name)).toEqual(['Gefühle']);
   });
 });
 

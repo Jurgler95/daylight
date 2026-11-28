@@ -39,6 +39,11 @@ export const activityGroups = sqliteTable('activity_groups', {
   name: text('name').notNull(),
   sort_order: integer('sort_order').notNull().default(0),
   archived: integer('archived', { mode: 'boolean' }).notNull().default(false),
+  /**
+   * The activities of this group say how the day felt ("Glücklich", "Gestresst") instead of what happened.
+   * The links on "Einblicke" list them apart and keep them out of the test of everything else (`lib/insights/links.ts`).
+   */
+  describes_mood: integer('describes_mood', { mode: 'boolean' }).notNull().default(false),
 });
 
 export const activities = sqliteTable(
@@ -99,6 +104,8 @@ export const scales = sqliteTable('scales', {
   decimals: integer('decimals').notNull().default(0),
   sort_order: integer('sort_order').notNull().default(0),
   archived: integer('archived', { mode: 'boolean' }).notNull().default(false),
+  /** The scale rates the mood itself (contentment, tension), like `activityGroups.describes_mood`. */
+  describes_mood: integer('describes_mood', { mode: 'boolean' }).notNull().default(false),
 });
 
 export const entryScales = sqliteTable(

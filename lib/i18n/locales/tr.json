@@ -258,6 +258,9 @@
     "archiveActivityHint": "Artık seçilemez, eski kayıtlarda kalır.",
     "archiveGroupHint": "Grup ve aktiviteleri artık seçilemez.",
     "archiveScaleHint": "Artık kayıtta görünmez, eski değerler kalır.",
+    "describesMood": "Ruh halini anlatır",
+    "describesMoodGroupHint": "“Duygular” gibi, aktiviteleri ne olduğunu değil günün nasıl geçtiğini söyleyen gruplar için. İçgörüler bunları bağlantılarda ayrı gösterir.",
+    "describesMoodScaleHint": "Memnuniyet ya da gerginlik gibi, ruh halinin kendisini değerlendiren ölçekler için. İçgörüler bunları bağlantılarda ayrı gösterir.",
     "usage_one": "{{count}} kayıt",
     "usage_other": "{{count}} kayıt",
     "levelUsage_one": "Seviye {{level}}, {{count}} kayıt",
@@ -365,7 +368,14 @@
     },
     "months": {
       "title": "Aylar",
-      "empty": "Henüz ay yok"
+      "empty": "Henüz ay yok",
+      "usual": "Olağan aralığın: {{range}}",
+      "usualSpan": "{{from}} ile {{to}} arası",
+      "usualHint": "Günlerinin yaklaşık yarısı veya daha fazlası bu aralıkta kalıyor. Çubuklar her ay kaç günün bunun altında ve üstünde kaldığını gösterir.",
+      "usualFew": "Kaydı olan {{days}} günden itibaren olağan aralığın burada görünür.",
+      "mean": "Ortalama {{value}}",
+      "counts": "{{above}} üstünde, {{below}} altında",
+      "allUsual": "Tüm günler olağan aralıkta"
     },
     "trends": {
       "title": "Eğilimler",
@@ -407,15 +417,36 @@
       "empty": "Bu dönemde aktivite yok"
     },
     "effects": {
-      "title": "Ruh hali: varken ve yokken",
-      "nextTitle": "Ertesi gün",
-      "higher": "Daha yüksek ortalama",
-      "lower": "Daha düşük ortalama",
       "sentence": "{{name}} olan günlerde ortalama {{with}}, diğerlerinde {{without}} ({{count}} gün)",
       "nextSentence": "{{name}} olan günün ertesinde ortalama {{with}}, diğerlerinde {{without}} ({{count}} gün)",
-      "empty": "Henüz belirgin fark gösteren bir aktivite yok",
       "more": "Tümünü göster",
       "less": "Daha az göster"
+    },
+    "links": {
+      "title": "İstikrarlı bağlantılar",
+      "window": "Son iki yıldan, seçili dönemden bağımsız",
+      "explain": "İstikrarlı demek, haftanın günü, çevredeki haftaların seyri ve yakından bağlantılı veriler hesaptan düşüldüğünde de bağlantının sürmesi demektir. İpucu daha az kesindir ve tesadüf olabilir. İkisi de neyin birlikte görüldüğünü gösterir, neyin neden olduğunu değil.",
+      "sameDay": "Aynı gün",
+      "nextDay": "Ertesi gün",
+      "stable": "İstikrarlı bağlantı",
+      "hint": "İpucu",
+      "describing": "Ruh halini anlatır",
+      "describingHint": "Bu veriler günün nasıl geçtiğini söyler. Ruh haliyle uyuşmaları beklenir, bu yüzden ayrı durur.",
+      "activity": {
+        "up0": "Daha iyi günlerle birlikte görülüyor",
+        "down0": "Daha kötü günlerle birlikte görülüyor",
+        "up1": "Daha iyi bir ertesi günle birlikte görülüyor",
+        "down1": "Daha kötü bir ertesi günle birlikte görülüyor"
+      },
+      "value": {
+        "up0": "Yüksek değerler daha iyi günlerle birlikte görülüyor",
+        "down0": "Yüksek değerler daha kötü günlerle birlikte görülüyor",
+        "up1": "Yüksek değerler daha iyi bir ertesi günle birlikte görülüyor",
+        "down1": "Yüksek değerler daha kötü bir ertesi günle birlikte görülüyor"
+      },
+      "row": "{{direction}} ({{days}})",
+      "few": "Kaydı olan {{days}} günden itibaren Daylight burada bağlantı arar.",
+      "nothing": "Henüz tesadüften fazlası gibi görünen bir bağlantı yok."
     },
     "pairs": {
       "title": "Sık birlikte",

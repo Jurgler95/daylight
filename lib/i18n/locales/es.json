@@ -278,6 +278,9 @@
     "archiveActivityHint": "Ya no se puede elegir, las entradas antiguas la conservan.",
     "archiveGroupHint": "El grupo y sus actividades ya no se pueden elegir.",
     "archiveScaleHint": "Ya no aparece en la entrada, los valores antiguos se mantienen.",
+    "describesMood": "Describe el ánimo",
+    "describesMoodGroupHint": "Para grupos como «Emociones», cuyas actividades dicen cómo fue el día y no qué pasó. Los análisis los muestran aparte en las relaciones.",
+    "describesMoodScaleHint": "Para escalas que valoran el propio ánimo, como la satisfacción o la tensión. Los análisis las muestran aparte en las relaciones.",
     "usage_one": "{{count}} entrada",
     "usage_other": "{{count}} entradas",
     "usage_many": "{{count}} entradas",
@@ -392,7 +395,14 @@
     },
     "months": {
       "title": "Meses",
-      "empty": "Aún no hay meses"
+      "empty": "Aún no hay meses",
+      "usual": "Tu rango habitual: {{range}}",
+      "usualSpan": "de {{from}} a {{to}}",
+      "usualHint": "Aproximadamente la mitad de tus días, o más, quedan dentro de este rango. Las barras muestran cuántos días de cada mes quedaron por debajo y por encima.",
+      "usualFew": "A partir de {{days}} días con entrada verás aquí tu rango habitual.",
+      "mean": "Promedio {{value}}",
+      "counts": "{{above}} por encima, {{below}} por debajo",
+      "allUsual": "Todos los días dentro del rango habitual"
     },
     "trends": {
       "title": "Tendencias",
@@ -436,15 +446,36 @@
       "empty": "No hay actividades en este período"
     },
     "effects": {
-      "title": "Ánimo con y sin",
-      "nextTitle": "Al día siguiente",
-      "higher": "Promedio más alto",
-      "lower": "Promedio más bajo",
       "sentence": "Los días con {{name}}, promedio de {{with}} en vez de {{without}} ({{count}} días)",
       "nextSentence": "El día después de {{name}}, promedio de {{with}} en vez de {{without}} ({{count}} días)",
-      "empty": "Aún no hay ninguna actividad con una diferencia clara",
       "more": "Ver todo",
       "less": "Ver menos"
+    },
+    "links": {
+      "title": "Relaciones estables",
+      "window": "De los últimos dos años, sea cual sea el periodo",
+      "explain": "Estable significa que la relación se mantiene aunque se descuenten el día de la semana, la evolución de las semanas cercanas y los datos estrechamente ligados. Un indicio es menos seguro y puede ser casualidad. Ambos muestran qué aparece junto, no qué es la causa.",
+      "sameDay": "El mismo día",
+      "nextDay": "Al día siguiente",
+      "stable": "Relación estable",
+      "hint": "Indicio",
+      "describing": "Describe el ánimo",
+      "describingHint": "Estos datos dicen cómo fue el día. Es de esperar que encajen con el ánimo, por eso van aparte.",
+      "activity": {
+        "up0": "Coincide con días mejores",
+        "down0": "Coincide con días peores",
+        "up1": "Coincide con un día siguiente mejor",
+        "down1": "Coincide con un día siguiente peor"
+      },
+      "value": {
+        "up0": "Los valores más altos coinciden con días mejores",
+        "down0": "Los valores más altos coinciden con días peores",
+        "up1": "Los valores más altos coinciden con un día siguiente mejor",
+        "down1": "Los valores más altos coinciden con un día siguiente peor"
+      },
+      "row": "{{direction}} ({{days}})",
+      "few": "A partir de {{days}} días con entrada, Daylight busca relaciones aquí.",
+      "nothing": "Aún no hay ninguna relación que parezca más que casualidad."
     },
     "pairs": {
       "title": "A menudo juntas",

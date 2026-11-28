@@ -18,15 +18,15 @@ const stamp = { created_at: '', updated_at: '' };
 function catalog(): Catalog {
   const moods = ([5, 4, 3, 2, 1] as const).map((level, index): Mood => ({ id: index + 1, label: ['Super', 'Gut', 'Ok', 'Schlecht', 'Lausig'][index]!, level, icon: 'x', sort_order: index, archived: false, ...stamp }) as Mood);
   const groups: ActivityGroup[] = [
-    { id: 1, name: 'Gefühle', sort_order: 0, archived: false, ...stamp } as ActivityGroup,
-    { id: 2, name: 'Arbeit', sort_order: 1, archived: false, ...stamp } as ActivityGroup,
+    { id: 1, name: 'Gefühle', sort_order: 0, archived: false, describes_mood: true, ...stamp } as ActivityGroup,
+    { id: 2, name: 'Arbeit', sort_order: 1, archived: false, describes_mood: false, ...stamp } as ActivityGroup,
   ];
   const activities: Activity[] = [
     { id: 10, group_id: 1, name: 'Gestresst', icon: 'x', sort_order: 0, archived: false, ...stamp } as Activity,
     { id: 11, group_id: 1, name: 'Entspannt <b>', icon: 'x', sort_order: 1, archived: false, ...stamp } as Activity,
     { id: 20, group_id: 2, name: 'Arbeit', icon: 'x', sort_order: 0, archived: false, ...stamp } as Activity,
   ];
-  const scales: Scale[] = [{ id: 3, name: 'Stress', min: 1, max: 5, kind: 'rating', unit: '', decimals: 0, sort_order: 0, archived: false, ...stamp } as Scale];
+  const scales: Scale[] = [{ id: 3, name: 'Stress', min: 1, max: 5, kind: 'rating', unit: '', decimals: 0, sort_order: 0, archived: false, describes_mood: false, ...stamp } as Scale];
   return buildCatalog({ moods, groups, activities, scales });
 }
 
@@ -166,7 +166,7 @@ describe('a number scale in the report', () => {
   /** The ten days with a weight each, two weighings on the 20th, and a unit that needs escaping. */
   function weighed(): ReportSource {
     const base = source();
-    const weight = { id: 4, name: 'Gewicht', min: 0, max: 0, kind: 'number', unit: '<kg>', decimals: 1, sort_order: 1, archived: false, ...stamp } as Scale;
+    const weight = { id: 4, name: 'Gewicht', min: 0, max: 0, kind: 'number', unit: '<kg>', decimals: 1, sort_order: 1, archived: false, describes_mood: false, ...stamp } as Scale;
     const scales = [...base.catalog.scales, weight];
     const catalog = buildCatalog({ moods: [...base.catalog.moods], groups: [...base.catalog.groups], activities: [...base.catalog.activities], scales });
     const entries = base.entries.map((e, i) => ({ ...e, scales: [...(e.scales ?? []), { scale_id: 4, value: 72 + i * 0.3 }] }));

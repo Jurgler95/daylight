@@ -258,6 +258,9 @@
     "archiveActivityHint": "No longer selectable, old entries keep it.",
     "archiveGroupHint": "The group and its activities are no longer selectable.",
     "archiveScaleHint": "No longer in the entry, old values stay.",
+    "describesMood": "Describes the mood",
+    "describesMoodGroupHint": "For groups like “Emotions”, whose activities say how the day felt rather than what happened. Insights lists them separately under the connections.",
+    "describesMoodScaleHint": "For scales that rate the mood itself, such as contentment or tension. Insights lists them separately under the connections.",
     "usage_one": "{{count}} entry",
     "usage_other": "{{count}} entries",
     "levelUsage_one": "Level {{level}}, {{count}} entry",
@@ -365,7 +368,14 @@
     },
     "months": {
       "title": "Months",
-      "empty": "No months yet"
+      "empty": "No months yet",
+      "usual": "Your usual range: {{range}}",
+      "usualSpan": "{{from}} to {{to}}",
+      "usualHint": "About half of your days or more fall within this range. The bars show how many days of each month were below and above it.",
+      "usualFew": "Your usual range appears here from {{days}} days with an entry.",
+      "mean": "Average {{value}}",
+      "counts": "{{above}} above, {{below}} below",
+      "allUsual": "All days in the usual range"
     },
     "trends": {
       "title": "Trends",
@@ -407,15 +417,36 @@
       "empty": "No activities in this period"
     },
     "effects": {
-      "title": "Mood with and without",
-      "nextTitle": "On the next day",
-      "higher": "Higher average",
-      "lower": "Lower average",
       "sentence": "On days with {{name}}, average {{with}} instead of {{without}} ({{count}} days)",
       "nextSentence": "On the day after {{name}}, average {{with}} instead of {{without}} ({{count}} days)",
-      "empty": "No activity with a clear difference yet",
       "more": "Show all",
       "less": "Show less"
+    },
+    "links": {
+      "title": "Stable connections",
+      "window": "From the last two years, whatever the range",
+      "explain": "Stable means the connection holds even after the weekday, the course of the surrounding weeks and closely linked items are taken out. A hint is less certain and may be chance. Both show what occurs together, not what causes what.",
+      "sameDay": "On the same day",
+      "nextDay": "On the next day",
+      "stable": "Stable connection",
+      "hint": "Hint",
+      "describing": "Describes the mood",
+      "describingHint": "These say how the day felt. That they match the mood is to be expected, so they are listed on their own.",
+      "activity": {
+        "up0": "Goes with better days",
+        "down0": "Goes with worse days",
+        "up1": "Goes with a better next day",
+        "down1": "Goes with a worse next day"
+      },
+      "value": {
+        "up0": "Higher values go with better days",
+        "down0": "Higher values go with worse days",
+        "up1": "Higher values go with a better next day",
+        "down1": "Higher values go with a worse next day"
+      },
+      "row": "{{direction}} ({{days}})",
+      "few": "From {{days}} days with an entry, Daylight looks for connections here.",
+      "nothing": "No connection found yet that is likely to be more than chance."
     },
     "pairs": {
       "title": "Often together",
