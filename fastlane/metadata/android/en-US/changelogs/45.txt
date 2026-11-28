@@ -1,0 +1,3 @@
+• A new activity in an entry is also saved when you tap beside the keyboard or on Save
+• Press and hold an activity in an entry to archive it
+• The self-experiment question now sits right below the moods in an entry

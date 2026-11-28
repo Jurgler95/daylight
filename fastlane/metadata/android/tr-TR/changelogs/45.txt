@@ -1,0 +1,3 @@
+• Kayıttaki yeni bir aktivite, klavyenin dışına veya Kaydet’e dokunduğunda da kaydedilir
+• Kayıttaki bir aktiviteye basılı tutarak onu arşivle
+• Kişisel deney sorusu kayıtta doğrudan ruh hallerinin altında

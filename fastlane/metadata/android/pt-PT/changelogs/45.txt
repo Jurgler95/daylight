@@ -1,0 +1,3 @@
+• Uma atividade nova no registro também é salva ao tocar fora do teclado ou em Salvar
+• Toque e segure uma atividade no registro para arquivá-la
+• A pergunta do autoexperimento aparece no registro logo abaixo dos humores

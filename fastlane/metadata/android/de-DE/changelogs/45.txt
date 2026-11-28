@@ -1,0 +1,3 @@
+• Eine neue Aktivität im Eintrag wird auch gespeichert, wenn du neben die Tastatur oder auf Speichern tippst
+• Langes Drücken auf eine Aktivität im Eintrag archiviert sie
+• Die Frage zum Selbstversuch steht im Eintrag direkt unter den Stimmungen

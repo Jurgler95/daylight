@@ -1,0 +1,3 @@
+• Une nouvelle activité dans l’entrée est aussi enregistrée en touchant à côté du clavier ou sur Enregistrer
+• Un appui long sur une activité dans l’entrée l’archive
+• La question de l’auto-expérience apparaît dans l’entrée juste sous les humeurs

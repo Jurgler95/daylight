@@ -1,0 +1,3 @@
+• Nowa aktywność we wpisie zapisuje się też po dotknięciu obok klawiatury lub przycisku Zapisz
+• Przytrzymaj aktywność we wpisie, aby ją zarchiwizować
+• Pytanie eksperymentu na sobie jest we wpisie tuż pod nastrojami

@@ -1,0 +1,3 @@
+• Una nuova attività nella voce viene salvata anche toccando fuori dalla tastiera o su Salva
+• Tieni premuta un’attività nella voce per archiviarla
+• La domanda dell’autoesperimento compare nella voce subito sotto gli umori

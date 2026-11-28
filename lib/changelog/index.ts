@@ -33,6 +33,62 @@ export function changesIn(release: Release, language: Language): string[] {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.1.2',
+    date: '2026-11-28',
+    changes: {
+      de: [
+        'Eine neue Aktivität im Eintrag wird auch gespeichert, wenn du neben die Tastatur oder auf Speichern tippst',
+        'Langes Drücken auf eine Aktivität im Eintrag archiviert sie',
+        'Die Frage zum Selbstversuch steht im Eintrag direkt unter den Stimmungen',
+      ],
+      en: [
+        'A new activity in an entry is also saved when you tap beside the keyboard or on Save',
+        'Press and hold an activity in an entry to archive it',
+        'The self-experiment question now sits right below the moods in an entry',
+      ],
+      es: [
+        'Una actividad nueva en la entrada también se guarda al tocar fuera del teclado o en Guardar',
+        'Mantén pulsada una actividad en la entrada para archivarla',
+        'La pregunta del autoexperimento aparece en la entrada justo debajo de los estados de ánimo',
+      ],
+      pt: [
+        'Uma atividade nova no registro também é salva ao tocar fora do teclado ou em Salvar',
+        'Toque e segure uma atividade no registro para arquivá-la',
+        'A pergunta do autoexperimento aparece no registro logo abaixo dos humores',
+      ],
+      fr: [
+        'Une nouvelle activité dans l’entrée est aussi enregistrée en touchant à côté du clavier ou sur Enregistrer',
+        'Un appui long sur une activité dans l’entrée l’archive',
+        'La question de l’auto-expérience apparaît dans l’entrée juste sous les humeurs',
+      ],
+      it: [
+        'Una nuova attività nella voce viene salvata anche toccando fuori dalla tastiera o su Salva',
+        'Tieni premuta un’attività nella voce per archiviarla',
+        'La domanda dell’autoesperimento compare nella voce subito sotto gli umori',
+      ],
+      nl: [
+        'Een nieuwe activiteit in een registratie wordt ook bewaard als je naast het toetsenbord of op Opslaan tikt',
+        'Houd een activiteit in een registratie ingedrukt om hem te archiveren',
+        'De vraag van het zelfexperiment staat in een registratie direct onder de stemmingen',
+      ],
+      pl: [
+        'Nowa aktywność we wpisie zapisuje się też po dotknięciu obok klawiatury lub przycisku Zapisz',
+        'Przytrzymaj aktywność we wpisie, aby ją zarchiwizować',
+        'Pytanie eksperymentu na sobie jest we wpisie tuż pod nastrojami',
+      ],
+      tr: [
+        'Kayıttaki yeni bir aktivite, klavyenin dışına veya Kaydet’e dokunduğunda da kaydedilir',
+        'Kayıttaki bir aktiviteye basılı tutarak onu arşivle',
+        'Kişisel deney sorusu kayıtta doğrudan ruh hallerinin altında',
+      ],
+      id: [
+        'Aktivitas baru di entri juga tersimpan saat kamu mengetuk di luar keyboard atau Simpan',
+        'Tekan lama aktivitas di entri untuk mengarsipkannya',
+        'Pertanyaan eksperimen pribadi kini ada tepat di bawah suasana hati pada entri',
+      ],
+    },
+  },
+  {
     version: '1.1.1',
     date: '2026-11-28',
     changes: {

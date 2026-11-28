@@ -1,0 +1,3 @@
+• Una actividad nueva en la entrada también se guarda al tocar fuera del teclado o en Guardar
+• Mantén pulsada una actividad en la entrada para archivarla
+• La pregunta del autoexperimento aparece en la entrada justo debajo de los estados de ánimo
