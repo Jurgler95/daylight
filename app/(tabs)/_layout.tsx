@@ -1,12 +1,13 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import { Fragment, useEffect, type ComponentProps } from 'react';
-import { StyleSheet, View, type ColorValue } from 'react-native';
+import { StyleSheet, Text, View, type ColorValue } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Animated, { useAnimatedStyle, useSharedValue, withSequence, withSpring, withTiming } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { haptics } from '@/lib/haptics';
+import { useSelectedDayStore } from '@/lib/store/selectedDay';
 import { useTheme } from '@/lib/theme';
 
 type Icon = keyof typeof Ionicons.glyphMap;
@@ -74,7 +75,6 @@ export default function TabsLayout() {
         // From 768 dp wide (tablets, landscape) the label would move beside the icon, where the 56 dp
         // pill runs under it. Keep the phone layout everywhere.
         tabBarLabelPosition: 'below-icon',
-        tabBarLabelStyle: { fontSize: 11, fontWeight: '700' },
         sceneStyle: { backgroundColor: colors.background },
       }}
     >
@@ -84,11 +84,23 @@ export default function TabsLayout() {
           name={tab.name}
           options={{
             title: t(`tabs.${tab.key}`),
+            // Large system fonts cut the labels to "Calendri…": grow a little, then shrink to fit.
+            tabBarLabel: ({ color }) => (
+              <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.8} maxFontSizeMultiplier={1.3} style={[styles.label, { color }]}>
+                {t(`tabs.${tab.key}`)}
+              </Text>
+            ),
             tabBarIcon: ({ color, focused }) => (
               <TabIcon name={focused ? tab.active : tab.icon} color={color} focused={focused} pill={colors.accentSoft} />
             ),
           }}
-          listeners={{ tabPress: () => haptics.tick() }}
+          listeners={{
+            tabPress: () => {
+              haptics.tick();
+              // The tab is called "Heute", so tapping it always comes back to today, also after a day was opened from the calendar.
+              if (tab.name === 'index') useSelectedDayStore.getState().pick(null);
+            },
+          }}
         />
       ))}
     </Tabs>
@@ -113,4 +125,5 @@ function TabIcon({ name, color, focused, pill }: { name: Icon; color: ColorValue
 
 const styles = StyleSheet.create({
   pill: { width: 56, height: 32, borderRadius: 16, alignItems: 'center', justifyContent: 'center' },
+  label: { fontSize: 11, fontWeight: '700', paddingHorizontal: 2 },
 });

@@ -1,4 +1,4 @@
-import { useCallback, useImperativeHandle, useMemo, useRef, type Ref } from 'react';
+import { useCallback, useEffect, useImperativeHandle, useMemo, useRef, type Ref } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SectionList, StyleSheet, View } from 'react-native';
 
@@ -100,6 +100,19 @@ export function MonthList({
     positioned.current = true;
     jumpTo(currentIndex, false);
   }, [jumpTo, currentIndex]);
+
+  // An import or the sample data can move the first entry back, which puts months in front. The scroll
+  // offset stays the same in pixels and would suddenly show a month from early in the year, so move
+  // back to the current month whenever the first month changes after the list was positioned.
+  const firstMonth = months[0];
+  const shownFirst = useRef(firstMonth);
+  useEffect(() => {
+    if (shownFirst.current === firstMonth) return;
+    shownFirst.current = firstMonth;
+    if (!positioned.current) return;
+    const frame = requestAnimationFrame(() => jumpTo(currentIndex, false));
+    return () => cancelAnimationFrame(frame);
+  }, [firstMonth, currentIndex, jumpTo]);
 
   return (
     <SectionList
