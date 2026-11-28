@@ -88,7 +88,7 @@
     "designFestivals": "Tampilan hari raya",
     "designFestivalsHint": "Paskah, Halloween, Natal, malam Tahun Baru, dan Tahun Baru Imlek punya tampilan sendiri. Nonaktif: hanya musim.",
     "diarySection": "Buku harian",
-    "history": "Riwayat",
+    "history": "Riwayat dan pencarian",
     "turningPoints": "Titik balik"
   },
   "import": {
@@ -208,7 +208,7 @@
     "failed": "Foto tidak dapat ditambahkan"
   },
   "history": {
-    "title": "Riwayat",
+    "title": "Riwayat dan pencarian",
     "search": "Cari entri",
     "placeholder": "Cari",
     "clear": "Hapus pencarian",
@@ -351,6 +351,11 @@
       "week": "Rata-rata 7 hari",
       "a11y": "Suasana hati dari {{from}} sampai {{to}}, {{count}} hari, rata-rata {{mean}}, rata-rata 7 hari terakhir {{last}}",
       "a11yNoMean": "Suasana hati dari {{from}} sampai {{to}}, {{count}} hari, rata-rata 7 hari terakhir {{last}}"
+    },
+    "chart": {
+      "expand": "Tampilkan besar",
+      "hour_one": "{{from}}.00 sampai {{to}}.00: {{count}} entri",
+      "hour_other": "{{from}}.00 sampai {{to}}.00: {{count}} entri"
     },
     "distribution": {
       "title": "Distribusi",

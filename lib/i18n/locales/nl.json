@@ -88,7 +88,7 @@
     "designFestivals": "Feestdagdesigns",
     "designFestivalsHint": "Pasen, Halloween, Kerstmis, oudejaarsavond en het maanjaar krijgen een eigen design. Uit: alleen het seizoen.",
     "diarySection": "Dagboek",
-    "history": "Geschiedenis",
+    "history": "Geschiedenis en zoeken",
     "turningPoints": "Keerpunten"
   },
   "import": {
@@ -200,7 +200,7 @@
     "draftContinue": "Voortzetten"
   },
   "photo": {
-    "title": "Foto",
+    "title": "Foto's",
     "add": "Foto toevoegen",
     "remove": "Foto verwijderen",
     "open": "Foto op volle grootte bekijken",
@@ -208,7 +208,7 @@
     "failed": "Foto kon niet worden toegevoegd"
   },
   "history": {
-    "title": "Geschiedenis",
+    "title": "Geschiedenis en zoeken",
     "search": "Registraties doorzoeken",
     "placeholder": "Zoeken",
     "clear": "Zoekopdracht wissen",
@@ -351,6 +351,11 @@
       "week": "7-daags gemiddelde",
       "a11y": "Stemming van {{from}} tot {{to}}, {{count}} dagen, gemiddelde {{mean}}, laatste 7-daags gemiddelde {{last}}",
       "a11yNoMean": "Stemming van {{from}} tot {{to}}, {{count}} dagen, laatste 7-daags gemiddelde {{last}}"
+    },
+    "chart": {
+      "expand": "Groot weergeven",
+      "hour_one": "{{from}}:00 tot {{to}}:00: {{count}} registratie",
+      "hour_other": "{{from}}:00 tot {{to}}:00: {{count}} registraties"
     },
     "distribution": {
       "title": "Verdeling",

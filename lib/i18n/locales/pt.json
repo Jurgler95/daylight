@@ -91,7 +91,7 @@
     "designFestivals": "Designs de datas festivas",
     "designFestivalsHint": "Páscoa, Halloween, Natal, Réveillon e o Ano-Novo Chinês ganham um design próprio. Desligado: só a estação.",
     "diarySection": "Diário",
-    "history": "Histórico",
+    "history": "Histórico e busca",
     "turningPoints": "Pontos de virada"
   },
   "import": {
@@ -216,7 +216,7 @@
     "draftContinue": "Continuar"
   },
   "photo": {
-    "title": "Foto",
+    "title": "Fotos",
     "add": "Adicionar foto",
     "remove": "Remover foto",
     "open": "Ver foto em tamanho grande",
@@ -224,7 +224,7 @@
     "failed": "Não foi possível adicionar a foto"
   },
   "history": {
-    "title": "Histórico",
+    "title": "Histórico e busca",
     "search": "Buscar nos registros",
     "placeholder": "Buscar",
     "clear": "Limpar busca",
@@ -376,6 +376,12 @@
       "week": "Média de 7 dias",
       "a11y": "Humor de {{from}} a {{to}}, {{count}} dias, média {{mean}}, última média de 7 dias {{last}}",
       "a11yNoMean": "Humor de {{from}} a {{to}}, {{count}} dias, última média de 7 dias {{last}}"
+    },
+    "chart": {
+      "expand": "Ver em tamanho grande",
+      "hour_one": "Das {{from}}h às {{to}}h: {{count}} registro",
+      "hour_other": "Das {{from}}h às {{to}}h: {{count}} registros",
+      "hour_many": "Das {{from}}h às {{to}}h: {{count}} registros"
     },
     "distribution": {
       "title": "Distribuição",

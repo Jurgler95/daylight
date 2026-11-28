@@ -94,7 +94,7 @@
     "designFestivals": "Wygląd świąteczny",
     "designFestivalsHint": "Wielkanoc, Halloween, Boże Narodzenie, sylwester i Księżycowy Nowy Rok mają własny wygląd. Wyłączone: tylko pora roku.",
     "diarySection": "Dziennik",
-    "history": "Historia",
+    "history": "Historia i wyszukiwanie",
     "turningPoints": "Punkty zwrotne"
   },
   "import": {
@@ -232,7 +232,7 @@
     "draftContinue": "Kontynuuj"
   },
   "photo": {
-    "title": "Zdjęcie",
+    "title": "Zdjęcia",
     "add": "Dodaj zdjęcie",
     "remove": "Usuń zdjęcie",
     "open": "Pokaż zdjęcie w pełnym rozmiarze",
@@ -240,7 +240,7 @@
     "failed": "Nie udało się dodać zdjęcia"
   },
   "history": {
-    "title": "Historia",
+    "title": "Historia i wyszukiwanie",
     "search": "Szukaj we wpisach",
     "placeholder": "Szukaj",
     "clear": "Wyczyść wyszukiwanie",
@@ -401,6 +401,13 @@
       "week": "Średnia z 7 dni",
       "a11y": "Nastrój od {{from}} do {{to}}, liczba dni: {{count}}, średnia {{mean}}, ostatnia średnia z 7 dni {{last}}",
       "a11yNoMean": "Nastrój od {{from}} do {{to}}, liczba dni: {{count}}, ostatnia średnia z 7 dni {{last}}"
+    },
+    "chart": {
+      "expand": "Powiększ",
+      "hour_one": "Od {{from}}:00 do {{to}}:00: {{count}} wpis",
+      "hour_few": "Od {{from}}:00 do {{to}}:00: {{count}} wpisy",
+      "hour_many": "Od {{from}}:00 do {{to}}:00: {{count}} wpisów",
+      "hour_other": "Od {{from}}:00 do {{to}}:00: {{count}} wpisu"
     },
     "distribution": {
       "title": "Rozkład",

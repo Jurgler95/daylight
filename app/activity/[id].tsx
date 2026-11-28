@@ -75,6 +75,7 @@ export default function ActivityInsightScreen() {
             <MiniBars
               values={weekdays.map((day) => day.share)}
               labels={weekdays.map((day) => names[day.weekday] ?? '')}
+              details={weekdays.map((day) => `${names[day.weekday]}: ${t('insights.days', { count: day.days })}, ${formatPercent(day.share)}`)}
               accessibilityLabel={weekdays.map((day) => `${names[day.weekday]}: ${day.days}, ${formatPercent(day.share)}`).join('. ')}
             />
           </InsightCard>
@@ -93,6 +94,7 @@ export default function ActivityInsightScreen() {
             <MiniBars
               values={detail.months.map((month) => month.days / peakMonth)}
               labels={detail.months.map((month, i) => (detail.months.length <= 12 || i % 3 === 0 ? formatMonthNarrow(month.month) : ''))}
+              details={detail.months.map((month) => `${formatMonthLong(month.month)} ${month.month.slice(0, 4)}: ${t('insights.days', { count: month.days })}`)}
               accessibilityLabel={detail.months.map((month) => `${formatMonthLong(month.month)} ${month.month.slice(0, 4)}: ${month.days}`).join('. ')}
             />
           </InsightCard>

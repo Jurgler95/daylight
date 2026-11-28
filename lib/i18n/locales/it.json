@@ -91,7 +91,7 @@
     "designFestivals": "Design delle feste",
     "designFestivalsHint": "Pasqua, Halloween, Natale, San Silvestro e il Capodanno cinese hanno un design apposito. Disattivo: solo la stagione.",
     "diarySection": "Diario",
-    "history": "Cronologia",
+    "history": "Cronologia e ricerca",
     "turningPoints": "Svolte"
   },
   "import": {
@@ -224,7 +224,7 @@
     "failed": "Impossibile aggiungere la foto"
   },
   "history": {
-    "title": "Cronologia",
+    "title": "Cronologia e ricerca",
     "search": "Cerca nelle voci",
     "placeholder": "Cerca",
     "clear": "Cancella ricerca",
@@ -376,6 +376,12 @@
       "week": "Media su 7 giorni",
       "a11y": "Umore dal {{from}} al {{to}}, {{count}} giorni, media {{mean}}, ultima media su 7 giorni {{last}}",
       "a11yNoMean": "Umore dal {{from}} al {{to}}, {{count}} giorni, ultima media su 7 giorni {{last}}"
+    },
+    "chart": {
+      "expand": "Ingrandisci",
+      "hour_one": "Dalle {{from}} alle {{to}}: {{count}} voce",
+      "hour_other": "Dalle {{from}} alle {{to}}: {{count}} voci",
+      "hour_many": "Dalle {{from}} alle {{to}}: {{count}} voci"
     },
     "distribution": {
       "title": "Distribuzione",

@@ -93,7 +93,7 @@ describe('history page', () => {
     applySample(db, generateSample({ today }));
     use(db);
     await render(<HistoryScreen />);
-    expect(screen.getByText('Verlauf')).toBeTruthy();
+    expect(screen.getByText('Verlauf und Suche')).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Zurück' })).toBeTruthy();
     expect(screen.queryByText(BROKEN, ALL)).toBeNull();
   });

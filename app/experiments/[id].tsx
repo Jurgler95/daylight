@@ -220,6 +220,7 @@ function Body({ experiment, comparison }: { experiment: Experiment; comparison: 
           mean={null}
           iconFor={(level) => levelMood(catalog, level).icon}
           marks={[during.from]}
+          title={t('experiments.trend')}
         />
       </InsightCard>
 
