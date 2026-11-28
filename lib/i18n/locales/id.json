@@ -180,6 +180,8 @@
     "selected_other": "{{count}} dipilih",
     "noActivities": "Belum ada aktivitas",
     "addActivity": "Aktivitas baru di {{group}}",
+    "archiveActivity": "Arsipkan “{{name}}”?",
+    "archiveActivityRestore": "Kamu bisa mengembalikannya di “{{more}}”, “{{activities}}”.",
     "note": "Catatan",
     "date": "Hari",
     "time": "Waktu",

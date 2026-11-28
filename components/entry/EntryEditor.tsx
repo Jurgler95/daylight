@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { router, useNavigation } from 'expo-router';
 import { usePreventRemove } from 'expo-router/react-navigation';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, Pressable, StyleSheet, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
@@ -12,7 +12,7 @@ import { MoodPicker } from '@/components/mood/MoodPicker';
 import { TurningDayCard } from '@/components/turning/TurningDayCard';
 import { AppText, Button, Card, CardMotion, EmptyState, ListRow, LogoBackdrop, TextField } from '@/components/ui';
 import { getDb } from '@/db';
-import { createActivity } from '@/db/repositories/activities';
+import { createActivity, updateActivity } from '@/db/repositories/activities';
 import type { Activity } from '@/db/schema';
 import { editorGroups } from '@/lib/catalog/catalog';
 import { useCatalog } from '@/lib/catalog/useCatalog';
@@ -116,10 +116,25 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
   const close = () => {
     if (!leaving.current && navigation.isFocused()) router.back();
   };
-  const save = () =>
+  // Names still typed into a plus field, one commit per group. "Speichern" takes them first, then
+  // saves on the next render, when the new activities are on the draft.
+  const pendingNames = useRef(new Map<number, () => void>());
+  const [saveQueued, setSaveQueued] = useState(false);
+  const save = (namesTaken = false) => {
+    if (!namesTaken && pendingNames.current.size > 0) {
+      for (const commit of [...pendingNames.current.values()]) commit();
+      setSaveQueued(true);
+      return;
+    }
     confirmTurningLoss(() => {
       if (editor.save()) leave();
     });
+  };
+  useEffect(() => {
+    if (!saveQueued) return;
+    setSaveQueued(false);
+    save(true);
+  }, [saveQueued]); // eslint-disable-line react-hooks/exhaustive-deps
   const lostOnDelete = editor.turningPointLostOnDelete;
   const remove = () =>
     Alert.alert(t('entry.deleteTitle'), lostOnDelete ? `${t('entry.deleteBody')} ${t('entry.turningLost', { title: lostOnDelete.title })}` : t('entry.deleteBody'), [
@@ -149,7 +164,7 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
       <AppText variant="headline" accessibilityRole="header" style={styles.flex} numberOfLines={1}>
         {editor.isNew ? t('entry.newTitle') : t('entry.editTitle')}
       </AppText>
-      {draft ? <Button label={t('entry.save')} disabled={!editor.canSave} onPress={save} /> : null}
+      {draft ? <Button label={t('entry.save')} disabled={!editor.canSave} onPress={() => save()} /> : null}
     </View>
   );
 
@@ -174,6 +189,21 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
     return true;
   };
 
+  // Archiving belongs to the catalog too and happens at once. A chip picked on this entry stays
+  // until taken off, like an archived activity on an old entry.
+  const archiveActivity = (id: number) => {
+    const activity = catalog.activityById.get(id);
+    if (!activity) return;
+    Alert.alert(
+      t('entry.archiveActivity', { name: activity.name }),
+      `${t('manage.archiveActivityHint')} ${t('entry.archiveActivityRestore', { more: t('tabs.settings'), activities: t('manage.activities') })}`,
+      [
+        { text: t('common.cancel'), style: 'cancel' },
+        { text: t('manage.archive'), onPress: () => void write(() => updateActivity(getDb(), id, { archived: true })) },
+      ],
+    );
+  };
+
   return (
     <View style={[styles.flex, { backgroundColor: colors.background }]}>
       <LogoBackdrop />
@@ -189,6 +219,8 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
             <MoodPicker moods={catalog.moods} selected={draft.mood_id} onPick={(mood_id) => editor.update({ mood_id })} size={48} />
           </Card>
 
+          <CheckInCard rows={editor.checkIns} date={draft.date} onTap={editor.tapCheckIn} />
+
           {groups.length > 0 ? (
             groups.map((item) => (
               <ActivityGroupCard
@@ -201,6 +233,11 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
                 onToggle={(id) => editor.update({ activity_ids: toggleId(draft.activity_ids, id) })}
                 addLabel={t('entry.addActivity', { group: item.group.name })}
                 onAdd={(name) => addActivity(item.group.id, name)}
+                onArchive={archiveActivity}
+                onPending={(commit) => {
+                  if (commit) pendingNames.current.set(item.group.id, commit);
+                  else pendingNames.current.delete(item.group.id);
+                }}
               />
             ))
           ) : (
@@ -247,8 +284,6 @@ export function EntryEditor({ target }: { target: EditorTarget }) {
               )}
             </Card>
           ) : null}
-
-          <CheckInCard rows={editor.checkIns} date={draft.date} onTap={editor.tapCheckIn} />
 
           <Card>
             <TextField label={t('entry.note')} value={draft.note} multiline onChangeText={(note) => editor.update({ note })} />

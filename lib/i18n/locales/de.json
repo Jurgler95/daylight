@@ -180,6 +180,8 @@
     "selected_other": "{{count}} gewählt",
     "noActivities": "Noch keine Aktivitäten",
     "addActivity": "Neue Aktivität in {{group}}",
+    "archiveActivity": "„{{name}}“ archivieren?",
+    "archiveActivityRestore": "Zurückholen kannst du sie unter „{{more}}“, „{{activities}}“.",
     "note": "Notiz",
     "date": "Tag",
     "time": "Uhrzeit",

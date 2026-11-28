@@ -195,6 +195,8 @@
     "selected_many": "Selecionadas: {{count}}",
     "noActivities": "Nenhuma atividade ainda",
     "addActivity": "Nova atividade em {{group}}",
+    "archiveActivity": "Arquivar “{{name}}”?",
+    "archiveActivityRestore": "Você pode trazê-la de volta em “{{more}}”, “{{activities}}”.",
     "note": "Anotação",
     "date": "Dia",
     "time": "Horário",

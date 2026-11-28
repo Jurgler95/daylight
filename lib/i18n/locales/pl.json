@@ -210,6 +210,8 @@
     "selected_other": "Wybrano: {{count}}",
     "noActivities": "Jeszcze brak aktywności",
     "addActivity": "Nowa aktywność w grupie {{group}}",
+    "archiveActivity": "Zarchiwizować „{{name}}”?",
+    "archiveActivityRestore": "Przywrócisz ją w „{{more}}”, „{{activities}}”.",
     "note": "Notatka",
     "date": "Dzień",
     "time": "Godzina",
