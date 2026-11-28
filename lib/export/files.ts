@@ -42,11 +42,17 @@ function describeCause(cause: unknown): string {
   return cause instanceof Error ? cause.message : String(cause);
 }
 
-/** expo-file-system rejects a cancelled picker with this code (`PickerCancelledException`). */
+/**
+ * expo-file-system rejects a cancelled picker with `PickerCancelledException`. Its code is inferred
+ * from the class name, which R8 shortens in release builds (seen as `ERR_Z`), so the message counts too.
+ */
 const PICKER_CANCELLED = 'ERR_PICKER_CANCELLED';
+const PICKER_CANCELLED_MESSAGE = 'The file picker was cancelled by the user';
 
 function isPickerCancel(error: unknown): boolean {
-  return typeof error === 'object' && error !== null && (error as { code?: unknown }).code === PICKER_CANCELLED;
+  if (typeof error !== 'object' || error === null) return false;
+  const { code, message } = error as { code?: unknown; message?: unknown };
+  return code === PICKER_CANCELLED || (typeof message === 'string' && message.includes(PICKER_CANCELLED_MESSAGE));
 }
 
 /**

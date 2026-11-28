@@ -79,6 +79,16 @@ describe('pickDirectory', () => {
     await expect(pickDirectory()).resolves.toBeNull();
   });
 
+  it('returns null for the cancel of a release build, whose code R8 has shortened', async () => {
+    mockPick.mockRejectedValue(
+      Object.assign(
+        new Error("Call to function 'FileSystem.pickDirectoryAsync' has been rejected.\n→ Caused by: The file picker was cancelled by the user"),
+        { code: 'ERR_Z' },
+      ),
+    );
+    await expect(pickDirectory()).resolves.toBeNull();
+  });
+
   it('throws FolderPickerError when the picker fails to open', async () => {
     mockPick.mockRejectedValue(unregistered());
     await expect(pickDirectory()).rejects.toBeInstanceOf(FolderPickerError);
