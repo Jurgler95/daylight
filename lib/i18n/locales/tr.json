@@ -88,7 +88,7 @@
     "designFestivals": "Özel gün tasarımları",
     "designFestivalsHint": "Paskalya, Cadılar Bayramı, Noel, yılbaşı gecesi ve Ay Yeni Yılı için ayrı bir tasarım var. Kapalıyken: yalnızca mevsim.",
     "diarySection": "Günlük",
-    "history": "Geçmiş",
+    "history": "Geçmiş ve arama",
     "turningPoints": "Dönüm noktaları"
   },
   "import": {
@@ -200,7 +200,7 @@
     "draftContinue": "Devam et"
   },
   "photo": {
-    "title": "Fotoğraf",
+    "title": "Fotoğraflar",
     "add": "Fotoğraf ekle",
     "remove": "Fotoğrafı kaldır",
     "open": "Fotoğrafı tam boyutta göster",
@@ -208,7 +208,7 @@
     "failed": "Fotoğraf eklenemedi"
   },
   "history": {
-    "title": "Geçmiş",
+    "title": "Geçmiş ve arama",
     "search": "Kayıtlarda ara",
     "placeholder": "Ara",
     "clear": "Aramayı temizle",
@@ -351,6 +351,11 @@
       "week": "7 günlük ortalama",
       "a11y": "{{from}} ile {{to}} arası ruh hali, {{count}} gün, ortalama {{mean}}, son 7 günlük ortalama {{last}}",
       "a11yNoMean": "{{from}} ile {{to}} arası ruh hali, {{count}} gün, son 7 günlük ortalama {{last}}"
+    },
+    "chart": {
+      "expand": "Büyük göster",
+      "hour_one": "{{from}}.00 ile {{to}}.00 arası: {{count}} kayıt",
+      "hour_other": "{{from}}.00 ile {{to}}.00 arası: {{count}} kayıt"
     },
     "distribution": {
       "title": "Dağılım",

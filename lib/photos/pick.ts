@@ -11,19 +11,35 @@ import { newPhotoName } from './store';
 export const MAX_EDGE = 1600;
 const QUALITY = 0.8;
 
-/**
- * Lets the user pick one photo with the system photo picker (no storage permission), scales it
- * down and stores a JPEG copy in the private photo folder. Returns the file name, or null when
- * nothing was picked. The copy has no row yet; the editor adds it on "Speichern", and a photo that
- * never gets saved is swept on the next start.
- */
-export async function pickPhoto(): Promise<string | null> {
-  // The picker is a system screen of its own; coming back from it must not lock the app.
-  const result = await withLockSuspended(() => ImagePicker.launchImageLibraryAsync({ mediaTypes: ['images'], quality: 1, exif: false }));
-  if (result.canceled) return null;
-  const asset = result.assets[0];
-  if (!asset) return null;
+/** Photos one entry can take from the app; more arrive only through an import. */
+export const MAX_PHOTOS = 10;
 
+/**
+ * Lets the user pick up to `limit` photos with the system photo picker (no storage permission),
+ * scales each down and stores a JPEG copy in the private photo folder. Returns the file names in
+ * the order picked, empty when nothing was picked. The copies have no row yet; the editor adds them
+ * on "Speichern", and a photo that never gets saved is swept on the next start.
+ */
+export async function pickPhotos(limit: number): Promise<string[]> {
+  if (limit <= 0) return [];
+  // The picker is a system screen of its own; coming back from it must not lock the app.
+  const result = await withLockSuspended(() =>
+    ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'],
+      quality: 1,
+      exif: false,
+      allowsMultipleSelection: limit > 1,
+      selectionLimit: limit,
+      orderedSelection: true,
+    }),
+  );
+  if (result.canceled) return [];
+  const names: string[] = [];
+  for (const asset of result.assets.slice(0, limit)) names.push(await storeAsset(asset));
+  return names;
+}
+
+async function storeAsset(asset: ImagePicker.ImagePickerAsset): Promise<string> {
   const context = ImageManipulator.manipulate(asset.uri);
   if (Math.max(asset.width, asset.height) > MAX_EDGE) {
     context.resize(asset.width >= asset.height ? { width: MAX_EDGE } : { height: MAX_EDGE });

@@ -88,7 +88,7 @@
     "designFestivals": "Designs zu Festen",
     "designFestivalsHint": "Ostern, Halloween, Weihnachten, Silvester und das chinesische Neujahrsfest bekommen ein eigenes Design. Aus: nur die Jahreszeit.",
     "diarySection": "Tagebuch",
-    "history": "Verlauf",
+    "history": "Verlauf und Suche",
     "turningPoints": "Wendepunkte"
   },
   "import": {
@@ -200,7 +200,7 @@
     "draftContinue": "Fortsetzen"
   },
   "photo": {
-    "title": "Foto",
+    "title": "Fotos",
     "add": "Foto hinzufügen",
     "remove": "Foto entfernen",
     "open": "Foto groß ansehen",
@@ -208,7 +208,7 @@
     "failed": "Foto konnte nicht übernommen werden"
   },
   "history": {
-    "title": "Verlauf",
+    "title": "Verlauf und Suche",
     "search": "Einträge durchsuchen",
     "placeholder": "Suchen",
     "clear": "Suche leeren",
@@ -351,6 +351,11 @@
       "week": "7-Tage-Mittel",
       "a11y": "Stimmung vom {{from}} bis {{to}}, {{count}} Tage, Schnitt {{mean}}, zuletzt im 7-Tage-Mittel {{last}}",
       "a11yNoMean": "Stimmung vom {{from}} bis {{to}}, {{count}} Tage, zuletzt im 7-Tage-Mittel {{last}}"
+    },
+    "chart": {
+      "expand": "Groß anzeigen",
+      "hour_one": "{{from}} bis {{to}} Uhr: {{count}} Eintrag",
+      "hour_other": "{{from}} bis {{to}} Uhr: {{count}} Einträge"
     },
     "distribution": {
       "title": "Verteilung",

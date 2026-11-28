@@ -1,9 +1,8 @@
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import { router } from 'expo-router';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { MoodBadge } from '@/components/mood/MoodBadge';
-import { Photo } from '@/components/photo/Photo';
+import { PhotoGrid } from '@/components/photo/PhotoGrid';
 import { AppText, Card, PressableScale } from '@/components/ui';
 import type { EntryDetails } from '@/db/repositories/entries';
 import type { Scale } from '@/db/schema';
@@ -81,16 +80,7 @@ export function EntryCard({ entry, catalog, scaleLabel, editLabel, photoLabel, o
         ) : null}
         {entry.note_title ? <AppText variant="label">{entry.note_title}</AppText> : null}
         {entry.note ? <AppText>{entry.note}</AppText> : null}
-        {entry.photos.map((name) => (
-          <Pressable
-            key={name}
-            onPress={() => router.push({ pathname: '/photo/[name]', params: { name } })}
-            accessibilityRole="imagebutton"
-            accessibilityLabel={photoLabel}
-          >
-            <Photo name={name} style={[styles.photo, { backgroundColor: colors.surfaceMuted }]} />
-          </Pressable>
-        ))}
+        <PhotoGrid photos={entry.photos} openLabel={photoLabel} />
       </Card>
     </PressableScale>
   );
@@ -100,6 +90,5 @@ const styles = StyleSheet.create({
   flex: { flex: 1 },
   head: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
   pills: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.xs },
-  photo: { width: '100%', aspectRatio: 4 / 3, borderRadius: radius.md },
   pill: { flexDirection: 'row', alignItems: 'center', gap: spacing.xs, paddingHorizontal: spacing.sm, paddingVertical: 4, borderRadius: radius.pill },
 });

@@ -91,7 +91,7 @@
     "designFestivals": "Designs des fêtes",
     "designFestivalsHint": "Pâques, Halloween, Noël, la Saint-Sylvestre et le Nouvel An chinois ont un design à part. Désactivé : seulement la saison.",
     "diarySection": "Journal",
-    "history": "Historique",
+    "history": "Historique et recherche",
     "turningPoints": "Tournants"
   },
   "import": {
@@ -216,7 +216,7 @@
     "draftContinue": "Reprendre"
   },
   "photo": {
-    "title": "Photo",
+    "title": "Photos",
     "add": "Ajouter une photo",
     "remove": "Retirer la photo",
     "open": "Voir la photo en grand",
@@ -224,7 +224,7 @@
     "failed": "Impossible d'ajouter la photo"
   },
   "history": {
-    "title": "Historique",
+    "title": "Historique et recherche",
     "search": "Rechercher dans les entrées",
     "placeholder": "Rechercher",
     "clear": "Effacer la recherche",
@@ -376,6 +376,12 @@
       "week": "Moyenne sur 7 jours",
       "a11y": "Humeur du {{from}} au {{to}}, {{count}} jours, moyenne {{mean}}, dernière moyenne sur 7 jours {{last}}",
       "a11yNoMean": "Humeur du {{from}} au {{to}}, {{count}} jours, dernière moyenne sur 7 jours {{last}}"
+    },
+    "chart": {
+      "expand": "Agrandir",
+      "hour_one": "De {{from}} h à {{to}} h : {{count}} entrée",
+      "hour_other": "De {{from}} h à {{to}} h : {{count}} entrées",
+      "hour_many": "De {{from}} h à {{to}} h : {{count}} entrées"
     },
     "distribution": {
       "title": "Répartition",

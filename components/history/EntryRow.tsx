@@ -120,7 +120,18 @@ export const EntryRow = memo(function EntryRow({ hit, catalog, health, healthLab
           </AppText>
         ) : null}
       </View>
-      {entry.photos?.[0] ? <Photo name={entry.photos[0]} style={[styles.thumb, { backgroundColor: colors.surfaceMuted }]} /> : null}
+      {entry.photos?.[0] ? (
+        <View>
+          <Photo name={entry.photos[0]} style={[styles.thumb, { backgroundColor: colors.surfaceMuted }]} />
+          {entry.photos.length > 1 ? (
+            <View style={styles.more}>
+              <AppText variant="caption" color="#FFFFFF">
+                +{entry.photos.length - 1}
+              </AppText>
+            </View>
+          ) : null}
+        </View>
+      ) : null}
     </Pressable>
   );
 });
@@ -136,6 +147,7 @@ const styles = StyleSheet.create({
   },
   day: { width: 32, alignItems: 'center' },
   thumb: { width: 56, height: 56, borderRadius: radius.sm },
+  more: { position: 'absolute', right: 4, bottom: 4, paddingHorizontal: 5, borderRadius: radius.pill, backgroundColor: 'rgba(0,0,0,0.6)' },
   body: { flex: 1, gap: spacing.xs },
   title: { flexDirection: 'row', alignItems: 'baseline', gap: spacing.sm },
   icons: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: spacing.sm },

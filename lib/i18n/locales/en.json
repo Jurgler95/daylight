@@ -88,7 +88,7 @@
     "designFestivals": "Festival designs",
     "designFestivalsHint": "Easter, Halloween, Christmas, New Year's Eve and the Lunar New Year get a design of their own. Off: only the season.",
     "diarySection": "Diary",
-    "history": "History",
+    "history": "History and search",
     "turningPoints": "Turning points"
   },
   "import": {
@@ -200,7 +200,7 @@
     "draftContinue": "Continue"
   },
   "photo": {
-    "title": "Photo",
+    "title": "Photos",
     "add": "Add photo",
     "remove": "Remove photo",
     "open": "View photo full size",
@@ -208,7 +208,7 @@
     "failed": "Photo could not be added"
   },
   "history": {
-    "title": "History",
+    "title": "History and search",
     "search": "Search entries",
     "placeholder": "Search",
     "clear": "Clear search",
@@ -351,6 +351,11 @@
       "week": "7-day average",
       "a11y": "Mood from {{from}} to {{to}}, {{count}} days, average {{mean}}, latest 7-day average {{last}}",
       "a11yNoMean": "Mood from {{from}} to {{to}}, {{count}} days, latest 7-day average {{last}}"
+    },
+    "chart": {
+      "expand": "Show large",
+      "hour_one": "{{from}}:00 to {{to}}:00: {{count}} entry",
+      "hour_other": "{{from}}:00 to {{to}}:00: {{count}} entries"
     },
     "distribution": {
       "title": "Distribution",
