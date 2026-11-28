@@ -1,0 +1,4 @@
+• Una entrada puede tener ahora hasta diez fotos y puedes elegir varias a la vez
+• El historial ahora se llama «Historial y búsqueda»
+• Toca un gráfico para ver los valores en ese punto
+• Los gráficos de líneas se abren en grande y en horizontal

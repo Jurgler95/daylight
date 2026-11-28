@@ -1,0 +1,4 @@
+• An entry can now hold up to ten photos, and you can pick several at once
+• History is now called “History and search”
+• Tap a chart to see the values at that spot
+• Line charts open large and sideways

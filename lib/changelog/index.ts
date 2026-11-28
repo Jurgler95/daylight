@@ -33,6 +33,72 @@ export function changesIn(release: Release, language: Language): string[] {
 
 export const RELEASES: Release[] = [
   {
+    version: '1.1.1',
+    date: '2026-11-28',
+    changes: {
+      de: [
+        'Ein Eintrag kann jetzt bis zu zehn Fotos haben, mehrere lassen sich auf einmal auswählen',
+        'Der Verlauf heißt jetzt „Verlauf und Suche“',
+        'Diagramme zeigen beim Antippen die Werte an dieser Stelle',
+        'Liniendiagramme lassen sich groß und quer anzeigen',
+      ],
+      en: [
+        'An entry can now hold up to ten photos, and you can pick several at once',
+        'History is now called “History and search”',
+        'Tap a chart to see the values at that spot',
+        'Line charts open large and sideways',
+      ],
+      es: [
+        'Una entrada puede tener ahora hasta diez fotos y puedes elegir varias a la vez',
+        'El historial ahora se llama «Historial y búsqueda»',
+        'Toca un gráfico para ver los valores en ese punto',
+        'Los gráficos de líneas se abren en grande y en horizontal',
+      ],
+      pt: [
+        'Um registro agora pode ter até dez fotos, e dá para escolher várias de uma vez',
+        'O histórico agora se chama “Histórico e busca”',
+        'Toque em um gráfico para ver os valores naquele ponto',
+        'Os gráficos de linha abrem em tamanho grande e na horizontal',
+      ],
+      fr: [
+        'Une entrée peut désormais contenir jusqu’à dix photos, à choisir plusieurs à la fois',
+        'L’historique s’appelle désormais « Historique et recherche »',
+        'Touchez un graphique pour voir les valeurs à cet endroit',
+        'Les graphiques en courbes s’ouvrent en grand et à l’horizontale',
+      ],
+      it: [
+        'Una voce ora può avere fino a dieci foto e puoi sceglierne diverse insieme',
+        'La cronologia ora si chiama «Cronologia e ricerca»',
+        'Tocca un grafico per vedere i valori in quel punto',
+        'I grafici a linee si aprono in grande e in orizzontale',
+      ],
+      nl: [
+        'Een registratie kan nu tot tien foto’s hebben en je kiest er meerdere tegelijk',
+        'Geschiedenis heet nu „Geschiedenis en zoeken”',
+        'Tik op een grafiek om de waarden op die plek te zien',
+        'Lijngrafieken openen groot en liggend',
+      ],
+      pl: [
+        'Wpis może mieć teraz do dziesięciu zdjęć, a kilka wybierzesz naraz',
+        'Historia nazywa się teraz „Historia i wyszukiwanie”',
+        'Dotknij wykresu, aby zobaczyć wartości w tym miejscu',
+        'Wykresy liniowe otwierają się w dużym widoku i poziomo',
+      ],
+      tr: [
+        'Bir kayıt artık on fotoğrafa kadar içerebilir, birkaçını aynı anda seçebilirsin',
+        'Geçmiş artık “Geçmiş ve arama” adını taşıyor',
+        'Bir grafiğe dokunarak o noktadaki değerleri gör',
+        'Çizgi grafikler büyük ve yatay açılır',
+      ],
+      id: [
+        'Satu entri kini bisa berisi hingga sepuluh foto, dan beberapa bisa dipilih sekaligus',
+        'Riwayat kini bernama “Riwayat dan pencarian”',
+        'Ketuk grafik untuk melihat nilai di titik itu',
+        'Grafik garis bisa dibuka besar dan mendatar',
+      ],
+    },
+  },
+  {
     version: '1.1.0',
     date: '2026-11-28',
     changes: {

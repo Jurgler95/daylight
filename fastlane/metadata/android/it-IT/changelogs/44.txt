@@ -1,0 +1,4 @@
+• Una voce ora può avere fino a dieci foto e puoi sceglierne diverse insieme
+• La cronologia ora si chiama «Cronologia e ricerca»
+• Tocca un grafico per vedere i valori in quel punto
+• I grafici a linee si aprono in grande e in orizzontale

@@ -1,0 +1,4 @@
+• Satu entri kini bisa berisi hingga sepuluh foto, dan beberapa bisa dipilih sekaligus
+• Riwayat kini bernama “Riwayat dan pencarian”
+• Ketuk grafik untuk melihat nilai di titik itu
+• Grafik garis bisa dibuka besar dan mendatar

@@ -1,0 +1,4 @@
+• Een registratie kan nu tot tien foto’s hebben en je kiest er meerdere tegelijk
+• Geschiedenis heet nu „Geschiedenis en zoeken”
+• Tik op een grafiek om de waarden op die plek te zien
+• Lijngrafieken openen groot en liggend

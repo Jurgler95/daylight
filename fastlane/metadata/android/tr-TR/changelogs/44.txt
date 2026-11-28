@@ -1,0 +1,4 @@
+• Bir kayıt artık on fotoğrafa kadar içerebilir, birkaçını aynı anda seçebilirsin
+• Geçmiş artık “Geçmiş ve arama” adını taşıyor
+• Bir grafiğe dokunarak o noktadaki değerleri gör
+• Çizgi grafikler büyük ve yatay açılır

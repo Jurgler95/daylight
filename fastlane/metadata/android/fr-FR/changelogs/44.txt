@@ -1,0 +1,4 @@
+• Une entrée peut désormais contenir jusqu’à dix photos, à choisir plusieurs à la fois
+• L’historique s’appelle désormais « Historique et recherche »
+• Touchez un graphique pour voir les valeurs à cet endroit
+• Les graphiques en courbes s’ouvrent en grand et à l’horizontale

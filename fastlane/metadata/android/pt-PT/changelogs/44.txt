@@ -1,0 +1,4 @@
+• Um registro agora pode ter até dez fotos, e dá para escolher várias de uma vez
+• O histórico agora se chama “Histórico e busca”
+• Toque em um gráfico para ver os valores naquele ponto
+• Os gráficos de linha abrem em tamanho grande e na horizontal

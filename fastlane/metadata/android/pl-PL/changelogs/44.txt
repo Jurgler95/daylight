@@ -1,0 +1,4 @@
+• Wpis może mieć teraz do dziesięciu zdjęć, a kilka wybierzesz naraz
+• Historia nazywa się teraz „Historia i wyszukiwanie”
+• Dotknij wykresu, aby zobaczyć wartości w tym miejscu
+• Wykresy liniowe otwierają się w dużym widoku i poziomo

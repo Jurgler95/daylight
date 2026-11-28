@@ -1,0 +1,4 @@
+• Ein Eintrag kann jetzt bis zu zehn Fotos haben, mehrere lassen sich auf einmal auswählen
+• Der Verlauf heißt jetzt „Verlauf und Suche“
+• Diagramme zeigen beim Antippen die Werte an dieser Stelle
+• Liniendiagramme lassen sich groß und quer anzeigen
