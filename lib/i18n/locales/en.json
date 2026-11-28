@@ -784,6 +784,12 @@
         "spanValue": "{{min}} to {{max}}",
         "days": "Days with a value",
         "empty": "This scale has no value in this period"
+      },
+      "words": {
+        "title": "Words",
+        "high": "More common with values above {{value}}",
+        "low": "More common with values below {{value}}",
+        "empty": "Not enough notes for a comparison yet"
       }
     },
     "ready": {
@@ -816,6 +822,14 @@
       "longestA11y_one": "Longest note on {{date}}, {{count}} word. Opens the day",
       "longestA11y_other": "Longest note on {{date}}, {{count}} words. Opens the day",
       "top": "Most frequent words"
+    },
+    "word": {
+      "eyebrow": "Word from your notes",
+      "days": "In {{count}} of {{total}} notes ({{share}})",
+      "basis": "Compared with the other days that have a note.",
+      "mood": "On days with “{{word}}” {{with}} on average instead of {{without}}",
+      "noDays": "This word is not in any note",
+      "open": "Opens the page for this word"
     }
   },
   "outlook": {

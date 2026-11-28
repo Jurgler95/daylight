@@ -784,6 +784,12 @@
         "spanValue": "{{min}} tot {{max}}",
         "days": "Dagen met waarde",
         "empty": "Deze schaal heeft in deze periode geen waarde"
+      },
+      "words": {
+        "title": "Woorden",
+        "high": "Vaker bij waarden boven {{value}}",
+        "low": "Vaker bij waarden onder {{value}}",
+        "empty": "Nog te weinig notities om te vergelijken"
       }
     },
     "ready": {
@@ -816,6 +822,14 @@
       "longestA11y_one": "Langste notitie op {{date}}, {{count}} woord. Opent de dag",
       "longestA11y_other": "Langste notitie op {{date}}, {{count}} woorden. Opent de dag",
       "top": "Meest gebruikte woorden"
+    },
+    "word": {
+      "eyebrow": "Woord uit je notities",
+      "days": "In {{count}} van {{total}} notities ({{share}})",
+      "basis": "Vergeleken met de andere dagen met een notitie.",
+      "mood": "Op dagen met ‘{{word}}’ gemiddeld {{with}} in plaats van {{without}}",
+      "noDays": "Dit woord staat in geen enkele notitie",
+      "open": "Opent de pagina van dit woord"
     }
   },
   "outlook": {

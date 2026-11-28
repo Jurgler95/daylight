@@ -784,6 +784,12 @@
         "spanValue": "{{min}} sampai {{max}}",
         "days": "Hari dengan nilai",
         "empty": "Skala ini tidak punya nilai pada periode ini"
+      },
+      "words": {
+        "title": "Kata",
+        "high": "Lebih sering saat nilai di atas {{value}}",
+        "low": "Lebih sering saat nilai di bawah {{value}}",
+        "empty": "Catatan belum cukup untuk dibandingkan"
       }
     },
     "ready": {
@@ -811,6 +817,14 @@
       "longestA11y_one": "Catatan terpanjang pada {{date}}, {{count}} kata. Membuka hari itu",
       "longestA11y_other": "Catatan terpanjang pada {{date}}, {{count}} kata. Membuka hari itu",
       "top": "Kata paling sering"
+    },
+    "word": {
+      "eyebrow": "Kata dari catatanmu",
+      "days": "Di {{count}} dari {{total}} catatan ({{share}})",
+      "basis": "Dibandingkan dengan hari lain yang punya catatan.",
+      "mood": "Pada hari dengan “{{word}}” rata-rata {{with}}, bukan {{without}}",
+      "noDays": "Kata ini tidak ada di catatan mana pun",
+      "open": "Membuka halaman kata ini"
     }
   },
   "outlook": {

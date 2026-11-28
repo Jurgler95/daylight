@@ -784,6 +784,12 @@
         "spanValue": "{{min}} bis {{max}}",
         "days": "Tage mit Wert",
         "empty": "In diesem Zeitraum hat die Skala keinen Wert"
+      },
+      "words": {
+        "title": "Wörter",
+        "high": "Häufiger bei Werten über {{value}}",
+        "low": "Häufiger bei Werten unter {{value}}",
+        "empty": "Noch zu wenige Notizen für einen Vergleich"
       }
     },
     "ready": {
@@ -816,6 +822,14 @@
       "longestA11y_one": "Längste Notiz am {{date}}, {{count}} Wort. Öffnet den Tag",
       "longestA11y_other": "Längste Notiz am {{date}}, {{count}} Wörter. Öffnet den Tag",
       "top": "Häufigste Wörter"
+    },
+    "word": {
+      "eyebrow": "Wort aus den Notizen",
+      "days": "In {{count}} von {{total}} Notizen ({{share}})",
+      "basis": "Verglichen wird mit den übrigen Tagen mit Notiz.",
+      "mood": "An Tagen mit „{{word}}“ im Schnitt {{with}} statt {{without}}",
+      "noDays": "Dieses Wort steht in keiner Notiz",
+      "open": "Öffnet die Seite zu diesem Wort"
     }
   },
   "outlook": {

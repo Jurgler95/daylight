@@ -854,6 +854,12 @@
         "spanValue": "od {{min}} do {{max}}",
         "days": "Dni z wartością",
         "empty": "W tym okresie skala nie ma wartości"
+      },
+      "words": {
+        "title": "Słowa",
+        "high": "Częstsze przy wartościach powyżej {{value}}",
+        "low": "Częstsze przy wartościach poniżej {{value}}",
+        "empty": "Za mało notatek do porównania"
       }
     },
     "ready": {
@@ -900,6 +906,14 @@
       "longestA11y_many": "Najdłuższa notatka {{date}}, słowa: {{count}}. Otwiera dzień",
       "longestA11y_other": "Najdłuższa notatka {{date}}, słowa: {{count}}. Otwiera dzień",
       "top": "Najczęstsze słowa"
+    },
+    "word": {
+      "eyebrow": "Słowo z notatek",
+      "days": "W {{count}} z {{total}} notatek ({{share}})",
+      "basis": "W porównaniu z pozostałymi dniami z notatką.",
+      "mood": "W dni ze słowem „{{word}}” średnio {{with}} zamiast {{without}}",
+      "noDays": "Tego słowa nie ma w żadnej notatce",
+      "open": "Otwiera stronę tego słowa"
     }
   },
   "outlook": {

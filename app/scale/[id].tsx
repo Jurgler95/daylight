@@ -7,6 +7,7 @@ import { ScaleActivitiesCard } from '@/components/insights/scales/ScaleActivitie
 import { ScaleMoodCard } from '@/components/insights/scales/ScaleMoodCard';
 import { ScaleTrendCard } from '@/components/insights/scales/ScaleTrendCard';
 import { ScaleWeekdayCard } from '@/components/insights/scales/ScaleWeekdayCard';
+import { ScaleWordsCard } from '@/components/insights/scales/ScaleWordsCard';
 import type { ActivityNames } from '@/components/insights/names';
 import { StatTile } from '@/components/insights/StatTile';
 import { Button, Card, EmptyState, Screen, Segmented } from '@/components/ui';
@@ -15,7 +16,7 @@ import { useCatalog } from '@/lib/catalog/useCatalog';
 import { weekdayLabels } from '@/lib/dates';
 import { useToday } from '@/lib/dates/useToday';
 import { INSIGHT_RANGES, type InsightRange } from '@/lib/insights';
-import { useInsights, useScaleInsights } from '@/lib/insights/useInsights';
+import { useInsights, useScaleInsights, useScaleWords } from '@/lib/insights/useInsights';
 import type { IconName } from '@/lib/icons';
 import { formatScaleValue } from '@/lib/scales/format';
 import { useSettingsStore } from '@/lib/store/settingsStore';
@@ -36,6 +37,7 @@ export default function ScaleInsightScreen() {
   const scale = catalog.scaleById.get(scaleId);
   const scales = useMemo(() => (scale ? [scale] : []), [scale]);
   const insight = useScaleInsights(insights, scales)[0] ?? null;
+  const words = useScaleWords(insights, scale);
   const firstDay = useSettingsStore((s) => s.settings?.first_day_of_week) ?? 1;
   const weekdayNames = useMemo(() => weekdayLabels(0), [i18n.language]); // eslint-disable-line react-hooks/exhaustive-deps
   const names: ActivityNames = useMemo(
@@ -93,6 +95,7 @@ export default function ScaleInsightScreen() {
           <ScaleMoodCard insight={insight} />
           <ScaleActivitiesCard insight={insight} names={names} />
           <ScaleWeekdayCard insight={insight} names={weekdayNames} firstDay={firstDay} />
+          {words ? <ScaleWordsCard scale={scale} words={words} /> : null}
         </>
       ) : (
         <EmptyState icon="options-outline" label={t('insights.scales.detail.empty')} />

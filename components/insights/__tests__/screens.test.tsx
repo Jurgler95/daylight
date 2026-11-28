@@ -21,6 +21,7 @@ import ActivityInsightScreen from '../../../app/activity/[id]';
 import InsightsScreen from '../../../app/(tabs)/insights';
 import MoodInsightScreen from '../../../app/mood/[level]';
 import ScaleInsightScreen from '../../../app/scale/[id]';
+import WordInsightScreen from '../../../app/word/[word]';
 
 /**
  * Renders the insight screens against an empty diary, the sample year and (when present) the real
@@ -163,7 +164,22 @@ describe('insight screens', () => {
     mockParams = { id: String(energy.id), range: '365' };
     await render(<ScaleInsightScreen />);
     for (const title of SCALE_DETAIL) expect(screen.getByText(title)).toBeTruthy();
+    expect(screen.getByText('Wörter')).toBeTruthy();
     await everyRange();
+
+    // A word from "Häufigste Wörter" opens its own page.
+    await render(<InsightsScreen />);
+    await openTab('Notizen');
+    const pill = screen.getAllByRole('button', { name: /, an \d+ Tagen$/ })[0]!;
+    const word = pill.props.accessibilityLabel.split(',')[0] as string;
+    mockParams = { word };
+    await render(<WordInsightScreen />);
+    expect(screen.getByText('WORT AUS DEN NOTIZEN')).toBeTruthy();
+    expect(screen.getByText(/^In \d+ von \d+ Notizen/)).toBeTruthy();
+    expect(screen.queryByText(/NaN|undefined|insights\./)).toBeNull();
+    mockParams = { word: 'Gibtesnicht' };
+    await render(<WordInsightScreen />);
+    expect(screen.getByText('Dieses Wort steht in keiner Notiz')).toBeTruthy();
 
     const activity = listActivities(db)[0]!;
     mockParams = { id: String(activity.id) };
