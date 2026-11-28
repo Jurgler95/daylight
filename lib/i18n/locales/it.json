@@ -1442,7 +1442,17 @@
       "honest": "Daylight confronta solo le tue voci e non dice nulla su cause o terapie.",
       "save": "Salva",
       "create": "Crea autoesperimento",
-      "discardTitle": "Scartare quanto scritto?"
+      "discardTitle": "Scartare quanto scritto?",
+      "baselineTitle": "Ancora poco da confrontare",
+      "baselineFew_one": "Prima dell’inizio c’è solo {{count}} giorno con una voce.",
+      "baselineFew_many": "Prima dell’inizio ci sono solo {{count}} giorni con una voce.",
+      "baselineFew_other": "Prima dell’inizio ci sono solo {{count}} giorni con una voce.",
+      "baselineNeeded_one": "Daylight confronta l’autoesperimento con il periodo precedente e per farlo serve circa {{count}} giorno con una voce.",
+      "baselineNeeded_many": "Daylight confronta l’autoesperimento con il periodo precedente e per farlo servono circa {{count}} giorni con una voce.",
+      "baselineNeeded_other": "Daylight confronta l’autoesperimento con il periodo precedente e per farlo servono circa {{count}} giorni con una voce.",
+      "baselineLater": "Inizia il {{date}}",
+      "baselineLaterHint": "Se fino ad allora aggiungi una voce ogni giorno, ci sarà abbastanza da confrontare. Puoi anche crearlo così.",
+      "createAnyway": "Crea comunque"
     },
     "problem": {
       "title": "Dai un nome all'autoesperimento (al massimo 60 caratteri).",

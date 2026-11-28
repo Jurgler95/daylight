@@ -1442,7 +1442,17 @@
       "honest": "Daylight só compara seus registros e não diz nada sobre causas ou terapias.",
       "save": "Salvar",
       "create": "Criar autoexperimento",
-      "discardTitle": "Descartar o que foi digitado?"
+      "discardTitle": "Descartar o que foi digitado?",
+      "baselineTitle": "Ainda há pouco para comparar",
+      "baselineFew_one": "Antes do início há só {{count}} dia com registro.",
+      "baselineFew_many": "Antes do início há só {{count}} dias com registro.",
+      "baselineFew_other": "Antes do início há só {{count}} dias com registro.",
+      "baselineNeeded_one": "O Daylight compara o autoexperimento com o período anterior e precisa para isso de cerca de {{count}} dia com registro.",
+      "baselineNeeded_many": "O Daylight compara o autoexperimento com o período anterior e precisa para isso de cerca de {{count}} dias com registro.",
+      "baselineNeeded_other": "O Daylight compara o autoexperimento com o período anterior e precisa para isso de cerca de {{count}} dias com registro.",
+      "baselineLater": "Começar em {{date}}",
+      "baselineLaterHint": "Se você fizer um registro por dia até lá, haverá o suficiente para comparar. Você também pode criá-lo assim mesmo.",
+      "createAnyway": "Criar mesmo assim"
     },
     "problem": {
       "title": "Dê um nome ao autoexperimento (no máximo 60 caracteres).",

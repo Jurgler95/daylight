@@ -1366,7 +1366,15 @@
       "honest": "Daylight only compares your entries and says nothing about causes or therapies.",
       "save": "Save",
       "create": "Create self-experiment",
-      "discardTitle": "Discard what you typed?"
+      "discardTitle": "Discard what you typed?",
+      "baselineTitle": "Little to compare with yet",
+      "baselineFew_one": "There is only {{count}} day with an entry before the start.",
+      "baselineFew_other": "There are only {{count}} days with an entry before the start.",
+      "baselineNeeded_one": "Daylight compares the self-experiment with the time before it and needs about {{count}} day with an entry for that.",
+      "baselineNeeded_other": "Daylight compares the self-experiment with the time before it and needs about {{count}} days with an entry for that.",
+      "baselineLater": "Start on {{date}} instead",
+      "baselineLaterHint": "If you add an entry every day until then, there will be enough to compare with. You can also create it as it is.",
+      "createAnyway": "Create anyway"
     },
     "problem": {
       "title": "Give the self-experiment a name (60 characters at most).",

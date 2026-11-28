@@ -1366,7 +1366,15 @@
       "honest": "Daylight vergleicht nur deine Einträge und sagt nichts über Ursachen oder Behandlungen.",
       "save": "Speichern",
       "create": "Selbstversuch anlegen",
-      "discardTitle": "Eingaben verwerfen?"
+      "discardTitle": "Eingaben verwerfen?",
+      "baselineTitle": "Noch wenig zum Vergleichen",
+      "baselineFew_one": "Vor dem Beginn gibt es erst {{count}} Tag mit Eintrag.",
+      "baselineFew_other": "Vor dem Beginn gibt es erst {{count}} Tage mit Eintrag.",
+      "baselineNeeded_one": "Daylight vergleicht den Selbstversuch mit der Zeit davor und braucht dafür etwa {{count}} Tag mit Eintrag.",
+      "baselineNeeded_other": "Daylight vergleicht den Selbstversuch mit der Zeit davor und braucht dafür etwa {{count}} Tage mit Eintrag.",
+      "baselineLater": "Erst am {{date}} beginnen",
+      "baselineLaterHint": "Wenn du bis dahin jeden Tag etwas einträgst, gibt es dann genug zum Vergleichen. Du kannst ihn auch trotzdem so anlegen.",
+      "createAnyway": "Trotzdem anlegen"
     },
     "problem": {
       "title": "Gib dem Selbstversuch einen Namen (höchstens 60 Zeichen).",

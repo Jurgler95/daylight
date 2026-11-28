@@ -1518,7 +1518,19 @@
       "honest": "Daylight porównuje tylko Twoje wpisy i nie mówi nic o przyczynach ani terapiach.",
       "save": "Zapisz",
       "create": "Utwórz eksperyment na sobie",
-      "discardTitle": "Odrzucić wpisane dane?"
+      "discardTitle": "Odrzucić wpisane dane?",
+      "baselineTitle": "Na razie mało do porównania",
+      "baselineFew_one": "Przed początkiem jest dopiero {{count}} dzień z wpisem.",
+      "baselineFew_few": "Przed początkiem są dopiero {{count}} dni z wpisem.",
+      "baselineFew_many": "Przed początkiem jest dopiero {{count}} dni z wpisem.",
+      "baselineFew_other": "Przed początkiem jest dopiero {{count}} dnia z wpisem.",
+      "baselineNeeded_one": "Daylight porównuje eksperyment na sobie z czasem przed nim i potrzebuje do tego około {{count}} dnia z wpisem.",
+      "baselineNeeded_few": "Daylight porównuje eksperyment na sobie z czasem przed nim i potrzebuje do tego około {{count}} dni z wpisem.",
+      "baselineNeeded_many": "Daylight porównuje eksperyment na sobie z czasem przed nim i potrzebuje do tego około {{count}} dni z wpisem.",
+      "baselineNeeded_other": "Daylight porównuje eksperyment na sobie z czasem przed nim i potrzebuje do tego około {{count}} dnia z wpisem.",
+      "baselineLater": "Zacznij dopiero {{date}}",
+      "baselineLaterHint": "Jeśli do tego czasu będziesz codziennie coś wpisywać, będzie dość do porównania. Możesz też utworzyć go tak, jak jest.",
+      "createAnyway": "Utwórz mimo to"
     },
     "problem": {
       "title": "Nadaj eksperymentowi na sobie nazwę (najwyżej 60 znaków).",

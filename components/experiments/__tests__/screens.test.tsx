@@ -137,6 +137,29 @@ describe('the form', () => {
     expect(jest.requireMock('expo-router').router.replace).toHaveBeenCalledWith({ pathname: '/experiments/[id]', params: { id: String(created!.id) } });
   });
 
+  it('warns before the start when there is little to compare with, and offers a later start', async () => {
+    const db = diary('2026-09-22');
+    await render(<ExperimentFormScreen />);
+    await act(async () => fireEvent.changeText(screen.getByLabelText('Was probierst du?'), 'Abendspaziergang'));
+    expect(screen.getByText('Noch wenig zum Vergleichen')).toBeTruthy();
+    expect(screen.getByText(/Vor dem Beginn gibt es erst 4 Tage mit Eintrag\./)).toBeTruthy();
+    expect(screen.getByText('Trotzdem anlegen')).toBeTruthy();
+    // Four days on record, ten more until the 6th: fourteen.
+    await act(async () => fireEvent.press(screen.getByText('Erst am 6. Oktober beginnen')));
+    expect(screen.queryByText('Noch wenig zum Vergleichen')).toBeNull();
+    await act(async () => fireEvent.press(screen.getByText('Selbstversuch anlegen')));
+    expect(listExperiments(db)[0]).toMatchObject({ start_date: '2026-10-06' });
+  });
+
+  it('can still be started without anything to compare with', async () => {
+    const db = diary(today);
+    await render(<ExperimentFormScreen />);
+    await act(async () => fireEvent.changeText(screen.getByLabelText('Was probierst du?'), 'Abendspaziergang'));
+    expect(screen.getByText(/Vor dem Beginn gibt es keine Einträge/)).toBeTruthy();
+    await act(async () => fireEvent.press(screen.getByText('Trotzdem anlegen')));
+    expect(listExperiments(db)[0]).toMatchObject({ start_date: today });
+  });
+
   it('refuses a second experiment with the same name and start', async () => {
     const db = diary('2026-09-01');
     add(db, 'Kein Kaffee', today);

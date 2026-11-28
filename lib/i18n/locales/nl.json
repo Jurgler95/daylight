@@ -1366,7 +1366,15 @@
       "honest": "Daylight vergelijkt alleen je registraties en zegt niets over oorzaken of therapieën.",
       "save": "Opslaan",
       "create": "Zelfexperiment aanmaken",
-      "discardTitle": "Invoer weggooien?"
+      "discardTitle": "Invoer weggooien?",
+      "baselineTitle": "Nog weinig om mee te vergelijken",
+      "baselineFew_one": "Vóór het begin is er pas {{count}} dag met een registratie.",
+      "baselineFew_other": "Vóór het begin zijn er pas {{count}} dagen met een registratie.",
+      "baselineNeeded_one": "Daylight vergelijkt het zelfexperiment met de tijd ervoor en heeft daarvoor ongeveer {{count}} dag met een registratie nodig.",
+      "baselineNeeded_other": "Daylight vergelijkt het zelfexperiment met de tijd ervoor en heeft daarvoor ongeveer {{count}} dagen met een registratie nodig.",
+      "baselineLater": "Pas op {{date}} beginnen",
+      "baselineLaterHint": "Als je tot dan elke dag iets registreert, is er genoeg om mee te vergelijken. Je kunt het ook zo aanmaken.",
+      "createAnyway": "Toch aanmaken"
     },
     "problem": {
       "title": "Geef het zelfexperiment een naam (hoogstens 60 tekens).",

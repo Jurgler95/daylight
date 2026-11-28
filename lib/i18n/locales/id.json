@@ -1358,7 +1358,13 @@
       "honest": "Daylight hanya membandingkan entrimu dan tidak mengatakan apa pun tentang penyebab atau terapi.",
       "save": "Simpan",
       "create": "Buat eksperimen pribadi",
-      "discardTitle": "Buang yang sudah diketik?"
+      "discardTitle": "Buang yang sudah diketik?",
+      "baselineTitle": "Belum banyak yang bisa dibandingkan",
+      "baselineFew_other": "Sebelum awal baru ada {{count}} hari dengan entri.",
+      "baselineNeeded_other": "Daylight membandingkan eksperimen pribadi dengan masa sebelumnya dan untuk itu butuh sekitar {{count}} hari dengan entri.",
+      "baselineLater": "Mulai pada {{date}}",
+      "baselineLaterHint": "Kalau kamu menulis entri setiap hari sampai saat itu, akan ada cukup untuk dibandingkan. Kamu juga bisa tetap membuatnya seperti ini.",
+      "createAnyway": "Tetap buat"
     },
     "problem": {
       "title": "Beri nama eksperimen pribadi ini (paling banyak 60 karakter).",

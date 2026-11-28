@@ -1442,7 +1442,17 @@
       "honest": "Daylight compare seulement tes entrées et ne dit rien des causes ni des thérapies.",
       "save": "Enregistrer",
       "create": "Créer l'auto-expérience",
-      "discardTitle": "Abandonner la saisie ?"
+      "discardTitle": "Abandonner la saisie ?",
+      "baselineTitle": "Encore peu de quoi comparer",
+      "baselineFew_one": "Avant le début, il n’y a que {{count}} jour avec une entrée.",
+      "baselineFew_many": "Avant le début, il n’y a que {{count}} jours avec une entrée.",
+      "baselineFew_other": "Avant le début, il n’y a que {{count}} jours avec une entrée.",
+      "baselineNeeded_one": "Daylight compare l’auto-expérience avec la période d’avant et a besoin pour cela d’environ {{count}} jour avec une entrée.",
+      "baselineNeeded_many": "Daylight compare l’auto-expérience avec la période d’avant et a besoin pour cela d’environ {{count}} jours avec une entrée.",
+      "baselineNeeded_other": "Daylight compare l’auto-expérience avec la période d’avant et a besoin pour cela d’environ {{count}} jours avec une entrée.",
+      "baselineLater": "Commencer le {{date}}",
+      "baselineLaterHint": "Si tu fais une entrée chaque jour d’ici là, il y aura assez de quoi comparer. Tu peux aussi la créer telle quelle.",
+      "createAnyway": "Créer quand même"
     },
     "problem": {
       "title": "Donne un nom à l'auto-expérience (60 caractères au plus).",

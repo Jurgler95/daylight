@@ -8,8 +8,9 @@ import { StartDateRow } from '@/components/experiments/StartDateRow';
 import { AppText, Button, Card, Screen, SelectRow, TextField, ToggleRow } from '@/components/ui';
 import { getDb } from '@/db';
 import { createExperiment, updateExperiment } from '@/db/repositories/experiments';
-import { formatLong, type DateString } from '@/lib/dates';
+import { formatDayMonth, formatLong, type DateString } from '@/lib/dates';
 import { useToday } from '@/lib/dates/useToday';
+import { experimentBaseline } from '@/lib/experiments/baseline';
 import {
   answersOutside,
   cleanTitle,
@@ -27,7 +28,8 @@ import {
 import { useExperiment, useExperimentDays, useExperiments } from '@/lib/experiments/useExperiments';
 import { lengthChoices } from '@/lib/experiments/view';
 import { haptics } from '@/lib/haptics';
-import { mutate } from '@/lib/store/dataVersion';
+import { readInsightDays } from '@/lib/insights/useInsights';
+import { mutate, useQuery } from '@/lib/store/dataVersion';
 import { useTheme } from '@/lib/theme';
 
 /**
@@ -69,6 +71,11 @@ export default function ExperimentFormScreen() {
   const problem = datesProblem ?? (isDuplicate(experiments, { title, start_date: start }, existing?.id) ? 'duplicate' : null);
   const bounds = startBounds(today);
   const end = datesOpen ? endFromStart(start, days) : (existing!.end_date as DateString);
+  // Before it is decided, not on the result page: with too few days before the start there is
+  // nothing to compare with yet, and a later start gives the days before a chance to fill up.
+  const entryDates = useQuery(() => new Set<string>(readInsightDays().map((day) => day.date)), []);
+  const baseline = datesOpen && (!existing || experimentState(existing, today) === 'planned') ? experimentBaseline(entryDates, start, days, today) : null;
+  const thin = baseline !== null && !baseline.enough;
   const dirty =
     title !== (existing?.title ?? '') || note !== (existing?.note ?? '') || checkIn !== (existing?.check_in ?? false) || datesChanged;
 
@@ -159,6 +166,27 @@ export default function ExperimentFormScreen() {
           {datesOpen ? t('experiments.form.endsOn', { date: formatLong(end) }) : t('experiments.form.datesLocked', { date: formatLong(end) })}
         </AppText>
       </Card>
+      {thin ? (
+        <Card tone="muted">
+          <AppText variant="label">{t('experiments.form.baselineTitle')}</AppText>
+          <AppText muted>
+            {baseline.days === 0 ? t('experiments.noBefore') : t('experiments.form.baselineFew', { count: baseline.days })}{' '}
+            {t('experiments.form.baselineNeeded', { count: baseline.needed })}
+          </AppText>
+          {baseline.later ? (
+            <>
+              <Button
+                variant="secondary"
+                label={t('experiments.form.baselineLater', { date: formatDayMonth(baseline.later) })}
+                onPress={() => setStart(baseline.later!)}
+              />
+              <AppText variant="caption" muted>
+                {t('experiments.form.baselineLaterHint')}
+              </AppText>
+            </>
+          ) : null}
+        </Card>
+      ) : null}
       {datesOpen ? (
         // Once it is over the editor asks no more (E17), so the switch would change nothing.
         <Card>
@@ -173,7 +201,7 @@ export default function ExperimentFormScreen() {
           {t(`experiments.problem.${problem}`)}
         </AppText>
       ) : null}
-      <Button label={t(existing ? 'experiments.form.save' : 'experiments.form.create')} onPress={save} />
+      <Button label={t(existing ? 'experiments.form.save' : thin ? 'experiments.form.createAnyway' : 'experiments.form.create')} onPress={save} />
     </Screen>
   );
 }
